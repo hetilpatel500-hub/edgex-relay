@@ -22,6 +22,7 @@ connection_status = {"connected": False, "last_message_at": None, "error": None}
 def run_live_client():
     while True:
         try:
+            print("[relay] connecting to Databento...")
             client = db.Live(key=DATABENTO_API_KEY)
             client.subscribe(
                 dataset="GLBX.MDP3",
@@ -31,6 +32,7 @@ def run_live_client():
             )
             connection_status["connected"] = True
             connection_status["error"] = None
+            print("[relay] connected, waiting for bars...")
 
             for record in client:
                 if isinstance(record, db.OHLCVMsg):
@@ -50,6 +52,7 @@ def run_live_client():
                         connection_status["last_message_at"] = datetime.now(
                             timezone.utc
                         ).isoformat()
+                        print(f"[relay] got bar: {latest_bars[SYMBOL]}")
 
         except Exception as e:
             connection_status["connected"] = False
@@ -94,9 +97,12 @@ def health():
     })
 
 
-if __name__ == "__main__":
-    thread = threading.Thread(target=run_live_client, daemon=True)
-    thread.start()
+# Start the background connection immediately when this file loads —
+# works whether Railway/gunicorn imports it OR someone runs it directly.
+_thread = threading.Thread(target=run_live_client, daemon=True)
+_thread.start()
 
+
+if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     app.run(host="0.0.0.0", port=port)
