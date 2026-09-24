@@ -30,7 +30,8 @@ conversation, stop and ask for confirmation instead of sending.
   solve, a single clear ask (a reply, or a 15-minute call) — no more
   than one call to action
 - No price in a first-touch email unless the user says otherwise
-- Sign off as the user, never claim to be an AI system representing
+- Sign off as the user, from the studio's contact address
+  `ai--edgex@edgex--ai.com`, never claim to be an AI system representing
   itself as the business owner
 
 **Drafting a reply**, given the prospect's incoming message:
