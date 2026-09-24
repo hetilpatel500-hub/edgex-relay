@@ -103,6 +103,22 @@
   .agent-card{background:var(--chip-bg);border:1px solid var(--panel-border);border-radius:11px;padding:11px 13px;}
   .agent-card .name{font-weight:600;font-size:13.5px;margin-bottom:3px;}
   .agent-card .desc{font-size:12px;color:var(--muted);line-height:1.42;}
+  .status-line{display:flex;align-items:center;gap:6px;margin-top:7px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);}
+  .status-dot{width:7px;height:7px;border-radius:50%;flex:none;}
+  .task-line{font-size:12px;font-style:italic;color:var(--ink);margin-top:5px;line-height:1.4;}
+  .result-line{font-style:normal;color:var(--muted);}
+  .assign-row{display:flex;gap:6px;margin-top:9px;}
+  .assign-row input{
+    flex:1;min-width:0;font-family:"Work Sans",sans-serif;font-size:12px;
+    background:var(--panel-bg);border:1px solid var(--panel-border);border-radius:7px;
+    padding:6px 8px;color:var(--ink);
+  }
+  .assign-row button{
+    font-family:"Work Sans",sans-serif;font-weight:600;font-size:12px;
+    background:var(--ink);color:var(--bg);border:none;border-radius:7px;padding:6px 12px;cursor:pointer;flex:none;
+  }
+  .assign-row button:disabled{opacity:0.5;cursor:default;}
+  .assign-msg{font-size:10.5px;color:var(--muted);margin-top:4px;min-height:13px;}
 
   @media (max-width:720px){
     #panel{top:auto;bottom:0;right:0;left:0;width:100%;height:min(56vh,480px);border-left:none;border-top:1px solid var(--panel-border);border-radius:18px 18px 0 0;transform:translateY(105%);}
@@ -208,6 +224,9 @@
       ]}
   ];
 
+  function slugify(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,""); }
+  DEPARTMENTS.forEach(function(d){ d.agents.forEach(function(a){ a.id = slugify(a.name); a.dept = d.id; }); });
+
   var BUILD_HX = 16.2, BUILD_HZ = 11.2, WALL_T = 0.3, WALL_H = 4.3;
 
   // ---------------- renderer / scene ----------------
@@ -310,6 +329,22 @@
     ctx.fillStyle="rgba(120,190,255,0.5)";
     for(var b=0;b<5;b++) ctx.fillRect(8+b*22, h-14, 14, 10);
   }, 128,80,1,1);
+
+  var badgeTex = canvasTex(function(ctx,w,h){
+    ctx.beginPath(); ctx.arc(w/2,h/2,w/2-2,0,Math.PI*2);
+    ctx.fillStyle = "#ffffff"; ctx.fill();
+    ctx.lineWidth = 2; ctx.strokeStyle = "rgba(0,0,0,0.35)"; ctx.stroke();
+  }, 32,32,1,1);
+
+  // live per-agent status, filled in by the db subscription below
+  var agentMeshes = {};   // agentId -> {mat: SpriteMaterial}
+  var agentStatus = {};   // agentId -> {status, task, result, updatedAt}
+  var STATUS_COLOR = {idle:0x9aa3ae, requested:0xE0A24A, working:0x3FA35E, done:0x3560CC, blocked:0xD24E64};
+  function statusOf(id){ return (agentStatus[id] && agentStatus[id].status) || "idle"; }
+  function updateBadge(id){
+    var m = agentMeshes[id];
+    if(m) m.mat.color.setHex(STATUS_COLOR[statusOf(id)] || STATUS_COLOR.idle);
+  }
 
   // ---------------- clickable zones (dept bounding rects) ----------------
   var zones = [];
@@ -443,7 +478,56 @@
     return g;
   }
 
-  function buildWorkstation(x,z,rotY,accentHex){
+  var SKIN_TONES = [0xE8B58C,0xC68863,0x8D5A3C,0xF0C9A0,0x6B4226,0xD9A066];
+  var SHIRT_COLORS = [0x3a4a5c,0x5c4a3a,0x445c4a,0x5c3a4a,0x39424a,0xE5E0D5,0x7a6a55,0x4a5c5c];
+  var people = [];
+
+  function buildPerson(x,z,rotY,agentId){
+    var g = new THREE.Group();
+    var jitter = (Math.random()-0.5)*0.3;
+    g.position.set(x,0,z); g.rotation.y = rotY + jitter;
+
+    var skin = SKIN_TONES[Math.floor(Math.random()*SKIN_TONES.length)];
+    var shirt = SHIRT_COLORS[Math.floor(Math.random()*SHIRT_COLORS.length)];
+    var shirtMat = new THREE.MeshStandardMaterial({color:shirt, roughness:0.7});
+    var skinMat = new THREE.MeshStandardMaterial({color:skin, roughness:0.6});
+
+    var torso = new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.19,0.46,10), shirtMat);
+    torso.position.y = 0.7; torso.castShadow = true;
+    g.add(torso);
+
+    var head = new THREE.Mesh(new THREE.SphereGeometry(0.125,14,10), skinMat);
+    head.position.y = 1.05;
+    head.castShadow = true;
+    g.add(head);
+
+    var hair = new THREE.Mesh(new THREE.SphereGeometry(0.132,12,8,0,Math.PI*2,0,Math.PI*0.55), new THREE.MeshStandardMaterial({color:0x2a221c, roughness:0.85}));
+    hair.position.y = 1.07;
+    g.add(hair);
+
+    [-1,1].forEach(function(side){
+      var arm = new THREE.Mesh(new THREE.CylinderGeometry(0.045,0.05,0.34,6), shirtMat);
+      arm.position.set(side*0.16, 0.56, -0.16);
+      arm.rotation.x = -0.9;
+      arm.rotation.z = side*0.12;
+      arm.castShadow = true;
+      g.add(arm);
+    });
+
+    if(agentId){
+      var badgeMat = new THREE.SpriteMaterial({map:badgeTex, color:STATUS_COLOR.idle, transparent:true, depthWrite:false});
+      var badge = new THREE.Sprite(badgeMat);
+      badge.scale.set(0.15,0.15,1);
+      badge.position.set(0,1.32,0);
+      g.add(badge);
+      agentMeshes[agentId] = {mat:badgeMat};
+    }
+
+    people.push({group:g, phase:Math.random()*Math.PI*2, baseRotY:g.rotation.y});
+    return g;
+  }
+
+  function buildWorkstation(x,z,rotY,accentHex,agentId){
     var g = new THREE.Group();
     g.position.set(x,0,z); g.rotation.y = rotY;
     var top = new THREE.Mesh(new THREE.BoxGeometry(1.3,0.05,0.68), deskTopMat);
@@ -467,6 +551,7 @@
     kb.position.set(0,0.755,0.08);
     g.add(kb);
     g.add(buildChair(0,0.62,Math.PI,accentHex));
+    g.add(buildPerson(0,0.62,Math.PI,agentId));
     return g;
   }
 
@@ -480,7 +565,7 @@
     rug.receiveShadow = true;
     scene.add(rug);
     for(var i=0;i<n;i++){
-      var g = buildWorkstation(dept.x + startX + i*spacing, dept.z, 0, dept.hex);
+      var g = buildWorkstation(dept.x + startX + i*spacing, dept.z, 0, dept.hex, dept.agents[i].id);
       scene.add(g);
     }
     var sign = makeSign(dept.name, 2.5, 0);
@@ -512,6 +597,7 @@
     for(var i=-2;i<=2;i++){
       scene.add(buildChair(cx+i*1.5, cz-0.1-1.05, 0, dept.hex));
       scene.add(buildChair(cx+i*1.5, cz-0.1+1.05, Math.PI, dept.hex));
+      scene.add(buildPerson(cx+i*1.5, cz-0.1-1.05, 0, dept.agents[i+2].id));
     }
 
     var scr1 = new THREE.Mesh(new THREE.PlaneGeometry(1.7,1.05), new THREE.MeshBasicMaterial({map:screenTex}));
@@ -572,6 +658,17 @@
 
   DEPARTMENTS.forEach(function(d){ if(d.boardroom) buildBoardroom(d); else buildDeskPod(d); });
   buildLounge();
+
+  // a couple of people walking the aisles, so the floor doesn't feel frozen
+  var walkers = [];
+  function addWalker(x1,z1,x2,z2,speed){
+    var g = buildPerson(x1,z1,0);
+    people.pop(); // walkers animate their own rotation/position, not the idle-sway list
+    scene.add(g);
+    walkers.push({group:g, a:{x:x1,z:z1}, b:{x:x2,z:z2}, t:Math.random(), dir:1, speed:speed});
+  }
+  addWalker(5.8,-9.5, 5.8,9.5, 0.05);
+  addWalker(-5.8,9.5, -5.8,-9.5, 0.045);
 
   // ---------------- orbit camera (full manual control) ----------------
   var orbit = { target:new THREE.Vector3(0,0.4,0), radius:27, theta:0.55, phi:0.82 };
@@ -728,7 +825,27 @@
 
   // ---------------- panel ----------------
   var panel = document.getElementById("panel");
+  var currentDept = null;
+  var STATUS_LABEL = {idle:"Idle — no task assigned", requested:"Requested, not started", working:"Working", done:"Done", blocked:"Blocked"};
+
+  function assignTask(agentId, inputEl, btnEl, msgEl){
+    if(!agentsCol){ msgEl.textContent = "Live status isn't connected in this view."; return; }
+    var text = inputEl.value.trim();
+    if(!text) return;
+    btnEl.disabled = true; inputEl.disabled = true;
+    msgEl.textContent = "Saving…";
+    agentsCol.doc(agentId).update({status:"requested", task:text, updatedAt:new Date().toISOString()})
+      .then(function(){
+        inputEl.value = ""; msgEl.textContent = "";
+      })
+      .catch(function(err){
+        msgEl.textContent = (err && err.code==="invalid_argument") ? "You don't have edit access here." : "Couldn't save — try again.";
+      })
+      .then(function(){ btnEl.disabled = false; inputEl.disabled = false; });
+  }
+
   function openPanel(dept){
+    currentDept = dept;
     document.getElementById("panelBar").style.background = "var("+dept.cssVar+")";
     document.getElementById("panelCode").textContent = "ROOM "+dept.code;
     document.getElementById("panelTitle").textContent = dept.name;
@@ -736,18 +853,69 @@
     var wrap = document.getElementById("panelAgents");
     wrap.innerHTML = "";
     dept.agents.forEach(function(a){
+      var live = agentStatus[a.id];
+      var status = (live && live.status) || "idle";
+
       var el = document.createElement("div"); el.className="agent-card";
       var n = document.createElement("div"); n.className="name"; n.textContent=a.name;
       var de = document.createElement("div"); de.className="desc"; de.textContent=a.desc;
-      el.appendChild(n); el.appendChild(de); wrap.appendChild(el);
+
+      var st = document.createElement("div"); st.className="status-line";
+      var dot = document.createElement("span"); dot.className="status-dot"; dot.style.background = "#"+(STATUS_COLOR[status]||STATUS_COLOR.idle).toString(16).padStart(6,"0");
+      var stText = document.createElement("span");
+      stText.textContent = STATUS_LABEL[status] || status;
+      st.appendChild(dot); st.appendChild(stText);
+      el.appendChild(n); el.appendChild(de); el.appendChild(st);
+
+      if(live && live.task){
+        var taskLine = document.createElement("div"); taskLine.className="task-line";
+        taskLine.textContent = "“"+live.task+"”";
+        el.appendChild(taskLine);
+      }
+      if(live && live.result){
+        var resultLine = document.createElement("div"); resultLine.className="task-line result-line";
+        resultLine.textContent = live.result;
+        el.appendChild(resultLine);
+      }
+
+      var row = document.createElement("div"); row.className="assign-row";
+      var input = document.createElement("input"); input.type="text"; input.placeholder="Assign a task…"; input.maxLength=200;
+      var btn = document.createElement("button"); btn.type="button"; btn.textContent="Assign";
+      var msg = document.createElement("div"); msg.className="assign-msg";
+      row.appendChild(input); row.appendChild(btn);
+      el.appendChild(row); el.appendChild(msg);
+      btn.addEventListener("click", function(){ assignTask(a.id, input, btn, msg); });
+      input.addEventListener("keydown", function(e){ if(e.key==="Enter") assignTask(a.id, input, btn, msg); });
+
+      wrap.appendChild(el);
     });
     panel.classList.add("open");
     document.getElementById("hint").classList.add("hidden");
   }
+  function refreshPanelIfOpen(){
+    if(panel.classList.contains("open") && currentDept) openPanel(currentDept);
+  }
   document.getElementById("panelClose").addEventListener("click", function(){
     panel.classList.remove("open");
+    currentDept = null;
     Array.prototype.forEach.call(legend.children, function(btn){ btn.classList.remove("active"); });
   });
+
+  // ---------------- live agent status (db capability) ----------------
+  var agentsCol = null;
+  if(window.claude && window.claude.use){
+    window.claude.use("db").then(function(db){
+      if(!db) return;
+      agentsCol = db.collection("agents");
+      agentsCol.onSnapshot(function(snap){
+        snap.docs.forEach(function(doc){
+          agentStatus[doc.id] = doc.data();
+          updateBadge(doc.id);
+        });
+        refreshPanelIfOpen();
+      }, function(){ /* live status unavailable in this view; badges stay idle-grey */ });
+    }).catch(function(){});
+  }
 
   // ---------------- minimap ----------------
   var mmCanvas = document.getElementById("minimap");
@@ -775,10 +943,28 @@
 
   // ---------------- main loop ----------------
   var clock = new THREE.Clock();
+  var elapsed = 0;
   function easeInOut(t){ return t<0.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2; }
   function frame(){
     requestAnimationFrame(frame);
     var dt = Math.min(0.05, clock.getDelta());
+    elapsed += dt;
+
+    if(!prefersReducedMotion){
+      people.forEach(function(p){
+        p.group.position.y = Math.sin(elapsed*1.6+p.phase)*0.012;
+        p.group.rotation.y = p.baseRotY + Math.sin(elapsed*0.7+p.phase)*0.07;
+      });
+      walkers.forEach(function(w){
+        w.t += w.dir*dt*w.speed;
+        if(w.t>1){ w.t=1; w.dir=-1; }
+        if(w.t<0){ w.t=0; w.dir=1; }
+        var x = w.a.x+(w.b.x-w.a.x)*w.t, z = w.a.z+(w.b.z-w.a.z)*w.t;
+        var facing = Math.atan2(w.b.x-w.a.x, w.b.z-w.a.z) + (w.dir<0?Math.PI:0);
+        w.group.position.set(x, Math.abs(Math.sin(elapsed*8))*0.035, z);
+        w.group.rotation.y = facing;
+      });
+    }
 
     if(orbitAnim){
       var t = Math.min(1, (performance.now()-orbitAnim.t0)/orbitAnim.dur);
