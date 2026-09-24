@@ -307,7 +307,7 @@
         {name:"Contract & Proposal Drafting Agent", desc:"Drafts SOWs, contracts, and NDAs from templates."},
         {name:"Quality Bar Agent", desc:"Reviews every deliverable against the client brief before it ships."}
       ]},
-    { id:"research", code:"01", name:"Research & Intelligence", tag:"Finds the opportunities", cssVar:"--a-research", hex:0x1F9690, x:-16.5, z:-10.5,
+    { id:"research", code:"01", name:"Research & Intelligence", tag:"Finds the opportunities", cssVar:"--a-research", hex:0x1F9690, x:-16.5, z:-10.5, door:"south",
       agents:[
         {name:"Opportunity Scout", desc:"Scans for underserved niches and side-hustle categories worth entering."},
         {name:"Market Research Agent", desc:"Sizes a market: demand signals, pricing norms, buyer pain points."},
@@ -315,7 +315,7 @@
         {name:"Client / Lead Researcher", desc:"Builds a one-page dossier on a prospect before outreach."},
         {name:"Trend Scout", desc:"Tracks emerging tools, platforms, and demand shifts."}
       ]},
-    { id:"content", code:"02", name:"Content & Creative", tag:"Writes and designs", cssVar:"--a-content", hex:0xD24E64, x:16.5, z:-10.5,
+    { id:"content", code:"02", name:"Content & Creative", tag:"Writes and designs", cssVar:"--a-content", hex:0xD24E64, x:16.5, z:-10.5, door:"south",
       agents:[
         {name:"Copywriter", desc:"Website, landing page, and ad copy."},
         {name:"SEO / Blog Writer", desc:"Long-form articles and SEO content."},
@@ -323,7 +323,7 @@
         {name:"Video / Podcast Script Agent", desc:"Scripts and outlines for video or audio content."},
         {name:"Brand & Graphic Design Agent", desc:"Brand guides, simple graphics, and slide decks."}
       ]},
-    { id:"software", code:"03", name:"Software & Technical", tag:"Builds the deliverable", cssVar:"--a-software", hex:0x3560CC, x:16.5, z:0,
+    { id:"software", code:"03", name:"Software & Technical", tag:"Builds the deliverable", cssVar:"--a-software", hex:0x3560CC, x:16.5, z:0, door:"west",
       agents:[
         {name:"Full-Stack Dev Agent", desc:"Builds websites, small apps, and integrations."},
         {name:"Automation / Scripting Agent", desc:"Builds workflow automations that save a client real hours."},
@@ -331,7 +331,7 @@
         {name:"QA / Testing Agent", desc:"Tests everything before it ships."},
         {name:"DevOps / Deployment Agent", desc:"Handles hosting, deployment, and uptime monitoring."}
       ]},
-    { id:"sales", code:"04", name:"Sales & Client Acquisition", tag:"Turns leads into signed jobs", cssVar:"--a-sales", hex:0x2F9350, x:16.5, z:10.5,
+    { id:"sales", code:"04", name:"Sales & Client Acquisition", tag:"Turns leads into signed jobs", cssVar:"--a-sales", hex:0x2F9350, x:16.5, z:10.5, door:"north",
       agents:[
         {name:"Outreach / Cold Email Agent", desc:"Drafts personalized outreach at volume — never sends without approval."},
         {name:"Proposal Writer", desc:"Turns a scoped opportunity into a priced proposal."},
@@ -339,7 +339,7 @@
         {name:"CRM / Pipeline Manager Agent", desc:"Tracks every lead's stage and next action."},
         {name:"Partnerships Agent", desc:"Finds agencies and platforms worth partnering with."}
       ]},
-    { id:"delivery", code:"05", name:"Client Delivery & Support", tag:"Keeps clients happy", cssVar:"--a-delivery", hex:0x6E4FCC, x:-16.5, z:10.5,
+    { id:"delivery", code:"05", name:"Client Delivery & Support", tag:"Keeps clients happy", cssVar:"--a-delivery", hex:0x6E4FCC, x:-16.5, z:10.5, door:"north",
       agents:[
         {name:"Onboarding Agent", desc:"Turns a signed deal into a kickoff packet and intake form."},
         {name:"Account Manager Agent", desc:"Owns the client relationship day-to-day."},
@@ -347,7 +347,7 @@
         {name:"Deliverable QA Reviewer", desc:"Final check that what's shipping matches what was promised."},
         {name:"Documentation Agent", desc:"Writes handoff docs, SOPs, and how-to guides."}
       ]},
-    { id:"growth", code:"06", name:"Growth & Marketing", tag:"Builds inbound demand", cssVar:"--a-growth", hex:0xB33F94, x:-16.5, z:0,
+    { id:"growth", code:"06", name:"Growth & Marketing", tag:"Builds inbound demand", cssVar:"--a-growth", hex:0xB33F94, x:-16.5, z:0, door:"east",
       agents:[
         {name:"SEO Agent", desc:"Keyword strategy and on-page SEO."},
         {name:"Paid Ads Agent", desc:"Drafts ad copy, targeting, and budget plans."},
@@ -355,7 +355,7 @@
         {name:"Community / Engagement Agent", desc:"Drafts engagement content for communities and forums."},
         {name:"Analytics / Reporting Agent", desc:"Tracks what's actually converting across the studio."}
       ]},
-    { id:"lasttouch", code:"07", name:"Last Touch", tag:"Final check before anything reaches a customer", cssVar:"--a-lasttouch", hex:0xB8901E, x:0, z:13.2,
+    { id:"lasttouch", code:"07", name:"Last Touch", tag:"Final check before anything reaches a customer", cssVar:"--a-lasttouch", hex:0xB8901E, x:0, z:13.2, door:"north",
       agents:[
         {name:"Grammar & Copy Editor", desc:"Proofreads every client-facing draft for grammar, spelling, and clarity."},
         {name:"Visual & Formatting Reviewer", desc:"Checks layout, formatting, and visual polish on anything client-facing."},
@@ -514,7 +514,11 @@
   }
 
   // ---------------- materials ----------------
-  var brickMat = new THREE.MeshStandardMaterial({map:brickTex, roughness:0.92});
+  // Clean architectural palette — white walls, light carpet — instead of the
+  // exposed-brick loft look, per the owner's reference floor plan.
+  var wallMat = new THREE.MeshStandardMaterial({color:0xf3f1ec, roughness:0.88});
+  var wallMat2 = new THREE.MeshStandardMaterial({color:0xeae7e0, roughness:0.9});
+  var carpetMat = new THREE.MeshStandardMaterial({color:0xc7ccd6, roughness:0.96});
   var woodMat = new THREE.MeshStandardMaterial({map:woodTex, roughness:0.34, metalness:0.06});
   var trussMat = new THREE.MeshStandardMaterial({color:0x23262c, roughness:0.55, metalness:0.35});
   var glassMat = new THREE.MeshPhysicalMaterial({color:0xdfeaf2, transparent:true, opacity:0.16, roughness:0.05, metalness:0, side:THREE.DoubleSide});
@@ -526,7 +530,7 @@
   var monitorMat = new THREE.MeshStandardMaterial({color:0x14161a, roughness:0.3});
 
   // ---------------- building shell ----------------
-  var floor = new THREE.Mesh(new THREE.PlaneGeometry(BUILD_HX*2, BUILD_HZ*2), woodMat);
+  var floor = new THREE.Mesh(new THREE.PlaneGeometry(BUILD_HX*2, BUILD_HZ*2), carpetMat);
   floor.rotation.x = -Math.PI/2;
   floor.receiveShadow = true;
   scene.add(floor);
@@ -537,10 +541,10 @@
     scene.add(m);
     return m;
   }
-  wallBox(BUILD_HX*2, WALL_H, WALL_T, 0, WALL_H/2, -BUILD_HZ, brickMat);
-  wallBox(BUILD_HX*2, WALL_H, WALL_T, 0, WALL_H/2, BUILD_HZ, brickMat);
-  wallBox(WALL_T, WALL_H, BUILD_HZ*2, -BUILD_HX, WALL_H/2, 0, brickMat);
-  wallBox(WALL_T, WALL_H, BUILD_HZ*2, BUILD_HX, WALL_H/2, 0, brickMat);
+  wallBox(BUILD_HX*2, WALL_H, WALL_T, 0, WALL_H/2, -BUILD_HZ, wallMat);
+  wallBox(BUILD_HX*2, WALL_H, WALL_T, 0, WALL_H/2, BUILD_HZ, wallMat);
+  wallBox(WALL_T, WALL_H, BUILD_HZ*2, -BUILD_HX, WALL_H/2, 0, wallMat);
+  wallBox(WALL_T, WALL_H, BUILD_HZ*2, BUILD_HX, WALL_H/2, 0, wallMat);
 
   function windowUnit(x,z,rotY){
     var g = new THREE.Group();
@@ -798,18 +802,34 @@
     return g;
   }
 
-  var partitionMat = new THREE.MeshStandardMaterial({color:0xd9d3c4, roughness:0.88});
-  function buildPodWalls(minX,maxX,minZ,maxZ){
-    var wallH2 = 1.35, t = 0.08;
-    function seg(w,d,x,z){
-      var m = new THREE.Mesh(new THREE.BoxGeometry(w,wallH2,d), partitionMat);
-      m.position.set(x,wallH2/2,z); m.castShadow = true; m.receiveShadow = true;
+  // A real 4-wall room with a doorway gap on one side — replaces the old
+  // 3-sided low partition so departments read as distinct enclosed rooms,
+  // like the reference floor plan, not open pods on a rug.
+  function buildEnclosedRoom(minX,maxX,minZ,maxZ,doorWall,mat,wallH,doorW){
+    wallH = wallH || 2.3; doorW = doorW || 1.3;
+    var t = 0.1;
+    var w = maxX-minX, dpt = maxZ-minZ;
+    function seg(sw,sd,sx,sz){
+      var m = new THREE.Mesh(new THREE.BoxGeometry(sw,wallH,sd), mat);
+      m.position.set(sx,wallH/2,sz); m.castShadow = true; m.receiveShadow = true;
       scene.add(m);
     }
-    var farZ = Math.abs(minZ) > Math.abs(maxZ) ? minZ : maxZ;
-    seg(maxX-minX+t, t, (minX+maxX)/2, farZ);
-    seg(t, maxZ-minZ, minX, (minZ+maxZ)/2);
-    seg(t, maxZ-minZ, maxX, (minZ+maxZ)/2);
+    if(doorWall==="south"){
+      var hw1 = (w-doorW)/2;
+      seg(hw1,t, minX+hw1/2, maxZ); seg(hw1,t, maxX-hw1/2, maxZ);
+    } else { seg(w+t,t,(minX+maxX)/2,maxZ); }
+    if(doorWall==="north"){
+      var hw2 = (w-doorW)/2;
+      seg(hw2,t, minX+hw2/2, minZ); seg(hw2,t, maxX-hw2/2, minZ);
+    } else { seg(w+t,t,(minX+maxX)/2,minZ); }
+    if(doorWall==="east"){
+      var hd1 = (dpt-doorW)/2;
+      seg(t,hd1, maxX, minZ+hd1/2); seg(t,hd1, maxX, maxZ-hd1/2);
+    } else { seg(t,dpt+t,maxX,(minZ+maxZ)/2); }
+    if(doorWall==="west"){
+      var hd2 = (dpt-doorW)/2;
+      seg(t,hd2, minX, minZ+hd2/2); seg(t,hd2, minX, maxZ-hd2/2);
+    } else { seg(t,dpt+t,minX,(minZ+maxZ)/2); }
   }
 
   function buildDeskPod(dept){
@@ -840,7 +860,7 @@
     sign.position.x = dept.x; sign.position.z = dept.z - rowGap/2 - 1.5;
     scene.add(sign);
     var halfX = maxRowSpan/2 + 0.9, minZ = dept.z - rowGap/2 - 1.4, maxZ = dept.z + rowGap/2 + 1.05;
-    buildPodWalls(dept.x-halfX, dept.x+halfX, minZ, maxZ);
+    buildEnclosedRoom(dept.x-halfX, dept.x+halfX, minZ, maxZ, dept.door, wallMat2, 2.3, 1.3);
     registerZone(dept, dept.x-halfX, dept.x+halfX, minZ, maxZ);
   }
 
@@ -884,9 +904,34 @@
 
   function buildLounge(){
     var cx = 19.0, cz = -13.8;
+    var woodFloor = new THREE.Mesh(new THREE.PlaneGeometry(7.6,5.2), woodMat);
+    woodFloor.rotation.x=-Math.PI/2; woodFloor.position.set(cx,0.012,cz); woodFloor.receiveShadow=true;
+    scene.add(woodFloor);
     var rug = new THREE.Mesh(new THREE.PlaneGeometry(6.2,3.6), new THREE.MeshStandardMaterial({color:0x8a6a4a, roughness:0.95, transparent:true, opacity:0.35}));
-    rug.rotation.x=-Math.PI/2; rug.position.set(cx,0.015,cz); rug.receiveShadow=true;
+    rug.rotation.x=-Math.PI/2; rug.position.set(cx,0.016,cz); rug.receiveShadow=true;
     scene.add(rug);
+
+    // kitchen counter along the back wall — makes this read as a real
+    // break room/kitchen combo, not just a couch in a corner
+    var counterMat = new THREE.MeshStandardMaterial({color:0xe8e4da, roughness:0.4});
+    var counterTopMat = new THREE.MeshStandardMaterial({color:0x2b2e34, roughness:0.25});
+    var counterBase = new THREE.Mesh(new THREE.BoxGeometry(3.4,0.85,0.55), counterMat);
+    counterBase.position.set(cx, 0.425, cz-2.35); counterBase.castShadow=true; counterBase.receiveShadow=true;
+    scene.add(counterBase);
+    var counterTop = new THREE.Mesh(new THREE.BoxGeometry(3.55,0.05,0.62), counterTopMat);
+    counterTop.position.set(cx, 0.875, cz-2.35); counterTop.castShadow=true;
+    scene.add(counterTop);
+    var backsplash = new THREE.Mesh(new THREE.BoxGeometry(3.4,0.6,0.06), new THREE.MeshStandardMaterial({color:0xdadfe3, roughness:0.5}));
+    backsplash.position.set(cx, 1.15, cz-2.6);
+    scene.add(backsplash);
+    [-1.2,0,1.2].forEach(function(dx){
+      var handle = new THREE.Mesh(new THREE.BoxGeometry(0.02,0.16,0.02), frameMat);
+      handle.position.set(cx+dx, 0.5, cz-2.08);
+      scene.add(handle);
+    });
+    [-1.4,1.4].forEach(function(dx){
+      scene.add(buildChair(cx+dx, cz-1.55, 0, 0x8a6a4a));
+    });
 
     var couchMat = new THREE.MeshStandardMaterial({color:0x445266, roughness:0.75});
     var base = new THREE.Mesh(new THREE.BoxGeometry(2.4,0.42,0.9), couchMat);
@@ -927,8 +972,71 @@
     scene.add(sign);
   }
 
+  function buildReception(cx,cz){
+    var rug = new THREE.Mesh(new THREE.PlaneGeometry(7.5,3.6), new THREE.MeshStandardMaterial({color:0x8fa0ae, roughness:0.9, transparent:true, opacity:0.35}));
+    rug.rotation.x=-Math.PI/2; rug.position.set(cx,0.015,cz); rug.receiveShadow=true;
+    scene.add(rug);
+
+    var deskMat = new THREE.MeshStandardMaterial({color:0xece8df, roughness:0.4});
+    var deskFront = new THREE.Mesh(new THREE.BoxGeometry(3.4,1.05,0.5), deskMat);
+    deskFront.position.set(cx,0.525,cz-0.6); deskFront.castShadow=true; deskFront.receiveShadow=true;
+    scene.add(deskFront);
+    var deskTop = new THREE.Mesh(new THREE.BoxGeometry(3.55,0.05,0.62), new THREE.MeshStandardMaterial({color:0x2b2e34, roughness:0.25}));
+    deskTop.position.set(cx,1.075,cz-0.6); deskTop.castShadow=true;
+    scene.add(deskTop);
+    var accentStripe = new THREE.Mesh(new THREE.BoxGeometry(3.4,0.18,0.02), new THREE.MeshStandardMaterial({color:0xC97F22, roughness:0.5}));
+    accentStripe.position.set(cx,0.34,cz-0.35);
+    scene.add(accentStripe);
+
+    var backdrop = new THREE.Mesh(new THREE.BoxGeometry(3.8,1.8,0.1), new THREE.MeshStandardMaterial({color:0xffffff, roughness:0.7}));
+    backdrop.position.set(cx,0.9,cz-1.5); backdrop.castShadow=true;
+    scene.add(backdrop);
+    var logo = makeSign("EDGEX", 1.7, 0);
+    logo.position.set(cx,1.65,cz-1.44);
+    scene.add(logo);
+
+    scene.add(buildChair(cx,cz-0.15,Math.PI,0xC97F22));
+
+    // waiting area
+    var couchMat = new THREE.MeshStandardMaterial({color:0x5a6b78, roughness:0.75});
+    var wBase = new THREE.Mesh(new THREE.BoxGeometry(2.0,0.4,0.85), couchMat);
+    wBase.position.set(cx-2.6,0.22,cz+1.3); wBase.castShadow=true; scene.add(wBase);
+    var wBack = new THREE.Mesh(new THREE.BoxGeometry(2.0,0.5,0.2), couchMat);
+    wBack.position.set(cx-2.6,0.58,cz+1.65); wBack.castShadow=true; scene.add(wBack);
+    var wTable = new THREE.Mesh(new THREE.CylinderGeometry(0.34,0.34,0.04,16), new THREE.MeshStandardMaterial({color:0x2b2e34,roughness:0.3}));
+    wTable.position.set(cx-0.3,0.38,cz+1.4); wTable.castShadow=true; scene.add(wTable);
+    var wTableLeg = new THREE.Mesh(new THREE.CylinderGeometry(0.04,0.06,0.34,10), frameMat);
+    wTableLeg.position.set(cx-0.3,0.2,cz+1.4); scene.add(wTableLeg);
+    scene.add(buildChair(cx+0.9,cz+1.3,-Math.PI/2,0x8fa0ae));
+
+    buildPlant(cx+3.0, cz+1.2, 1.05);
+    buildPlant(cx-3.6, cz-1.0, 0.9);
+  }
+
+  function buildHuddleRoom(cx,cz,label,hex,doorWall){
+    var half = 1.35, wallH = 2.2;
+    buildEnclosedRoom(cx-half,cx+half,cz-half,cz+half,doorWall,wallMat2,wallH,1.0);
+    var rug = new THREE.Mesh(new THREE.PlaneGeometry(half*2-0.2,half*2-0.2), new THREE.MeshStandardMaterial({color:hex, roughness:0.95, transparent:true, opacity:0.25}));
+    rug.rotation.x=-Math.PI/2; rug.position.set(cx,0.014,cz); rug.receiveShadow=true;
+    scene.add(rug);
+    var table = new THREE.Mesh(new THREE.CylinderGeometry(0.55,0.55,0.05,20), new THREE.MeshStandardMaterial({color:0xece7dc, roughness:0.35}));
+    table.position.set(cx,0.72,cz); table.castShadow=true; scene.add(table);
+    var tableLeg = new THREE.Mesh(new THREE.CylinderGeometry(0.08,0.1,0.68,10), frameMat);
+    tableLeg.position.set(cx,0.36,cz); scene.add(tableLeg);
+    [0,Math.PI/2,Math.PI,-Math.PI/2].forEach(function(a){
+      scene.add(buildChair(cx+Math.sin(a)*0.85, cz+Math.cos(a)*0.85, a+Math.PI, hex));
+    });
+    var sign = makeSign(label, wallH+0.4, 0);
+    sign.position.x = cx; sign.position.z = cz - half - 0.05;
+    scene.add(sign);
+    registerZone({id:"huddle-"+label, code:"--", name:label, tag:"Small-group huddle room", cssVar:"--a-strategy", hex:hex, agents:[]}, cx-half,cx+half,cz-half,cz+half);
+  }
+
   DEPARTMENTS.forEach(function(d){ if(d.boardroom) buildBoardroom(d); else buildDeskPod(d); });
   buildLounge();
+  buildReception(0, -15.0);
+  buildHuddleRoom(-8, 5, "Huddle A", 0x1F9690, "north");
+  buildHuddleRoom(8, 5, "Huddle B", 0xB33F94, "north");
 
   // ---------------- scattered office props (fills the bigger floor, makes it feel real) ----------------
   var potMat = new THREE.MeshStandardMaterial({color:0xb5674a, roughness:0.85});
