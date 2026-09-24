@@ -32,9 +32,13 @@ outreach, landing pages, social posts, support replies.
 
 ## Payment
 
-Processor: **Stripe**. Finance Agent's invoice drafts name Stripe as the
-payment method; setting up the actual Stripe account and sending real
-invoices is the owner's own action.
+Processor: **Stripe** — owner already has an account. Connector added via
+claude.ai → Settings → Connectors (same mechanism as Gmail); once live,
+`finance-bookkeeping-agent` creates real Payment Links/Invoices from
+approved deal cards. Creating one is safe (nothing charges or notifies
+the client); sending or sharing it with a client follows the same
+explicit-approval rule as every other client-facing action. Actually
+sending a real invoice is still the owner's own confirmed action.
 
 ## Pricing philosophy
 
