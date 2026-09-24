@@ -658,36 +658,83 @@
   var PERSON_HIT_MESHES = []; // invisible hit-spheres for click/tap raycasting, tagged with agentId
   var BOARDROOM_SEATS_WORLD = []; // empty guest chairs in the boardroom, used by the meeting-walk system
 
-  function buildPerson(x,z,rotY,agentId,displayName,originX,originZ){
+  function buildPerson(x,z,rotY,agentId,displayName,originX,originZ,seated){
     var g = new THREE.Group();
     var jitter = (Math.random()-0.5)*0.3;
     g.position.set(x,0,z); g.rotation.y = rotY + jitter;
+    var isSeated = seated !== false; // desk/boardroom people sit; walkers stand
 
     var skin = SKIN_TONES[Math.floor(Math.random()*SKIN_TONES.length)];
     var shirt = SHIRT_COLORS[Math.floor(Math.random()*SHIRT_COLORS.length)];
+    var pantsHex = 0x2c2f36 + (Math.floor(Math.random()*3) * 0x030303);
+    var shoeHex = 0x1c1a18;
     var shirtMat = new THREE.MeshStandardMaterial({color:shirt, roughness:0.7});
     var skinMat = new THREE.MeshStandardMaterial({color:skin, roughness:0.6});
+    var pantsMat = new THREE.MeshStandardMaterial({color:pantsHex, roughness:0.75});
+    var shoeMat = new THREE.MeshStandardMaterial({color:shoeHex, roughness:0.5});
 
-    var torso = new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.19,0.46,10), shirtMat);
-    torso.position.y = 0.7; torso.castShadow = true;
+    // legs: replaces the old legless torso that read as "a box floating on
+    // nothing". Seated people (desks, boardroom) get a real bent-knee pose —
+    // thigh resting at chair-seat height, shin down to the floor — so they
+    // read as sitting in the chair rather than standing through it. Walkers
+    // get straight standing legs instead.
+    [-1,1].forEach(function(side){
+      if(isSeated){
+        var thigh = new THREE.Mesh(new THREE.CylinderGeometry(0.068,0.062,0.32,10), pantsMat);
+        thigh.position.set(side*0.085, 0.47, 0.16);
+        thigh.rotation.x = Math.PI/2;
+        thigh.castShadow = true;
+        g.add(thigh);
+        var shin = new THREE.Mesh(new THREE.CylinderGeometry(0.058,0.05,0.44,10), pantsMat);
+        shin.position.set(side*0.085, 0.25, 0.32);
+        shin.castShadow = true;
+        g.add(shin);
+        var shoe = new THREE.Mesh(new THREE.BoxGeometry(0.09,0.06,0.17), shoeMat);
+        shoe.position.set(side*0.085, 0.03, 0.36);
+        shoe.castShadow = true;
+        g.add(shoe);
+      } else {
+        var leg = new THREE.Mesh(new THREE.CylinderGeometry(0.072,0.058,0.45,10), pantsMat);
+        leg.position.set(side*0.085, 0.245, 0);
+        leg.castShadow = true;
+        g.add(leg);
+        var shoe2 = new THREE.Mesh(new THREE.BoxGeometry(0.09,0.06,0.17), shoeMat);
+        shoe2.position.set(side*0.085, 0.03, -0.03);
+        shoe2.castShadow = true;
+        g.add(shoe2);
+      }
+    });
+
+    // torso: shoulders slightly wider than the waist, rounder (more segments)
+    // than before so it reads as a body, not a hard-edged cylinder
+    var torso = new THREE.Mesh(new THREE.CylinderGeometry(0.145,0.12,0.44,14), shirtMat);
+    torso.position.y = 0.69; torso.castShadow = true;
     g.add(torso);
 
-    var head = new THREE.Mesh(new THREE.SphereGeometry(0.125,14,10), skinMat);
+    var neck = new THREE.Mesh(new THREE.CylinderGeometry(0.045,0.05,0.08,10), skinMat);
+    neck.position.y = 0.945;
+    g.add(neck);
+
+    var head = new THREE.Mesh(new THREE.SphereGeometry(0.125,16,12), skinMat);
     head.position.y = 1.05;
     head.castShadow = true;
     g.add(head);
 
-    var hair = new THREE.Mesh(new THREE.SphereGeometry(0.132,12,8,0,Math.PI*2,0,Math.PI*0.55), new THREE.MeshStandardMaterial({color:0x2a221c, roughness:0.85}));
+    var hair = new THREE.Mesh(new THREE.SphereGeometry(0.132,14,10,0,Math.PI*2,0,Math.PI*0.55), new THREE.MeshStandardMaterial({color:0x2a221c, roughness:0.85}));
     hair.position.y = 1.07;
     g.add(hair);
 
+    // arms hang naturally at the sides instead of jutting forward — that
+    // forward reach was what made the old figure read as extra legs
     [-1,1].forEach(function(side){
-      var arm = new THREE.Mesh(new THREE.CylinderGeometry(0.045,0.05,0.34,6), shirtMat);
-      arm.position.set(side*0.16, 0.56, -0.16);
-      arm.rotation.x = -0.9;
-      arm.rotation.z = side*0.12;
+      var arm = new THREE.Mesh(new THREE.CylinderGeometry(0.042,0.036,0.38,10), shirtMat);
+      arm.position.set(side*0.19, 0.72, 0);
+      arm.rotation.z = side*0.09;
       arm.castShadow = true;
       g.add(arm);
+      var hand = new THREE.Mesh(new THREE.SphereGeometry(0.038,8,6), skinMat);
+      hand.position.set(side*0.207, 0.53, 0);
+      g.add(hand);
     });
 
     if(agentId){
@@ -766,24 +813,35 @@
   }
 
   function buildDeskPod(dept){
+    // two parallel rows facing the same way, like a real cubicle island,
+    // instead of one thin line of desks — denser and reads as an office floor
     var n = dept.agents.length;
-    var spacing = 1.55;
-    var startX = -((n-1)*spacing)/2;
-    var rug = new THREE.Mesh(new THREE.PlaneGeometry(n*spacing+1.0, 3.0), new THREE.MeshStandardMaterial({color:dept.hex, roughness:0.95, transparent:true, opacity:0.28}));
+    var row1n = Math.ceil(n/2), row2n = n - row1n;
+    var spacing = 1.55, rowGap = 1.8;
+    var rowZ = [dept.z - rowGap/2, dept.z + rowGap/2];
+    var rowCounts = [row1n, row2n];
+    var maxRowSpan = Math.max(row1n,row2n)*spacing;
+    var rug = new THREE.Mesh(new THREE.PlaneGeometry(maxRowSpan+1.0, rowGap+1.8), new THREE.MeshStandardMaterial({color:dept.hex, roughness:0.95, transparent:true, opacity:0.28}));
     rug.rotation.x = -Math.PI/2;
     rug.position.set(dept.x, 0.015, dept.z);
     rug.receiveShadow = true;
     scene.add(rug);
-    for(var i=0;i<n;i++){
-      var g = buildWorkstation(dept.x + startX + i*spacing, dept.z, 0, dept.hex, dept.agents[i].id, dept.agents[i].name);
-      scene.add(g);
+    var idx = 0;
+    for(var r=0;r<2;r++){
+      var count = rowCounts[r];
+      var startX = -((count-1)*spacing)/2;
+      for(var i=0;i<count;i++){
+        var a = dept.agents[idx++];
+        var g = buildWorkstation(dept.x + startX + i*spacing, rowZ[r], 0, dept.hex, a.id, a.name);
+        scene.add(g);
+      }
     }
     var sign = makeSign(dept.name, 2.5, 0);
-    sign.position.x = dept.x; sign.position.z = dept.z - 1.5;
+    sign.position.x = dept.x; sign.position.z = dept.z - rowGap/2 - 1.5;
     scene.add(sign);
-    var minX = dept.x + startX - 0.9, maxX = dept.x - startX + 0.9, minZ = dept.z - 1.4, maxZ = dept.z + 1.05;
-    buildPodWalls(minX,maxX,minZ,maxZ);
-    registerZone(dept, minX, maxX, minZ, maxZ);
+    var halfX = maxRowSpan/2 + 0.9, minZ = dept.z - rowGap/2 - 1.4, maxZ = dept.z + rowGap/2 + 1.05;
+    buildPodWalls(dept.x-halfX, dept.x+halfX, minZ, maxZ);
+    registerZone(dept, dept.x-halfX, dept.x+halfX, minZ, maxZ);
   }
 
   function buildBoardroom(dept){
@@ -926,7 +984,7 @@
   // a couple of people walking the aisles, so the floor doesn't feel frozen
   var walkers = [];
   function addWalker(x1,z1,x2,z2,speed){
-    var g = buildPerson(x1,z1,0);
+    var g = buildPerson(x1,z1,0,null,null,0,0,false);
     people.pop(); // walkers animate their own rotation/position, not the idle-sway list
     scene.add(g);
     walkers.push({group:g, a:{x:x1,z:z1}, b:{x:x2,z:z2}, t:Math.random(), dir:1, speed:speed});
