@@ -93,12 +93,6 @@
   #legend button .dot{width:7px;height:7px;border-radius:50%;flex:none;}
   #legend button.active{outline:2px solid var(--ink);outline-offset:1px;}
 
-  #minimap{
-    pointer-events:none;position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:16px;
-    background:var(--panel-bg);border:1px solid var(--panel-border);border-radius:14px;box-shadow:var(--shadow);
-    backdrop-filter:blur(10px);padding:6px;
-  }
-
   #panel{
     position:fixed;top:0;right:0;height:100%;width:min(360px,100%);
     background:var(--panel-bg);border-left:1px solid var(--panel-border);backdrop-filter:blur(14px);box-shadow:var(--shadow);
@@ -227,7 +221,6 @@
     #panel.open{transform:translateY(0);}
     #legend{max-width:100%;}
     header{max-width:74vw;}
-    #minimap{transform:scale(.82);transform-origin:top right;}
   }
 </style>
 
@@ -254,8 +247,6 @@
     <div id="legend"></div>
   </div>
 </div>
-
-<canvas id="minimap" width="150" height="104"></canvas>
 
 <div id="rosterOverlay">
   <div id="rosterSheet">
@@ -1484,30 +1475,6 @@
     }).catch(function(){});
   }
 
-  // ---------------- minimap ----------------
-  var mmCanvas = document.getElementById("minimap");
-  var mmCtx = mmCanvas.getContext("2d");
-  var mmScale = 132/(BUILD_HX*2);
-  function drawMinimap(){
-    var w=mmCanvas.width,h=mmCanvas.height;
-    mmCtx.clearRect(0,0,w,h);
-    mmCtx.fillStyle = "rgba(120,120,120,0.18)";
-    mmCtx.fillRect(9,9,BUILD_HX*2*mmScale, BUILD_HZ*2*mmScale);
-    DEPARTMENTS.forEach(function(d){
-      var hw=(d.boardroom?4.6:2.2), hd=(d.boardroom?3.1:1.5);
-      mmCtx.fillStyle = "#"+d.hex.toString(16).padStart(6,"0");
-      mmCtx.globalAlpha = 0.85;
-      mmCtx.fillRect(9+(d.x+BUILD_HX-hw)*mmScale, 9+(d.z+BUILD_HZ-hd)*mmScale, hw*2*mmScale, hd*2*mmScale);
-      mmCtx.globalAlpha = 1;
-    });
-    var tx = 9+(orbit.target.x+BUILD_HX)*mmScale, tz = 9+(orbit.target.z+BUILD_HZ)*mmScale;
-    var camX = 9+(camera.position.x+BUILD_HX)*mmScale, camZ = 9+(camera.position.z+BUILD_HZ)*mmScale;
-    mmCtx.strokeStyle = "rgba(27,32,39,0.55)"; mmCtx.lineWidth = 1.5;
-    mmCtx.beginPath(); mmCtx.moveTo(tx,tz); mmCtx.lineTo(camX,camZ); mmCtx.stroke();
-    mmCtx.fillStyle = "#1B2027";
-    mmCtx.beginPath(); mmCtx.arc(tx,tz,4,0,Math.PI*2); mmCtx.fill();
-  }
-
   // ---------------- ambient collaboration ----------------
   // People occasionally walk over to a colleague's desk, or into the boardroom's
   // empty guest chairs for a few minutes, then walk back. Who moves is weighted
@@ -1642,7 +1609,6 @@
     if(!orbitAnim) orbit.radius += (targetRadius - orbit.radius) * Math.min(1, dt*10);
 
     applyOrbit();
-    drawMinimap();
     renderer.render(scene, camera);
   }
   requestAnimationFrame(frame);
