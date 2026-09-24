@@ -243,7 +243,7 @@
   </div>
 
   <div id="bottomRow">
-    <div id="hint">drag to orbit &middot; scroll / pinch to zoom &middot; right-drag to pan &middot; arrow keys also work &middot; click a pod or a person</div>
+    <div id="hint">drag to orbit &middot; scroll / pinch to zoom &middot; double-tap to zoom in/out &middot; right-drag to pan &middot; arrow keys also work &middot; click a pod or a person</div>
     <div id="legend"></div>
   </div>
 </div>
@@ -312,7 +312,7 @@
         {name:"Contract & Proposal Drafting Agent", desc:"Drafts SOWs, contracts, and NDAs from templates."},
         {name:"Quality Bar Agent", desc:"Reviews every deliverable against the client brief before it ships."}
       ]},
-    { id:"research", code:"01", name:"Research & Intelligence", tag:"Finds the opportunities", cssVar:"--a-research", hex:0x1F9690, x:-7.3, z:-3.6, group:"A", row:0,
+    { id:"research", code:"01", name:"Research & Intelligence", tag:"Finds the opportunities", cssVar:"--a-research", hex:0x1F9690, x:-8.5, z:-3.6, group:"A", row:0,
       agents:[
         {name:"Opportunity Scout", desc:"Scans for underserved niches and side-hustle categories worth entering."},
         {name:"Market Research Agent", desc:"Sizes a market: demand signals, pricing norms, buyer pain points."},
@@ -320,7 +320,7 @@
         {name:"Client / Lead Researcher", desc:"Builds a one-page dossier on a prospect before outreach."},
         {name:"Trend Scout", desc:"Tracks emerging tools, platforms, and demand shifts."}
       ]},
-    { id:"content", code:"02", name:"Content & Creative", tag:"Writes and designs", cssVar:"--a-content", hex:0xD24E64, x:-7.3, z:-2.0, group:"A", row:1,
+    { id:"content", code:"02", name:"Content & Creative", tag:"Writes and designs", cssVar:"--a-content", hex:0xD24E64, x:-8.5, z:-2.0, group:"A", row:1,
       agents:[
         {name:"Copywriter", desc:"Website, landing page, and ad copy."},
         {name:"SEO / Blog Writer", desc:"Long-form articles and SEO content."},
@@ -328,7 +328,7 @@
         {name:"Video / Podcast Script Agent", desc:"Scripts and outlines for video or audio content."},
         {name:"Brand & Graphic Design Agent", desc:"Brand guides, simple graphics, and slide decks."}
       ]},
-    { id:"software", code:"03", name:"Software & Technical", tag:"Builds the deliverable", cssVar:"--a-software", hex:0x3560CC, x:-7.3, z:-0.4, group:"A", row:2,
+    { id:"software", code:"03", name:"Software & Technical", tag:"Builds the deliverable", cssVar:"--a-software", hex:0x3560CC, x:-8.5, z:-0.4, group:"A", row:2,
       agents:[
         {name:"Full-Stack Dev Agent", desc:"Builds websites, small apps, and integrations."},
         {name:"Automation / Scripting Agent", desc:"Builds workflow automations that save a client real hours."},
@@ -336,7 +336,7 @@
         {name:"QA / Testing Agent", desc:"Tests everything before it ships."},
         {name:"DevOps / Deployment Agent", desc:"Handles hosting, deployment, and uptime monitoring."}
       ]},
-    { id:"sales", code:"04", name:"Sales & Client Acquisition", tag:"Turns leads into signed jobs", cssVar:"--a-sales", hex:0x2F9350, x:7.3, z:-3.6, group:"B", row:0,
+    { id:"sales", code:"04", name:"Sales & Client Acquisition", tag:"Turns leads into signed jobs", cssVar:"--a-sales", hex:0x2F9350, x:8.5, z:-3.6, group:"B", row:0,
       agents:[
         {name:"Outreach / Cold Email Agent", desc:"Drafts personalized outreach at volume — never sends without approval."},
         {name:"Proposal Writer", desc:"Turns a scoped opportunity into a priced proposal."},
@@ -344,7 +344,7 @@
         {name:"CRM / Pipeline Manager Agent", desc:"Tracks every lead's stage and next action."},
         {name:"Partnerships Agent", desc:"Finds agencies and platforms worth partnering with."}
       ]},
-    { id:"delivery", code:"05", name:"Client Delivery & Support", tag:"Keeps clients happy", cssVar:"--a-delivery", hex:0x6E4FCC, x:7.3, z:-2.0, group:"B", row:1,
+    { id:"delivery", code:"05", name:"Client Delivery & Support", tag:"Keeps clients happy", cssVar:"--a-delivery", hex:0x6E4FCC, x:8.5, z:-2.0, group:"B", row:1,
       agents:[
         {name:"Onboarding Agent", desc:"Turns a signed deal into a kickoff packet and intake form."},
         {name:"Account Manager Agent", desc:"Owns the client relationship day-to-day."},
@@ -352,7 +352,7 @@
         {name:"Deliverable QA Reviewer", desc:"Final check that what's shipping matches what was promised."},
         {name:"Documentation Agent", desc:"Writes handoff docs, SOPs, and how-to guides."}
       ]},
-    { id:"growth", code:"06", name:"Growth & Marketing", tag:"Builds inbound demand", cssVar:"--a-growth", hex:0xB33F94, x:7.3, z:-0.4, group:"B", row:2,
+    { id:"growth", code:"06", name:"Growth & Marketing", tag:"Builds inbound demand", cssVar:"--a-growth", hex:0xB33F94, x:8.5, z:-0.4, group:"B", row:2,
       agents:[
         {name:"SEO Agent", desc:"Keyword strategy and on-page SEO."},
         {name:"Paid Ads Agent", desc:"Drafts ad copy, targeting, and budget plans."},
@@ -369,10 +369,32 @@
         {name:"Final Release Coordinator", desc:"Collects all four Last Touch checks into one go/no-go verdict before anything reaches your approval queue."}
       ]}
   ];
+  // Doors face INWARD, into the shared central corridor, so both bullpens,
+  // the boardroom, and Last Touch all open onto the same open corridor —
+  // that's what makes cross-room walking (collaboration, meetings) possible
+  // without ever crossing a wall.
   var GROUPS = {
-    A: { depts:["research","content","software"], cx:-7.3, cz:-2.0, door:"west" },
-    B: { depts:["sales","delivery","growth"], cx:7.3, cz:-2.0, door:"east" }
+    A: { depts:["research","content","software"], cx:-8.5, cz:-2.0, door:"east" },
+    B: { depts:["sales","delivery","growth"], cx:8.5, cz:-2.0, door:"west" }
   };
+  // Each room's door as a matched inside/outside pair, both centered exactly
+  // on the doorway gap. Walking home -> inside -> outside (or reverse) means
+  // the only segment that crosses the wall's plane is the inside<->outside
+  // leg, which is a straight line perpendicular to the wall through the gap
+  // itself — the other legs stay entirely inside one open space (a room or
+  // the corridor), where nothing can be in the way.
+  var ROOM_DOOR = {
+    A:         { inside:{x:-4.225, z:-2.0}, outside:{x:-3.425, z:-2.0} },
+    B:         { inside:{x:4.225,  z:-2.0}, outside:{x:3.425,  z:-2.0} },
+    strategy:  { inside:{x:0, z:-5.8}, outside:{x:0, z:-5.0} },
+    lasttouch: { inside:{x:0, z:1.8},  outside:{x:0, z:1.0} }
+  };
+  // A safe path from any seat in `roomKey` to any point in the open
+  // corridor/Collaboration Room area (no walls there) — or the reverse.
+  function corridorPath(roomKey){
+    var d = ROOM_DOOR[roomKey];
+    return d ? [d.inside, d.outside] : [];
+  }
 
   function slugify(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,""); }
   DEPARTMENTS.forEach(function(d){ d.agents.forEach(function(a){ a.id = slugify(a.name); a.dept = d.id; }); });
@@ -392,7 +414,7 @@
     lasttouch: "Passes to the next Last Touch check, and finally to your approval queue once all five clear it."
   };
 
-  var BUILD_HX = 21.5, BUILD_HZ = 14.5, WALL_T = 0.3, WALL_H = 4.3;
+  var BUILD_HX = 23, BUILD_HZ = 14.5, WALL_T = 0.3, WALL_H = 4.3;
 
   // ---------------- renderer / scene ----------------
   var canvas = document.getElementById("scene");
@@ -954,7 +976,7 @@
   }
 
   function buildLounge(){
-    var cx = -16.3, cz = -8.4;
+    var cx = -17.2, cz = -8.4;
     var woodFloor = new THREE.Mesh(new THREE.PlaneGeometry(7.6,5.2), woodMat);
     woodFloor.rotation.x=-Math.PI/2; woodFloor.position.set(cx,0.012,cz); woodFloor.receiveShadow=true;
     scene.add(woodFloor);
@@ -1064,31 +1086,39 @@
     buildPlant(cx-3.6, cz-1.0, 0.9);
   }
 
-  function buildHuddleRoom(cx,cz,label,hex,doorWall){
-    var half = 1.35, wallH = 2.2;
-    buildEnclosedRoom(cx-half,cx+half,cz-half,cz+half,doorWall,wallMat2,wallH,1.0);
-    var rug = new THREE.Mesh(new THREE.PlaneGeometry(half*2-0.2,half*2-0.2), new THREE.MeshStandardMaterial({color:hex, roughness:0.95, transparent:true, opacity:0.25}));
+  // The Collaboration Room — open-plan, no walls, sitting right in the
+  // central corridor every other room's door opens onto. No walls means no
+  // doorway to route through: anyone in the corridor can walk straight to
+  // a seat here, which is exactly what ad-hoc 2-3 person collaboration
+  // sessions use as their meeting spot.
+  var COLLAB_SEATS = [];
+  function buildCollabRoom(cx,cz){
+    var rug = new THREE.Mesh(new THREE.PlaneGeometry(3.4,2.6), new THREE.MeshStandardMaterial({color:0x1F9690, roughness:0.95, transparent:true, opacity:0.22}));
     rug.rotation.x=-Math.PI/2; rug.position.set(cx,0.014,cz); rug.receiveShadow=true;
     scene.add(rug);
-    var table = new THREE.Mesh(new THREE.CylinderGeometry(0.55,0.55,0.05,20), new THREE.MeshStandardMaterial({color:0xece7dc, roughness:0.35}));
-    table.position.set(cx,0.72,cz); table.castShadow=true; scene.add(table);
-    var tableLeg = new THREE.Mesh(new THREE.CylinderGeometry(0.08,0.1,0.68,10), frameMat);
-    tableLeg.position.set(cx,0.36,cz); scene.add(tableLeg);
-    [0,Math.PI/2,Math.PI,-Math.PI/2].forEach(function(a){
-      scene.add(buildChair(cx+Math.sin(a)*0.85, cz+Math.cos(a)*0.85, a+Math.PI, hex));
+    var table = new THREE.Mesh(new THREE.BoxGeometry(2.0,0.06,1.05), new THREE.MeshStandardMaterial({color:0xece7dc, roughness:0.35}));
+    table.position.set(cx,0.72,cz); table.castShadow=true; table.receiveShadow=true; scene.add(table);
+    var tableBase = new THREE.Mesh(new THREE.BoxGeometry(1.6,0.68,0.4), frameMat);
+    tableBase.position.set(cx,0.36,cz); scene.add(tableBase);
+    var seatDefs = [
+      {x:cx-0.7,z:cz-0.75,rot:0},{x:cx,z:cz-0.75,rot:0},{x:cx+0.7,z:cz-0.75,rot:0},
+      {x:cx-0.7,z:cz+0.75,rot:Math.PI},{x:cx,z:cz+0.75,rot:Math.PI},{x:cx+0.7,z:cz+0.75,rot:Math.PI}
+    ];
+    seatDefs.forEach(function(s){
+      scene.add(buildChair(s.x, s.z, s.rot, 0x1F9690));
+      COLLAB_SEATS.push({x:s.x, z:s.z, rotY:s.rot+Math.PI});
     });
-    var sign = makeSign(label, wallH+0.4, 0);
-    sign.position.x = cx; sign.position.z = cz - half - 0.05;
+    var sign = makeSign("Collaboration", 2.0, 0);
+    sign.position.set(cx, 2.0, cz-1.5);
     scene.add(sign);
-    registerZone({id:"huddle-"+label, code:"--", name:label, tag:"Small-group huddle room", cssVar:"--a-strategy", hex:hex, agents:[]}, cx-half,cx+half,cz-half,cz+half);
+    registerZone({id:"collab-room", code:"--", name:"Collaboration Room", tag:"Where 2+ agents meet to work something out together", cssVar:"--a-research", hex:0x1F9690, agents:[]}, cx-1.9,cx+1.9,cz-1.5,cz+1.5);
   }
 
   DEPARTMENTS.forEach(function(d){ if(d.boardroom) buildBoardroom(d); else if(!d.group) buildDeskPod(d); });
   Object.keys(GROUPS).forEach(function(k){ buildGroupRoom(k); });
   buildLounge();
-  buildReception(-16.3, -2.0);
-  buildHuddleRoom(-6, 3.4, "Huddle A", 0x1F9690, "east");
-  buildHuddleRoom(6, 3.4, "Huddle B", 0xB33F94, "west");
+  buildReception(-17.2, -2.0);
+  buildCollabRoom(0, -2.0);
 
   // ---------------- scattered office props (fills the bigger floor, makes it feel real) ----------------
   var potMat = new THREE.MeshStandardMaterial({color:0xb5674a, roughness:0.85});
@@ -1294,6 +1324,25 @@
     }
   });
 
+  var lastTapT = 0, lastTapX = 0, lastTapY = 0;
+  function handleDoubleTapZoom(x, y){
+    var ndc = ndcFrom(x, y);
+    raycaster.setFromCamera(ndc, camera);
+    var hit = raycaster.intersectObject(floor)[0];
+    if(!hit) return;
+    userInteracted = true;
+    spin.vTheta = 0; spin.vPhi = 0;
+    var zoomedIn = orbit.radius < DEFAULT_ORBIT.radius*0.55;
+    var toRadius = zoomedIn ? DEFAULT_ORBIT.radius : Math.max(MIN_R, orbit.radius*0.4);
+    var toTarget = zoomedIn ? DEFAULT_ORBIT.target.clone() : new THREE.Vector3(hit.point.x, 0.4, hit.point.z);
+    orbitAnim = {
+      t0: performance.now(), dur: prefersReducedMotion?1:550,
+      fromTarget: orbit.target.clone(), toTarget: toTarget,
+      fromRadius: orbit.radius, toRadius: toRadius,
+      fromPhi: orbit.phi, toPhi: orbit.phi
+    };
+    targetRadius = toRadius;
+  }
   function endPointer(e){
     var wasDown = downInfo && downInfo.id===e.pointerId;
     pointers.delete(e.pointerId);
@@ -1312,6 +1361,15 @@
             var dept = zoneAtPoint(hit.point.x, hit.point.z);
             if(dept) focusOn(dept);
           }
+        }
+        // double-tap/double-click: same spot, twice, quickly — zoom in on it,
+        // or back out again if already zoomed in there
+        var now = performance.now();
+        if(now-lastTapT < 350 && Math.hypot(downInfo.x-lastTapX, downInfo.y-lastTapY) < 40){
+          handleDoubleTapZoom(downInfo.x, downInfo.y);
+          lastTapT = 0;
+        } else {
+          lastTapT = now; lastTapX = downInfo.x; lastTapY = downInfo.y;
         }
       }
       downInfo = null;
@@ -1718,16 +1776,27 @@
       return st==="working" || st==="done";
     });
   }
-  function startWalk(agentId, targetWorldX, targetWorldZ, holdSeconds){
+  // A walk can now be a PATH of waypoints, not just one target — that's what
+  // lets an agent leave their room, cross the corridor, and enter a
+  // different room (the Collaboration Room or the boardroom) without ever
+  // cutting through a wall: each waypoint is either the destination, or a
+  // door's corridor-side point, and every leg between two consecutive
+  // waypoints is guaranteed to be inside one open space (one room, or the
+  // corridor) with nothing in between.
+  function startWalkPath(agentId, worldWaypoints, holdSeconds){
     var rec = AGENT_GROUPS[agentId];
-    if(!rec || rec.walk) return false;
+    if(!rec || rec.walk || !worldWaypoints.length) return false;
+    var path = worldWaypoints.map(function(p){ return {x:p.x-rec.origin.x, z:p.z-rec.origin.z}; });
     rec.walk = {
-      phase:"out",
+      path: path, segIdx: 0,
       fromLocal:{x:rec.group.position.x, z:rec.group.position.z},
-      toLocal:{x:targetWorldX-rec.origin.x, z:targetWorldZ-rec.origin.z},
-      t:0, hold:holdSeconds
+      toLocal: path[0],
+      phase:"out", t:0, hold:holdSeconds
     };
     return true;
+  }
+  function startWalk(agentId, targetWorldX, targetWorldZ, holdSeconds){
+    return startWalkPath(agentId, [{x:targetWorldX, z:targetWorldZ}], holdSeconds);
   }
   function updateAgentWalks(dt){
     Object.keys(AGENT_GROUPS).forEach(function(id){
@@ -1736,7 +1805,7 @@
       if(!w) return;
       if(w.phase==="out" || w.phase==="back"){
         var dx = w.toLocal.x-w.fromLocal.x, dz = w.toLocal.z-w.fromLocal.z;
-        var dist = Math.max(0.6, Math.hypot(dx,dz));
+        var dist = Math.max(0.5, Math.hypot(dx,dz));
         w.t += dt*(1.15/dist);
         var e = Math.min(1, w.t);
         rec.group.position.x = w.fromLocal.x + dx*e;
@@ -1744,30 +1813,95 @@
         rec.group.position.y = Math.abs(Math.sin(elapsed*8))*0.035;
         if(dist > 0.2) rec.group.rotation.y = Math.atan2(dx,dz);
         if(e>=1){
-          if(w.phase==="out"){ w.phase="hold"; w.t=0; }
-          else { rec.walk=null; rec.group.position.y=0; rec.group.rotation.y=rec.seatRotY; }
+          w.segIdx++;
+          if(w.segIdx < w.path.length){
+            w.fromLocal = w.toLocal; w.toLocal = w.path[w.segIdx]; w.t = 0;
+          } else if(w.phase==="out"){
+            w.phase="hold"; w.t=0;
+          } else {
+            rec.walk=null; rec.group.position.y=0; rec.group.rotation.y=rec.seatRotY;
+          }
         }
       } else if(w.phase==="hold"){
         w.t += dt;
         rec.group.position.y = Math.sin(elapsed*1.6)*0.01;
-        if(w.t>=w.hold){ w.phase="back"; w.t=0; var tmp=w.fromLocal; w.fromLocal=w.toLocal; w.toLocal=tmp; }
+        if(w.t>=w.hold){
+          var backPath = w.path.slice(0,-1).reverse();
+          backPath.push(rec.home);
+          w.path = backPath; w.segIdx = 0;
+          w.fromLocal = {x:rec.group.position.x, z:rec.group.position.z};
+          w.toLocal = w.path[0];
+          w.phase = "back"; w.t = 0;
+        }
       }
     });
   }
+
+  // Every seat a cross-room meeting can use, and whether it's occupied —
+  // shared by both meeting rooms so sessions don't double-book a seat.
+  var MEETING_SEATS = { collab: COLLAB_SEATS, team: BOARDROOM_SEATS_WORLD };
+  function claimSeats(kind, n){
+    var open = MEETING_SEATS[kind].filter(function(s){ return !s.taken; });
+    var picked = shuffle(open).slice(0, n);
+    picked.forEach(function(s){ s.taken = true; });
+    return picked;
+  }
+  function releaseSeatWhenDone(seat, agentId){
+    var check = setInterval(function(){
+      var rec = AGENT_GROUPS[agentId];
+      if(!rec || !rec.walk){ seat.taken = false; clearInterval(check); }
+    }, 1200);
+  }
+
   var nextCollabAt = 5 + Math.random()*5;
   var ROOM_KEYS = ["A","B","lasttouch","strategy"];
   function maybeStartCollaboration(){
     if(prefersReducedMotion || ALL_AGENTS.length===0) return;
-    var rooms = shuffle(ROOM_KEYS.slice());
-    for(var r=0;r<rooms.length;r++){
-      var roomKey = rooms[r];
-      var busy = shuffle(collabCandidates(true, roomKey));
-      if(busy.length < 2) busy = shuffle(collabCandidates(false, roomKey));
-      if(busy.length >= 2){
-        var recB = AGENT_GROUPS[busy[1]];
-        var wp = new THREE.Vector3(); recB.group.getWorldPosition(wp);
-        startWalk(busy[0], wp.x+0.55, wp.z+0.4, 4+Math.random()*3);
-        break;
+    var roll = Math.random();
+
+    if(roll < 0.32){
+      // Quick chat: walk straight to a colleague's own desk, same room only.
+      var rooms = shuffle(ROOM_KEYS.slice());
+      for(var r=0;r<rooms.length;r++){
+        var busy = shuffle(collabCandidates(true, rooms[r]));
+        if(busy.length < 2) busy = shuffle(collabCandidates(false, rooms[r]));
+        if(busy.length >= 2){
+          var recB = AGENT_GROUPS[busy[1]];
+          var wp = new THREE.Vector3(); recB.group.getWorldPosition(wp);
+          startWalk(busy[0], wp.x+0.55, wp.z+0.4, 4+Math.random()*3);
+          break;
+        }
+      }
+    } else if(roll < 0.72){
+      // Collaboration Room: 2-3 agents, any room(s), each walks its own
+      // door, through the corridor, to the shared table — visibly
+      // converging on each other there.
+      var pool = shuffle(collabCandidates(true));
+      if(pool.length < 2) pool = shuffle(collabCandidates(false));
+      var n = Math.min(pool.length, 2+Math.floor(Math.random()*2));
+      var seats = claimSeats("collab", n);
+      for(var i=0;i<seats.length;i++){
+        var id = pool[i];
+        var seat = seats[i];
+        var path = corridorPath(roomKeyOf(id)).concat([{x:seat.x,z:seat.z}]);
+        var ok = startWalkPath(id, path, 10+Math.random()*8);
+        if(ok) releaseSeatWhenDone(seat, id);
+      }
+    } else {
+      // Team meeting: 1-2 non-strategy agents sit in on the boardroom's
+      // empty guest chairs, routed through the corridor and both real doors.
+      var visitors = shuffle(collabCandidates(true).filter(function(id){ return roomKeyOf(id) !== "strategy"; }));
+      if(visitors.length < 1) visitors = shuffle(collabCandidates(false).filter(function(id){ return roomKeyOf(id) !== "strategy"; }));
+      var vn = Math.min(visitors.length, 1+Math.floor(Math.random()*2));
+      var vseats = claimSeats("team", vn);
+      for(var j=0;j<vseats.length;j++){
+        var vid = visitors[j];
+        var vseat = vseats[j];
+        var path = corridorPath(roomKeyOf(vid))
+          .concat([ROOM_DOOR.strategy.outside, ROOM_DOOR.strategy.inside])
+          .concat([{x:vseat.x,z:vseat.z}]);
+        var vok = startWalkPath(vid, path, 9+Math.random()*7);
+        if(vok) releaseSeatWhenDone(vseat, vid);
       }
     }
     nextCollabAt = elapsed + 8 + Math.random()*10;
