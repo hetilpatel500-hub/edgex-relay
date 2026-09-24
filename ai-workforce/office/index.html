@@ -54,9 +54,19 @@
 
   #app{position:fixed;inset:0;pointer-events:none;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px)) 16px;display:flex;flex-direction:column;justify-content:space-between;}
 
-  header{pointer-events:auto;display:flex;flex-direction:column;gap:2px;max-width:min(420px,68vw);}
+  #topRow{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  header{pointer-events:auto;display:flex;flex-direction:column;gap:2px;max-width:min(420px,52vw);}
   header .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);}
   header h1{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:clamp(22px,3.4vw,32px);line-height:.95;margin:2px 0 0 0;}
+
+  #topBtns{display:flex;gap:8px;pointer-events:auto;}
+  .pillbtn{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--panel-bg);border:1px solid var(--panel-border);color:var(--ink);
+    font-family:"Work Sans",sans-serif;font-weight:600;font-size:12.5px;
+    padding:9px 13px;border-radius:999px;cursor:pointer;box-shadow:var(--shadow);backdrop-filter:blur(10px);
+  }
+  .pillbtn:active{transform:scale(.97);}
 
   #hint{
     pointer-events:none;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);
@@ -120,6 +130,48 @@
   .assign-row button:disabled{opacity:0.5;cursor:default;}
   .assign-msg{font-size:10.5px;color:var(--muted);margin-top:4px;min-height:13px;}
 
+  #rosterOverlay{
+    position:fixed;inset:0;background:rgba(10,12,16,0.45);backdrop-filter:blur(2px);
+    display:flex;align-items:center;justify-content:center;padding:24px;
+    opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:20;
+  }
+  #rosterOverlay.open{opacity:1;pointer-events:auto;}
+  #rosterSheet{
+    width:min(760px,100%);height:min(82vh,780px);background:var(--panel-bg);border:1px solid var(--panel-border);
+    border-radius:20px;box-shadow:var(--shadow);backdrop-filter:blur(16px);display:flex;flex-direction:column;overflow:hidden;
+  }
+  #rosterHead{padding:20px 22px 14px;border-bottom:1px solid var(--panel-border);flex:none;}
+  #rosterHead .toprow{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  #rosterHead h2{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:24px;margin:0;}
+  #rosterHead .sub{font-size:12px;color:var(--muted);margin-top:2px;font-family:"IBM Plex Mono",monospace;}
+  #rosterClose{
+    background:var(--chip-bg);border:1px solid var(--panel-border);color:var(--muted);
+    width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;line-height:1;flex:none;
+  }
+  #rosterSearch{
+    margin-top:12px;width:100%;font-family:"Work Sans",sans-serif;font-size:13px;
+    background:var(--chip-bg);border:1px solid var(--panel-border);border-radius:9px;
+    padding:9px 12px;color:var(--ink);
+  }
+  #rosterList{flex:1;overflow-y:auto;padding:8px 14px 18px;}
+  .roster-dept{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:14px 8px 6px;}
+  .roster-row{
+    display:flex;align-items:center;gap:10px;padding:9px 8px;border-radius:10px;cursor:pointer;
+  }
+  .roster-row:hover{background:var(--chip-bg);}
+  .roster-row .rdot{width:8px;height:8px;border-radius:50%;flex:none;}
+  .roster-row .rname{font-weight:600;font-size:13px;flex:none;width:180px;max-width:38%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .roster-row .rmeta{font-size:12px;color:var(--muted);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .roster-row .rstatus{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);flex:none;}
+  .roster-empty{padding:30px 8px;text-align:center;color:var(--muted);font-size:13px;}
+
+  @media (max-width:720px){
+    .roster-row .rname{width:auto;max-width:44%;}
+    #topRow{align-items:flex-start;}
+    header{max-width:46vw;}
+    #topBtns{flex-wrap:wrap;justify-content:flex-end;}
+  }
+
   @media (max-width:720px){
     #panel{top:auto;bottom:0;right:0;left:0;width:100%;height:min(56vh,480px);border-left:none;border-top:1px solid var(--panel-border);border-radius:18px 18px 0 0;transform:translateY(105%);}
     #panel.open{transform:translateY(0);}
@@ -134,18 +186,40 @@
 <canvas id="scene"></canvas>
 
 <div id="app">
-  <header>
-    <span class="eyebrow">35 agents &middot; 7 departments</span>
-    <h1>The Studio Floor</h1>
-  </header>
+  <div id="topRow">
+    <header>
+      <span class="eyebrow">35 agents &middot; 7 departments</span>
+      <h1>The Studio Floor</h1>
+    </header>
+    <div id="topBtns">
+      <button class="pillbtn" id="rosterBtn" type="button">All 35 agents</button>
+      <button class="pillbtn" id="resetViewBtn" type="button">Reset view</button>
+    </div>
+  </div>
 
   <div id="bottomRow">
-    <div id="hint">drag to orbit &middot; scroll / pinch to zoom &middot; right-drag to pan &middot; click a pod</div>
+    <div id="hint">drag to orbit &middot; scroll / pinch to zoom &middot; right-drag to pan &middot; arrow keys also work &middot; click a pod</div>
     <div id="legend"></div>
   </div>
 </div>
 
 <canvas id="minimap" width="150" height="104"></canvas>
+
+<div id="rosterOverlay">
+  <div id="rosterSheet">
+    <div id="rosterHead">
+      <div class="toprow">
+        <div>
+          <h2>All 35 Agents</h2>
+          <div class="sub" id="rosterSub">live status, most active first</div>
+        </div>
+        <button id="rosterClose" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <input id="rosterSearch" type="text" placeholder="Search by name, task, or result&hellip;">
+    </div>
+    <div id="rosterList"></div>
+  </div>
+</div>
 
 <div id="panel">
   <div class="topline">
@@ -462,6 +536,38 @@
     return sprite;
   }
 
+  var nameTagCache = {};
+  function makeNameTag(text){
+    if(nameTagCache[text]) return nameTagCache[text].clone();
+    var scale = 6;
+    var c = document.createElement("canvas");
+    var ctx = c.getContext("2d");
+    var font = "600 " + (13*scale) + "px 'Work Sans', sans-serif";
+    ctx.font = font;
+    var padX = 10*scale, padY = 6*scale;
+    var w = Math.ceil(ctx.measureText(text).width) + padX*2;
+    var h = 13*scale + padY*2;
+    c.width=w; c.height=h;
+    ctx = c.getContext("2d");
+    var r = h*0.32;
+    ctx.beginPath();
+    ctx.moveTo(r,0); ctx.arcTo(w,0,w,h,r); ctx.arcTo(w,h,0,h,r); ctx.arcTo(0,h,0,0,r); ctx.arcTo(0,0,w,0,r);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(15,17,21,0.72)";
+    ctx.fill();
+    ctx.font = font;
+    ctx.fillStyle = "#ffffff";
+    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText(text, w/2, h/2+scale*0.5);
+    var tex = new THREE.CanvasTexture(c);
+    var mat = new THREE.SpriteMaterial({map:tex, transparent:true, depthWrite:false, sizeAttenuation:true});
+    var sprite = new THREE.Sprite(mat);
+    var worldH = 0.22;
+    sprite.scale.set(worldH*(w/h), worldH, 1);
+    nameTagCache[text] = sprite;
+    return sprite.clone();
+  }
+
   function buildChair(x,z,rotY,accentHex){
     var g = new THREE.Group();
     g.position.set(x,0,z); g.rotation.y = rotY;
@@ -482,7 +588,7 @@
   var SHIRT_COLORS = [0x3a4a5c,0x5c4a3a,0x445c4a,0x5c3a4a,0x39424a,0xE5E0D5,0x7a6a55,0x4a5c5c];
   var people = [];
 
-  function buildPerson(x,z,rotY,agentId){
+  function buildPerson(x,z,rotY,agentId,displayName){
     var g = new THREE.Group();
     var jitter = (Math.random()-0.5)*0.3;
     g.position.set(x,0,z); g.rotation.y = rotY + jitter;
@@ -521,13 +627,19 @@
       badge.position.set(0,1.32,0);
       g.add(badge);
       agentMeshes[agentId] = {mat:badgeMat};
+
+      if(displayName){
+        var tag = makeNameTag(displayName);
+        tag.position.set(0,1.53,0);
+        g.add(tag);
+      }
     }
 
     people.push({group:g, phase:Math.random()*Math.PI*2, baseRotY:g.rotation.y});
     return g;
   }
 
-  function buildWorkstation(x,z,rotY,accentHex,agentId){
+  function buildWorkstation(x,z,rotY,accentHex,agentId,displayName){
     var g = new THREE.Group();
     g.position.set(x,0,z); g.rotation.y = rotY;
     var top = new THREE.Mesh(new THREE.BoxGeometry(1.3,0.05,0.68), deskTopMat);
@@ -551,7 +663,7 @@
     kb.position.set(0,0.755,0.08);
     g.add(kb);
     g.add(buildChair(0,0.62,Math.PI,accentHex));
-    g.add(buildPerson(0,0.62,Math.PI,agentId));
+    g.add(buildPerson(0,0.62,Math.PI,agentId,displayName));
     return g;
   }
 
@@ -565,7 +677,7 @@
     rug.receiveShadow = true;
     scene.add(rug);
     for(var i=0;i<n;i++){
-      var g = buildWorkstation(dept.x + startX + i*spacing, dept.z, 0, dept.hex, dept.agents[i].id);
+      var g = buildWorkstation(dept.x + startX + i*spacing, dept.z, 0, dept.hex, dept.agents[i].id, dept.agents[i].name);
       scene.add(g);
     }
     var sign = makeSign(dept.name, 2.5, 0);
@@ -597,7 +709,7 @@
     for(var i=-2;i<=2;i++){
       scene.add(buildChair(cx+i*1.5, cz-0.1-1.05, 0, dept.hex));
       scene.add(buildChair(cx+i*1.5, cz-0.1+1.05, Math.PI, dept.hex));
-      scene.add(buildPerson(cx+i*1.5, cz-0.1-1.05, 0, dept.agents[i+2].id));
+      scene.add(buildPerson(cx+i*1.5, cz-0.1-1.05, 0, dept.agents[i+2].id, dept.agents[i+2].name));
     }
 
     var scr1 = new THREE.Mesh(new THREE.PlaneGeometry(1.7,1.05), new THREE.MeshBasicMaterial({map:screenTex}));
@@ -671,9 +783,12 @@
   addWalker(-5.8,9.5, -5.8,-9.5, 0.045);
 
   // ---------------- orbit camera (full manual control) ----------------
-  var orbit = { target:new THREE.Vector3(0,0.4,0), radius:27, theta:0.55, phi:0.82 };
-  var MIN_R=3.2, MAX_R=42, MIN_PHI=0.12, MAX_PHI=1.52;
+  var DEFAULT_ORBIT = { target:new THREE.Vector3(0,0.4,0), radius:27, theta:0.55, phi:0.82 };
+  var orbit = { target:DEFAULT_ORBIT.target.clone(), radius:DEFAULT_ORBIT.radius, theta:DEFAULT_ORBIT.theta, phi:DEFAULT_ORBIT.phi };
+  var targetRadius = orbit.radius;
+  var MIN_R=3.2, MAX_R=42, MIN_PHI=0.08, MAX_PHI=1.55;
   var PAN_HX = BUILD_HX-0.5, PAN_HZ = BUILD_HZ-0.5;
+  var spin = { vTheta:0, vPhi:0 }; // rotation momentum, decays each frame
 
   function applyOrbit(){
     var st = Math.sin(orbit.phi);
@@ -688,14 +803,31 @@
 
   var orbitAnim = null;
   function focusOn(dept){
+    spin.vTheta = 0; spin.vPhi = 0;
+    var toRadius = dept.boardroom ? 13 : 9;
     orbitAnim = {
       t0: performance.now(), dur: prefersReducedMotion?1:750,
       fromTarget: orbit.target.clone(), toTarget: new THREE.Vector3(dept.x, 0.4, dept.z),
-      fromRadius: orbit.radius, toRadius: dept.boardroom ? 13 : 9,
+      fromRadius: orbit.radius, toRadius: toRadius,
       fromPhi: orbit.phi, toPhi: 0.72
     };
+    targetRadius = toRadius;
     openPanel(dept);
     updateLegendActive(dept);
+  }
+  function resetView(){
+    spin.vTheta = 0; spin.vPhi = 0;
+    orbitAnim = {
+      t0: performance.now(), dur: prefersReducedMotion?1:650,
+      fromTarget: orbit.target.clone(), toTarget: DEFAULT_ORBIT.target.clone(),
+      fromRadius: orbit.radius, toRadius: DEFAULT_ORBIT.radius,
+      fromPhi: orbit.phi, toPhi: DEFAULT_ORBIT.phi,
+      fromTheta: orbit.theta, toTheta: DEFAULT_ORBIT.theta
+    };
+    targetRadius = DEFAULT_ORBIT.radius;
+    panel.classList.remove("open");
+    currentDept = null;
+    Array.prototype.forEach.call(legend.children, function(btn){ btn.classList.remove("active"); });
   }
 
   // ---------------- pointer controls ----------------
@@ -707,10 +839,11 @@
 
   function ndcFrom(x,y){ return { x:(x/innerWidth)*2-1, y:-(y/innerHeight)*2+1 }; }
 
-  function doRotate(dx,dy){
-    orbit.theta -= dx*0.0052;
-    orbit.phi -= dy*0.0052;
-    orbit.phi = Math.max(MIN_PHI, Math.min(MAX_PHI, orbit.phi));
+  function doRotate(dx,dy,record){
+    var dTheta = -dx*0.0052, dPhi = -dy*0.0052;
+    orbit.theta += dTheta;
+    orbit.phi = Math.max(MIN_PHI, Math.min(MAX_PHI, orbit.phi + dPhi));
+    if(record){ spin.vTheta = dTheta; spin.vPhi = dPhi; }
   }
   function doPan(dx,dy){
     var s = orbit.radius*0.0016;
@@ -722,7 +855,7 @@
     orbit.target.z = Math.max(-PAN_HZ, Math.min(PAN_HZ, orbit.target.z));
   }
   function doZoom(factor){
-    orbit.radius = Math.max(MIN_R, Math.min(MAX_R, orbit.radius*factor));
+    targetRadius = Math.max(MIN_R, Math.min(MAX_R, targetRadius*factor));
   }
 
   canvas.addEventListener("contextmenu", function(e){ e.preventDefault(); });
@@ -730,6 +863,7 @@
   canvas.addEventListener("pointerdown", function(e){
     userInteracted = true;
     orbitAnim = null;
+    spin.vTheta = 0; spin.vPhi = 0;
     canvas.setPointerCapture(e.pointerId);
     pointers.set(e.pointerId, {x:e.clientX, y:e.clientY, button:e.button});
     canvas.classList.add("dragging");
@@ -761,7 +895,7 @@
     }
 
     if(pointers.size === 1){
-      if(entry.button === 2) doPan(dx,dy); else doRotate(dx,dy);
+      if(entry.button === 2) doPan(dx,dy); else doRotate(dx,dy,true);
     } else if(pointers.size === 2){
       var pts = Array.from(pointers.values());
       var dist = Math.hypot(pts[0].x-pts[1].x, pts[0].y-pts[1].y);
@@ -799,8 +933,27 @@
     e.preventDefault();
     userInteracted = true;
     orbitAnim = null;
-    doZoom(1 + e.deltaY*0.0012);
+    doZoom(1 + e.deltaY*0.0016);
   }, {passive:false});
+
+  window.addEventListener("keydown", function(e){
+    var activeTag = document.activeElement && document.activeElement.tagName;
+    if(activeTag === "INPUT" || activeTag === "TEXTAREA") return;
+    var handled = true;
+    switch(e.key){
+      case "ArrowLeft": userInteracted=true; orbitAnim=null; spin.vTheta=0; spin.vPhi=0; doRotate(-55,0); break;
+      case "ArrowRight": userInteracted=true; orbitAnim=null; spin.vTheta=0; spin.vPhi=0; doRotate(55,0); break;
+      case "ArrowUp": userInteracted=true; orbitAnim=null; spin.vTheta=0; spin.vPhi=0; doRotate(0,-55); break;
+      case "ArrowDown": userInteracted=true; orbitAnim=null; spin.vTheta=0; spin.vPhi=0; doRotate(0,55); break;
+      case "+": case "=": userInteracted=true; orbitAnim=null; doZoom(0.85); break;
+      case "-": case "_": userInteracted=true; orbitAnim=null; doZoom(1.18); break;
+      case "0": userInteracted=true; resetView(); break;
+      default: handled = false;
+    }
+    if(handled) e.preventDefault();
+  });
+
+  document.getElementById("resetViewBtn").addEventListener("click", function(){ userInteracted = true; resetView(); });
 
   // ---------------- theme sync ----------------
   var mql = window.matchMedia("(prefers-color-scheme: dark)");
@@ -913,9 +1066,97 @@
           updateBadge(doc.id);
         });
         refreshPanelIfOpen();
+        refreshRosterIfOpen();
       }, function(){ /* live status unavailable in this view; badges stay idle-grey */ });
     }).catch(function(){});
   }
+
+  // ---------------- roster (all 35 agents, searchable) ----------------
+  var ALL_AGENTS = [];
+  DEPARTMENTS.forEach(function(dept){
+    dept.agents.forEach(function(a){ ALL_AGENTS.push({a:a, dept:dept}); });
+  });
+  var STATUS_ORDER = {working:0, requested:1, blocked:1, done:2, idle:3};
+
+  var rosterOverlay = document.getElementById("rosterOverlay");
+  var rosterList = document.getElementById("rosterList");
+  var rosterSearch = document.getElementById("rosterSearch");
+  var rosterSub = document.getElementById("rosterSub");
+  var rosterOpen = false;
+
+  function renderRoster(){
+    var q = rosterSearch.value.trim().toLowerCase();
+    var rows = ALL_AGENTS.map(function(entry){
+      var live = agentStatus[entry.a.id];
+      var status = (live && live.status) || "idle";
+      return {
+        entry:entry, status:status,
+        task: (live && live.task) || "", result: (live && live.result) || "",
+        updatedAt: (live && live.updatedAt) || ""
+      };
+    }).filter(function(r){
+      if(!q) return true;
+      var hay = (r.entry.a.name+" "+r.entry.dept.name+" "+r.task+" "+r.result).toLowerCase();
+      return hay.indexOf(q) !== -1;
+    }).sort(function(r1,r2){
+      var so = (STATUS_ORDER[r1.status]||3) - (STATUS_ORDER[r2.status]||3);
+      if(so !== 0) return so;
+      if(r1.updatedAt !== r2.updatedAt) return r1.updatedAt < r2.updatedAt ? 1 : -1;
+      return r1.entry.a.name.localeCompare(r2.entry.a.name);
+    });
+
+    var activeCount = ALL_AGENTS.reduce(function(n,entry){
+      var st = (agentStatus[entry.a.id]&&agentStatus[entry.a.id].status)||"idle";
+      return n + (st==="working"||st==="requested"||st==="done" ? 1 : 0);
+    }, 0);
+    rosterSub.textContent = activeCount + " of 35 have done real work so far · live status, most active first";
+
+    rosterList.innerHTML = "";
+    if(rows.length === 0){
+      var empty = document.createElement("div"); empty.className="roster-empty";
+      empty.textContent = "No agents match “"+rosterSearch.value+"”.";
+      rosterList.appendChild(empty);
+      return;
+    }
+    var lastDept = null;
+    rows.forEach(function(r){
+      if(q === "" && r.entry.dept.id !== lastDept){
+        lastDept = r.entry.dept.id;
+        var h = document.createElement("div"); h.className="roster-dept";
+        h.textContent = r.entry.dept.code+" · "+r.entry.dept.name;
+        rosterList.appendChild(h);
+      }
+      var row = document.createElement("div"); row.className="roster-row";
+      var dot = document.createElement("span"); dot.className="rdot";
+      dot.style.background = "#"+(STATUS_COLOR[r.status]||STATUS_COLOR.idle).toString(16).padStart(6,"0");
+      var name = document.createElement("span"); name.className="rname"; name.textContent = r.entry.a.name;
+      var meta = document.createElement("span"); meta.className="rmeta";
+      meta.textContent = r.result || r.task || r.entry.a.desc;
+      var st = document.createElement("span"); st.className="rstatus"; st.textContent = r.status;
+      row.appendChild(dot); row.appendChild(name); row.appendChild(meta); row.appendChild(st);
+      row.addEventListener("click", function(){
+        closeRoster();
+        userInteracted = true;
+        focusOn(r.entry.dept);
+      });
+      rosterList.appendChild(row);
+    });
+  }
+  function refreshRosterIfOpen(){ if(rosterOpen) renderRoster(); }
+  function openRoster(){
+    rosterOpen = true;
+    rosterOverlay.classList.add("open");
+    renderRoster();
+  }
+  function closeRoster(){
+    rosterOpen = false;
+    rosterOverlay.classList.remove("open");
+  }
+  document.getElementById("rosterBtn").addEventListener("click", openRoster);
+  document.getElementById("rosterClose").addEventListener("click", closeRoster);
+  rosterOverlay.addEventListener("click", function(e){ if(e.target===rosterOverlay) closeRoster(); });
+  rosterSearch.addEventListener("input", renderRoster);
+  window.addEventListener("keydown", function(e){ if(e.key==="Escape" && rosterOpen) closeRoster(); });
 
   // ---------------- minimap ----------------
   var mmCanvas = document.getElementById("minimap");
@@ -972,10 +1213,18 @@
       orbit.target.lerpVectors(orbitAnim.fromTarget, orbitAnim.toTarget, e);
       orbit.radius = orbitAnim.fromRadius + (orbitAnim.toRadius-orbitAnim.fromRadius)*e;
       orbit.phi = orbitAnim.fromPhi + (orbitAnim.toPhi-orbitAnim.fromPhi)*e;
+      if(orbitAnim.fromTheta!==undefined) orbit.theta = orbitAnim.fromTheta + (orbitAnim.toTheta-orbitAnim.fromTheta)*e;
       if(t>=1) orbitAnim = null;
     } else if(!userInteracted && !prefersReducedMotion){
       orbit.theta += dt*0.06;
+    } else if(!prefersReducedMotion && pointers.size===0 && (Math.abs(spin.vTheta)>0.00004 || Math.abs(spin.vPhi)>0.00004)){
+      // momentum: keep spinning briefly after a rotate drag, decaying to a stop
+      orbit.theta += spin.vTheta;
+      orbit.phi = Math.max(MIN_PHI, Math.min(MAX_PHI, orbit.phi + spin.vPhi));
+      spin.vTheta *= 0.92; spin.vPhi *= 0.92;
     }
+
+    if(!orbitAnim) orbit.radius += (targetRadius - orbit.radius) * Math.min(1, dt*10);
 
     applyOrbit();
     drawMinimap();
