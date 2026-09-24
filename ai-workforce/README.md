@@ -14,6 +14,10 @@ explicitly approving it first.**
   `Agent(subagent_type: "outreach-agent", ...)`.
 - `DEAL-DESK.md` — the approval workflow: exactly what gets shown to you
   before anything is sent or agreed to.
+- `office/index.html` — a 3D floor plan of the studio: one room per
+  department, click (or tap) a room to walk in and see its 5 agents and
+  what each one does. Open the file in any browser, or serve it as a
+  static page — no build step, no server required.
 
 ## The approval rule (read this before running anything)
 
