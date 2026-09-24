@@ -1,11 +1,26 @@
 # AI Workforce — Deal Desk
 
-All 35 agents from the studio playbook are built as real Claude Code
-subagents in `agents/`. Identity, tone, pricing philosophy, payment
-processor, and compliance rules are centralized in **`BRAND.md`** — read
-it first, every client-facing agent points back to it. Hard rule,
-unchanged from day one: **no email sends and no deal is final without you
-explicitly approving it first.**
+40 agents across 8 departments — the original 35 from the studio
+playbook plus **Last Touch** (5 agents: grammar, visual/formatting,
+tone/sensitivity, brand consistency, final release) — are built as real
+Claude Code subagents in `agents/`. Identity, tone, pricing philosophy,
+payment processor, and compliance rules are centralized in
+**`BRAND.md`** — read it first, every client-facing agent points back to
+it. Hard rule, unchanged from day one: **no email sends and no deal is
+final without you explicitly approving it first.**
+
+Last Touch is the mandatory quality gate every department's
+client-facing output passes through before reaching your approval queue
+— see `DEAL-DESK.md`. It catches grammar issues, broken formatting,
+offensive/insensitive language, and anything that drifts from
+`BRAND.md` — it doesn't replace your approval, it makes sure what you're
+approving is already clean.
+
+The office's **Command Center** (button top-left) tracks every real
+deal end to end: outreach sent, deal agreed, Last Touch cleared,
+delivered, paid — live, from the same `deals` collection the studio
+writes to as things actually happen. No deal exists there until it's
+real.
 
 An autonomous shift also runs on its own — a Routine (`trig_01DXuq5GDu23xeztwjRDbjPr`,
 every 5 hours), not a session-bound cron job: it's owned by the
@@ -67,15 +82,15 @@ one confirmation is all it takes to send.
 4. Start with `opportunity-scout` → `lead-researcher` → `outreach-agent`
    for your first prospect batch. Full flow is in `DEAL-DESK.md`.
 
-## All 35, and how they stay busy
+## All 40, and how they stay busy
 
-Every department in the playbook (Section 3-9) now has real agents here,
-not just descriptions. The client-facing ones (`outreach-agent`,
-`account-manager`, `onboarding-agent`, `support-help-desk-agent`,
-`partnerships-agent`, `email-marketing-agent`, `community-engagement-agent`,
-`paid-ads-agent`, `devops-deployment-agent`) all carry the same rule:
-draft in full, get explicit confirmation, only then act — nothing sends,
-posts, deploys, or spends money on its own. Everyone else (research,
-content, technical, ops, growth-analysis roles) works freely since their
-output is internal until a client-facing agent or the user moves it
-forward.
+Every department in the playbook (Section 3-9) plus Last Touch now has
+real agents here, not just descriptions. The client-facing ones
+(`outreach-agent`, `account-manager`, `onboarding-agent`,
+`support-help-desk-agent`, `partnerships-agent`, `email-marketing-agent`,
+`community-engagement-agent`, `paid-ads-agent`, `devops-deployment-agent`)
+all carry the same rule: draft in full, get explicit confirmation, only
+then act — nothing sends, posts, deploys, or spends money on its own.
+Everyone else (research, content, technical, ops, growth-analysis
+roles) works freely since their output is internal until it clears Last
+Touch and a client-facing agent or the user moves it forward.

@@ -21,6 +21,9 @@
     --a-sales:#2F9350;
     --a-delivery:#6E4FCC;
     --a-growth:#B33F94;
+    --a-lasttouch:#B8901E;
+    --status-sent:#3560CC;
+    --status-paid:#2F9350;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark){
@@ -34,6 +37,8 @@
       --shadow:0 24px 64px rgba(0,0,0,0.55);
       --a-strategy:#E0A24A; --a-research:#3FC0B9; --a-content:#E67B8E;
       --a-software:#6C8FE8; --a-sales:#57BE79; --a-delivery:#9782E8; --a-growth:#D871BC;
+      --a-lasttouch:#DCB24E;
+      --status-sent:#6C8FE8; --status-paid:#57BE79;
       color-scheme: dark;
     }
   }
@@ -43,6 +48,8 @@
     --shadow:0 24px 64px rgba(0,0,0,0.55);
     --a-strategy:#E0A24A; --a-research:#3FC0B9; --a-content:#E67B8E;
     --a-software:#6C8FE8; --a-sales:#57BE79; --a-delivery:#9782E8; --a-growth:#D871BC;
+    --a-lasttouch:#DCB24E;
+    --status-sent:#6C8FE8; --status-paid:#57BE79;
     color-scheme: dark;
   }
   html,body{height:100%;margin:0;overflow:hidden;background:var(--bg);}
@@ -165,6 +172,42 @@
   .roster-row .rstatus{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);flex:none;}
   .roster-empty{padding:30px 8px;text-align:center;color:var(--muted);font-size:13px;}
 
+  #commandOverlay{
+    position:fixed;inset:0;background:rgba(10,12,16,0.45);backdrop-filter:blur(2px);
+    display:flex;align-items:center;justify-content:center;padding:24px;
+    opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:20;
+  }
+  #commandOverlay.open{opacity:1;pointer-events:auto;}
+  #commandSheet{
+    width:min(820px,100%);height:min(82vh,780px);background:var(--panel-bg);border:1px solid var(--panel-border);
+    border-radius:20px;box-shadow:var(--shadow);backdrop-filter:blur(16px);display:flex;flex-direction:column;overflow:hidden;
+  }
+  #commandHead{padding:20px 22px 16px;border-bottom:1px solid var(--panel-border);flex:none;}
+  #commandHead .toprow{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  #commandHead h2{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:24px;margin:0;}
+  #commandHead .sub{font-size:12px;color:var(--muted);margin-top:2px;font-family:"IBM Plex Mono",monospace;}
+  #commandClose{
+    background:var(--chip-bg);border:1px solid var(--panel-border);color:var(--muted);
+    width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;line-height:1;flex:none;
+  }
+  #commandList{flex:1;overflow-y:auto;padding:14px 20px 20px;}
+  .deal-card{background:var(--chip-bg);border:1px solid var(--panel-border);border-radius:14px;padding:16px 18px;margin-bottom:12px;}
+  .deal-card .dtop{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;}
+  .deal-card .dclient{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:19px;}
+  .deal-card .dservice{font-size:12px;color:var(--muted);margin-top:1px;}
+  .deal-card .dprice{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600;flex:none;}
+  .deal-steps{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+  .dstep{
+    display:flex;align-items:center;gap:6px;font-size:11px;font-family:"IBM Plex Mono",monospace;
+    padding:6px 10px;border-radius:999px;background:var(--panel-bg);border:1px solid var(--panel-border);color:var(--muted);
+  }
+  .dstep .sdot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex:none;}
+  .dstep.done{color:var(--ink);}
+  .dstep.done .sdot{background:var(--status-paid);}
+  .dstep.pending .sdot{background:var(--muted);}
+  .dstep.blocked .sdot{background:#D24E64;}
+  .command-empty{padding:40px 12px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6;}
+
   @media (max-width:720px){
     .roster-row .rname{width:auto;max-width:44%;}
     #topRow{align-items:flex-start;}
@@ -188,11 +231,12 @@
 <div id="app">
   <div id="topRow">
     <header>
-      <span class="eyebrow">35 agents &middot; 7 departments</span>
+      <span class="eyebrow" id="headerEyebrow">40 agents &middot; 8 departments</span>
       <h1>The Studio Floor</h1>
     </header>
     <div id="topBtns">
-      <button class="pillbtn" id="rosterBtn" type="button">All 35 agents</button>
+      <button class="pillbtn" id="commandBtn" type="button">Command Center</button>
+      <button class="pillbtn" id="rosterBtn" type="button">All agents</button>
       <button class="pillbtn" id="resetViewBtn" type="button">Reset view</button>
     </div>
   </div>
@@ -210,7 +254,7 @@
     <div id="rosterHead">
       <div class="toprow">
         <div>
-          <h2>All 35 Agents</h2>
+          <h2 id="rosterTitle">All Agents</h2>
           <div class="sub" id="rosterSub">live status, most active first</div>
         </div>
         <button id="rosterClose" type="button" aria-label="Close">&#10005;</button>
@@ -218,6 +262,21 @@
       <input id="rosterSearch" type="text" placeholder="Search by name, task, or result&hellip;">
     </div>
     <div id="rosterList"></div>
+  </div>
+</div>
+
+<div id="commandOverlay">
+  <div id="commandSheet">
+    <div id="commandHead">
+      <div class="toprow">
+        <div>
+          <h2>Command Center</h2>
+          <div class="sub" id="commandSub">every deal, its real status</div>
+        </div>
+        <button id="commandClose" type="button" aria-label="Close">&#10005;</button>
+      </div>
+    </div>
+    <div id="commandList"></div>
   </div>
 </div>
 
@@ -295,6 +354,14 @@
         {name:"Email Marketing Agent", desc:"Builds nurture sequences and newsletters."},
         {name:"Community / Engagement Agent", desc:"Drafts engagement content for communities and forums."},
         {name:"Analytics / Reporting Agent", desc:"Tracks what's actually converting across the studio."}
+      ]},
+    { id:"lasttouch", code:"07", name:"Last Touch", tag:"Final check before anything reaches a customer", cssVar:"--a-lasttouch", hex:0xB8901E, x:0, z:8.7,
+      agents:[
+        {name:"Grammar & Copy Editor", desc:"Proofreads every client-facing draft for grammar, spelling, and clarity."},
+        {name:"Visual & Formatting Reviewer", desc:"Checks layout, formatting, and visual polish on anything client-facing."},
+        {name:"Tone & Sensitivity Reviewer", desc:"Screens for offensive language, insensitive phrasing, or anything that could upset a customer."},
+        {name:"Brand Consistency Checker", desc:"Verifies every draft matches Edgex's identity, pricing, and compliance rules exactly."},
+        {name:"Final Release Coordinator", desc:"Collects all four Last Touch checks into one go/no-go verdict before anything reaches your approval queue."}
       ]}
   ];
 
@@ -1077,6 +1144,8 @@
     dept.agents.forEach(function(a){ ALL_AGENTS.push({a:a, dept:dept}); });
   });
   var STATUS_ORDER = {working:0, requested:1, blocked:1, done:2, idle:3};
+  document.getElementById("headerEyebrow").textContent = ALL_AGENTS.length+" agents · "+DEPARTMENTS.length+" departments";
+  document.getElementById("rosterTitle").textContent = "All "+ALL_AGENTS.length+" Agents";
 
   var rosterOverlay = document.getElementById("rosterOverlay");
   var rosterList = document.getElementById("rosterList");
@@ -1109,7 +1178,7 @@
       var st = (agentStatus[entry.a.id]&&agentStatus[entry.a.id].status)||"idle";
       return n + (st==="working"||st==="requested"||st==="done" ? 1 : 0);
     }, 0);
-    rosterSub.textContent = activeCount + " of 35 have done real work so far · live status, most active first";
+    rosterSub.textContent = activeCount + " of " + ALL_AGENTS.length + " have done real work so far · live status, most active first";
 
     rosterList.innerHTML = "";
     if(rows.length === 0){
@@ -1156,7 +1225,98 @@
   document.getElementById("rosterClose").addEventListener("click", closeRoster);
   rosterOverlay.addEventListener("click", function(e){ if(e.target===rosterOverlay) closeRoster(); });
   rosterSearch.addEventListener("input", renderRoster);
-  window.addEventListener("keydown", function(e){ if(e.key==="Escape" && rosterOpen) closeRoster(); });
+
+  // ---------------- command center (deals: sent / agreed / last touch / delivered / paid) ----------------
+  var dealsCol = null;
+  var deals = {};
+  var commandOverlay = document.getElementById("commandOverlay");
+  var commandList = document.getElementById("commandList");
+  var commandSub = document.getElementById("commandSub");
+  var commandOpen = false;
+  var DEAL_STEPS = [
+    {key:"outreach_sent", label:"Outreach sent"},
+    {key:"deal_agreed", label:"Deal agreed"},
+    {key:"last_touch_cleared", label:"Last Touch cleared"},
+    {key:"work_delivered", label:"Delivered"},
+    {key:"payment_received", label:"Paid"}
+  ];
+  function money(n, cur){
+    try{ return new Intl.NumberFormat("en-US",{style:"currency",currency:(cur||"usd").toUpperCase()}).format(n); }
+    catch(e){ return "$"+n; }
+  }
+  function renderCommand(){
+    var ids = Object.keys(deals);
+    if(ids.length === 0){
+      commandSub.textContent = "no deals yet";
+      commandList.innerHTML = "";
+      var empty = document.createElement("div"); empty.className="command-empty";
+      empty.textContent = "Nothing here yet — once Outreach Agent has a real prospect, it'll show up here with a live status you can track end to end.";
+      commandList.appendChild(empty);
+      return;
+    }
+    var paidCount = ids.filter(function(id){ return deals[id].steps && deals[id].steps.payment_received; }).length;
+    commandSub.textContent = ids.length+" deal"+(ids.length===1?"":"s")+" tracked · "+paidCount+" paid";
+    commandList.innerHTML = "";
+    ids.sort(function(a,b){ return (deals[b].updatedAt||"") < (deals[a].updatedAt||"") ? -1 : 1; }).forEach(function(id){
+      var d = deals[id];
+      var steps = d.steps || {};
+      var card = document.createElement("div"); card.className = "deal-card";
+      var top = document.createElement("div"); top.className = "dtop";
+      var left = document.createElement("div");
+      var client = document.createElement("div"); client.className="dclient"; client.textContent = d.client || id;
+      var service = document.createElement("div"); service.className="dservice"; service.textContent = d.service || "";
+      left.appendChild(client); left.appendChild(service);
+      var price = document.createElement("div"); price.className="dprice";
+      price.textContent = (typeof d.price === "number") ? money(d.price, d.currency) : "";
+      top.appendChild(left); top.appendChild(price);
+      card.appendChild(top);
+
+      var stepsRow = document.createElement("div"); stepsRow.className="deal-steps";
+      DEAL_STEPS.forEach(function(s){
+        var chip = document.createElement("div");
+        var v = steps[s.key];
+        chip.className = "dstep " + (v===true ? "done" : (v==="blocked" ? "blocked" : "pending"));
+        var dot = document.createElement("span"); dot.className="sdot";
+        var label = document.createElement("span"); label.textContent = s.label;
+        chip.appendChild(dot); chip.appendChild(label);
+        stepsRow.appendChild(chip);
+      });
+      card.appendChild(stepsRow);
+
+      if(typeof d.amount_received === "number" && d.amount_received > 0){
+        var paidLine = document.createElement("div");
+        paidLine.style.marginTop = "10px"; paidLine.style.fontSize = "12px"; paidLine.style.color = "var(--muted)";
+        paidLine.textContent = money(d.amount_received, d.currency) + " received so far";
+        card.appendChild(paidLine);
+      }
+
+      commandList.appendChild(card);
+    });
+  }
+  function refreshCommandIfOpen(){ if(commandOpen) renderCommand(); }
+  function openCommand(){ commandOpen = true; commandOverlay.classList.add("open"); renderCommand(); }
+  function closeCommand(){ commandOpen = false; commandOverlay.classList.remove("open"); }
+  document.getElementById("commandBtn").addEventListener("click", openCommand);
+  document.getElementById("commandClose").addEventListener("click", closeCommand);
+  commandOverlay.addEventListener("click", function(e){ if(e.target===commandOverlay) closeCommand(); });
+
+  window.addEventListener("keydown", function(e){
+    if(e.key!=="Escape") return;
+    if(commandOpen) closeCommand();
+    else if(rosterOpen) closeRoster();
+  });
+
+  if(window.claude && window.claude.use){
+    window.claude.use("db").then(function(db){
+      if(!db) return;
+      dealsCol = db.collection("deals");
+      dealsCol.onSnapshot(function(snap){
+        deals = {};
+        snap.docs.forEach(function(doc){ deals[doc.id] = doc.data(); });
+        refreshCommandIfOpen();
+      }, function(){ /* live deals unavailable in this view */ });
+    }).catch(function(){});
+  }
 
   // ---------------- minimap ----------------
   var mmCanvas = document.getElementById("minimap");
