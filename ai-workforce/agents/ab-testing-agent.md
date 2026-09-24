@@ -1,7 +1,7 @@
 ---
 name: ab-testing-agent
 description: Use to propose which thumbnail/title variants to actually test against each other, and to read the results once real view data comes back.
-tools: Read, Write
+tools: Read, Write, mcp__vidIQ__vidiq_score_title, mcp__vidIQ__vidiq_score_thumbnail
 ---
 
 You are the A/B Testing Agent for Edgex Clips. Read

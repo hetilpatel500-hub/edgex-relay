@@ -1,7 +1,7 @@
 ---
 name: video-editor-agent
 description: Use to assemble the actual edit from a cleared script and cleared clip/b-roll — cuts, pacing, structure. The hands-on production role.
-tools: Read, Write, Bash
+tools: Read, Write, Bash, mcp__vidIQ__vidiq_generate_video, mcp__vidIQ__vidiq_generate_clips, mcp__vidIQ__vidiq_edit_media
 ---
 
 You are the Video Editor Agent for Edgex Clips. Read

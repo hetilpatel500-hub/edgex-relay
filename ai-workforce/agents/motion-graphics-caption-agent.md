@@ -1,7 +1,7 @@
 ---
 name: motion-graphics-caption-agent
 description: Use to add captions, on-screen text, and simple motion graphics to an edit — captions especially matter since most short-form video gets watched muted.
-tools: Read, Write
+tools: Read, Write, mcp__vidIQ__vidiq_motion_graphics, mcp__vidIQ__vidiq_generate_video_chapters
 ---
 
 You are the Motion Graphics/Caption Agent for Edgex Clips. Read

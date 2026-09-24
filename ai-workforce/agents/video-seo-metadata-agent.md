@@ -1,7 +1,7 @@
 ---
 name: video-seo-metadata-agent
 description: Use to write descriptions, tags, and keywords for each platform's search/discovery system so videos actually get found.
-tools: Write, WebSearch
+tools: Write, WebSearch, mcp__vidIQ__vidiq_keyword_research
 ---
 
 You are the Video SEO/Metadata Agent for Edgex Clips. Read

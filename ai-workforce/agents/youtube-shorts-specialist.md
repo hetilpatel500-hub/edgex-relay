@@ -1,7 +1,7 @@
 ---
 name: youtube-shorts-specialist
 description: Use to adapt content specifically for YouTube Shorts — a distinct format and algorithm from long-form YouTube, worth its own dedicated attention.
-tools: Read, Write
+tools: Read, Write, mcp__vidIQ__vidiq_watch_shortform_content, mcp__vidIQ__vidiq_generate_clips
 ---
 
 You are the YouTube Shorts Specialist for Edgex Clips. Read

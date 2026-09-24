@@ -92,12 +92,40 @@ parallel to the original Last Touch:
    **CLEARED — VIDEO LAST TOUCH**, hands off for Chief of Staff's
    approval and posting
 
-**The same honest mechanical limit as the rest of the studio applies
-here too**: no platform-posting connector (YouTube/TikTok/Meta upload
-API) is connected yet. Until one is, an "approved" video is queued —
-scripted, edited, cleared, approved — not actually live. Every posting
-agent's file says this plainly; none of them are allowed to claim a
-video posted when it only got queued.
+**The mechanical limit, updated now that vidIQ is connected**: vidIQ
+gives YouTube Upload/Scheduling Agent and Instagram Reels Agent real
+posting tools (`vidiq_video_upload`, `vidiq_instagram_publish_reel`).
+But as of this connection, vidIQ has no YouTube channel authorized and
+no Instagram account connected — `vidiq_user_channels` and
+`vidiq_instagram_connected_accounts` both come back empty. Until the
+owner connects the studio's actual accounts inside vidIQ, those tools
+have nothing to post to, so approved videos still queue to `outbox`
+exactly as before. TikTok and Facebook have no posting connector at
+all yet, so they stay queue-only regardless. Every posting agent's file
+says this plainly; none of them are allowed to claim a video posted
+when it only got queued.
+
+## Real tool integrations
+
+Three tools are connected and wired into the relevant agents:
+
+- **vidIQ** (research, generation, and — once accounts are connected —
+  posting): trend/outlier data, channel analytics, keyword research,
+  title/thumbnail scoring and generation, script/clip/voiceover/music
+  generation, comment insights, monetization estimates, and the
+  YouTube/Instagram upload tools above. Authenticated as
+  `ai--edgex@edgex--ai.com`.
+- **Canva**: real thumbnail/graphic design (Thumbnail Designer, Brand &
+  Graphic Design Agent) and brand-kit verification (Video Brand
+  Consistency Agent), not just written specs.
+- **Gamma**: polished decks/docs where one is warranted (proposals,
+  kickoff packets) — client-services side, not this division directly.
+
+**Windsor.ai** (cross-platform ad attribution/analytics) was started
+but the connection never finished (`connect_incomplete`) — nothing here
+uses it yet. Once the owner completes that connection, it's a natural
+fit for Meta Ads/Boost Agent, YouTube/TikTok/Cross-Meta Analytics
+Agents, and the original 40's Paid Ads Agent.
 
 ## The 10 departments (see `README.md` for the full department list)
 
