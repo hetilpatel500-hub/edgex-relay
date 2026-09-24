@@ -48,22 +48,15 @@
   html,body{height:100%;margin:0;overflow:hidden;background:var(--bg);}
   *{box-sizing:border-box;}
   body{font-family:"Work Sans",system-ui,sans-serif;color:var(--ink);-webkit-tap-highlight-color:transparent;user-select:none;}
-  #scene{position:fixed;inset:0;display:block;width:100%;height:100%;}
+  #scene{position:fixed;inset:0;display:block;width:100%;height:100%;touch-action:none;cursor:grab;}
+  #scene.dragging{cursor:grabbing;}
+  #scene.hover{cursor:pointer;}
 
   #app{position:fixed;inset:0;pointer-events:none;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px)) 16px;display:flex;flex-direction:column;justify-content:space-between;}
 
-  header{pointer-events:auto;display:flex;flex-direction:column;gap:2px;max-width:min(380px,62vw);}
+  header{pointer-events:auto;display:flex;flex-direction:column;gap:2px;max-width:min(420px,68vw);}
   header .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);}
   header h1{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:clamp(22px,3.4vw,32px);line-height:.95;margin:2px 0 0 0;}
-
-  .pillbtn{
-    pointer-events:auto;display:inline-flex;align-items:center;gap:7px;
-    background:var(--panel-bg);border:1px solid var(--panel-border);color:var(--ink);
-    font-family:"Work Sans",sans-serif;font-weight:600;font-size:12.5px;
-    padding:9px 14px;border-radius:999px;cursor:pointer;box-shadow:var(--shadow);backdrop-filter:blur(10px);
-  }
-  #topRow{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
-  #modeBtn{margin-top:0;}
 
   #hint{
     pointer-events:none;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);
@@ -97,7 +90,12 @@
     overflow-y:auto;pointer-events:auto;
   }
   #panel.open{transform:translateX(0);}
+  #panel .topline{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
   #panel .bar{width:36px;height:5px;border-radius:99px;margin-bottom:14px;}
+  #panelClose{
+    pointer-events:auto;background:var(--chip-bg);border:1px solid var(--panel-border);color:var(--muted);
+    width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:14px;line-height:1;flex:none;
+  }
   #panel .code{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);letter-spacing:.1em;}
   #panel h2{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:27px;line-height:1;margin:5px 0 4px 0;}
   #panel .role{font-size:12.5px;color:var(--muted);margin-bottom:18px;}
@@ -105,34 +103,6 @@
   .agent-card{background:var(--chip-bg);border:1px solid var(--panel-border);border-radius:11px;padding:11px 13px;}
   .agent-card .name{font-weight:600;font-size:13.5px;margin-bottom:3px;}
   .agent-card .desc{font-size:12px;color:var(--muted);line-height:1.42;}
-
-  #lockOverlay{
-    position:fixed;inset:0;background:rgba(10,12,16,0.42);backdrop-filter:blur(3px);
-    display:flex;align-items:center;justify-content:center;pointer-events:auto;z-index:5;cursor:pointer;
-    transition:opacity .3s ease;
-  }
-  #lockOverlay.hidden{opacity:0;pointer-events:none;}
-  #lockCard{
-    background:var(--panel-bg);border:1px solid var(--panel-border);border-radius:18px;box-shadow:var(--shadow);
-    padding:22px 26px;text-align:center;max-width:280px;backdrop-filter:blur(10px);
-  }
-  #lockCard .big{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:22px;margin-bottom:6px;}
-  #lockCard .small{font-size:12.5px;color:var(--muted);line-height:1.5;}
-  #lockCard kbd{font-family:"IBM Plex Mono",monospace;background:var(--chip-bg);border:1px solid var(--panel-border);border-radius:5px;padding:1px 6px;font-size:11px;}
-
-  #joyMove,#joyLookHint{display:none;}
-  .touch #joyMove{
-    display:block;position:fixed;left:24px;bottom:calc(24px + env(safe-area-inset-bottom,0px));
-    width:108px;height:108px;border-radius:50%;background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.35);
-    pointer-events:auto;z-index:4;
-  }
-  #joyMove .nub{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.75);left:32px;top:32px;}
-  .touch #joyLookHint{
-    display:block;position:fixed;right:16px;bottom:calc(24px + env(safe-area-inset-bottom,0px));
-    font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);
-    background:var(--panel-bg);border:1px solid var(--panel-border);padding:6px 10px;border-radius:999px;
-    pointer-events:none;box-shadow:var(--shadow);
-  }
 
   @media (max-width:720px){
     #panel{top:auto;bottom:0;right:0;left:0;width:100%;height:min(56vh,480px);border-left:none;border-top:1px solid var(--panel-border);border-radius:18px 18px 0 0;transform:translateY(105%);}
@@ -148,16 +118,13 @@
 <canvas id="scene"></canvas>
 
 <div id="app">
-  <div id="topRow">
-    <header>
-      <span class="eyebrow">35 agents &middot; 7 departments</span>
-      <h1>The Studio Floor</h1>
-    </header>
-    <button class="pillbtn" id="modeBtn" type="button">Bird's-eye view</button>
-  </div>
+  <header>
+    <span class="eyebrow">35 agents &middot; 7 departments</span>
+    <h1>The Studio Floor</h1>
+  </header>
 
   <div id="bottomRow">
-    <div id="hint">WASD / drag to walk &middot; mouse to look &middot; walk up to a desk pod</div>
+    <div id="hint">drag to orbit &middot; scroll / pinch to zoom &middot; right-drag to pan &middot; click a pod</div>
     <div id="legend"></div>
   </div>
 </div>
@@ -165,30 +132,21 @@
 <canvas id="minimap" width="150" height="104"></canvas>
 
 <div id="panel">
-  <div class="bar" id="panelBar"></div>
+  <div class="topline">
+    <div class="bar" id="panelBar"></div>
+    <button id="panelClose" type="button" aria-label="Close">&#10005;</button>
+  </div>
   <div class="code" id="panelCode"></div>
   <h2 id="panelTitle"></h2>
   <div class="role" id="panelSub"></div>
   <div class="agents" id="panelAgents"></div>
 </div>
 
-<div id="lockOverlay">
-  <div id="lockCard">
-    <div class="big">Step onto the floor</div>
-    <div class="small">Click anywhere to look around.<br><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> to walk, mouse to look, <kbd>Esc</kbd> to release.</div>
-  </div>
-</div>
-
-<div id="joyMove"><div class="nub"></div></div>
-<div id="joyLookHint">drag here to look</div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
   "use strict";
   var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
-  if(isTouch) document.body.classList.add("touch");
 
   // ---------------- data ----------------
   var DEPARTMENTS = [
@@ -251,7 +209,6 @@
   ];
 
   var BUILD_HX = 16.2, BUILD_HZ = 11.2, WALL_T = 0.3, WALL_H = 4.3;
-  var EYE_H = 1.62, PLAYER_R = 0.38;
 
   // ---------------- renderer / scene ----------------
   var canvas = document.getElementById("scene");
@@ -269,7 +226,7 @@
   renderer.setClearColor(readBG(), 1);
 
   var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(62, innerWidth/innerHeight, 0.05, 200);
+  var camera = new THREE.PerspectiveCamera(52, innerWidth/innerHeight, 0.05, 200);
 
   function resize(){
     renderer.setSize(innerWidth, innerHeight);
@@ -354,9 +311,16 @@
     for(var b=0;b<5;b++) ctx.fillRect(8+b*22, h-14, 14, 10);
   }, 128,80,1,1);
 
-  // ---------------- obstacles (AABB) ----------------
-  var obstacles = [];
-  function addObstacle(minX,maxX,minZ,maxZ){ obstacles.push({minX:minX,maxX:maxX,minZ:minZ,maxZ:maxZ}); }
+  // ---------------- clickable zones (dept bounding rects) ----------------
+  var zones = [];
+  function registerZone(dept,minX,maxX,minZ,maxZ){ zones.push({dept:dept,minX:minX,maxX:maxX,minZ:minZ,maxZ:maxZ}); }
+  function zoneAtPoint(x,z){
+    for(var i=0;i<zones.length;i++){
+      var zn = zones[i];
+      if(x>=zn.minX && x<=zn.maxX && z>=zn.minZ && z<=zn.maxZ) return zn.dept;
+    }
+    return null;
+  }
 
   // ---------------- materials ----------------
   var brickMat = new THREE.MeshStandardMaterial({map:brickTex, roughness:0.92});
@@ -382,13 +346,11 @@
     scene.add(m);
     return m;
   }
-  // perimeter: north/south (x-run) and east/west (z-run), each split around a window band left as texture (visual only)
   wallBox(BUILD_HX*2, WALL_H, WALL_T, 0, WALL_H/2, -BUILD_HZ, brickMat);
   wallBox(BUILD_HX*2, WALL_H, WALL_T, 0, WALL_H/2, BUILD_HZ, brickMat);
   wallBox(WALL_T, WALL_H, BUILD_HZ*2, -BUILD_HX, WALL_H/2, 0, brickMat);
   wallBox(WALL_T, WALL_H, BUILD_HZ*2, BUILD_HX, WALL_H/2, 0, brickMat);
 
-  // windows along east/west walls
   function windowUnit(x,z,rotY){
     var g = new THREE.Group();
     g.position.set(x,0,z); g.rotation.y = rotY;
@@ -409,7 +371,6 @@
   [-7,0,7].forEach(function(zz){ windowUnit(-BUILD_HX+0.02, zz, Math.PI/2); windowUnit(BUILD_HX-0.02, zz, -Math.PI/2); });
   [-6,6].forEach(function(xx){ windowUnit(xx, -BUILD_HZ+0.02, 0); });
 
-  // ceiling trusses + pendant lights
   var pendantPositions = [];
   for(var tz=-8; tz<=8; tz+=4){
     var beam = new THREE.Mesh(new THREE.BoxGeometry(BUILD_HX*2-0.4, 0.22, 0.28), trussMat);
@@ -525,7 +486,7 @@
     var sign = makeSign(dept.name, 2.5, 0);
     sign.position.x = dept.x; sign.position.z = dept.z - 1.5;
     scene.add(sign);
-    addObstacle(dept.x + startX - 0.9, dept.x - startX + 0.9, dept.z - 1.4, dept.z + 1.05);
+    registerZone(dept, dept.x + startX - 0.9, dept.x - startX + 0.9, dept.z - 1.4, dept.z + 1.05);
   }
 
   function buildBoardroom(dept){
@@ -533,7 +494,6 @@
     function pw(w,h,d,x,y,z){ var m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), glassMat); m.position.set(x,y,z); scene.add(m); return m; }
     function frameLine(w,h,d,x,y,z){ var m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), frameMat); m.position.set(x,y,z); scene.add(m); }
     var cx = dept.x, cz = dept.z;
-    // back + sides solid glass, front has an entrance gap
     pw(hw*2, wallH, 0.06, cx, wallH/2, cz-hd);
     pw(0.06, wallH, hd*2, cx-hw, wallH/2, cz);
     pw(0.06, wallH, hd*2, cx+hw, wallH/2, cz);
@@ -562,11 +522,7 @@
     sign.position.x = cx; sign.position.z = cz - hd + 0.4;
     scene.add(sign);
 
-    addObstacle(cx-hw-0.15, cx+hw+0.15, cz-hd-0.15, cz-0.1);
-    addObstacle(cx-hw-0.15, cx-hw+0.15, cz-hd-0.15, cz+hd+0.15);
-    addObstacle(cx+hw-0.15, cx+hw+0.15, cz-hd-0.15, cz+hd+0.15);
-    addObstacle(cx-hw-0.15, cx-(gap/2)-0.1, cz+hd-0.15, cz+hd+0.15);
-    addObstacle(cx+(gap/2)+0.1, cx+hw+0.15, cz+hd-0.15, cz+hd+0.15);
+    registerZone(dept, cx-hw-0.2, cx+hw+0.2, cz-hd-0.2, cz+hd+0.2);
   }
 
   function buildLounge(){
@@ -612,127 +568,142 @@
     var sign = makeSign("Break Room", 2.4, 0);
     sign.position.set(cx-0.3, 2.4, cz-2.0);
     scene.add(sign);
-
-    addObstacle(cx-3.1,cx+3.1,cz-1.9,cz+2.0);
   }
 
   DEPARTMENTS.forEach(function(d){ if(d.boardroom) buildBoardroom(d); else buildDeskPod(d); });
   buildLounge();
 
-  // perimeter clamp bounds (used directly, not as obstacle list)
-  var CLAMP_X = BUILD_HX - WALL_T - PLAYER_R - 0.05;
-  var CLAMP_Z = BUILD_HZ - WALL_T - PLAYER_R - 0.05;
+  // ---------------- orbit camera (full manual control) ----------------
+  var orbit = { target:new THREE.Vector3(0,0.4,0), radius:27, theta:0.55, phi:0.82 };
+  var MIN_R=3.2, MAX_R=42, MIN_PHI=0.12, MAX_PHI=1.52;
+  var PAN_HX = BUILD_HX-0.5, PAN_HZ = BUILD_HZ-0.5;
 
-  // ---------------- avatar-less first person player ----------------
-  var player = { x:0, z: BUILD_HZ-2.2, yaw:0, pitch:0 };
-  var UPV = new THREE.Vector3(0,1,0);
-  var tmpF = new THREE.Vector3(), tmpR = new THREE.Vector3();
-  function forwardVec(yaw){ tmpF.set(0,0,-1).applyAxisAngle(UPV, yaw); return tmpF; }
-  function rightVec(yaw){ tmpR.set(1,0,0).applyAxisAngle(UPV, yaw); return tmpR; }
+  function applyOrbit(){
+    var st = Math.sin(orbit.phi);
+    camera.position.set(
+      orbit.target.x + orbit.radius*st*Math.sin(orbit.theta),
+      orbit.target.y + orbit.radius*Math.cos(orbit.phi),
+      orbit.target.z + orbit.radius*st*Math.cos(orbit.theta)
+    );
+    camera.lookAt(orbit.target);
+  }
+  applyOrbit();
 
-  function resolveCollisions(x,z){
-    for(var iter=0; iter<3; iter++){
-      for(var i=0;i<obstacles.length;i++){
-        var o = obstacles[i];
-        var cx = Math.max(o.minX, Math.min(x, o.maxX));
-        var cz = Math.max(o.minZ, Math.min(z, o.maxZ));
-        var dx = x-cx, dz = z-cz;
-        var distSq = dx*dx+dz*dz;
-        if(distSq < PLAYER_R*PLAYER_R){
-          var dist = Math.sqrt(distSq);
-          if(dist < 1e-5){
-            var overL = x-o.minX, overR = o.maxX-x, overT = z-o.minZ, overB = o.maxZ-z;
-            var minOver = Math.min(overL,overR,overT,overB);
-            if(minOver===overL) x = o.minX - PLAYER_R;
-            else if(minOver===overR) x = o.maxX + PLAYER_R;
-            else if(minOver===overT) z = o.minZ - PLAYER_R;
-            else z = o.maxZ + PLAYER_R;
-          } else {
-            var push = (PLAYER_R-dist)/dist;
-            x += dx*push; z += dz*push;
-          }
+  var orbitAnim = null;
+  function focusOn(dept){
+    orbitAnim = {
+      t0: performance.now(), dur: prefersReducedMotion?1:750,
+      fromTarget: orbit.target.clone(), toTarget: new THREE.Vector3(dept.x, 0.4, dept.z),
+      fromRadius: orbit.radius, toRadius: dept.boardroom ? 13 : 9,
+      fromPhi: orbit.phi, toPhi: 0.72
+    };
+    openPanel(dept);
+    updateLegendActive(dept);
+  }
+
+  // ---------------- pointer controls ----------------
+  var pointers = new Map();
+  var twoFinger = null;
+  var downInfo = null;
+  var userInteracted = false;
+  var raycaster = new THREE.Raycaster();
+
+  function ndcFrom(x,y){ return { x:(x/innerWidth)*2-1, y:-(y/innerHeight)*2+1 }; }
+
+  function doRotate(dx,dy){
+    orbit.theta -= dx*0.0052;
+    orbit.phi -= dy*0.0052;
+    orbit.phi = Math.max(MIN_PHI, Math.min(MAX_PHI, orbit.phi));
+  }
+  function doPan(dx,dy){
+    var s = orbit.radius*0.0016;
+    var rx = Math.cos(orbit.theta), rz = -Math.sin(orbit.theta);
+    var fx = Math.sin(orbit.theta), fz = Math.cos(orbit.theta);
+    orbit.target.x -= (rx*dx - fx*dy)*s;
+    orbit.target.z -= (rz*dx - fz*dy)*s;
+    orbit.target.x = Math.max(-PAN_HX, Math.min(PAN_HX, orbit.target.x));
+    orbit.target.z = Math.max(-PAN_HZ, Math.min(PAN_HZ, orbit.target.z));
+  }
+  function doZoom(factor){
+    orbit.radius = Math.max(MIN_R, Math.min(MAX_R, orbit.radius*factor));
+  }
+
+  canvas.addEventListener("contextmenu", function(e){ e.preventDefault(); });
+
+  canvas.addEventListener("pointerdown", function(e){
+    userInteracted = true;
+    orbitAnim = null;
+    canvas.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, {x:e.clientX, y:e.clientY, button:e.button});
+    canvas.classList.add("dragging");
+    if(pointers.size === 1){
+      downInfo = {id:e.pointerId, x:e.clientX, y:e.clientY, t:performance.now(), moved:false, button:e.button};
+    } else {
+      if(downInfo) downInfo.moved = true;
+      twoFinger = null;
+    }
+  });
+
+  canvas.addEventListener("pointermove", function(e){
+    if(!pointers.has(e.pointerId)){
+      // hover cursor feedback when not dragging
+      if(pointers.size===0){
+        var ndc = ndcFrom(e.clientX,e.clientY);
+        raycaster.setFromCamera(ndc, camera);
+        var hit = raycaster.intersectObject(floor)[0];
+        canvas.classList.toggle("hover", !!(hit && zoneAtPoint(hit.point.x, hit.point.z)));
+      }
+      return;
+    }
+    var entry = pointers.get(e.pointerId);
+    var dx = e.clientX - entry.x, dy = e.clientY - entry.y;
+    entry.x = e.clientX; entry.y = e.clientY;
+
+    if(downInfo && downInfo.id===e.pointerId){
+      if(Math.hypot(e.clientX-downInfo.x, e.clientY-downInfo.y) > 6) downInfo.moved = true;
+    }
+
+    if(pointers.size === 1){
+      if(entry.button === 2) doPan(dx,dy); else doRotate(dx,dy);
+    } else if(pointers.size === 2){
+      var pts = Array.from(pointers.values());
+      var dist = Math.hypot(pts[0].x-pts[1].x, pts[0].y-pts[1].y);
+      var midX = (pts[0].x+pts[1].x)/2, midY = (pts[0].y+pts[1].y)/2;
+      if(twoFinger){
+        if(twoFinger.prevDist > 1) doZoom(twoFinger.prevDist/dist);
+        doPan(midX-twoFinger.prevMidX, midY-twoFinger.prevMidY);
+      }
+      twoFinger = {prevDist:dist, prevMidX:midX, prevMidY:midY};
+    }
+  });
+
+  function endPointer(e){
+    var wasDown = downInfo && downInfo.id===e.pointerId;
+    pointers.delete(e.pointerId);
+    if(pointers.size < 2) twoFinger = null;
+    if(pointers.size === 0) canvas.classList.remove("dragging");
+    if(wasDown){
+      if(!downInfo.moved && downInfo.button!==2 && (performance.now()-downInfo.t)<400){
+        var ndc = ndcFrom(downInfo.x, downInfo.y);
+        raycaster.setFromCamera(ndc, camera);
+        var hit = raycaster.intersectObject(floor)[0];
+        if(hit){
+          var dept = zoneAtPoint(hit.point.x, hit.point.z);
+          if(dept) focusOn(dept);
         }
       }
+      downInfo = null;
     }
-    x = Math.max(-CLAMP_X, Math.min(CLAMP_X, x));
-    z = Math.max(-CLAMP_Z, Math.min(CLAMP_Z, z));
-    return [x,z];
   }
+  canvas.addEventListener("pointerup", endPointer);
+  canvas.addEventListener("pointercancel", endPointer);
 
-  // ---------------- input: desktop pointer lock ----------------
-  var keys = {};
-  var lockOverlay = document.getElementById("lockOverlay");
-  var pointerLocked = false;
-
-  if(!isTouch){
-    window.addEventListener("keydown", function(e){ keys[e.code]=true; });
-    window.addEventListener("keyup", function(e){ keys[e.code]=false; });
-    lockOverlay.addEventListener("click", function(){
-      canvas.requestPointerLock = canvas.requestPointerLock || canvas.mozRequestPointerLock;
-      if(canvas.requestPointerLock) canvas.requestPointerLock();
-    });
-    document.addEventListener("pointerlockchange", function(){
-      pointerLocked = (document.pointerLockElement === canvas);
-      lockOverlay.classList.toggle("hidden", pointerLocked);
-      document.getElementById("hint").classList.toggle("hidden", pointerLocked);
-    });
-    document.addEventListener("mousemove", function(e){
-      if(!pointerLocked || mode!=="walk") return;
-      player.yaw -= (e.movementX||0) * 0.0026;
-      player.pitch -= (e.movementY||0) * 0.0026;
-      player.pitch = Math.max(-1.3, Math.min(1.3, player.pitch));
-    });
-  } else {
-    lockOverlay.classList.add("hidden");
-  }
-
-  // ---------------- input: touch joysticks ----------------
-  var moveVec = {x:0,y:0};
-  var joyEl = document.getElementById("joyMove");
-  var joyNub = joyEl.querySelector(".nub");
-  var moveTouchId = null, moveOrigin = {x:0,y:0};
-  var lookTouchId = null, lookLast = {x:0,y:0};
-
-  canvas.addEventListener("touchstart", function(e){
-    for(var i=0;i<e.changedTouches.length;i++){
-      var t = e.changedTouches[i];
-      if(t.clientX < innerWidth*0.5 && moveTouchId===null){
-        moveTouchId = t.identifier;
-        moveOrigin = {x:t.clientX, y:t.clientY};
-      } else if(t.clientX >= innerWidth*0.5 && lookTouchId===null){
-        lookTouchId = t.identifier;
-        lookLast = {x:t.clientX, y:t.clientY};
-      }
-    }
-  }, {passive:true});
-  canvas.addEventListener("touchmove", function(e){
-    for(var i=0;i<e.changedTouches.length;i++){
-      var t = e.changedTouches[i];
-      if(t.identifier === moveTouchId){
-        var dx = t.clientX-moveOrigin.x, dy = t.clientY-moveOrigin.y;
-        var max = 46;
-        var d = Math.min(max, Math.hypot(dx,dy));
-        var ang = Math.atan2(dy,dx);
-        moveVec.x = Math.cos(ang)*d/max;
-        moveVec.y = Math.sin(ang)*d/max;
-        joyNub.style.left = (32+Math.cos(ang)*d*0.5)+"px";
-        joyNub.style.top = (32+Math.sin(ang)*d*0.5)+"px";
-      } else if(t.identifier === lookTouchId && mode==="walk"){
-        var ddx = t.clientX-lookLast.x, ddy = t.clientY-lookLast.y;
-        lookLast = {x:t.clientX,y:t.clientY};
-        player.yaw -= ddx*0.005;
-        player.pitch -= ddy*0.005;
-        player.pitch = Math.max(-1.3, Math.min(1.3, player.pitch));
-      }
-    }
-  }, {passive:true});
-  canvas.addEventListener("touchend", function(e){
-    for(var i=0;i<e.changedTouches.length;i++){
-      var t = e.changedTouches[i];
-      if(t.identifier === moveTouchId){ moveTouchId=null; moveVec={x:0,y:0}; joyNub.style.left="32px"; joyNub.style.top="32px"; }
-      if(t.identifier === lookTouchId){ lookTouchId=null; }
-    }
-  }, {passive:true});
+  canvas.addEventListener("wheel", function(e){
+    e.preventDefault();
+    userInteracted = true;
+    orbitAnim = null;
+    doZoom(1 + e.deltaY*0.0012);
+  }, {passive:false});
 
   // ---------------- theme sync ----------------
   var mql = window.matchMedia("(prefers-color-scheme: dark)");
@@ -740,49 +711,23 @@
   mql.addEventListener && mql.addEventListener("change", syncClearColor);
   new MutationObserver(syncClearColor).observe(document.documentElement, {attributes:true, attributeFilter:["data-theme"]});
 
-  // ---------------- mode: walk / bird's-eye ----------------
-  var mode = "walk";
-  var birdYaw = 0.6, birdDrag=false, birdLastX=0;
-  var modeBtn = document.getElementById("modeBtn");
-  modeBtn.addEventListener("click", function(){
-    mode = (mode==="walk") ? "birdseye" : "walk";
-    modeBtn.textContent = mode==="walk" ? "Bird's-eye view" : "Walk the floor";
-    if(mode==="walk" && !isTouch && !pointerLocked) lockOverlay.classList.remove("hidden");
-    if(mode==="birdseye") lockOverlay.classList.add("hidden");
-  });
-  canvas.addEventListener("pointerdown", function(e){ if(mode==="birdseye"){ birdDrag=true; birdLastX = e.clientX; } });
-  window.addEventListener("pointerup", function(){ birdDrag=false; });
-  window.addEventListener("pointermove", function(e){ if(birdDrag && mode==="birdseye"){ birdYaw += (e.clientX-birdLastX)*0.005; birdLastX = e.clientX; } });
-
-  // ---------------- legend / autowalk ----------------
+  // ---------------- legend ----------------
   var legend = document.getElementById("legend");
-  var autowalk = null; // {path:[{x,z}], idx}
   DEPARTMENTS.forEach(function(dept){
     var btn = document.createElement("button");
     var dot = document.createElement("span"); dot.className="dot"; dot.style.background="var("+dept.cssVar+")";
     var label = document.createElement("span"); label.textContent = dept.code+" · "+dept.name;
     btn.appendChild(dot); btn.appendChild(label);
     btn.type="button";
-    btn.addEventListener("click", function(){
-      var target = {x:dept.x, z: dept.boardroom ? dept.z+2.6 : dept.z+1.7};
-      autowalk = { path:[ {x:0,z:player.z}, {x:0,z:target.z}, {x:target.x,z:target.z} ], idx:0 };
-      if(mode==="birdseye"){ mode="walk"; modeBtn.textContent="Bird's-eye view"; }
-    });
+    btn.addEventListener("click", function(){ userInteracted = true; focusOn(dept); });
     legend.appendChild(btn);
   });
-
-  // ---------------- proximity panel ----------------
-  var panel = document.getElementById("panel");
-  var currentZone = null;
-  function zoneAt(x,z){
-    for(var i=0;i<DEPARTMENTS.length;i++){
-      var d = DEPARTMENTS[i];
-      var hw = d.boardroom?5.2:(d.agents.length*1.55/2+1.1);
-      var hd = d.boardroom?3.6:2.0;
-      if(Math.abs(x-d.x)<hw && Math.abs(z-d.z)<hd) return d;
-    }
-    return null;
+  function updateLegendActive(dept){
+    Array.prototype.forEach.call(legend.children, function(btn,i){ btn.classList.toggle("active", DEPARTMENTS[i].id===dept.id); });
   }
+
+  // ---------------- panel ----------------
+  var panel = document.getElementById("panel");
   function openPanel(dept){
     document.getElementById("panelBar").style.background = "var("+dept.cssVar+")";
     document.getElementById("panelCode").textContent = "ROOM "+dept.code;
@@ -797,7 +742,13 @@
       el.appendChild(n); el.appendChild(de); wrap.appendChild(el);
     });
     panel.classList.add("open");
+    document.getElementById("hint").classList.add("hidden");
   }
+  document.getElementById("panelClose").addEventListener("click", function(){
+    panel.classList.remove("open");
+    Array.prototype.forEach.call(legend.children, function(btn){ btn.classList.remove("active"); });
+  });
+
   // ---------------- minimap ----------------
   var mmCanvas = document.getElementById("minimap");
   var mmCtx = mmCanvas.getContext("2d");
@@ -814,83 +765,33 @@
       mmCtx.fillRect(9+(d.x+BUILD_HX-hw)*mmScale, 9+(d.z+BUILD_HZ-hd)*mmScale, hw*2*mmScale, hd*2*mmScale);
       mmCtx.globalAlpha = 1;
     });
-    var px = 9+(player.x+BUILD_HX)*mmScale, pz = 9+(player.z+BUILD_HZ)*mmScale;
-    mmCtx.save();
-    mmCtx.translate(px,pz); mmCtx.rotate(player.yaw);
+    var tx = 9+(orbit.target.x+BUILD_HX)*mmScale, tz = 9+(orbit.target.z+BUILD_HZ)*mmScale;
+    var camX = 9+(camera.position.x+BUILD_HX)*mmScale, camZ = 9+(camera.position.z+BUILD_HZ)*mmScale;
+    mmCtx.strokeStyle = "rgba(27,32,39,0.55)"; mmCtx.lineWidth = 1.5;
+    mmCtx.beginPath(); mmCtx.moveTo(tx,tz); mmCtx.lineTo(camX,camZ); mmCtx.stroke();
     mmCtx.fillStyle = "#1B2027";
-    mmCtx.beginPath(); mmCtx.moveTo(0,-6); mmCtx.lineTo(4,5); mmCtx.lineTo(-4,5); mmCtx.closePath(); mmCtx.fill();
-    mmCtx.restore();
+    mmCtx.beginPath(); mmCtx.arc(tx,tz,4,0,Math.PI*2); mmCtx.fill();
   }
 
   // ---------------- main loop ----------------
   var clock = new THREE.Clock();
-  var walkTime = 0;
+  function easeInOut(t){ return t<0.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2; }
   function frame(){
     requestAnimationFrame(frame);
     var dt = Math.min(0.05, clock.getDelta());
 
-    if(mode==="walk"){
-      var mvx=0, mvz=0;
-      if(!isTouch){
-        if(keys["KeyW"]||keys["ArrowUp"]) mvz -= 1;
-        if(keys["KeyS"]||keys["ArrowDown"]) mvz += 1;
-        if(keys["KeyA"]||keys["ArrowLeft"]) mvx -= 1;
-        if(keys["KeyD"]||keys["ArrowRight"]) mvx += 1;
-      } else {
-        mvx = moveVec.x; mvz = moveVec.y;
-      }
-
-      var manualInput = Math.abs(mvx)>0.05 || Math.abs(mvz)>0.05;
-      if(manualInput) autowalk = null;
-
-      var speed = ((!isTouch && keys["ShiftLeft"]) ? 5.6 : 3.3);
-      var f = forwardVec(player.yaw), r = rightVec(player.yaw);
-      var mlen = Math.hypot(mvx,mvz) || 1;
-      var nx=0,nz=0;
-
-      if(autowalk){
-        var wp = autowalk.path[autowalk.idx];
-        var ddx = wp.x-player.x, ddz = wp.z-player.z;
-        var dd = Math.hypot(ddx,ddz);
-        if(dd < 0.15){
-          autowalk.idx++;
-          if(autowalk.idx >= autowalk.path.length) autowalk = null;
-        } else {
-          nx = (ddx/dd)*speed*dt; nz = (ddz/dd)*speed*dt;
-          var targetYaw = Math.atan2(-ddx, -ddz);
-          var yawDiff = ((targetYaw - player.yaw + Math.PI) % (Math.PI*2) + Math.PI*2) % (Math.PI*2) - Math.PI;
-          player.yaw += yawDiff * Math.min(1, dt*4);
-        }
-      } else if(manualInput){
-        nx = (f.x*(-mvz/mlen) + r.x*(mvx/mlen)) * speed * dt;
-        nz = (f.z*(-mvz/mlen) + r.z*(mvx/mlen)) * speed * dt;
-      }
-
-      if(nx||nz){
-        var res = resolveCollisions(player.x+nx, player.z+nz);
-        player.x = res[0]; player.z = res[1];
-        walkTime += dt;
-      }
-
-      var bob = (!prefersReducedMotion && (nx||nz)) ? Math.sin(walkTime*9)*0.02 : 0;
-      camera.position.set(player.x, EYE_H+bob, player.z);
-      var euler = new THREE.Euler(player.pitch, player.yaw, 0, "YXZ");
-      camera.quaternion.setFromEuler(euler);
-
-      var zone = zoneAt(player.x, player.z);
-      if(zone !== currentZone){
-        currentZone = zone;
-        if(zone){ openPanel(zone); } else { panel.classList.remove("open"); }
-        Array.prototype.forEach.call(legend.children, function(btn,i){ btn.classList.toggle("active", zone && DEPARTMENTS[i].id===zone.id); });
-      }
-    } else {
-      // bird's-eye
-      if(!prefersReducedMotion && !birdDrag) birdYaw += dt*0.09;
-      var radius = 24, elev = 20;
-      camera.position.set(Math.sin(birdYaw)*radius, elev, Math.cos(birdYaw)*radius);
-      camera.lookAt(0,0,0);
+    if(orbitAnim){
+      var t = Math.min(1, (performance.now()-orbitAnim.t0)/orbitAnim.dur);
+      var e = easeInOut(t);
+      orbit.target.lerpVectors(orbitAnim.fromTarget, orbitAnim.toTarget, e);
+      orbit.radius = orbitAnim.fromRadius + (orbitAnim.toRadius-orbitAnim.fromRadius)*e;
+      orbit.phi = orbitAnim.fromPhi + (orbitAnim.toPhi-orbitAnim.fromPhi)*e;
+      if(t>=1) orbitAnim = null;
+    } else if(!userInteracted && !prefersReducedMotion){
+      orbit.theta += dt*0.06;
     }
 
+    applyOrbit();
     drawMinimap();
     renderer.render(scene, camera);
   }
