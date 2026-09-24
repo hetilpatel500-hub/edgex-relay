@@ -369,7 +369,7 @@
 
     // ---------------- Edgex Clips: the video/social content wing, connected
     // south of Last Touch, same 40-agent-studio conventions throughout ----------------
-    { id:"trend-intel", code:"08", name:"Trend Intelligence", tag:"Finds what's trending, right now", cssVar:"--a-research", hex:0x1F9690, x:-8.5, z:7.25, group:"C", row:0,
+    { id:"trend-intel", code:"08", name:"Trend Intelligence", tag:"Finds what's trending, right now", cssVar:"--a-research", hex:0x1F9690, x:-8.5, z:15.25, group:"C", row:0,
       agents:[
         {name:"Video Trend Scout", desc:"Scans YouTube/TikTok/Instagram/Facebook for real current trends and turns them into video concepts."},
         {name:"Streamer & Influencer Monitor", desc:"Tracks notable streamer/influencer moments and controversies as they break."},
@@ -377,7 +377,7 @@
         {name:"Audio/Sound Trend Tracker", desc:"Tracks trending sounds and music on TikTok/Reels specifically."},
         {name:"Niche Opportunity Scout (Video)", desc:"Finds underserved content niches worth a recurring series."}
       ]},
-    { id:"clip-rights", code:"09", name:"Clip Sourcing & Rights", tag:"Finds footage, decides what's safe to use", cssVar:"--a-research", hex:0x1F9690, x:-8.5, z:8.85, group:"C", row:1,
+    { id:"clip-rights", code:"09", name:"Clip Sourcing & Rights", tag:"Finds footage, decides what's safe to use", cssVar:"--a-research", hex:0x1F9690, x:-8.5, z:16.85, group:"C", row:1,
       agents:[
         {name:"Clip Research Agent", desc:"Finds the actual source footage/streams worth building commentary around."},
         {name:"Rights & Licensing Checker", desc:"The gate: decides what's safe to use and under what limits. Nothing skips this."},
@@ -385,7 +385,7 @@
         {name:"Stock/Broll Sourcing Agent", desc:"Finds licensed stock footage, music, and b-roll for original content."},
         {name:"Archive & Asset Librarian", desc:"Keeps every cleared clip and its usage rights organized and findable."}
       ]},
-    { id:"commentary", code:"10", name:"Commentary & Scripting", tag:"Writes the original commentary that makes a clip a new work", cssVar:"--a-research", hex:0x1F9690, x:-8.5, z:10.45, group:"C", row:2,
+    { id:"commentary", code:"10", name:"Commentary & Scripting", tag:"Writes the original commentary that makes a clip a new work", cssVar:"--a-research", hex:0x1F9690, x:-8.5, z:18.45, group:"C", row:2,
       agents:[
         {name:"Commentary Scriptwriter", desc:"Writes the substantial original commentary that transforms a cleared clip."},
         {name:"Hook Writer", desc:"Crafts the first 2-3 seconds that earn the rest of the watch."},
@@ -393,7 +393,7 @@
         {name:"Video Fact-Checker", desc:"Verifies every factual claim a script makes before it moves to production."},
         {name:"Controversy Sensitivity Reviewer", desc:"Early screen on any script touching a real person or controversy."}
       ]},
-    { id:"production", code:"11", name:"Production & Editing", tag:"Builds the actual edit", cssVar:"--a-content", hex:0xD24E64, x:8.5, z:7.25, group:"D", row:0,
+    { id:"production", code:"11", name:"Production & Editing", tag:"Builds the actual edit", cssVar:"--a-content", hex:0xD24E64, x:8.5, z:15.25, group:"D", row:0,
       agents:[
         {name:"Video Editor Agent", desc:"Assembles the edit — cuts, pacing, structure — from a cleared script and clip."},
         {name:"Motion Graphics/Caption Agent", desc:"Captions and on-screen graphics; most short-form gets watched muted."},
@@ -401,7 +401,7 @@
         {name:"Sound Design Agent", desc:"Music, SFX, and audio mixing so narration always reads clearly."},
         {name:"Format Adapter Agent", desc:"Reformats one master edit into each platform's real spec."}
       ]},
-    { id:"thumbnails", code:"12", name:"Thumbnails & Titles", tag:"Earns the click, honestly", cssVar:"--a-content", hex:0xD24E64, x:8.5, z:8.85, group:"D", row:1,
+    { id:"thumbnails", code:"12", name:"Thumbnails & Titles", tag:"Earns the click, honestly", cssVar:"--a-content", hex:0xD24E64, x:8.5, z:16.85, group:"D", row:1,
       agents:[
         {name:"Thumbnail Designer", desc:"Designs thumbnails that earn a click without misleading about the video."},
         {name:"Title/Headline Writer", desc:"Writes accurate, click-worthy titles per platform."},
@@ -409,7 +409,7 @@
         {name:"Video SEO/Metadata Agent", desc:"Writes descriptions, tags, and keywords so videos actually get found."},
         {name:"Video Brand Consistency Agent", desc:"Keeps thumbnails, titles, and on-screen branding consistent."}
       ]},
-    { id:"growth-video", code:"16", name:"Growth & Community (Video)", tag:"Keeps the audience, and watches for trouble", cssVar:"--a-content", hex:0xD24E64, x:8.5, z:10.45, group:"D", row:2,
+    { id:"growth-video", code:"16", name:"Growth & Community (Video)", tag:"Keeps the audience, and watches for trouble", cssVar:"--a-content", hex:0xD24E64, x:8.5, z:18.45, group:"D", row:2,
       agents:[
         {name:"Video Comment/Reply Agent", desc:"Drafts replies to real comments across all four platforms."},
         {name:"Collab/Cross-Promotion Agent", desc:"Finds real creators worth a collab or cross-promotion."},
@@ -417,7 +417,7 @@
         {name:"Repurposing Agent", desc:"Turns one finished video into several more pieces of real content."},
         {name:"Crisis/Backlash Monitor", desc:"Watches for real negative reaction to a posted video and flags it fast."}
       ]},
-    { id:"video-lasttouch", code:"17", name:"Video Last Touch", tag:"Final check before anything reaches an audience", cssVar:"--a-lasttouch", hex:0xB8901E, x:0, z:14.275, door:["north","south"],
+    { id:"video-lasttouch", code:"17", name:"Video Last Touch", tag:"Final check before anything reaches an audience", cssVar:"--a-lasttouch", hex:0xB8901E, x:0, z:22.275, door:["north","south"],
       agents:[
         {name:"Copyright Compliance Reviewer", desc:"Confirms a video actually followed the commentary/original rule."},
         {name:"Content Policy Reviewer", desc:"Checks against each platform's actual current policy."},
@@ -425,7 +425,7 @@
         {name:"Video Brand & Tone Final Check", desc:"Confirms the finished video sounds and looks like the channel."},
         {name:"Publish Coordinator (Video)", desc:"Collects all four checks into one verdict before Chief of Staff and posting."}
       ]},
-    { id:"youtube-ops", code:"13", name:"YouTube Operations", tag:"Long-form, Shorts, and real Partner Program tracking", cssVar:"--a-sales", hex:0x2F9350, x:0, z:18.1, group:"P", row:0,
+    { id:"youtube-ops", code:"13", name:"YouTube Operations", tag:"Long-form, Shorts, and real Partner Program tracking", cssVar:"--a-sales", hex:0x2F9350, x:0, z:26.1, group:"P", row:0,
       agents:[
         {name:"YouTube Upload/Scheduling Agent", desc:"Queues cleared, approved videos for YouTube and manages the schedule."},
         {name:"YouTube Shorts Specialist", desc:"Adapts content specifically for the Shorts format and algorithm."},
@@ -433,7 +433,7 @@
         {name:"YouTube Analytics Agent", desc:"Tracks real views, retention, and CTR — turns it into next steps."},
         {name:"YouTube Monetization & Policy Agent", desc:"Tracks real Partner Program eligibility — never rounds up."}
       ]},
-    { id:"tiktok-ops", code:"14", name:"TikTok Operations", tag:"Fast trends, high posting frequency", cssVar:"--a-sales", hex:0x2F9350, x:0, z:19.7, group:"P", row:1,
+    { id:"tiktok-ops", code:"14", name:"TikTok Operations", tag:"Fast trends, high posting frequency", cssVar:"--a-sales", hex:0x2F9350, x:0, z:27.7, group:"P", row:1,
       agents:[
         {name:"TikTok Posting/Scheduling Agent", desc:"Queues cleared, approved videos for TikTok and manages the schedule."},
         {name:"TikTok Trend-Sync Agent", desc:"Fast pre-post check that a video's sound/format is still actually current."},
@@ -441,13 +441,52 @@
         {name:"TikTok Analytics Agent", desc:"Tracks real completion rate, shares, and follower growth."},
         {name:"TikTok Monetization Agent", desc:"Tracks the current Creativity Program thresholds — they change often."}
       ]},
-    { id:"meta-ops", code:"15", name:"Instagram & Facebook Operations", tag:"Reels, Stories, and Meta's own norms", cssVar:"--a-sales", hex:0x2F9350, x:0, z:21.3, group:"P", row:2,
+    { id:"meta-ops", code:"15", name:"Instagram & Facebook Operations", tag:"Reels, Stories, and Meta's own norms", cssVar:"--a-sales", hex:0x2F9350, x:0, z:29.3, group:"P", row:2,
       agents:[
         {name:"Instagram Reels Agent", desc:"Queues cleared, approved videos for Instagram Reels."},
         {name:"Instagram Feed/Story Agent", desc:"Feed posts and Stories that round out the profile."},
         {name:"Facebook Video Agent", desc:"Queues cleared, approved videos for Facebook, adapted to its own norms."},
         {name:"Meta Ads/Boost Agent", desc:"Drafts paid promotion plans — never spends; the budget exception."},
         {name:"Cross-Meta Analytics Agent", desc:"Tracks real Instagram + Facebook performance and monetization status."}
+      ]},
+
+    // ---------------- The Dispatch: 20 agents, 4 departments, sitting in
+    // the open gap between the original 40's building and Edgex Clips'
+    // wing. Keeps every one of the other 90 agents working (finds an idle
+    // one, assigns the correct next task) and, the instant it has nothing
+    // to dispatch, goes hunting for new money-making opportunities and
+    // organizes the team to build them — see DISPATCH.md. ----------------
+    { id:"task-dispatch", code:"18", name:"Task Dispatch", tag:"Never lets an idle agent sit idle", cssVar:"--a-lasttouch", hex:0xB8901E, x:-8.5, z:8.75, group:"E", row:0,
+      agents:[
+        {name:"Idle Watch Agent", desc:"Continuously scans the live status board for any agent, across all 90, sitting idle."},
+        {name:"Task Matcher Agent", desc:"Picks the correct next task for that specific idle agent's role, not just any open item."},
+        {name:"Priority Triage Agent", desc:"When multiple tasks compete for the same idle agent, decides what's actually most urgent."},
+        {name:"Handoff Verification Agent", desc:"Confirms a dispatched task actually lands with the right department, not lost in the handoff."},
+        {name:"Dispatch Log Agent", desc:"Keeps the record of every assignment — who, what, when, why — so the loop is auditable."}
+      ]},
+    { id:"capacity-queue", code:"19", name:"Capacity & Queue", tag:"Keeps a real backlog so Dispatch always has the right next task", cssVar:"--a-lasttouch", hex:0xB8901E, x:-8.5, z:10.35, group:"E", row:1,
+      agents:[
+        {name:"Backlog Curator Agent", desc:"Maintains the actual queue of ready-to-assign tasks per department, not a vague 'go find work.'"},
+        {name:"Capacity Tracker Agent", desc:"Tracks how loaded or idle every one of the 90 agents actually is, in real time."},
+        {name:"Bottleneck Spotter Agent", desc:"Flags departments that are chronically overloaded or chronically idle — a structural signal, not a one-off."},
+        {name:"Cross-Division Load Balancer", desc:"When one division is overloaded and the other has idle capacity, looks for a real, sensible way to shift help across."},
+        {name:"Queue Health Reporter", desc:"Reports honestly whether the zero-idle policy is actually holding, to Chief of Staff."}
+      ]},
+    { id:"opportunity-discovery", code:"20", name:"Opportunity Discovery", tag:"Hunts new money-making ideas the instant it's free", cssVar:"--a-sales", hex:0x2F9350, x:8.5, z:8.75, group:"F", row:0,
+      agents:[
+        {name:"Standing Opportunity Scout", desc:"Always-on version of the original Opportunity Scout — hunts new ideas the moment Dispatch has nothing to dispatch."},
+        {name:"Market Signal Agent", desc:"Watches for real market/demand shifts worth acting on — a new niche, a new platform, a new client vertical."},
+        {name:"Idea Validation Agent", desc:"Pressure-tests a new idea for real feasibility — cost, time, whether the studio already has the skills — before it goes to the team."},
+        {name:"Cross-Pollination Agent", desc:"Looks specifically for opportunities that combine both divisions' skills — ones neither division would find alone."},
+        {name:"Opportunity Logger", desc:"Writes every real idea to the opportunities board with actual backing, so nothing dies quietly."}
+      ]},
+    { id:"venture-coordination", code:"21", name:"Venture Coordination", tag:"Turns a validated idea into a cross-team build", cssVar:"--a-sales", hex:0x2F9350, x:8.5, z:10.35, group:"F", row:1,
+      agents:[
+        {name:"Venture Lead Agent", desc:"Once an idea clears validation, plans the actual cross-team build: who from which department, in what order."},
+        {name:"Team Assembly Agent", desc:"Identifies exactly which existing agents from either division fit, and requests their idle time via Dispatch."},
+        {name:"Build Tracker Agent", desc:"Tracks a venture's build end-to-end, the way Command Center tracks a deal."},
+        {name:"Launch Readiness Agent", desc:"Routes anything client-facing or public through the existing Last Touch or Video Last Touch gate before it goes live — never a new bypass."},
+        {name:"Venture Retro Agent", desc:"Once launched, checks honestly whether it's actually making money and feeds the real answer back to Opportunity Discovery."}
       ]}
   ];
   // Doors face INWARD, into the shared central corridor, so both bullpens,
@@ -457,10 +496,14 @@
   var GROUPS = {
     A: { depts:["research","content","software"], cx:-8.5, cz:-2.0, door:"east" },
     B: { depts:["sales","delivery","growth"], cx:8.5, cz:-2.0, door:"west" },
-    // Edgex Clips wing, south of Last Touch — same shared-bullpen pattern.
-    C: { depts:["trend-intel","clip-rights","commentary"], cx:-8.5, cz:8.85, door:"east" },
-    D: { depts:["production","thumbnails","growth-video"], cx:8.5, cz:8.85, door:"west" },
-    P: { depts:["youtube-ops","tiktok-ops","meta-ops"], cx:0, cz:19.7, door:"north" }
+    // The Dispatch, in the open gap south of Last Touch — same shared-bullpen
+    // pattern, 2 depts per room instead of 3.
+    E: { depts:["task-dispatch","capacity-queue"], cx:-8.5, cz:9.55, door:"east" },
+    F: { depts:["opportunity-discovery","venture-coordination"], cx:8.5, cz:9.55, door:"west" },
+    // Edgex Clips wing, further south — same shared-bullpen pattern.
+    C: { depts:["trend-intel","clip-rights","commentary"], cx:-8.5, cz:16.85, door:"east" },
+    D: { depts:["production","thumbnails","growth-video"], cx:8.5, cz:16.85, door:"west" },
+    P: { depts:["youtube-ops","tiktok-ops","meta-ops"], cx:0, cz:27.7, door:"north" }
   };
   // Each room's door as a matched inside/outside pair, both centered exactly
   // on the doorway gap. Walking home -> inside -> outside (or reverse) means
@@ -502,7 +545,7 @@
   // The building isn't square anymore — the video division's wing extends
   // the south side much further than the north, so north/south are tracked
   // separately instead of one symmetric half-depth.
-  var BUILD_HX = 23, BUILD_Z_NORTH = 14.5, BUILD_Z_SOUTH = 26.5, WALL_T = 0.3, WALL_H = 4.3;
+  var BUILD_HX = 23, BUILD_Z_NORTH = 14.5, BUILD_Z_SOUTH = 34.5, WALL_T = 0.3, WALL_H = 4.3;
   var BUILD_Z_MID = (BUILD_Z_SOUTH-BUILD_Z_NORTH)/2, BUILD_Z_SPAN = BUILD_Z_NORTH+BUILD_Z_SOUTH;
 
   // ---------------- renderer / scene ----------------
@@ -1255,16 +1298,16 @@
     [-16,4.5,0.95],[16,4.5,0.95],[0,8.5,0.9],
     [18,-8,0.85],[18,0,0.85],[18,10,0.85],[-18,10,0.85],
     [0,-2,0.8],[-4.5,4.8,0.75],[4.5,4.8,0.75],
-    [-16,15.5,0.9],[16,15.5,0.9],[0,24.8,1.0],[-9,24.5,0.85],[9,24.5,0.85]
+    [-16,23.5,0.9],[16,23.5,0.9],[0,32.8,1.0],[-9,32.5,0.85],[9,32.5,0.85]
   ].forEach(function(p){ buildPlant(p[0],p[1],p[2]); });
 
   buildCabinet(19.8,-11, Math.PI/2);
   buildCabinet(19.8,-9.3, Math.PI/2);
-  buildCabinet(19.8,18, Math.PI/2);
-  buildCabinet(19.8,19.7, Math.PI/2);
+  buildCabinet(19.8,26, Math.PI/2);
+  buildCabinet(19.8,27.7, Math.PI/2);
   buildWaterCooler(0,-12.8);
   buildWaterCooler(0,6.2);
-  buildWaterCooler(-16,20);
+  buildWaterCooler(-16,28);
 
   // a couple of people walking the aisles, so the floor doesn't feel frozen
   var walkers = [];
@@ -1275,12 +1318,12 @@
     walkers.push({group:g, a:{x:x1,z:z1}, b:{x:x2,z:z2}, t:Math.random(), dir:1, speed:speed});
   }
   addWalker(-18,-13, 18,-13, 0.045);
-  addWalker(18,24.5, -18,24.5, 0.04);
+  addWalker(18,32.5, -18,32.5, 0.04);
   addWalker(-18,9, -13.5,9, 0.035);
   addWalker(13.5,9, 18,9, 0.035);
 
   // ---------------- orbit camera (full manual control) ----------------
-  var DEFAULT_ORBIT = { target:new THREE.Vector3(0,0.4,0), radius:29, theta:0.55, phi:0.82 };
+  var DEFAULT_ORBIT = { target:new THREE.Vector3(0,0.4,4), radius:33, theta:0.55, phi:0.82 };
   var orbit = { target:DEFAULT_ORBIT.target.clone(), radius:DEFAULT_ORBIT.radius, theta:DEFAULT_ORBIT.theta, phi:DEFAULT_ORBIT.phi };
   var targetRadius = orbit.radius;
   var MIN_R=3.2, MAX_R=48, MIN_PHI=0.08, MAX_PHI=1.55;
@@ -1953,7 +1996,7 @@
   }
 
   var nextCollabAt = 5 + Math.random()*5;
-  var ROOM_KEYS = ["A","B","lasttouch","strategy","C","D","P","video-lasttouch"];
+  var ROOM_KEYS = ["A","B","lasttouch","strategy","C","D","P","video-lasttouch","E","F"];
   function maybeStartCollaboration(){
     if(prefersReducedMotion || ALL_AGENTS.length===0) return;
     var roll = Math.random();

@@ -1,6 +1,6 @@
 # AI Workforce — Deal Desk
 
-**90 agents across 18 departments**, in two connected divisions:
+**110 agents across 22 departments**, in three divisions:
 
 - **The original 40** — the studio playbook's 35 plus **Last Touch**
   (5 agents: grammar, visual/formatting, tone/sensitivity, brand
@@ -15,8 +15,19 @@
   and TikTok, aiming for real ad-revenue/creator-fund payouts. Read
   **`VIDEO-DESK.md`** first — it has this division's one hard rule
   (commentary/original only, never a raw repost) and its own 5-agent
-  **Video Last Touch** gate. Connected to the original 40's building via
-  Last Touch's second door — see `office/index.html`.
+  **Video Last Touch** gate.
+- **The Dispatch (20 agents, added 2026-09-24)** — keeps every one of
+  the other 90 agents working (finds an idle agent, assigns the correct
+  next task) and, the instant it has nothing to dispatch, hunts new
+  money-making opportunities and organizes the team to build them. Read
+  **`DISPATCH.md`** first. Physically sits in the real gap between the
+  other two divisions' buildings — see `office/index.html` and the note
+  below.
+
+The office is no longer one zero-gap building end to end: there's now a
+real, visible gap between the original 40's building and Edgex Clips'
+wing, with The Dispatch's own building sitting in that gap — three
+distinct structures, not one sprawling complex.
 
 **Updated 2026-09-24, per the owner's direct instruction:** agents no
 longer wait for the owner's personal sign-off before sending an email,
@@ -157,3 +168,27 @@ detail in `VIDEO-DESK.md`; the short version:
   agent tracks the platform's actual payout eligibility (YouTube
   Partner Program, TikTok Creativity Program, Meta bonuses) rather than
   rounding up "views" into "money."
+
+## The Dispatch — the other 20
+
+A third division, physically sitting between the original 40's building
+and Edgex Clips' wing (with a real gap on both sides — see
+`office/index.html`), keeps the other 90 agents working and hunts new
+revenue in its own idle time. Full detail in `DISPATCH.md`; the short
+version:
+
+- **4 departments, 20 agents**: Task Dispatch (finds an idle agent,
+  assigns the correct next task), Capacity & Queue (maintains a real
+  backlog so the match is actually right), Opportunity Discovery
+  (always-on opportunity-hunting, the instant Dispatch has nothing to
+  dispatch), and Venture Coordination (turns a validated idea into a
+  real cross-team build).
+- **No new approval gate**: anything a venture produces still clears
+  the relevant division's own Last Touch or Video Last Touch, then
+  Chief of Staff, then the weekly budget process for any real spend —
+  Launch Readiness Agent's whole job is routing to the gate that
+  already exists, never a shortcut around it.
+- **Chief of Staff still sets priorities and approves/denies**; Task
+  Dispatch now handles the moment-to-moment mechanics of who works on
+  what next, escalating only genuine judgment calls (see
+  `chief-of-staff.md`).
