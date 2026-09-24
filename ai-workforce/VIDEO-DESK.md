@@ -158,6 +158,21 @@ this specifically before anything clears, the same way it checks tone
 and branding — a single-image "video" fails that check and goes back
 to Video Editor Agent, full stop.
 
+## A render has to actually exist — updated 2026-09-24
+
+**Publish Coordinator (Video) verifies a real `vidiq_compose` job actually
+completed — with a real `videoUrl` and matching duration/resolution —
+before clearing anything, every time, no exceptions.** This gap let
+Edgex Clips' first video ("Is this the biggest mistake in streaming
+history?") get marked CLEARED and approved for YouTube posting with no
+compose job behind it at all — a script, edit plan, voiceover, and
+thumbnail existed, but nobody ever actually assembled them into a video,
+and Video Last Touch approved it anyway because every check was about
+tone/copyright/policy/defamation, never "does this file exist." See
+`agents/publish-coordinator-video.md` for the mechanics (it now has free,
+0-credit `vidiq_jobs_list`/`vidiq_job_poll` access specifically to check
+this itself, not take Video Editor Agent's word for it).
+
 ## What this division does NOT do
 
 - Never posts a raw, minimally-transformed clip, regardless of how
