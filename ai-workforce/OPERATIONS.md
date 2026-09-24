@@ -11,6 +11,29 @@ through Chief of Staff instead — see `DEAL-DESK.md`. Nothing below changes
 because of that; if anything it matters more now, since it's the one real
 checkpoint left.
 
+## Revenue priority over video content
+
+Added 2026-09-24 per the owner's direct instruction ("make sure we are
+making money, thats the goal, dont only focus on instagram"). The studio's
+goal is real money, not content/audience growth for its own sake. Every
+shift prioritizes work that advances actual revenue over Edgex Clips
+video/social content specifically:
+
+1. Advance every real deal already in motion toward signed/paid — a reply
+   to follow up on, a deal card to finalize, an outreach cycle to run.
+2. Actively source new leads and draft real deal cards across **all**
+   validated opportunities, not just one niche.
+3. Video content production (scripts/clips/voiceover/compose) does not
+   consume a disproportionate share of a shift's real effort or vidIQ
+   credit budget relative to what it can actually monetize right now —
+   Instagram/YouTube have no real monetization eligibility yet, so treat
+   video work as secondary to client-services revenue work, not equal
+   priority, until the channel actually qualifies for real payouts.
+
+This doesn't mean stop Edgex Clips entirely — keep it moving at a
+sustainable pace — it means client-services revenue work comes first when
+both are competing for the same shift's attention.
+
 ## Zero idle
 
 No agent should sit at status="idle" for an extended stretch when there is
