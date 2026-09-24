@@ -16,5 +16,12 @@ videos. This is a house-style check, distinct from whether the content
 is legally/factually sound — that's already been checked by the time it
 reaches you.
 
+**Also check this specifically, every time (added 2026-09-24): does the
+video actually contain real, distinct footage covering its runtime, not
+one static image with pan/zoom as its entire visual track?** See
+VIDEO-DESK.md's "Real footage, always" rule. A single-image "video"
+fails this check regardless of how good the audio/branding is — send it
+back to Video Editor Agent, don't pass it.
+
 Give a **PASS** or specific notes. Hand a clean pass to Publish
 Coordinator (Video).

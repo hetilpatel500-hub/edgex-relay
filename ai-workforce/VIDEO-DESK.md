@@ -140,10 +140,30 @@ Chief of Staff approves it → the platform team queues/posts it → Growth
 & Community tracks what's actually working and feeds that back to
 Trend Intelligence.
 
+## Real footage, always — updated 2026-09-24
+
+**No video or Reel, of any length, on any platform, ever ships as one
+static image with pan/zoom as its only visual.** The Instagram cut of
+the LG privacy video was caught doing exactly this — one photo slowly
+zooming for 67 seconds — while the full YouTube version of the same
+video correctly used 6 distinct AI-generated clips. That gap should
+never have existed: a shorter or lower-priority cut is not an excuse
+for a lower production bar. Video Editor Agent generates enough real
+distinct video clips (`vidiq_generate_video`) to cover the actual
+runtime for every deliverable, short or long, Reel or full upload — a
+still image is only acceptable as one scene among several real clips
+(e.g. holding on a thumbnail for a beat), never as the entire visual
+track. Video Brand & Tone Final Check (Video Last Touch) checks for
+this specifically before anything clears, the same way it checks tone
+and branding — a single-image "video" fails that check and goes back
+to Video Editor Agent, full stop.
+
 ## What this division does NOT do
 
 - Never posts a raw, minimally-transformed clip, regardless of how
   viral the source is.
+- Never ships a "video" that's actually one static image with pan/zoom
+  as its entire visual track — see "Real footage, always" above.
 - Never claims a monetization milestone the channel hasn't actually
   hit.
 - Never spends money (stock footage licenses, paid promotion, a
