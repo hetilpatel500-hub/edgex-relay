@@ -71,7 +71,11 @@ explicit-approval rule as every other client-facing action.
 
 ## Lead sourcing
 
-Web search only until an API key is added. Yelp Fusion API is the
-recommended first key (free tier, no billing account required) — once
-added, `api.yelp.com` needs to be allowlisted in this environment's
-network settings before any agent can actually call it.
+**Web search only, no paid API — this was checked and corrected.** Yelp's
+current offering is a paid data-licensing product (checked 2026-09-24:
+$229-643/month, no free tier), not the free API this file originally
+assumed. Not worth it pre-revenue. Revisit once the studio has paying
+clients to justify the cost; Google Places (usage-based, has a monthly
+free credit) and OpenStreetMap/Overpass (fully free, weaker contact-info
+coverage) are the candidates to check then — verify actual current
+pricing before recommending either, the same way this entry got fixed.
