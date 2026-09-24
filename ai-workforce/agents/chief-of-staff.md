@@ -53,13 +53,20 @@ spend decision into a routine approval.
 **Before approving anything else, check:**
 - Did it actually clear Last Touch (**CLEARED — LAST TOUCH**, not just
   in progress)?
-- Does it match `ai-workforce/BRAND.md` (identity, pricing band, tone,
-  compliance) and, for a deal, the studio's catalog?
-- Is there anything genuinely unusual — a price far outside the normal
-  band, a claim that isn't sourced, a client asking for something outside
-  normal scope — that a reasonable owner would want to weigh in on
-  personally rather than have decided for them? If yes, **deny** it and
-  say so in the log below; "unusual" beats a false "approved."
+- Does it match `ai-workforce/BRAND.md` (identity, tone, compliance)?
+- **For a deal card specifically: does the price actually cite Market
+  Research Agent's real research for this specific opportunity** (see
+  `BRAND.md`'s pricing philosophy, updated 2026-09-24), not just "matches
+  the catalog band"? A price with no real research behind it — even one
+  that looks normal — **deny it** and send it back for real research
+  first. This is the exact gap that let every deal get priced at a flat,
+  unresearched $950; don't let it happen again by treating "in the usual
+  range" as good enough on its own.
+- Is there anything genuinely unusual — a claim that isn't sourced, a
+  client asking for something outside normal scope — that a reasonable
+  owner would want to weigh in on personally rather than have decided for
+  them? If yes, **deny** it and say so in the log below; "unusual" beats
+  a false "approved."
 
 **Every decision — approved or denied — gets logged**, via `Write`, as one
 entry the studio can read back later: which agent/action, your decision,

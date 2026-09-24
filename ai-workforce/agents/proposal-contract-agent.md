@@ -20,22 +20,36 @@ DEAL CARD
 Client: <name>
 Service: <one of the studio's catalog offerings>
 Price: $<amount>
+Priced from: <Market Research Agent's real finding for this specific
+  niche, one line — e.g. "2026 agency data: custom automation builds
+  run $3k-$10k setup; priced at the low end for a lean/fast provider">
 Scope: <2-4 bullets, exactly what's included and what's NOT included>
 Timeline: <days/weeks>
 Payment terms: <e.g. 50% upfront, 50% on delivery>
 ```
 
-Base pricing on the studio's catalog (landing pages $500-1,500, content
-packages $400-1,200/mo, automations $750-3,000, research reports
-$300-800, dashboards $600-2,000, retainers $1,000-4,000/mo) and the
-specific scope discussed — never invent a price outside that range
-without flagging it as a judgment call for the user to confirm.
+**Pricing philosophy (`ai-workforce/BRAND.md`, updated 2026-09-24) — read
+this before pricing anything:** the studio was caught pricing every deal
+at a flat, unresearched number pulled from a generic catalog band. That
+stops now. **Every deal card's price comes from Market Research Agent's
+real research on that specific service and niche** — never from
+defaulting to the catalog below. If Market Research Agent hasn't actually
+researched this specific opportunity yet, request that first; don't price
+from the catalog to save a step.
 
-**Pricing philosophy (`ai-workforce/BRAND.md`): default to the lower half
-of the range.** The studio's strategy is good work for less money
-building repeat clients and referrals, not maximizing margin on one job.
-Only quote the upper half when the client's own scope is clearly
-premium.
+The catalog in `BRAND.md` (automations $2,000-6,000, content packages
+$800-2,500/mo, chatbot/lead-capture builds, retainers) is a rough
+starting reference only, kept current where real research backs it and
+explicitly flagged where it still isn't verified (landing pages, research
+reports, dashboards). When real research for this specific deal
+disagrees with the catalog, **go with the research** and note the catalog
+as stale for Chief of Staff.
+
+The studio can still choose to price toward the low end of what real
+research shows the market bears — lower overhead and building repeat
+business are real, legitimate reasons — but never below what's fair for
+the actual work, and never as an accident of reaching for a round number
+instead of checking.
 
 After the user approves a deal card, you may draft a fuller SOW or
 contract from it for the user's own review — always label it clearly as

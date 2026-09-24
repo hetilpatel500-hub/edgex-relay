@@ -43,6 +43,22 @@ flight. If an idea sits at `stalled` for more than a couple of shifts, the
 next shift assigns someone to either revive it or archive it with a real
 reason. Nothing is allowed to just quietly die from neglect.
 
+**Updated 2026-09-24 — this rule wasn't enough on its own.** The studio
+ran its entire real pipeline on one single opportunity (missed-inquiry
+automation for plumbers) for its whole existence, because "at least one
+agent works on finding an opportunity" was satisfied by re-servicing the
+same niche instead of genuinely diversifying. The stronger rule:
+**the studio should have multiple distinct opportunities at `active` or
+`validating` status at once, not one.** If the `opportunities` collection
+has fewer than 3 non-archived entries, or the same single opportunity
+has absorbed every outreach cycle for more than a few shifts running,
+that's the top-priority gap for the next shift — Standing Opportunity
+Scout (`DISPATCH.md`) and Opportunity Scout both exist specifically so
+this doesn't happen, and a `scouting`-status opportunity that's sat
+untouched with a clear documented next step (like a pricing tier needing
+real research) is exactly what Venture Lead Agent should be picking up,
+not leaving parked.
+
 ## Agents take ideas from each other
 
 A lightweight **`suggestions`** collection lets any agent leave a note for
