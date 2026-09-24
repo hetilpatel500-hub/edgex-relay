@@ -46,12 +46,13 @@ one confirmation is all it takes to send.
 
 ## Setup
 
-1. **Connect email for `ai--edgex@edgex--ai.com`**: claude.ai → Settings
-   → Connectors → add whichever connector matches that address's actual
-   mailbox provider (Gmail/Google Workspace, Outlook/Microsoft 365,
-   etc.), then start a **new** Claude Code session (connectors only load
-   at session start). Which provider hosts this domain's mail isn't
-   confirmed yet — check before connecting.
+1. **Connect email for `ai--edgex@edgex--ai.com`**: confirmed via this
+   domain's live MX records — it's **Google Workspace**
+   (`aspmx.l.google.com`, SPF set for `_spf.google.com`). So: claude.ai
+   → Settings → Connectors → add the **Gmail** connector, sign in as
+   `ai--edgex@edgex--ai.com` specifically (not a personal Gmail), then
+   start a **new** Claude Code session (connectors only load at session
+   start).
 2. Copy the `agents/` you want into your project's `.claude/agents/`
    directory, or reference this folder directly.
 3. Once the connector is live, check what its send tool is actually
