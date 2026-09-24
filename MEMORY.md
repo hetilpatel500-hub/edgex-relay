@@ -25,7 +25,8 @@ file each cycle (Head of Trading, at minimum, on every cycle).
   max_position_size_usd: number,
   max_daily_loss_usd: number,
   max_open_positions: number,
-  allowed_instruments: string[],   // e.g. ["stocks", "options"]
+  max_trades_per_day: number,      // new trade approvals per calendar day, separate from max_open_positions
+  allowed_instruments: string[],   // currently ["options"] only
   live_trading_enabled: boolean,
   source: "TRADING-DESK.md",
   synced_at: ISO8601 string
@@ -105,10 +106,10 @@ One document per candidate trade, written by the Portfolio Manager crew.
 {
   id: string,
   ticker: string,
-  instrument: "stock" | "option",
-  option_details: { type: "call"|"put", strike: number, expiry: "YYYY-MM-DD" } | null,
+  instrument: "option",       // options-only as of 2026-09-24; anything else gets denied on sight
+  option_details: { type: "call"|"put", strike: number, expiry: "YYYY-MM-DD" }, // or a spread's legs — see role file
   direction: "long" | "short",
-  size_usd: number,           // must be <= config/limits.max_position_size_usd
+  size_usd: number,           // net premium/debit; must be <= config/limits.max_position_size_usd
   entry: number,
   stop: number,
   target: number,
@@ -121,9 +122,26 @@ One document per candidate trade, written by the Portfolio Manager crew.
   status: "pending" | "approved" | "denied" | "expired",
   created_at: ISO8601,
   created_by: "portfolio_manager",
-  is_paper: true              // always true unless live_trading_enabled flips; Execution Agent may later add executed_* fields, never flips this retroactively for past paper trades
+  is_paper: boolean,           // set to whatever config/limits.live_trading_enabled was AT THE MOMENT OF PROPOSAL — never edited retroactively
+  execution: {                 // added/updated only by Execution Agent — see agents/execution-agent.md for the full lifecycle
+    instruction_id: string,
+    instruction_status: "pending_user_confirmation" | "approved_pending_fill" | "approved_and_filled" | "rejected" | "expired",
+    created_at: ISO8601,
+    confirmation_message: string,  // the Webull tool's own message field, verbatim — contains the real confirmation link
+    order_id: string | null,       // only once approved_and_filled
+    fill_price: number | null,
+    fill_qty: number | null,
+    filled_at: ISO8601 | null,
+    source: "webull_order_response" | null
+  } | null                     // null until Execution Agent creates the first instruction for this trade
 }
 ```
+**Critical distinction: `execution` existing (or even `instruction_status:
+"approved_and_filled"`) is the only thing that ever means a real trade
+happened.** `decisions.resulting_action == "cleared_for_execution"` means
+only that an instruction was allowed to be *created* — it says nothing
+about whether the owner ever confirmed it in the Webull app. Never infer a
+real fill from an APPROVE verdict alone.
 
 ### `decisions/{doc_id}` collection
 One document per Head of Trading verdict, 1:1 with a `proposed_trades`
@@ -136,10 +154,13 @@ document. `doc_id` = same id as the proposed trade it decides.
   verdict: "APPROVE" | "DENY",
   reasoning: string,
   limits_checked: {           // snapshot of the numbers actually compared, for audit
-    max_position_size_usd, max_daily_loss_usd, max_open_positions,
-    current_open_positions, current_daily_pnl_usd, live_trading_enabled
+    max_position_size_usd, max_daily_loss_usd, max_open_positions, max_trades_per_day,
+    current_open_positions, trades_approved_today, current_daily_pnl_usd, live_trading_enabled
   },
-  resulting_action: "logged_paper" | "denied" | "would_execute_live_blocked_by_gate",
+  resulting_action: "logged_paper" | "denied" | "cleared_for_execution",
+  // "cleared_for_execution": APPROVE while live_trading_enabled was true at decision time —
+  //   Execution Agent still independently re-verifies everything before touching a real order.
+  // "logged_paper": APPROVE while live_trading_enabled was false at decision time.
   decided_by: "head_of_trading",
   timestamp: ISO8601
 }

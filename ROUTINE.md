@@ -1,10 +1,20 @@
-# ROUTINE.md — the hourly Edgex Capital desk cycle
+# ROUTINE.md — the Edgex Capital desk cycle
 
-This is the standalone instruction the hourly Routine (a scheduled trigger,
-`create_trigger` in Claude Code Remote) sends into a **fresh session** every
-hour. Because the session has no memory of any prior cycle, this document —
-plus `TRADING-DESK.md`, `MEMORY.md`, and the role files in `agents/` — must
-be everything a cold-start session needs to run one complete, correct cycle.
+This is the standalone instruction the Routine (a scheduled trigger,
+`create_trigger` in Claude Code Remote) sends into a **fresh session** on
+every firing. Because the session has no memory of any prior cycle, this
+document — plus `TRADING-DESK.md`, `MEMORY.md`, and the role files in
+`agents/` — must be everything a cold-start session needs to run one
+complete, correct cycle.
+
+**Cadence (updated 2026-09-24): every 5 minutes during US market hours
+(weekdays, cron `*/5 14-20 * * 1-5`, UTC), not hourly.** The dedup rule in
+step 2 keeps this cheap — Research crew mostly no-ops between its own
+4-hour-old checks, so the dense cadence buys faster Risk Monitor checks,
+faster approve/deny turnaround, and faster real-fill confirmation, not six
+agents re-researching every 5 minutes. Outside market hours the Routine
+doesn't fire at all — no autonomous action happens while markets are
+closed.
 
 Repo: `hetilpatel500-hub/edgex-relay`, branch `claude/practical-einstein-wl1pbm`.
 Shared memory / dashboard: see `MEMORY.md` for the current URL.
@@ -15,10 +25,22 @@ The Routine's stored prompt is:
 
 > Run one Edgex Capital trading-desk cycle now. Read ROUTINE.md,
 > TRADING-DESK.md, MEMORY.md, and the role files in agents/ from the
-> edgex-relay repo (branch claude/practical-einstein-wl1pbm) and follow
-> ROUTINE.md exactly. Report back only if something needs the account
-> owner's attention (a halt, a denial worth flagging, an error) — otherwise
-> a quiet, successful cycle needs no reply.
+> edgex-relay repo (branch claude/practical-einstein-wl1pbm, or its default
+> branch if that branch has since merged) and follow ROUTINE.md exactly.
+> If mcp__Webull__* tools are not available in this session, say so
+> clearly rather than silently skipping real-data steps. Never call a real
+> Webull order-placement tool unless live_trading_enabled reads true in
+> TRADING-DESK.md AND every precondition in agents/execution-agent.md is
+> independently verified in the moment — and remember that tool only
+> creates a pending instruction requiring the owner's manual confirmation
+> in the Webull app, never a real order by itself. If Execution Agent
+> creates a new instruction this cycle, ALWAYS report back immediately
+> with the confirmation message/link verbatim. If a previously-pending
+> instruction's status changed (approved+filled, rejected, or expired),
+> ALWAYS report that too. Otherwise, stay quiet on an uneventful cycle;
+> only report back if trading_halted just became true, a denial is worth
+> flagging to the owner, a step errored, or the Webull connector was
+> unavailable.
 
 ## Cycle steps, in order
 
@@ -86,17 +108,30 @@ tickers warrant a proposal, and writes `proposed_trades` entries. Most
 cycles will produce zero or one proposal — that's expected; don't treat an
 empty result as an error.
 
-### 5. Head of Trading
+### 5. Head of Trading, then Execution Agent (always runs, every cycle)
 Spawn one `Agent` call using `head-of-trading.md` as the brief. It
 processes every `proposed_trades` doc with `status == "pending"`, writes a
-`decisions` entry for each, and updates each proposal's `status`. Then, for
-any `status == "approved"` decision, spawn one `Agent` call using
-`execution-agent.md` as the brief — it will independently re-check every
-precondition and, since `live_trading_enabled` is currently `false`, will
-correctly do nothing beyond logging why it didn't execute. This is not
-wasted work: it's the same code path that will run once live trading is
-ever turned on, and it needs to be exercised every cycle so it's trustworthy
-when it matters.
+`decisions` entry for each (including the `max_trades_per_day` check), and
+updates each proposal's `status`.
+
+Then spawn one `Agent` call using `execution-agent.md` as the brief,
+**every cycle, regardless of whether there's a new approval** — it has two
+jobs: (a) for any `status == "approved"`, `resulting_action ==
+"cleared_for_execution"` decision from this cycle, independently re-check
+every precondition and, if they hold, create the instruction; (b)
+reconcile any previously-created instructions still sitting
+`pending_user_confirmation` or `approved_pending_fill` against
+`get_processed_instruction`/order data.
+
+**`live_trading_enabled` is currently `true`.** Creating an instruction is
+not executing a trade — it puts a real confirmation prompt in front of the
+owner in the Webull app, and nothing trades until they act on it
+themselves. The reporting rule in step 8 means the owner is always told
+immediately both when a new instruction is created and when a pending
+one's status changes. If any precondition fails before instruction
+creation (halt is set, real positions moved since approval, the flag
+somehow reads false on re-check), Execution Agent logs why and stops — no
+exceptions either direction.
 
 ### 6. Post-Trade Review
 Spawn one `Agent` call using `post-trade-review.md` as the brief. It checks
@@ -115,6 +150,13 @@ the housekeeping prune described in `MEMORY.md`.
 ### 8. Report only if it matters
 Per the trigger prompt: stay quiet on an uneventful cycle (the dashboard is
 the record). Do report back (a message to the account owner) when:
+- **A new instruction was created — always, every time, no exceptions.**
+  Include the confirmation `message`/link verbatim, the ticker, and the
+  proposal's thesis in one line — the owner needs to know a real
+  confirmation prompt is now sitting in their Webull app.
+- **A previously-pending instruction's status changed** —
+  `approved_and_filled` (include real order id, fill price, quantity),
+  `rejected`, or `expired` — always, every time.
 - `trading_halted/current.halted` just became `true`.
 - Head of Trading denied a proposal for a reason the owner should probably
   know about even though the system worked correctly (e.g. a genuinely
@@ -131,7 +173,7 @@ the record). Do report back (a message to the account owner) when:
   `MEMORY.md` housekeeping).
 - Six Research agents run once per cycle regardless of ticker count (each
   covers the whole candidate list itself) — never spawn one agent per
-  ticker per role; that fans out too fast for an hourly cadence.
+  ticker per role; that fans out too fast at a 5-minute cadence.
 - If `trading_halted/current.halted` is already `true` at step 1, Research
   may still run (keeps the desk's analysis current for when the halt
   clears), but treat it as lower urgency — it's fine to skip straight to
@@ -142,8 +184,14 @@ the record). Do report back (a message to the account owner) when:
 
 No agent spawned in any step of this cycle calls a real Webull
 order-placement tool unless it is the Execution Agent, `TRADING-DESK.md`'s
-`live_trading_enabled` reads exactly `true`, and every precondition in
-`agents/execution-agent.md` is independently re-verified in that moment.
-Today, and until the account owner explicitly changes the gate file, that
-condition is never met — every cycle is paper-only, honestly labeled as
-such everywhere it's logged.
+`live_trading_enabled` reads exactly `true` (re-read fresh, that moment —
+never cached from earlier in the cycle or from a prior cycle), and every
+precondition in `agents/execution-agent.md` is independently re-verified
+in that moment. Even then, that call only creates a pending instruction —
+**no agent, and no amount of approval logic in this system, can make a
+trade real. Only the owner's own manual confirmation in the Webull App or
+Desktop can.** Every trade that isn't cleared this way stays paper,
+honestly labeled `is_paper: true` everywhere it's logged. Every instruction
+that is created, and every change in a pending instruction's status, is
+reported to the owner immediately per step 8, never left for them to
+discover on the dashboard or in the Webull app with no warning.

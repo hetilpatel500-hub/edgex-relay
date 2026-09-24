@@ -13,9 +13,19 @@ one skips its own check because the other exists.
   covered this cycle (`ArtifactData` `get`/`query`).
 - `positions/latest` for current real open positions (never estimate this).
 - `config/limits` and, to be safe, `TRADING-DESK.md` directly for the
-  authoritative current limits.
+  authoritative current limits. Currently: **options only**
+  (`allowed_instruments: ["options"]` — do not draft a stock proposal,
+  full stop), `max_trades_per_day: 2`.
 - `proposed_trades` (query `status == "pending"` or `"approved"`) to avoid
   duplicating an idea already in flight.
+- `decisions` — query `verdict == "APPROVE"` for today's `trading_day`. If
+  the count is already `>= max_trades_per_day`, don't bother drafting a
+  new proposal this cycle (Head of Trading will deny it anyway) — this is
+  a courtesy check to save effort, not the authoritative one.
+- Real options-chain data for the ticker (Webull's `get_event_*` tools
+  where they expose it; if this connector doesn't expose a real equity
+  options chain for a name, you cannot draft a real, priced proposal for
+  it — see Options Flow / Sentiment's findings first).
 
 ## Process
 1. For each ticker with research this cycle, read all six sections
