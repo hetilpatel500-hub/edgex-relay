@@ -1,4 +1,6 @@
+import hmac
 import os
+import random
 import time
 import threading
 from collections import deque
@@ -12,6 +14,7 @@ DATABENTO_API_KEY = os.environ.get("DATABENTO_API_KEY")
 RELAY_API_KEY = os.environ.get("RELAY_API_KEY")
 SYMBOL = os.environ.get("SYMBOL", "MESU6")
 BUFFER_SIZE = 500
+MAX_RECONNECT_DELAY = 60
 
 latest_bars = {}
 bar_buffer = {SYMBOL: deque(maxlen=BUFFER_SIZE)}
@@ -23,6 +26,7 @@ if not DATABENTO_API_KEY or not RELAY_API_KEY:
 
 
 def run_live_client():
+    reconnect_delay = 1
     while True:
         try:
             print("[relay] connecting to Databento...")
@@ -35,6 +39,7 @@ def run_live_client():
             )
             connection_status["connected"] = True
             connection_status["error"] = None
+            reconnect_delay = 1
             print("[relay] connected, waiting for bars...")
 
             for record in client:
@@ -69,13 +74,17 @@ def run_live_client():
         except Exception as e:
             connection_status["connected"] = False
             connection_status["error"] = str(e)
-            print(f"[relay] connection error: {e}, retrying in 10s")
-            time.sleep(10)
+            delay = reconnect_delay + random.uniform(0, reconnect_delay * 0.25)
+            print(f"[relay] connection error: {e}, retrying in {delay:.1f}s")
+            time.sleep(delay)
+            reconnect_delay = min(reconnect_delay * 2, MAX_RECONNECT_DELAY)
 
 
 def check_auth():
     key = request.headers.get("X-API-Key") or request.args.get("api_key")
-    return key == RELAY_API_KEY
+    if not key:
+        return False
+    return hmac.compare_digest(key, RELAY_API_KEY)
 
 
 @app.route("/latest-bar")
@@ -83,6 +92,8 @@ def latest_bar():
     if not check_auth():
         return jsonify({"error": "unauthorized"}), 401
     symbol = request.args.get("symbol", SYMBOL)
+    if symbol != SYMBOL:
+        return jsonify({"error": f"symbol not tracked, only '{SYMBOL}' is available"}), 400
     with lock:
         bar = latest_bars.get(symbol)
     if not bar:
@@ -97,7 +108,13 @@ def candles():
     if not check_auth():
         return jsonify({"error": "unauthorized"}), 401
     symbol = request.args.get("symbol", SYMBOL)
-    limit = int(request.args.get("limit", 500))
+    if symbol != SYMBOL:
+        return jsonify({"error": f"symbol not tracked, only '{SYMBOL}' is available"}), 400
+    try:
+        limit = int(request.args.get("limit", 500))
+    except ValueError:
+        return jsonify({"error": "limit must be an integer"}), 400
+    limit = max(1, min(limit, BUFFER_SIZE))
     with lock:
         buf = list(bar_buffer.get(symbol, []))
     # newest first
