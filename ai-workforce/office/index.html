@@ -113,6 +113,13 @@
     pointer-events:auto;background:var(--chip-bg);border:1px solid var(--panel-border);color:var(--muted);
     width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:14px;line-height:1;flex:none;
   }
+  #panelBack{
+    pointer-events:auto;background:none;border:none;color:var(--muted);
+    font-family:"Work Sans",sans-serif;font-weight:600;font-size:12px;cursor:pointer;padding:0 0 10px 0;
+  }
+  #panelBack:hover{color:var(--ink);}
+  .next-line{font-size:12px;color:var(--muted);margin-top:9px;padding-top:9px;border-top:1px solid var(--panel-border);line-height:1.4;}
+  .next-line b{color:var(--ink);font-weight:600;}
   #panel .code{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);letter-spacing:.1em;}
   #panel h2{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:27px;line-height:1;margin:5px 0 4px 0;}
   #panel .role{font-size:12.5px;color:var(--muted);margin-bottom:18px;}
@@ -223,6 +230,7 @@
     #minimap{transform:scale(.82);transform-origin:top right;}
   }
 </style>
+
 </head>
 <body>
 
@@ -242,7 +250,7 @@
   </div>
 
   <div id="bottomRow">
-    <div id="hint">drag to orbit &middot; scroll / pinch to zoom &middot; right-drag to pan &middot; arrow keys also work &middot; click a pod</div>
+    <div id="hint">drag to orbit &middot; scroll / pinch to zoom &middot; right-drag to pan &middot; arrow keys also work &middot; click a pod or a person</div>
     <div id="legend"></div>
   </div>
 </div>
@@ -285,6 +293,7 @@
     <div class="bar" id="panelBar"></div>
     <button id="panelClose" type="button" aria-label="Close">&#10005;</button>
   </div>
+  <button id="panelBack" type="button" style="display:none;">&larr; Back to department</button>
   <div class="code" id="panelCode"></div>
   <h2 id="panelTitle"></h2>
   <div class="role" id="panelSub"></div>
@@ -299,7 +308,7 @@
 
   // ---------------- data ----------------
   var DEPARTMENTS = [
-    { id:"strategy", code:"00", name:"Strategy & Operations", tag:"Runs the studio itself", cssVar:"--a-strategy", hex:0xC97F22, x:0, z:-2.5, boardroom:true,
+    { id:"strategy", code:"00", name:"Strategy & Operations", tag:"Runs the studio itself", cssVar:"--a-strategy", hex:0xC97F22, x:0, z:-3.6, boardroom:true,
       agents:[
         {name:"Chief of Staff", desc:"Prioritizes the studio's work queue, tracks capacity across all 35 agents."},
         {name:"Project Manager", desc:"Breaks a signed job into tasks and assigns them to the right department."},
@@ -307,7 +316,7 @@
         {name:"Contract & Proposal Drafting Agent", desc:"Drafts SOWs, contracts, and NDAs from templates."},
         {name:"Quality Bar Agent", desc:"Reviews every deliverable against the client brief before it ships."}
       ]},
-    { id:"research", code:"01", name:"Research & Intelligence", tag:"Finds the opportunities", cssVar:"--a-research", hex:0x1F9690, x:-11, z:-7,
+    { id:"research", code:"01", name:"Research & Intelligence", tag:"Finds the opportunities", cssVar:"--a-research", hex:0x1F9690, x:-16.5, z:-10.5,
       agents:[
         {name:"Opportunity Scout", desc:"Scans for underserved niches and side-hustle categories worth entering."},
         {name:"Market Research Agent", desc:"Sizes a market: demand signals, pricing norms, buyer pain points."},
@@ -315,7 +324,7 @@
         {name:"Client / Lead Researcher", desc:"Builds a one-page dossier on a prospect before outreach."},
         {name:"Trend Scout", desc:"Tracks emerging tools, platforms, and demand shifts."}
       ]},
-    { id:"content", code:"02", name:"Content & Creative", tag:"Writes and designs", cssVar:"--a-content", hex:0xD24E64, x:11, z:-7,
+    { id:"content", code:"02", name:"Content & Creative", tag:"Writes and designs", cssVar:"--a-content", hex:0xD24E64, x:16.5, z:-10.5,
       agents:[
         {name:"Copywriter", desc:"Website, landing page, and ad copy."},
         {name:"SEO / Blog Writer", desc:"Long-form articles and SEO content."},
@@ -323,7 +332,7 @@
         {name:"Video / Podcast Script Agent", desc:"Scripts and outlines for video or audio content."},
         {name:"Brand & Graphic Design Agent", desc:"Brand guides, simple graphics, and slide decks."}
       ]},
-    { id:"software", code:"03", name:"Software & Technical", tag:"Builds the deliverable", cssVar:"--a-software", hex:0x3560CC, x:11, z:0,
+    { id:"software", code:"03", name:"Software & Technical", tag:"Builds the deliverable", cssVar:"--a-software", hex:0x3560CC, x:16.5, z:0,
       agents:[
         {name:"Full-Stack Dev Agent", desc:"Builds websites, small apps, and integrations."},
         {name:"Automation / Scripting Agent", desc:"Builds workflow automations that save a client real hours."},
@@ -331,7 +340,7 @@
         {name:"QA / Testing Agent", desc:"Tests everything before it ships."},
         {name:"DevOps / Deployment Agent", desc:"Handles hosting, deployment, and uptime monitoring."}
       ]},
-    { id:"sales", code:"04", name:"Sales & Client Acquisition", tag:"Turns leads into signed jobs", cssVar:"--a-sales", hex:0x2F9350, x:11, z:7,
+    { id:"sales", code:"04", name:"Sales & Client Acquisition", tag:"Turns leads into signed jobs", cssVar:"--a-sales", hex:0x2F9350, x:16.5, z:10.5,
       agents:[
         {name:"Outreach / Cold Email Agent", desc:"Drafts personalized outreach at volume — never sends without approval."},
         {name:"Proposal Writer", desc:"Turns a scoped opportunity into a priced proposal."},
@@ -339,7 +348,7 @@
         {name:"CRM / Pipeline Manager Agent", desc:"Tracks every lead's stage and next action."},
         {name:"Partnerships Agent", desc:"Finds agencies and platforms worth partnering with."}
       ]},
-    { id:"delivery", code:"05", name:"Client Delivery & Support", tag:"Keeps clients happy", cssVar:"--a-delivery", hex:0x6E4FCC, x:-11, z:7,
+    { id:"delivery", code:"05", name:"Client Delivery & Support", tag:"Keeps clients happy", cssVar:"--a-delivery", hex:0x6E4FCC, x:-16.5, z:10.5,
       agents:[
         {name:"Onboarding Agent", desc:"Turns a signed deal into a kickoff packet and intake form."},
         {name:"Account Manager Agent", desc:"Owns the client relationship day-to-day."},
@@ -347,7 +356,7 @@
         {name:"Deliverable QA Reviewer", desc:"Final check that what's shipping matches what was promised."},
         {name:"Documentation Agent", desc:"Writes handoff docs, SOPs, and how-to guides."}
       ]},
-    { id:"growth", code:"06", name:"Growth & Marketing", tag:"Builds inbound demand", cssVar:"--a-growth", hex:0xB33F94, x:-11, z:0,
+    { id:"growth", code:"06", name:"Growth & Marketing", tag:"Builds inbound demand", cssVar:"--a-growth", hex:0xB33F94, x:-16.5, z:0,
       agents:[
         {name:"SEO Agent", desc:"Keyword strategy and on-page SEO."},
         {name:"Paid Ads Agent", desc:"Drafts ad copy, targeting, and budget plans."},
@@ -355,7 +364,7 @@
         {name:"Community / Engagement Agent", desc:"Drafts engagement content for communities and forums."},
         {name:"Analytics / Reporting Agent", desc:"Tracks what's actually converting across the studio."}
       ]},
-    { id:"lasttouch", code:"07", name:"Last Touch", tag:"Final check before anything reaches a customer", cssVar:"--a-lasttouch", hex:0xB8901E, x:0, z:8.7,
+    { id:"lasttouch", code:"07", name:"Last Touch", tag:"Final check before anything reaches a customer", cssVar:"--a-lasttouch", hex:0xB8901E, x:0, z:13.2,
       agents:[
         {name:"Grammar & Copy Editor", desc:"Proofreads every client-facing draft for grammar, spelling, and clarity."},
         {name:"Visual & Formatting Reviewer", desc:"Checks layout, formatting, and visual polish on anything client-facing."},
@@ -367,8 +376,23 @@
 
   function slugify(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,""); }
   DEPARTMENTS.forEach(function(d){ d.agents.forEach(function(a){ a.id = slugify(a.name); a.dept = d.id; }); });
+  var AGENT_BY_ID = {};
+  DEPARTMENTS.forEach(function(d){ d.agents.forEach(function(a){ AGENT_BY_ID[a.id] = {a:a, dept:d}; }); });
 
-  var BUILD_HX = 16.2, BUILD_HZ = 11.2, WALL_T = 0.3, WALL_H = 4.3;
+  // what a role typically hands off to next, once its work is actually done —
+  // grounded in DEAL-DESK.md / OPERATIONS.md's real pipeline, not per-agent guesswork
+  var NEXT_BY_DEPT = {
+    strategy: "Feeds the studio's own priorities and capacity — other departments pick up from here.",
+    research: "A validated lead or opportunity moves to Sales, or gets logged to the opportunities board for the next shift.",
+    content: "Copy/creative assets feed whichever client-facing draft is in flight — reviewed by Last Touch before anyone sees them.",
+    software: "Technical scope/build feeds Client Delivery once there's a signed job to actually build for.",
+    sales: "Every draft goes through Last Touch, then to you for the actual send/approval — nothing goes out on its own.",
+    delivery: "Feeds what the client actually receives — checked by Deliverable QA before it ships.",
+    growth: "Positioning/content feeds the active opportunity's marketing — reviewed by Last Touch before anything posts.",
+    lasttouch: "Passes to the next Last Touch check, and finally to your approval queue once all five clear it."
+  };
+
+  var BUILD_HX = 24.5, BUILD_HZ = 17.2, WALL_T = 0.3, WALL_H = 4.3;
 
   // ---------------- renderer / scene ----------------
   var canvas = document.getElementById("scene");
@@ -544,34 +568,19 @@
     });
     scene.add(g);
   }
-  [-7,0,7].forEach(function(zz){ windowUnit(-BUILD_HX+0.02, zz, Math.PI/2); windowUnit(BUILD_HX-0.02, zz, -Math.PI/2); });
-  [-6,6].forEach(function(xx){ windowUnit(xx, -BUILD_HZ+0.02, 0); });
+  [-12,-4,4,12].forEach(function(zz){ windowUnit(-BUILD_HX+0.02, zz, Math.PI/2); windowUnit(BUILD_HX-0.02, zz, -Math.PI/2); });
+  [-14,-7,0,7,14].forEach(function(xx){ windowUnit(xx, -BUILD_HZ+0.02, 0); windowUnit(xx, BUILD_HZ-0.02, Math.PI); });
 
-  var pendantPositions = [];
-  for(var tz=-8; tz<=8; tz+=4){
-    var beam = new THREE.Mesh(new THREE.BoxGeometry(BUILD_HX*2-0.4, 0.22, 0.28), trussMat);
-    beam.position.set(0, WALL_H-0.05, tz);
-    beam.castShadow = true;
-    scene.add(beam);
-    [-9,-3,3,9].forEach(function(bx){ pendantPositions.push([bx, tz + (Math.random()*1.6-0.8)]); });
+  // No ceiling structure on purpose — trusses/pendants used to hang right in the
+  // camera's eyeline from above. Fill light instead, nothing overhead to block the view.
+  var fillPositions = [];
+  for(var tz=-BUILD_HZ+3; tz<=BUILD_HZ-3; tz+=6){
+    for(var tx=-BUILD_HX+4; tx<=BUILD_HX-4; tx+=7){ fillPositions.push([tx,tz]); }
   }
-  var pendantLight = new THREE.MeshStandardMaterial({color:0x2a2a2a, roughness:0.4, metalness:0.6});
-  var bulbMat = new THREE.MeshStandardMaterial({color:0xfff3d0, emissive:0xffdf9a, emissiveIntensity:1.1, roughness:0.3});
-  pendantPositions.forEach(function(p, i){
-    var cordLen = 1.3 + Math.random()*0.4;
-    var cord = new THREE.Mesh(new THREE.CylinderGeometry(0.012,0.012,cordLen,6), trussMat);
-    cord.position.set(p[0], WALL_H-cordLen/2, p[1]);
-    scene.add(cord);
-    var shade = new THREE.Mesh(new THREE.ConeGeometry(0.26,0.26,16,1,true), pendantLight);
-    shade.position.set(p[0], WALL_H-cordLen-0.02, p[1]);
-    shade.castShadow = true;
-    scene.add(shade);
-    var bulb = new THREE.Mesh(new THREE.SphereGeometry(0.07,10,8), bulbMat);
-    bulb.position.set(p[0], WALL_H-cordLen-0.16, p[1]);
-    scene.add(bulb);
-    if(i % 3 === 0){
-      var pl = new THREE.PointLight(0xffd9a0, 0.55, 6.5, 2);
-      pl.position.set(p[0], WALL_H-cordLen-0.2, p[1]);
+  fillPositions.forEach(function(p, i){
+    if(i % 2 === 0){
+      var pl = new THREE.PointLight(0xffe6bd, 0.42, 9, 2);
+      pl.position.set(p[0], WALL_H-0.3, p[1]);
       scene.add(pl);
     }
   });
@@ -654,8 +663,11 @@
   var SKIN_TONES = [0xE8B58C,0xC68863,0x8D5A3C,0xF0C9A0,0x6B4226,0xD9A066];
   var SHIRT_COLORS = [0x3a4a5c,0x5c4a3a,0x445c4a,0x5c3a4a,0x39424a,0xE5E0D5,0x7a6a55,0x4a5c5c];
   var people = [];
+  var AGENT_GROUPS = {};      // agentId -> {group, origin:{x,z}, home:{x,z}, seatRotY, walk:null}
+  var PERSON_HIT_MESHES = []; // invisible hit-spheres for click/tap raycasting, tagged with agentId
+  var BOARDROOM_SEATS_WORLD = []; // empty guest chairs in the boardroom, used by the meeting-walk system
 
-  function buildPerson(x,z,rotY,agentId,displayName){
+  function buildPerson(x,z,rotY,agentId,displayName,originX,originZ){
     var g = new THREE.Group();
     var jitter = (Math.random()-0.5)*0.3;
     g.position.set(x,0,z); g.rotation.y = rotY + jitter;
@@ -700,9 +712,23 @@
         tag.position.set(0,1.53,0);
         g.add(tag);
       }
+
+      var hit = new THREE.Mesh(new THREE.SphereGeometry(0.3,8,6), new THREE.MeshBasicMaterial({transparent:true, opacity:0}));
+      hit.position.set(0,0.75,0);
+      hit.userData.agentId = agentId;
+      g.add(hit);
+      PERSON_HIT_MESHES.push(hit);
+
+      AGENT_GROUPS[agentId] = {
+        group:g,
+        origin:{x:originX||0, z:originZ||0},
+        home:{x:x, z:z},
+        seatRotY:g.rotation.y,
+        walk:null
+      };
     }
 
-    people.push({group:g, phase:Math.random()*Math.PI*2, baseRotY:g.rotation.y});
+    people.push({group:g, phase:Math.random()*Math.PI*2, baseRotY:g.rotation.y, agentId:agentId});
     return g;
   }
 
@@ -730,8 +756,22 @@
     kb.position.set(0,0.755,0.08);
     g.add(kb);
     g.add(buildChair(0,0.62,Math.PI,accentHex));
-    g.add(buildPerson(0,0.62,Math.PI,agentId,displayName));
+    g.add(buildPerson(0,0.62,Math.PI,agentId,displayName,x,z));
     return g;
+  }
+
+  var partitionMat = new THREE.MeshStandardMaterial({color:0xd9d3c4, roughness:0.88});
+  function buildPodWalls(minX,maxX,minZ,maxZ){
+    var wallH2 = 1.35, t = 0.08;
+    function seg(w,d,x,z){
+      var m = new THREE.Mesh(new THREE.BoxGeometry(w,wallH2,d), partitionMat);
+      m.position.set(x,wallH2/2,z); m.castShadow = true; m.receiveShadow = true;
+      scene.add(m);
+    }
+    var farZ = Math.abs(minZ) > Math.abs(maxZ) ? minZ : maxZ;
+    seg(maxX-minX+t, t, (minX+maxX)/2, farZ);
+    seg(t, maxZ-minZ, minX, (minZ+maxZ)/2);
+    seg(t, maxZ-minZ, maxX, (minZ+maxZ)/2);
   }
 
   function buildDeskPod(dept){
@@ -750,7 +790,9 @@
     var sign = makeSign(dept.name, 2.5, 0);
     sign.position.x = dept.x; sign.position.z = dept.z - 1.5;
     scene.add(sign);
-    registerZone(dept, dept.x + startX - 0.9, dept.x - startX + 0.9, dept.z - 1.4, dept.z + 1.05);
+    var minX = dept.x + startX - 0.9, maxX = dept.x - startX + 0.9, minZ = dept.z - 1.4, maxZ = dept.z + 1.05;
+    buildPodWalls(minX,maxX,minZ,maxZ);
+    registerZone(dept, minX, maxX, minZ, maxZ);
   }
 
   function buildBoardroom(dept){
@@ -777,6 +819,7 @@
       scene.add(buildChair(cx+i*1.5, cz-0.1-1.05, 0, dept.hex));
       scene.add(buildChair(cx+i*1.5, cz-0.1+1.05, Math.PI, dept.hex));
       scene.add(buildPerson(cx+i*1.5, cz-0.1-1.05, 0, dept.agents[i+2].id, dept.agents[i+2].name));
+      BOARDROOM_SEATS_WORLD.push({x:cx+i*1.5, z:cz-0.1+1.05, rotY:Math.PI});
     }
 
     var scr1 = new THREE.Mesh(new THREE.PlaneGeometry(1.7,1.05), new THREE.MeshBasicMaterial({map:screenTex}));
@@ -791,7 +834,7 @@
   }
 
   function buildLounge(){
-    var cx = 12.5, cz = -9.0;
+    var cx = 19.0, cz = -13.8;
     var rug = new THREE.Mesh(new THREE.PlaneGeometry(6.2,3.6), new THREE.MeshStandardMaterial({color:0x8a6a4a, roughness:0.95, transparent:true, opacity:0.35}));
     rug.rotation.x=-Math.PI/2; rug.position.set(cx,0.015,cz); rug.receiveShadow=true;
     scene.add(rug);
@@ -838,6 +881,57 @@
   DEPARTMENTS.forEach(function(d){ if(d.boardroom) buildBoardroom(d); else buildDeskPod(d); });
   buildLounge();
 
+  // ---------------- scattered office props (fills the bigger floor, makes it feel real) ----------------
+  var potMat = new THREE.MeshStandardMaterial({color:0xb5674a, roughness:0.85});
+  var leafMat = new THREE.MeshStandardMaterial({color:0x3f7d4a, roughness:0.8});
+  function buildPlant(x,z,scale){
+    var g = new THREE.Group(); g.position.set(x,0,z); g.scale.setScalar(scale||1);
+    var pot = new THREE.Mesh(new THREE.CylinderGeometry(0.22,0.16,0.32,10), potMat);
+    pot.position.y = 0.16; pot.castShadow = true; g.add(pot);
+    for(var i=0;i<5;i++){
+      var leaf = new THREE.Mesh(new THREE.ConeGeometry(0.14,0.62,6), leafMat);
+      leaf.position.set(Math.cos(i*1.26)*0.08, 0.62, Math.sin(i*1.26)*0.08);
+      leaf.rotation.z = Math.cos(i*1.26)*0.3; leaf.rotation.x = Math.sin(i*1.26)*0.3;
+      leaf.castShadow = true; g.add(leaf);
+    }
+    scene.add(g);
+  }
+  var cabinetMat = new THREE.MeshStandardMaterial({color:0x4a5568, roughness:0.5, metalness:0.3});
+  function buildCabinet(x,z,rotY){
+    var g = new THREE.Group(); g.position.set(x,0,z); g.rotation.y = rotY||0;
+    var body = new THREE.Mesh(new THREE.BoxGeometry(0.6,1.25,0.5), cabinetMat);
+    body.position.y = 0.625; body.castShadow = true; body.receiveShadow = true; g.add(body);
+    [0.32,0.72,1.12].forEach(function(y){
+      var handle = new THREE.Mesh(new THREE.BoxGeometry(0.3,0.03,0.03), frameMat);
+      handle.position.set(0,y,0.26); g.add(handle);
+    });
+    scene.add(g);
+  }
+  function buildWaterCooler(x,z){
+    var g = new THREE.Group(); g.position.set(x,0,z);
+    var base = new THREE.Mesh(new THREE.CylinderGeometry(0.18,0.2,0.9,10), new THREE.MeshStandardMaterial({color:0xe8e6e0, roughness:0.4}));
+    base.position.y = 0.45; base.castShadow = true; g.add(base);
+    var jug = new THREE.Mesh(new THREE.SphereGeometry(0.17,12,10), new THREE.MeshPhysicalMaterial({color:0x8fd0e8, transparent:true, opacity:0.55, roughness:0.1}));
+    jug.position.y = 1.02; jug.scale.y = 1.3; g.add(jug);
+    scene.add(g);
+  }
+
+  // plants and cabinets scattered along the corridors between pods — enough to feel
+  // like a real, busier office, without crowding the walk paths or blocking sightlines
+  [
+    [-3.2,-3.6,0.9],[3.2,-3.6,0.9],[-3.2,4.3,0.85],[3.2,4.3,0.85],
+    [-21.5,-15,1.0],[21.5,-15,1.0],[-21.5,15,1.0],[21.5,15,1.0],
+    [0,-15.5,0.95],[0,15.5,0.95],[-9,-2.5,0.8],[9,-2.5,0.8],
+    [-13.5,3.8,0.85],[13.5,3.8,0.85],[-2,-9.5,0.8],[2,9.5,0.8]
+  ].forEach(function(p){ buildPlant(p[0],p[1],p[2]); });
+
+  buildCabinet(-22.7,-5, Math.PI/2);
+  buildCabinet(-22.7,-3.3, Math.PI/2);
+  buildCabinet(22.7,4.5, -Math.PI/2);
+  buildCabinet(22.7,6.2, -Math.PI/2);
+  buildWaterCooler(15.5,-13.5);
+  buildWaterCooler(-4.5,15.6);
+
   // a couple of people walking the aisles, so the floor doesn't feel frozen
   var walkers = [];
   function addWalker(x1,z1,x2,z2,speed){
@@ -846,14 +940,16 @@
     scene.add(g);
     walkers.push({group:g, a:{x:x1,z:z1}, b:{x:x2,z:z2}, t:Math.random(), dir:1, speed:speed});
   }
-  addWalker(5.8,-9.5, 5.8,9.5, 0.05);
-  addWalker(-5.8,9.5, -5.8,-9.5, 0.045);
+  addWalker(8.4,-14.5, 8.4,14.5, 0.05);
+  addWalker(-8.4,14.5, -8.4,-14.5, 0.045);
+  addWalker(-19,-4, 19,-4, 0.04);
+  addWalker(19,5.5, -19,5.5, 0.038);
 
   // ---------------- orbit camera (full manual control) ----------------
-  var DEFAULT_ORBIT = { target:new THREE.Vector3(0,0.4,0), radius:27, theta:0.55, phi:0.82 };
+  var DEFAULT_ORBIT = { target:new THREE.Vector3(0,0.4,0), radius:38, theta:0.55, phi:0.82 };
   var orbit = { target:DEFAULT_ORBIT.target.clone(), radius:DEFAULT_ORBIT.radius, theta:DEFAULT_ORBIT.theta, phi:DEFAULT_ORBIT.phi };
   var targetRadius = orbit.radius;
-  var MIN_R=3.2, MAX_R=42, MIN_PHI=0.08, MAX_PHI=1.55;
+  var MIN_R=3.2, MAX_R=62, MIN_PHI=0.08, MAX_PHI=1.55;
   var PAN_HX = BUILD_HX-0.5, PAN_HZ = BUILD_HZ-0.5;
   var spin = { vTheta:0, vPhi:0 }; // rotation momentum, decays each frame
 
@@ -882,6 +978,21 @@
     openPanel(dept);
     updateLegendActive(dept);
   }
+  var focusVec = new THREE.Vector3();
+  function focusOnAgent(agentId){
+    var rec = AGENT_GROUPS[agentId];
+    if(!rec) return;
+    spin.vTheta = 0; spin.vPhi = 0;
+    rec.group.getWorldPosition(focusVec);
+    orbitAnim = {
+      t0: performance.now(), dur: prefersReducedMotion?1:650,
+      fromTarget: orbit.target.clone(), toTarget: new THREE.Vector3(focusVec.x, 0.9, focusVec.z),
+      fromRadius: orbit.radius, toRadius: 4.4,
+      fromPhi: orbit.phi, toPhi: 0.95
+    };
+    targetRadius = 4.4;
+    openAgentPanel(agentId);
+  }
   function resetView(){
     spin.vTheta = 0; spin.vPhi = 0;
     orbitAnim = {
@@ -894,6 +1005,7 @@
     targetRadius = DEFAULT_ORBIT.radius;
     panel.classList.remove("open");
     currentDept = null;
+    currentAgentId = null;
     Array.prototype.forEach.call(legend.children, function(btn){ btn.classList.remove("active"); });
   }
 
@@ -948,6 +1060,8 @@
       if(pointers.size===0){
         var ndc = ndcFrom(e.clientX,e.clientY);
         raycaster.setFromCamera(ndc, camera);
+        var personHit = raycaster.intersectObjects(PERSON_HIT_MESHES)[0];
+        if(personHit){ canvas.classList.add("hover"); return; }
         var hit = raycaster.intersectObject(floor)[0];
         canvas.classList.toggle("hover", !!(hit && zoneAtPoint(hit.point.x, hit.point.z)));
       }
@@ -984,10 +1098,15 @@
       if(!downInfo.moved && downInfo.button!==2 && (performance.now()-downInfo.t)<400){
         var ndc = ndcFrom(downInfo.x, downInfo.y);
         raycaster.setFromCamera(ndc, camera);
-        var hit = raycaster.intersectObject(floor)[0];
-        if(hit){
-          var dept = zoneAtPoint(hit.point.x, hit.point.z);
-          if(dept) focusOn(dept);
+        var personHit = raycaster.intersectObjects(PERSON_HIT_MESHES)[0];
+        if(personHit && personHit.object.userData.agentId){
+          focusOnAgent(personHit.object.userData.agentId);
+        } else {
+          var hit = raycaster.intersectObject(floor)[0];
+          if(hit){
+            var dept = zoneAtPoint(hit.point.x, hit.point.z);
+            if(dept) focusOn(dept);
+          }
         }
       }
       downInfo = null;
@@ -1045,7 +1164,9 @@
 
   // ---------------- panel ----------------
   var panel = document.getElementById("panel");
+  var panelBack = document.getElementById("panelBack");
   var currentDept = null;
+  var currentAgentId = null;
   var STATUS_LABEL = {idle:"Idle — no task assigned", requested:"Requested, not started", working:"Working", done:"Done", blocked:"Blocked"};
 
   function assignTask(agentId, inputEl, btnEl, msgEl){
@@ -1064,60 +1185,104 @@
       .then(function(){ btnEl.disabled = false; inputEl.disabled = false; });
   }
 
+  function buildAgentCard(a, expanded){
+    var live = agentStatus[a.id];
+    var status = (live && live.status) || "idle";
+
+    var el = document.createElement("div"); el.className="agent-card";
+    var n = document.createElement("div"); n.className="name"; n.textContent=a.name;
+    var de = document.createElement("div"); de.className="desc"; de.textContent=a.desc;
+
+    var st = document.createElement("div"); st.className="status-line";
+    var dot = document.createElement("span"); dot.className="status-dot"; dot.style.background = "#"+(STATUS_COLOR[status]||STATUS_COLOR.idle).toString(16).padStart(6,"0");
+    var stText = document.createElement("span");
+    stText.textContent = STATUS_LABEL[status] || status;
+    st.appendChild(dot); st.appendChild(stText);
+    el.appendChild(n); el.appendChild(de); el.appendChild(st);
+
+    if(live && live.task){
+      var taskLine = document.createElement("div"); taskLine.className="task-line";
+      taskLine.textContent = "“"+live.task+"”";
+      el.appendChild(taskLine);
+    }
+    if(live && live.result){
+      var resultLine = document.createElement("div"); resultLine.className="task-line result-line";
+      resultLine.textContent = live.result;
+      el.appendChild(resultLine);
+    }
+
+    if(expanded){
+      var next = document.createElement("div"); next.className="next-line";
+      var nextText = NEXT_BY_DEPT[a.dept] || "";
+      if(status === "idle"){
+        next.innerHTML = "<b>Next:</b> hasn't been assigned real work yet — the autonomous shift (hourly) picks up whichever agents have waited longest.";
+      } else if(status === "blocked"){
+        next.innerHTML = "<b>Next:</b> blocked on something only the owner can supply — see the task above.";
+      } else if(status === "working"){
+        next.innerHTML = "<b>Next:</b> will report back with a real result once this task is done.";
+      } else {
+        next.innerHTML = "<b>Next:</b> "+nextText;
+      }
+      el.appendChild(next);
+    }
+
+    var row = document.createElement("div"); row.className="assign-row";
+    var input = document.createElement("input"); input.type="text"; input.placeholder="Assign a task…"; input.maxLength=200;
+    var btn = document.createElement("button"); btn.type="button"; btn.textContent="Assign";
+    var msg = document.createElement("div"); msg.className="assign-msg";
+    row.appendChild(input); row.appendChild(btn);
+    el.appendChild(row); el.appendChild(msg);
+    btn.addEventListener("click", function(){ assignTask(a.id, input, btn, msg); });
+    input.addEventListener("keydown", function(e){ if(e.key==="Enter") assignTask(a.id, input, btn, msg); });
+
+    return el;
+  }
+
   function openPanel(dept){
     currentDept = dept;
+    currentAgentId = null;
+    panelBack.style.display = "none";
     document.getElementById("panelBar").style.background = "var("+dept.cssVar+")";
     document.getElementById("panelCode").textContent = "ROOM "+dept.code;
     document.getElementById("panelTitle").textContent = dept.name;
     document.getElementById("panelSub").textContent = dept.tag+" · "+dept.agents.length+" agents";
     var wrap = document.getElementById("panelAgents");
     wrap.innerHTML = "";
-    dept.agents.forEach(function(a){
-      var live = agentStatus[a.id];
-      var status = (live && live.status) || "idle";
-
-      var el = document.createElement("div"); el.className="agent-card";
-      var n = document.createElement("div"); n.className="name"; n.textContent=a.name;
-      var de = document.createElement("div"); de.className="desc"; de.textContent=a.desc;
-
-      var st = document.createElement("div"); st.className="status-line";
-      var dot = document.createElement("span"); dot.className="status-dot"; dot.style.background = "#"+(STATUS_COLOR[status]||STATUS_COLOR.idle).toString(16).padStart(6,"0");
-      var stText = document.createElement("span");
-      stText.textContent = STATUS_LABEL[status] || status;
-      st.appendChild(dot); st.appendChild(stText);
-      el.appendChild(n); el.appendChild(de); el.appendChild(st);
-
-      if(live && live.task){
-        var taskLine = document.createElement("div"); taskLine.className="task-line";
-        taskLine.textContent = "“"+live.task+"”";
-        el.appendChild(taskLine);
-      }
-      if(live && live.result){
-        var resultLine = document.createElement("div"); resultLine.className="task-line result-line";
-        resultLine.textContent = live.result;
-        el.appendChild(resultLine);
-      }
-
-      var row = document.createElement("div"); row.className="assign-row";
-      var input = document.createElement("input"); input.type="text"; input.placeholder="Assign a task…"; input.maxLength=200;
-      var btn = document.createElement("button"); btn.type="button"; btn.textContent="Assign";
-      var msg = document.createElement("div"); msg.className="assign-msg";
-      row.appendChild(input); row.appendChild(btn);
-      el.appendChild(row); el.appendChild(msg);
-      btn.addEventListener("click", function(){ assignTask(a.id, input, btn, msg); });
-      input.addEventListener("keydown", function(e){ if(e.key==="Enter") assignTask(a.id, input, btn, msg); });
-
-      wrap.appendChild(el);
-    });
+    dept.agents.forEach(function(a){ wrap.appendChild(buildAgentCard(a, false)); });
     panel.classList.add("open");
     document.getElementById("hint").classList.add("hidden");
   }
+
+  function openAgentPanel(agentId){
+    var entry = AGENT_BY_ID[agentId];
+    if(!entry) return;
+    currentDept = entry.dept;
+    currentAgentId = agentId;
+    panelBack.style.display = "block";
+    panelBack.textContent = "← Back to "+entry.dept.name;
+    document.getElementById("panelBar").style.background = "var("+entry.dept.cssVar+")";
+    document.getElementById("panelCode").textContent = "ROOM "+entry.dept.code+" · "+entry.dept.name;
+    document.getElementById("panelTitle").textContent = entry.a.name;
+    document.getElementById("panelSub").textContent = entry.dept.tag;
+    var wrap = document.getElementById("panelAgents");
+    wrap.innerHTML = "";
+    wrap.appendChild(buildAgentCard(entry.a, true));
+    panel.classList.add("open");
+    document.getElementById("hint").classList.add("hidden");
+    updateLegendActive(entry.dept);
+  }
+
+  panelBack.addEventListener("click", function(){ if(currentDept) openPanel(currentDept); });
+
   function refreshPanelIfOpen(){
-    if(panel.classList.contains("open") && currentDept) openPanel(currentDept);
+    if(!panel.classList.contains("open")) return;
+    if(currentAgentId) openAgentPanel(currentAgentId);
+    else if(currentDept) openPanel(currentDept);
   }
   document.getElementById("panelClose").addEventListener("click", function(){
     panel.classList.remove("open");
     currentDept = null;
+    currentAgentId = null;
     Array.prototype.forEach.call(legend.children, function(btn){ btn.classList.remove("active"); });
   });
 
@@ -1206,7 +1371,8 @@
       row.addEventListener("click", function(){
         closeRoster();
         userInteracted = true;
-        focusOn(r.entry.dept);
+        if(AGENT_GROUPS[r.entry.a.id]) focusOnAgent(r.entry.a.id);
+        else focusOn(r.entry.dept);
       });
       rosterList.appendChild(row);
     });
@@ -1342,6 +1508,92 @@
     mmCtx.beginPath(); mmCtx.arc(tx,tz,4,0,Math.PI*2); mmCtx.fill();
   }
 
+  // ---------------- ambient collaboration ----------------
+  // People occasionally walk over to a colleague's desk, or into the boardroom's
+  // empty guest chairs for a few minutes, then walk back. Who moves is weighted
+  // toward agents with a real "working"/"done" status from the live board — this
+  // is ambience layered on real activity, not a claim about any specific exchange.
+  function shuffle(arr){
+    for(var i=arr.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=arr[i]; arr[i]=arr[j]; arr[j]=t; }
+    return arr;
+  }
+  function collabCandidates(preferBusy){
+    return ALL_AGENTS.map(function(e){ return e.a.id; }).filter(function(id){
+      var rec = AGENT_GROUPS[id];
+      if(!rec || rec.walk) return false;
+      if(!preferBusy) return true;
+      var st = statusOf(id);
+      return st==="working" || st==="done";
+    });
+  }
+  function startWalk(agentId, targetWorldX, targetWorldZ, holdSeconds){
+    var rec = AGENT_GROUPS[agentId];
+    if(!rec || rec.walk) return false;
+    rec.walk = {
+      phase:"out",
+      fromLocal:{x:rec.group.position.x, z:rec.group.position.z},
+      toLocal:{x:targetWorldX-rec.origin.x, z:targetWorldZ-rec.origin.z},
+      t:0, hold:holdSeconds
+    };
+    return true;
+  }
+  function updateAgentWalks(dt){
+    Object.keys(AGENT_GROUPS).forEach(function(id){
+      var rec = AGENT_GROUPS[id];
+      var w = rec.walk;
+      if(!w) return;
+      if(w.phase==="out" || w.phase==="back"){
+        var dx = w.toLocal.x-w.fromLocal.x, dz = w.toLocal.z-w.fromLocal.z;
+        var dist = Math.max(0.6, Math.hypot(dx,dz));
+        w.t += dt*(1.15/dist);
+        var e = Math.min(1, w.t);
+        rec.group.position.x = w.fromLocal.x + dx*e;
+        rec.group.position.z = w.fromLocal.z + dz*e;
+        rec.group.position.y = Math.abs(Math.sin(elapsed*8))*0.035;
+        if(dist > 0.2) rec.group.rotation.y = Math.atan2(dx,dz);
+        if(e>=1){
+          if(w.phase==="out"){ w.phase="hold"; w.t=0; }
+          else { rec.walk=null; rec.group.position.y=0; rec.group.rotation.y=rec.seatRotY; }
+        }
+      } else if(w.phase==="hold"){
+        w.t += dt;
+        rec.group.position.y = Math.sin(elapsed*1.6)*0.01;
+        if(w.t>=w.hold){ w.phase="back"; w.t=0; var tmp=w.fromLocal; w.fromLocal=w.toLocal; w.toLocal=tmp; }
+      }
+    });
+  }
+  var nextCollabAt = 5 + Math.random()*5;
+  function maybeStartCollaboration(){
+    if(prefersReducedMotion || ALL_AGENTS.length===0) return;
+    if(Math.random() < 0.34 && BOARDROOM_SEATS_WORLD.length){
+      var openSeats = BOARDROOM_SEATS_WORLD.filter(function(s){ return !s.taken; });
+      if(openSeats.length){
+        var visitors = shuffle(collabCandidates(true).filter(function(id){ return AGENT_BY_ID[id].dept.id !== "strategy"; }));
+        if(visitors.length < 2) visitors = shuffle(collabCandidates(false).filter(function(id){ return AGENT_BY_ID[id].dept.id !== "strategy"; }));
+        var n = Math.min(openSeats.length, 2+Math.floor(Math.random()*2), visitors.length);
+        for(var i=0;i<n;i++){
+          (function(seat, id){
+            seat.taken = true;
+            startWalk(id, seat.x, seat.z, 9+Math.random()*7);
+            var freeCheck = setInterval(function(){
+              var rec = AGENT_GROUPS[id];
+              if(!rec || !rec.walk){ seat.taken = false; clearInterval(freeCheck); }
+            }, 1200);
+          })(openSeats[i], visitors[i]);
+        }
+      }
+    } else {
+      var busy = shuffle(collabCandidates(true));
+      if(busy.length < 2) busy = shuffle(collabCandidates(false));
+      if(busy.length >= 2){
+        var recB = AGENT_GROUPS[busy[1]];
+        var wp = new THREE.Vector3(); recB.group.getWorldPosition(wp);
+        startWalk(busy[0], wp.x+0.55, wp.z+0.4, 4+Math.random()*3);
+      }
+    }
+    nextCollabAt = elapsed + 8 + Math.random()*10;
+  }
+
   // ---------------- main loop ----------------
   var clock = new THREE.Clock();
   var elapsed = 0;
@@ -1353,9 +1605,12 @@
 
     if(!prefersReducedMotion){
       people.forEach(function(p){
+        if(p.agentId && AGENT_GROUPS[p.agentId] && AGENT_GROUPS[p.agentId].walk) return; // mid-walk, owns its own transform this frame
         p.group.position.y = Math.sin(elapsed*1.6+p.phase)*0.012;
         p.group.rotation.y = p.baseRotY + Math.sin(elapsed*0.7+p.phase)*0.07;
       });
+      updateAgentWalks(dt);
+      if(elapsed >= nextCollabAt) maybeStartCollaboration();
       walkers.forEach(function(w){
         w.t += w.dir*dt*w.speed;
         if(w.t>1){ w.t=1; w.dir=-1; }
