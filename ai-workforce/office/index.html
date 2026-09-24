@@ -298,8 +298,13 @@
   var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // ---------------- data ----------------
+  // Departments are grouped into two shared bullpens (A: research/content/
+  // software, B: sales/delivery/growth) — one enclosed room per group, each
+  // department gets a row inside it. This is what actually closes the gaps:
+  // fewer separate room shells, desks packed row-on-row like the reference
+  // floor plan, instead of 6 small rooms scattered across open floor.
   var DEPARTMENTS = [
-    { id:"strategy", code:"00", name:"Strategy & Operations", tag:"Runs the studio itself", cssVar:"--a-strategy", hex:0xC97F22, x:0, z:-3.6, boardroom:true,
+    { id:"strategy", code:"00", name:"Strategy & Operations", tag:"Runs the studio itself", cssVar:"--a-strategy", hex:0xC97F22, x:0, z:-8.4, boardroom:true,
       agents:[
         {name:"Chief of Staff", desc:"Prioritizes the studio's work queue, tracks capacity across all 35 agents."},
         {name:"Project Manager", desc:"Breaks a signed job into tasks and assigns them to the right department."},
@@ -307,7 +312,7 @@
         {name:"Contract & Proposal Drafting Agent", desc:"Drafts SOWs, contracts, and NDAs from templates."},
         {name:"Quality Bar Agent", desc:"Reviews every deliverable against the client brief before it ships."}
       ]},
-    { id:"research", code:"01", name:"Research & Intelligence", tag:"Finds the opportunities", cssVar:"--a-research", hex:0x1F9690, x:-16.5, z:-10.5, door:"south",
+    { id:"research", code:"01", name:"Research & Intelligence", tag:"Finds the opportunities", cssVar:"--a-research", hex:0x1F9690, x:-7.3, z:-3.6, group:"A", row:0,
       agents:[
         {name:"Opportunity Scout", desc:"Scans for underserved niches and side-hustle categories worth entering."},
         {name:"Market Research Agent", desc:"Sizes a market: demand signals, pricing norms, buyer pain points."},
@@ -315,7 +320,7 @@
         {name:"Client / Lead Researcher", desc:"Builds a one-page dossier on a prospect before outreach."},
         {name:"Trend Scout", desc:"Tracks emerging tools, platforms, and demand shifts."}
       ]},
-    { id:"content", code:"02", name:"Content & Creative", tag:"Writes and designs", cssVar:"--a-content", hex:0xD24E64, x:16.5, z:-10.5, door:"south",
+    { id:"content", code:"02", name:"Content & Creative", tag:"Writes and designs", cssVar:"--a-content", hex:0xD24E64, x:-7.3, z:-2.0, group:"A", row:1,
       agents:[
         {name:"Copywriter", desc:"Website, landing page, and ad copy."},
         {name:"SEO / Blog Writer", desc:"Long-form articles and SEO content."},
@@ -323,7 +328,7 @@
         {name:"Video / Podcast Script Agent", desc:"Scripts and outlines for video or audio content."},
         {name:"Brand & Graphic Design Agent", desc:"Brand guides, simple graphics, and slide decks."}
       ]},
-    { id:"software", code:"03", name:"Software & Technical", tag:"Builds the deliverable", cssVar:"--a-software", hex:0x3560CC, x:16.5, z:0, door:"west",
+    { id:"software", code:"03", name:"Software & Technical", tag:"Builds the deliverable", cssVar:"--a-software", hex:0x3560CC, x:-7.3, z:-0.4, group:"A", row:2,
       agents:[
         {name:"Full-Stack Dev Agent", desc:"Builds websites, small apps, and integrations."},
         {name:"Automation / Scripting Agent", desc:"Builds workflow automations that save a client real hours."},
@@ -331,7 +336,7 @@
         {name:"QA / Testing Agent", desc:"Tests everything before it ships."},
         {name:"DevOps / Deployment Agent", desc:"Handles hosting, deployment, and uptime monitoring."}
       ]},
-    { id:"sales", code:"04", name:"Sales & Client Acquisition", tag:"Turns leads into signed jobs", cssVar:"--a-sales", hex:0x2F9350, x:16.5, z:10.5, door:"north",
+    { id:"sales", code:"04", name:"Sales & Client Acquisition", tag:"Turns leads into signed jobs", cssVar:"--a-sales", hex:0x2F9350, x:7.3, z:-3.6, group:"B", row:0,
       agents:[
         {name:"Outreach / Cold Email Agent", desc:"Drafts personalized outreach at volume — never sends without approval."},
         {name:"Proposal Writer", desc:"Turns a scoped opportunity into a priced proposal."},
@@ -339,7 +344,7 @@
         {name:"CRM / Pipeline Manager Agent", desc:"Tracks every lead's stage and next action."},
         {name:"Partnerships Agent", desc:"Finds agencies and platforms worth partnering with."}
       ]},
-    { id:"delivery", code:"05", name:"Client Delivery & Support", tag:"Keeps clients happy", cssVar:"--a-delivery", hex:0x6E4FCC, x:-16.5, z:10.5, door:"north",
+    { id:"delivery", code:"05", name:"Client Delivery & Support", tag:"Keeps clients happy", cssVar:"--a-delivery", hex:0x6E4FCC, x:7.3, z:-2.0, group:"B", row:1,
       agents:[
         {name:"Onboarding Agent", desc:"Turns a signed deal into a kickoff packet and intake form."},
         {name:"Account Manager Agent", desc:"Owns the client relationship day-to-day."},
@@ -347,7 +352,7 @@
         {name:"Deliverable QA Reviewer", desc:"Final check that what's shipping matches what was promised."},
         {name:"Documentation Agent", desc:"Writes handoff docs, SOPs, and how-to guides."}
       ]},
-    { id:"growth", code:"06", name:"Growth & Marketing", tag:"Builds inbound demand", cssVar:"--a-growth", hex:0xB33F94, x:-16.5, z:0, door:"east",
+    { id:"growth", code:"06", name:"Growth & Marketing", tag:"Builds inbound demand", cssVar:"--a-growth", hex:0xB33F94, x:7.3, z:-0.4, group:"B", row:2,
       agents:[
         {name:"SEO Agent", desc:"Keyword strategy and on-page SEO."},
         {name:"Paid Ads Agent", desc:"Drafts ad copy, targeting, and budget plans."},
@@ -355,7 +360,7 @@
         {name:"Community / Engagement Agent", desc:"Drafts engagement content for communities and forums."},
         {name:"Analytics / Reporting Agent", desc:"Tracks what's actually converting across the studio."}
       ]},
-    { id:"lasttouch", code:"07", name:"Last Touch", tag:"Final check before anything reaches a customer", cssVar:"--a-lasttouch", hex:0xB8901E, x:0, z:13.2, door:"north",
+    { id:"lasttouch", code:"07", name:"Last Touch", tag:"Final check before anything reaches a customer", cssVar:"--a-lasttouch", hex:0xB8901E, x:0, z:3.6, door:"north",
       agents:[
         {name:"Grammar & Copy Editor", desc:"Proofreads every client-facing draft for grammar, spelling, and clarity."},
         {name:"Visual & Formatting Reviewer", desc:"Checks layout, formatting, and visual polish on anything client-facing."},
@@ -364,6 +369,10 @@
         {name:"Final Release Coordinator", desc:"Collects all four Last Touch checks into one go/no-go verdict before anything reaches your approval queue."}
       ]}
   ];
+  var GROUPS = {
+    A: { depts:["research","content","software"], cx:-7.3, cz:-2.0, door:"west" },
+    B: { depts:["sales","delivery","growth"], cx:7.3, cz:-2.0, door:"east" }
+  };
 
   function slugify(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,""); }
   DEPARTMENTS.forEach(function(d){ d.agents.forEach(function(a){ a.id = slugify(a.name); a.dept = d.id; }); });
@@ -383,7 +392,7 @@
     lasttouch: "Passes to the next Last Touch check, and finally to your approval queue once all five clear it."
   };
 
-  var BUILD_HX = 24.5, BUILD_HZ = 17.2, WALL_T = 0.3, WALL_H = 4.3;
+  var BUILD_HX = 21.5, BUILD_HZ = 14.5, WALL_T = 0.3, WALL_H = 4.3;
 
   // ---------------- renderer / scene ----------------
   var canvas = document.getElementById("scene");
@@ -834,7 +843,8 @@
 
   function buildDeskPod(dept){
     // two parallel rows facing the same way, like a real cubicle island,
-    // instead of one thin line of desks — denser and reads as an office floor
+    // instead of one thin line of desks — denser and reads as an office floor.
+    // Used for standalone single-department rooms (Last Touch).
     var n = dept.agents.length;
     var row1n = Math.ceil(n/2), row2n = n - row1n;
     var spacing = 1.55, rowGap = 1.8;
@@ -862,6 +872,47 @@
     var halfX = maxRowSpan/2 + 0.9, minZ = dept.z - rowGap/2 - 1.4, maxZ = dept.z + rowGap/2 + 1.05;
     buildEnclosedRoom(dept.x-halfX, dept.x+halfX, minZ, maxZ, dept.door, wallMat2, 2.3, 1.3);
     registerZone(dept, dept.x-halfX, dept.x+halfX, minZ, maxZ);
+  }
+
+  // One row of desks for one department, inside a SHARED group room (no
+  // walls of its own — the group room builds one enclosure for every
+  // department row it contains). This is what actually closes the gaps
+  // between departments: one big bullpen instead of many small rooms.
+  function buildDeptRow(dept, roomHalfWidth){
+    var n = dept.agents.length, spacing = 1.55;
+    var startX = -((n-1)*spacing)/2;
+    var rug = new THREE.Mesh(new THREE.PlaneGeometry(roomHalfWidth*2-0.3, 1.5), new THREE.MeshStandardMaterial({color:dept.hex, roughness:0.95, transparent:true, opacity:0.22}));
+    rug.rotation.x = -Math.PI/2;
+    rug.position.set(dept.x, 0.015, dept.z);
+    rug.receiveShadow = true;
+    scene.add(rug);
+    for(var i=0;i<n;i++){
+      var a = dept.agents[i];
+      var g = buildWorkstation(dept.x + startX + i*spacing, dept.z, 0, dept.hex, a.id, a.name);
+      scene.add(g);
+    }
+    var sign = makeSign(dept.name, 1.55, 0);
+    sign.position.set(dept.x - roomHalfWidth + 1.6, 1.55, dept.z);
+    scene.add(sign);
+    registerZone(dept, dept.x-roomHalfWidth, dept.x+roomHalfWidth, dept.z-0.78, dept.z+0.78);
+  }
+
+  function buildGroupRoom(groupKey){
+    var grp = GROUPS[groupKey];
+    var depts = grp.depts.map(function(id){
+      var found = null;
+      DEPARTMENTS.forEach(function(d){ if(d.id===id) found = d; });
+      return found;
+    });
+    var spacing = 1.55, rowGapZ = 1.6;
+    var n = depts[0].agents.length;
+    var rowWidth = n*spacing;
+    var roomHalfWidth = rowWidth/2 + 0.9;
+    depts.forEach(function(d){ buildDeptRow(d, roomHalfWidth); });
+    var minZ = depts[0].z - rowGapZ/2 - 0.9;
+    var maxZ = depts[depts.length-1].z + rowGapZ/2 + 0.9;
+    var minX = grp.cx - roomHalfWidth, maxX = grp.cx + roomHalfWidth;
+    buildEnclosedRoom(minX, maxX, minZ, maxZ, grp.door, wallMat2, 2.3, 1.3);
   }
 
   function buildBoardroom(dept){
@@ -903,7 +954,7 @@
   }
 
   function buildLounge(){
-    var cx = 19.0, cz = -13.8;
+    var cx = -16.3, cz = -8.4;
     var woodFloor = new THREE.Mesh(new THREE.PlaneGeometry(7.6,5.2), woodMat);
     woodFloor.rotation.x=-Math.PI/2; woodFloor.position.set(cx,0.012,cz); woodFloor.receiveShadow=true;
     scene.add(woodFloor);
@@ -1032,11 +1083,12 @@
     registerZone({id:"huddle-"+label, code:"--", name:label, tag:"Small-group huddle room", cssVar:"--a-strategy", hex:hex, agents:[]}, cx-half,cx+half,cz-half,cz+half);
   }
 
-  DEPARTMENTS.forEach(function(d){ if(d.boardroom) buildBoardroom(d); else buildDeskPod(d); });
+  DEPARTMENTS.forEach(function(d){ if(d.boardroom) buildBoardroom(d); else if(!d.group) buildDeskPod(d); });
+  Object.keys(GROUPS).forEach(function(k){ buildGroupRoom(k); });
   buildLounge();
-  buildReception(0, -15.0);
-  buildHuddleRoom(-8, 5, "Huddle A", 0x1F9690, "north");
-  buildHuddleRoom(8, 5, "Huddle B", 0xB33F94, "north");
+  buildReception(-16.3, -2.0);
+  buildHuddleRoom(-6, 3.4, "Huddle A", 0x1F9690, "east");
+  buildHuddleRoom(6, 3.4, "Huddle B", 0xB33F94, "west");
 
   // ---------------- scattered office props (fills the bigger floor, makes it feel real) ----------------
   var potMat = new THREE.MeshStandardMaterial({color:0xb5674a, roughness:0.85});
@@ -1073,21 +1125,19 @@
     scene.add(g);
   }
 
-  // plants and cabinets scattered along the corridors between pods — enough to feel
-  // like a real, busier office, without crowding the walk paths or blocking sightlines
+  // plants and cabinets scattered along the corridors between rooms — enough to
+  // feel like a real, busier office, positioned to fit the compact packed layout
   [
-    [-3.2,-3.6,0.9],[3.2,-3.6,0.9],[-3.2,4.3,0.85],[3.2,4.3,0.85],
-    [-21.5,-15,1.0],[21.5,-15,1.0],[-21.5,15,1.0],[21.5,15,1.0],
-    [0,-15.5,0.95],[0,15.5,0.95],[-9,-2.5,0.8],[9,-2.5,0.8],
-    [-13.5,3.8,0.85],[13.5,3.8,0.85],[-2,-9.5,0.8],[2,9.5,0.8]
+    [-18,-13,1.0],[-9,-13,0.9],[9,-13,0.9],[18,-13,1.0],
+    [-16,8,0.95],[-8,8,0.85],[8,8,0.85],[16,8,0.95],[0,8.5,0.9],
+    [18,-8,0.85],[18,0,0.85],[18,7,0.85],
+    [0,-2,0.8],[-1.5,4.8,0.75],[1.5,4.8,0.75]
   ].forEach(function(p){ buildPlant(p[0],p[1],p[2]); });
 
-  buildCabinet(-22.7,-5, Math.PI/2);
-  buildCabinet(-22.7,-3.3, Math.PI/2);
-  buildCabinet(22.7,4.5, -Math.PI/2);
-  buildCabinet(22.7,6.2, -Math.PI/2);
-  buildWaterCooler(15.5,-13.5);
-  buildWaterCooler(-4.5,15.6);
+  buildCabinet(19.8,-11, Math.PI/2);
+  buildCabinet(19.8,-9.3, Math.PI/2);
+  buildWaterCooler(0,-12.8);
+  buildWaterCooler(0,6.2);
 
   // a couple of people walking the aisles, so the floor doesn't feel frozen
   var walkers = [];
@@ -1097,16 +1147,14 @@
     scene.add(g);
     walkers.push({group:g, a:{x:x1,z:z1}, b:{x:x2,z:z2}, t:Math.random(), dir:1, speed:speed});
   }
-  addWalker(8.4,-14.5, 8.4,14.5, 0.05);
-  addWalker(-8.4,14.5, -8.4,-14.5, 0.045);
-  addWalker(-19,-4, 19,-4, 0.04);
-  addWalker(19,5.5, -19,5.5, 0.038);
+  addWalker(-18,-13, 18,-13, 0.045);
+  addWalker(18,7, -18,7, 0.04);
 
   // ---------------- orbit camera (full manual control) ----------------
-  var DEFAULT_ORBIT = { target:new THREE.Vector3(0,0.4,0), radius:38, theta:0.55, phi:0.82 };
+  var DEFAULT_ORBIT = { target:new THREE.Vector3(0,0.4,0), radius:29, theta:0.55, phi:0.82 };
   var orbit = { target:DEFAULT_ORBIT.target.clone(), radius:DEFAULT_ORBIT.radius, theta:DEFAULT_ORBIT.theta, phi:DEFAULT_ORBIT.phi };
   var targetRadius = orbit.radius;
-  var MIN_R=3.2, MAX_R=62, MIN_PHI=0.08, MAX_PHI=1.55;
+  var MIN_R=3.2, MAX_R=48, MIN_PHI=0.08, MAX_PHI=1.55;
   var PAN_HX = BUILD_HX-0.5, PAN_HZ = BUILD_HZ-0.5;
   var spin = { vTheta:0, vPhi:0 }; // rotation momentum, decays each frame
 
