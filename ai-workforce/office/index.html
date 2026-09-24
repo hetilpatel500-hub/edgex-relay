@@ -1698,10 +1698,21 @@
     for(var i=arr.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=arr[i]; arr[i]=arr[j]; arr[j]=t; }
     return arr;
   }
-  function collabCandidates(preferBusy){
+  // Which physical, walled room an agent actually sits in — walks are only
+  // ever allowed between two agents in the SAME room, because that's the
+  // only case where a straight line between two desks can't cross a wall.
+  // Grouped departments (the two shared bullpens) share one room; everyone
+  // else (Last Touch, Strategy's boardroom) is already room-scoped by id.
+  function roomKeyOf(id){
+    var entry = AGENT_BY_ID[id];
+    if(!entry) return null;
+    return entry.dept.group || entry.dept.id;
+  }
+  function collabCandidates(preferBusy, roomKey){
     return ALL_AGENTS.map(function(e){ return e.a.id; }).filter(function(id){
       var rec = AGENT_GROUPS[id];
       if(!rec || rec.walk) return false;
+      if(roomKey && roomKeyOf(id) !== roomKey) return false;
       if(!preferBusy) return true;
       var st = statusOf(id);
       return st==="working" || st==="done";
@@ -1744,32 +1755,19 @@
     });
   }
   var nextCollabAt = 5 + Math.random()*5;
+  var ROOM_KEYS = ["A","B","lasttouch","strategy"];
   function maybeStartCollaboration(){
     if(prefersReducedMotion || ALL_AGENTS.length===0) return;
-    if(Math.random() < 0.34 && BOARDROOM_SEATS_WORLD.length){
-      var openSeats = BOARDROOM_SEATS_WORLD.filter(function(s){ return !s.taken; });
-      if(openSeats.length){
-        var visitors = shuffle(collabCandidates(true).filter(function(id){ return AGENT_BY_ID[id].dept.id !== "strategy"; }));
-        if(visitors.length < 2) visitors = shuffle(collabCandidates(false).filter(function(id){ return AGENT_BY_ID[id].dept.id !== "strategy"; }));
-        var n = Math.min(openSeats.length, 2+Math.floor(Math.random()*2), visitors.length);
-        for(var i=0;i<n;i++){
-          (function(seat, id){
-            seat.taken = true;
-            startWalk(id, seat.x, seat.z, 9+Math.random()*7);
-            var freeCheck = setInterval(function(){
-              var rec = AGENT_GROUPS[id];
-              if(!rec || !rec.walk){ seat.taken = false; clearInterval(freeCheck); }
-            }, 1200);
-          })(openSeats[i], visitors[i]);
-        }
-      }
-    } else {
-      var busy = shuffle(collabCandidates(true));
-      if(busy.length < 2) busy = shuffle(collabCandidates(false));
+    var rooms = shuffle(ROOM_KEYS.slice());
+    for(var r=0;r<rooms.length;r++){
+      var roomKey = rooms[r];
+      var busy = shuffle(collabCandidates(true, roomKey));
+      if(busy.length < 2) busy = shuffle(collabCandidates(false, roomKey));
       if(busy.length >= 2){
         var recB = AGENT_GROUPS[busy[1]];
         var wp = new THREE.Vector3(); recB.group.getWorldPosition(wp);
         startWalk(busy[0], wp.x+0.55, wp.z+0.4, 4+Math.random()*3);
+        break;
       }
     }
     nextCollabAt = elapsed + 8 + Math.random()*10;
