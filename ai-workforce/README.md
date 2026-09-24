@@ -6,8 +6,16 @@ tone/sensitivity, brand consistency, final release) — are built as real
 Claude Code subagents in `agents/`. Identity, tone, pricing philosophy,
 payment processor, and compliance rules are centralized in
 **`BRAND.md`** — read it first, every client-facing agent points back to
-it. Hard rule, unchanged from day one: **no email sends and no deal is
-final without you explicitly approving it first.**
+it.
+
+**Updated 2026-09-24, per the owner's direct instruction:** agents no
+longer wait for the owner's personal sign-off before sending an email,
+posting publicly, finalizing deal terms, or deploying a client build.
+**Chief of Staff** approves or denies those on the owner's behalf, and
+every decision — approved or denied, with the reason and the revenue
+case — is logged and rolled into **one digest email a day** to
+`hetilpatel500@gmail.com`. The **one thing that never moves**: spending
+real money still needs the owner, via the weekly budget process.
 
 Last Touch is the mandatory quality gate every department's
 client-facing output passes through before reaching your approval queue
@@ -22,7 +30,7 @@ delivered, paid — live, from the same `deals` collection the studio
 writes to as things actually happen. No deal exists there until it's
 real.
 
-An autonomous shift also runs on its own — a Routine (`trig_01DXuq5GDu23xeztwjRDbjPr`,
+An autonomous shift also runs on its own — a Routine (`trig_01BXBEAoHuB48YDR3xKzUbXG`,
 **hourly**), not a session-bound cron job: it's owned by the
 environment, spawns a fresh session on each firing, and survives this
 session ending or the container restarting. Each firing rotates through
@@ -31,6 +39,12 @@ self-directed task, and writes results to the live status board on
 [the office artifact](https://claude.ai/artifact/NzBSM8bbGtbqhariCBzfoH) —
 no manual task assignment needed. Manage it from any session with
 `list_triggers` / `delete_trigger`, or via the claude.ai Routines UI.
+
+A **separate daily Routine** (`trig_01FmybD21HpqpiY3ymP1qK8Q`) wakes the
+owner's own connected chat session once a day to actually send anything
+Chief of Staff approved and email the daily digest — see the mechanical-
+limit note in `DEAL-DESK.md` for why sending needs a connected session
+specifically, not the hourly shift Routine.
 
 See **`OPERATIONS.md`** for the rules governing that shift: zero idle
 agents, the `opportunities` collection (so a money-making idea can't
@@ -59,36 +73,36 @@ needs the owner's approval, since no agent can move real money.
 
 ## The approval rule (read this before running anything)
 
-Two agents touch the outside world: `outreach-agent` (drafts/sends emails)
-and `account-manager` (finalizes deal terms). Both are written so that:
+Full detail in `DEAL-DESK.md`; the short version:
 
-1. They only ever **draft**. They never call a send/finalize tool
-   without pasting the exact email or deal terms into the conversation
-   first and waiting for you to say "send it" / "approved" / equivalent.
-2. Claude Code's own permission system backs this up: sending an email
-   through a connector is a visible, hard-to-reverse action, so the
-   harness itself will prompt you for confirmation before the send tool
-   actually fires — even if a prompt tried to skip that step.
+1. Every client-facing agent still **drafts first** — nothing is
+   improvised live.
+2. The draft clears **Last Touch** (5-agent quality gate — grammar,
+   formatting, tone, brand consistency, final release).
+3. **Chief of Staff** reviews the cleared draft and approves or denies
+   it — checking it against `BRAND.md`, the studio's catalog, and plain
+   judgment. This replaced the owner's personal review.
+4. Only once approved, the agent that owns it actually sends, posts, or
+   deploys — for real, no further confirmation from anyone.
+5. Every decision (approved or denied, why, and the revenue case) is
+   logged to the `decisions` collection and rolled into **one digest
+   email a day**, sent to `hetilpatel500@gmail.com`.
 
-So "press agree" is real: you'll see the actual email or deal card, then
-one confirmation is all it takes to send.
+**The one exception:** anything that spends the studio's own money (ad
+budget, a paid tool, a new number or hosting plan) is never Chief of
+Staff's to approve — that still goes through the owner via the weekly
+budget process in `OPERATIONS.md`.
 
 ## Setup
 
-1. **Connect email for `ai--edgex@edgex--ai.com`**: confirmed via this
-   domain's live MX records — it's **Google Workspace**
-   (`aspmx.l.google.com`, SPF set for `_spf.google.com`). So: claude.ai
-   → Settings → Connectors → add the **Gmail** connector, sign in as
-   `ai--edgex@edgex--ai.com` specifically (not a personal Gmail), then
-   start a **new** Claude Code session (connectors only load at session
-   start).
+1. **Email for `ai--edgex@edgex--ai.com`**: confirmed via this domain's
+   live MX records — it's **Google Workspace**. The **Gmail** connector
+   is connected and granted to the client-facing agents and to the
+   autonomous shift Routine, so sends are real once Chief of Staff
+   approves them.
 2. Copy the `agents/` you want into your project's `.claude/agents/`
    directory, or reference this folder directly.
-3. Once the connector is live, check what its send tool is actually
-   called in your session (e.g. `mcp__gmail__send_email`) and add it to
-   the `tools:` line in `outreach-agent.md` and `account-manager.md` —
-   every other client-facing agent stays draft-only by design.
-4. Start with `opportunity-scout` → `lead-researcher` → `outreach-agent`
+3. Start with `opportunity-scout` → `lead-researcher` → `outreach-agent`
    for your first prospect batch. Full flow is in `DEAL-DESK.md`.
 
 ## All 40, and how they stay busy
@@ -97,9 +111,13 @@ Every department in the playbook (Section 3-9) plus Last Touch now has
 real agents here, not just descriptions. The client-facing ones
 (`outreach-agent`, `account-manager`, `onboarding-agent`,
 `support-help-desk-agent`, `partnerships-agent`, `email-marketing-agent`,
-`community-engagement-agent`, `paid-ads-agent`, `devops-deployment-agent`)
-all carry the same rule: draft in full, get explicit confirmation, only
-then act — nothing sends, posts, deploys, or spends money on its own.
+`community-engagement-agent`, `devops-deployment-agent`) draft, clear
+Last Touch, get Chief of Staff's approval, then act for real — no owner
+confirmation needed. `community-engagement-agent` is the one exception
+to "acts for real": it has no posting tool connected yet, so an approved
+post still needs a human to actually publish it. `paid-ads-agent` is the
+one exception to the approval flow itself: ad spend is real money, so it
+stays draft-only for the owner, same as the weekly budget process.
 Everyone else (research, content, technical, ops, growth-analysis
 roles) works freely since their output is internal until it clears Last
-Touch and a client-facing agent or the user moves it forward.
+Touch and a client-facing agent moves it forward.

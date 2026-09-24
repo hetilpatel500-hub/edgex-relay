@@ -5,6 +5,12 @@ pick work, how agents collaborate, and how the studio's small discretionary
 budget is decided. Read alongside `BRAND.md` (identity/tone/compliance) and
 `DEAL-DESK.md` (the approval gate).
 
+**Also as of 2026-09-24: this budget process is the *only* place the owner
+still approves anything.** Every other client-facing decision now goes
+through Chief of Staff instead — see `DEAL-DESK.md`. Nothing below changes
+because of that; if anything it matters more now, since it's the one real
+checkpoint left.
+
 ## Zero idle
 
 No agent should sit at status="idle" for an extended stretch when there is
@@ -47,6 +53,26 @@ suggestion instead of letting it die in their own `result` field. Each
 shift, agents with an open suggestion addressed to them get picked first,
 and their task incorporates the suggestion — marking it `addressed` when
 done.
+
+## Chief of Staff's daily decision digest
+
+Every client-facing decision Chief of Staff makes — approved or denied —
+is logged to a **`decisions`** collection: `{agent, action, decision,
+reason, revenue_case, timestamp}`. `decision` is `"approved"` or
+`"denied"`; `revenue_case` is required on an approval (which deal or
+opportunity this advances, and how) and optional on a denial.
+
+A **separate daily Routine** ("Edgex daily decision digest",
+`trig_01FmybD21HpqpiY3ymP1qK8Q`) wakes the owner's live chat session once
+a day (Routines here can't hold a Gmail connector, only a connected chat
+session can — see `DEAL-DESK.md`'s mechanical-limit note). It reads every
+`decisions` entry from the last 24 hours, sends **one email** to
+`hetilpatel500@gmail.com` covering what was decided, why, and the revenue
+case for each approval, and also flushes anything Chief of Staff already
+approved into `outbox` — those get actually sent for real at this point,
+not before. This is a report, not a request; the owner doesn't need to
+act on it for the studio to keep moving, but it's everything they'd need
+to step back into any specific decision if they want to.
 
 ## The weekly budget meeting
 
