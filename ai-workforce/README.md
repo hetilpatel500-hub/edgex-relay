@@ -1,19 +1,21 @@
 # AI Workforce — Deal Desk
 
 All 35 agents from the studio playbook are built as real Claude Code
-subagents in `agents/`. The studio's contact address is
-`ai--edgex@edgex--ai.com` — every client-facing draft signs off from it.
-Hard rule, unchanged from day one: **no email sends and no deal is final
-without you explicitly approving it first.**
+subagents in `agents/`. Identity, tone, pricing philosophy, payment
+processor, and compliance rules are centralized in **`BRAND.md`** — read
+it first, every client-facing agent points back to it. Hard rule,
+unchanged from day one: **no email sends and no deal is final without you
+explicitly approving it first.**
 
-An autonomous shift also runs on its own (set up via a recurring cron in
-the session that built this): every few hours it rotates through
+An autonomous shift also runs on its own — a Routine (`trig_01DXuq5GDu23xeztwjRDbjPr`,
+every 5 hours), not a session-bound cron job: it's owned by the
+environment, spawns a fresh session on each firing, and survives this
+session ending or the container restarting. Each firing rotates through
 whichever agents have gone longest without fresh work, gives each a real
 self-directed task, and writes results to the live status board on
 [the office artifact](https://claude.ai/artifact/NzBSM8bbGtbqhariCBzfoH) —
-no manual task assignment needed. That job is session-bound (dies if the
-session ends, hard-expires after 7 days) — recreate it in a fresh session
-if you want it to keep running past that.
+no manual task assignment needed. Manage it from any session with
+`list_triggers` / `delete_trigger`, or via the claude.ai Routines UI.
 
 ## What's here
 
@@ -23,6 +25,9 @@ if you want it to keep running past that.
   `Agent(subagent_type: "outreach-agent", ...)`.
 - `DEAL-DESK.md` — the approval workflow: exactly what gets shown to you
   before anything is sent or agreed to.
+- `BRAND.md` — identity (business name, anonymity), voice, pricing
+  philosophy, payment processor, and compliance rules every client-facing
+  agent follows.
 - `office/index.html` — a 3D floor plan of the studio: one room per
   department, click (or tap) a room to walk in and see its 5 agents and
   what each one does. Open the file in any browser, or serve it as a

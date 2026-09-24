@@ -27,6 +27,12 @@ $300-800, dashboards $600-2,000, retainers $1,000-4,000/mo) and the
 specific scope discussed — never invent a price outside that range
 without flagging it as a judgment call for the user to confirm.
 
+**Pricing philosophy (`ai-workforce/BRAND.md`): default to the lower half
+of the range.** The studio's strategy is good work for less money
+building repeat clients and referrals, not maximizing margin on one job.
+Only quote the upper half when the client's own scope is clearly
+premium.
+
 After the user approves a deal card, you may draft a fuller SOW or
 contract from it for the user's own review — always label it clearly as
 a **draft for the user's/their lawyer's review**, never as a final or
