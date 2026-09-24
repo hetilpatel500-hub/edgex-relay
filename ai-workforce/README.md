@@ -23,7 +23,7 @@ writes to as things actually happen. No deal exists there until it's
 real.
 
 An autonomous shift also runs on its own — a Routine (`trig_01DXuq5GDu23xeztwjRDbjPr`,
-every 5 hours), not a session-bound cron job: it's owned by the
+**hourly**), not a session-bound cron job: it's owned by the
 environment, spawns a fresh session on each firing, and survives this
 session ending or the container restarting. Each firing rotates through
 whichever agents have gone longest without fresh work, gives each a real
@@ -31,6 +31,15 @@ self-directed task, and writes results to the live status board on
 [the office artifact](https://claude.ai/artifact/NzBSM8bbGtbqhariCBzfoH) —
 no manual task assignment needed. Manage it from any session with
 `list_triggers` / `delete_trigger`, or via the claude.ai Routines UI.
+
+See **`OPERATIONS.md`** for the rules governing that shift: zero idle
+agents, the `opportunities` collection (so a money-making idea can't
+quietly vanish), the `suggestions` collection (agents leaving each other
+notes instead of letting an insight die in one department), and the
+$20/week discretionary budget — a separate weekly Routine
+(`trig_013fBypAUMXwnKkmx69PF7gA`, Mondays) that tops up a tracked ledger
+and logs one Chief-of-Staff recommendation a week; any actual spend still
+needs the owner's approval, since no agent can move real money.
 
 ## What's here
 
