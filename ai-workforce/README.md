@@ -1,12 +1,22 @@
 # AI Workforce — Deal Desk
 
-40 agents across 8 departments — the original 35 from the studio
-playbook plus **Last Touch** (5 agents: grammar, visual/formatting,
-tone/sensitivity, brand consistency, final release) — are built as real
-Claude Code subagents in `agents/`. Identity, tone, pricing philosophy,
-payment processor, and compliance rules are centralized in
-**`BRAND.md`** — read it first, every client-facing agent points back to
-it.
+**90 agents across 18 departments**, in two connected divisions:
+
+- **The original 40** — the studio playbook's 35 plus **Last Touch**
+  (5 agents: grammar, visual/formatting, tone/sensitivity, brand
+  consistency, final release) — client services, built as real Claude
+  Code subagents in `agents/`. Identity, tone, pricing philosophy,
+  payment processor, and compliance rules are centralized in
+  **`BRAND.md`** — read it first, every client-facing agent points back
+  to it.
+- **Edgex Clips (50 agents, added 2026-09-24)** — owned video/social
+  media, not client services: the studio makes and posts its own
+  commentary/original video content on YouTube, Instagram, Facebook,
+  and TikTok, aiming for real ad-revenue/creator-fund payouts. Read
+  **`VIDEO-DESK.md`** first — it has this division's one hard rule
+  (commentary/original only, never a raw repost) and its own 5-agent
+  **Video Last Touch** gate. Connected to the original 40's building via
+  Last Touch's second door — see `office/index.html`.
 
 **Updated 2026-09-24, per the owner's direct instruction:** agents no
 longer wait for the owner's personal sign-off before sending an email,
@@ -121,3 +131,29 @@ stays draft-only for the owner, same as the weekly budget process.
 Everyone else (research, content, technical, ops, growth-analysis
 roles) works freely since their output is internal until it clears Last
 Touch and a client-facing agent moves it forward.
+
+## Edgex Clips — the other 50
+
+A second division, connected through Last Touch's second door, makes and
+posts the studio's own video content instead of serving clients. Full
+detail in `VIDEO-DESK.md`; the short version:
+
+- **10 departments, 50 agents**: Trend Intelligence, Clip Sourcing &
+  Rights, Commentary & Scripting, Production & Editing, Thumbnails &
+  Titles, then one operations department per platform (YouTube, TikTok,
+  Instagram & Facebook), Growth & Community (Video), and **Video Last
+  Touch** (5 agents: copyright, platform policy, defamation/harassment,
+  brand/tone, publish coordination).
+- **The one hard rule**: commentary and reaction with real original
+  work, never a raw repost of someone else's clip. "Non-copyrighted
+  streamer clip" isn't a real legal category — Copyright Compliance
+  Reviewer blocks anything that's just a re-upload.
+- **Same approval model as the rest of the studio**: draft → Video Last
+  Touch clears it → Chief of Staff approves or denies → the right
+  platform agent queues it to post. `meta-ads-boost-agent` is this
+  division's `paid-ads-agent` — spend still goes through the owner via
+  the weekly budget process, same exception as everywhere else.
+- **Monetization is reported honestly**, never assumed: each platform
+  agent tracks the platform's actual payout eligibility (YouTube
+  Partner Program, TikTok Creativity Program, Meta bonuses) rather than
+  rounding up "views" into "money."

@@ -1,9 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The Studio Floor</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>The Studio Floor</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
 <style>
   :root{
@@ -223,11 +218,7 @@
     header{max-width:74vw;}
   }
 </style>
-
-</head>
-<body>
-
-<canvas id="scene"></canvas>
+</head><body><canvas id="scene"></canvas>
 
 <div id="app">
   <div id="topRow">
@@ -360,13 +351,96 @@
         {name:"Community / Engagement Agent", desc:"Drafts engagement content for communities and forums."},
         {name:"Analytics / Reporting Agent", desc:"Tracks what's actually converting across the studio."}
       ]},
-    { id:"lasttouch", code:"07", name:"Last Touch", tag:"Final check before anything reaches a customer", cssVar:"--a-lasttouch", hex:0xB8901E, x:0, z:3.6, door:"north",
+    { id:"lasttouch", code:"07", name:"Last Touch", tag:"Final check before anything reaches a customer", cssVar:"--a-lasttouch", hex:0xB8901E, x:0, z:3.6, door:["north","south"],
       agents:[
         {name:"Grammar & Copy Editor", desc:"Proofreads every client-facing draft for grammar, spelling, and clarity."},
         {name:"Visual & Formatting Reviewer", desc:"Checks layout, formatting, and visual polish on anything client-facing."},
         {name:"Tone & Sensitivity Reviewer", desc:"Screens for offensive language, insensitive phrasing, or anything that could upset a customer."},
         {name:"Brand Consistency Checker", desc:"Verifies every draft matches Edgex's identity, pricing, and compliance rules exactly."},
         {name:"Final Release Coordinator", desc:"Collects all four Last Touch checks into one go/no-go verdict before anything reaches your approval queue."}
+      ]},
+
+    // ---------------- Edgex Clips: the video/social content wing, connected
+    // south of Last Touch, same 40-agent-studio conventions throughout ----------------
+    { id:"trend-intel", code:"08", name:"Trend Intelligence", tag:"Finds what's trending, right now", cssVar:"--a-research", hex:0x1F9690, x:-8.5, z:7.25, group:"C", row:0,
+      agents:[
+        {name:"Video Trend Scout", desc:"Scans YouTube/TikTok/Instagram/Facebook for real current trends and turns them into video concepts."},
+        {name:"Streamer & Influencer Monitor", desc:"Tracks notable streamer/influencer moments and controversies as they break."},
+        {name:"Competitor Channel Analyst", desc:"Studies what's actually working for comparable channels."},
+        {name:"Audio/Sound Trend Tracker", desc:"Tracks trending sounds and music on TikTok/Reels specifically."},
+        {name:"Niche Opportunity Scout (Video)", desc:"Finds underserved content niches worth a recurring series."}
+      ]},
+    { id:"clip-rights", code:"09", name:"Clip Sourcing & Rights", tag:"Finds footage, decides what's safe to use", cssVar:"--a-research", hex:0x1F9690, x:-8.5, z:8.85, group:"C", row:1,
+      agents:[
+        {name:"Clip Research Agent", desc:"Finds the actual source footage/streams worth building commentary around."},
+        {name:"Rights & Licensing Checker", desc:"The gate: decides what's safe to use and under what limits. Nothing skips this."},
+        {name:"Creator Permission/Outreach Agent", desc:"Drafts permission/collab outreach to creators — never sends without approval."},
+        {name:"Stock/Broll Sourcing Agent", desc:"Finds licensed stock footage, music, and b-roll for original content."},
+        {name:"Archive & Asset Librarian", desc:"Keeps every cleared clip and its usage rights organized and findable."}
+      ]},
+    { id:"commentary", code:"10", name:"Commentary & Scripting", tag:"Writes the original commentary that makes a clip a new work", cssVar:"--a-research", hex:0x1F9690, x:-8.5, z:10.45, group:"C", row:2,
+      agents:[
+        {name:"Commentary Scriptwriter", desc:"Writes the substantial original commentary that transforms a cleared clip."},
+        {name:"Hook Writer", desc:"Crafts the first 2-3 seconds that earn the rest of the watch."},
+        {name:"Tone & Personality Agent", desc:"Keeps a consistent on-screen voice across every video."},
+        {name:"Video Fact-Checker", desc:"Verifies every factual claim a script makes before it moves to production."},
+        {name:"Controversy Sensitivity Reviewer", desc:"Early screen on any script touching a real person or controversy."}
+      ]},
+    { id:"production", code:"11", name:"Production & Editing", tag:"Builds the actual edit", cssVar:"--a-content", hex:0xD24E64, x:8.5, z:7.25, group:"D", row:0,
+      agents:[
+        {name:"Video Editor Agent", desc:"Assembles the edit — cuts, pacing, structure — from a cleared script and clip."},
+        {name:"Motion Graphics/Caption Agent", desc:"Captions and on-screen graphics; most short-form gets watched muted."},
+        {name:"Voiceover/TTS Agent", desc:"Turns a cleared script into narration direction or generated voiceover."},
+        {name:"Sound Design Agent", desc:"Music, SFX, and audio mixing so narration always reads clearly."},
+        {name:"Format Adapter Agent", desc:"Reformats one master edit into each platform's real spec."}
+      ]},
+    { id:"thumbnails", code:"12", name:"Thumbnails & Titles", tag:"Earns the click, honestly", cssVar:"--a-content", hex:0xD24E64, x:8.5, z:8.85, group:"D", row:1,
+      agents:[
+        {name:"Thumbnail Designer", desc:"Designs thumbnails that earn a click without misleading about the video."},
+        {name:"Title/Headline Writer", desc:"Writes accurate, click-worthy titles per platform."},
+        {name:"AB Testing Agent", desc:"Recommends which thumbnail/title variants to test, reads the real results."},
+        {name:"Video SEO/Metadata Agent", desc:"Writes descriptions, tags, and keywords so videos actually get found."},
+        {name:"Video Brand Consistency Agent", desc:"Keeps thumbnails, titles, and on-screen branding consistent."}
+      ]},
+    { id:"growth-video", code:"16", name:"Growth & Community (Video)", tag:"Keeps the audience, and watches for trouble", cssVar:"--a-content", hex:0xD24E64, x:8.5, z:10.45, group:"D", row:2,
+      agents:[
+        {name:"Video Comment/Reply Agent", desc:"Drafts replies to real comments across all four platforms."},
+        {name:"Collab/Cross-Promotion Agent", desc:"Finds real creators worth a collab or cross-promotion."},
+        {name:"Audience Insights Agent", desc:"Builds a real picture of who's actually watching and what they want."},
+        {name:"Repurposing Agent", desc:"Turns one finished video into several more pieces of real content."},
+        {name:"Crisis/Backlash Monitor", desc:"Watches for real negative reaction to a posted video and flags it fast."}
+      ]},
+    { id:"video-lasttouch", code:"17", name:"Video Last Touch", tag:"Final check before anything reaches an audience", cssVar:"--a-lasttouch", hex:0xB8901E, x:0, z:14.275, door:["north","south"],
+      agents:[
+        {name:"Copyright Compliance Reviewer", desc:"Confirms a video actually followed the commentary/original rule."},
+        {name:"Content Policy Reviewer", desc:"Checks against each platform's actual current policy."},
+        {name:"Defamation & Harassment Screen", desc:"The final, most careful check on anything touching a real person."},
+        {name:"Video Brand & Tone Final Check", desc:"Confirms the finished video sounds and looks like the channel."},
+        {name:"Publish Coordinator (Video)", desc:"Collects all four checks into one verdict before Chief of Staff and posting."}
+      ]},
+    { id:"youtube-ops", code:"13", name:"YouTube Operations", tag:"Long-form, Shorts, and real Partner Program tracking", cssVar:"--a-sales", hex:0x2F9350, x:0, z:18.1, group:"P", row:0,
+      agents:[
+        {name:"YouTube Upload/Scheduling Agent", desc:"Queues cleared, approved videos for YouTube and manages the schedule."},
+        {name:"YouTube Shorts Specialist", desc:"Adapts content specifically for the Shorts format and algorithm."},
+        {name:"YouTube Community Tab Agent", desc:"Drafts Community tab posts that keep the audience engaged between uploads."},
+        {name:"YouTube Analytics Agent", desc:"Tracks real views, retention, and CTR — turns it into next steps."},
+        {name:"YouTube Monetization & Policy Agent", desc:"Tracks real Partner Program eligibility — never rounds up."}
+      ]},
+    { id:"tiktok-ops", code:"14", name:"TikTok Operations", tag:"Fast trends, high posting frequency", cssVar:"--a-sales", hex:0x2F9350, x:0, z:19.7, group:"P", row:1,
+      agents:[
+        {name:"TikTok Posting/Scheduling Agent", desc:"Queues cleared, approved videos for TikTok and manages the schedule."},
+        {name:"TikTok Trend-Sync Agent", desc:"Fast pre-post check that a video's sound/format is still actually current."},
+        {name:"TikTok Live/Engagement Agent", desc:"Drafts responses to comments, duets, and stitches."},
+        {name:"TikTok Analytics Agent", desc:"Tracks real completion rate, shares, and follower growth."},
+        {name:"TikTok Monetization Agent", desc:"Tracks the current Creativity Program thresholds — they change often."}
+      ]},
+    { id:"meta-ops", code:"15", name:"Instagram & Facebook Operations", tag:"Reels, Stories, and Meta's own norms", cssVar:"--a-sales", hex:0x2F9350, x:0, z:21.3, group:"P", row:2,
+      agents:[
+        {name:"Instagram Reels Agent", desc:"Queues cleared, approved videos for Instagram Reels."},
+        {name:"Instagram Feed/Story Agent", desc:"Feed posts and Stories that round out the profile."},
+        {name:"Facebook Video Agent", desc:"Queues cleared, approved videos for Facebook, adapted to its own norms."},
+        {name:"Meta Ads/Boost Agent", desc:"Drafts paid promotion plans — never spends; the budget exception."},
+        {name:"Cross-Meta Analytics Agent", desc:"Tracks real Instagram + Facebook performance and monetization status."}
       ]}
   ];
   // Doors face INWARD, into the shared central corridor, so both bullpens,
@@ -375,7 +449,11 @@
   // without ever crossing a wall.
   var GROUPS = {
     A: { depts:["research","content","software"], cx:-8.5, cz:-2.0, door:"east" },
-    B: { depts:["sales","delivery","growth"], cx:8.5, cz:-2.0, door:"west" }
+    B: { depts:["sales","delivery","growth"], cx:8.5, cz:-2.0, door:"west" },
+    // Edgex Clips wing, south of Last Touch — same shared-bullpen pattern.
+    C: { depts:["trend-intel","clip-rights","commentary"], cx:-8.5, cz:8.85, door:"east" },
+    D: { depts:["production","thumbnails","growth-video"], cx:8.5, cz:8.85, door:"west" },
+    P: { depts:["youtube-ops","tiktok-ops","meta-ops"], cx:0, cz:19.7, door:"north" }
   };
   // Each room's door as a matched inside/outside pair, both centered exactly
   // on the doorway gap. Walking home -> inside -> outside (or reverse) means
@@ -414,7 +492,11 @@
     lasttouch: "Passes to the next Last Touch check, and finally to your approval queue once all five clear it."
   };
 
-  var BUILD_HX = 23, BUILD_HZ = 14.5, WALL_T = 0.3, WALL_H = 4.3;
+  // The building isn't square anymore — the video division's wing extends
+  // the south side much further than the north, so north/south are tracked
+  // separately instead of one symmetric half-depth.
+  var BUILD_HX = 23, BUILD_Z_NORTH = 14.5, BUILD_Z_SOUTH = 26.5, WALL_T = 0.3, WALL_H = 4.3;
+  var BUILD_Z_MID = (BUILD_Z_SOUTH-BUILD_Z_NORTH)/2, BUILD_Z_SPAN = BUILD_Z_NORTH+BUILD_Z_SOUTH;
 
   // ---------------- renderer / scene ----------------
   var canvas = document.getElementById("scene");
@@ -561,8 +643,9 @@
   var monitorMat = new THREE.MeshStandardMaterial({color:0x14161a, roughness:0.3});
 
   // ---------------- building shell ----------------
-  var floor = new THREE.Mesh(new THREE.PlaneGeometry(BUILD_HX*2, BUILD_HZ*2), carpetMat);
+  var floor = new THREE.Mesh(new THREE.PlaneGeometry(BUILD_HX*2, BUILD_Z_SPAN), carpetMat);
   floor.rotation.x = -Math.PI/2;
+  floor.position.z = BUILD_Z_MID;
   floor.receiveShadow = true;
   scene.add(floor);
 
@@ -572,10 +655,10 @@
     scene.add(m);
     return m;
   }
-  wallBox(BUILD_HX*2, WALL_H, WALL_T, 0, WALL_H/2, -BUILD_HZ, wallMat);
-  wallBox(BUILD_HX*2, WALL_H, WALL_T, 0, WALL_H/2, BUILD_HZ, wallMat);
-  wallBox(WALL_T, WALL_H, BUILD_HZ*2, -BUILD_HX, WALL_H/2, 0, wallMat);
-  wallBox(WALL_T, WALL_H, BUILD_HZ*2, BUILD_HX, WALL_H/2, 0, wallMat);
+  wallBox(BUILD_HX*2, WALL_H, WALL_T, 0, WALL_H/2, -BUILD_Z_NORTH, wallMat);
+  wallBox(BUILD_HX*2, WALL_H, WALL_T, 0, WALL_H/2, BUILD_Z_SOUTH, wallMat);
+  wallBox(WALL_T, WALL_H, BUILD_Z_SPAN, -BUILD_HX, WALL_H/2, BUILD_Z_MID, wallMat);
+  wallBox(WALL_T, WALL_H, BUILD_Z_SPAN, BUILD_HX, WALL_H/2, BUILD_Z_MID, wallMat);
 
   function windowUnit(x,z,rotY){
     var g = new THREE.Group();
@@ -594,13 +677,14 @@
     });
     scene.add(g);
   }
-  [-12,-4,4,12].forEach(function(zz){ windowUnit(-BUILD_HX+0.02, zz, Math.PI/2); windowUnit(BUILD_HX-0.02, zz, -Math.PI/2); });
-  [-14,-7,0,7,14].forEach(function(xx){ windowUnit(xx, -BUILD_HZ+0.02, 0); windowUnit(xx, BUILD_HZ-0.02, Math.PI); });
+  [-12,-4,4,12,20].forEach(function(zz){ windowUnit(-BUILD_HX+0.02, zz, Math.PI/2); windowUnit(BUILD_HX-0.02, zz, -Math.PI/2); });
+  [-14,-7,0,7,14].forEach(function(xx){ windowUnit(xx, -BUILD_Z_NORTH+0.02, 0); });
+  [-14,-7,0,7,14].forEach(function(xx){ windowUnit(xx, BUILD_Z_SOUTH-0.02, Math.PI); });
 
   // No ceiling structure on purpose — trusses/pendants used to hang right in the
   // camera's eyeline from above. Fill light instead, nothing overhead to block the view.
   var fillPositions = [];
-  for(var tz=-BUILD_HZ+3; tz<=BUILD_HZ-3; tz+=6){
+  for(var tz=-BUILD_Z_NORTH+3; tz<=BUILD_Z_SOUTH-3; tz+=6){
     for(var tx=-BUILD_HX+4; tx<=BUILD_HX-4; tx+=7){ fillPositions.push([tx,tz]); }
   }
   fillPositions.forEach(function(p, i){
@@ -836,8 +920,10 @@
   // A real 4-wall room with a doorway gap on one side — replaces the old
   // 3-sided low partition so departments read as distinct enclosed rooms,
   // like the reference floor plan, not open pods on a rug.
-  function buildEnclosedRoom(minX,maxX,minZ,maxZ,doorWall,mat,wallH,doorW){
+  function buildEnclosedRoom(minX,maxX,minZ,maxZ,doorWalls,mat,wallH,doorW){
     wallH = wallH || 2.3; doorW = doorW || 1.3;
+    if(!doorWalls) doorWalls = [];
+    if(typeof doorWalls === "string") doorWalls = [doorWalls];
     var t = 0.1;
     var w = maxX-minX, dpt = maxZ-minZ;
     function seg(sw,sd,sx,sz){
@@ -845,19 +931,19 @@
       m.position.set(sx,wallH/2,sz); m.castShadow = true; m.receiveShadow = true;
       scene.add(m);
     }
-    if(doorWall==="south"){
+    if(doorWalls.indexOf("south")!==-1){
       var hw1 = (w-doorW)/2;
       seg(hw1,t, minX+hw1/2, maxZ); seg(hw1,t, maxX-hw1/2, maxZ);
     } else { seg(w+t,t,(minX+maxX)/2,maxZ); }
-    if(doorWall==="north"){
+    if(doorWalls.indexOf("north")!==-1){
       var hw2 = (w-doorW)/2;
       seg(hw2,t, minX+hw2/2, minZ); seg(hw2,t, maxX-hw2/2, minZ);
     } else { seg(w+t,t,(minX+maxX)/2,minZ); }
-    if(doorWall==="east"){
+    if(doorWalls.indexOf("east")!==-1){
       var hd1 = (dpt-doorW)/2;
       seg(t,hd1, maxX, minZ+hd1/2); seg(t,hd1, maxX, maxZ-hd1/2);
     } else { seg(t,dpt+t,maxX,(minZ+maxZ)/2); }
-    if(doorWall==="west"){
+    if(doorWalls.indexOf("west")!==-1){
       var hd2 = (dpt-doorW)/2;
       seg(t,hd2, minX, minZ+hd2/2); seg(t,hd2, minX, maxZ-hd2/2);
     } else { seg(t,dpt+t,minX,(minZ+maxZ)/2); }
@@ -1159,15 +1245,19 @@
   // feel like a real, busier office, positioned to fit the compact packed layout
   [
     [-18,-13,1.0],[-9,-13,0.9],[9,-13,0.9],[18,-13,1.0],
-    [-16,8,0.95],[-8,8,0.85],[8,8,0.85],[16,8,0.95],[0,8.5,0.9],
-    [18,-8,0.85],[18,0,0.85],[18,7,0.85],
-    [0,-2,0.8],[-1.5,4.8,0.75],[1.5,4.8,0.75]
+    [-16,4.5,0.95],[16,4.5,0.95],[0,8.5,0.9],
+    [18,-8,0.85],[18,0,0.85],[18,10,0.85],[-18,10,0.85],
+    [0,-2,0.8],[-4.5,4.8,0.75],[4.5,4.8,0.75],
+    [-16,15.5,0.9],[16,15.5,0.9],[0,24.8,1.0],[-9,24.5,0.85],[9,24.5,0.85]
   ].forEach(function(p){ buildPlant(p[0],p[1],p[2]); });
 
   buildCabinet(19.8,-11, Math.PI/2);
   buildCabinet(19.8,-9.3, Math.PI/2);
+  buildCabinet(19.8,18, Math.PI/2);
+  buildCabinet(19.8,19.7, Math.PI/2);
   buildWaterCooler(0,-12.8);
   buildWaterCooler(0,6.2);
+  buildWaterCooler(-16,20);
 
   // a couple of people walking the aisles, so the floor doesn't feel frozen
   var walkers = [];
@@ -1178,14 +1268,16 @@
     walkers.push({group:g, a:{x:x1,z:z1}, b:{x:x2,z:z2}, t:Math.random(), dir:1, speed:speed});
   }
   addWalker(-18,-13, 18,-13, 0.045);
-  addWalker(18,7, -18,7, 0.04);
+  addWalker(18,24.5, -18,24.5, 0.04);
+  addWalker(-18,9, -13.5,9, 0.035);
+  addWalker(13.5,9, 18,9, 0.035);
 
   // ---------------- orbit camera (full manual control) ----------------
   var DEFAULT_ORBIT = { target:new THREE.Vector3(0,0.4,0), radius:29, theta:0.55, phi:0.82 };
   var orbit = { target:DEFAULT_ORBIT.target.clone(), radius:DEFAULT_ORBIT.radius, theta:DEFAULT_ORBIT.theta, phi:DEFAULT_ORBIT.phi };
   var targetRadius = orbit.radius;
   var MIN_R=3.2, MAX_R=48, MIN_PHI=0.08, MAX_PHI=1.55;
-  var PAN_HX = BUILD_HX-0.5, PAN_HZ = BUILD_HZ-0.5;
+  var PAN_HX = BUILD_HX-0.5, PAN_Z_MIN = -(BUILD_Z_NORTH-0.5), PAN_Z_MAX = BUILD_Z_SOUTH-0.5;
   var spin = { vTheta:0, vPhi:0 }; // rotation momentum, decays each frame
 
   function applyOrbit(){
@@ -1266,7 +1358,7 @@
     orbit.target.x -= (rx*dx - fx*dy)*s;
     orbit.target.z -= (rz*dx - fz*dy)*s;
     orbit.target.x = Math.max(-PAN_HX, Math.min(PAN_HX, orbit.target.x));
-    orbit.target.z = Math.max(-PAN_HZ, Math.min(PAN_HZ, orbit.target.z));
+    orbit.target.z = Math.max(PAN_Z_MIN, Math.min(PAN_Z_MAX, orbit.target.z));
   }
   function doZoom(factor){
     targetRadius = Math.max(MIN_R, Math.min(MAX_R, targetRadius*factor));
@@ -1854,7 +1946,7 @@
   }
 
   var nextCollabAt = 5 + Math.random()*5;
-  var ROOM_KEYS = ["A","B","lasttouch","strategy"];
+  var ROOM_KEYS = ["A","B","lasttouch","strategy","C","D","P","video-lasttouch"];
   function maybeStartCollaboration(){
     if(prefersReducedMotion || ALL_AGENTS.length===0) return;
     var roll = Math.random();
@@ -1875,9 +1967,12 @@
     } else if(roll < 0.72){
       // Collaboration Room: 2-3 agents, any room(s), each walks its own
       // door, through the corridor, to the shared table — visibly
-      // converging on each other there.
-      var pool = shuffle(collabCandidates(true));
-      if(pool.length < 2) pool = shuffle(collabCandidates(false));
+      // converging on each other there. Only rooms with a real ROOM_DOOR
+      // entry connect to this corridor — Edgex Clips' wing isn't wired
+      // into it (yet), so its agents sit this one out rather than getting
+      // routed with an empty/invalid path.
+      var pool = shuffle(collabCandidates(true).filter(function(id){ return !!ROOM_DOOR[roomKeyOf(id)]; }));
+      if(pool.length < 2) pool = shuffle(collabCandidates(false).filter(function(id){ return !!ROOM_DOOR[roomKeyOf(id)]; }));
       var n = Math.min(pool.length, 2+Math.floor(Math.random()*2));
       var seats = claimSeats("collab", n);
       for(var i=0;i<seats.length;i++){
@@ -1890,8 +1985,8 @@
     } else {
       // Team meeting: 1-2 non-strategy agents sit in on the boardroom's
       // empty guest chairs, routed through the corridor and both real doors.
-      var visitors = shuffle(collabCandidates(true).filter(function(id){ return roomKeyOf(id) !== "strategy"; }));
-      if(visitors.length < 1) visitors = shuffle(collabCandidates(false).filter(function(id){ return roomKeyOf(id) !== "strategy"; }));
+      var visitors = shuffle(collabCandidates(true).filter(function(id){ return roomKeyOf(id) !== "strategy" && !!ROOM_DOOR[roomKeyOf(id)]; }));
+      if(visitors.length < 1) visitors = shuffle(collabCandidates(false).filter(function(id){ return roomKeyOf(id) !== "strategy" && !!ROOM_DOOR[roomKeyOf(id)]; }));
       var vn = Math.min(visitors.length, 1+Math.floor(Math.random()*2));
       var vseats = claimSeats("team", vn);
       for(var j=0;j<vseats.length;j++){
@@ -1960,5 +2055,4 @@
   requestAnimationFrame(frame);
 })();
 </script>
-</body>
-</html>
+</body></html>
