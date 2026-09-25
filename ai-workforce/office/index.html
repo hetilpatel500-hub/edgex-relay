@@ -417,6 +417,7 @@
   .cd-thumbs.n2,.cd-thumbs.n3,.cd-thumbs.n4{grid-template-columns:1fr 1fr;}
   .cd-thumbs .cd-thumb{width:100%;}
   .cd-options{border-width:1.5px;}
+  .cd-wait{font-size:12.5px;line-height:1.5;margin:6px 0 10px;padding:10px 12px;border-radius:10px;border:1px solid var(--st-requested);color:var(--ink);background:var(--chip-bg);}
   .cd-analog{display:grid;grid-template-columns:minmax(120px,1.4fr) repeat(3,1fr);gap:4px 10px;font-size:12.5px;font-variant-numeric:tabular-nums;margin-top:4px;overflow-x:auto;}
   .cd-analog .h{font:600 10px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
   .cd-analog .k{color:var(--muted);}
@@ -3779,6 +3780,7 @@
     if(c==="refused") return "Claude declined this one. Try clearer chart screenshots.";
     if(c==="invalid_json") return "The answer came back garbled.";
     if(c==="prompt_too_large") return "Too much text for one call.";
+    if(c==="timeout") return "Took longer than 3 minutes, so it was dropped and the rest carried on.";
     return "Something went wrong talking to Claude.";
   }
   function webullErrText(e){
@@ -4219,10 +4221,32 @@
       + "Attached: "+run.files.length+" chart screenshot"+(run.files.length===1?"":"s")+" the owner uploaded"+(run.facts && run.facts.charts ? " (timeframes as read: "+run.facts.charts.map(function(c,i){ return "#"+(i+1)+" "+(c.timeframe||"?"); }).join(", ")+")" : "")+".\n"
       + "Owner's note: "+(run.note ? "\""+run.note+"\"" : "none")+"\n\n"+CHART_RULES+"\n\n";
   }
-  function callJSON(run, prompt, tier){
-    var opts = {images:run.files, signal:run.ctl.signal, modelTier:tier||"default"};
+  // One Claude call with its own stop switch: the run's Stop button aborts
+  // it, and so does a 3-minute limit, so one stuck analyst can't hold up
+  // the whole desk. `onText` marks the analyst as writing the moment its
+  // answer starts arriving.
+  var CALL_LIMIT_MS = 180000;
+  function callJSON(run, prompt, tier, id){
+    var ctl = new AbortController(), timedOut = false;
+    var follow = function(){ ctl.abort(); };
+    run.ctl.signal.addEventListener("abort", follow);
+    var opts = {images:run.blobs || run.files, signal:ctl.signal, modelTier:tier||"default",
+      onText:function(){ if(!run.anyText){ run.anyText = true; } if(id && run.states[id] && !run.states[id].writing){ run.states[id].writing = true; renderProgress(); } }};
     if(run.fresh) opts.cache = false;
-    return sampleFn.json(prompt, opts);
+    var timer = setTimeout(function(){ timedOut = true; ctl.abort(); }, CALL_LIMIT_MS);
+    function done(){ clearTimeout(timer); run.ctl.signal.removeEventListener("abort", follow); }
+    return sampleFn.json(prompt, opts).then(function(r){ done(); return r; }, function(e){ done(); if(timedOut && !run.ctl.signal.aborted) throw {code:"timeout"}; throw e; });
+  }
+  // Shrink screenshots once (long side 1568 px, JPEG) so each of the ~20 calls uploads less.
+  function shrinkImage(img, fallback){
+    return new Promise(function(res){
+      try{
+        var s = Math.min(1, 1568/Math.max(img.width, img.height));
+        var c = document.createElement("canvas"); c.width = Math.max(1, Math.round(img.width*s)); c.height = Math.max(1, Math.round(img.height*s));
+        var x = c.getContext("2d"); x.fillStyle = "#ffffff"; x.fillRect(0,0,c.width,c.height); x.drawImage(img, 0, 0, c.width, c.height);
+        c.toBlob(function(b){ res(b || fallback); }, "image/jpeg", 0.9);
+      }catch(e){ res(fallback); }
+    });
   }
   function setStage(run, text){ run.stage = text; renderProgress(); }
   function runChartDesk(fresh){
@@ -4241,7 +4265,13 @@
     drawChartWall(chartRun.imgs, null, chartRun.note || "new charts", "ANALYZING…");
     toast({dot:"s-working", title:"Chart Desk: "+members.length+" analyst"+(members.length===1?"":"s")+" on your chart"+(chartRun.files.length>1 ? "s" : ""), sub:"Results show up in the Chart Desk and on its wall screen."});
     var run = chartRun;
-    (run.mode==="fast" ? runFast(run) : runFull(run)).then(function(){ finishRun(run, null); }, function(e){ finishRun(run, e); });
+    run.tick = setInterval(function(){ if(chartRun===run) renderProgress(); }, 1000);
+    setStage(run, "Preparing your screenshots…");
+    Promise.all(chartFiles.map(function(c){ return shrinkImage(c.img, c.file); })).then(function(blobs){
+      run.blobs = blobs;
+      setStage(run, "");
+      return run.mode==="fast" ? runFast(run) : runFull(run);
+    }).then(function(){ finishRun(run, null); }, function(e){ finishRun(run, e); });
   }
   function getMarket(run, symbol){
     if(webullState!=="ready" || !symbol){ run.marketErr = !symbol ? "No ticker found. Put it in the note (e.g. SPY) to get live Webull data." : "Webull isn't available in this view."; return Promise.resolve(null); }
@@ -4253,7 +4283,7 @@
     var d = CHART_DESK[CHART_DESK.length-1];
     setDeskState(d.id, "thinking");
     var sym = tickerFromNote(run.note);
-    var first = sym ? Promise.resolve({instrument:sym}) : callJSON(run, "Read the attached chart screenshot(s). Reply with only JSON: {\"instrument\": the ticker symbol shown, or null}", "quick");
+    var first = sym ? Promise.resolve({instrument:sym}) : callJSON(run, "Read the attached chart screenshot(s). Reply with only JSON: {\"instrument\": the ticker symbol shown, or null}", "quick", null).catch(function(e){ if(e && e.code==="cancelled") throw e; return null; });
     return first.then(function(r){
       return getMarket(run, cleanTicker(r && r.instrument));
     }).then(function(){
@@ -4263,7 +4293,7 @@
         + "Reply with only a JSON object: {\"reader\":{\"instrument\":string or null,\"charts\":[{\"timeframe\":string}],\"readable\":true|false,\"why_not\":string},"
         + "\"desks\":[{\"lens\":string,\"bias\":\"bullish\"|\"bearish\"|\"neutral\",\"confidence\":0-100,\"headline\":string,\"checked\":[string]}] (one per checklist lens),"
         + "\"verdict\":"+VERDICT_JSON+"}";
-      return callJSON(run, prompt, "complex");
+      return callJSON(run, prompt, "complex", d.id);
     }).then(function(r){
       if(!r || !r.verdict) throw {code:"invalid_json"};
       run.facts = r.reader || {};
@@ -4274,49 +4304,60 @@
   }
   function runFull(run){
     var reader = CHART_DESK[0];
-    setDeskState(reader.id, "thinking");
-    var readerPrompt = preamble(reader, run)
-      + "Read every attached chart precisely so the rest of the desk works from the same facts. Do not predict.\nReply with only a JSON object: "+READER_JSON;
-    return callJSON(run, readerPrompt, "default").then(function(facts){
-      run.facts = facts || {};
-      if(facts && facts.readable===false){ setDeskState(reader.id, "done", "not readable charts"); throw {code:"unreadable", message:facts.why_not||""}; }
-      var tfs = (run.facts.charts||[]).map(function(c){ return c.timeframe; }).filter(Boolean);
-      setDeskState(reader.id, "done", [run.facts.instrument, tfs.join("/")].filter(Boolean).join(" · ") || "charts read");
-      return getMarket(run, cleanTicker(tickerFromNote(run.note) || run.facts.instrument));
-    }).then(function(){
-      var meta = [run.market ? run.market.symbol : run.facts.instrument, (run.facts.charts||[]).map(function(c){ return c.timeframe; }).filter(Boolean).join("/")].filter(Boolean).join(" · ");
-      drawChartWall(run.imgs, null, meta || run.note || "new charts", "ANALYZING…");
+    var sym = tickerFromNote(run.note);
+    var tickerP = sym ? Promise.resolve(sym) : (function(){
+      setStage(run, "Reading the ticker off the chart…");
+      return callJSON(run, "Look at the attached chart screenshot(s). Reply with only JSON: {\"instrument\": the ticker symbol shown on the chart, or null}", "quick", null)
+        .then(function(r){ return cleanTicker(r && r.instrument); }, function(e){ if(e && e.code==="cancelled") throw e; return null; });
+    })();
+    return tickerP.then(function(t){ setStage(run, ""); return getMarket(run, t); }).then(function(){
+      var ctxText = marketText(run.market);
+      var readerTask = function(){
+        setDeskState(reader.id, "thinking");
+        var readerPrompt = preamble(reader, run)
+          + "Read every attached chart precisely so the head of desk and the devil's advocate can check the others' readings. Do not predict.\nReply with only a JSON object: "+READER_JSON;
+        return callJSON(run, readerPrompt, "default", reader.id).then(function(facts){
+          run.facts = facts || {};
+          if(facts && facts.readable===false){ run.unreadable = facts.why_not || "not readable"; setDeskState(reader.id, "done", "not readable charts"); run.ctl.abort(); return; }
+          var tfs = (run.facts.charts||[]).map(function(c){ return c.timeframe; }).filter(Boolean);
+          setDeskState(reader.id, "done", [run.facts.instrument, tfs.join("/")].filter(Boolean).join(" · ") || "charts read");
+          drawChartWall(run.imgs, null, [run.market ? run.market.symbol : run.facts.instrument, tfs.join("/")].filter(Boolean).join(" · ") || run.note || "new charts", "ANALYZING…");
+        }, function(e){ if(e && e.code==="cancelled") throw e; run.facts = run.facts || {}; setDeskState(reader.id, "failed", sampleErrText(e)); });
+      };
       var desks = CHART_DESK.filter(function(d){ return d.check; });
-      var ctxText = marketText(run.market) + "\n\nThe chart reader's facts from the screenshots (check them yourself):\n" + compact(run.facts, 6000);
-      return pool(desks.map(function(d){
+      var tasks = [readerTask].concat(desks.map(function(d){
         return function(){
           setDeskState(d.id, "thinking");
-          var prompt = preamble(d, run) + ctxText + "\n\nYour checklist, item by item:\n"+d.check+"\n\nReply with only a JSON object: "+DESK_JSON;
-          return callJSON(run, prompt, "default").then(function(r){
+          var prompt = preamble(d, run) + ctxText + "\n\nRead the screenshots yourself for anything the data doesn't cover.\n\nYour checklist, item by item:\n"+d.check+"\n\nReply with only a JSON object: "+DESK_JSON;
+          return callJSON(run, prompt, "default", d.id).then(function(r){
             run.results[d.id] = r;
-            var b = biasOf(r && r.bias);
-            setDeskState(d.id, "done", b+" · "+(num(r && r.confidence)||"?")+"% · "+(r && r.headline || ""));
-            showBubble(d.id, BIAS_DOT[b], deskName(d), b.toUpperCase()+": "+(r && r.headline || ""), 20000);
+            var bb = biasOf(r && r.bias);
+            setDeskState(d.id, "done", bb+" · "+(num(r && r.confidence)||"?")+"% · "+(r && r.headline || ""));
+            showBubble(d.id, BIAS_DOT[bb], deskName(d), bb.toUpperCase()+": "+(r && r.headline || ""), 20000);
             return r;
           }, function(e){
             if(e && e.code==="cancelled") throw e;
             setDeskState(d.id, "failed", sampleErrText(e));
-            if(e && (e.code==="rate_limited" || e.code==="not_granted" || e.code==="session_expired")){ run.ctl.abort(); throw e; }
+            if(e && (e.code==="rate_limited" || e.code==="not_granted" || e.code==="session_expired")){ run.fatal = e; run.ctl.abort(); throw e; }
             return null;
           });
         };
-      }), 4);
+      }));
+      return pool(tasks, 4);
     }).then(function(){
+      if(run.unreadable) throw {code:"unreadable", message:run.unreadable};
+      if(run.fatal) throw run.fatal;
       if(run.ctl.signal.aborted) throw {code:"cancelled"};
+      run.facts = run.facts || {};
       var desks = CHART_DESK.filter(function(d){ return d.check && run.results[d.id]; });
       if(desks.length < 4) throw {code:"too_few"};
       run.board = desks.map(function(d){ var r = run.results[d.id]; return {analyst:deskName(d), lens:d.lens, bias:r.bias, confidence:r.confidence, headline:r.headline, checked:(r.checked||[]).slice(0,6), levels:r.levels, next_move:r.next_move, setup:r.setup}; });
       var qa = CHART_DESK[CHART_DESK.length-2];
       setDeskState(qa.id, "thinking");
-      var qaPrompt = preamble(qa, run) + marketText(run.market) + "\n\nThe desk's findings:\n"+compact(run.board, 24000)+"\n\n"
+      var qaPrompt = preamble(qa, run) + marketText(run.market) + "\n\nThe chart reader's facts:\n"+compact(run.facts, 5000)+"\n\nThe desk's findings:\n"+compact(run.board, 24000)+"\n\n"
         + "Check every price the desk quoted against the market data and the images; find misreads, contradictions between analysts, overconfidence, what the bullish and the bearish cases each ignore, and anything that makes an intraday options trade a bad idea right now (chop, time of day, earnings, move too small to beat decay).\n"
         + "Reply with only a JSON object: {\"misreads\":[string],\"contradictions\":[string],\"bull_case_ignores\":string,\"bear_case_ignores\":string,\"options_red_flags\":[string],\"adjusted_confidence\":0-100,\"warnings\":[string]}";
-      return callJSON(run, qaPrompt, "default").then(function(r){
+      return callJSON(run, qaPrompt, "default", qa.id).then(function(r){
         run.qa = r || {};
         var n = ((r && r.warnings)||[]).length + ((r && r.options_red_flags)||[]).length;
         setDeskState(qa.id, "done", n+" warning"+(n===1?"":"s")+" · adjusted "+(num(r && r.adjusted_confidence)||"?")+"%");
@@ -4325,13 +4366,13 @@
     }).then(function(){
       var fin = CHART_DESK[CHART_DESK.length-1];
       setDeskState(fin.id, "thinking");
-      var finPrompt = preamble(fin, run) + marketText(run.market)
+      var finPrompt = preamble(fin, run) + marketText(run.market) + "\n\nThe chart reader's facts:\n"+compact(run.facts, 4000)
         + "\n\nEach analyst's findings:\n"+compact(run.board, 26000)
         + "\n\nDevil's advocate review:\n"+compact(run.qa || {note:"not available"}, 5000)+"\n\n"
         + "The desk's own track record on calls already scored:\n"+compact(trackRecord(run.market ? run.market.symbol : cleanTicker(run.facts && run.facts.instrument)), 3000)+"\n\n"
         + "Weigh the desk (agreement across independent lenses matters more than one strong opinion; lenses with a better record above deserve more weight once they have 5+ scored calls; the devil's advocate's valid points lower confidence; the Options Strategist's plan is your starting point for the options block). Anchor your probabilities to the similar-setups base rate and the scorecard, then adjust. Size targets to what similar setups actually ran (median_run_up / median_draw_down) instead of hoping for more. Then make the call on the next direction and price for the next 15-60 minutes and into the close, and the options play. \"No trade\" is a valid answer when the edge is thin.\n"
         + "Reply with only a JSON object: "+VERDICT_JSON;
-      return callJSON(run, finPrompt, "complex").then(function(v){
+      return callJSON(run, finPrompt, "complex", fin.id).then(function(v){
         run.verdict = v;
         setDeskState(fin.id, "done", DIR_WORD[dirOf(v && v.direction)]+" · "+(num(v && v.confidence)||"?")+"%");
         showBubble(fin.id, BIAS_DOT[biasOf(v && v.direction)], deskName(fin), "Call: "+DIR_WORD[dirOf(v && v.direction)]+" · "+((v && v.options && v.options.action) || "")+" · target "+fmtP(v && v.next_price && v.next_price.target1), 30000);
@@ -4340,6 +4381,7 @@
   }
   function finishRun(run, err){
     if(run !== chartRun) return;
+    clearInterval(run.tick);
     restTimer = setTimeout(function(){ if(!chartRun) restDesk(); }, 180000);
     cdStop.hidden = true;
     chartRun = null;
@@ -4391,8 +4433,10 @@
     box.textContent = "";
     var done = 0;
     run.members.forEach(function(d){ if(run.states[d.id].state==="done") done++; });
-    box.appendChild(mk("div","section-label", "The desk · "+done+" of "+run.members.length+" done"));
+    var secs = Math.floor((Date.now()-run.started)/1000);
+    box.appendChild(mk("div","section-label", "The desk · "+done+" of "+run.members.length+" done · "+Math.floor(secs/60)+":"+String(secs%60).padStart(2,"0")));
     if(run.stage) box.appendChild(mk("div","sheet-note", run.stage));
+    if(!run.anyText && secs >= 40) box.appendChild(mk("div","cd-wait", "Still waiting on Claude's first answer. If Claude is asking whether this page may use it (look at the top or bottom of the Claude window), choose Allow. The first answers can take a minute; the desk keeps going on its own after that."));
     if(run.market) box.appendChild(mk("div","sheet-note", "Live Webull data in hand: "+run.market.symbol+" "+fmtP(run.market.last)+" · "+run.market.as_of_et+(run.market.data_delay_min ? " · delayed "+run.market.data_delay_min+" min" : "")));
     else if(run.marketErr) box.appendChild(mk("div","sheet-note", run.marketErr));
     var grid = mk("div","cd-grid");
@@ -4401,7 +4445,7 @@
       var row = mk("div","cd-agent "+st.state);
       var top = mk("div","cd-atop"); top.appendChild(mk("span","cd-dot")); top.appendChild(mk("b", null, deskName(d))); row.appendChild(top);
       row.appendChild(mk("div","cd-lens", d.lens));
-      row.appendChild(mk("div","cd-say", st.state==="waiting" ? "waiting its turn" : st.state==="thinking" ? "reading the charts…" : st.text));
+      row.appendChild(mk("div","cd-say", st.state==="waiting" ? "waiting its turn" : st.state==="thinking" ? (st.writing ? "writing its read…" : "thinking…") : st.text));
       grid.appendChild(row);
     });
     box.appendChild(grid);
