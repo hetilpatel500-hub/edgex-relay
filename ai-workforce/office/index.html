@@ -506,7 +506,7 @@
   </div>
 
   <div id="bottomRow">
-    <div id="hint">drag or two-finger swipe to move &middot; pinch to zoom &middot; right-drag or Shift+drag to turn &middot; arrows/WASD move, Q/E turn &middot; click a room or a person</div>
+    <div id="hint">drag or two-finger swipe to move &middot; pinch, +/− or the mouse wheel to zoom &middot; right-drag or Shift+drag to turn &middot; arrows/WASD move, Q/E turn &middot; click a room or a person</div>
     <script>if(window.matchMedia && window.matchMedia("(max-width:720px)").matches){ document.getElementById("hint").textContent = "drag to move · pinch to zoom · twist to turn · tap a room or a person"; }</script>
     <div id="statusKey" aria-hidden="true">
       <span><i class="s-working"></i>working now</span>
@@ -1985,7 +1985,7 @@
     var a = floorAt(x0, y0, grabV1), b = a && floorAt(x1, y1, grabV2);
     if(!a || !b){ doPan(x1-x0, y1-y0); return null; }
     var dx = a.x-b.x, dz = a.z-b.z;
-    var lim = orbit.radius*0.25;       // guard against huge jumps at grazing angles
+    var lim = orbit.radius*0.6;        // guard against huge jumps at grazing angles
     dx = Math.max(-lim, Math.min(lim, dx)); dz = Math.max(-lim, Math.min(lim, dz));
     orbit.target.x = Math.max(-PAN_HX, Math.min(PAN_HX, orbit.target.x+dx));
     orbit.target.z = Math.max(PAN_Z_MIN, Math.min(PAN_Z_MAX, orbit.target.z+dz));
@@ -2130,10 +2130,16 @@
     var dx = e.deltaX*unit, dy = e.deltaY*unit;
     if(e.ctrlKey){ doZoom(Math.exp(dy*0.01)); return; }            // pinch
     if(e.shiftKey){ doRotate(dx || dy, 0, false); return; }
+    // Swipes move the floor in every direction. Only an unmistakable mouse
+    // wheel notch (line/page mode, or an exact 120-step with nothing
+    // sideways and no trackpad activity in the last moment) zooms, so a
+    // straight up/down trackpad swipe moves north/south instead of zooming.
     var now = performance.now();
-    var looksLikePad = e.deltaMode===0 && (dx !== 0 || Math.abs(dy) < 40 || dy % 1 !== 0);
-    if(looksLikePad) lastPadWheel = now;
-    if(looksLikePad || now-lastPadWheel < 350){                    // content follows the fingers
+    var wd = e.wheelDeltaY || 0;
+    var notch = e.deltaMode!==0 || (dx===0 && Math.abs(dy) >= 100 && dy % 1 === 0 && wd !== 0 && wd % 120 === 0);
+    if(!notch) lastPadWheel = now;
+    // once this page has seen a trackpad, every swipe moves the floor
+    if(!notch || lastPadWheel){                        // content follows the fingers
       var cx = e.clientX || innerWidth/2, cy = e.clientY || innerHeight/2;
       grabPan(cx, cy, cx-dx, cy-dy);
     }
