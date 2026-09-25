@@ -82,6 +82,18 @@ untouched with a clear documented next step (like a pricing tier needing
 real research) is exactly what Venture Lead Agent should be picking up,
 not leaving parked.
 
+**Added 2026-09-25 — the idea pool.** `MONEY-MAP.md` lists 100 ways the
+studio can make money with AI, each tracked in the `money_map` collection
+(`status`: `unreviewed` → `promoted` / `hold` / `archived`, or `tracked`
+if it already maps to an `opportunities` doc). Every shift, Opportunity
+Discovery reviews ~10 `unreviewed` items with real research and writes
+the result back to that item's doc — promote into `opportunities` at
+`validating`, hold naming the specific `[SETUP]` blocker, or archive with
+a reason. Keep 6–8 opportunities `active` at once, ranked by fastest real
+path to a first dollar with tools that exist today; when one closes,
+stalls, or archives, the next promoted item takes its slot. Never try to
+work all 100 at once.
+
 ## Agents take ideas from each other
 
 A lightweight **`suggestions`** collection lets any agent leave a note for
