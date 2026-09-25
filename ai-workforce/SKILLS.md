@@ -29,6 +29,11 @@ board, and each agent's card shows its brain.
 
 ## The brain (`brain` collection, one doc per agent id)
 
+**Use exactly this shape.** Skills always go in the `skills` list, and a new
+skill is appended to it, never written as flat fields on the doc. The first
+shift, on 2026-09-25, used a flat one-skill shape; those 12 docs were
+converted, and the floor reads both.
+
 ```
 brain/<agent-id> = {
   agent: "<agent-id>",

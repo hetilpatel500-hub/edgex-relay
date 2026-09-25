@@ -2413,9 +2413,17 @@
   }
 
   // ---- agent brain: money skills it learned, and what it made with them ----
+  // Reads the SKILLS.md shape ({skills:[...]}) and the flat one-skill shape
+  // ({skill_name, sources, ...}) the same way.
+  function skillsOf(id){
+    var b = store.brain[id]; if(!b) return [];
+    if(Array.isArray(b.skills) && b.skills.length) return b.skills;
+    var name = b.skill_name || b.name;
+    return name ? [{name:name, summary:b.summary || b.demand, how_it_earns:b.how_it_earns || b.recommended_price, sources:b.sources, learned_at:b.learned_at, learned_from:b.learned_from, fit:b.fit || b.fit_note}] : [];
+  }
   function skillWorkOf(id){ return docsOf("skillwork").filter(function(x){ return x.d.agent===id; }).sort(function(p,q){ return timeOf(q.d.updatedAt||q.d.created)-timeOf(p.d.updatedAt||p.d.created); }); }
   function buildBrain(id, expanded){
-    var b = store.brain[id], skills = (b && b.skills) || [], work = skillWorkOf(id);
+    var skills = skillsOf(id), work = skillWorkOf(id);
     var box = mk("div","brain");
     if(!skills.length && !work.length){ if(expanded){ box.appendChild(mk("div","brain-h","Brain")); box.appendChild(mk("div","skill","No money skill learned yet. It learns one the first shift it has no work.")); } else box.hidden = true; return box; }
     box.appendChild(mk("div","brain-h","Brain · "+skills.length+" skill"+(skills.length===1?"":"s")));
@@ -2468,7 +2476,7 @@
     var CREW = ALL_AGENTS.filter(function(e){ return e.dept.id!=="chart-desk"; });  // Chart Desk stays on call for the owner's charts
     CREW.forEach(function(e){ var l = agentStatus[e.a.id], st = l && l.status;
       if(st==="collaborating"||st==="learning"||st==="practicing") counts[st]++; else if(vstate(e.a.id)==="working"||vstate(e.a.id)==="requested") counts.working++; else if(vstate(e.a.id)==="idle") counts.idle++; });
-    var skilled = Object.keys(store.brain).filter(function(k){ return (store.brain[k].skills||[]).length; }).length;
+    var skilled = Object.keys(store.brain).filter(function(k){ return skillsOf(k).length; }).length;
     var board = mk("div","agent-card"); board.appendChild(mk("div","name","Task Dispatch board"));
     var g = mk("div","dispatch-grid");
     [["Working",counts.working],["Collaborating",counts.collaborating],["Learning",counts.learning],["Using a skill",counts.practicing],["Never worked",counts.idle],["Have a money skill",skilled+"/"+CREW.length]].forEach(function(c){ var dd = mk("div"); dd.appendChild(mk("b",null,String(c[1]))); dd.appendChild(document.createTextNode(c[0])); g.appendChild(dd); });
@@ -2508,7 +2516,7 @@
   function skillLibrary(){
     var lib = {};
     Object.keys(store.brain).forEach(function(aid){
-      ((store.brain[aid] && store.brain[aid].skills) || []).forEach(function(k){
+      skillsOf(aid).forEach(function(k){
         var key = String(k.name||"").trim(); if(!key) return;
         var e = lib[key.toLowerCase()] = lib[key.toLowerCase()] || {name:key, agents:[], taught:0};
         if(e.agents.indexOf(aid)===-1) e.agents.push(aid);
@@ -2545,7 +2553,7 @@
     if(lib.length) slides.push(function(){ head("STUDIO SKILL LIBRARY · "+lib.length+" SKILL"+(lib.length===1?"":"S")); g.font = "600 38px 'Work Sans', sans-serif";
       lib.slice(0,6).forEach(function(e, i){ var y = 150+i*64; g.fillStyle = "#ffffff"; g.fillText(clip(e.name, 46), 56, y); g.fillStyle = "#E0A24A"; g.textAlign = "right"; g.fillText(e.agents.length+" agent"+(e.agents.length===1?"":"s")+(e.taught ? " · "+e.taught+" taught" : ""), W-56, y); g.textAlign = "left"; }); });
     var recent = [];
-    Object.keys(store.brain).forEach(function(aid){ ((store.brain[aid]||{}).skills||[]).forEach(function(k){ recent.push({aid:aid, k:k}); }); });
+    Object.keys(store.brain).forEach(function(aid){ skillsOf(aid).forEach(function(k){ recent.push({aid:aid, k:k}); }); });
     recent.sort(function(a,b){ return timeOf(b.k.learned_at)-timeOf(a.k.learned_at); });
     if(recent.length) slides.push(function(){ head("JUST LEARNED"); recent.slice(0,4).forEach(function(r, i){ var y = 150+i*98; g.fillStyle = "#ffffff"; g.font = "700 38px 'Work Sans', sans-serif"; g.fillText(clip(nameOf(r.aid), 40)+(r.k.learned_from ? "  ← taught by "+clip(nameOf(r.k.learned_from), 26) : ""), 56, y); g.fillStyle = "#cfc5b4"; g.font = "500 32px 'Work Sans', sans-serif"; g.fillText(clip(r.k.name, 64), 56, y+40); }); });
     var lb = latestBriefing();
@@ -3194,7 +3202,7 @@
       working ? [{b:working+" working now"},{t:" · "+nextShiftText()}] : [{t:"last activity "},{b:agoText(last)},{t:" · "+nextShiftText()}]));
     var recent = ALL_AGENTS.filter(function(e){ var v = vstate(e.a.id); return v==="fresh"||v==="working"; }).length;
     p.appendChild(pchip(null, "s-fresh", [{b:String(recent)},{t:" agents active in 2h"}]));
-    var nCol = activeCollabs().length, nSk = Object.keys(store.brain).filter(function(k){ return (store.brain[k].skills||[]).length; }).length;
+    var nCol = activeCollabs().length, nSk = Object.keys(store.brain).filter(function(k){ return skillsOf(k).length; }).length;
     if(nCol || nSk) p.appendChild(pchip(null, nCol ? "s-working live" : "s-fresh", [{b:String(nCol)},{t:" collaborating · "},{b:String(nSk)},{t:" with money skills"}], function(){ openCollabRoom(); }));
     var owed = ownerOpenCount();
     if(owed) p.appendChild(pchip(null, "s-requested", [{b:owed+" waiting on you"}], function(){ openSheet("ownerOverlay"); }, true));
