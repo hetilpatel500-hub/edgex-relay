@@ -417,6 +417,9 @@
   .cd-thumbs.n2,.cd-thumbs.n3,.cd-thumbs.n4{grid-template-columns:1fr 1fr;}
   .cd-thumbs .cd-thumb{width:100%;}
   .cd-options{border-width:1.5px;}
+  .cd-analog{display:grid;grid-template-columns:minmax(120px,1.4fr) repeat(3,1fr);gap:4px 10px;font-size:12.5px;font-variant-numeric:tabular-nums;margin-top:4px;overflow-x:auto;}
+  .cd-analog .h{font:600 10px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+  .cd-analog .k{color:var(--muted);}
   .cd-options.calls{border-color:var(--st-working);} .cd-options.puts{border-color:var(--st-blocked);}
   .cd-options .cd-idea{font-size:15px;}
   .cd-note{width:100%;box-sizing:border-box;margin-top:10px;padding:10px 12px;border-radius:10px;border:1px solid var(--panel-border);background:var(--panel-bg);color:var(--ink);font:500 13px "Work Sans",sans-serif;}
@@ -3617,6 +3620,7 @@
     "- Without market data, read prices from the chart's price axis and labels and say \"about\" when estimating. If an indicator is neither in the data nor on the chart, write \"not shown\"; never invent a reading.",
     "- The owner trades INTRADAY OPTIONS on the underlying. What matters: the next 15-60 minutes and into the close, how big the move is likely to be, and whether it comes fast enough to beat option time decay.",
     "- Screenshots can be any platform or timeframe, even a phone photo of a screen. With several timeframes, work top-down: the higher timeframe sets the bias, the lower ones time the entry.",
+    "- The data includes a SCORECARD (trend/momentum/VWAP per timeframe, computed from bars) and SIMILAR SETUPS (what this ticker actually did next, the last times it was in the same state). Treat similar_setups as the base rate: start from it, and move away from it only with specific evidence. If the similar setups' edge over the same-time-of-day baseline is small, say so.",
     "- This is a probabilistic read, not a certainty. Calibrate: 50 = coin flip; above 75 needs several independent confirmations."
   ].join("\n");
   var CHART_DESK = [
@@ -3754,7 +3758,8 @@
       m1: bars("M1", 1000, "PRE,RTH"), m5: bars("M5", 400, "PRE,RTH"), m15: bars("M15", 300, "RTH"), m60: bars("M60", 300, "RTH"), d: bars("D", 260),
       quote: wb("get_stock_quotes", {symbol:symbol, category:cat, depth:"1", overnight_required:false}),
       ctx: wb("get_stock_snapshot", {symbols:ctxSyms, category:cat, extend_hour_required:true, overnight_required:false}),
-      earn: ETFS.test(symbol) ? Promise.resolve(null) : wb("get_stock_earnings_calendar", {symbol:symbol, category:cat})
+      earn: ETFS.test(symbol) ? Promise.resolve(null) : wb("get_stock_earnings_calendar", {symbol:symbol, category:cat}),
+      m5h: bars("M5", 1200, "RTH")
     };
     var keys = Object.keys(jobs);
     return Promise.all(keys.map(function(k){ return jobs[k].then(function(v){ return {ok:true, v:v}; }, function(e){ return {ok:false, e:e}; }); })).then(function(res){
@@ -3762,7 +3767,12 @@
       if(!R.snap.ok) throw R.snap.e;
       var snap = Array.isArray(R.snap.v) ? R.snap.v[0] : null;
       if(!snap) throw {code:"tool_error", message:"no quote for "+symbol};
-      return buildMarket(symbol, snap, R);
+      var M = buildMarket(symbol, snap, R);
+      var ref = (M.market||[]).filter(function(x){ return x.symbol==="SPY"; })[0] || (M.market||[])[0];
+      if(ref && ref.change_pct!=null && M.change_pct!=null) M.relative_strength = {vs:ref.symbol, points:r2(M.change_pct-ref.change_pct)};
+      M.scorecard = scorecard(M);
+      try{ M.similar_setups = analogs(R.m5h.ok ? R.m5h.v.bars : null); }catch(err){ M.similar_setups = null; }
+      return M;
     });
   }
   function buildMarket(symbol, snap, R){
@@ -3802,8 +3812,112 @@
       daily:{atr14:r2(dayATR), wk52_high:r2(num(snap.fifty_two_wk_high)), wk52_low:r2(num(snap.fifty_two_wk_low))},
       earnings_next:earnNext, market:ctx,
       timeframes:[tfStats("1m", m1), tfStats("5m", m5), tfStats("15m", R.m15.ok ? R.m15.v.bars : []), tfStats("1h", R.m60.ok ? R.m60.v.bars : []), tfStats("1D", daily)].filter(Boolean),
-      missing:["m1","m5","m15","m60","d","quote","ctx"].filter(function(k){ return !R[k].ok; })
+      missing:["m1","m5","m15","m60","d","quote","ctx","m5h"].filter(function(k){ return !R[k].ok; })
     };
+  }
+  // ---- quant layer: numbers computed here, not by a model ----
+  // Scorecard: per timeframe, where price sits against its trend, momentum
+  // and VWAP, as a simple signed score; then how many timeframes agree.
+  function scorecard(M){
+    var rows = [];
+    (M.timeframes||[]).forEach(function(t){
+      if(t.tf==="1D") return;
+      var s = 0, why = [];
+      function add(cond, pos, neg){ if(cond===true){ s++; why.push(pos); } else if(cond===false){ s--; why.push(neg); } }
+      add(t.ema20!=null ? t.close > t.ema20 : null, "above EMA20", "below EMA20");
+      add(t.ema20_slope_5bars!=null ? t.ema20_slope_5bars > 0 : null, "EMA20 rising", "EMA20 falling");
+      add(t.ema9!=null && t.ema20!=null ? t.ema9 > t.ema20 : null, "EMA9 over EMA20", "EMA9 under EMA20");
+      add(t.macd_hist!=null ? t.macd_hist > 0 : null, "MACD hist +", "MACD hist −");
+      add(t.macd_hist!=null && t.macd_hist_prev!=null ? t.macd_hist > t.macd_hist_prev : null, "MACD hist rising", "MACD hist falling");
+      if(t.rsi14!=null){ if(t.rsi14 >= 55){ s++; why.push("RSI "+t.rsi14); } else if(t.rsi14 <= 45){ s--; why.push("RSI "+t.rsi14); } }
+      rows.push({tf:t.tf, score:s, max:6, read:why.join(", ")});
+    });
+    var today = M.today || {}, extra = [];
+    if(today.vwap!=null && M.last!=null) extra.push(M.last > today.vwap ? {k:"vs VWAP", v:1, read:"above VWAP "+today.vwap} : {k:"vs VWAP", v:-1, read:"below VWAP "+today.vwap});
+    if(today.orb30 && M.last!=null){ if(M.last > today.orb30.high) extra.push({k:"30m opening range", v:1, read:"broke above "+today.orb30.high}); else if(M.last < today.orb30.low) extra.push({k:"30m opening range", v:-1, read:"broke below "+today.orb30.low}); else extra.push({k:"30m opening range", v:0, read:"inside "+today.orb30.low+"–"+today.orb30.high}); }
+    var ups = rows.filter(function(r){ return r.score >= 2; }).length, downs = rows.filter(function(r){ return r.score <= -2; }).length;
+    var total = rows.reduce(function(a,r){ return a+r.score; }, 0) + extra.reduce(function(a,e){ return a+e.v; }, 0);
+    var max = rows.length*6 + extra.length;
+    return {timeframes:rows, session:extra, total:total, max:max, aligned_up:ups, aligned_down:downs,
+      read: ups===rows.length && rows.length ? "all timeframes lean up" : downs===rows.length && rows.length ? "all timeframes lean down" : ups && downs ? "timeframes disagree" : "mixed / weak"};
+  }
+  function rsiSeries(vals, n){
+    var out = new Array(vals.length).fill(null); if(vals.length <= n) return out;
+    var g = 0, l = 0; for(var i=1;i<=n;i++){ var d = vals[i]-vals[i-1]; if(d>0) g += d; else l -= d; } g/=n; l/=n;
+    out[n] = l===0 ? 100 : 100-100/(1+g/l);
+    for(var j=n+1;j<vals.length;j++){ var dd = vals[j]-vals[j-1]; g = (g*(n-1)+Math.max(dd,0))/n; l = (l*(n-1)+Math.max(-dd,0))/n; out[j] = l===0 ? 100 : 100-100/(1+g/l); }
+    return out;
+  }
+  function pctl(a, p){ if(!a.length) return null; var s = a.slice().sort(function(x,y){ return x-y; }); var i = (s.length-1)*p, lo = Math.floor(i), hi = Math.ceil(i); return s[lo]+(s[hi]-s[lo])*(i-lo); }
+  // Similar setups: every 5-minute bar of the last ~15 regular sessions is
+  // tagged by the same state the market is in now (vs VWAP, vs EMA20, EMA20
+  // slope, RSI zone, time of day). The bars that match are looked forward
+  // 15/30/60 minutes within the same day. The baseline is every bar at the
+  // same time of day, so the edge is the difference.
+  function analogs(bars){
+    if(!bars || bars.length < 200) return null;
+    var c = bars.map(function(b){ return b.c; }), e20 = ema(c, 20), r14 = rsiSeries(c, 14);
+    var info = bars.map(function(b){ return etParts(b.t); });
+    var vw = new Array(bars.length), pv = 0, vv = 0;
+    for(var i=0;i<bars.length;i++){
+      if(i===0 || info[i].day!==info[i-1].day){ pv = 0; vv = 0; }
+      var tp = (bars[i].h+bars[i].l+bars[i].c)/3; pv += tp*bars[i].v; vv += bars[i].v; vw[i] = vv ? pv/vv : bars[i].c;
+    }
+    function tod(m){ return m < 630 ? 0 : m < 840 ? 1 : 2; }
+    function state(i){
+      if(e20[i]==null || e20[i-3]==null || r14[i]==null) return null;
+      return {vwap:c[i] > vw[i] ? 1 : 0, ema:c[i] > e20[i] ? 1 : 0, slope:e20[i] > e20[i-3] ? 1 : 0, rsi:r14[i] < 40 ? 0 : r14[i] > 60 ? 2 : 1, tod:tod(info[i].min)};
+    }
+    var now = state(bars.length-1);
+    if(!now) return null;
+    var H = {"15m":3, "30m":6, "60m":12};
+    function collect(match){
+      var out = {};
+      Object.keys(H).forEach(function(k){
+        var h = H[k], ch = [], up = [], dn = [];
+        for(var i=20;i<bars.length-h-1;i++){
+          if(info[i+h].day!==info[i].day) continue;
+          var s = state(i); if(!s || !match(s)) continue;
+          ch.push(c[i+h]-c[i]);
+          var mx = -Infinity, mn = Infinity; for(var j=i+1;j<=i+h;j++){ if(bars[j].h > mx) mx = bars[j].h; if(bars[j].l < mn) mn = bars[j].l; }
+          up.push(mx-c[i]); dn.push(c[i]-mn);
+        }
+        out[k] = ch.length ? {n:ch.length, pct_up:Math.round(ch.filter(function(x){ return x>0; }).length/ch.length*100), median_change:r2(pctl(ch,0.5)), p25:r2(pctl(ch,0.25)), p75:r2(pctl(ch,0.75)), median_run_up:r2(pctl(up,0.5)), median_draw_down:r2(pctl(dn,0.5))} : {n:0};
+      });
+      return out;
+    }
+    var keys = ["vwap","ema","slope","rsi","tod"], used = keys.slice(), res = null;
+    // relax the match (drop time of day, then RSI zone) until there are enough samples
+    for(var tries=0; tries<3; tries++){
+      res = collect(function(s){ return used.every(function(k){ return s[k]===now[k]; }); });
+      if(res["30m"].n >= 15) break;
+      used = used.slice(0, used.length-1);
+    }
+    var base = collect(function(s){ return s.tod===now.tod; });
+    var days = []; info.forEach(function(x){ if(days.indexOf(x.day)===-1) days.push(x.day); });
+    var names = {vwap:(now.vwap ? "above" : "below")+" VWAP", ema:(now.ema ? "above" : "below")+" EMA20", slope:"EMA20 "+(now.slope ? "rising" : "falling"), rsi:"RSI "+["under 40","40–60","over 60"][now.rsi], tod:["first hour","midday","last two hours"][now.tod]};
+    return {sessions:days.length, matched_on:used.map(function(k){ return names[k]; }), similar:res, same_time_of_day_baseline:base,
+      note:"5-minute bars, regular hours, forward windows stay inside the same session. Edge = similar.pct_up minus baseline.pct_up."};
+  }
+  // The desk's own record, from calls the owner or Webull already scored.
+  function trackRecord(symbol){
+    var scored = docsOf("charts").filter(function(r){ return r.d && r.d.verdict && r.d.outcome && (r.d.outcome.result==="target" || r.d.outcome.result==="invalidation"); });
+    if(scored.length < 5) return {scored:scored.length, note:"too few scored calls to learn from yet"};
+    var hits = scored.filter(function(r){ return r.d.outcome.result==="target"; }).length;
+    var sym = scored.filter(function(r){ return cleanTicker(r.d.instrument)===symbol; });
+    var lens = {};
+    scored.forEach(function(r){
+      var called = dirOf(r.d.verdict.direction); if(called==="sideways") return;
+      var actual = r.d.outcome.result==="target" ? called : (called==="up" ? "down" : "up");
+      (r.d.desks||[]).forEach(function(dk){
+        var b = biasOf(dk.bias); if(b==="neutral" || !dk.lens) return;
+        var L = lens[dk.lens] = lens[dk.lens] || {n:0, right:0};
+        L.n++; if((b==="bullish" ? "up" : "down")===actual) L.right++;
+      });
+    });
+    var lensRows = Object.keys(lens).filter(function(k){ return lens[k].n >= 5; }).map(function(k){ return {lens:k, n:lens[k].n, right_pct:Math.round(lens[k].right/lens[k].n*100)}; }).sort(function(a,b){ return b.right_pct-a.right_pct; });
+    return {scored:scored.length, hit_rate_pct:Math.round(hits/scored.length*100), this_ticker:sym.length ? {scored:sym.length, hit_rate_pct:Math.round(sym.filter(function(r){ return r.d.outcome.result==="target"; }).length/sym.length*100)} : null, lens_accuracy:lensRows,
+      note:"lens_accuracy = how often each analyst's bias matched what price actually did on scored calls"};
   }
   function marketText(M){
     if(!M) return "LIVE MARKET DATA: not available for this run (no ticker found, or Webull didn't answer). Work from the screenshots only and say so.";
@@ -4104,7 +4218,8 @@
       var finPrompt = preamble(fin, run) + marketText(run.market)
         + "\n\nEach analyst's findings:\n"+compact(run.board, 26000)
         + "\n\nDevil's advocate review:\n"+compact(run.qa || {note:"not available"}, 5000)+"\n\n"
-        + "Weigh the desk (agreement across independent lenses matters more than one strong opinion; the devil's advocate's valid points lower confidence; the Options Strategist's plan is your starting point for the options block). Then make the call on the next direction and price for the next 15-60 minutes and into the close, and the options play. \"No trade\" is a valid answer when the edge is thin.\n"
+        + "The desk's own track record on calls already scored:\n"+compact(trackRecord(run.market ? run.market.symbol : cleanTicker(run.facts && run.facts.instrument)), 3000)+"\n\n"
+        + "Weigh the desk (agreement across independent lenses matters more than one strong opinion; lenses with a better record above deserve more weight once they have 5+ scored calls; the devil's advocate's valid points lower confidence; the Options Strategist's plan is your starting point for the options block). Anchor your probabilities to the similar-setups base rate and the scorecard, then adjust. Size targets to what similar setups actually ran (median_run_up / median_draw_down) instead of hoping for more. Then make the call on the next direction and price for the next 15-60 minutes and into the close, and the options play. \"No trade\" is a valid answer when the edge is thin.\n"
         + "Reply with only a JSON object: "+VERDICT_JSON;
       return callJSON(run, finPrompt, "complex").then(function(v){
         run.verdict = v;
@@ -4138,7 +4253,7 @@
       created:new Date().toISOString(), mode:run.mode, note:run.note,
       instrument:sym || null, timeframes:tfs, timeframe:tfs.join("/") || null,
       thumb:thumbs[0], thumbs:thumbs, facts:run.facts || null,
-      market:run.market ? {symbol:run.market.symbol, as_of_et:run.market.as_of_et, session:run.market.session, last:run.market.last, change_pct:run.market.change_pct, today:run.market.today, prior_day:run.market.prior_day, pivots:run.market.pivots, daily:run.market.daily, earnings_next:run.market.earnings_next, data_delay_min:run.market.data_delay_min} : null,
+      market:run.market ? {symbol:run.market.symbol, as_of_et:run.market.as_of_et, session:run.market.session, last:run.market.last, change_pct:run.market.change_pct, today:run.market.today, prior_day:run.market.prior_day, pivots:run.market.pivots, daily:run.market.daily, earnings_next:run.market.earnings_next, data_delay_min:run.market.data_delay_min, relative_strength:run.market.relative_strength||null, scorecard:run.market.scorecard||null, similar_setups:run.market.similar_setups||null} : null,
       market_note:run.market ? null : run.marketErr,
       desks: run.mode==="fast" ? (run.fastDesks||[]) : CHART_DESK.filter(function(d){ return d.check; }).map(function(d){ var r = run.results[d.id]; return r ? {agent:d.id, analyst:deskName(d), lens:d.lens, bias:r.bias, confidence:r.confidence, headline:r.headline, checked:r.checked, levels:r.levels, next_move:r.next_move, setup:r.setup} : {agent:d.id, analyst:deskName(d), lens:d.lens, failed:true}; }),
       qa:run.qa || null, verdict:v, outcome:null
@@ -4265,7 +4380,34 @@
       if(t.minutes_to_close!=null) mr.appendChild(kv("Min to close", String(t.minutes_to_close)));
       mb.appendChild(mr);
       if(m.earnings_next) mb.appendChild(mk("div","cd-trigger", "Next earnings: "+m.earnings_next));
+      if(m.relative_strength) mb.appendChild(mk("div","cd-trigger", "Today vs "+m.relative_strength.vs+": "+(m.relative_strength.points>0 ? "+" : "")+m.relative_strength.points+" points"));
       box.appendChild(mb);
+      var sc = m.scorecard;
+      if(sc && sc.timeframes && sc.timeframes.length){
+        var sb = mk("div","cd-block"); sb.appendChild(mk("div","section-label","Scorecard from real bars · "+sc.read+" · total "+(sc.total>0?"+":"")+sc.total+" of ±"+sc.max));
+        sc.timeframes.forEach(function(r){
+          var row = mk("div","cd-level");
+          row.appendChild(mk("b", null, r.tf));
+          row.appendChild(mk("span","stage "+(r.score>=2 ? "moving" : r.score<=-2 ? "held" : ""), (r.score>0?"+":"")+r.score+" / ±"+r.max));
+          row.appendChild(mk("span", null, r.read));
+          sb.appendChild(row);
+        });
+        (sc.session||[]).forEach(function(e){ var row = mk("div","cd-level"); row.appendChild(mk("b", null, e.k)); row.appendChild(mk("span","stage "+(e.v>0 ? "moving" : e.v<0 ? "held" : ""), e.v>0 ? "bullish" : e.v<0 ? "bearish" : "neutral")); row.appendChild(mk("span", null, e.read)); sb.appendChild(row); });
+        box.appendChild(sb);
+      }
+      var an = m.similar_setups;
+      if(an && an.similar){
+        var ab = mk("div","cd-block"); ab.appendChild(mk("div","section-label","Similar setups · last "+an.sessions+" sessions of "+m.symbol+" · "+an.matched_on.join(", ")));
+        var tbl = mk("div","cd-analog");
+        ["", "15 min", "30 min", "60 min"].forEach(function(h){ tbl.appendChild(mk("span","h", h)); });
+        [["Similar: went up", function(x){ return x.n ? x.pct_up+"% (n="+x.n+")" : "—"; }], ["Same time, any setup", function(x, k){ var b = an.same_time_of_day_baseline[k]; return b && b.n ? b.pct_up+"%" : "—"; }], ["Typical run up", function(x){ return x.n ? "+"+fmtP(x.median_run_up) : "—"; }], ["Typical drawdown", function(x){ return x.n ? "−"+fmtP(x.median_draw_down) : "—"; }], ["Median change", function(x){ return x.n ? (x.median_change>0?"+":"")+fmtP(x.median_change) : "—"; }]].forEach(function(row){
+          tbl.appendChild(mk("span","k", row[0]));
+          ["15m","30m","60m"].forEach(function(k){ tbl.appendChild(mk("span", null, row[1](an.similar[k]||{n:0}, k))); });
+        });
+        ab.appendChild(tbl);
+        ab.appendChild(mk("div","cd-trigger", "What this ticker actually did next, the last times it looked like this. A base rate, not a promise; small samples swing a lot."));
+        box.appendChild(ab);
+      }
     } else if(rec.market_note){ box.appendChild(mk("div","sheet-note", "No live data on this call: "+rec.market_note)); }
     var lv = (v.key_levels||[]).filter(function(l){ return num(l.price)!=null; }).sort(function(a,b){ return num(b.price)-num(a.price); });
     if(lv.length){

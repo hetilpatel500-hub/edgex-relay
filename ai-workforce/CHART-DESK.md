@@ -23,6 +23,26 @@ Floor (north-east corner, door on the west side) and opens from the
    high/low/close, classic pivots, daily ATR and how much of it is used,
    and minutes to the close. Every analyst is told these numbers are exact
    and beat anything read off the picture.
+   On top of that the page adds a **quant layer** that no model writes:
+   - **Scorecard:** per timeframe (1m/5m/15m/1h), a signed score from
+     price vs EMA20, EMA20 slope, EMA9 vs EMA20, MACD histogram sign and
+     direction, and RSI zone, plus price vs VWAP and the 30-minute opening
+     range; then how many timeframes agree.
+   - **Similar setups:** the last ~15 regular sessions of 5-minute bars
+     for this ticker, each bar tagged by the state the market is in now
+     (vs VWAP, vs EMA20, EMA20 slope, RSI zone, time of day). The matches
+     are followed 15/30/60 minutes forward inside the same session: % that
+     went up, median change, typical run-up and drawdown, next to the
+     same-time-of-day baseline so the edge is visible. If fewer than 15
+     matches exist, time of day and then RSI zone are dropped from the
+     match.
+   - **Relative strength** vs SPY (or QQQ for SPY) today.
+   - **Track record:** once 5+ calls are scored, the Head of Desk gets the
+     desk's hit rate, this ticker's hit rate, and how often each
+     analyst's bias matched what price actually did.
+   Every analyst treats the similar setups as the base rate; the Head of
+   Desk anchors the odds to it and sizes targets to what similar setups
+   actually ran.
 3. **Full desk** (about 4-6 minutes, ~21 Claude calls with the images):
    - **Chart Reader** reads every screenshot (timeframe, drawings,
      indicators shown, swings, recent candles).
