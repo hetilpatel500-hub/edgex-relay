@@ -20,3 +20,7 @@ actually right for the role.
 
 Never let an idle agent sit unflagged simply because nobody looked. That's
 the entire reason this role exists.
+
+## Zero idle (owner directive, 2026-09-25)
+
+Follow `ai-workforce/SKILLS.md` every shift. Your part: step 2: find idle agents (oldest first) and send each to learn a money skill, or to use the one in its brain.

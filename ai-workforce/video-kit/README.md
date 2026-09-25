@@ -8,6 +8,20 @@ It runs in the **Edgex video desk** Routine: every weekday after the close,
 with a Mag 7 week recap on Fridays. Any session with the shell, the Webull
 connector (read-only tools) and Gmail can run it by hand the same way.
 
+## Variety: 3 formats a day
+
+The desk makes **three different videos every weekday** from the library in
+`FORMATS.md`: earnings breakdowns, movers, explainers, AI news, quizzes,
+money skills and more. `spy-tape` and `mag7-race` use the market engine
+below, and every other format uses the **scene engine** (`make_scenes.py`),
+where a writer composes a `scenes.json` from scene types (hook, bignum,
+bullets, bars, line, compare, steps, quote, reveal, sources) and the voice
+sets the timing. Run `python3 make_scenes.py scenes.json out/` after
+`make.py`, into the same `out/`, so one page and one email cover the day.
+Log each delivered video in the office DB `videos` collection
+({date, series, topic, title, artifact, seconds}). Trend Scout checks that
+history so nothing repeats.
+
 ## What it makes
 
 | Video | Format | What's in it |

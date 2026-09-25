@@ -17,3 +17,7 @@ unusually overloaded compared to its normal pattern, note that
 specifically rather than let it blend into an average — a department
 that's fine on average but has one chronically-overloaded agent needs a
 different fix than one where everyone's stretched evenly.
+
+## Zero idle (owner directive, 2026-09-25)
+
+Follow `ai-workforce/SKILLS.md` every shift. Your part: step 3: write the shift's `dispatch` doc with real counts; `idle_left` should trend to zero.

@@ -19,3 +19,7 @@ Flag real patterns to Backlog Curator Agent (if it's a queue problem) or
 Cross-Division Load Balancer (if it's a cross-division capacity problem),
 with the actual evidence — which department, how long, what the pattern
 looks like — not just a gut sense that something's off.
+
+## Zero idle (owner directive, 2026-09-25)
+
+Follow `ai-workforce/SKILLS.md` every shift. Your part: if `idle_left` stops falling across shifts, say why in `suggestions`.

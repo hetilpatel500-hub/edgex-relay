@@ -39,7 +39,7 @@ for i, v in enumerate(rep['videos']):
     <article class="clip{'' if tall else ' wide'}">
       <video class="{'v916' if tall else 'v169'}" src="{E(v['file'])}" {f'poster="{poster}"' if poster and tall else ''} controls playsinline preload="metadata"></video>
       <div class="meta">
-        <div class="tags"><span class="tag">{'9:16 SHORT' if tall else '16:9 VIDEO'}</span><span class="tag plain num">{mmss(v['seconds'])}</span><span class="tag plain">{'Reels · Shorts · TikTok' if tall else 'YouTube · Facebook'}</span><span class="tag plain">Voiceover</span></div>
+        <div class="tags"><span class="tag">{'9:16 SHORT' if tall else '16:9 VIDEO'}</span><span class="tag plain num">{mmss(v['seconds'])}</span><span class="tag plain">{'Reels · Shorts · TikTok' if tall else 'YouTube · Facebook'}</span><span class="tag plain">{E((v.get('series') or kind).replace('-',' '))}</span></div>
         <h2>{E(title)}</h2>
         <div class="cap" id="cap-{i}">{E(text)}</div>
         <div class="row"><button class="save" data-file="{E(v['file'])}">Save MP4 · {v['bytes']/1e6:.1f} MB</button><button data-copy="cap-{i}">Copy caption</button><span class="status" role="status"></span></div>
@@ -51,15 +51,15 @@ doc = f"""<title>Edgex Video Drop {dl}</title>
 <div class="wrap">
   <header>
     <div class="brand"><svg viewBox="0 0 34 28" aria-hidden="true"><path d="M0 0h22l12 14-12 14H0l12-14z" fill="#f2b544"/></svg>EDGEX <span>MARKETS</span></div>
-    <h1>Video drop · {E(dl)} session</h1>
-    <p class="lede">Made by the Edgex video desk from real Webull data, voiced and checked by Video Last Touch before it reached you. Each video has a caption ready to paste and a Save button for the MP4.</p>
+    <h1>Video drop · {E(dl)}</h1>
+    <p class="lede">Made by the Edgex video desk, voiced and checked by Video Last Touch before it reached you. Each video has a caption ready to paste and a Save button for the MP4.</p>
   </header>
   <div class="grid">{''.join(cards)}
   </div>
   <section class="notes">
     <h3>HOW THESE WERE MADE</h3>
     <ul>
-      <li>Every number on screen and in the voiceover comes from Webull bars. The Video Fact-Checker traced each one back to its bar before release.</li>
+      <li>Every number and claim traces to its source: Webull data, or the outlets named in each caption. The Video Fact-Checker checked each one before release.</li>
       <li>The voice is Kokoro, an open-source neural voice (Apache-2.0), rendered on the build machine. The music is synthesized for each video. There is no third-party footage.</li>
       <li>Nothing has been posted. You post these.</li>
     </ul>

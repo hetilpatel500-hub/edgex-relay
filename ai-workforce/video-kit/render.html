@@ -9,7 +9,8 @@
 html,body{margin:0;background:#000}canvas{display:block}
 </style></head><body><canvas id="c"></canvas>
 <!-- data.js is written by build.py from story.json: const STORY = {...} -->
-<script src="data.js"></script>
+<script>document.write('<script src="'+(new URLSearchParams(location.search).get("data")||"data.js")+'"><\/script>')</script>
+<script src="scenes.js"></script>
 <script>
 const Q=new URLSearchParams(location.search);
 const W=+Q.get('w')||1080,H=+Q.get('h')||1920,VID=Q.get('v')||'spy';
@@ -231,7 +232,7 @@ function magVideo(){
     X.restore()}
   return {DUR,draw(t){bg(t);drawHook(t);drawRace(t);drawRev(t);drawOut(t);brand(t,DUR,'MARKETS')}};
 }
-const V=VID==='spy'?spyVideo():magVideo();
+const V=VID==='spy'?spyVideo():VID==='mag'?magVideo():scenesVideo(VID);
 window.DUR=V.DUR;
 window.frame=t=>V.draw(t);
 window.ready=Promise.all(['700 20px SG','500 20px SG','500 20px IN','700 20px IN','500 20px JB','700 20px JB'].map(f=>document.fonts.load(f))).then(()=>true);

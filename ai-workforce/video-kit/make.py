@@ -61,7 +61,8 @@ def say_dec(ip, dp):
 
 
 TICK = {'SPY': 'S P Y', 'QQQ': 'triple Q', 'VWAP': 'V-wap', 'AAPL': 'Apple', 'MSFT': 'Microsoft', 'NVDA': 'Nvidia',
-        'GOOGL': 'Google', 'AMZN': 'Amazon', 'META': 'Meta', 'TSLA': 'Tesla', 'Mag 7': 'Mag Seven'}
+        'GOOGL': 'Google', 'AMZN': 'Amazon', 'META': 'Meta', 'TSLA': 'Tesla', 'Mag 7': 'Mag Seven',
+        'AI': 'A I', 'TPU': 'T P U', 'TPUs': 'T P Us', 'US': 'U S', 'NVDA ': 'Nvidia ', 'EPS': 'E P S', 'R&D': 'R and D'}
 
 
 def speakable(s):

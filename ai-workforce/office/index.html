@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>The Studio Floor</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>The Studio Floor</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
 <style>
   :root{
@@ -140,6 +140,17 @@
   .status-dot{width:7px;height:7px;border-radius:50%;flex:none;}
   .task-line{font-size:12px;font-style:italic;color:var(--ink);margin-top:5px;line-height:1.4;}
   .result-line{font-style:normal;color:var(--muted);}
+  .brain{margin-top:9px;padding-top:9px;border-top:1px solid var(--panel-border);display:grid;gap:6px;}
+  .brain-h{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+  .skill{font-size:12px;line-height:1.4;color:var(--ink);}
+  .skill b{font-weight:600;}
+  .skill .src{color:var(--muted);font-size:11px;}
+  .chip-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;}
+  .agent-chip{font:600 11.5px/1 inherit;padding:5px 8px;border-radius:999px;border:1px solid var(--panel-border);background:var(--chip-bg);color:var(--ink);cursor:pointer;}
+  .agent-chip:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+  .dispatch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:6px;}
+  .dispatch-grid div{background:var(--chip-bg);border:1px solid var(--panel-border);border-radius:9px;padding:7px 9px;font-size:11px;color:var(--muted);}
+  .dispatch-grid b{display:block;font-size:17px;color:var(--ink);font-variant-numeric:tabular-nums;}
   .assign-row{display:flex;gap:6px;margin-top:9px;}
   .assign-row input{
     flex:1;min-width:0;font-family:"Work Sans",sans-serif;font-size:12px;
@@ -485,8 +496,9 @@
   @media (prefers-reduced-motion: reduce){ .cd-agent.thinking .cd-dot{animation:none;} }
   #soundBtn[aria-pressed="true"]{background:var(--ink);color:var(--panel-bg);}
   @media (max-width:720px){ #tourCard{bottom:calc(150px + env(safe-area-inset-bottom,0px));} #tourCard .tc-quote{-webkit-line-clamp:2;} .bubble{max-width:200px;font-size:11.5px;} }
-</style>
-</head><body><canvas id="scene"></canvas>
+</style></head><body>
+
+<canvas id="scene"></canvas>
 <div id="bubbles" aria-hidden="true"></div>
 
 <div id="app">
@@ -1145,6 +1157,7 @@
     if(!live) return "idle";
     var st = live.status || "idle";
     if(st==="working" || st==="requested" || st==="blocked") return st;
+    if(st==="learning" || st==="practicing" || st==="collaborating") return "working";
     if(st==="done"){
       var t = timeOf(live.updatedAt);
       return (t && Date.now()-t < FRESH_MS) ? "fresh" : "stale";
@@ -1772,7 +1785,25 @@
   // doorway to route through: anyone in the corridor can walk straight to
   // a seat here, which is exactly what ad-hoc 2-3 person collaboration
   // sessions use as their meeting spot.
-  var COLLAB_SEATS = [];
+  var COLLAB_SEATS = [], COLLAB_ZONE = null;
+  var collabCanvas = document.createElement("canvas"); collabCanvas.width = 1024; collabCanvas.height = 256;
+  var collabTex = new THREE.CanvasTexture(collabCanvas);
+  function drawCollabScreen(){
+    var g = collabCanvas.getContext("2d"), act = activeCollabs();
+    g.fillStyle = "#0f2a28"; g.fillRect(0,0,1024,256);
+    g.fillStyle = act.length ? "#35d39a" : "#8fa19c"; g.beginPath(); g.arc(46,58,14,0,7); g.fill();
+    g.font = "700 34px system-ui, sans-serif"; g.fillStyle = "#cfe3de";
+    g.fillText(act.length ? (act.length+" LIVE COLLABORATION"+(act.length>1?"S":"")) : "NO LIVE COLLABORATION", 74, 70);
+    g.font = "700 46px system-ui, sans-serif"; g.fillStyle = "#ffffff";
+    var title = act.length ? (act[0].d.title||act[0].id) : "Agents meet here when 2+ work one task";
+    if(g.measureText(title).width > 960){ while(g.measureText(title+"…").width > 960 && title.length) title = title.slice(0,-1); title += "…"; }
+    g.fillText(title, 36, 150);
+    g.font = "500 32px system-ui, sans-serif"; g.fillStyle = "#9fc4bb";
+    var who = act.length ? (act[0].d.agents||[]).map(function(id){ return AGENT_BY_ID[id] ? AGENT_BY_ID[id].a.name : id; }).join(" · ") : "Click the room to see collaborations and each agent's skills";
+    if(g.measureText(who).width > 960){ while(g.measureText(who+"…").width > 960 && who.length) who = who.slice(0,-1); who += "…"; }
+    g.fillText(who, 36, 212);
+    collabTex.needsUpdate = true;
+  }
   function buildCollabRoom(cx,cz){
     var rug = new THREE.Mesh(new THREE.PlaneGeometry(3.4,2.6), new THREE.MeshStandardMaterial({color:0x1F9690, roughness:0.95, transparent:true, opacity:0.22}));
     rug.rotation.x=-Math.PI/2; rug.position.set(cx,0.014,cz); rug.receiveShadow=true;
@@ -1792,7 +1823,12 @@
     var sign = makeSign("Collaboration", 2.0, 0);
     sign.position.set(cx, 2.0, cz-1.5);
     scene.add(sign);
-    registerZone({id:"collab-room", code:"--", name:"Collaboration Room", tag:"Where 2+ agents meet to work something out together", cssVar:"--a-research", hex:0x1F9690, agents:[]}, cx-1.9,cx+1.9,cz-1.5,cz+1.5);
+    COLLAB_ZONE = {id:"collab-room", code:"--", name:"Collaboration Room", tag:"Where 2+ agents meet to work something out together", cssVar:"--a-research", hex:0x1F9690, agents:[], x:cx, z:cz, onOpen:function(){ openCollabRoom(); }};
+    registerZone(COLLAB_ZONE, cx-1.9,cx+1.9,cz-1.5,cz+1.5);
+    // live screen: what the agents at this table are working on right now
+    var post = new THREE.Mesh(new THREE.BoxGeometry(0.06,1.1,0.06), frameMat); post.position.set(cx+1.75,0.55,cz-1.2); scene.add(post);
+    var scr = new THREE.Mesh(new THREE.PlaneGeometry(2.4,0.6), new THREE.MeshBasicMaterial({map:collabTex, side:THREE.DoubleSide}));
+    scr.position.set(cx, 1.42, cz-1.46); scene.add(scr);
   }
 
   // The Chart Desk: three rows of workstations facing a wall screen that
@@ -1823,6 +1859,7 @@
   buildLounge();
   buildReception(-17.2, -2.0);
   buildCollabRoom(0, -2.0);
+  setTimeout(drawCollabScreen, 0);
 
   // ---------------- scattered office props (fills the bigger floor, makes it feel real) ----------------
   var potMat = new THREE.MeshStandardMaterial({color:0xb5674a, roughness:0.85});
@@ -2286,7 +2323,8 @@
     var st = document.createElement("div"); st.className="status-line";
     var dot = document.createElement("span"); dot.className="status-dot s-"+v;
     var stText = document.createElement("span");
-    stText.textContent = VLABEL[v] + (live && live.updatedAt ? " · "+agoText(timeOf(live.updatedAt)) : "");
+    var special = live && {learning:"Learning a money skill", practicing:"Using its skill to make money", collaborating:"In the Collaboration Room"}[live.status];
+    stText.textContent = (special || VLABEL[v]) + (live && live.updatedAt ? " · "+agoText(timeOf(live.updatedAt)) : "");
     st.appendChild(dot); st.appendChild(stText);
     el.appendChild(n); el.appendChild(de); el.appendChild(st);
 
@@ -2301,12 +2339,13 @@
       el.appendChild(resultLine);
     }
 
+    el.appendChild(buildBrain(a.id, expanded));
     if(expanded){
       var next = document.createElement("div"); next.className="next-line";
       var nextText = NEXT_BY_DEPT[a.dept] || "";
       var lead = "<b>Next:</b> ";
       if(status === "idle"){
-        next.innerHTML = lead + "no real work yet. Assign something below, or the hourly shift will pick it up when there's work for this role.";
+        next.innerHTML = lead + "no real work yet. Task Dispatch sends idle agents to learn a money skill, then to use it. Or assign something below.";
       } else if(status === "requested"){
         next.innerHTML = lead + "your ask is queued. The next hourly shift reads it first.";
       } else if(status === "blocked"){
@@ -2329,6 +2368,97 @@
     input.addEventListener("keydown", function(e){ if(e.key==="Enter") assignTask(a.id, input, btn, msg); });
 
     return el;
+  }
+
+  // ---- agent brain: money skills it learned, and what it made with them ----
+  function skillWorkOf(id){ return docsOf("skillwork").filter(function(x){ return x.d.agent===id; }).sort(function(p,q){ return timeOf(q.d.updatedAt||q.d.created)-timeOf(p.d.updatedAt||p.d.created); }); }
+  function buildBrain(id, expanded){
+    var b = store.brain[id], skills = (b && b.skills) || [], work = skillWorkOf(id);
+    var box = mk("div","brain");
+    if(!skills.length && !work.length){ if(expanded){ box.appendChild(mk("div","brain-h","Brain")); box.appendChild(mk("div","skill","No money skill learned yet. It learns one the first shift it has no work.")); } else box.hidden = true; return box; }
+    box.appendChild(mk("div","brain-h","Brain · "+skills.length+" skill"+(skills.length===1?"":"s")));
+    (expanded ? skills : skills.slice(-1)).forEach(function(k){
+      var row = mk("div","skill"); row.appendChild(mk("b",null,k.name||"Skill")); row.appendChild(document.createTextNode(k.summary ? " — "+clip(k.summary, expanded?260:90) : ""));
+      if(expanded && k.how_it_earns){ row.appendChild(document.createElement("br")); row.appendChild(document.createTextNode("How it earns: "+clip(k.how_it_earns, 220))); }
+      if(expanded && k.sources && k.sources.length){ row.appendChild(document.createElement("br")); row.appendChild(mk("span","src","Sources: "+k.sources.slice(0,3).join(" · "))); }
+      box.appendChild(row);
+    });
+    if(work.length){
+      var w = work[0].d, line = mk("div","skill");
+      line.appendChild(mk("b",null,"Made: ")); line.appendChild(document.createTextNode(clip(w.title||work[0].id, 120)+" · "+(w.status||"draft").replace(/_/g," ")+(w.value_estimate ? " · "+w.value_estimate : "")));
+      box.appendChild(line);
+      if(expanded && work.length>1) box.appendChild(mk("div","skill src", (work.length-1)+" more thing"+(work.length>2?"s":"")+" made with its skills"));
+    }
+    return box;
+  }
+
+  // ---- Collaboration Room: real multi-agent work from the collabs collection ----
+  function activeCollabs(){ return docsOf("collabs").filter(function(x){ return x.d.status==="active"; }).sort(function(p,q){ return timeOf(q.d.updatedAt||q.d.started)-timeOf(p.d.updatedAt||p.d.started); }); }
+  function agentChip(id){
+    var btn = mk("button","agent-chip", AGENT_BY_ID[id] ? AGENT_BY_ID[id].a.name : id); btn.type = "button";
+    btn.addEventListener("click", function(){ openAgentPanel(id); panelBack.textContent = "← Back to Collaboration Room"; currentDept = COLLAB_ZONE; });
+    return btn;
+  }
+  function collabCard(x){
+    var d = x.d, el = mk("div","agent-card");
+    el.appendChild(mk("div","name", d.title||x.id));
+    var st = mk("div","status-line"); st.appendChild(mk("span","status-dot s-"+(d.status==="active"?"working":"fresh")));
+    st.appendChild(mk("span",null,(d.status==="active"?"In session":"Finished")+(d.updatedAt||d.started ? " · "+agoText(timeOf(d.updatedAt||d.started)) : "")));
+    el.appendChild(st);
+    if(d.goal) el.appendChild(mk("div","task-line","“"+d.goal+"”"));
+    var chips = mk("div","chip-row"); (d.agents||[]).forEach(function(id){ chips.appendChild(agentChip(id)); }); el.appendChild(chips);
+    var log = d.log||[];
+    log.slice(-3).forEach(function(l){ el.appendChild(mk("div","task-line result-line",(AGENT_BY_ID[l.agent]?AGENT_BY_ID[l.agent].a.name:(l.agent||""))+": "+clip(l.note,220))); });
+    if(d.outcome) el.appendChild(mk("div","next-line","Outcome: "+clip(d.outcome,260)));
+    return el;
+  }
+  function openCollabRoom(){
+    currentDept = COLLAB_ZONE; currentAgentId = null;
+    panelBack.style.display = "none";
+    document.getElementById("panelBar").style.background = "#1F9690";
+    document.getElementById("panelCode").textContent = "OPEN PLAN · CENTER";
+    document.getElementById("panelTitle").textContent = "Collaboration Room";
+    var act = activeCollabs(), done = docsOf("collabs").filter(function(x){ return x.d.status==="done"; }).sort(function(p,q){ return timeOf(q.d.updatedAt)-timeOf(p.d.updatedAt); });
+    document.getElementById("panelSub").textContent = act.length+" live · "+done.length+" finished · agents who share a task meet here";
+    var wrap = document.getElementById("panelAgents"); wrap.innerHTML = "";
+    // dispatch board: nobody should sit idle
+    var counts = {working:0, collaborating:0, learning:0, practicing:0, idle:0};
+    var CREW = ALL_AGENTS.filter(function(e){ return e.dept.id!=="chart-desk"; });  // Chart Desk stays on call for the owner's charts
+    CREW.forEach(function(e){ var l = agentStatus[e.a.id], st = l && l.status;
+      if(st==="collaborating"||st==="learning"||st==="practicing") counts[st]++; else if(vstate(e.a.id)==="working"||vstate(e.a.id)==="requested") counts.working++; else if(vstate(e.a.id)==="idle") counts.idle++; });
+    var skilled = Object.keys(store.brain).filter(function(k){ return (store.brain[k].skills||[]).length; }).length;
+    var board = mk("div","agent-card"); board.appendChild(mk("div","name","Task Dispatch board"));
+    var g = mk("div","dispatch-grid");
+    [["Working",counts.working],["Collaborating",counts.collaborating],["Learning",counts.learning],["Using a skill",counts.practicing],["Never worked",counts.idle],["Have a money skill",skilled+"/"+CREW.length]].forEach(function(c){ var dd = mk("div"); dd.appendChild(mk("b",null,String(c[1]))); dd.appendChild(document.createTextNode(c[0])); g.appendChild(dd); });
+    board.appendChild(g);
+    board.appendChild(mk("div","next-line","Each shift, Task Dispatch gives every free agent something real to do: join a task, learn a money skill, or use the one it has. Shifts run hourly, and this board updates the moment they write."));
+    wrap.appendChild(board);
+    if(!act.length && !done.length) wrap.appendChild(mk("div","agent-card","No collaborations yet. When two or more agents take on one task, it shows up here and they walk over to this table."));
+    act.forEach(function(x){ wrap.appendChild(collabCard(x)); });
+    if(done.length){ wrap.appendChild(mk("div","brain-h","Recently finished")); done.slice(0,6).forEach(function(x){ wrap.appendChild(collabCard(x)); }); }
+    var sw = docsOf("skillwork").sort(function(p,q){ return timeOf(q.d.updatedAt||q.d.created)-timeOf(p.d.updatedAt||p.d.created); });
+    if(sw.length){
+      wrap.appendChild(mk("div","brain-h","Made with learned skills"));
+      sw.slice(0,8).forEach(function(x){ var c = mk("div","agent-card"); c.appendChild(mk("div","name",x.d.title||x.id));
+        c.appendChild(mk("div","task-line result-line",(AGENT_BY_ID[x.d.agent]?AGENT_BY_ID[x.d.agent].a.name:x.d.agent)+" · "+(x.d.skill||"")+" · "+(x.d.status||"draft").replace(/_/g," ")+(x.d.value_estimate?" · "+x.d.value_estimate:"")));
+        if(x.d.next_step) c.appendChild(mk("div","next-line","Next: "+clip(x.d.next_step,200)));
+        wrap.appendChild(c); });
+    }
+    panel.classList.add("open");
+    document.getElementById("hint").classList.add("hidden");
+  }
+  // members of a live collaboration walk to the table and sit together
+  var collabTurn = 0;
+  function seatRealCollab(){
+    var act = activeCollabs(); if(!act.length || prefersReducedMotion) return false;
+    var c = act[(collabTurn++) % act.length].d;
+    var members = shuffle((c.agents||[]).filter(function(id){ var r = AGENT_GROUPS[id]; return r && !r.walk && !(chartRun && POSE_OVERRIDE[id]); }));
+    var seats = claimSeats("collab", Math.min(members.length, 6)), hold = 26+Math.random()*16, n = 0;
+    seats.forEach(function(seat, i){
+      if(walkTo(members[i], {x:seat.x, z:seat.z}, hold, {face:seat.rotY, holdPose:"sit", kind:"meeting"})){ releaseSeatWhenDone(seat, members[i]); n++; }
+      else seat.taken = false;
+    });
+    return n >= 1;
   }
 
   function openPanel(dept){
@@ -2370,6 +2500,7 @@
   function refreshPanelIfOpen(){
     if(!panel.classList.contains("open")) return;
     if(currentAgentId) openAgentPanel(currentAgentId);
+    else if(currentDept && currentDept.id==="collab-room") openCollabRoom();
     else if(currentDept) openPanel(currentDept);
   }
   document.getElementById("panelClose").addEventListener("click", function(){
@@ -2475,7 +2606,7 @@
   rosterSearch.addEventListener("input", renderRoster);
 
   // ---------------- live data: every collection the studio runs on ----------------
-  var store = {deals:{}, decisions:{}, requests:{}, outbox:{}, owner:{}, opps:{}, ideas:{}, changes:{}, charts:{}};
+  var store = {deals:{}, decisions:{}, requests:{}, outbox:{}, owner:{}, opps:{}, ideas:{}, changes:{}, charts:{}, collabs:{}, brain:{}, skillwork:{}};
   var loaded = {};
   var dbState = "connecting";   // connecting | live | unavailable
 
@@ -2878,6 +3009,8 @@
       working ? [{b:working+" working now"},{t:" · "+nextShiftText()}] : [{t:"last activity "},{b:agoText(last)},{t:" · "+nextShiftText()}]));
     var recent = ALL_AGENTS.filter(function(e){ var v = vstate(e.a.id); return v==="fresh"||v==="working"; }).length;
     p.appendChild(pchip(null, "s-fresh", [{b:String(recent)},{t:" agents active in 2h"}]));
+    var nCol = activeCollabs().length, nSk = Object.keys(store.brain).filter(function(k){ return (store.brain[k].skills||[]).length; }).length;
+    if(nCol || nSk) p.appendChild(pchip(null, nCol ? "s-working live" : "s-fresh", [{b:String(nCol)},{t:" collaborating · "},{b:String(nSk)},{t:" with money skills"}], function(){ openCollabRoom(); }));
     var owed = ownerOpenCount();
     if(owed) p.appendChild(pchip(null, "s-requested", [{b:owed+" waiting on you"}], function(){ openSheet("ownerOverlay"); }, true));
     var q = docsOf("requests").filter(function(x){ return x.d.status==="pending"||x.d.status==="in_progress"; }).length;
@@ -2956,6 +3089,23 @@
       watch(db, "ideas", "money_map");
       watch(db, "changes", "repo_changes");
       watch(db, "charts", "chart_analyses");
+      watch(db, "collabs", "collabs", function(snap, first){
+        snap.docChanges().forEach(function(ch){
+          if(ch.type==="removed"){ delete store.collabs[ch.doc.id]; return; }
+          var prev = store.collabs[ch.doc.id], d = ch.doc.data(); store.collabs[ch.doc.id] = d;
+          if(!first && (!prev || prev.status!==d.status)) toast({dot:"s-working", title:(d.status==="done" ? "Collaboration finished: " : "Collaboration started: ")+(d.title||ch.doc.id)});
+        });
+        drawCollabScreen(); if(!first) seatRealCollab(); refreshPanelIfOpen();
+      });
+      watch(db, "brain", "brain", function(snap){ snap.docChanges().forEach(function(ch){ if(ch.type==="removed") delete store.brain[ch.doc.id]; else store.brain[ch.doc.id] = ch.doc.data(); }); refreshPanelIfOpen(); });
+      watch(db, "skillwork", "skill_work", function(snap, first){
+        snap.docChanges().forEach(function(ch){
+          if(ch.type==="removed"){ delete store.skillwork[ch.doc.id]; return; }
+          store.skillwork[ch.doc.id] = ch.doc.data();
+          if(!first && ch.type==="added"){ var d = ch.doc.data(); toast({dot:"s-fresh", title:"Skill work: "+(d.title||ch.doc.id)}); }
+        });
+        refreshPanelIfOpen();
+      });
       refreshAll();
     }).catch(function(){ dbState = "unavailable"; refreshAll(); });
   } else {
@@ -3335,9 +3485,10 @@
     nextCollabAt = elapsed + 4 + Math.random()*6;
     if(prefersReducedMotion || ALL_AGENTS.length===0 || walkingCount() >= 10) return;
     var roll = Math.random();
+    if(activeCollabs().length && Math.random() < 0.45 && seatRealCollab()) return;
     if(roll < 0.32) coffeeRun();
     else if(roll < 0.54) deskChat();
-    else if(roll < 0.78) meeting("collab");
+    else if(roll < 0.78){ if(!seatRealCollab()) meeting("collab"); }
     else if(roll < 0.9) meeting("team");
     else windowBreak();
   }
@@ -4855,4 +5006,5 @@
   requestAnimationFrame(frame);
 })();
 </script>
+
 </body></html>

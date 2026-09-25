@@ -18,3 +18,7 @@ nothing in the backlog actually fits that agent's role, say so explicitly
 rather than force a mismatched task just to look busy — hand it to
 Priority Triage Agent instead, since an empty fit is itself a signal
 Capacity & Queue's backlog needs attention.
+
+## Zero idle (owner directive, 2026-09-25)
+
+Follow `ai-workforce/SKILLS.md` every shift. Your part: step 1: match free agents to real work by role, and open a `collabs` doc when 2+ roles share a task.

@@ -224,3 +224,12 @@ to a tool) still means the owner does it themselves, or explicitly hands
 over a payment method for a specific approved purchase. If real autonomous
 spending is wanted later, that's a separate, bigger integration (a
 virtual-card connector) — not something to wire in quietly alongside this.
+
+## Zero idle: collaborations, brains and money skills (owner directive, 2026-09-25)
+
+Every shift, Task Dispatch follows `SKILLS.md`. Real work comes first, opening a
+`collabs` doc whenever 2+ agents share a task. Idle agents learn a researched
+money skill into their `brain`, and agents that already have one use it to make
+a sellable asset (`skill_work`), which then goes through Last Touch and Chief of
+Staff. Each shift logs one `dispatch` doc. The Collaboration Room on the Studio
+Floor shows all of it live.

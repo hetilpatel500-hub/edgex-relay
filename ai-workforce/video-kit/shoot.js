@@ -6,7 +6,7 @@ const FF=process.env.FFMPEG||execSync("python3 -c 'import imageio_ffmpeg as i;pr
 (async()=>{
  const b=await chromium.launch();const p=await b.newPage({viewport:{width:+w,height:+h}});
  let err=null;p.on('pageerror',e=>{err=e;console.error('PAGE ERROR',e.message)});
- await p.goto(`http://127.0.0.1:${port}/render.html?v=${v}&w=${w}&h=${h}`);await p.evaluate(()=>window.ready);
+ await p.goto(`http://127.0.0.1:${port}/render.html?v=${v}&w=${w}&h=${h}&data=${process.env.VK_DATA||'data.js'}`);await p.evaluate(()=>window.ready);
  const dur=await p.evaluate(()=>window.DUR);
  if(mode.startsWith('stills:')){const pre=mode.slice(7);
    for(let i=0;i<times.length;i++){await p.evaluate(t=>{for(let k=0;k<40;k++)frame(t)},+times[i]);await p.screenshot({path:`${pre}.${i}.png`})}

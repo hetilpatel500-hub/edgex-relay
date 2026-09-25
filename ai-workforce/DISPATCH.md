@@ -109,3 +109,12 @@ Opportunity Discovery so the next idea is better informed than the last.
   actually checked.
 - Never pulls an agent off client-facing or public-facing work mid-task
   without Team Assembly Agent coordinating a real handoff first.
+
+## Zero idle: collaborations, brains and money skills (owner directive, 2026-09-25)
+
+Every shift, Task Dispatch follows `SKILLS.md`. Real work comes first, opening a
+`collabs` doc whenever 2+ agents share a task. Idle agents learn a researched
+money skill into their `brain`, and agents that already have one use it to make
+a sellable asset (`skill_work`), which then goes through Last Touch and Chief of
+Staff. Each shift logs one `dispatch` doc. The Collaboration Room on the Studio
+Floor shows all of it live.
