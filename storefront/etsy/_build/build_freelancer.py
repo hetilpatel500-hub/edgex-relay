@@ -44,7 +44,7 @@ def setup_sheet(wb, sample):
     K.label(ws["B8"], "Tax set-aside %")
     ws["C8"] = 0.25
     K.body(ws["C8"], "0%", inp=True, align="center")
-    K.note(ws, "E8", "The share of profit you move to savings for tax. Ask a tax professional what fits you.")
+    K.note(ws, "E8", "The share of income minus deductible expenses you move to savings for tax. Ask a tax professional what fits you.")
     K.label(ws["B9"], "Monthly income goal")
     ws["C9"] = 6000 if sample else 0
     K.body(ws["C9"], MONEY0, inp=True)
@@ -111,7 +111,7 @@ def expense_sheet(wb, sample):
         r = I0 + i
         for c, fmt in ((2, DATEF), (3, None), (4, None), (5, None), (6, MONEY), (9, None)):
             K.body(ws.cell(row=r, column=c), fmt, inp=True, align="center" if c == 9 else None)
-        ws.cell(row=r, column=7, value='=IF(D{r}="","",IFERROR(INDEX(Setup!$F${a}:$F${b},MATCH(D{r},Setup!$E${a}:$E${b},0)),1))'.format(r=r, a=E0, b=E1))
+        ws.cell(row=r, column=7, value='=IF(D{r}="","",IFERROR(N(INDEX(Setup!$F${a}:$F${b},MATCH(D{r},Setup!$E${a}:$E${b},0))),0))'.format(r=r, a=E0, b=E1))
         ws.cell(row=r, column=8, value='=IF(OR(F{r}="",G{r}=""),"",F{r}*G{r})'.format(r=r))
         K.body(ws.cell(row=r, column=7), "0%", align="center")
         K.body(ws.cell(row=r, column=8), MONEY)
@@ -135,6 +135,10 @@ def expense_sheet(wb, sample):
                 ws.cell(row=r, column=6, value=amt)
                 ws.cell(row=r, column=9, value=rnd.choice(["Yes", "Yes", "Yes", "No"]))
                 r += 1
+        # one big purchase so the sample shows how a loss month is handled
+        for c, v in ((2, dt.date(2026, 2, 12)), (3, "Computer store"), (4, "Equipment & computers"),
+                     (5, "New laptop and monitor"), (6, 3400), (9, "Yes")):
+            ws.cell(row=r, column=c, value=v)
     ws.freeze_panes = "A7"
     return ws
 
@@ -184,12 +188,16 @@ def invoice_sheet(wb, sample):
 
 
 def monthly_sheet(wb):
+    """Set-aside = rate x year-to-date (income - deductible expenses), never below 0.
+    Monthly and quarterly amounts are the change in that running figure, so a loss
+    month shows a negative amount and every total reconciles to rate x the year's figure."""
     ws = wb.create_sheet("Monthly & Tax")
-    K.sheet_setup(ws, [2, 12, 14, 14, 16, 14, 16, 14, 14, 16], tab=ACCENT)
-    K.title(ws, "Monthly summary & tax set-aside", None, span=9)
-    ws["B3"] = '=Setup!$C$7&"  ·  "&Setup!$C$6&"  ·  setting aside "&TEXT(Setup!$C$8,"0%")&" of profit"'
+    K.sheet_setup(ws, [2, 12, 13, 13, 14, 15, 15, 15, 15, 13, 11], tab=ACCENT)
+    K.title(ws, "Monthly summary & tax set-aside", None, span=10)
+    ws["B3"] = '=Setup!$C$7&"  ·  "&Setup!$C$6&"  ·  setting aside "&TEXT(Setup!$C$8,"0%")&" of income minus deductible expenses"'
     ws["B3"].font = Font(name="Arial", size=10, color=MUTED)
-    K.header_row(ws, 6, 2, ["Month", "Income", "All expenses", "Deductible expenses", "Profit", "Set aside for tax", "Income goal", "vs goal", "Profit so far"])
+    K.header_row(ws, 6, 2, ["Month", "Income", "All expenses", "Deductible expenses", "Income minus deductible",
+                             "Year so far (income minus deductible)", "Set aside this month", "Set aside so far", "Income goal", "vs goal"], height=42)
     inc = "Income!$F${a}:$F${b}".format(a=I0, b=I1)
     ind = "Income!$B${a}:$B${b}".format(a=I0, b=I1)
     exa = "Expenses!$F${a}:$F${b}".format(a=I0, b=I1)
@@ -204,41 +212,60 @@ def monthly_sheet(wb):
         ws.cell(row=r, column=4, value='=SUMIFS({v},{d},">="&{lo},{d},"<"&{hi})'.format(v=exa, d=exdt, lo=lo, hi=hi))
         ws.cell(row=r, column=5, value='=SUMIFS({v},{d},">="&{lo},{d},"<"&{hi})'.format(v=exd, d=exdt, lo=lo, hi=hi))
         ws.cell(row=r, column=6, value="=C{r}-E{r}".format(r=r))
-        ws.cell(row=r, column=7, value="=MAX(0,F{r})*{rate}".format(r=r, rate=RATE))
-        ws.cell(row=r, column=8, value="=Setup!$C$9")
-        ws.cell(row=r, column=9, value='=IF(H{r}>0,C{r}/H{r},"")'.format(r=r))
-        ws.cell(row=r, column=10, value="=SUM($F$7:F{r})".format(r=r))
+        ws.cell(row=r, column=7, value="=SUM($F$7:F{r})".format(r=r))
+        ws.cell(row=r, column=9, value="=MAX(0,G{r})*{rate}".format(r=r, rate=RATE))
+        ws.cell(row=r, column=8, value=("=I7" if m == 1 else "=I{r}-I{p}".format(r=r, p=r - 1)))
+        ws.cell(row=r, column=10, value="=Setup!$C$9")
+        ws.cell(row=r, column=11, value='=IF(J{r}>0,C{r}/J{r},"")'.format(r=r))
         band = bool(m % 2 == 0)
-        for c, fmt in ((2, "mmmm"), (3, MONEY), (4, MONEY), (5, MONEY), (6, MONEY), (7, MONEY), (8, MONEY0), (9, "0%"), (10, MONEY)):
-            K.body(ws.cell(row=r, column=c), fmt, band=band, bold=(c in (2, 7)))
+        for c, fmt in ((2, "mmmm"), (3, MONEY), (4, MONEY), (5, MONEY), (6, MONEY), (7, MONEY), (8, MONEY), (9, MONEY), (10, MONEY0), (11, "0%")):
+            K.body(ws.cell(row=r, column=c), fmt, band=band, bold=(c in (2, 8)))
     K.label(ws["B19"], "Year total", color=INK)
-    for c in range(3, 8):
-        col = "CDEFG"[c - 3]
-        ws.cell(row=19, column=c, value="=SUM({c}7:{c}18)".format(c=col))
+    totals = {3: "=SUM(C7:C18)", 4: "=SUM(D7:D18)", 5: "=SUM(E7:E18)", 6: "=SUM(F7:F18)", 7: "=G18", 8: "=SUM(H7:H18)", 9: "=I18"}
+    for c, f in totals.items():
+        ws.cell(row=19, column=c, value=f)
         K.body(ws.cell(row=19, column=c), MONEY, bold=True, band=True)
-    ws.conditional_formatting.add("F7:F18", FormulaRule(formula=["F7<0"], font=Font(color="A33A2B")))
-    ws.conditional_formatting.add("I7:I18", DataBarRule(start_type="num", start_value=0, end_type="num", end_value=1.5, color=ACCENT))
+    ws.conditional_formatting.add("F7:H19", FormulaRule(formula=["F7<0"], font=Font(color="A33A2B")))
+    ws.conditional_formatting.add("K7:K18", DataBarRule(start_type="num", start_value=0, end_type="num", end_value=1.5, color=ACCENT))
 
     K.section(ws["B22"], "Quarterly tax set-aside")
-    K.header_row(ws, 23, 2, ["Quarter", "Income", "Deductible expenses", "Profit", "Set aside", "Due date", "Amount paid", "Date paid", "Left to pay"])
+    K.header_row(ws, 23, 2, ["Quarter", "Income", "Deductible expenses", "Income minus deductible", "Set aside for this quarter",
+                              "Due date", "Amount paid", "Date paid", "Set aside so far minus paid so far"], height=42)
     dues = ["=DATE({y},4,15)", "=DATE({y},6,15)", "=DATE({y},9,15)", "=DATE({y}+1,1,15)"]
+    # US federal estimated tax periods are uneven: Jan-Mar, Apr-May, Jun-Aug, Sep-Dec
+    rngs = [(7, 9), (10, 11), (12, 14), (15, 18)]
     for q in range(4):
         r = 24 + q
-        a, b = 7 + q * 3, 9 + q * 3
+        a, b = rngs[q]
         ws.cell(row=r, column=2, value="Q%d (%s)" % (q + 1, ["Jan-Mar", "Apr-May", "Jun-Aug", "Sep-Dec"][q]))
-        # US federal estimated tax periods are uneven: Jan-Mar, Apr-May, Jun-Aug, Sep-Dec
-        rng = [(7, 9), (10, 11), (12, 14), (15, 18)][q]
-        ws.cell(row=r, column=3, value="=SUM(C{a}:C{b})".format(a=rng[0], b=rng[1]))
-        ws.cell(row=r, column=4, value="=SUM(E{a}:E{b})".format(a=rng[0], b=rng[1]))
+        ws.cell(row=r, column=3, value="=SUM(C{a}:C{b})".format(a=a, b=b))
+        ws.cell(row=r, column=4, value="=SUM(E{a}:E{b})".format(a=a, b=b))
         ws.cell(row=r, column=5, value="=C{r}-D{r}".format(r=r))
-        ws.cell(row=r, column=6, value="=MAX(0,E{r})*{rate}".format(r=r, rate=RATE))
+        ws.cell(row=r, column=6, value=("=I{b}".format(b=b) if q == 0 else "=I{b}-I{p}".format(b=b, p=rngs[q - 1][1])))
         ws.cell(row=r, column=7, value=dues[q].format(y=YEAR))
-        ws.cell(row=r, column=10, value="=MAX(0,F{r}-H{r})".format(r=r))
+        ws.cell(row=r, column=10, value="=I{b}-SUM($H$24:H{r})".format(b=b, r=r))
         for c, fmt, inp in ((2, None, False), (3, MONEY, False), (4, MONEY, False), (5, MONEY, False), (6, MONEY, False),
                             (7, DATEF, True), (8, MONEY, True), (9, DATEF, True), (10, MONEY, False)):
             K.body(ws.cell(row=r, column=c), fmt, inp=inp, bold=(c == 6))
-    K.note(ws, "B29", "Quarters follow the US federal estimated-tax periods and due dates (weekends and holidays can move them). "
-                      "Outside the US? Just type your own dates. This is a savings guide, not a tax calculation.", italic=True)
+    K.label(ws["B28"], "Year total", color=INK)
+    for c, f in {3: "=SUM(C24:C27)", 4: "=SUM(D24:D27)", 5: "=SUM(E24:E27)", 6: "=SUM(F24:F27)", 8: "=SUM(H24:H27)", 10: "=J27"}.items():
+        ws.cell(row=28, column=c, value=f)
+        K.body(ws.cell(row=28, column=c), MONEY, bold=True, band=True)
+    ws.conditional_formatting.add("E24:F28", FormulaRule(formula=["E24<0"], font=Font(color="A33A2B")))
+    notes = [
+        "How set-aside works: it is always your set-aside % of the year so far (income minus deductible expenses), never below zero. "
+        "A loss month or quarter lowers that figure, so its set-aside shows as a negative amount: money you already put aside that you no longer need to add. "
+        "The year total always equals your % of the full year's income minus deductible expenses.",
+        "Income minus deductible expenses is not your final taxable profit: things like self-employment tax, allowances and other income are not included. "
+        "Quarters and due dates follow the US federal estimated-tax schedule (weekends and holidays can move them); outside the US, type your own. "
+        "This is a savings guide, not a tax calculation.",
+    ]
+    for i, n in enumerate(notes):
+        r = 30 + i * 3
+        ws.merge_cells(start_row=r, start_column=2, end_row=r + 2, end_column=11)
+        K.note(ws, "B%d" % r, n, italic=True, wrap=True)
+        for rr in range(r, r + 3):
+            ws.row_dimensions[rr].height = 22
     ws.freeze_panes = "A7"
     return ws
 
@@ -284,9 +311,9 @@ def dashboard_sheet(wb):
     m = "'Monthly & Tax'"
     K.kpi(ws, 6, 2, "Income", "={m}!C19".format(m=m), MONEY0, 3)
     K.kpi(ws, 6, 5, "Deductible expenses", "={m}!E19".format(m=m), MONEY0, 3)
-    K.kpi(ws, 6, 8, "Profit", "={m}!F19".format(m=m), MONEY0, 3)
-    K.kpi(ws, 6, 11, "Profit margin", '=IF({m}!C19=0,0,{m}!F19/{m}!C19)'.format(m=m), "0%", 2)
-    K.kpi(ws, 9, 2, "Set aside for tax", "={m}!G19".format(m=m), MONEY0, 3)
+    K.kpi(ws, 6, 8, "Income minus deductible", "={m}!F19".format(m=m), MONEY0, 3)
+    K.kpi(ws, 6, 11, "All expenses", "={m}!D19".format(m=m), MONEY0, 2)
+    K.kpi(ws, 9, 2, "Set aside for tax", "={m}!I19".format(m=m), MONEY0, 3)
     K.kpi(ws, 9, 5, "Tax paid so far", "=SUM({m}!H24:H27)".format(m=m), MONEY0, 3)
     K.kpi(ws, 9, 8, "Unpaid invoices", "=Invoices!D5", MONEY0, 3)
     K.kpi(ws, 9, 11, "Overdue invoices", "=Invoices!G5", "0", 2)
@@ -312,17 +339,17 @@ def dashboard_sheet(wb):
 def start_sheet(wb):
     ws = wb.create_sheet("Start Here", 0)
     K.start_here(ws, "Freelancer Income & Tax Tracker",
-                 "Log what comes in and what goes out, see your real profit each month, and know how much to set aside for tax. "
+                 "Log what comes in and what goes out, see income minus deductible expenses each month, and know how much to set aside for tax. "
                  "Works in Microsoft Excel and Google Sheets.",
-                 ["Open Setup. Enter the tax year, your business name, the % of profit you want to set aside for tax, and an optional monthly income goal.",
+                 ["Open Setup. Enter the tax year, your business name, the % of income minus deductible expenses you want to set aside for tax, and an optional monthly income goal.",
                   "Still on Setup: list your clients and check the expense categories. Change the names or deductible % to fit your work.",
                   "Log every payment you receive on Income, and every business cost on Expenses. Dropdowns fill from Setup.",
                   "Use Invoices to track what you have billed. Overdue invoices turn red.",
-                  "Check Monthly & Tax for profit and set-aside per month and per quarter. Record tax payments you make there.",
+                  "Check Monthly & Tax for income minus deductible expenses and set-aside per month and per quarter. A loss month shows a negative set-aside (money you no longer need to add). Record tax payments you make there.",
                   "Dashboard and Breakdown update on their own."],
                  ["Google Sheets: upload the file to Google Drive, then open it with Google Sheets (or File > Import).",
                   "Dollar signs are just formatting. To change currency, select the cells and use Format > Number.",
-                  "Room for 500 income rows, 500 expense rows and 200 invoices. Start a fresh copy each tax year.",
+                  "Room for 500 income rows, 500 expense rows and 200 invoices. Start a fresh copy each tax year.", "An expense with no category, or a category not listed on Setup, counts as 0% deductible until you pick one.",
                   "This tracker helps you save for tax. It does not calculate the tax you owe and is not tax advice. Talk to a tax professional about your situation.",
                   "Please do not type over the white formula cells. If something breaks, re-download the original from Etsy (Purchases > Download files)."])
 
@@ -341,7 +368,7 @@ def build(path, sample=False):
     order = ["Start Here", "Dashboard", "Setup", "Income", "Expenses", "Invoices", "Monthly & Tax", "Breakdown"]
     wb._sheets = [wb[n] for n in order]
     if sample:
-        for _n, _a in {'Start Here': 'A1:D24', 'Dashboard': 'A1:M30', 'Setup': 'A1:G37', 'Income': 'A1:H32', 'Expenses': 'A1:I32', 'Invoices': 'A1:J16', 'Monthly & Tax': 'A1:J30', 'Breakdown': 'A1:J27'}.items():
+        for _n, _a in {'Start Here': 'A1:D24', 'Dashboard': 'A1:M30', 'Setup': 'A1:G37', 'Income': 'A1:H32', 'Expenses': 'A1:I32', 'Invoices': 'A1:J16', 'Monthly & Tax': 'A1:K37', 'Breakdown': 'A1:J27'}.items():
             wb[_n].print_area = _a
             wb[_n].page_setup.fitToHeight = 1
             wb[_n].page_setup.fitToWidth = 1

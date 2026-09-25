@@ -3,7 +3,7 @@
 Everything here is ready to upload. Work top to bottom: shop setup first, then the six listings.
 Prepared 2026-09-25 by the Edgex crew (market research, trend scout, design, copy, SEO).
 
-> **Last Touch review, 2026-09-25:** Listings 4, 5 and 6 (printables) are cleared to upload. Listings 2 and 3 are cleared once their fixes are done and each .xlsx has passed the Google Sheets check at the bottom of this file. **Listing 1 (Freelancer tracker) is on hold. Do not upload it yet:** its yearly tax set-aside figure does not match the profit shown beside it when any month is a loss, so it needs a rebuild first.
+> **Last Touch review, 2026-09-25:** Listings 4, 5 and 6 (printables) are cleared to upload. Listings 2 and 3 are cleared once their fixes are done and each .xlsx has passed the Google Sheets check at the bottom of this file. **Listing 1 (Freelancer tracker) is on hold. Do not upload it yet:** its yearly tax set-aside figure does not match the profit shown beside it when any month is a loss, so it needs a rebuild first. *Update: rebuilt the same day (set-aside now reconciles, including loss months; "profit" relabelled; unknown categories count as 0% deductible). It still needs a Last Touch re-check before upload.*
 
 **What it costs you to list:** 6 listings x $0.20 = **$1.20**.
 Also expect: a one-time shop setup fee that Etsy charges most new shops (reported as $15 to $29, varies by country; Etsy shows the exact amount before you confirm), and per sale 6.5% transaction fee + payment processing (US: 3% + $0.25). Each sale also re-lists the item for another $0.20.
@@ -107,25 +107,25 @@ Freelancer Income and Expense Tracker Spreadsheet, Self Employed Tax Set Aside P
 
 **Tags** (13, each 20 characters or fewer):
 ```
-freelancer tracker, self employed taxes, income tracker, expense tracker, 1099 tracker, quarterly tax, tax set aside, invoice tracker, small business excel, google sheets, bookkeeping template, side hustle tracker, profit tracker
+freelancer tracker, self employed taxes, income tracker, expense tracker, 1099 tracker, quarterly tax, tax set aside, invoice tracker, small business excel, google sheets, bookkeeping template, side hustle tracker, tax tracker
 ```
 
 **Description:**
 ```
 Made with AI assistance: this template was designed and built by our studio with the help of AI tools, and every formula was tested with sample data before listing.
 
-Know your real profit and how much to set aside for tax, without an accountant's software. Log what comes in and what goes out, and this spreadsheet does the math.
+Know how much to set aside for tax, without an accountant's software. Log what comes in and what goes out, and this spreadsheet works out your income minus deductible expenses and your set-aside for you.
 
 INSTANT DIGITAL DOWNLOAD. Nothing will be shipped.
 
 WHAT'S INSIDE (8 tabs)
 - Start Here: simple setup steps
-- Dashboard: income, deductible expenses, profit, margin, tax set aside, tax paid, unpaid and overdue invoices, plus a monthly chart
+- Dashboard: income, all expenses, deductible expenses, income minus deductible expenses, tax set aside, tax paid, unpaid and overdue invoices, plus a monthly chart
 - Setup: tax year, set-aside %, income goal, your clients and expense categories (18 ready-made, all editable)
 - Income log: 500 rows
 - Expense log: 500 rows, deductible amount fills in from the category
 - Invoices: 200 rows, status updates itself (paid, due in X days, overdue)
-- Monthly & Tax: profit and set-aside by month and by quarter, with editable due dates (US federal estimated-tax dates filled in)
+- Monthly & Tax: income minus deductible expenses and your set-aside by month and by quarter, with editable due dates (US federal estimated-tax dates filled in). Set-aside is your chosen % of the year so far, so a loss month lowers it and the year total always matches
 - Breakdown: totals by expense category and by client
 
 WHAT YOU GET
@@ -141,6 +141,7 @@ GOOD TO KNOW
 - Works in Microsoft Excel and Google Sheets. Software not included.
 - Amounts are formatted in $; change the currency with Format > Number.
 - This tracker helps you save for tax. It does not calculate the tax you owe and is not tax advice.
+- "Income minus deductible expenses" is not your final taxable profit (self-employment tax, allowances and other income are not included).
 - For personal use. Please don't share or resell the file.
 
 Questions? Send us a message.
