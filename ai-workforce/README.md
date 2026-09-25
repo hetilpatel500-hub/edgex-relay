@@ -68,6 +68,21 @@ from the office database as the shifts write to it:
 - Clicking an agent (or a row in **All agents**) lets the owner assign it
   a task: that writes a request with the agent's id and sets the agent
   to "asked by you" until a shift picks it up.
+- **Office life.** Each agent's pose and monitor show its real state:
+  typing with code on screen (working), hand raised (asked by you), hands
+  on head with a red sticky note (blocked), leaning back with a check on
+  screen (done in the last 2 hours). When a live update marks work done,
+  that agent walks it over to whoever reviews it (Last Touch, Video Last
+  Touch, or the boardroom for reviewers), and a speech bubble shows what
+  changed. Coffee runs, desk chats, meetings and window breaks are
+  ambient scenery; people route around walls and desks on a walkable
+  grid built from the scene, and only agents who aren't heads-down take
+  breaks. Lighting and the view out the windows follow the viewer's
+  local time; a wall clock and a live studio board (earned, waiting on
+  you, working now, next shift, latest update) hang on the north wall.
+  **Tour** flies the camera through the rooms with the freshest real work;
+  **Sound** adds room tone and typing that scales with how many agents are
+  working.
 
 An autonomous shift also runs on its own — a Routine (`trig_01BXBEAoHuB48YDR3xKzUbXG`,
 **hourly**), not a session-bound cron job: it's owned by the

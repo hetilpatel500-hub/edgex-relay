@@ -368,13 +368,50 @@
     #panel.open{transform:translateY(0);}
     #legend{max-width:94vw;}
   }
+
+  /* ---------- speech bubbles over people ---------- */
+  #bubbles{position:fixed;inset:0;pointer-events:none;overflow:hidden;}
+  .bubble{
+    position:absolute;left:0;top:0;max-width:250px;
+    background:var(--panel-bg);border:1px solid var(--panel-border);color:var(--ink);
+    border-radius:12px;padding:7px 10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(8px);
+    font:500 12px/1.35 "Work Sans",sans-serif;opacity:0;transition:opacity .25s ease;margin-top:-8px;
+  }
+  .bubble.show{opacity:1;}
+  .bubble::after{
+    content:"";position:absolute;left:50%;bottom:-6px;width:10px;height:10px;margin-left:-5px;
+    background:var(--panel-bg);border-right:1px solid var(--panel-border);border-bottom:1px solid var(--panel-border);transform:rotate(45deg);
+  }
+  .bubble .bk{display:flex;align-items:center;gap:6px;font:600 10px/1.2 "IBM Plex Mono",monospace;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+  .bubble .bk i{width:7px;height:7px;border-radius:50%;flex:none;}
+  .bubble .bt{overflow-wrap:anywhere;}
+
+  /* ---------- guided tour caption ---------- */
+  #tourCard{
+    position:fixed;left:50%;transform:translateX(-50%);bottom:calc(128px + env(safe-area-inset-bottom,0px));
+    width:min(540px, calc(100% - 32px));z-index:12;
+    background:var(--panel-bg);border:1px solid var(--panel-border);border-radius:16px;box-shadow:var(--shadow);backdrop-filter:blur(14px);
+    padding:14px 16px 12px;color:var(--ink);
+  }
+  #tourCard .tc-top{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  #tourCard .tc-step{font:600 10px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+  #tourCard .tc-btns{display:flex;gap:6px;}
+  #tourCard button{background:var(--chip-bg);border:1px solid var(--panel-border);color:var(--ink);font:600 11.5px "Work Sans",sans-serif;padding:5px 11px;border-radius:999px;cursor:pointer;}
+  #tourCard .tc-name{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:24px;margin-top:4px;text-wrap:balance;}
+  #tourCard .tc-meta{font:500 11px "IBM Plex Mono",monospace;color:var(--muted);margin-top:2px;}
+  #tourCard .tc-quote{font-size:13px;line-height:1.45;margin-top:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+  #tourCard .tc-bar{height:3px;background:var(--chip-bg);border-radius:3px;margin-top:10px;overflow:hidden;}
+  #tourCard .tc-bar i{display:block;height:100%;width:0;background:var(--st-working);}
+  #soundBtn[aria-pressed="true"]{background:var(--ink);color:var(--panel-bg);}
+  @media (max-width:720px){ #tourCard{bottom:calc(150px + env(safe-area-inset-bottom,0px));} #tourCard .tc-quote{-webkit-line-clamp:2;} .bubble{max-width:200px;font-size:11.5px;} }
 </style>
 </head><body><canvas id="scene"></canvas>
+<div id="bubbles" aria-hidden="true"></div>
 
 <div id="app">
   <div id="topRow">
     <header>
-      <span class="eyebrow" id="headerEyebrow">110 agents &middot; 22 departments</span>
+      <span class="eyebrow"><span id="headerEyebrow">110 agents &middot; 22 departments</span> &middot; <span id="officeClock"></span></span>
       <h1>The Studio Floor</h1>
       <div id="pulse" aria-live="polite">
         <span class="pchip" id="pShift"><span class="pdot s-idle"></span>Connecting to the live board&hellip;</span>
@@ -385,6 +422,8 @@
       <button class="pillbtn" id="ownerBtn" type="button">Waiting on you</button>
       <button class="pillbtn" id="moneyBtn" type="button">Money</button>
       <button class="pillbtn" id="rosterBtn" type="button">All agents</button>
+      <button class="pillbtn" id="tourBtn" type="button">Tour</button>
+      <button class="pillbtn" id="soundBtn" type="button" aria-pressed="false">Sound</button>
       <button class="pillbtn" id="resetViewBtn" type="button">Reset view</button>
     </div>
   </div>
@@ -405,6 +444,14 @@
 </div>
 
 <div id="toast" role="status"></div>
+
+<div id="tourCard" hidden>
+  <div class="tc-top"><span class="tc-step" id="tourStep"></span><span class="tc-btns"><button type="button" id="tourSkip">Next</button><button type="button" id="tourStop">Stop</button></span></div>
+  <div class="tc-name" id="tourName"></div>
+  <div class="tc-meta" id="tourMeta"></div>
+  <div class="tc-quote" id="tourQuote"></div>
+  <div class="tc-bar"><i id="tourBar"></i></div>
+</div>
 
 <div class="sheet-overlay" id="liveOverlay">
   <div class="sheet" role="dialog" aria-labelledby="liveTitle">
@@ -701,8 +748,8 @@
   // that's what makes cross-room walking (collaboration, meetings) possible
   // without ever crossing a wall.
   var GROUPS = {
-    A: { depts:["research","content","software"], cx:-8.5, cz:-2.0, door:"east" },
-    B: { depts:["sales","delivery","growth"], cx:8.5, cz:-2.0, door:"west" },
+    A: { depts:["research","content","software"], cx:-8.5, cz:-2.0, door:["east","west"] },
+    B: { depts:["sales","delivery","growth"], cx:8.5, cz:-2.0, door:["west","east"] },
     // The Dispatch, in the open gap south of Last Touch — same shared-bullpen
     // pattern, 2 depts per room instead of 3.
     E: { depts:["task-dispatch","capacity-queue"], cx:-8.5, cz:9.55, door:"east" },
@@ -800,7 +847,8 @@
   resize();
   window.addEventListener("resize", resize);
 
-  scene.add(new THREE.HemisphereLight(0xffffff, 0x4a4235, 0.8));
+  var hemi = new THREE.HemisphereLight(0xffffff, 0x4a4235, 0.8);
+  scene.add(hemi);
   var sun = new THREE.DirectionalLight(0xfff4e0, 0.95);
   sun.position.set(12, 18, 8);
   sun.castShadow = true;
@@ -881,6 +929,47 @@
     ctx.lineWidth = 2; ctx.strokeStyle = "rgba(0,0,0,0.35)"; ctx.stroke();
   }, 32,32,1,1);
 
+  // Monitor screens show each agent's real state: scrolling code while
+  // working, a new-task notice when you've asked, red when blocked, a check
+  // when recently done, a screensaver otherwise.
+  var codeTex = canvasTex(function(ctx,w,h){
+    ctx.fillStyle = "#0d1520"; ctx.fillRect(0,0,w,h);
+    var cols = ["#7cc7ff","#9be29b","#f2c26b","#d7a6ff","#e6edf3"];
+    for(var y=4;y<h;y+=7){
+      var x = 6+Math.floor(Math.random()*4)*8, n = 1+Math.floor(Math.random()*3);
+      for(var k=0;k<n && x<w-10;k++){ var len = 8+Math.random()*38; ctx.fillStyle = cols[Math.floor(Math.random()*cols.length)]; ctx.fillRect(x,y,len,3); x += len+5; }
+    }
+  }, 128,256, 1, 0.3125);
+  function screenTexOf(bg, fg, label, glyph){
+    return canvasTex(function(ctx,w,h){
+      ctx.fillStyle = bg; ctx.fillRect(0,0,w,h);
+      ctx.fillStyle = fg; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.font = "bold 30px sans-serif"; ctx.fillText(glyph, w/2, h/2-12);
+      ctx.font = "bold 13px sans-serif"; ctx.fillText(label, w/2, h/2+20);
+    }, 128,80,1,1);
+  }
+  var SCREEN_MATS = {
+    working: new THREE.MeshBasicMaterial({map:codeTex}),
+    requested: new THREE.MeshBasicMaterial({map:screenTexOf("#3a2a0c","#f2b54a","NEW TASK","✉")}),
+    blocked: new THREE.MeshBasicMaterial({map:screenTexOf("#3a1014","#ff7b7b","BLOCKED","!")}),
+    fresh: new THREE.MeshBasicMaterial({map:screenTexOf("#0f1e3a","#8fb0ff","DONE","✓")}),
+    stale: new THREE.MeshBasicMaterial({map:screenTexOf("#10141a","#3b4552","EDGEX","◆")}),
+    idle: new THREE.MeshBasicMaterial({color:0x0b0d11})
+  };
+  var SCREEN_GEO = new THREE.PlaneGeometry(0.46,0.28);
+  var STICKY_GEO = new THREE.PlaneGeometry(0.07,0.07);
+  var STICKY_MAT = new THREE.MeshBasicMaterial({color:0xff6b6b});
+  var DESK_SCREENS = {}; // agentId -> {screen, sticky}
+  function setScreen(id, v){
+    var d = DESK_SCREENS[id];
+    if(!d) return;
+    d.screen.material = SCREEN_MATS[v] || SCREEN_MATS.idle;
+    d.sticky.visible = v==="blocked";
+  }
+  // One live "studio board" canvas, shown on the wall TV and the boardroom screen.
+  var boardCanvas = document.createElement("canvas"); boardCanvas.width = 1024; boardCanvas.height = 576;
+  var boardTex = new THREE.CanvasTexture(boardCanvas); boardTex.anisotropy = 4;
+
   // live per-agent status, filled in by the db subscription below
   var agentMeshes = {};   // agentId -> {mat: SpriteMaterial, sprite}
   var agentStatus = {};   // agentId -> {status, task, result, updatedAt}
@@ -910,6 +999,7 @@
     if(!m) return;
     var v = vstate(id);
     m.mat.color.setHex(VCOLOR[v]);
+    setScreen(id, v);
     if(v==="working" || v==="requested") pulsing[id] = true;
     else { delete pulsing[id]; m.sprite.scale.set(0.15,0.15,1); }
   }
@@ -941,7 +1031,12 @@
   // exposed-brick loft look, per the owner's reference floor plan.
   var wallMat = new THREE.MeshStandardMaterial({color:0xf3f1ec, roughness:0.88});
   var wallMat2 = new THREE.MeshStandardMaterial({color:0xeae7e0, roughness:0.9});
-  var carpetMat = new THREE.MeshStandardMaterial({color:0xc7ccd6, roughness:0.96});
+  var carpetTex = canvasTex(function(ctx,w,h){
+    ctx.fillStyle = "#f4f5f7"; ctx.fillRect(0,0,w,h);
+    for(var i=0;i<2400;i++){ var g = 225+Math.floor(Math.random()*30); ctx.fillStyle = "rgba("+g+","+g+","+(g+4)+",0.55)"; ctx.fillRect(Math.random()*w, Math.random()*h, 1.5, 1.5); }
+    ctx.fillStyle = "rgba(0,0,0,0.06)"; ctx.fillRect(0,0,w,1.5); ctx.fillRect(0,0,1.5,h);
+  }, 128,128, BUILD_HX, BUILD_Z_SPAN/2);
+  var carpetMat = new THREE.MeshStandardMaterial({color:0xc7ccd6, map:carpetTex, roughness:0.96});
   var woodMat = new THREE.MeshStandardMaterial({map:woodTex, roughness:0.34, metalness:0.06});
   var trussMat = new THREE.MeshStandardMaterial({color:0x23262c, roughness:0.55, metalness:0.35});
   var glassMat = new THREE.MeshPhysicalMaterial({color:0xdfeaf2, transparent:true, opacity:0.16, roughness:0.05, metalness:0, side:THREE.DoubleSide});
@@ -970,10 +1065,11 @@
   wallBox(WALL_T, WALL_H, BUILD_Z_SPAN, -BUILD_HX, WALL_H/2, BUILD_Z_MID, wallMat);
   wallBox(WALL_T, WALL_H, BUILD_Z_SPAN, BUILD_HX, WALL_H/2, BUILD_Z_MID, wallMat);
 
+  var WINDOW_MAT = new THREE.MeshBasicMaterial({map:skyTex});
   function windowUnit(x,z,rotY){
     var g = new THREE.Group();
     g.position.set(x,0,z); g.rotation.y = rotY;
-    var pane = new THREE.Mesh(new THREE.PlaneGeometry(2.6,2.1), new THREE.MeshBasicMaterial({map:skyTex}));
+    var pane = new THREE.Mesh(new THREE.PlaneGeometry(2.6,2.1), WINDOW_MAT);
     pane.position.set(0, 2.15, 0);
     g.add(pane);
     var frameParts = [
@@ -997,11 +1093,13 @@
   for(var tz=-BUILD_Z_NORTH+3; tz<=BUILD_Z_SOUTH-3; tz+=6){
     for(var tx=-BUILD_HX+4; tx<=BUILD_HX-4; tx+=7){ fillPositions.push([tx,tz]); }
   }
+  var FILL_LIGHTS = [];
   fillPositions.forEach(function(p, i){
     if(i % 2 === 0){
       var pl = new THREE.PointLight(0xffe6bd, 0.42, 9, 2);
       pl.position.set(p[0], WALL_H-0.3, p[1]);
       scene.add(pl);
+      FILL_LIGHTS.push(pl);
     }
   });
 
@@ -1066,6 +1164,7 @@
 
   function buildChair(x,z,rotY,accentHex){
     var g = new THREE.Group();
+    g.userData.noNav = true;
     g.position.set(x,0,z); g.rotation.y = rotY;
     var seat = new THREE.Mesh(new THREE.CylinderGeometry(0.22,0.22,0.07,16), new THREE.MeshStandardMaterial({color:accentHex, roughness:0.6}));
     seat.position.y = 0.46; seat.castShadow = true;
@@ -1087,6 +1186,12 @@
   var PERSON_HIT_MESHES = []; // invisible hit-spheres for click/tap raycasting, tagged with agentId
   var BOARDROOM_SEATS_WORLD = []; // empty guest chairs in the boardroom, used by the meeting-walk system
 
+  var THIGH_GEO = new THREE.CylinderGeometry(0.068,0.062,0.32,10), SHIN_GEO = new THREE.CylinderGeometry(0.058,0.05,0.44,10);
+  var LEG_GEO = new THREE.CylinderGeometry(0.072,0.058,0.45,10), SHOE_GEO = new THREE.BoxGeometry(0.09,0.06,0.17);
+  var TORSO_GEO = new THREE.CylinderGeometry(0.145,0.12,0.44,14), NECK_GEO = new THREE.CylinderGeometry(0.045,0.05,0.08,10);
+  var HEAD_GEO = new THREE.SphereGeometry(0.125,16,12), HAIR_GEO = new THREE.SphereGeometry(0.132,14,10,0,Math.PI*2,0,Math.PI*0.55);
+  var ARM_GEO = new THREE.CylinderGeometry(0.042,0.036,0.38,10), HAND_GEO = new THREE.SphereGeometry(0.038,8,6);
+  var HAIR_MATS = [0x2a221c,0x4a3325,0x141414,0x7a5a3a,0xb08a5a,0x5f5f5f].map(function(c){ return new THREE.MeshStandardMaterial({color:c, roughness:0.85}); });
   function buildPerson(x,z,rotY,agentId,displayName,originX,originZ,seated){
     var g = new THREE.Group();
     var jitter = (Math.random()-0.5)*0.3;
@@ -1102,69 +1207,54 @@
     var pantsMat = new THREE.MeshStandardMaterial({color:pantsHex, roughness:0.75});
     var shoeMat = new THREE.MeshStandardMaterial({color:shoeHex, roughness:0.5});
 
-    // legs: replaces the old legless torso that read as "a box floating on
-    // nothing". Seated people (desks, boardroom) get a real bent-knee pose —
-    // thigh resting at chair-seat height, shin down to the floor — so they
-    // read as sitting in the chair rather than standing through it. Walkers
-    // get straight standing legs instead.
+    // Seated legs (bent at the knee) and standing legs (hinged at the hip,
+    // so they can stride) are both built; the pose system shows whichever
+    // fits — people stand up to walk and sit back down at a chair.
+    g.userData.noNav = true;
+    var parts = {phase:Math.random()*Math.PI*2, hips:[], arms:[]};
+    var legsSeated = new THREE.Group(), legsStand = new THREE.Group();
     [-1,1].forEach(function(side){
-      if(isSeated){
-        var thigh = new THREE.Mesh(new THREE.CylinderGeometry(0.068,0.062,0.32,10), pantsMat);
-        thigh.position.set(side*0.085, 0.47, 0.16);
-        thigh.rotation.x = Math.PI/2;
-        thigh.castShadow = true;
-        g.add(thigh);
-        var shin = new THREE.Mesh(new THREE.CylinderGeometry(0.058,0.05,0.44,10), pantsMat);
-        shin.position.set(side*0.085, 0.25, 0.32);
-        shin.castShadow = true;
-        g.add(shin);
-        var shoe = new THREE.Mesh(new THREE.BoxGeometry(0.09,0.06,0.17), shoeMat);
-        shoe.position.set(side*0.085, 0.03, 0.36);
-        shoe.castShadow = true;
-        g.add(shoe);
-      } else {
-        var leg = new THREE.Mesh(new THREE.CylinderGeometry(0.072,0.058,0.45,10), pantsMat);
-        leg.position.set(side*0.085, 0.245, 0);
-        leg.castShadow = true;
-        g.add(leg);
-        var shoe2 = new THREE.Mesh(new THREE.BoxGeometry(0.09,0.06,0.17), shoeMat);
-        shoe2.position.set(side*0.085, 0.03, -0.03);
-        shoe2.castShadow = true;
-        g.add(shoe2);
-      }
+      var thigh = new THREE.Mesh(THIGH_GEO, pantsMat);
+      thigh.position.set(side*0.085, 0.47, 0.16); thigh.rotation.x = Math.PI/2; thigh.castShadow = true;
+      legsSeated.add(thigh);
+      var shin = new THREE.Mesh(SHIN_GEO, pantsMat);
+      shin.position.set(side*0.085, 0.25, 0.32); shin.castShadow = true;
+      legsSeated.add(shin);
+      var shoe = new THREE.Mesh(SHOE_GEO, shoeMat);
+      shoe.position.set(side*0.085, 0.03, 0.36); shoe.castShadow = true;
+      legsSeated.add(shoe);
+      var hip = new THREE.Group(); hip.position.set(side*0.085, 0.47, 0);
+      var leg = new THREE.Mesh(LEG_GEO, pantsMat); leg.position.y = -0.225; leg.castShadow = true; hip.add(leg);
+      var shoe2 = new THREE.Mesh(SHOE_GEO, shoeMat); shoe2.position.set(0, -0.44, 0.03); shoe2.castShadow = true; hip.add(shoe2);
+      legsStand.add(hip); parts.hips.push(hip);
     });
+    g.add(legsSeated); g.add(legsStand);
+    legsSeated.visible = isSeated; legsStand.visible = !isSeated;
+    parts.legsSeated = legsSeated; parts.legsStand = legsStand;
 
-    // torso: shoulders slightly wider than the waist, rounder (more segments)
-    // than before so it reads as a body, not a hard-edged cylinder
-    var torso = new THREE.Mesh(new THREE.CylinderGeometry(0.145,0.12,0.44,14), shirtMat);
+    var torso = new THREE.Mesh(TORSO_GEO, shirtMat);
     torso.position.y = 0.69; torso.castShadow = true;
     g.add(torso);
 
-    var neck = new THREE.Mesh(new THREE.CylinderGeometry(0.045,0.05,0.08,10), skinMat);
-    neck.position.y = 0.945;
-    g.add(neck);
+    // head, neck and hair turn together, from the neck
+    var headG = new THREE.Group(); headG.position.y = 0.945; g.add(headG);
+    headG.add(new THREE.Mesh(NECK_GEO, skinMat));
+    var head = new THREE.Mesh(HEAD_GEO, skinMat);
+    head.position.y = 0.105; head.castShadow = true;
+    headG.add(head);
+    var hair = new THREE.Mesh(HAIR_GEO, HAIR_MATS[Math.floor(Math.random()*HAIR_MATS.length)]);
+    hair.position.y = 0.125;
+    headG.add(hair);
+    parts.head = headG;
 
-    var head = new THREE.Mesh(new THREE.SphereGeometry(0.125,16,12), skinMat);
-    head.position.y = 1.05;
-    head.castShadow = true;
-    g.add(head);
-
-    var hair = new THREE.Mesh(new THREE.SphereGeometry(0.132,14,10,0,Math.PI*2,0,Math.PI*0.55), new THREE.MeshStandardMaterial({color:0x2a221c, roughness:0.85}));
-    hair.position.y = 1.07;
-    g.add(hair);
-
-    // arms hang naturally at the sides instead of jutting forward — that
-    // forward reach was what made the old figure read as extra legs
+    // arms hinge at the shoulder
     [-1,1].forEach(function(side){
-      var arm = new THREE.Mesh(new THREE.CylinderGeometry(0.042,0.036,0.38,10), shirtMat);
-      arm.position.set(side*0.19, 0.72, 0);
-      arm.rotation.z = side*0.09;
-      arm.castShadow = true;
-      g.add(arm);
-      var hand = new THREE.Mesh(new THREE.SphereGeometry(0.038,8,6), skinMat);
-      hand.position.set(side*0.207, 0.53, 0);
-      g.add(hand);
+      var sh = new THREE.Group(); sh.position.set(side*0.19, 0.9, 0); sh.rotation.z = side*0.09;
+      var arm = new THREE.Mesh(ARM_GEO, shirtMat); arm.position.y = -0.18; arm.castShadow = true; sh.add(arm);
+      var hand = new THREE.Mesh(HAND_GEO, skinMat); hand.position.y = -0.37; sh.add(hand);
+      g.add(sh); parts.arms.push(sh);
     });
+    g.userData.parts = parts;
 
     if(agentId){
       var badgeMat = new THREE.SpriteMaterial({map:badgeTex, color:VCOLOR.idle, transparent:true, depthWrite:false});
@@ -1191,14 +1281,41 @@
         origin:{x:originX||0, z:originZ||0},
         home:{x:x, z:z},
         seatRotY:g.rotation.y,
-        walk:null
+        walk:null,
+        parts:parts
       };
     }
 
-    people.push({group:g, phase:Math.random()*Math.PI*2, baseRotY:g.rotation.y, agentId:agentId});
+    people.push({group:g, phase:Math.random()*Math.PI*2, baseRotY:g.rotation.y, agentId:agentId, parts:parts});
     return g;
   }
 
+  var CLUTTER = {
+    mugGeo: new THREE.CylinderGeometry(0.035,0.03,0.09,10),
+    mugMats: [0xffffff,0x2b2e34,0xC97F22,0x3560CC].map(function(c){ return new THREE.MeshStandardMaterial({color:c, roughness:0.45}); }),
+    paperGeo: new THREE.BoxGeometry(0.21,0.02,0.29),
+    paperMat: new THREE.MeshStandardMaterial({color:0xfbfaf6, roughness:0.85}),
+    potGeo: new THREE.CylinderGeometry(0.045,0.035,0.07,8),
+    leafGeo: new THREE.SphereGeometry(0.07,8,6),
+    lampBase: new THREE.CylinderGeometry(0.05,0.06,0.02,10),
+    lampArm: new THREE.CylinderGeometry(0.008,0.008,0.3,6),
+    lampHead: new THREE.ConeGeometry(0.06,0.08,10,1,true)
+  };
+  function addDeskClutter(g){
+    var r = Math.random();
+    if(r < 0.55){ var mug = new THREE.Mesh(CLUTTER.mugGeo, CLUTTER.mugMats[Math.floor(Math.random()*4)]); mug.position.set(-0.45+Math.random()*0.08, 0.79, 0.06); mug.castShadow = true; g.add(mug); }
+    if(Math.random() < 0.45){ var pp = new THREE.Mesh(CLUTTER.paperGeo, CLUTTER.paperMat); pp.position.set(0.36, 0.755, 0.02); pp.rotation.y = (Math.random()-0.5)*0.5; g.add(pp); }
+    if(Math.random() < 0.25){
+      var pot = new THREE.Mesh(CLUTTER.potGeo, potMatSmall); pot.position.set(-0.52, 0.78, -0.22); g.add(pot);
+      var leaf = new THREE.Mesh(CLUTTER.leafGeo, leafMatSmall); leaf.position.set(-0.52, 0.86, -0.22); leaf.scale.y = 1.3; g.add(leaf);
+    } else if(Math.random() < 0.3){
+      var base = new THREE.Mesh(CLUTTER.lampBase, chairFrameMat); base.position.set(-0.52,0.755,-0.22); g.add(base);
+      var arm = new THREE.Mesh(CLUTTER.lampArm, chairFrameMat); arm.position.set(-0.5,0.9,-0.2); arm.rotation.z = -0.25; g.add(arm);
+      var head = new THREE.Mesh(CLUTTER.lampHead, chairFrameMat); head.position.set(-0.46,1.04,-0.17); head.rotation.z = 0.6; g.add(head);
+    }
+  }
+  var potMatSmall = new THREE.MeshStandardMaterial({color:0xb5674a, roughness:0.85});
+  var leafMatSmall = new THREE.MeshStandardMaterial({color:0x3f7d4a, roughness:0.8});
   function buildWorkstation(x,z,rotY,accentHex,agentId,displayName){
     var g = new THREE.Group();
     g.position.set(x,0,z); g.rotation.y = rotY;
@@ -1222,6 +1339,16 @@
     var kb = new THREE.Mesh(new THREE.BoxGeometry(0.34,0.02,0.13), new THREE.MeshStandardMaterial({color:0xe7e4dc}));
     kb.position.set(0,0.755,0.08);
     g.add(kb);
+    if(agentId){
+      var scr = new THREE.Mesh(SCREEN_GEO, SCREEN_MATS.idle);
+      scr.position.set(0,1.03,-0.18+0.0135);
+      g.add(scr);
+      var sticky = new THREE.Mesh(STICKY_GEO, STICKY_MAT);
+      sticky.position.set(0.2,0.92,-0.18+0.016); sticky.rotation.z = 0.15; sticky.visible = false;
+      g.add(sticky);
+      DESK_SCREENS[agentId] = {screen:scr, sticky:sticky};
+    }
+    addDeskClutter(g);
     g.add(buildChair(0,0.62,Math.PI,accentHex));
     g.add(buildPerson(0,0.62,Math.PI,agentId,displayName,x,z));
     return g;
@@ -1360,7 +1487,7 @@
       BOARDROOM_SEATS_WORLD.push({x:cx+i*1.5, z:cz-0.1+1.05, rotY:Math.PI});
     }
 
-    var scr1 = new THREE.Mesh(new THREE.PlaneGeometry(1.7,1.05), new THREE.MeshBasicMaterial({map:screenTex}));
+    var scr1 = new THREE.Mesh(new THREE.PlaneGeometry(1.7,1.05), new THREE.MeshBasicMaterial({map:boardTex}));
     scr1.position.set(cx-hw+0.08, 1.8, cz); scr1.rotation.y = Math.PI/2;
     scene.add(scr1);
 
@@ -1502,7 +1629,7 @@
     ];
     seatDefs.forEach(function(s){
       scene.add(buildChair(s.x, s.z, s.rot, 0x1F9690));
-      COLLAB_SEATS.push({x:s.x, z:s.z, rotY:s.rot+Math.PI});
+      COLLAB_SEATS.push({x:s.x, z:s.z, rotY:s.rot});
     });
     var sign = makeSign("Collaboration", 2.0, 0);
     sign.position.set(cx, 2.0, cz-1.5);
@@ -1566,7 +1693,7 @@
   buildCabinet(19.8,26, Math.PI/2);
   buildCabinet(19.8,27.7, Math.PI/2);
   buildWaterCooler(0,-12.8);
-  buildWaterCooler(0,6.2);
+  buildWaterCooler(2.4,6.3);
   buildWaterCooler(-16,28);
 
   // a couple of people walking the aisles, so the floor doesn't feel frozen
@@ -2484,7 +2611,7 @@
 
   // ---------------- toasts for things happening right now ----------------
   var toastQueue = [], toastBusy = false;
-  function toast(t){ toastQueue.push(t); if(toastQueue.length > 4) toastQueue.shift(); if(!toastBusy) nextToast(); }
+  function toast(t){ chime(); toastQueue.push(t); if(toastQueue.length > 4) toastQueue.shift(); if(!toastBusy) nextToast(); }
   function nextToast(){
     var t = toastQueue.shift();
     var box = document.getElementById("toast");
@@ -2502,7 +2629,7 @@
   document.getElementById("toast").addEventListener("click", function(){ openSheet("liveOverlay"); });
 
   // ---------------- connect ----------------
-  function refreshAll(){ renderPulse(); renderSheet(); }
+  function refreshAll(){ renderPulse(); renderSheet(); drawBoard(); }
   function watch(db, name, path, handle){
     db.collection(path).onSnapshot(function(snap){
       var first = !loaded[name];
@@ -2527,6 +2654,7 @@
           if(!first && AGENT_BY_ID[id] && (!prev || prev.updatedAt!==next.updatedAt || prev.status!==next.status)){
             var v = vstate(id), name = AGENT_BY_ID[id].a.name;
             toast({dot:"s-"+v, title: name + (v==="working" ? " started: "+(next.task||"") : v==="blocked" ? " is blocked: "+(next.result||next.task||"") : " finished: "+(next.task||""))});
+            onAgentLiveChange(id, prev, next, v);
           }
         });
         refreshPanelIfOpen();
@@ -2584,69 +2712,262 @@
       return st==="working" || st==="done";
     });
   }
-  // A walk can now be a PATH of waypoints, not just one target — that's what
-  // lets an agent leave their room, cross the corridor, and enter a
-  // different room (the Collaboration Room or the boardroom) without ever
-  // cutting through a wall: each waypoint is either the destination, or a
-  // door's corridor-side point, and every leg between two consecutive
-  // waypoints is guaranteed to be inside one open space (one room, or the
-  // corridor) with nothing in between.
-  function startWalkPath(agentId, worldWaypoints, holdSeconds){
+  // ---------------- office life ----------------
+  // Everything below makes the floor behave like a working office. Two
+  // kinds of motion, kept honest:
+  //  - REAL: poses, screens, speech bubbles and hand-off walks come from the
+  //    live agents collection (who is working, blocked, asked, done).
+  //  - AMBIENT: coffee runs, desk chats, meetings and window breaks are
+  //    scenery so the floor feels lived-in; they claim nothing about work.
+
+  // ---- navigation grid: agents walk around walls, desks and furniture ----
+  // Built once from the finished scene: anything solid between knee and
+  // chest height becomes an obstacle, padded by a body radius, so a path
+  // can only use real aisles and doorways.
+  var NAV = (function(){
+    var CELL = 0.15, R = 0.15;
+    var X0 = -BUILD_HX, Z0 = -BUILD_Z_NORTH;
+    var NX = Math.ceil(BUILD_HX*2/CELL), NZ = Math.ceil(BUILD_Z_SPAN/CELL);
+    var blocked = new Uint8Array(NX*NZ);
+    scene.updateMatrixWorld(true);
+    var box = new THREE.Box3();
+    function excluded(o){ for(var p=o; p; p=p.parent){ if(p.userData && p.userData.noNav) return true; } return false; }
+    scene.traverse(function(o){
+      if(!o.isMesh || excluded(o)) return;
+      if(o.material && o.material.transparent && o.material.opacity===0) return;
+      box.setFromObject(o);
+      if(box.max.y < 0.25 || box.min.y > 1.0) return;
+      var x0 = Math.max(0, Math.floor((box.min.x-R-X0)/CELL)), x1 = Math.min(NX-1, Math.floor((box.max.x+R-X0)/CELL));
+      var z0 = Math.max(0, Math.floor((box.min.z-R-Z0)/CELL)), z1 = Math.min(NZ-1, Math.floor((box.max.z+R-Z0)/CELL));
+      for(var z=z0; z<=z1; z++) for(var x=x0; x<=x1; x++) blocked[z*NX+x] = 1;
+    });
+    function idx(x,z){ return z*NX+x; }
+    function cellOf(wx,wz){ return {x:Math.max(0,Math.min(NX-1,Math.floor((wx-X0)/CELL))), z:Math.max(0,Math.min(NZ-1,Math.floor((wz-Z0)/CELL)))}; }
+    function center(x,z){ return {x:X0+(x+0.5)*CELL, z:Z0+(z+0.5)*CELL}; }
+    function nearestFree(c){
+      if(!blocked[idx(c.x,c.z)]) return c;
+      for(var r=1;r<=12;r++){
+        var best=null, bd=1e9;
+        for(var dz=-r;dz<=r;dz++) for(var dx=-r;dx<=r;dx++){
+          if(Math.max(Math.abs(dx),Math.abs(dz))!==r) continue;
+          var x=c.x+dx, z=c.z+dz;
+          if(x<0||z<0||x>=NX||z>=NZ||blocked[idx(x,z)]) continue;
+          var d=dx*dx+dz*dz; if(d<bd){ bd=d; best={x:x,z:z}; }
+        }
+        if(best) return best;
+      }
+      return null;
+    }
+    var gs = new Float32Array(NX*NZ), came = new Int32Array(NX*NZ), seen = new Uint32Array(NX*NZ), closed = new Uint32Array(NX*NZ), run = 0;
+    var DIRS = [[1,0,1],[-1,0,1],[0,1,1],[0,-1,1],[1,1,1.4142],[1,-1,1.4142],[-1,1,1.4142],[-1,-1,1.4142]];
+    function astar(s, t){
+      run++;
+      var heap = [], hf = [];
+      function swap(a,b){ var q=heap[a]; heap[a]=heap[b]; heap[b]=q; q=hf[a]; hf[a]=hf[b]; hf[b]=q; }
+      function push(i,f){ heap.push(i); hf.push(f); var k=heap.length-1; while(k>0){ var p=(k-1)>>1; if(hf[p]<=hf[k]) break; swap(k,p); k=p; } }
+      function pop(){ var top=heap[0], li=heap.length-1; heap[0]=heap[li]; hf[0]=hf[li]; heap.pop(); hf.pop(); var k=0, n=heap.length; for(;;){ var l=2*k+1, r=l+1, m=k; if(l<n&&hf[l]<hf[m]) m=l; if(r<n&&hf[r]<hf[m]) m=r; if(m===k) break; swap(k,m); k=m; } return top; }
+      function h(i){ var dx=Math.abs(i%NX-t.x), dz=Math.abs(((i/NX)|0)-t.z); return dx+dz-0.5858*Math.min(dx,dz); }
+      var si=idx(s.x,s.z), ti=idx(t.x,t.z);
+      gs[si]=0; seen[si]=run; came[si]=-1; push(si, h(si));
+      var guard = 0;
+      while(heap.length && guard++ < 150000){
+        var cur = pop();
+        if(cur===ti) break;
+        if(closed[cur]===run) continue;
+        closed[cur]=run;
+        var cx=cur%NX, cz=(cur/NX)|0;
+        for(var k=0;k<8;k++){
+          var nx=cx+DIRS[k][0], nz=cz+DIRS[k][1];
+          if(nx<0||nz<0||nx>=NX||nz>=NZ) continue;
+          var ni=idx(nx,nz);
+          if(blocked[ni] || closed[ni]===run) continue;
+          if(DIRS[k][2]>1 && (blocked[idx(nx,cz)] || blocked[idx(cx,nz)])) continue; // no cutting corners
+          var ng=gs[cur]+DIRS[k][2];
+          if(seen[ni]!==run || ng<gs[ni]){ seen[ni]=run; gs[ni]=ng; came[ni]=cur; push(ni, ng+h(ni)); }
+        }
+      }
+      if(seen[ti]!==run) return null;
+      var cells=[]; for(var i=ti; i!==-1; i=came[i]) cells.push(i);
+      return cells.reverse();
+    }
+    function clear(a,b){
+      var dx=b.x-a.x, dz=b.z-a.z, n=Math.ceil(Math.hypot(dx,dz)/(CELL*0.4));
+      for(var i=1;i<n;i++){ var c=cellOf(a.x+dx*i/n, a.z+dz*i/n); if(blocked[idx(c.x,c.z)]) return false; }
+      return true;
+    }
+    // World waypoints from `from` to `to`, string-pulled so people walk in
+    // straight lines between corners instead of zig-zagging cell by cell.
+    function path(from, to){
+      var s = nearestFree(cellOf(from.x,from.z)), tc = cellOf(to.x,to.z), t = nearestFree(tc);
+      if(!s || !t) return null;
+      var cells = astar(s,t);
+      if(!cells) return null;
+      var pts = cells.map(function(i){ return center(i%NX, (i/NX)|0); });
+      var out = [pts[0]], i = 0;
+      while(i < pts.length-1){
+        var j = pts.length-1;
+        while(j > i+1 && !clear(pts[i], pts[j])) j--;
+        out.push(pts[j]); i = j;
+      }
+      // finish on the exact spot (a chair, a counter) when it's reachable,
+      // otherwise on the closest open floor next to it
+      if(t.x===tc.x && t.z===tc.z) out.push({x:to.x, z:to.z});
+      return out;
+    }
+    return {path:path};
+  })();
+
+  // ---- carried things: a coffee mug on the way back, papers on a hand-off ----
+  var MUG_GEO = new THREE.CylinderGeometry(0.042,0.036,0.1,12);
+  var MUG_MATS = [0xffffff,0xC97F22,0x2F9350,0x3560CC].map(function(c){ return new THREE.MeshStandardMaterial({color:c, roughness:0.4}); });
+  var PAPER_GEO = new THREE.BoxGeometry(0.17,0.012,0.23);
+  var PAPER_MAT = new THREE.MeshStandardMaterial({color:0xfbfaf6, roughness:0.8});
+  function setCarry(rec, kind){
+    var P = rec && rec.parts; if(!P) return;
+    P.carry = P.carry || {};
+    if(kind && !P.carry[kind]){
+      var m = kind==="mug" ? new THREE.Mesh(MUG_GEO, MUG_MATS[Math.floor(Math.random()*MUG_MATS.length)]) : new THREE.Mesh(PAPER_GEO, PAPER_MAT);
+      m.position.set(0,-0.4,0.05);
+      m.castShadow = true;
+      P.arms[1].add(m);
+      P.carry[kind] = m;
+    }
+    Object.keys(P.carry).forEach(function(k){ P.carry[k].visible = (k===kind); });
+    P.carrying = kind || null;
+  }
+
+  // ---- poses: what someone's body says about their real status ----
+  function wrapA(a){ return ((a+Math.PI*3)%(Math.PI*2))-Math.PI; }
+  function angLerp(a,b,k){ return a+wrapA(b-a)*k; }
+  var lookV1 = new THREE.Vector3(), lookV2 = new THREE.Vector3();
+  function animatePerson(P, g, mode, v, t, dt, kind){
+    var k = Math.min(1, dt*7), ph = P.phase;
+    var seated = mode==="sit";
+    if(P.legsSeated.visible !== seated){ P.legsSeated.visible = seated; P.legsStand.visible = !seated; }
+    var aL=0, aR=0, zL=-0.09, zR=0.09, hy=0, hp=0;
+    if(mode==="walk"){
+      P.stride = (P.stride||0) + dt*8.5;
+      var s = Math.sin(P.stride);
+      P.hips[0].rotation.x = s*0.55; P.hips[1].rotation.x = -s*0.55;
+      aL = -s*0.45; aR = s*0.45;
+      if(P.carrying) aR = -0.6;
+      k = Math.min(1, dt*14);
+    } else {
+      P.hips[0].rotation.x *= 0.8; P.hips[1].rotation.x *= 0.8;
+      if(mode==="sit" && kind==="desk"){
+        if(v==="working"){        // heads-down, typing
+          aL = -1.2+Math.sin(t*17+ph)*0.07; aR = -1.2+Math.sin(t*15+ph+1.3)*0.07; hp = 0.16; hy = Math.sin(t*0.4+ph)*0.08;
+        } else if(v==="requested"){ // hand up: got your task, waiting for the next shift
+          aR = -2.8; zR = 0.09+Math.sin(t*6+ph)*0.25; aL = -0.9; hy = 0.25;
+        } else if(v==="blocked"){   // hands on head
+          aL = -2.6; aR = -2.6; zL = 0.45; zR = -0.45; hy = Math.sin(t*1.3+ph)*0.35; hp = 0.1;
+        } else if(v==="fresh"){     // leaned back after finishing, the odd stretch
+          if(Math.sin(t*0.22+ph) > 0.94){ aL = aR = -2.95; zL = -0.3; zR = 0.3; } else { aL = aR = -0.55; }
+          hp = -0.08; hy = Math.sin(t*0.35+ph)*0.3;
+        } else {                    // nothing assigned: looking around
+          aL = aR = -0.35; hy = Math.sin(t*0.27+ph)*0.45; hp = Math.sin(t*0.19+ph)*0.05;
+        }
+      } else if(mode==="sit"){      // in a meeting: hands on the table, talking
+        aL = aR = -0.95; hy = Math.sin(t*0.8+ph)*0.5;
+        if(Math.sin(t*1.1+ph) > 0.55) aR = -1.4+Math.sin(t*5+ph)*0.2;
+      } else if(kind==="coffee"){
+        aR = Math.sin(t*0.9+ph) > 0.4 ? -2.1 : -1.1; aL = -0.2; hy = Math.sin(t*0.5+ph)*0.3;
+      } else if(kind==="chat"){
+        aR = -0.7+Math.sin(t*2.6+ph)*0.35; aL = -0.25; hy = Math.sin(t*0.7+ph)*0.15;
+      } else if(kind==="handoff"){
+        aR = -1.25; aL = -0.2; hp = 0.12;
+      } else {                      // window: hands relaxed, looking out
+        aL = aR = -0.15; hy = Math.sin(t*0.3+ph)*0.45; hp = -0.05;
+      }
+    }
+    // turn toward a colleague who walks over to chat
+    if(P.lookAt && performance.now() < P.lookAt.until && AGENT_GROUPS[P.lookAt.id]){
+      g.getWorldPosition(lookV1); AGENT_GROUPS[P.lookAt.id].group.getWorldPosition(lookV2);
+      var dx = lookV2.x-lookV1.x, dz = lookV2.z-lookV1.z;
+      if(dx*dx+dz*dz < 9){ hy = Math.max(-1.2, Math.min(1.2, wrapA(Math.atan2(dx,dz) - g.rotation.y))); hp = 0; }
+    }
+    var A = P.arms;
+    A[0].rotation.x += (aL-A[0].rotation.x)*k; A[1].rotation.x += (aR-A[1].rotation.x)*k;
+    A[0].rotation.z += (zL-A[0].rotation.z)*k; A[1].rotation.z += (zR-A[1].rotation.z)*k;
+    if(P.carrying==="mug" && P.carry.mug) P.carry.mug.rotation.x = -A[1].rotation.x; // keep the cup upright
+    P.head.rotation.y += (hy-P.head.rotation.y)*k*0.6;
+    P.head.rotation.x += (hp-P.head.rotation.x)*k*0.6;
+  }
+
+  // ---- walking ----
+  var WALK_SPEED = 1.3;
+  var walkV = new THREE.Vector3();
+  function worldOf(id){ var v = new THREE.Vector3(); AGENT_GROUPS[id].group.getWorldPosition(v); return v; }
+  function startWalkPath(agentId, worldWaypoints, holdSeconds, opts){
     var rec = AGENT_GROUPS[agentId];
-    if(!rec || rec.walk || !worldWaypoints.length) return false;
+    if(!rec || rec.walk || !worldWaypoints || !worldWaypoints.length) return false;
+    opts = opts || {};
     var path = worldWaypoints.map(function(p){ return {x:p.x-rec.origin.x, z:p.z-rec.origin.z}; });
     rec.walk = {
-      path: path, segIdx: 0,
-      fromLocal:{x:rec.group.position.x, z:rec.group.position.z},
-      toLocal: path[0],
-      phase:"out", t:0, hold:holdSeconds
+      path:path, segIdx:0,
+      fromLocal:{x:rec.group.position.x, z:rec.group.position.z}, toLocal:path[0],
+      phase:"out", t:0, hold:holdSeconds,
+      holdPose:opts.holdPose||"stand", face:opts.face, faceToward:opts.faceToward||null,
+      carryBack:opts.carryBack||null, kind:opts.kind||"walk"
     };
+    setCarry(rec, opts.carryOut||null);
     return true;
   }
-  function startWalk(agentId, targetWorldX, targetWorldZ, holdSeconds){
-    return startWalkPath(agentId, [{x:targetWorldX, z:targetWorldZ}], holdSeconds);
+  function walkTo(agentId, goal, holdSeconds, opts){
+    var rec = AGENT_GROUPS[agentId];
+    if(!rec || rec.walk) return false;
+    var from = worldOf(agentId);
+    var pts = NAV.path({x:from.x, z:from.z}, goal);
+    if(!pts) return false;
+    return startWalkPath(agentId, pts, holdSeconds, opts);
   }
   function updateAgentWalks(dt){
     Object.keys(AGENT_GROUPS).forEach(function(id){
-      var rec = AGENT_GROUPS[id];
-      var w = rec.walk;
+      var rec = AGENT_GROUPS[id], w = rec.walk;
       if(!w) return;
+      var P = rec.parts;
       if(w.phase==="out" || w.phase==="back"){
         var dx = w.toLocal.x-w.fromLocal.x, dz = w.toLocal.z-w.fromLocal.z;
-        var dist = Math.max(0.5, Math.hypot(dx,dz));
-        w.t += dt*(1.15/dist);
+        var dist = Math.hypot(dx,dz);
+        w.t += dist > 0.001 ? dt*WALK_SPEED/dist : 1;
         var e = Math.min(1, w.t);
         rec.group.position.x = w.fromLocal.x + dx*e;
         rec.group.position.z = w.fromLocal.z + dz*e;
-        rec.group.position.y = Math.abs(Math.sin(elapsed*8))*0.035;
-        if(dist > 0.2) rec.group.rotation.y = Math.atan2(dx,dz);
-        if(e>=1){
+        rec.group.position.y = P ? Math.abs(Math.sin(P.stride||0))*0.018 : 0;
+        if(dist > 0.05) rec.group.rotation.y = angLerp(rec.group.rotation.y, Math.atan2(dx,dz), Math.min(1, dt*9));
+        if(P) animatePerson(P, rec.group, "walk", null, elapsed, dt, w.kind);
+        if(e >= 1){
           w.segIdx++;
           if(w.segIdx < w.path.length){
             w.fromLocal = w.toLocal; w.toLocal = w.path[w.segIdx]; w.t = 0;
           } else if(w.phase==="out"){
-            w.phase="hold"; w.t=0;
+            w.phase = "hold"; w.t = 0; rec.group.position.y = 0;
+            if(w.faceToward){ rec.group.getWorldPosition(walkV); w.face = Math.atan2(w.faceToward.x-walkV.x, w.faceToward.z-walkV.z); }
           } else {
-            rec.walk=null; rec.group.position.y=0; rec.group.rotation.y=rec.seatRotY;
+            rec.walk = null;
+            rec.group.position.set(rec.home.x, 0, rec.home.z);
+            rec.group.rotation.y = rec.seatRotY;
+            setCarry(rec, null);
           }
         }
       } else if(w.phase==="hold"){
         w.t += dt;
-        rec.group.position.y = Math.sin(elapsed*1.6)*0.01;
-        if(w.t>=w.hold){
+        if(w.face!=null) rec.group.rotation.y = angLerp(rec.group.rotation.y, w.face, Math.min(1, dt*5));
+        if(P) animatePerson(P, rec.group, w.holdPose==="sit" ? "sit" : "stand", null, elapsed, dt, w.kind);
+        if(w.t >= w.hold){
           var backPath = w.path.slice(0,-1).reverse();
           backPath.push(rec.home);
           w.path = backPath; w.segIdx = 0;
           w.fromLocal = {x:rec.group.position.x, z:rec.group.position.z};
           w.toLocal = w.path[0];
           w.phase = "back"; w.t = 0;
+          setCarry(rec, w.carryBack);
         }
       }
     });
   }
 
-  // Every seat a cross-room meeting can use, and whether it's occupied —
-  // shared by both meeting rooms so sessions don't double-book a seat.
+  // ---- ambient office routines ----
   var MEETING_SEATS = { collab: COLLAB_SEATS, team: BOARDROOM_SEATS_WORLD };
   function claimSeats(kind, n){
     var open = MEETING_SEATS[kind].filter(function(s){ return !s.taken; });
@@ -2660,62 +2981,451 @@
       if(!rec || !rec.walk){ seat.taken = false; clearInterval(check); }
     }, 1200);
   }
-
-  var nextCollabAt = 5 + Math.random()*5;
+  var COFFEE_SPOTS = [
+    {x:-17.2, z:-9.95, face:Math.PI, spread:1.2},   // break-room counter
+    {x:0, z:-12.25, face:Math.PI, spread:0.15},     // water coolers
+    {x:2.4, z:6.95, face:Math.PI, spread:0.15},
+    {x:-15.35, z:28, face:-Math.PI/2, spread:0.15}
+  ];
+  var WINDOW_SPOTS = [];
+  [-12,-4,4,12,20].forEach(function(zz){
+    WINDOW_SPOTS.push({x:-22.3, z:zz, face:-Math.PI/2});
+    WINDOW_SPOTS.push({x:22.3, z:zz, face:Math.PI/2});
+  });
   var ROOM_KEYS = ["A","B","lasttouch","strategy","C","D","P","video-lasttouch","E","F"];
-  function maybeStartCollaboration(){
-    if(prefersReducedMotion || ALL_AGENTS.length===0) return;
-    var roll = Math.random();
-
-    if(roll < 0.32){
-      // Quick chat: walk straight to a colleague's own desk, same room only.
-      var rooms = shuffle(ROOM_KEYS.slice());
-      for(var r=0;r<rooms.length;r++){
-        var busy = shuffle(collabCandidates(true, rooms[r]));
-        if(busy.length < 2) busy = shuffle(collabCandidates(false, rooms[r]));
-        if(busy.length >= 2){
-          var recB = AGENT_GROUPS[busy[1]];
-          var wp = new THREE.Vector3(); recB.group.getWorldPosition(wp);
-          startWalk(busy[0], wp.x+0.55, wp.z+0.4, 4+Math.random()*3);
-          break;
-        }
-      }
-    } else if(roll < 0.72){
-      // Collaboration Room: 2-3 agents, any room(s), each walks its own
-      // door, through the corridor, to the shared table — visibly
-      // converging on each other there. Only rooms with a real ROOM_DOOR
-      // entry connect to this corridor — Edgex Clips' wing isn't wired
-      // into it (yet), so its agents sit this one out rather than getting
-      // routed with an empty/invalid path.
-      var pool = shuffle(collabCandidates(true).filter(function(id){ return !!ROOM_DOOR[roomKeyOf(id)]; }));
-      if(pool.length < 2) pool = shuffle(collabCandidates(false).filter(function(id){ return !!ROOM_DOOR[roomKeyOf(id)]; }));
-      var n = Math.min(pool.length, 2+Math.floor(Math.random()*2));
-      var seats = claimSeats("collab", n);
-      for(var i=0;i<seats.length;i++){
-        var id = pool[i];
-        var seat = seats[i];
-        var path = corridorPath(roomKeyOf(id)).concat([{x:seat.x,z:seat.z}]);
-        var ok = startWalkPath(id, path, 10+Math.random()*8);
-        if(ok) releaseSeatWhenDone(seat, id);
-      }
-    } else {
-      // Team meeting: 1-2 non-strategy agents sit in on the boardroom's
-      // empty guest chairs, routed through the corridor and both real doors.
-      var visitors = shuffle(collabCandidates(true).filter(function(id){ return roomKeyOf(id) !== "strategy" && !!ROOM_DOOR[roomKeyOf(id)]; }));
-      if(visitors.length < 1) visitors = shuffle(collabCandidates(false).filter(function(id){ return roomKeyOf(id) !== "strategy" && !!ROOM_DOOR[roomKeyOf(id)]; }));
-      var vn = Math.min(visitors.length, 1+Math.floor(Math.random()*2));
-      var vseats = claimSeats("team", vn);
-      for(var j=0;j<vseats.length;j++){
-        var vid = visitors[j];
-        var vseat = vseats[j];
-        var path = corridorPath(roomKeyOf(vid))
-          .concat([ROOM_DOOR.strategy.outside, ROOM_DOOR.strategy.inside])
-          .concat([{x:vseat.x,z:vseat.z}]);
-        var vok = startWalkPath(vid, path, 9+Math.random()*7);
-        if(vok) releaseSeatWhenDone(vseat, vid);
+  function freeAgents(filter){
+    return ALL_AGENTS.map(function(e){ return e.a.id; }).filter(function(id){
+      var r = AGENT_GROUPS[id];
+      return r && !r.walk && (!filter || filter(vstate(id), id));
+    });
+  }
+  function walkingCount(){ var n = 0; for(var id in AGENT_GROUPS){ if(AGENT_GROUPS[id].walk) n++; } return n; }
+  function nearest(list, p){ return list.slice().sort(function(a,b){ return Math.hypot(a.x-p.x,a.z-p.z)-Math.hypot(b.x-p.x,b.z-p.z); })[0]; }
+  // People heads-down on real work stay at their desks; breaks come from
+  // everyone else.
+  function resting(v){ return v==="fresh" || v==="stale" || v==="idle"; }
+  function coffeeRun(){
+    var pool = shuffle(freeAgents(resting));
+    for(var i=0;i<Math.min(3,pool.length);i++){
+      var p = worldOf(pool[i]), spot = nearest(COFFEE_SPOTS, p);
+      if(walkTo(pool[i], {x:spot.x+(Math.random()-0.5)*2*spot.spread, z:spot.z}, 5+Math.random()*5, {face:spot.face, carryBack:"mug", kind:"coffee"})) return;
+    }
+  }
+  function windowBreak(){
+    var pool = shuffle(freeAgents(resting));
+    for(var i=0;i<Math.min(3,pool.length);i++){
+      var p = worldOf(pool[i]), spot = nearest(WINDOW_SPOTS, p);
+      if(walkTo(pool[i], {x:spot.x, z:spot.z+(Math.random()-0.5)*1.2}, 6+Math.random()*4, {face:spot.face, kind:"window"})) return;
+    }
+  }
+  function deskChat(){
+    var rooms = shuffle(ROOM_KEYS.slice());
+    for(var r=0;r<rooms.length;r++){
+      var inRoom = freeAgents(function(v,id){ return roomKeyOf(id)===rooms[r]; });
+      var visitors = shuffle(inRoom.filter(function(id){ return vstate(id)!=="working" && vstate(id)!=="blocked"; }));
+      if(inRoom.length < 2 || !visitors.length) continue;
+      var a = visitors[0];
+      var b = shuffle(inRoom.filter(function(id){ return id!==a; }))[0];
+      var pb = worldOf(b);
+      var hold = 5+Math.random()*4;
+      if(walkTo(a, {x:pb.x+0.5, z:pb.z+0.55}, hold, {faceToward:{x:pb.x, z:pb.z}, kind:"chat"})){
+        AGENT_GROUPS[b].parts.lookAt = {id:a, until:performance.now()+60000};
+        return;
       }
     }
-    nextCollabAt = elapsed + 8 + Math.random()*10;
+  }
+  var BUSY_SCORE = {blocked:4, fresh:3, requested:1, stale:1, idle:0, working:-9};
+  function meeting(kind){
+    var pool = shuffle(freeAgents(function(v,id){ return v!=="working" && (kind!=="team" || roomKeyOf(id)!=="strategy"); }));
+    // Blocked agents take their problem to the boardroom; people who just
+    // finished something are the ones who get pulled into a quick huddle.
+    pool.sort(function(x,y){ return (BUSY_SCORE[vstate(y)]||0)-(BUSY_SCORE[vstate(x)]||0); });
+    var n = kind==="collab" ? 2+Math.floor(Math.random()*2) : 1+Math.floor(Math.random()*2);
+    var seats = claimSeats(kind, n), hold = 12+Math.random()*10;
+    seats.forEach(function(seat, i){
+      var id = pool[i];
+      if(id && walkTo(id, {x:seat.x, z:seat.z}, hold, {face:seat.rotY, holdPose:"sit", kind:"meeting"})) releaseSeatWhenDone(seat, id);
+      else seat.taken = false;
+    });
+  }
+  var nextCollabAt = 4 + Math.random()*4;
+  function maybeStartCollaboration(){
+    nextCollabAt = elapsed + 4 + Math.random()*6;
+    if(prefersReducedMotion || ALL_AGENTS.length===0 || walkingCount() >= 10) return;
+    var roll = Math.random();
+    if(roll < 0.32) coffeeRun();
+    else if(roll < 0.54) deskChat();
+    else if(roll < 0.78) meeting("collab");
+    else if(roll < 0.9) meeting("team");
+    else windowBreak();
+  }
+
+  // ---- real events: finished work gets walked over to whoever reviews it ----
+  var REVIEWER_OF = {
+    research:"lasttouch", content:"lasttouch", software:"lasttouch", sales:"lasttouch", delivery:"lasttouch", growth:"lasttouch",
+    "opportunity-discovery":"lasttouch", "venture-coordination":"lasttouch",
+    "trend-intel":"video-lasttouch", "clip-rights":"video-lasttouch", commentary:"video-lasttouch",
+    production:"video-lasttouch", thumbnails:"video-lasttouch", "growth-video":"video-lasttouch",
+    lasttouch:"strategy", "video-lasttouch":"strategy"
+  };
+  var DEPT_BY_ID = {};
+  DEPARTMENTS.forEach(function(d){ DEPT_BY_ID[d.id] = d; });
+  var lastLiveWrite = 0, lightFlash = 0;
+  function onAgentLiveChange(id, prev, next, v){
+    var entry = AGENT_BY_ID[id];
+    if(!entry) return;
+    var text = v==="working" ? "Started: "+(next.task||"")
+      : v==="blocked" ? "Blocked: "+(next.result||next.task||"")
+      : v==="requested" ? "New task from you: "+(next.task||"")
+      : "Done: "+(next.result||next.task||"");
+    showBubble(id, "s-"+v, entry.a.name, text, 10000);
+    // The first write after a long quiet spell is a new shift arriving.
+    var before = lastLiveWrite || latestActivity();
+    if(before && Date.now()-before > 20*60000 && Date.now()-before < 30*24*3600000){
+      toast({dot:"s-working", title:"A shift just started", sub:"Agents are picking up work now."});
+      lightFlash = 1;
+    }
+    lastLiveWrite = Date.now();
+    var reviewer = DEPT_BY_ID[REVIEWER_OF[entry.dept.id]];
+    if(v==="fresh" && reviewer && !prefersReducedMotion){
+      var rec = AGENT_GROUPS[id];
+      if(rec && rec.walk) return;
+      walkTo(id, {x:reviewer.x, z:reviewer.z}, 3.5, {faceToward:{x:reviewer.x, z:reviewer.z}, carryOut:"paper", kind:"handoff"});
+    }
+  }
+
+  // ---- speech bubbles over people ----
+  var bubbleLayer = document.getElementById("bubbles");
+  var bubbles = {};
+  function showBubble(id, dotCls, name, text, ms){
+    var b = bubbles[id];
+    if(!b){ b = {el:mk("div","bubble")}; bubbleLayer.appendChild(b.el); bubbles[id] = b; }
+    b.el.textContent = "";
+    var head = mk("div","bk"); head.appendChild(mk("i", dotCls)); head.appendChild(document.createTextNode(name));
+    b.el.appendChild(head);
+    b.el.appendChild(mk("div","bt", clip(text, 150)));
+    b.until = performance.now()+ms;
+    b.hover = false;
+    requestAnimationFrame(function(){ b.el.classList.add("show"); });
+    var ids = Object.keys(bubbles);
+    if(ids.length > 7){
+      ids.sort(function(x,y){ return bubbles[x].until-bubbles[y].until; });
+      bubbles[ids[0]].until = 0;
+    }
+  }
+  var projV = new THREE.Vector3();
+  function updateBubbles(){
+    var now = performance.now();
+    Object.keys(bubbles).forEach(function(id){
+      var b = bubbles[id], rec = AGENT_GROUPS[id];
+      if(!rec || now > b.until+300){ b.el.remove(); delete bubbles[id]; return; }
+      if(now > b.until) b.el.classList.remove("show");
+      rec.group.getWorldPosition(projV); projV.y += 1.75;
+      projV.project(camera);
+      var on = projV.z < 1 && Math.abs(projV.x) < 1.05 && Math.abs(projV.y) < 1.05;
+      b.el.style.visibility = on ? "visible" : "hidden";
+      if(on) b.el.style.transform = "translate("+Math.round((projV.x+1)/2*innerWidth)+"px,"+Math.round((1-projV.y)/2*innerHeight)+"px) translate(-50%,-100%)";
+    });
+  }
+  // hover a person (mouse) to see what they're on
+  var hoverId = null, hoverAt = null;
+  canvas.addEventListener("pointermove", function(e){ if(e.pointerType==="mouse" && !e.buttons) hoverAt = {x:e.clientX, y:e.clientY}; });
+  canvas.addEventListener("pointerleave", function(){ hoverAt = null; setHover(null); });
+  function setHover(id){
+    if(id===hoverId) return;
+    if(hoverId && bubbles[hoverId] && bubbles[hoverId].hover) bubbles[hoverId].until = 0;
+    hoverId = id;
+    canvas.style.cursor = id ? "pointer" : "";
+    if(id){
+      var live = agentStatus[id] || {}, v = vstate(id);
+      showBubble(id, "s-"+v, AGENT_BY_ID[id].a.name, VLABEL[v]+(live.task ? " · "+live.task : ""), 600000);
+      bubbles[id].hover = true;
+    }
+  }
+  function processHover(){
+    if(!hoverAt) return;
+    var p = hoverAt; hoverAt = null;
+    raycaster.setFromCamera(ndcFrom(p.x,p.y), camera);
+    var hit = raycaster.intersectObjects(PERSON_HIT_MESHES)[0];
+    setHover(hit ? hit.object.userData.agentId : null);
+  }
+
+  // ---- time of day: the office follows the viewer's own clock ----
+  function skyCanvas(top, bottom, draw){
+    return canvasTex(function(ctx,w,h){
+      var g = ctx.createLinearGradient(0,0,0,h);
+      g.addColorStop(0, top); g.addColorStop(1, bottom);
+      ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+      draw(ctx,w,h);
+    }, 128,128,1,1);
+  }
+  var duskTex = skyCanvas("#5a4f8a", "#f2a86a", function(ctx,w,h){
+    ctx.fillStyle = "rgba(255,210,150,0.9)"; ctx.beginPath(); ctx.arc(w*0.3, h*0.68, 14, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = "rgba(40,30,50,0.85)";
+    for(var i=0;i<6;i++){ var bw = 14+(i*7)%12, bh = 26+(i*13)%34; ctx.fillRect(i*22, h-bh, bw, bh); }
+  });
+  var nightTex = skyCanvas("#0b1224", "#1c2740", function(ctx,w,h){
+    for(var i=0;i<40;i++){ ctx.fillStyle = "rgba(255,255,255,"+(0.3+Math.random()*0.6)+")"; ctx.fillRect(Math.random()*w, Math.random()*h*0.6, 1.5, 1.5); }
+    ctx.fillStyle = "rgba(245,240,220,0.95)"; ctx.beginPath(); ctx.arc(w*0.75, h*0.2, 9, 0, Math.PI*2); ctx.fill();
+    for(var b=0;b<6;b++){
+      var bw = 14+(b*7)%12, bh = 30+(b*13)%38, x = b*22;
+      ctx.fillStyle = "#070b16"; ctx.fillRect(x, h-bh, bw, bh);
+      ctx.fillStyle = "rgba(255,214,120,0.85)";
+      for(var wy=h-bh+4; wy<h-4; wy+=6) for(var wx=x+2; wx<x+bw-3; wx+=5) if(Math.random()<0.35) ctx.fillRect(wx, wy, 2, 3);
+    }
+  });
+  var cDay = new THREE.Color(0xfff4e0), cNight = new THREE.Color(0x8fa6ff), cDusk = new THREE.Color(0xffa060);
+  var hemiDay = new THREE.Color(0xffffff), hemiNight = new THREE.Color(0xb8c4ff);
+  var baseFill = 0.42;
+  var officeClock = document.getElementById("officeClock");
+  function daylight(){
+    var d = new Date(), h = d.getHours()+d.getMinutes()/60;
+    var el = Math.sin((h-6)/12*Math.PI);               // sun height: 0 at 6:00 and 18:00, 1 at noon
+    var day = Math.max(0, Math.min(1, (el+0.08)/0.4));
+    var warm = Math.max(0, 1-Math.abs(el-0.05)/0.25);  // strongest around sunrise and sunset
+    sun.color.copy(cNight).lerp(cDay, day).lerp(cDusk, warm*0.55);
+    sun.intensity = 0.12 + 0.83*day;
+    var ang = (h-6)/12*Math.PI;
+    if(el > -0.05) sun.position.set(16*Math.cos(ang), 4+16*Math.max(0.15, el), 8);
+    else sun.position.set(6, 18, 8);                   // moonlight from overhead
+    hemi.intensity = 0.42 + 0.38*day;
+    hemi.color.copy(hemiNight).lerp(hemiDay, day);
+    baseFill = 0.42 + 0.5*(1-day);                     // office lights carry the room after dark
+    var map = day > 0.55 ? skyTex : (el > -0.3 ? duskTex : nightTex);
+    if(WINDOW_MAT.map !== map){ WINDOW_MAT.map = map; WINDOW_MAT.needsUpdate = true; }
+    if(officeClock) officeClock.textContent = d.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"})+(innerWidth > 720 ? " your time" : "");
+  }
+  daylight();
+  setInterval(daylight, 60000);
+
+  // ---- the wall: a live studio board and a real clock ----
+  var tvZ = -BUILD_Z_NORTH + WALL_T/2;
+  var tvFrame = new THREE.Mesh(new THREE.BoxGeometry(3.36,1.94,0.08), frameMat);
+  tvFrame.position.set(-3.5, 2.35, tvZ+0.05); scene.add(tvFrame);
+  var tv = new THREE.Mesh(new THREE.PlaneGeometry(3.2,1.8), new THREE.MeshBasicMaterial({map:boardTex}));
+  tv.position.set(-3.5, 2.35, tvZ+0.095); scene.add(tv);
+  var clockG = new THREE.Group();
+  clockG.position.set(3.5, 2.55, tvZ+0.06);
+  scene.add(clockG);
+  var clockFace = new THREE.Mesh(new THREE.CylinderGeometry(0.62,0.62,0.05,48), new THREE.MeshStandardMaterial({color:0xfbfaf7, roughness:0.6}));
+  clockFace.rotation.x = Math.PI/2; clockG.add(clockFace);
+  var clockRim = new THREE.Mesh(new THREE.TorusGeometry(0.62,0.04,10,48), frameMat);
+  clockRim.position.z = 0.02; clockG.add(clockRim);
+  for(var ci=0; ci<12; ci++){
+    var tick = new THREE.Mesh(new THREE.BoxGeometry(ci%3===0?0.05:0.025, ci%3===0?0.12:0.07, 0.01), frameMat);
+    var ta = ci/12*Math.PI*2;
+    tick.position.set(Math.sin(ta)*0.5, Math.cos(ta)*0.5, 0.03); tick.rotation.z = -ta;
+    clockG.add(tick);
+  }
+  function clockHand(len, w, mat){
+    var pivot = new THREE.Group(); pivot.position.z = 0.04;
+    var hand = new THREE.Mesh(new THREE.BoxGeometry(w, len, 0.012), mat);
+    hand.position.y = len/2 - 0.06; pivot.add(hand); clockG.add(pivot);
+    return pivot;
+  }
+  var hourHand = clockHand(0.34, 0.05, frameMat), minHand = clockHand(0.5, 0.032, frameMat);
+  var secHand = clockHand(0.54, 0.012, new THREE.MeshBasicMaterial({color:0xC2413F}));
+  function updateClock(){
+    var d = new Date(), s = d.getSeconds()+d.getMilliseconds()/1000, m = d.getMinutes()+s/60, h = (d.getHours()%12)+m/60;
+    secHand.rotation.z = -s/60*Math.PI*2; minHand.rotation.z = -m/60*Math.PI*2; hourHand.rotation.z = -h/12*Math.PI*2;
+  }
+
+  function wrapText(ctx, text, x, y, maxW, lineH, maxLines){
+    var words = String(text||"").split(/\s+/), line = "", n = 0;
+    for(var i=0;i<words.length;i++){
+      var test = line ? line+" "+words[i] : words[i];
+      if(ctx.measureText(test).width > maxW && line){
+        n++;
+        if(n===maxLines){ ctx.fillText(line.replace(/\s*\S*$/, "")+"…", x, y); return; }
+        ctx.fillText(line, x, y); y += lineH; line = words[i];
+      } else line = test;
+    }
+    if(line) ctx.fillText(line, x, y);
+  }
+  function drawBoard(){
+    var c = boardCanvas, x = c.getContext("2d"), W = c.width, H = c.height;
+    x.fillStyle = "#0e131b"; x.fillRect(0,0,W,H);
+    x.fillStyle = "#8ea0b6"; x.font = "600 26px 'IBM Plex Mono', monospace"; x.textAlign = "left";
+    x.fillText("EDGEX · STUDIO BOARD", 44, 62);
+    x.textAlign = "right";
+    x.fillText(new Date().toLocaleTimeString([], {hour:"numeric", minute:"2-digit"}), W-44, 62);
+    x.textAlign = "left";
+    if(dbState !== "live"){
+      x.fillStyle = "#e7ecf3"; x.font = "800 64px 'Big Shoulders Display', sans-serif";
+      x.fillText(dbState==="connecting" ? "Connecting to the live board…" : "Live board not available", 44, 300);
+      boardTex.needsUpdate = true; return;
+    }
+    var earned = 0; docsOf("deals").forEach(function(r){ if(typeof r.d.amount_received==="number") earned += r.d.amount_received; });
+    var working = 0, recent = 0;
+    ALL_AGENTS.forEach(function(e){ var v = vstate(e.a.id); if(v==="working") working++; if(v==="working"||v==="fresh") recent++; });
+    var tiles = [
+      ["EARNED", usd(earned), "#57BE79", "money actually received"],
+      ["WAITING ON YOU", String(ownerOpenCount()), "#E0A24A", "things only you can do"],
+      ["WORKING NOW", String(working), "#7C9BEE", recent+" active in the last 2h"],
+      ["NEXT SHIFT", nextShiftText().replace("next shift ", ""), "#e7ecf3", "runs at :46 every hour"]
+    ];
+    var tw = (W-88-3*20)/4;
+    tiles.forEach(function(t, i){
+      var tx = 44+i*(tw+20), ty = 96;
+      x.fillStyle = "#171e29"; x.fillRect(tx, ty, tw, 190);
+      x.fillStyle = "#8ea0b6"; x.font = "600 20px 'IBM Plex Mono', monospace"; x.fillText(t[0], tx+20, ty+40);
+      x.fillStyle = t[2]; x.font = "800 "+(t[1].length > 7 ? 56 : 76)+"px 'Big Shoulders Display', sans-serif"; x.fillText(t[1], tx+20, ty+124);
+      x.fillStyle = "#8ea0b6"; x.font = "500 18px 'Work Sans', sans-serif"; x.fillText(t[3], tx+20, ty+166);
+    });
+    var latestId = null, lt = 0;
+    Object.keys(agentStatus).forEach(function(id){ var t = timeOf(agentStatus[id].updatedAt); if(t > lt && AGENT_BY_ID[id]){ lt = t; latestId = id; } });
+    x.fillStyle = "#8ea0b6"; x.font = "600 20px 'IBM Plex Mono', monospace";
+    x.fillText("LATEST · "+(latestId ? agoText(lt).toUpperCase() : "NOTHING YET"), 44, 340);
+    if(latestId){
+      var s = agentStatus[latestId];
+      x.fillStyle = "#e7ecf3"; x.font = "700 34px 'Work Sans', sans-serif";
+      x.fillText(AGENT_BY_ID[latestId].a.name, 44, 386);
+      x.fillStyle = "#c4ccd8"; x.font = "400 26px 'Work Sans', sans-serif";
+      wrapText(x, s.result || s.task || "", 44, 426, W-88, 34, 2);
+    }
+    var ideas = docsOf("ideas"), rev = ideas.filter(function(r){ return (r.d.status||"unreviewed")!=="unreviewed"; }).length;
+    if(ideas.length){
+      x.fillStyle = "#8ea0b6"; x.font = "600 20px 'IBM Plex Mono', monospace";
+      x.fillText("MONEY MAP · "+rev+"/"+ideas.length+" IDEAS REVIEWED", 44, 522);
+      x.fillStyle = "#232c3a"; x.fillRect(560, 506, W-604, 18);
+      x.fillStyle = "#57BE79"; x.fillRect(560, 506, (W-604)*rev/ideas.length, 18);
+    }
+    boardTex.needsUpdate = true;
+  }
+  drawBoard();
+  setInterval(drawBoard, 20000);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(drawBoard);
+
+  // ---- guided tour: the camera visits the rooms with the freshest real work ----
+  var tour = null;
+  var tourCard = document.getElementById("tourCard");
+  function deptActivity(d){
+    var latest = 0, recent = 0, top = null;
+    d.agents.forEach(function(a){
+      var v = vstate(a.id), t = agentStatus[a.id] ? timeOf(agentStatus[a.id].updatedAt) : 0;
+      if(v==="fresh" || v==="working") recent++;
+      if(t > latest){ latest = t; top = a; }
+    });
+    return {latest:latest, recent:recent, top:top};
+  }
+  function startTour(){
+    var stops = DEPARTMENTS.map(function(d){ return {d:d, a:deptActivity(d)}; })
+      .filter(function(s){ return s.a.latest; })
+      .sort(function(p,q){ return q.a.latest-p.a.latest; }).slice(0, 8);
+    if(!stops.length) stops = DEPARTMENTS.slice(0, 6).map(function(d){ return {d:d, a:deptActivity(d)}; });
+    closeSheet(); closeRoster();
+    panel.classList.remove("open");
+    userInteracted = true;
+    tour = {stops:stops, i:-1, timer:null};
+    tourCard.hidden = false;
+    document.getElementById("hint").classList.add("hidden");
+    document.getElementById("tourBtn").textContent = "Stop tour";
+    nextStop();
+  }
+  function nextStop(){
+    if(!tour) return;
+    tour.i++;
+    if(tour.i >= tour.stops.length){ stopTour(); resetView(); return; }
+    var s = tour.stops[tour.i], d = s.d, a = deptActivity(d);
+    var toR = d.boardroom ? 12 : (d.group ? 10 : 9);
+    spin.vTheta = 0; spin.vPhi = 0;
+    orbitAnim = {
+      t0:performance.now(), dur:prefersReducedMotion ? 1 : 1500,
+      fromTarget:orbit.target.clone(), toTarget:new THREE.Vector3(d.x, 0.4, d.z),
+      fromRadius:orbit.radius, toRadius:toR, fromPhi:orbit.phi, toPhi:0.8,
+      fromTheta:orbit.theta, toTheta:orbit.theta+0.5
+    };
+    targetRadius = toR;
+    document.getElementById("tourStep").textContent = "Stop "+(tour.i+1)+" of "+tour.stops.length+" · most recent work first";
+    document.getElementById("tourName").textContent = d.code+" · "+d.name;
+    document.getElementById("tourMeta").textContent = a.recent+" of "+d.agents.length+" worked in the last 2 hours"+(a.latest ? " · last update "+agoText(a.latest) : "");
+    var q = document.getElementById("tourQuote");
+    if(a.top && agentStatus[a.top.id]){
+      var st = agentStatus[a.top.id];
+      q.textContent = a.top.name+": "+clip(st.result || st.task || "", 220);
+      showBubble(a.top.id, "s-"+vstate(a.top.id), a.top.name, st.result || st.task || "", 7200);
+    } else q.textContent = "No recorded work in this room yet.";
+    var bar = document.getElementById("tourBar");
+    bar.style.transition = "none"; bar.style.width = "0%";
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ bar.style.transition = "width 7.5s linear"; bar.style.width = "100%"; }); });
+    tour.timer = setTimeout(nextStop, 7500);
+  }
+  function stopTour(){
+    if(!tour) return;
+    clearTimeout(tour.timer);
+    tour = null;
+    tourCard.hidden = true;
+    document.getElementById("tourBtn").textContent = "Tour";
+  }
+  document.getElementById("tourBtn").addEventListener("click", function(){ if(tour) stopTour(); else startTour(); });
+  document.getElementById("tourStop").addEventListener("click", stopTour);
+  document.getElementById("tourSkip").addEventListener("click", function(){ if(tour){ clearTimeout(tour.timer); nextStop(); } });
+  canvas.addEventListener("pointerdown", function(){ if(tour) stopTour(); });
+  window.addEventListener("keydown", function(e){ if(e.key==="Escape" && tour) stopTour(); });
+
+  // ---- sound: room tone, and typing you can hear when agents are working ----
+  var audio = null, typists = 0;
+  function countTypists(){ typists = 0; ALL_AGENTS.forEach(function(e){ if(vstate(e.a.id)==="working") typists++; }); }
+  setInterval(countTypists, 2000);
+  function toggleSound(){
+    var btn = document.getElementById("soundBtn");
+    if(audio){ try{ audio.ctx.close(); }catch(e){} audio = null; btn.setAttribute("aria-pressed","false"); btn.textContent = "Sound"; return; }
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return;
+    try{
+      var ctx = new AC();
+      var master = ctx.createGain(); master.gain.value = 0.9; master.connect(ctx.destination);
+      var len = ctx.sampleRate*3, buf = ctx.createBuffer(1, len, ctx.sampleRate), data = buf.getChannelData(0), last = 0;
+      for(var i=0;i<len;i++){ last = (last + 0.02*(Math.random()*2-1))/1.02; data[i] = last*3.5; }
+      var src = ctx.createBufferSource(); src.buffer = buf; src.loop = true;
+      var lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 380;
+      var g = ctx.createGain(); g.gain.value = 0.06;
+      src.connect(lp); lp.connect(g); g.connect(master); src.start();
+      var clen = Math.floor(ctx.sampleRate*0.018), cbuf = ctx.createBuffer(1, clen, ctx.sampleRate), cd = cbuf.getChannelData(0);
+      for(var j=0;j<clen;j++) cd[j] = (Math.random()*2-1)*Math.pow(1-j/clen, 6);
+      audio = {ctx:ctx, master:master, click:cbuf, next:0};
+      countTypists();
+      btn.setAttribute("aria-pressed","true"); btn.textContent = "Sound on";
+    }catch(e){ audio = null; }
+  }
+  document.getElementById("soundBtn").addEventListener("click", toggleSound);
+  function soundTick(){
+    if(!audio) return;
+    var ctx = audio.ctx, now = ctx.currentTime;
+    if(audio.next < now) audio.next = now;
+    while(audio.next < now+0.25){
+      if(typists){
+        var s = ctx.createBufferSource(); s.buffer = audio.click;
+        var hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 1800+Math.random()*1600;
+        var g = ctx.createGain(); g.gain.value = 0.04+Math.random()*0.05;
+        s.connect(hp); hp.connect(g); g.connect(audio.master); s.start(audio.next);
+        audio.next += (1/Math.min(14, typists*1.8+0.5))*(0.35+Math.random()*1.3);
+      } else audio.next += 0.5;
+    }
+  }
+  function chime(){
+    if(!audio) return;
+    var ctx = audio.ctx, t = ctx.currentTime;
+    [659.25, 987.77].forEach(function(f, i){
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = "sine"; o.frequency.value = f;
+      g.gain.setValueAtTime(0, t+i*0.12);
+      g.gain.linearRampToValueAtTime(0.06, t+i*0.12+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t+i*0.12+0.6);
+      o.connect(g); g.connect(audio.master); o.start(t+i*0.12); o.stop(t+i*0.12+0.7);
+    });
+  }
+
+  // per-frame upkeep for everything above
+  function officeFrame(dt){
+    codeTex.offset.y = (codeTex.offset.y + dt*0.05) % 1;
+    updateClock();
+    processHover();
+    updateBubbles();
+    soundTick();
+    if(lightFlash > 0) lightFlash = Math.max(0, lightFlash - dt*0.5);
+    var fi = baseFill*(1+lightFlash*0.9);
+    FILL_LIGHTS.forEach(function(pl){ pl.intensity = fi; });
   }
 
   // ---------------- main loop ----------------
@@ -2729,9 +3439,12 @@
 
     if(!prefersReducedMotion){
       people.forEach(function(p){
-        if(p.agentId && AGENT_GROUPS[p.agentId] && AGENT_GROUPS[p.agentId].walk) return; // mid-walk, owns its own transform this frame
-        p.group.position.y = Math.sin(elapsed*1.6+p.phase)*0.012;
-        p.group.rotation.y = p.baseRotY + Math.sin(elapsed*0.7+p.phase)*0.07;
+        if(p.agentId && AGENT_GROUPS[p.agentId] && AGENT_GROUPS[p.agentId].walk) return; // the walk system poses walkers
+        var v = p.agentId ? vstate(p.agentId) : "idle";
+        var sway = v==="working" ? 0.02 : v==="blocked" ? 0.03 : 0.08;
+        p.group.position.y = 0;
+        p.group.rotation.y = p.baseRotY + Math.sin(elapsed*0.5+p.phase)*sway;
+        if(p.parts) animatePerson(p.parts, p.group, "sit", v, elapsed, dt, "desk");
       });
       updateAgentWalks(dt);
       if(elapsed >= nextCollabAt) maybeStartCollaboration();
@@ -2742,10 +3455,17 @@
         if(w.t<0){ w.t=0; w.dir=1; }
         var x = w.a.x+(w.b.x-w.a.x)*w.t, z = w.a.z+(w.b.z-w.a.z)*w.t;
         var facing = Math.atan2(w.b.x-w.a.x, w.b.z-w.a.z) + (w.dir<0?Math.PI:0);
-        w.group.position.set(x, Math.abs(Math.sin(elapsed*8))*0.035, z);
+        w.group.position.set(x, 0, z);
         w.group.rotation.y = facing;
+        var wp = w.group.userData.parts;
+        if(wp){ animatePerson(wp, w.group, "walk", null, elapsed, dt, "walk"); w.group.position.y = Math.abs(Math.sin(wp.stride))*0.018; }
       });
     }
+
+    if(prefersReducedMotion){
+      people.forEach(function(p){ if(p.parts) animatePerson(p.parts, p.group, "sit", p.agentId ? vstate(p.agentId) : "idle", 0, 1, "desk"); });
+    }
+    officeFrame(dt);
 
     if(orbitAnim){
       var t = Math.min(1, (performance.now()-orbitAnim.t0)/orbitAnim.dur);
@@ -2755,8 +3475,8 @@
       orbit.phi = orbitAnim.fromPhi + (orbitAnim.toPhi-orbitAnim.fromPhi)*e;
       if(orbitAnim.fromTheta!==undefined) orbit.theta = orbitAnim.fromTheta + (orbitAnim.toTheta-orbitAnim.fromTheta)*e;
       if(t>=1) orbitAnim = null;
-    } else if(!userInteracted && !prefersReducedMotion){
-      orbit.theta += dt*0.06;
+    } else if((!userInteracted || tour) && !prefersReducedMotion){
+      orbit.theta += dt*(tour ? 0.035 : 0.06);
     } else if(!prefersReducedMotion && pointers.size===0 && (Math.abs(spin.vTheta)>0.00004 || Math.abs(spin.vPhi)>0.00004)){
       // momentum: keep spinning briefly after a rotate drag, decaying to a stop
       orbit.theta += spin.vTheta;
