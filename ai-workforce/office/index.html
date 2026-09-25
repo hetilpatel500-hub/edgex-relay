@@ -402,6 +402,67 @@
   #tourCard .tc-quote{font-size:13px;line-height:1.45;margin-top:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
   #tourCard .tc-bar{height:3px;background:var(--chip-bg);border-radius:3px;margin-top:10px;overflow:hidden;}
   #tourCard .tc-bar i{display:block;height:100%;width:0;background:var(--st-working);}
+  /* ---------- Chart Desk ---------- */
+  .pill-accent{border-color:var(--st-fresh);color:var(--st-fresh);}
+  .cd-drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:150px;margin-top:14px;padding:16px;border:1.5px dashed var(--panel-border);border-radius:14px;background:var(--chip-bg);cursor:pointer;text-align:center;font-size:13px;color:var(--muted);line-height:1.45;}
+  .cd-drop.over{border-color:var(--st-fresh);background:color-mix(in srgb, var(--st-fresh) 10%, transparent);}
+  .cd-drop img{max-width:100%;max-height:260px;border-radius:8px;border:1px solid var(--panel-border);}
+  .cd-note{width:100%;box-sizing:border-box;margin-top:10px;padding:10px 12px;border-radius:10px;border:1px solid var(--panel-border);background:var(--panel-bg);color:var(--ink);font:500 13px "Work Sans",sans-serif;}
+  .cd-modes{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:10px;font-size:13px;}
+  .cd-modes label{display:flex;align-items:center;gap:6px;cursor:pointer;}
+  .cd-modes span{color:var(--muted);font-size:12px;}
+  .cd-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px;}
+  .cd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px;}
+  .cd-agent{border:1px solid var(--panel-border);border-radius:10px;padding:8px 10px;background:var(--panel-bg);font-size:12px;min-width:0;}
+  .cd-atop{display:flex;align-items:center;gap:6px;}
+  .cd-atop b{font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .cd-dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--st-idle);display:inline-block;}
+  .cd-agent.thinking .cd-dot{background:var(--st-working);animation:cdpulse 1.1s ease-in-out infinite;}
+  .cd-agent.done .cd-dot{background:var(--st-fresh);}
+  .cd-agent.failed .cd-dot{background:var(--st-blocked);}
+  @keyframes cdpulse{50%{opacity:.35;}}
+  .cd-dot.s-working{background:var(--st-working);} .cd-dot.s-blocked{background:var(--st-blocked);} .cd-dot.s-stale{background:var(--st-stale);} .cd-dot.s-requested{background:var(--st-requested);}
+  .cd-lens{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
+  .cd-say{color:var(--ink);margin-top:3px;overflow-wrap:anywhere;}
+  .cd-agent.waiting .cd-say,.cd-agent.thinking .cd-say{color:var(--muted);}
+  .cd-hero{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:18px;padding:16px;border-radius:14px;border:1px solid var(--panel-border);background:var(--panel-bg);}
+  .cd-hero.dir-up{border-color:var(--st-working);} .cd-hero.dir-down{border-color:var(--st-blocked);}
+  .cd-kicker{font:600 11px "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+  .cd-dir{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:56px;line-height:1;margin-top:4px;}
+  .dir-up .cd-dir{color:var(--st-working);} .dir-down .cd-dir{color:var(--st-blocked);} .dir-sideways .cd-dir{color:var(--st-stale);}
+  .cd-conf{font:500 12px "IBM Plex Mono",monospace;color:var(--muted);margin-top:4px;}
+  .cd-thumb{width:min(240px,42%);border-radius:8px;border:1px solid var(--panel-border);}
+  .cd-prob{display:flex;height:10px;border-radius:6px;overflow:hidden;margin-top:12px;background:var(--chip-bg);}
+  .cd-prob i{display:block;height:100%;} .cd-prob .p-up{background:var(--st-working);} .cd-prob .p-down{background:var(--st-blocked);} .cd-prob .p-sideways{background:var(--st-stale);}
+  .cd-problg{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px;font:600 11px "IBM Plex Mono",monospace;}
+  .cd-problg .p-up{color:var(--st-working);} .cd-problg .p-down{color:var(--st-blocked);} .cd-problg .p-sideways{color:var(--muted);}
+  .cd-summary{font-size:14px;line-height:1.55;margin:4px 0 0;max-width:68ch;}
+  .cd-plan{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--chip-bg);border:1px solid var(--panel-border);}
+  .cd-plan .section-label{padding-top:0;}
+  .cd-idea{font-weight:600;font-size:13.5px;}
+  .cd-planrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:8px;}
+  .cd-planrow .k{display:block;font:600 10px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+  .cd-planrow b{font-variant-numeric:tabular-nums;font-size:14px;}
+  .cd-trigger{font-size:12.5px;margin-top:8px;color:var(--muted);}
+  .cd-list{margin:4px 0 0;padding-left:18px;font-size:13px;line-height:1.5;}
+  .cd-level{display:flex;align-items:center;gap:10px;padding:5px 2px;border-bottom:1px solid var(--panel-border);font-size:12.5px;}
+  .cd-level b{font-variant-numeric:tabular-nums;min-width:84px;}
+  .cd-level.now{justify-content:center;font:600 11px "IBM Plex Mono",monospace;color:var(--st-fresh);border-bottom-style:dashed;}
+  .cd-qa{border-left:3px solid var(--st-requested);padding-left:10px;margin-top:10px;}
+  .cd-desk{border-bottom:1px solid var(--panel-border);padding:6px 0;}
+  .cd-desk summary{display:flex;align-items:baseline;gap:8px;cursor:pointer;flex-wrap:wrap;font-size:12.5px;}
+  .cd-desk summary .cd-dot{align-self:center;}
+  .cd-follow{margin-top:16px;}
+  .cd-answer{font-size:13.5px;line-height:1.55;white-space:pre-wrap;margin:10px 0;}
+  .cd-hist{border-bottom:1px solid var(--panel-border);padding:10px 0;}
+  .cd-hist summary{display:flex;gap:12px;align-items:center;cursor:pointer;}
+  .cd-hthumb{width:96px;height:60px;object-fit:cover;border-radius:6px;border:1px solid var(--panel-border);flex:none;}
+  .cd-htxt{display:flex;flex-direction:column;gap:3px;font-size:12.5px;min-width:0;}
+  .cd-htxt span{color:var(--muted);}
+  .cd-htxt .stage{align-self:flex-start;}
+  .cd-hbody{padding-top:8px;}
+  @media (max-width:720px){ .cd-dir{font-size:44px;} .cd-hero{flex-direction:column;align-items:flex-start;} .cd-thumb{width:100%;} }
+  @media (prefers-reduced-motion: reduce){ .cd-agent.thinking .cd-dot{animation:none;} }
   #soundBtn[aria-pressed="true"]{background:var(--ink);color:var(--panel-bg);}
   @media (max-width:720px){ #tourCard{bottom:calc(150px + env(safe-area-inset-bottom,0px));} #tourCard .tc-quote{-webkit-line-clamp:2;} .bubble{max-width:200px;font-size:11.5px;} }
 </style>
@@ -421,6 +482,7 @@
       <button class="pillbtn" id="liveBtn" type="button">Live</button>
       <button class="pillbtn" id="ownerBtn" type="button">Waiting on you</button>
       <button class="pillbtn" id="moneyBtn" type="button">Money</button>
+      <button class="pillbtn pill-accent" id="chartBtn" type="button">Chart Desk</button>
       <button class="pillbtn" id="rosterBtn" type="button">All agents</button>
       <button class="pillbtn" id="tourBtn" type="button">Tour</button>
       <button class="pillbtn" id="soundBtn" type="button" aria-pressed="false">Sound</button>
@@ -512,6 +574,43 @@
       </div>
     </div>
     <div class="sheet-body" id="moneyBody"></div>
+  </div>
+</div>
+
+<div class="sheet-overlay" id="chartOverlay">
+  <div class="sheet" role="dialog" aria-labelledby="chartTitle">
+    <div class="sheet-head">
+      <div class="toprow">
+        <div>
+          <h2 id="chartTitle">Chart Desk</h2>
+          <div class="sub" id="chartSub">19 chart specialists · drop a screenshot, get the call</div>
+        </div>
+        <button class="sheet-close" type="button" data-close="chartOverlay" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="tabbar" role="tablist" id="chartTabs">
+        <button type="button" role="tab" data-tab="analyze" aria-selected="true">Analyze</button>
+        <button type="button" role="tab" data-tab="history" aria-selected="false">History &amp; track record</button>
+      </div>
+    </div>
+    <div class="sheet-body" id="chartBody">
+      <div id="chartAnalyze">
+        <div class="sheet-note" id="cdAvail" hidden></div>
+        <label class="cd-drop" id="cdDrop">
+          <input type="file" id="cdFile" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+          <img id="cdPreview" alt="Your chart" hidden>
+          <span id="cdDropText">Drop a chart screenshot here, paste it (Ctrl/Cmd+V), or tap to pick one. Any ticker, any timeframe, even a photo of a screen.</span>
+        </label>
+        <input class="cd-note" id="cdNote" type="text" maxlength="300" placeholder="Optional: ticker, timeframe, or your question (e.g. SPY 5m, where is it by the close?)">
+        <div class="cd-modes" role="radiogroup" aria-label="How many analysts">
+          <label><input type="radio" name="cdMode" value="full" checked> <b>Full desk</b> <span>19 analysts, about 4–6 min</span></label>
+          <label><input type="radio" name="cdMode" value="fast"> <b>Fast read</b> <span>head of desk alone, about 1 min</span></label>
+        </div>
+        <div class="cd-actions"><button class="btn-ink" id="cdGo" type="button" disabled>Analyze chart</button><button class="btn-line" id="cdStop" type="button" hidden>Stop</button><span class="form-msg" id="cdMsg"></span></div>
+        <div id="cdResult"></div>
+        <div id="cdProgress"></div>
+      </div>
+      <div id="chartHistory" hidden></div>
+    </div>
   </div>
 </div>
 
@@ -741,6 +840,32 @@
         {name:"Build Tracker Agent", desc:"Tracks a venture's build end-to-end, the way Command Center tracks a deal."},
         {name:"Launch Readiness Agent", desc:"Routes anything client-facing or public through the existing Last Touch or Video Last Touch gate before it goes live — never a new bypass."},
         {name:"Venture Retro Agent", desc:"Once launched, checks honestly whether it's actually making money and feeds the real answer back to Opportunity Discovery."}
+      ]},
+    // The Chart Desk: built only to read the owner's chart screenshots. It
+    // works when the owner drops a chart in (through the owner's own Claude
+    // account), never in the hourly business shifts, and never trades.
+    { id:"chart-desk", code:"22", name:"Chart Desk", tag:"Reads your chart screenshots and calls the next move", cssVar:"--a-software", hex:0x3560CC, x:12, z:-9.6, chartDesk:true,
+      onOpen:function(){ openChartRoom(); },
+      agents:[
+        {name:"Chart Reader", desc:"Reads the screenshot first: instrument, timeframe, price axis, last price, indicators shown, swings, so the whole desk works from the same facts."},
+        {name:"Price Structure Analyst", desc:"Higher highs and lows, breaks of structure, changes of character, the swing that has to hold."},
+        {name:"Trend & Moving Average Analyst", desc:"Moving averages, their slope and crosses, trendlines, channels, ADX and Ichimoku when shown."},
+        {name:"Head of Desk", desc:"Weighs all sixteen reads and the devil's advocate, then makes the call: direction, odds, targets, the price that proves it wrong."},
+        {name:"Support & Resistance Mapper", desc:"Horizontal levels and their touches, round numbers, prior day and week levels, open gaps."},
+        {name:"Smart Money Analyst", desc:"Supply and demand zones, order blocks, fair value gaps, liquidity sweeps, premium vs discount."},
+        {name:"Pattern Specialist", desc:"Classic chart patterns, their stage, breakout level and measured-move target."},
+        {name:"Candlestick Specialist", desc:"The last few candles: who won each fight between buyers and sellers, and whether it happened somewhere that matters."},
+        {name:"Momentum Analyst", desc:"RSI, Stochastic, CCI, Williams %R, MFI: readings only when they are on the chart."},
+        {name:"MACD & Divergence Analyst", desc:"MACD crosses and histogram, regular and hidden divergences."},
+        {name:"Volume & VWAP Analyst", desc:"Volume, VWAP and its bands, OBV, volume profile, accumulation vs distribution."},
+        {name:"Fibonacci & Harmonics Analyst", desc:"Retracements and extensions from the last clear swing, with the math, plus harmonic patterns when the swings really fit."},
+        {name:"Elliott Wave Analyst", desc:"The likeliest wave count, an alternate, and the price that kills each."},
+        {name:"Volatility Analyst", desc:"Bollinger and Keltner squeezes, ATR, how far a normal move could reach."},
+        {name:"Session & Gap Specialist", desc:"Opening range, premarket levels, gaps and time of day on intraday charts; weekly opens and gaps on higher timeframes."},
+        {name:"Wyckoff Phase Analyst", desc:"Accumulation, markup, distribution or markdown, springs and upthrusts, effort vs result."},
+        {name:"Strategy Playbook Analyst", desc:"Tests a dozen named strategies against the chart and names the best one that is actually set up."},
+        {name:"Risk Manager", desc:"Stop placement, reward-to-risk, position size for a 1% risk, and when to stand aside."},
+        {name:"Devil's Advocate", desc:"Checks every quoted price against the image and argues the other side before the call is made."}
       ]}
   ];
   // Doors face INWARD, into the shared central corridor, so both bullpens,
@@ -812,7 +937,8 @@
     "task-dispatch": "Assigns the next real task to whichever agent has work waiting.",
     "capacity-queue": "Keeps the backlog honest so Dispatch always has a real next task.",
     "opportunity-discovery": "Triages the 100-idea list and logs real opportunities with sources.",
-    "venture-coordination": "Turns a validated opportunity into a build plan across departments."
+    "venture-coordination": "Turns a validated opportunity into a build plan across departments.",
+    "chart-desk": "Only works when you drop a chart in. The call and every analyst's read go to the Chart Desk sheet and its history."
   };
 
   // The building isn't square anymore — the video division's wing extends
@@ -966,6 +1092,12 @@
     d.screen.material = SCREEN_MATS[v] || SCREEN_MATS.idle;
     d.sticky.visible = v==="blocked";
   }
+  // The Chart Desk's wall screen and desk monitors show the uploaded chart.
+  var chartWallCanvas = document.createElement("canvas"); chartWallCanvas.width = 1216; chartWallCanvas.height = 400;
+  var chartWallTex = new THREE.CanvasTexture(chartWallCanvas); chartWallTex.anisotropy = 4;
+  var chartMonCanvas = document.createElement("canvas"); chartMonCanvas.width = 256; chartMonCanvas.height = 160;
+  var chartMonTex = new THREE.CanvasTexture(chartMonCanvas);
+  var chartMonMat = new THREE.MeshBasicMaterial({map:chartMonTex});
   // One live "studio board" canvas, shown on the wall TV and the boardroom screen.
   var boardCanvas = document.createElement("canvas"); boardCanvas.width = 1024; boardCanvas.height = 576;
   var boardTex = new THREE.CanvasTexture(boardCanvas); boardTex.anisotropy = 4;
@@ -1637,7 +1769,30 @@
     registerZone({id:"collab-room", code:"--", name:"Collaboration Room", tag:"Where 2+ agents meet to work something out together", cssVar:"--a-research", hex:0x1F9690, agents:[]}, cx-1.9,cx+1.9,cz-1.5,cz+1.5);
   }
 
-  DEPARTMENTS.forEach(function(d){ if(d.boardroom) buildBoardroom(d); else if(!d.group) buildDeskPod(d); });
+  // The Chart Desk: three rows of workstations facing a wall screen that
+  // shows the latest chart and the desk's call, door on the west side.
+  function buildChartDesk(dept){
+    var spacing = 1.55, rowGap = 1.6, rows = [7,6,6];
+    var halfW = 7*spacing/2 + 0.9, z0 = dept.z - rowGap;
+    var minX = dept.x-halfW, maxX = dept.x+halfW, minZ = z0-0.8-0.9, maxZ = z0+2*rowGap+0.8+0.9;
+    var rug = new THREE.Mesh(new THREE.PlaneGeometry(halfW*2-0.3, maxZ-minZ-0.3), new THREE.MeshStandardMaterial({color:0x1d3560, roughness:0.95, transparent:true, opacity:0.2}));
+    rug.rotation.x = -Math.PI/2; rug.position.set(dept.x, 0.015, (minZ+maxZ)/2); rug.receiveShadow = true;
+    scene.add(rug);
+    var idx = 0;
+    rows.forEach(function(n, r){
+      var sx = -((n-1)*spacing)/2;
+      for(var i=0;i<n;i++){ var a = dept.agents[idx++]; scene.add(buildWorkstation(dept.x+sx+i*spacing, z0+r*rowGap, 0, dept.hex, a.id, a.name)); }
+    });
+    buildEnclosedRoom(minX, maxX, minZ, maxZ, ["west"], wallMat2, 2.3, 1.3);
+    var fr = new THREE.Mesh(new THREE.BoxGeometry(3.56,1.24,0.05), frameMat);
+    fr.position.set(dept.x, 1.62, minZ+0.08); scene.add(fr);
+    var wall = new THREE.Mesh(new THREE.PlaneGeometry(3.44,1.13), new THREE.MeshBasicMaterial({map:chartWallTex}));
+    wall.position.set(dept.x, 1.62, minZ+0.11); scene.add(wall);
+    var sign = makeSign(dept.name, 2.55, 0);
+    sign.position.set(dept.x, 2.55, minZ+0.35); scene.add(sign);
+    registerZone(dept, minX, maxX, minZ, maxZ);
+  }
+  DEPARTMENTS.forEach(function(d){ if(d.boardroom) buildBoardroom(d); else if(d.chartDesk) buildChartDesk(d); else if(!d.group) buildDeskPod(d); });
   Object.keys(GROUPS).forEach(function(k){ buildGroupRoom(k); });
   buildLounge();
   buildReception(-17.2, -2.0);
@@ -1681,9 +1836,9 @@
   // plants and cabinets scattered along the corridors between rooms — enough to
   // feel like a real, busier office, positioned to fit the compact packed layout
   [
-    [-18,-13,1.0],[-9,-13,0.9],[9,-13,0.9],[18,-13,1.0],
+    [-18,-13,1.0],[-9,-13,0.9],[9,-14.0,0.9],[18,-14.0,1.0],
     [-16,4.5,0.95],[16,4.5,0.95],[0,8.5,0.9],
-    [18,-8,0.85],[18,0,0.85],[18,10,0.85],[-18,10,0.85],
+    [19.6,-6.6,0.85],[18,0,0.85],[18,10,0.85],[-18,10,0.85],
     [0,-2,0.8],[-4.5,4.8,0.75],[4.5,4.8,0.75],
     [-16,23.5,0.9],[16,23.5,0.9],[0,32.8,1.0],[-9,32.5,0.85],[9,32.5,0.85]
   ].forEach(function(p){ buildPlant(p[0],p[1],p[2]); });
@@ -1704,7 +1859,7 @@
     scene.add(g);
     walkers.push({group:g, a:{x:x1,z:z1}, b:{x:x2,z:z2}, t:Math.random(), dir:1, speed:speed});
   }
-  addWalker(-18,-13, 18,-13, 0.045);
+  addWalker(-18,-13.5, 18,-13.5, 0.045);
   addWalker(18,32.5, -18,32.5, 0.04);
   addWalker(-18,9, -13.5,9, 0.035);
   addWalker(13.5,9, 18,9, 0.035);
@@ -1739,7 +1894,7 @@
       fromPhi: orbit.phi, toPhi: 0.72
     };
     targetRadius = toRadius;
-    openPanel(dept);
+    if(dept.onOpen) dept.onOpen(); else openPanel(dept);
     updateLegendActive(dept);
   }
   var focusVec = new THREE.Vector3();
@@ -1755,7 +1910,7 @@
       fromPhi: orbit.phi, toPhi: 0.95
     };
     targetRadius = 4.4;
-    openAgentPanel(agentId);
+    if(AGENT_BY_ID[agentId] && AGENT_BY_ID[agentId].dept.chartDesk) openChartRoom(); else openAgentPanel(agentId);
   }
   function resetView(){
     spin.vTheta = 0; spin.vPhi = 0;
@@ -2195,7 +2350,7 @@
   rosterSearch.addEventListener("input", renderRoster);
 
   // ---------------- live data: every collection the studio runs on ----------------
-  var store = {deals:{}, decisions:{}, requests:{}, outbox:{}, owner:{}, opps:{}, ideas:{}, changes:{}};
+  var store = {deals:{}, decisions:{}, requests:{}, outbox:{}, owner:{}, opps:{}, ideas:{}, changes:{}, charts:{}};
   var loaded = {};
   var dbState = "connecting";   // connecting | live | unavailable
 
@@ -2211,7 +2366,7 @@
   function docsOf(name){ return Object.keys(store[name]).map(function(id){ return {id:id, d:store[name][id]}; }); }
 
   // ---------------- sheets ----------------
-  var SHEETS = ["liveOverlay","ownerOverlay","moneyOverlay"];
+  var SHEETS = ["liveOverlay","ownerOverlay","moneyOverlay","chartOverlay"];
   var openSheetId = null;
   function openSheet(id){
     if(rosterOpen) closeRoster();
@@ -2227,6 +2382,7 @@
     if(openSheetId==="liveOverlay") renderFeed();
     else if(openSheetId==="ownerOverlay") renderOwner();
     else if(openSheetId==="moneyOverlay") renderMoney();
+    else if(openSheetId==="chartOverlay") renderChart();
   }
   SHEETS.forEach(function(s){
     var ov = document.getElementById(s);
@@ -2629,7 +2785,7 @@
   document.getElementById("toast").addEventListener("click", function(){ openSheet("liveOverlay"); });
 
   // ---------------- connect ----------------
-  function refreshAll(){ renderPulse(); renderSheet(); drawBoard(); }
+  function refreshAll(){ renderPulse(); renderSheet(); drawBoard(); chartDataChanged(); }
   function watch(db, name, path, handle){
     db.collection(path).onSnapshot(function(snap){
       var first = !loaded[name];
@@ -2674,6 +2830,7 @@
       watch(db, "opps", "opportunities");
       watch(db, "ideas", "money_map");
       watch(db, "changes", "repo_changes");
+      watch(db, "charts", "chart_analyses");
       refreshAll();
     }).catch(function(){ dbState = "unavailable"; refreshAll(); });
   } else {
@@ -2992,11 +3149,11 @@
     WINDOW_SPOTS.push({x:-22.3, z:zz, face:-Math.PI/2});
     WINDOW_SPOTS.push({x:22.3, z:zz, face:Math.PI/2});
   });
-  var ROOM_KEYS = ["A","B","lasttouch","strategy","C","D","P","video-lasttouch","E","F"];
+  var ROOM_KEYS = ["A","B","lasttouch","strategy","C","D","P","video-lasttouch","E","F","chart-desk"];
   function freeAgents(filter){
     return ALL_AGENTS.map(function(e){ return e.a.id; }).filter(function(id){
       var r = AGENT_GROUPS[id];
-      return r && !r.walk && (!filter || filter(vstate(id), id));
+      return r && !r.walk && !(chartRun && POSE_OVERRIDE[id]) && (!filter || filter(vstate(id), id));
     });
   }
   function walkingCount(){ var n = 0; for(var id in AGENT_GROUPS){ if(AGENT_GROUPS[id].walk) n++; } return n; }
@@ -3138,7 +3295,8 @@
     canvas.style.cursor = id ? "pointer" : "";
     if(id){
       var live = agentStatus[id] || {}, v = vstate(id);
-      showBubble(id, "s-"+v, AGENT_BY_ID[id].a.name, VLABEL[v]+(live.task ? " · "+live.task : ""), 600000);
+      var ent = AGENT_BY_ID[id];
+      showBubble(id, "s-"+(POSE_OVERRIDE[id] || v), ent.a.name, ent.dept.chartDesk ? ent.a.desc : VLABEL[v]+(live.task ? " · "+live.task : ""), 600000);
       bubbles[id].hover = true;
     }
   }
@@ -3428,6 +3586,563 @@
     FILL_LIGHTS.forEach(function(pl){ pl.intensity = fi; });
   }
 
+  // ---------------- Chart Desk ----------------
+  // The owner drops a chart screenshot; a desk of analysts reads it through
+  // the owner's own Claude account (the page's `sample` capability), each
+  // one working its own checklist, then a devil's advocate cross-checks and
+  // the Chief of Staff makes the call. Results are saved to the
+  // `chart_analyses` collection so the track record can be scored later.
+  // Analysis only: nothing here connects to a brokerage or places orders.
+  var CHART_RULES = [
+    "Ground rules:",
+    "- Read only what the image shows. Prices come from the chart's price axis, price labels and any last-price tag; say \"about\" when estimating between gridlines.",
+    "- If an indicator is not on the chart, write \"not shown\". Never invent a reading.",
+    "- The image may be a phone photo of a screen, tilted or cropped, from any platform, any timeframe, any instrument (stock, ETF such as SPY, index, future, crypto).",
+    "- This is a probabilistic read of one picture, not a certainty. Calibrate: 50 = coin flip; above 75 needs several independent confirmations."
+  ].join("\n");
+  // Run order: the reader first, then the sixteen analysts in parallel, then
+  // the devil's advocate, then the head of desk. Ids are the Chart Desk
+  // department's agent slugs.
+  var CHART_DESK = [
+    {id:"chart-reader", lens:"Chart reader", role:"reader"},
+    {id:"price-structure-analyst", lens:"Price structure", check:"Higher highs/higher lows or lower highs/lower lows on this timeframe; break of structure (BOS) and change of character (CHoCH); the last swing that must hold; Dow theory phase; is price trending, ranging or transitioning."},
+    {id:"trend-moving-average-analyst", lens:"Trend & moving averages", check:"Price vs every moving average shown (EMA/SMA 9/20/50/100/200), their slope, stacking and crosses (golden/death cross); trendlines and channels (touches, breaks); ADX/DMI and Ichimoku cloud only if shown."},
+    {id:"support-resistance-mapper", lens:"Support & resistance", check:"Horizontal support and resistance with the number of touches; round numbers; prior day/week high, low and close when visible; pivot points if shown; open gaps; where price sits inside the current range and the nearest level in each direction."},
+    {id:"smart-money-analyst", lens:"Supply/demand & smart money", check:"Supply and demand zones; order blocks; fair value gaps (imbalances), filled or open; liquidity pools (equal highs/lows, obvious stop clusters) and recent sweeps; displacement candles; premium vs discount of the current range (ICT/SMC)."},
+    {id:"pattern-specialist", lens:"Chart patterns", check:"Head & shoulders and inverse; double/triple tops and bottoms; ascending, descending and symmetrical triangles; bull/bear flags and pennants; rising/falling wedges; rectangles; cup & handle; rounding tops/bottoms; broadening and diamond formations. For each present: stage (forming/confirmed/failed), breakout level and measured-move target."},
+    {id:"candlestick-specialist", lens:"Candlesticks", check:"The last 1-5 candles: engulfing, hammer/hanging man, shooting star/inverted hammer, doji types, morning/evening star, harami, piercing/dark cloud, tweezer tops/bottoms, marubozu, three white soldiers/black crows, inside/outside bars, long rejection wicks — and whether their location (at a level) makes them meaningful."},
+    {id:"momentum-analyst", lens:"Momentum oscillators", check:"RSI (level, 30/50/70 behaviour), Stochastic, CCI, Williams %R, ROC, MFI and any other oscillator on the chart: readings as shown, overbought/oversold, failure swings. If none is visible, judge momentum from candle size and slope and say the indicators are not shown."},
+    {id:"macd-divergence-analyst", lens:"MACD & divergences", check:"MACD line vs signal, histogram growth/shrink, zero-line position and crosses; regular and hidden bullish/bearish divergences between price and any oscillator shown. If MACD is not on the chart, say so and look only for divergences you can actually see."},
+    {id:"volume-vwap-analyst", lens:"Volume & VWAP", check:"Volume bars (rising/falling with price, spikes, climax, dry-up), OBV, VWAP and its bands, anchored VWAP, volume profile / POC / value area high-low, relative volume, accumulation vs distribution. If no volume is shown, say so and lower your confidence."},
+    {id:"fibonacci-harmonics-analyst", lens:"Fibonacci & harmonics", check:"Name the most recent clear swing (high and low prices) and compute Fibonacci retracements 23.6/38.2/50/61.8/78.6% and extensions 127.2/161.8% (show the arithmetic briefly); confluence with other levels; harmonic patterns (Gartley, Bat, Butterfly, Crab, Shark) and AB=CD only if the swings really fit."},
+    {id:"elliott-wave-analyst", lens:"Elliott waves & cycles", check:"The most likely Elliott wave count and one alternate, each with the price that invalidates it; impulse vs corrective character; time symmetry between swings. Be explicit that counts are subjective."},
+    {id:"volatility-analyst", lens:"Volatility & bands", check:"Bollinger Bands and Keltner channels if shown (squeeze, band walk, re-entry); an ATR estimate from recent candle ranges; expansion vs contraction; how far a normal move from here could reach in the next few candles."},
+    {id:"session-gap-specialist", lens:"Sessions & gaps", check:"Intraday charts: opening range and its breakout, premarket high/low, the opening gap and whether it is filling, time of day (open drive, midday chop, power hour). Daily and higher: weekly/monthly opens, gaps and gap fills, earnings or news gaps only if visible on the chart. Say which applies."},
+    {id:"wyckoff-phase-analyst", lens:"Wyckoff & market phase", check:"Accumulation, markup, distribution or markdown; Wyckoff events if present (selling climax, spring, test, sign of strength, upthrust, sign of weakness, last point of support/supply); effort vs result (volume vs spread)."},
+    {id:"strategy-playbook-analyst", lens:"Strategy playbook", check:"Test each and say active / forming / not present: trend pullback; breakout and retest; range fade; mean reversion to VWAP/MA; EMA crossover; opening-range breakout (intraday only); gap-and-go / gap fill; VWAP reclaim or rejection; Wyckoff spring/upthrust; SMC liquidity sweep with fair value gap entry; Donchian/Turtle breakout. Give the single best active setup."},
+    {id:"risk-manager", lens:"Risk", check:"Where a sensible stop sits (beyond structure, not a round number), ATR-based stop distance, realistic reward-to-risk of the best long and best short, how much of the move may already be done, position size for risking 1% of an account, and what would make you stand aside."},
+    {id:"devil-s-advocate", lens:"Devil's advocate & fact-check", role:"qa"},
+    {id:"head-of-desk", lens:"Head of desk: final call", role:"final"}
+  ];
+  var DESK_JSON = '{"bias":"bullish"|"bearish"|"neutral","confidence":0-100,"headline":"one line, max 14 words","checked":["one short line per checklist item: what you found, or not shown / not present"],"levels":[{"price":number,"kind":"support"|"resistance"|"target"|"invalidation"|"zone","note":"short"}],"next_move":{"direction":"up"|"down"|"sideways","target":number or null,"invalidation":number or null,"horizon":"e.g. next 5-10 candles"},"setup":null or {"name":"...","entry":number,"stop":number,"targets":[number],"trigger":"what must happen first"}}';
+  var VERDICT_JSON = '{"direction":"up"|"down"|"sideways","probabilities":{"up":n,"down":n,"sideways":n} (sum 100),"confidence":0-100,"horizon":"how far ahead this read is for, in candles and clock time","current_price":number or null,"next_price":{"target1":number or null,"target2":number or null,"invalidation":number or null},"summary":"2-3 plain sentences","plan":{"idea":"one line","entry":number or null,"stop":number or null,"targets":[number],"reward_risk":"e.g. 2.1","trigger":"what must happen first"},"reasons":["top 3-5 reasons"],"flip_if":"what price action would prove this wrong","key_levels":[{"price":number,"kind":"support"|"resistance"|"target"|"invalidation"|"zone","note":"short"}],"votes":{"bullish":n,"bearish":n,"neutral":n},"risks":["short"]}';
+
+  var sampleFn = null, sampleLimits = null, chartSampleState = "loading";
+  if(window.claude && window.claude.use){
+    window.claude.use("sample").then(function(s){
+      sampleFn = s;
+      if(!s){ chartSampleState = "unavailable"; renderChartAvail(); return; }
+      s.limits().then(function(l){ sampleLimits = l; chartSampleState = l && l.images ? "ready" : "noimages"; renderChartAvail(); })
+        .catch(function(){ chartSampleState = "noimages"; renderChartAvail(); });
+    }).catch(function(){ chartSampleState = "unavailable"; renderChartAvail(); });
+  } else chartSampleState = "unavailable";
+
+  function num(v){ var n = typeof v==="number" ? v : parseFloat(String(v==null?"":v).replace(/[^0-9.\-]/g,"")); return isFinite(n) ? n : null; }
+  function fmtP(v){ var n = num(v); if(n==null) return "—"; var d = Math.abs(n) < 1 ? 4 : 2; return n.toLocaleString("en-US",{minimumFractionDigits:2, maximumFractionDigits:d}); }
+  function biasOf(b){ b = String(b||"").toLowerCase(); return b.indexOf("bull")===0 || b==="up" ? "bullish" : b.indexOf("bear")===0 || b==="down" ? "bearish" : "neutral"; }
+  var BIAS_DOT = {bullish:"s-working", bearish:"s-blocked", neutral:"s-stale"};
+  var DIR_WORD = {up:"UP", down:"DOWN", sideways:"SIDEWAYS"};
+  function dirOf(d){ d = String(d||"").toLowerCase(); return d.indexOf("up")===0||d.indexOf("bull")===0 ? "up" : d.indexOf("down")===0||d.indexOf("bear")===0 ? "down" : "sideways"; }
+  function sampleErrText(e){
+    var c = e && e.code;
+    if(c==="not_granted") return "The Chart Desk needs your OK to use Claude on this page. Reload and choose Allow when asked.";
+    if(c==="sampling_disabled"||c==="not_declared"||c==="capability_disabled"||c==="capability_removed") return "Claude isn't available to this page in this view.";
+    if(c==="images_unavailable") return "This view can't send images to Claude. Try the Claude website or desktop app.";
+    if(c==="image_rejected") return "That image couldn't be read. Use a PNG or JPEG screenshot.";
+    if(c==="rate_limited") return "Your Claude usage limit (or too many calls at once) stopped the desk. Wait a bit and run it again.";
+    if(c==="session_expired") return "Sign in to Claude again, then rerun.";
+    if(c==="refused") return "Claude declined this one. Try a clearer chart screenshot.";
+    if(c==="invalid_json") return "The answer came back garbled.";
+    if(c==="prompt_too_large") return "Too much text for one call.";
+    return "Something went wrong talking to Claude.";
+  }
+
+
+  // ---- chart image state ----
+  var chartFile = null, chartImg = null, chartThumb = null, chartRun = null, chartTab = "analyze", chartMode = "full";
+  var latestShownId = null;
+  function drawChartMonitors(img){
+    var x = chartMonCanvas.getContext("2d"), W = chartMonCanvas.width, H = chartMonCanvas.height;
+    x.fillStyle = "#0e131b"; x.fillRect(0,0,W,H);
+    if(img){ var s = Math.min(W/img.width, H/img.height); var w = img.width*s, h = img.height*s; x.drawImage(img, (W-w)/2, (H-h)/2, w, h); }
+    else { x.fillStyle = "#3b4552"; x.font = "bold 22px sans-serif"; x.textAlign = "center"; x.fillText("CHART DESK", W/2, H/2+8); }
+    chartMonTex.needsUpdate = true;
+  }
+  function drawChartWall(img, v, meta, status){
+    var x = chartWallCanvas.getContext("2d"), W = chartWallCanvas.width, H = chartWallCanvas.height;
+    x.fillStyle = "#0e131b"; x.fillRect(0,0,W,H);
+    var pw = 760;
+    if(img){ var s = Math.min((pw-24)/img.width, (H-24)/img.height); var w = img.width*s, h = img.height*s; x.drawImage(img, 12+(pw-24-w)/2, (H-h)/2, w, h); }
+    else { x.fillStyle = "#3b4552"; x.font = "800 44px 'Big Shoulders Display', sans-serif"; x.textAlign = "center"; x.fillText("Drop a chart in the Chart Desk", pw/2, H/2+14); x.textAlign = "left"; }
+    var rx = pw+28;
+    x.fillStyle = "#8ea0b6"; x.font = "600 18px 'IBM Plex Mono', monospace";
+    x.fillText("EDGEX CHART DESK", rx, 44);
+    if(meta){ x.fillStyle = "#c4ccd8"; x.font = "600 22px 'Work Sans', sans-serif"; x.fillText(clip(meta, 34), rx, 78); }
+    if(status){
+      x.fillStyle = "#e7ecf3"; x.font = "800 52px 'Big Shoulders Display', sans-serif"; x.fillText(status, rx, 170);
+    } else if(v){
+      var d = dirOf(v.direction), col = d==="up" ? "#57BE79" : d==="down" ? "#E3687A" : "#c4ccd8";
+      x.fillStyle = col; x.font = "800 86px 'Big Shoulders Display', sans-serif"; x.fillText(DIR_WORD[d], rx, 178);
+      x.fillStyle = "#8ea0b6"; x.font = "600 18px 'IBM Plex Mono', monospace";
+      x.fillText((num(v.confidence)!=null ? Math.round(num(v.confidence))+"% CONFIDENCE" : ""), rx, 210);
+      var np = v.next_price || {};
+      [["TARGET 1", np.target1], ["TARGET 2", np.target2], ["INVALID", np.invalidation]].forEach(function(r, i){
+        x.fillStyle = "#8ea0b6"; x.font = "600 17px 'IBM Plex Mono', monospace"; x.fillText(r[0], rx, 262+i*42);
+        x.fillStyle = "#e7ecf3"; x.font = "700 28px 'Work Sans', sans-serif"; x.fillText(fmtP(r[1]), rx+140, 264+i*42);
+      });
+    }
+    chartWallTex.needsUpdate = true;
+  }
+  drawChartMonitors(null); drawChartWall(null, null, null, null);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ if(!chartRun) showLatestOnWall(true); });
+
+  function loadImage(src){ return new Promise(function(res, rej){ var im = new Image(); im.onload = function(){ res(im); }; im.onerror = rej; im.src = src; }); }
+  function makeThumb(img){
+    var W = Math.min(560, img.width), H = Math.round(img.height*W/img.width);
+    var c = document.createElement("canvas"); c.width = W; c.height = H;
+    c.getContext("2d").drawImage(img, 0, 0, W, H);
+    return c.toDataURL("image/jpeg", 0.72);
+  }
+  function showLatestOnWall(force){
+    var docs = docsOf("charts").filter(function(r){ return r.d && r.d.verdict; }).sort(function(a,b){ return timeOf(b.d.created)-timeOf(a.d.created); });
+    if(!docs.length) return;
+    var top = docs[0];
+    if(!force && top.id===latestShownId) return;
+    latestShownId = top.id;
+    var meta = [top.d.instrument, top.d.timeframe].filter(Boolean).join(" · ") || "last chart";
+    if(top.d.thumb) loadImage(top.d.thumb).then(function(im){ if(chartRun) return; drawChartMonitors(im); drawChartWall(im, top.d.verdict, meta+" · "+agoText(timeOf(top.d.created)), null); }).catch(function(){});
+    else drawChartWall(null, top.d.verdict, meta, null);
+  }
+
+  // ---- the sheet ----
+  var cdFile = document.getElementById("cdFile"), cdDrop = document.getElementById("cdDrop"), cdPreview = document.getElementById("cdPreview");
+  var cdGo = document.getElementById("cdGo"), cdStop = document.getElementById("cdStop"), cdMsg = document.getElementById("cdMsg");
+  function openChartRoom(){ openSheet("chartOverlay"); }
+  document.getElementById("chartBtn").addEventListener("click", openChartRoom);
+  wireTabs("chartTabs", "data-tab", function(t){ chartTab = t; renderChart(); });
+  Array.prototype.forEach.call(document.querySelectorAll("input[name=cdMode]"), function(r){ r.addEventListener("change", function(){ if(r.checked) chartMode = r.value; }); });
+  function renderChartAvail(){
+    var note = document.getElementById("cdAvail");
+    if(!note) return;
+    note.hidden = true;
+    if(chartSampleState==="unavailable"){ note.hidden = false; note.textContent = "The Chart Desk needs Claude, which isn't available to this page in this view. Open the Studio Floor on claude.ai to use it."; }
+    else if(chartSampleState==="noimages"){ note.hidden = false; note.textContent = "This view can't send images to Claude, so charts can't be analyzed here. Try claude.ai in a desktop browser."; }
+    if(sampleLimits && sampleLimits.images) cdFile.accept = sampleLimits.images.mediaTypes.join(",");
+    updateGo();
+  }
+  function updateGo(){ cdGo.disabled = !chartFile || !!chartRun || chartSampleState!=="ready"; }
+  function setChartFile(f){
+    if(!f) return;
+    if(!/^image\//.test(f.type||"")){ cdMsg.textContent = "That isn't an image. Use a PNG or JPEG screenshot."; return; }
+    if(sampleLimits && sampleLimits.images){
+      if(sampleLimits.images.mediaTypes.indexOf(f.type) === -1){ cdMsg.textContent = "Use a PNG, JPEG, WebP or GIF screenshot (this is "+f.type+")."; return; }
+      if(f.size > sampleLimits.images.maxInputBytes){ cdMsg.textContent = "That file is too large. Crop it or save it as JPEG."; return; }
+    }
+    chartFile = f; cdMsg.textContent = "";
+    var url = URL.createObjectURL(f);
+    loadImage(url).then(function(im){
+      chartImg = im; chartThumb = makeThumb(im);
+      cdPreview.src = url; cdPreview.hidden = false;
+      document.getElementById("cdDropText").textContent = "Chart ready. Drop or paste another to replace it.";
+      updateGo();
+    }).catch(function(){ cdMsg.textContent = "That image couldn't be opened."; chartFile = null; updateGo(); });
+  }
+  cdFile.addEventListener("change", function(){ if(cdFile.files && cdFile.files[0]) setChartFile(cdFile.files[0]); cdFile.value = ""; });
+  ["dragenter","dragover"].forEach(function(ev){ cdDrop.addEventListener(ev, function(e){ e.preventDefault(); cdDrop.classList.add("over"); }); });
+  ["dragleave","drop"].forEach(function(ev){ cdDrop.addEventListener(ev, function(e){ e.preventDefault(); cdDrop.classList.remove("over"); }); });
+  cdDrop.addEventListener("drop", function(e){ var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; if(f) setChartFile(f); });
+  window.addEventListener("paste", function(e){
+    if(openSheetId!=="chartOverlay" || !e.clipboardData) return;
+    var items = e.clipboardData.items || [];
+    for(var i=0;i<items.length;i++){ if(items[i].kind==="file" && /^image\//.test(items[i].type)){ setChartFile(items[i].getAsFile()); e.preventDefault(); return; } }
+  });
+  cdGo.addEventListener("click", function(){ runChartDesk(false); });
+  cdStop.addEventListener("click", function(){ if(chartRun && chartRun.ctl) chartRun.ctl.abort(); });
+
+  // ---- running the desk ----
+  function pool(tasks, n){
+    return new Promise(function(resolve){
+      var i = 0, active = 0, done = 0, out = new Array(tasks.length);
+      if(!tasks.length){ resolve(out); return; }
+      function next(){
+        while(active < n && i < tasks.length){
+          (function(k){
+            active++;
+            tasks[k]().then(function(r){ out[k] = r; }, function(e){ out[k] = {error:e}; }).then(function(){ active--; done++; if(done===tasks.length) resolve(out); else next(); });
+          })(i++);
+        }
+      }
+      next();
+    });
+  }
+  function deskName(d){ return AGENT_BY_ID[d.id] ? AGENT_BY_ID[d.id].a.name : d.id; }
+  // The desk's own people act out the run at their desks: typing with your
+  // chart on screen while they read it, leaning back when done, hands on
+  // head if their call failed. The pose is local to this page; it never
+  // touches the business agents collection.
+  var POSE_OVERRIDE = {};
+  var POSE_OF = {waiting:"stale", thinking:"working", done:"fresh", failed:"blocked"};
+  function deskPose(id, state){
+    var v = POSE_OF[state] || "stale";
+    POSE_OVERRIDE[id] = v;
+    var d = DESK_SCREENS[id];
+    if(d){ d.screen.material = state==="thinking" ? chartMonMat : (SCREEN_MATS[v] || SCREEN_MATS.idle); d.sticky.visible = state==="failed"; }
+    var m = agentMeshes[id];
+    if(m){ m.mat.color.setHex(VCOLOR[v]); if(v==="working") pulsing[id] = true; else { delete pulsing[id]; m.sprite.scale.set(0.15,0.15,1); } }
+  }
+  function restDesk(){
+    CHART_DESK.forEach(function(d){
+      delete POSE_OVERRIDE[d.id];
+      updateBadge(d.id);
+      var s = DESK_SCREENS[d.id];
+      if(s){ s.screen.material = chartMonMat; s.sticky.visible = false; }  // at rest the desk keeps the latest chart up
+    });
+  }
+  var restTimer = null;
+  function callDeskBack(){
+    CHART_DESK.forEach(function(d){ var rec = AGENT_GROUPS[d.id]; if(rec && rec.walk && rec.walk.phase==="hold") rec.walk.hold = 0; });
+  }
+  function setDeskState(id, state, text){
+    if(!chartRun) return;
+    chartRun.states[id] = {state:state, text:text||""};
+    deskPose(id, state);
+    renderProgress();
+  }
+  function compact(o, n){ var s = JSON.stringify(o); return s.length > n ? s.slice(0, n)+"…" : s; }
+  function preamble(d){
+    return "You are "+deskName(d)+", one of the analysts on the Edgex Chart Desk. Your lens: "+d.lens+".\n"
+      + "The attached image is a price chart the owner uploaded.\nOwner's note: "+(chartRun.note ? "\""+chartRun.note+"\"" : "none")+"\n\n"+CHART_RULES+"\n\n";
+  }
+  function callJSON(prompt, tier){
+    var opts = {images:chartRun.file, signal:chartRun.ctl.signal, modelTier:tier||"default"};
+    if(chartRun.fresh) opts.cache = false;
+    return sampleFn.json(prompt, opts);
+  }
+  function runChartDesk(fresh){
+    if(!chartFile || chartRun || !sampleFn) return;
+    var members = chartMode==="fast" ? [CHART_DESK[CHART_DESK.length-1]] : CHART_DESK.slice();
+    chartRun = {file:chartFile, img:chartImg, thumb:chartThumb, note:document.getElementById("cdNote").value.trim().slice(0, 300),
+      ctl:new AbortController(), fresh:!!fresh, states:{}, members:members, started:Date.now(), mode:chartMode, results:{}};
+    clearTimeout(restTimer);
+    members.forEach(function(d){ chartRun.states[d.id] = {state:"waiting", text:""}; deskPose(d.id, "waiting"); });
+    callDeskBack();
+    cdStop.hidden = false; cdMsg.textContent = ""; updateGo();
+    document.getElementById("cdResult").textContent = "";
+    renderProgress();
+    drawChartMonitors(chartRun.img);
+    drawChartWall(chartRun.img, null, chartRun.note || "new chart", "ANALYZING…");
+    toast({dot:"s-working", title:"Chart Desk: "+members.length+" analyst"+(members.length===1?"":"s")+" on your chart", sub:"Results show up here and on the Chart Desk wall screen."});
+    var run = chartRun;
+    var p = run.mode==="fast" ? runFast(run) : runFull(run);
+    p.then(function(){ finishRun(run, null); }, function(e){ finishRun(run, e); });
+  }
+  function runFast(run){
+    var d = CHART_DESK[CHART_DESK.length-1];
+    setDeskState(d.id, "thinking");
+    var checks = CHART_DESK.filter(function(x){ return x.check; }).map(function(x){ return "- "+x.lens+": "+x.check; }).join("\n");
+    var prompt = preamble(d)
+      + "Work alone this time, but cover the whole desk's checklist in order before deciding:\n"+checks+"\n\n"
+      + "First read the chart itself: instrument, timeframe, last price, visible indicators, recent swings.\n\n"
+      + "Reply with only a JSON object: {\"reader\":{\"instrument\":string or null,\"timeframe\":string or null,\"last_price\":number or null,\"indicators_visible\":[string],\"readable\":true|false,\"why_not\":string},"
+      + "\"desks\":[{\"lens\":string,\"bias\":\"bullish\"|\"bearish\"|\"neutral\",\"confidence\":0-100,\"headline\":string,\"checked\":[string]}] (one per checklist lens),"
+      + "\"verdict\":"+VERDICT_JSON+"}";
+    return callJSON(prompt, "complex").then(function(r){
+      if(!r || !r.verdict) throw {code:"invalid_json"};
+      run.facts = r.reader || {};
+      run.fastDesks = Array.isArray(r.desks) ? r.desks : [];
+      run.verdict = r.verdict;
+      setDeskState(d.id, "done", DIR_WORD[dirOf(r.verdict.direction)]+" · "+(num(r.verdict.confidence)||"?")+"%");
+    });
+  }
+  function runFull(run){
+    var reader = CHART_DESK[0];
+    setDeskState(reader.id, "thinking");
+    var readerPrompt = preamble(reader)
+      + "Your job is to read the chart precisely so the rest of the desk works from the same facts. Do not predict.\n"
+      + "Reply with only a JSON object: {\"readable\":true|false,\"why_not\":\"if not a readable price chart\",\"instrument\":string or null,\"timeframe\":string or null,\"chart_type\":\"candles|bars|line|heikin-ashi|other\",\"platform\":string or null,"
+      + "\"price_axis\":{\"low\":number,\"high\":number,\"scale\":\"linear|log|unknown\"},\"last_price\":number or null,\"visible_span\":\"e.g. about 3 sessions of 5-minute candles\","
+      + "\"indicators_visible\":[{\"name\":\"e.g. RSI(14)\",\"reading\":\"value and direction as shown\"}],\"drawings_visible\":[string],"
+      + "\"swings\":[{\"type\":\"high|low\",\"price\":number,\"where\":\"e.g. 12 candles ago\"}],\"recent_candles\":\"plain description of the last 10-20 candles\",\"volume\":\"description or not shown\",\"trend_summary\":\"one line\",\"uncertainties\":[string]}";
+    return callJSON(readerPrompt, "default").then(function(facts){
+      run.facts = facts || {};
+      if(facts && facts.readable===false){ setDeskState(reader.id, "done", "not a readable chart"); throw {code:"unreadable", message:facts.why_not||""}; }
+      var meta = [facts.instrument, facts.timeframe].filter(Boolean).join(" · ");
+      setDeskState(reader.id, "done", (meta ? meta+" · " : "")+"last "+fmtP(facts.last_price));
+      drawChartWall(run.img, null, meta || run.note || "new chart", "ANALYZING…");
+      var desks = CHART_DESK.filter(function(d){ return d.check; });
+      var factsText = compact(facts, 7000);
+      return pool(desks.map(function(d){
+        return function(){
+          setDeskState(d.id, "thinking");
+          var prompt = preamble(d)
+            + "The desk's chart reader extracted these facts (a starting point; check them against the image yourself):\n"+factsText+"\n\n"
+            + "Your checklist, item by item:\n"+d.check+"\n\n"
+            + "Reply with only a JSON object: "+DESK_JSON;
+          return callJSON(prompt, "default").then(function(r){
+            run.results[d.id] = r;
+            var b = biasOf(r && r.bias);
+            setDeskState(d.id, "done", b+" · "+(num(r && r.confidence)||"?")+"% · "+(r && r.headline || ""));
+            showBubble(d.id, BIAS_DOT[b], deskName(d), b.toUpperCase()+": "+(r && r.headline || ""), 20000);
+            return r;
+          }, function(e){
+            if(e && e.code==="cancelled") throw e;
+            setDeskState(d.id, "failed", sampleErrText(e));
+            if(e && (e.code==="rate_limited" || e.code==="not_granted" || e.code==="session_expired")){ run.ctl.abort(); throw e; }
+            return null;
+          });
+        };
+      }), 4);
+    }).then(function(){
+      if(run.ctl.signal.aborted) throw {code:"cancelled"};
+      var desks = CHART_DESK.filter(function(d){ return d.check && run.results[d.id]; });
+      if(desks.length < 3) throw {code:"too_few"};
+      var board = desks.map(function(d){ var r = run.results[d.id]; return {analyst:deskName(d), lens:d.lens, bias:r.bias, confidence:r.confidence, headline:r.headline, levels:r.levels, next_move:r.next_move, setup:r.setup}; });
+      run.board = board;
+      var qa = CHART_DESK[CHART_DESK.length-2];
+      setDeskState(qa.id, "thinking");
+      var qaPrompt = preamble(qa)
+        + "Chart reader's facts:\n"+compact(run.facts, 5000)+"\n\nThe desk's findings:\n"+compact(board, 20000)+"\n\n"
+        + "Check every price the desk quoted against the image; find misreads, contradictions between analysts, overconfidence, and what the bullish and the bearish cases each ignore.\n"
+        + "Reply with only a JSON object: {\"misreads\":[string],\"contradictions\":[string],\"bull_case_ignores\":string,\"bear_case_ignores\":string,\"adjusted_confidence\":0-100,\"warnings\":[string]}";
+      return callJSON(qaPrompt, "default").then(function(r){
+        run.qa = r || {};
+        setDeskState(qa.id, "done", ((r && r.warnings) || []).length+" warning"+(((r && r.warnings)||[]).length===1?"":"s")+" · adjusted "+(num(r && r.adjusted_confidence)||"?")+"%");
+        showBubble(qa.id, "s-requested", deskName(qa), (r && r.warnings && r.warnings[0]) || "No major problems found.", 20000);
+      }, function(e){ if(e && e.code==="cancelled") throw e; run.qa = null; setDeskState(qa.id, "failed", sampleErrText(e)); });
+    }).then(function(){
+      var fin = CHART_DESK[CHART_DESK.length-1];
+      setDeskState(fin.id, "thinking");
+      var finPrompt = preamble(fin)
+        + "Chart reader's facts:\n"+compact(run.facts, 5000)+"\n\nEach analyst's findings:\n"+compact(run.board, 22000)
+        + "\n\nDevil's advocate review:\n"+compact(run.qa || {note:"not available"}, 5000)+"\n\n"
+        + "Weigh the desk (don't just count votes: agreement across independent lenses matters more than one strong opinion, and the devil's advocate's valid points should lower confidence). Then make the call on the next direction and price.\n"
+        + "Reply with only a JSON object: "+VERDICT_JSON;
+      return callJSON(finPrompt, "complex").then(function(v){
+        run.verdict = v;
+        setDeskState(fin.id, "done", DIR_WORD[dirOf(v && v.direction)]+" · "+(num(v && v.confidence)||"?")+"%");
+        showBubble(fin.id, BIAS_DOT[biasOf(v && v.direction)], deskName(fin), "Call: "+DIR_WORD[dirOf(v && v.direction)]+" · target "+fmtP(v && v.next_price && v.next_price.target1), 30000);
+      });
+    });
+  }
+  function finishRun(run, err){
+    if(run !== chartRun) return;
+    restTimer = setTimeout(function(){ if(!chartRun) restDesk(); }, 180000);
+    cdStop.hidden = true;
+    chartRun = null;
+    updateGo();
+    if(err){
+      var code = err.code;
+      if(code==="cancelled") cdMsg.textContent = "Stopped.";
+      else if(code==="unreadable") cdMsg.textContent = "The reader couldn't find a readable price chart in that image"+(err.message ? ": "+err.message : ".");
+      else if(code==="too_few") cdMsg.textContent = "Too few analysts finished to make a fair call. Run it again.";
+      else cdMsg.textContent = sampleErrText(err);
+      showLatestOnWall(true);
+      return;
+    }
+    var v = run.verdict || {};
+    var meta = [run.facts && run.facts.instrument, run.facts && run.facts.timeframe].filter(Boolean).join(" · ");
+    drawChartWall(run.img, v, meta || run.note || "your chart", null);
+    var record = {
+      created:new Date().toISOString(), mode:run.mode, note:run.note,
+      instrument:(run.facts && run.facts.instrument) || null, timeframe:(run.facts && run.facts.timeframe) || null,
+      thumb:run.thumb, facts:run.facts || null,
+      desks: run.mode==="fast" ? (run.fastDesks||[]) : CHART_DESK.filter(function(d){ return d.check; }).map(function(d){ var r = run.results[d.id]; return r ? {agent:d.id, analyst:deskName(d), lens:d.lens, bias:r.bias, confidence:r.confidence, headline:r.headline, checked:r.checked, levels:r.levels, next_move:r.next_move, setup:r.setup} : {agent:d.id, analyst:deskName(d), lens:d.lens, failed:true}; }),
+      qa:run.qa || null, verdict:v, outcome:null
+    };
+    renderVerdict(document.getElementById("cdResult"), record, true);
+    try{ document.getElementById("cdResult").scrollIntoView({behavior:prefersReducedMotion ? "auto" : "smooth", block:"start"}); }catch(e){}
+    toast({dot:BIAS_DOT[biasOf(v.direction)], title:"Chart Desk call: "+DIR_WORD[dirOf(v.direction)]+(meta ? " on "+meta : ""), sub:"Target "+fmtP(v.next_price && v.next_price.target1)+" · invalid below/above "+fmtP(v.next_price && v.next_price.invalidation)});
+    if(dbRef){
+      dbRef.collection("chart_analyses").add(record).then(function(ref){ latestShownId = ref && ref.id; })
+        .catch(function(e){ cdMsg.textContent = "The call is shown below but couldn't be saved to history: "+writeError(e); });
+    }
+  }
+
+  // ---- rendering ----
+  function renderProgress(){
+    var box = document.getElementById("cdProgress");
+    if(!chartRun){ return; }
+    box.textContent = "";
+    var done = 0;
+    chartRun.members.forEach(function(d){ if(chartRun.states[d.id].state==="done") done++; });
+    box.appendChild(mk("div","section-label", "The desk · "+done+" of "+chartRun.members.length+" done"));
+    var grid = mk("div","cd-grid");
+    chartRun.members.forEach(function(d){
+      var st = chartRun.states[d.id];
+      var row = mk("div","cd-agent "+st.state);
+      var top = mk("div","cd-atop");
+      top.appendChild(mk("span","cd-dot"));
+      top.appendChild(mk("b", null, deskName(d)));
+      row.appendChild(top);
+      row.appendChild(mk("div","cd-lens", d.lens));
+      row.appendChild(mk("div","cd-say", st.state==="waiting" ? "waiting its turn" : st.state==="thinking" ? "reading the chart…" : st.text));
+      grid.appendChild(row);
+    });
+    box.appendChild(grid);
+  }
+  function probBar(p){
+    var up = num(p && p.up)||0, dn = num(p && p.down)||0, sw = num(p && p.sideways)||0, t = up+dn+sw || 1;
+    var bar = mk("div","cd-prob");
+    [["up",up],["sideways",sw],["down",dn]].forEach(function(s){ if(s[1] > 0){ var i = mk("i","p-"+s[0]); i.style.width = (s[1]/t*100)+"%"; bar.appendChild(i); } });
+    var lg = mk("div","cd-problg");
+    lg.appendChild(mk("span","p-up", "Up "+Math.round(up/t*100)+"%")); lg.appendChild(mk("span","p-sideways", "Sideways "+Math.round(sw/t*100)+"%")); lg.appendChild(mk("span","p-down", "Down "+Math.round(dn/t*100)+"%"));
+    var w = mk("div"); w.appendChild(bar); w.appendChild(lg);
+    return w;
+  }
+  function listBlock(title, items){
+    items = (items||[]).filter(Boolean);
+    if(!items.length) return null;
+    var w = mk("div","cd-block"); w.appendChild(mk("div","section-label", title));
+    var ul = mk("ul","cd-list"); items.forEach(function(t){ ul.appendChild(mk("li", null, String(t))); }); w.appendChild(ul);
+    return w;
+  }
+  function renderVerdict(box, rec, live){
+    box.textContent = "";
+    var v = rec.verdict || {}, d = dirOf(v.direction);
+    var hero = mk("div","cd-hero dir-"+d);
+    var left = mk("div");
+    left.appendChild(mk("div","cd-kicker", [rec.instrument, rec.timeframe].filter(Boolean).join(" · ") || "Your chart"));
+    left.appendChild(mk("div","cd-dir", DIR_WORD[d]));
+    left.appendChild(mk("div","cd-conf", (num(v.confidence)!=null ? Math.round(num(v.confidence))+"% confidence" : "")+(v.horizon ? " · "+v.horizon : "")));
+    hero.appendChild(left);
+    if(rec.thumb){ var im = mk("img","cd-thumb"); im.src = rec.thumb; im.alt = "The chart that was analyzed"; hero.appendChild(im); }
+    box.appendChild(hero);
+    box.appendChild(probBar(v.probabilities));
+    var np = v.next_price || {};
+    var stats = mk("div","stat-row");
+    stats.appendChild(stat("Price now", fmtP(v.current_price!=null ? v.current_price : rec.facts && rec.facts.last_price)));
+    stats.appendChild(stat("Target 1", fmtP(np.target1)));
+    stats.appendChild(stat("Target 2", fmtP(np.target2)));
+    stats.appendChild(stat("Proves it wrong", fmtP(np.invalidation)));
+    box.appendChild(stats);
+    if(v.summary) box.appendChild(mk("p","cd-summary", v.summary));
+    var pl = v.plan;
+    if(pl && (pl.idea || pl.entry!=null)){
+      var pb = mk("div","cd-plan");
+      pb.appendChild(mk("div","section-label","A trade idea the desk would consider"));
+      if(pl.idea) pb.appendChild(mk("div","cd-idea", pl.idea));
+      var pr = mk("div","cd-planrow");
+      [["Entry", pl.entry], ["Stop", pl.stop], ["Targets", (pl.targets||[]).map(fmtP).join(" / ") || "—"], ["Reward : risk", pl.reward_risk]].forEach(function(x){
+        var c = mk("div"); c.appendChild(mk("span","k", x[0])); c.appendChild(mk("b", null, typeof x[1]==="number" ? fmtP(x[1]) : (x[1]==null ? "—" : String(x[1])))); pr.appendChild(c);
+      });
+      pb.appendChild(pr);
+      if(pl.trigger) pb.appendChild(mk("div","cd-trigger", "Only if: "+pl.trigger));
+      box.appendChild(pb);
+    }
+    [["Why", v.reasons], ["What would flip this", v.flip_if ? [v.flip_if] : []], ["Risks", v.risks]].forEach(function(b){ var el = listBlock(b[0], b[1]); if(el) box.appendChild(el); });
+    var lv = (v.key_levels||[]).filter(function(l){ return num(l.price)!=null; }).sort(function(a,b){ return num(b.price)-num(a.price); });
+    if(lv.length){
+      var lb = mk("div","cd-block"); lb.appendChild(mk("div","section-label","Key levels, top to bottom"));
+      var cur = num(v.current_price!=null ? v.current_price : rec.facts && rec.facts.last_price), placed = false;
+      lv.forEach(function(l){
+        if(!placed && cur!=null && num(l.price) < cur){ lb.appendChild(mk("div","cd-level now", "— price now "+fmtP(cur)+" —")); placed = true; }
+        var r = mk("div","cd-level"); r.appendChild(mk("b", null, fmtP(l.price))); r.appendChild(mk("span","stage", String(l.kind||"level"))); r.appendChild(mk("span", null, l.note||"")); lb.appendChild(r);
+      });
+      if(!placed && cur!=null) lb.appendChild(mk("div","cd-level now", "— price now "+fmtP(cur)+" —"));
+      box.appendChild(lb);
+    }
+    if(rec.qa && ((rec.qa.warnings||[]).length || (rec.qa.misreads||[]).length)){
+      var qb = listBlock("Devil's advocate", (rec.qa.misreads||[]).concat(rec.qa.warnings||[]));
+      if(qb){ qb.classList.add("cd-qa"); box.appendChild(qb); }
+    }
+    if((rec.desks||[]).length){
+      var db = mk("div","cd-block"); db.appendChild(mk("div","section-label","Every analyst's read (tap one for their checklist)"));
+      rec.desks.forEach(function(dk){
+        var det = mk("details","cd-desk");
+        var sm = mk("summary");
+        var b = biasOf(dk.bias);
+        sm.appendChild(mk("span","cd-dot "+(dk.failed ? "s-idle" : BIAS_DOT[b])));
+        sm.appendChild(mk("b", null, (dk.analyst||dk.lens||"")));
+        sm.appendChild(mk("span","cd-lens", dk.analyst ? dk.lens : ""));
+        sm.appendChild(mk("span","cd-say", dk.failed ? "didn't finish" : b+" · "+(num(dk.confidence)||"?")+"% · "+(dk.headline||"")));
+        det.appendChild(sm);
+        var ul = mk("ul","cd-list"); (dk.checked||[]).forEach(function(t){ ul.appendChild(mk("li", null, String(t))); });
+        if(dk.setup && dk.setup.name) ul.appendChild(mk("li", null, "Setup: "+dk.setup.name+" · entry "+fmtP(dk.setup.entry)+", stop "+fmtP(dk.setup.stop)+", targets "+(dk.setup.targets||[]).map(fmtP).join(" / ")+(dk.setup.trigger ? " · only if "+dk.setup.trigger : "")));
+        det.appendChild(ul);
+        db.appendChild(det);
+      });
+      box.appendChild(db);
+    }
+    if(live){
+      var fu = mk("form","composer cd-follow");
+      var ta = mk("textarea"); ta.rows = 2; ta.placeholder = "Ask the desk a follow-up, e.g. \"what if it opens with a gap down?\"";
+      var fb = mk("button","btn-ink","Ask"); fb.type = "submit";
+      fu.appendChild(ta); fu.appendChild(fb);
+      var ans = mk("div","cd-answer");
+      fu.addEventListener("submit", function(e){
+        e.preventDefault();
+        var q = ta.value.trim(); if(!q || !sampleFn || !chartFile) return;
+        fb.disabled = true; ans.textContent = "Thinking…";
+        sampleFn("You are the Chief of Staff of the Edgex Chart Desk. You made this call on the attached chart:\n"+compact(rec.verdict, 6000)+"\n\n"+CHART_RULES+"\n\nThe owner asks: "+q+"\n\nAnswer in under 150 words, plainly, with prices where they help.",
+          {images:chartFile, cache:false, onText:function(u){ ans.textContent = u.text; }})
+          .catch(function(err){ ans.textContent = (err && err.text) || sampleErrText(err); })
+          .then(function(){ fb.disabled = false; });
+      });
+      box.appendChild(fu); box.appendChild(ans);
+      var again = mk("button","btn-line","Run the desk again, fresh"); again.type = "button";
+      again.addEventListener("click", function(){ runChartDesk(true); });
+      box.appendChild(again);
+    }
+    box.appendChild(mk("p","sheet-note", "A read of one picture by AI analysts, not financial advice. Prices are read off the chart and can be a tick or two off; indicators that aren't on the chart can't be read. Size any trade so being wrong is affordable."));
+  }
+
+  // ---- history & track record ----
+  function renderChartHistory(){
+    var box = document.getElementById("chartHistory");
+    box.textContent = "";
+    var docs = docsOf("charts").filter(function(r){ return r.d && r.d.verdict; }).sort(function(a,b){ return timeOf(b.d.created)-timeOf(a.d.created); });
+    var marked = docs.filter(function(r){ return r.d.outcome && (r.d.outcome.result==="target" || r.d.outcome.result==="invalidation"); });
+    var hits = marked.filter(function(r){ return r.d.outcome.result==="target"; }).length;
+    var stats = mk("div","stat-row");
+    stats.appendChild(stat("Charts read", String(docs.length)));
+    stats.appendChild(stat("Scored", String(marked.length), "you marked how it played out"));
+    stats.appendChild(stat("Hit target first", marked.length ? Math.round(hits/marked.length*100)+"%" : "—", marked.length ? hits+" of "+marked.length : "mark a few to see this"));
+    box.appendChild(stats);
+    box.appendChild(mk("p","sheet-note","Come back after the move and mark each call. The hit rate only means something after 20 or more scored charts."));
+    if(!docs.length){ box.appendChild(mk("div","sheet-note","No charts yet. Drop one on the Analyze tab.")); return; }
+    docs.forEach(function(r){
+      var d = r.d, v = d.verdict || {}, dir = dirOf(v.direction), np = v.next_price || {};
+      var card = mk("details","cd-hist");
+      var sm = mk("summary");
+      if(d.thumb){ var im = mk("img","cd-hthumb"); im.src = d.thumb; im.alt = ""; sm.appendChild(im); }
+      var t = mk("div","cd-htxt");
+      t.appendChild(mk("b", null, ([d.instrument, d.timeframe].filter(Boolean).join(" · ") || "Chart")+" · "+DIR_WORD[dir]+" "+(num(v.confidence)!=null ? Math.round(num(v.confidence))+"%" : "")));
+      t.appendChild(mk("span", null, "T1 "+fmtP(np.target1)+" · wrong past "+fmtP(np.invalidation)+" · "+agoText(timeOf(d.created))+(d.mode==="fast" ? " · fast read" : "")));
+      var res = d.outcome && d.outcome.result;
+      t.appendChild(mk("span","stage "+(res==="target" ? "moving" : res==="invalidation" ? "held" : ""), res==="target" ? "hit target" : res==="invalidation" ? "proved wrong" : res==="neither" ? "neither yet" : "not scored"));
+      sm.appendChild(t);
+      card.appendChild(sm);
+      var body = mk("div","cd-hbody");
+      var acts = mk("div","oa-actions"), msg = mk("div","form-msg"), btns = [];
+      [["target","Hit target first"],["invalidation","Proved wrong first"],["neither","Neither yet"]].forEach(function(o){
+        var b = mk("button", res===o[0] ? "btn-ink" : "btn-line", o[1]); b.type = "button"; btns.push(b);
+        b.addEventListener("click", function(){
+          btns.forEach(function(x){ x.disabled = true; });
+          dbRef.doc("chart_analyses/"+r.id).update({outcome:{result:o[0], marked_at:new Date().toISOString()}})
+            .catch(function(e){ msg.textContent = writeError(e); btns.forEach(function(x){ x.disabled = false; }); });
+        });
+        acts.appendChild(b);
+      });
+      body.appendChild(acts); body.appendChild(msg);
+      var full = mk("div");
+      body.appendChild(full);
+      card.addEventListener("toggle", function(){ if(card.open && !full.childNodes.length) renderVerdict(full, d, false); });
+      card.appendChild(body);
+      box.appendChild(card);
+    });
+  }
+  function renderChart(){
+    document.getElementById("chartAnalyze").hidden = chartTab!=="analyze";
+    document.getElementById("chartHistory").hidden = chartTab!=="history";
+    if(chartTab==="history") renderChartHistory();
+    else renderProgress();
+  }
+  function chartDataChanged(){
+    if(openSheetId==="chartOverlay" && chartTab==="history") renderChartHistory();
+    if(!chartRun) showLatestOnWall(false);
+  }
+  restDesk();
+
   // ---------------- main loop ----------------
   var clock = new THREE.Clock();
   var elapsed = 0;
@@ -3440,7 +4155,7 @@
     if(!prefersReducedMotion){
       people.forEach(function(p){
         if(p.agentId && AGENT_GROUPS[p.agentId] && AGENT_GROUPS[p.agentId].walk) return; // the walk system poses walkers
-        var v = p.agentId ? vstate(p.agentId) : "idle";
+        var v = p.agentId ? (POSE_OVERRIDE[p.agentId] || vstate(p.agentId)) : "idle";
         var sway = v==="working" ? 0.02 : v==="blocked" ? 0.03 : 0.08;
         p.group.position.y = 0;
         p.group.rotation.y = p.baseRotY + Math.sin(elapsed*0.5+p.phase)*sway;
@@ -3463,7 +4178,7 @@
     }
 
     if(prefersReducedMotion){
-      people.forEach(function(p){ if(p.parts) animatePerson(p.parts, p.group, "sit", p.agentId ? vstate(p.agentId) : "idle", 0, 1, "desk"); });
+      people.forEach(function(p){ if(p.parts) animatePerson(p.parts, p.group, "sit", p.agentId ? (POSE_OVERRIDE[p.agentId] || vstate(p.agentId)) : "idle", 0, 1, "desk"); });
     }
     officeFrame(dt);
 

@@ -118,6 +118,11 @@ Studio Floor shows them as a "Waiting on you" list. Before adding one,
 check there isn't already an open doc for the same thing — never
 re-escalate the same blocker every shift.
 
+**The Chart Desk is owner-run, not shift work.** Its 19 agents (see
+`CHART-DESK.md`) only work when the owner drops a chart into the Studio
+Floor. Shifts never create `agents` docs for them, never assign them
+tasks, and never read or write `chart_analyses`.
+
 ## Opportunities never get lost
 
 A dedicated **`opportunities`** collection (separate from any one agent's

@@ -80,6 +80,8 @@ from the office database as the shifts write to it:
   breaks. Lighting and the view out the windows follow the viewer's
   local time; a wall clock and a live studio board (earned, waiting on
   you, working now, next shift, latest update) hang on the north wall.
+  **Chart Desk** opens a 19-analyst room that reads a chart screenshot
+  and calls the next direction and price (see `CHART-DESK.md`).
   **Tour** flies the camera through the rooms with the freshest real work;
   **Sound** adds room tone and typing that scales with how many agents are
   working.
