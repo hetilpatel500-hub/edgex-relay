@@ -3,6 +3,8 @@
 Everything here is ready to upload. Work top to bottom: shop setup first, then the six listings.
 Prepared 2026-09-25 by the Edgex crew (market research, trend scout, design, copy, SEO).
 
+> **Last Touch review, 2026-09-25:** Listings 4, 5 and 6 (printables) are cleared to upload. Listings 2 and 3 are cleared once their fixes are done and each .xlsx has passed the Google Sheets check at the bottom of this file. **Listing 1 (Freelancer tracker) is on hold. Do not upload it yet:** its yearly tax set-aside figure does not match the profit shown beside it when any month is a loss, so it needs a rebuild first.
+
 **What it costs you to list:** 6 listings x $0.20 = **$1.20**.
 Also expect: a one-time shop setup fee that Etsy charges most new shops (reported as $15 to $29, varies by country; Etsy shows the exact amount before you confirm), and per sale 6.5% transaction fee + payment processing (US: 3% + $0.25). Each sale also re-lists the item for another $0.20.
 
@@ -19,8 +21,8 @@ You do these steps yourself: identity, bank and card cannot be done by agents.
    3. `EdgexPlanners`
 
    A web search found no existing Etsy shop with these names, but only Etsy's name box can confirm. Pick the first one it accepts.
-3. **Stock your shop:** add Listing 1 below (Etsy makes you add one listing before opening). Add the rest after the shop is open.
-4. **How you'll get paid:** choose **Individual / sole owner** unless you have a registered business. Note: if you register as a *business* and sell to the EU, Etsy shows EU buyers your trader name and location (EU Digital Services Act). Individual sellers are not shown that way. This matters for keeping the owner anonymous.
+3. **Stock your shop:** add Listing 4 below (Etsy makes you add one listing before opening; Listing 1 is on hold). Add the rest after the shop is open.
+4. **How you'll get paid:** choose the seller type that is actually true for you: **Individual / sole owner** if you have no registered business, **Business** if you do. Etsy also asks separately whether you are a **trader** under EU law (broadly, selling regularly to make a profit). Answer that one honestly too. Traders' name, location and contact details are shown to EU buyers (EU Digital Services Act), and an individual can still be a trader. Do not pick either answer just to stay anonymous; if you are unsure, check with a local adviser. Etsy itself always holds your real identity for payouts and tax.
 5. **Billing:** add a card for Etsy fees. **Security:** turn on 2-step sign-in. Then **Open your shop**.
 
 ### Shop settings (Shop Manager > Settings > Info & appearance)
@@ -42,7 +44,7 @@ Tools that make the busy parts of life calmer
 
 **About > Story:**
 ```
-Edgex is a small studio that makes practical templates: spreadsheets that do the maths for you and printable planners that keep the important stuff in one place.
+Edgex is a small studio that makes practical templates: spreadsheets that do the math for you and printable planners that keep the important stuff in one place.
 
 We build every file ourselves, with the help of AI tools, and test it before it goes in the shop. Spreadsheets are checked with sample data so the formulas add up, and printables come in both US Letter and A4.
 
@@ -66,7 +68,7 @@ Because files can't be returned once downloaded, we don't offer refunds for chan
 Software
 Spreadsheets need Microsoft Excel or Google Sheets (free with a Google account). Printables are PDFs you can print at home or use in a PDF note-taking app. Software is not included.
 
-Licence
+License
 For personal use. Please don't share, resell or redistribute the files.
 
 Help
@@ -85,8 +87,8 @@ Same steps for each listing:
 2. **Title, description, tags, price:** paste from below.
 3. **Category:** type "planner templates" and choose **Paper & Party Supplies > Paper > Stationery > Design & Templates > Templates > Planner Templates**. (Confirmed as a live Etsy category; if Etsy suggests a closer one, take it.)
 4. **Type:** Digital files. **Quantity:** leave Etsy's default. **Renewal:** automatic.
-5. **About this listing:** Who made it? **I did**. What is it? **A finished product**. When was it made? **Made to order** or the current year range.
-6. **AI disclosure:** Etsy's Seller Policy (effective 9 July 2026, per multiple 2026 seller guides) requires disclosing items made with AI. Every description below already opens with a disclosure line. If the form shows a "Designed by" option or an AI checkbox, select it.
+5. **About this listing:** Who made it? **I did**. What is it? **A finished product**. When was it made? Pick the current year range (e.g. **2020 - 2026**). Not "Made to order": the files already exist.
+6. **AI disclosure:** Etsy's Seller Policy (effective 9 July 2026, per multiple 2026 seller guides) requires disclosing items made with AI. Every description below already opens with a disclosure line. If the form shows a "Designed by" option or an AI checkbox, select it. If it asks whether the listing photos were made with generative AI, answer no: they are rendered from the real files, not AI-generated.
 7. **Digital files:** upload the files listed (max 5 files, 20 MB each; ours are all under 1 MB).
 8. **Personalization:** off. **Shipping:** none (digital).
 
@@ -112,7 +114,7 @@ freelancer tracker, self employed taxes, income tracker, expense tracker, 1099 t
 ```
 Made with AI assistance: this template was designed and built by our studio with the help of AI tools, and every formula was tested with sample data before listing.
 
-Know your real profit and how much to set aside for tax, without an accountant's software. Log what comes in and what goes out, and this spreadsheet does the maths.
+Know your real profit and how much to set aside for tax, without an accountant's software. Log what comes in and what goes out, and this spreadsheet does the math.
 
 INSTANT DIGITAL DOWNLOAD. Nothing will be shipped.
 
@@ -216,7 +218,7 @@ debt payoff tracker, debt snowball, debt avalanche, debt free planner, debt spre
 
 **Description:**
 ```
-Made with AI assistance: this template was designed and built by our studio with the help of AI tools, and its payoff maths was checked against an independent calculation before listing.
+Made with AI assistance: this template was designed and built by our studio with the help of AI tools, and its payoff math was checked against an independent calculation before listing.
 
 Snowball or avalanche? Type in your debts once and see your debt-free date, total interest and payoff order for both methods, side by side with paying only the minimums.
 
@@ -226,7 +228,7 @@ WHAT'S INSIDE (7 tabs)
 - My Debts: up to 10 debts (balance, APR, minimum), your start month and extra payment, and a dropdown to pick your method
 - Compare: debt-free date, months, total interest, total paid and interest saved vs minimums, plus the payoff order and date for every debt and a chart of your balance over time
 - Snowball, Avalanche and Minimum Only schedules: month by month for up to 25 years, with freed-up payments rolled into the next debt
-- Progress Log: note what you owe each month and watch the progress bar grow
+- Progress Log: note what you owe each month and see what % you have paid off
 - Start Here: simple setup steps
 
 WHAT YOU GET
@@ -455,7 +457,7 @@ Etsy's own pages could not be opened directly from our environment, so the rules
 
 ## Before you click publish (5-minute check)
 
-- [ ] Open each .xlsx once in Google Sheets (upload to Drive, open with Sheets). We tested every formula in LibreOffice and against independent calculations, but could not open Google Sheets from our environment. Conditional-format data bars may not show in Sheets; that is cosmetic.
+- [ ] **Required before listing any spreadsheet:** open each .xlsx in Google Sheets (upload to Drive, open with Sheets). Last Touch checked every formula against Google Sheets' function list (all 21 functions the formulas use are supported; no tables, macros, named ranges or dynamic arrays), but nobody has opened the files in Sheets yet, and the listings promise it works. In each file: type one test entry, check the Dashboard or Compare totals update, the dropdowns work and the chart shows. Conditional-format data bars do not carry over to Sheets; that is cosmetic. If anything else breaks, don't list that file and message the crew.
 - [ ] Open each PDF once and print one page to check sizing.
 - [ ] Confirm the shop name is accepted and the setup fee amount.
 
