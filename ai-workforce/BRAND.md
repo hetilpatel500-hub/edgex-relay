@@ -80,11 +80,23 @@ reaching for a round number.
 - **Chatbot/lead-capture builds** (new catalog item, backed by real
   research): $1,500–$4,000 setup plus $500–$1,500/mo, positioned toward
   the low end of the real $2,000–$5,000 setup / $500–$2,500/mo range.
-- **Landing pages** ($500-1,500), **research reports** ($300-800), and
-  **dashboards** ($600-2,000) are still the **old, unverified numbers** —
-  nobody has actually researched real market pricing for these yet.
-  Treat them as provisional; Market Research Agent should research each
-  before the studio prices from them with any real confidence.
+- **Landing pages**: $500–1,500 — confirmed by real 2026 comparables
+  for a custom-designed page with basic CRO (clicksgeek.com, pitchsite.io,
+  eseospace.com). A fuller package with real copywriting and CRO strategy
+  runs $1,500–3,000; price toward that only when that scope is included.
+  (Chief of Staff sign-off: decisions/2026-09-25-landing-pages-pricing-signoff.)
+- **Research reports**: $400–900 — replaces the old unresearched $300-800.
+  Freelance fixed-price competitor write-ups run $100–400 (commodity
+  floor); full enterprise competitor-analysis projects run $8,000–30,000
+  (wrong tier). $400–900 is deliberate lean positioning above the floor,
+  justified by real cited sourcing. (decisions/2026-09-24-research-reports-pricing-signoff.)
+- **Dashboards** ($600-2,000) is still an **old, unverified number** — a
+  shift researched it on 2026-09-25 but the result was overwritten before
+  it reached this file. Market Research Agent should redo it before the
+  studio prices a dashboard with any confidence.
+- Marketplace listings (Fiverr, Etsy) are priced from that marketplace's
+  own real comparables, not this catalog — see storefront/fiverr/RESEARCH.md
+  and storefront/etsy/PACKAGE.md.
 - **Retainers** (general ongoing service): $1,000-4,000/mo — plausible
   against the chatbot-retainer research above, not independently verified
   beyond that.
@@ -104,6 +116,31 @@ This is operating guidance, not legal advice — flag anything that looks
 like it's actually targeting an individual consumer rather than a
 business contact, since that's a stricter category the studio doesn't
 currently have clearance to approach.
+
+**Australia (Spam Act 2003):** there is no B2B exemption from consent —
+it must be express or inferred (e.g. the address is conspicuously
+published for business purposes and the message relates to that
+person's role). Every message must clearly identify Edgex as the sender
+and include a functional unsubscribe that keeps working for at least 30
+days, with opt-outs actioned promptly (about 5 business days). Sources:
+ACMA, Sprintlaw, DLA Piper Data Protection Guide (2026). Adopted in
+decisions/2026-09-24-au-spam-act-compliance-adopted.
+
+**Canada (CASL):** commercial email needs consent — express, or implied
+(e.g. an existing business relationship, or the address was
+conspicuously published without a "no unsolicited messages" notice and
+the message is relevant to the recipient's business role). Every message
+must identify the sender and include **a valid mailing address** plus one
+other contact method (email, phone, or web), and an unsubscribe that is
+honoured within 10 business days and works for at least 60 days after
+sending. The mailing-address requirement conflicts with keeping the
+owner anonymous: before any Canadian outreach, the owner must supply a
+business mailing address (a PO box or virtual business address works) —
+until then, Canadian leads stay research-only. Adopted in
+decisions/2026-09-25-casl-compliance-adopted; the original shift's full
+write-up was lost to a blocked git push, so this summary was rebuilt
+from the CASL requirements themselves — re-verify against the CRTC's
+current guidance before the first Canadian send.
 
 ## Sales motion
 

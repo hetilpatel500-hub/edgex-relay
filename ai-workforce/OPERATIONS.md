@@ -47,6 +47,40 @@ real external input (Client/Lead Researcher blocked on a target city was a
 legitimate `blocked`, not `idle`). It *is* a problem when an agent sits
 untouched simply because nobody re-assigned it.
 
+## Shift mechanics — added 2026-09-25
+
+Two rules every shift follows, because both broke silently before:
+
+**Use the real clock.** Before writing any `updatedAt`, `timestamp`, or
+`created` field, get the actual time with `date -u +%FT%TZ` in the shell
+and use that. Never estimate or invent a time. Shifts were stamping
+records with times hours in the future, which breaks "oldest first"
+rotation and makes the office dashboard lie about what happened when.
+
+**Hourly shifts cannot push to git — don't try.** The shift sessions
+don't have this repo in their authorized sources, so every `git push`
+fails (403), and any file edit made in a shift is lost when its container
+ends. Past shifts wrote real content (compliance rules, pricing sign-offs)
+that never reached the repo. Instead, when a shift needs a repo file
+changed, it writes one doc per change to the `repo_changes` collection:
+
+```
+{ file: "ai-workforce/BRAND.md",
+  op: "replace" | "append" | "create",
+  old_str: "<exact existing text, for replace>",
+  new_str: "<new text>",
+  reason: "<one line>",
+  decision_ref: "<decisions doc id, if any>",
+  status: "pending",
+  created: <real time> }
+```
+
+The daily check-in (it runs in the owner's connected session, which can
+push) applies every `pending` change, commits, pushes, and marks each doc
+`applied` (with the commit hash) or `rejected` (with why). Until a change
+shows `applied`, treat the `decisions` doc as the operative record and
+never describe the file as already updated.
+
 ## Opportunities never get lost
 
 A dedicated **`opportunities`** collection (separate from any one agent's
