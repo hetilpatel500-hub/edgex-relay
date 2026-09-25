@@ -343,6 +343,8 @@ def build(path, sample=False):
     if sample:
         for _n, _a in {'Start Here': 'A1:D24', 'Dashboard': 'A1:M30', 'Setup': 'A1:G37', 'Income': 'A1:H32', 'Expenses': 'A1:I32', 'Invoices': 'A1:J16', 'Monthly & Tax': 'A1:J30', 'Breakdown': 'A1:J27'}.items():
             wb[_n].print_area = _a
+            wb[_n].page_setup.fitToHeight = 1
+            wb[_n].page_setup.fitToWidth = 1
     wb.active = 0
     wb.save(path)
     print(path)
