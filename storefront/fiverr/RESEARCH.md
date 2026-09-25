@@ -58,10 +58,11 @@ Re-check anything marked "unconfirmed" on the live Fiverr screens.
   be a fabricated person (BRAND.md) and misrepresentation (Fiverr).
 
 ### Gig limits
-- **Active gigs for a new seller: 4** per Fiverr Help Center search
-  snippet ("up to 4 active gigs, Level 1 & 2 up to 10, Top Rated up to
-  30"). Third-party blogs still say 7. Plan for 4: that's why this
-  package has exactly 4 gigs.
+- **Active gigs for a new seller: sources disagree.** Most 2026 guides
+  (and the Last Touch reviewer's check) say 7. One Fiverr Help Center
+  search snippet said "up to 4 active gigs, Level 1 & 2 up to 10, Top
+  Rated up to 30". Starting with 4 fits under either number; the owner
+  should check the real limit on the Gigs page after signup.
   Sources: [Managing your Gigs](https://help.fiverr.com/hc/en-us/articles/360011028318-Managing-your-Gigs), vs. [Fiverr Tutorials seller levels](https://fiverrtutorials.com/fiverr-seller-levels) (says 7)
 - Title: max 80 characters; only ~50-60 show on the search card.
 - Description: max 1,200 characters.
@@ -103,15 +104,16 @@ Re-check anything marked "unconfirmed" on the live Fiverr screens.
 
 ## 2. Gig choice
 
-Picked 4 (the new-seller cap). All four are deliverable end-to-end with
-tools the studio actually has: writing, WebSearch, Gamma (decks, PDF and
-PPTX export), Canva (images, report layout).
+Picked 4 (a safe start under either reported new-seller limit). All
+four are deliverable end-to-end with tools the studio actually has:
+writing, WebSearch, python-pptx (decks, see `tools/build_deck.py`),
+python-docx (Word files, `tools/md_to_docx.py`), LibreOffice (PDF).
 
 | Gig | Tool path | Why it's safe to deliver |
 |---|---|---|
 | Product descriptions | Copywriter + SEO Agent, text | Pure writing; buyer supplies product facts |
 | Landing page copy | Copywriter + SEO Agent, text | Pure writing; copy only, no build |
-| Pitch deck | Copywriter + Gamma (PPTX/PDF) | Gamma generates and exports decks |
+| Pitch deck | Copywriter + `tools/build_deck.py` (PPTX, then PDF) | Clean editable PowerPoint, no watermark, no paid tool |
 | Market/competitor research | Market Research + Competitor Analysis, WebSearch, PDF | Desk research with cited public sources |
 
 Skipped: anything video (vidIQ credits exhausted), LinkedIn ghostwriting
@@ -155,11 +157,14 @@ All prices below are what real Fiverr sellers list, found via search on
 - **Our price:** $70 / $140 / $220. Basic in line with the $70-$110
   cluster; Premium inside the $200-250 category norm because it includes
   writing plus researched market and competitor slides.
-- **Tool limit that shaped the packages:** the studio's Gamma workspace
-  is on the free plan: max **10 cards per generated deck** and 400
-  credits, of which the demo deck used 60 (340 left, about 5 more decks).
-  So no package promises more than 10 slides. Upgrading Gamma is a
-  budget item for the weekly meeting once orders justify it.
+- **Why decks are not built in Gamma:** the studio's Gamma workspace
+  is on the free plan (10 cards per deck, 340 credits left), and free
+  exports carry a "Made with Gamma" watermark, which breaks the "clean
+  design" promise. Upgrading is a spend that needs the owner's budget
+  approval. So decks are built with python-pptx instead
+  (`tools/build_deck.py`): no watermark, native editable charts, the
+  buyer's colors, and no slide cap. Packages still say 8-10 slides to
+  keep the price and scope sane.
 
 ### Market / competitor research
 - Fiverr cost guide: basic packages $43-$100, standard $100-$200.

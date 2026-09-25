@@ -11,6 +11,7 @@ Other files:
 - `FULFILLMENT.md`: what to do when an order comes in.
 - `images/`: gig images (1280 x 769) and the profile logo.
 - `samples/`: demo work for each gig's gallery, all labeled as demos.
+- `tools/`: the deck and Word-file builders agents use on real orders.
 
 ---
 
@@ -34,8 +35,12 @@ Other files:
    links in messages. Agents draft replies; you paste them.
 
 Money facts: Fiverr keeps 20% of each order. Your share clears 14 days
-after the order completes, then you can withdraw. New sellers can have 4
-active gigs, which is why there are exactly 4 here.
+after the order completes, then you can withdraw.
+
+Gig limit: sources disagree. Most 2026 guides say new sellers get 7
+active gigs; one Fiverr Help Center snippet said 4. Starting with 4 fits
+under either number and keeps the workload manageable. Check your own
+limit in Fiverr after signup (Gigs page) before adding more.
 
 ---
 
@@ -185,7 +190,7 @@ products, SEO keywords, etc.).
 ```
 **Premium description** (max 100)
 ```text
-25 descriptions with bullets, SEO titles and metas. Amazon format (title + 5 bullets) on request.
+25 product descriptions with bullets, plus an SEO title and meta description for each.
 ```
 
 Extras: skip for now.
@@ -200,11 +205,11 @@ HOW WE WORK
 Edgex uses AI tools to research and draft. Then every description is edited and checked by a person against your brief and product facts. Nothing is reused between clients.
 
 WHAT YOU GET PER PRODUCT
-- A benefit-led description (100 to 200 words)
+- A benefit-led description (up to 150 words)
 - Scannable bullet points for key features
 - A target keyword used naturally
 - SEO title and meta description (Standard and Premium)
-- Amazon format on request: title, 5 bullets, backend search terms
+- Amazon format on any package: title, 5 bullets, backend search terms
 
 WHAT WE NEED FROM YOU
 - Product links, photos or spec sheets
@@ -296,7 +301,8 @@ We use AI tools for research and drafts, and a person reviews everything before 
 
 - Image 1: `images/gig1-product-descriptions.png`
 - PDF: `samples/gig1-product-descriptions-DEMO.pdf` (labeled as a demo
-  for a made-up brand).
+  for a made-up brand). A Word version of the same demo is in
+  `samples/gig1-product-descriptions-DEMO.docx` (buyers get Word files).
 
 Publish.
 
@@ -365,11 +371,12 @@ Edgex uses AI tools for research and first drafts. A person then edits the copy 
 
 WHAT YOU GET
 - A headline and subhead that say what you do and who it's for
-- Benefit-led sections: problem, solution, how it works, proof, FAQ
+- Benefit-led sections: problem, solution, how it works, proof
 - Clear calls to action
 - Headline options to test (Standard and Premium)
 - Meta title and description (Standard and Premium)
 - A quick read of 3 competitor pages so your page stands apart (Standard and Premium)
+- An FAQ section and 3 follow-up emails (Premium)
 
 WHAT WE NEED FROM YOU
 - What you sell, who buys it and the one action you want
@@ -516,12 +523,12 @@ Up to 10 slides. We write the slide copy from your notes, then design it. PDF an
 Investors skim. Your deck needs a clear story they can follow in three minutes. We shape the story, write tight slide copy, and design it cleanly.
 
 HOW WE WORK
-Edgex uses AI tools, including an AI deck builder, to research, draft and lay out slides. A person then checks every slide against your brief before delivery.
+Edgex uses AI tools to research and draft. Slides are built as clean, fully editable PowerPoint files in your brand colors, with native charts you can update. A person checks every slide against your brief before delivery.
 
 WHAT YOU GET
 - Classic investor flow: problem, solution, market, business model, traction, competition, team, ask
-- Clean, consistent design
-- PDF and editable PowerPoint files
+- Clean, consistent design with no third-party watermarks
+- Editable PowerPoint file plus a PDF
 - Slide copy written from your notes (Standard and Premium)
 - Market size and competitor slides with linked public sources (Premium)
 - Speaker notes and a 1-page summary (Premium)
@@ -543,7 +550,7 @@ Do you use AI to make the deck?
 ```
 Answer (max 300)
 ```text
-Yes. We use AI tools to research, draft and lay out slides, then a person checks every slide against your brief before delivery. If you need AI-free work, tell us before ordering and we'll say honestly that this gig isn't the right fit.
+Yes. We use AI tools to research and draft the slides, then a person checks every slide against your brief before delivery. If you need AI-free work, tell us before ordering and we'll say honestly that this gig isn't the right fit.
 ```
 
 **FAQ 2** Question (max 70)
@@ -552,7 +559,7 @@ Can I edit the deck afterwards?
 ```
 Answer (max 300)
 ```text
-Yes. You get an editable PowerPoint file plus a PDF. PowerPoint files open in Google Slides and Keynote too, though some fonts may shift.
+Yes. You get an editable PowerPoint file plus a PDF. Text, colors and charts are all editable. It opens in Google Slides and Keynote too, though some fonts may shift.
 ```
 
 **FAQ 3** Question (max 70)
@@ -612,10 +619,9 @@ We use AI tools for research, drafts and layout, and a person reviews everything
 ### Gallery screen
 
 - Image 1: `images/gig3-pitch-deck.png`
-- PDF: the Hearthloop demo deck. Agents couldn't download it (network
-  policy), so: open https://gamma.app/docs/i001pc4nq7l92cd , check that
-  slides 1 and 10 say "DEMO SAMPLE", then Export > PDF and upload that.
-  Details in `samples/gig3-pitch-deck-DEMO.md`.
+- PDF: `samples/gig3-pitch-deck-DEMO-hearthloop.pdf` (9-slide demo
+  for a made-up company; every slide footer says "DEMO SAMPLE"). Built
+  with the same no-watermark PowerPoint builder used for real orders.
 
 Publish.
 

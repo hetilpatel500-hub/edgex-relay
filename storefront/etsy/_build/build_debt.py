@@ -85,7 +85,7 @@ def debts_sheet(wb, sample):
     K.label(ws.cell(row=t + 1, column=2), "Monthly debt budget", color=INK)
     ws.cell(row=t + 1, column=5, value="=E{t}+C7".format(t=t))
     K.body(ws.cell(row=t + 1, column=5), MONEY, bold=True, band=True)
-    K.note(ws, "F%d" % (t + 1), "Minimums + extra. Keep paying this every month.")
+    K.note(ws, "F%d" % (t + 1), "Minimums + extra, every month.")
 
     # plan summary
     s = t + 3

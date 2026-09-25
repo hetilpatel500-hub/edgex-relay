@@ -1,35 +1,39 @@
 # DEMO SAMPLE: Pitch deck (Hearthloop, fictional)
 
 > **Portfolio sample. Not client work.** "Hearthloop" is a fictional
-> startup made up by Edgex. Every number in the deck is a labeled
-> placeholder, not real data. Built with Gamma (AI-assisted) from the
-> slide text below, then reviewed.
+> startup made up by Edgex. Market, traction, team and ask figures are
+> labeled placeholders. The competitor rows use real public prices found
+> 2026-09-25 (see `gig4-market-research-DEMO.md`). Written with AI
+> assistance and reviewed.
 
-**Live deck (Gamma):** https://gamma.app/docs/i001pc4nq7l92cd
-**PDF export (link expires about 2026-10-02):**
-https://assets.api.gamma.app/export/pdf/i001pc4nq7l92cd/b4e24b18b220022f7b1cf133c3b1f506/DEMO-SAMPLE-Hearthloop-pitch-deck-fictional.pdf
+Files:
+- `gig3-pitch-deck-DEMO-hearthloop.pptx`: the editable deck (9 slides).
+- `gig3-pitch-deck-DEMO-hearthloop.pdf`: PDF copy. Upload this to the
+  pitch deck gig's gallery.
+- `gig3-hearthloop-spec.json`: the slide content the deck was built from.
 
-The agent session could not download the PDF into the repo (the
-download host is blocked by this environment's network policy). Owner:
-open the Gamma link, check it, then use Gamma's Export > PDF and save it
-here as `gig3-pitch-deck-DEMO-hearthloop.pdf`. Upload that PDF to the
-pitch deck gig's gallery (Fiverr allows 2 PDFs per gig).
+How it was built (same as real orders):
 
-Before uploading, check slide 1 and slide 10 both show "DEMO SAMPLE" and
-"fictional". If Gamma dropped that text, add it back in the Gamma editor.
+```
+python3 ../tools/build_deck.py gig3-hearthloop-spec.json gig3-pitch-deck-DEMO-hearthloop.pptx
+soffice --headless --convert-to pdf gig3-pitch-deck-DEMO-hearthloop.pptx
+```
 
-## Slide outline (10 slides, the Gamma free-plan maximum per deck)
+No watermark, no paid tool. Charts are native PowerPoint charts, so the
+buyer can edit the numbers (right-click > Edit Data). Every slide footer
+says "DEMO SAMPLE, fictional company".
 
-1. **Hearthloop (DEMO SAMPLE)**: refill-at-home cleaning for small apartments. Fictional-company note.
-2. **The problem**: bulky single-use bottles; no storage space; refill shops need a trip.
-3. **Our solution**: glass bottles for life; letterbox-sized concentrate pouches; how it works in 3 steps.
-4. **Who it's for**: renters 25-40 in dense cities (placeholder for client research).
-5. **Market (placeholder)**: TAM/SAM/SOM layout; real orders use cited public sources.
-6. **Business model**: starter kit + refill subscription; client supplies real pricing.
-7. **Traction (placeholder)**: chart layout only.
-8. **Competition**: big brands, local refill shops, refill subscriptions; Hearthloop's angle.
-9. **Team (placeholder)**: client supplies names and roles.
-10. **The ask**: amount and use of funds (client supplies); demo note repeated.
+## Slides
 
-Real competitor facts for slide 8 in a real order come from a snapshot
-like `gig4-market-research-DEMO.md`.
+1. **Hearthloop**: title, one-line pitch, demo note.
+2. **The problem**: bulky single-use bottles; no storage; refill shops need a trip.
+3. **Our solution**: today vs. with Hearthloop.
+4. **How it works**: 3 steps.
+5. **Market (placeholder)**: TAM / SAM / SOM layout; real orders cite sources.
+6. **Traction (placeholder)**: editable bar chart, demo numbers.
+7. **Competition**: table with real, cited competitor prices plus the demo company.
+8. **Team (placeholder)**: three cards.
+9. **The ask**: amount placeholder and use-of-funds bars.
+
+An earlier version was made in Gamma (https://gamma.app/docs/i001pc4nq7l92cd).
+It is not used: free Gamma exports carry a "Made with Gamma" watermark.
