@@ -173,6 +173,25 @@ tone/copyright/policy/defamation, never "does this file exist." See
 0-credit `vidiq_jobs_list`/`vidiq_job_poll` access specifically to check
 this itself, not take Video Editor Agent's word for it).
 
+## Owner directive, 2026-09-25: make the videos and email them
+
+The owner said the Instagram and YouTube agents were "just doing nothing"
+(vidIQ has no connected accounts to post to, and credits run out before
+Oct 24). New standing order: **make finished videos and clips, and send
+them to the owner's email.** The owner posts them. From now on:
+
+- The division's deliverable is a finished MP4 with a ready caption, not
+  a queued `outbox` post. Posting stays with the owner.
+- When vidIQ credits are short, use `video-kit/`. It renders original,
+  data-driven videos from real Webull data for free: animated charts,
+  bar races, stat cards and a synthesized music bed. It meets "Real
+  footage, always" through real motion graphics, not a single still.
+- Delivery is a private artifact page with the videos and Save buttons,
+  plus an email to the owner with that link and the captions. The files
+  are too large to attach through the Gmail connector.
+- First drop: SPY Sep 24 session short, Mag 7 week-so-far short, and a
+  59-second YouTube recap, emailed 2026-09-25.
+
 ## What this division does NOT do
 
 - Never posts a raw, minimally-transformed clip, regardless of how
