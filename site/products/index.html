@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Missed-Call Text-Back Setup Guide (Twilio + Make.com) | Edgex</title>
+  <meta name="description" content="A step-by-step do-it-yourself guide to building a missed-call text-back with Twilio and Make.com. Keep your number; callers you miss get a text within about a minute.">
+  <meta property="og:title" content="Missed-Call Text-Back Setup Guide (Twilio + Make.com) | Edgex">
+  <meta property="og:description" content="A step-by-step do-it-yourself guide to building a missed-call text-back with Twilio and Make.com. Keep your number; callers you miss get a text within about a minute.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0b5a4b">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="7" fill="#0b5a4b"/><path d="M21 0h4a7 7 0 0 1 7 7v4z" fill="#f2b544"/><path d="M9 8h13v4h-9v2.5h7.5v3.5H13V20h9v4H9z" fill="#fff"/></svg><span>Edgex</span></a>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="../products/index.html" aria-current="page">Products</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="hero" aria-labelledby="product-title">
+      <div class="wrap">
+        <p class="eyebrow">Do-it-yourself guide</p>
+        <h1 id="product-title">Missed-Call Text-Back Setup Guide</h1>
+        <p class="lead">A step-by-step written guide to building your own missed-call text-back with Twilio and Make.com. When you can't answer, the caller gets a text from your business within about a minute. You keep your existing phone number.</p>
+        <div class="buy-box">
+          <h2 id="buy-title" class="price">Price coming soon</h2>
+          <p class="muted">Checkout isn't open yet. Email us and we'll let you know when it is.</p>
+          <!-- PLACEHOLDER: replace the span below with the real Stripe Payment Link
+               (an <a class="btn btn-primary" href="https://buy.stripe.com/...">Buy the guide</a>)
+               once the price is set and Chief of Staff has approved publishing it. -->
+          <p><span class="buy-placeholder">Buy button placeholder: checkout not set up</span></p>
+          <p><a href="mailto:ai--edgex@edgex--ai.com?subject=Missed-call%20text-back%20guide%3A%20tell%20me%20when%20it%20is%20available">Email me when it's available</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="what-title">
+      <div class="wrap">
+        <h2 id="what-title">What it is, honestly</h2>
+        <ul class="checks prose">
+          <li><strong>A written guide</strong> (PDF, 14 pages, plus a Markdown copy). You create the accounts and click through the settings yourself.</li>
+          <li><strong>Not a one-click import</strong>, not a hosted service, and not software we run for you.</li>
+          <li><strong>Built for US and Canadian numbers</strong>, with notes for the UK and EU.</li>
+          <li><strong>Not legal advice.</strong> It explains the texting rules in plain language, but you're responsible for how you use texting.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="flow-title">
+      <div class="wrap">
+        <h2 id="flow-title">How the finished setup works</h2>
+        <ol class="steps">
+          <li><h3>A call is missed</h3><p>Your phone forwards unanswered or busy calls to a Twilio number you own.</p></li>
+          <li><h3>A short greeting</h3><p>The caller hears that you're texting them now. Optional voicemail.</p></li>
+          <li><h3>The text goes out</h3><p>A Make.com scenario checks the number, skips duplicates, and sends your message.</p></li>
+          <li><h3>Replies reach you</h3><p>If they text back, the reply is forwarded to your mobile.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="inside-title">
+      <div class="wrap">
+        <h2 id="inside-title">What's inside</h2>
+        <ol class="prose">
+          <li>Setting up Twilio and choosing a number</li>
+          <li>Registering for business texting (US A2P 10DLC), which you should start first</li>
+          <li>The call greeting, with an optional voicemail version</li>
+          <li>Building the Make.com scenario module by module, including duplicate protection, a "don't text again within 12 hours" rule, and automatic retries</li>
+          <li>Connecting your Twilio number to the scenario</li>
+          <li>Forwarding missed calls from your business line (VoIP, mobile and landline)</li>
+          <li>Getting customer replies on your own phone</li>
+          <li>An eight-point test checklist</li>
+          <li>A troubleshooting table</li>
+          <li>Texting rules in plain language</li>
+        </ol>
+        <p class="prose">Plus ready-to-edit message templates, a quick-reference card, and an alternative way to send the text if the Twilio module in Make changes.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="need-title">
+      <div class="wrap">
+        <h2 id="need-title">What you'll need</h2>
+        <ul class="checks prose">
+          <li>A business phone line that can forward calls when you don't answer or are busy (most mobile carriers and business phone systems can)</li>
+          <li>A Twilio account and a Make.com account (both have free starting options)</li>
+          <li>About 60 to 90 minutes, plus waiting time for US texting registration, which can take days to weeks</li>
+          <li>A second phone for testing</li>
+        </ul>
+        <div class="table-scroll">
+          <table>
+            <caption>Typical running costs, paid to Twilio and Make.com directly (estimates, September 2026)</caption>
+            <thead><tr><th scope="col">Item</th><th scope="col">Typical cost</th></tr></thead>
+            <tbody>
+              <tr><td>Twilio US local number</td><td>About $1.15 per month</td></tr>
+              <tr><td>Text messages (US)</td><td>About $0.0083 each, plus small carrier fees</td></tr>
+              <tr><td>US texting registration</td><td>About $20 one-time, then roughly $1.50 to $10 per month</td></tr>
+              <tr><td>Make.com</td><td>Free plan covers roughly 200 missed calls a month; paid plans start around $9 to $16 per month</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="muted prose">Prices change. Check Twilio's and Make.com's pricing pages before you start.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="dfy-title">
+      <div class="wrap">
+        <h2 id="dfy-title">Rather have it done for you?</h2>
+        <p class="prose">We can set it up on your line, write the message with you, and test it before handover.</p>
+        <p><a class="btn btn-secondary" href="../services.html#missed-call">See the done-for-you service</a></p>
+        <p class="muted prose">Twilio and Make are trademarks of their respective owners. Edgex isn't affiliated with or endorsed by either company.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p><strong>Edgex</strong>: practical automations for small businesses.</p>
+      <p>Email: <a href="mailto:ai--edgex@edgex--ai.com">ai--edgex@edgex--ai.com</a></p>
+      <p>This site doesn't use cookies, analytics, or tracking.</p>
+      <p>&copy; 2026 Edgex</p>
+    </div>
+  </footer>
+</body>
+</html>

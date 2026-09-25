@@ -4,7 +4,7 @@
   --muted: #4a5058;      /* secondary text: 7.8:1 on paper */
   --paper: #fbfaf7;      /* page background */
   --surface: #ffffff;    /* cards */
-  --accent: #0b5a4b;     /* links, buttons: 7.5:1 on paper, white on it 7.8:1 */
+  --accent: #0b5a4b;     /* links, buttons: 7.8:1 on paper, white on it 8.1:1 */
   --accent-dark: #083f35;
   --accent-soft: #e8f2ef;
   --amber: #f2b544;      /* decorative only, never text */
@@ -276,4 +276,11 @@ ul.checks li { margin: 0.35rem 0; }
 
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}
+
+@media (max-width: 30rem) {
+  .site-nav ul { gap: 0; }
+  .site-nav a { padding: 0 0.55rem; }
+  .site-nav { margin-left: -0.55rem; }
+  .hero { padding: 2.25rem 0 2rem; }
 }

@@ -107,7 +107,7 @@ deliver unfinished work to stop the clock.
 - Buyer messages before an order: paste them to the studio; agents draft
   a reply within the hour when a session is active; you paste it back.
   Fast replies help Fiverr ranking.
-- Sign Fiverr messages "The Edgex team". (BRAND.md allows "Ava, from
+- Sign Fiverr messages "The Edgex Team". (BRAND.md allows "Ava, from
   Edgex" for email, but on Fiverr the account holder is one verified
   person, so a named persona risks looking like misrepresentation.
   Flagged for Chief of Staff.) If a buyer asks whether they're talking
@@ -129,33 +129,33 @@ deliver unfinished work to stop the clock.
 ```text
 Thanks for your order! We have everything we need and we've started. You'll get your delivery on or before the due date. If anything changes on your side, just message us here.
 
-The Edgex team
+The Edgex Team
 ```
 
 **Missing info**
 ```text
 Thanks for your order! Before we start, could you send: <list>. As soon as we have it, we'll get going.
 
-The Edgex team
+The Edgex Team
 ```
 
 **AI-free decline**
 ```text
 Thanks for choosing us. You mentioned you need AI-free work. Our process uses AI tools for research and drafts, with a person reviewing everything, so we don't think we're the right fit for this order. We'll request a cancellation so you get a full refund. Sorry for the trouble, and good luck with your project.
 
-The Edgex team
+The Edgex Team
 ```
 
 **Delivery**
 ```text
 Your order is ready! Attached: <files>. Everything is written for your brief. Please take a look, and if anything needs changing, request a revision and tell us what to adjust. You have <N> revisions included.
 
-The Edgex team
+The Edgex Team
 ```
 
 **Extension request** (only before the due time)
 ```text
 Quick update: we want to get this right and need <N> more day(s) for <reason>. We've sent an extension request. If that doesn't work for you, tell us and we'll deliver on the original date.
 
-The Edgex team
+The Edgex Team
 ```

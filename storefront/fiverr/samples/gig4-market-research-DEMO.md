@@ -51,7 +51,7 @@ themes, SWOT and positioning.
 
 ## 4. Catch
 
-Four funded brands already own this search space. A newcomer needs a sharp
+Four established brands already own this search space. A newcomer needs a sharp
 angle and a low-cost way to reach renters. This snapshot doesn't size the
 market or test demand; the Standard tier would.
 

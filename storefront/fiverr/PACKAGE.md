@@ -308,7 +308,7 @@ Publish.
 
 **Title** (max 80)
 ```text
-write clear, conversion focused landing page copy for your website
+write clear, conversion-focused landing page copy for your website
 ```
 
 **Category:** Writing & Translation > Website Content (service type:
@@ -347,7 +347,7 @@ Landing page copy up to 500 words: headline, benefits, how it works and call to 
 ```
 **Standard description** (max 100)
 ```text
-Full page up to 1,000 words, 3 headline options, meta title and description, 3 rival pages read.
+Full page up to 1,000 words, 3 headline options, meta tags, 3 competitor pages reviewed.
 ```
 **Premium description** (max 100)
 ```text
