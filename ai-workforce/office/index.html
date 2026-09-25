@@ -1973,6 +1973,7 @@
       fromPhi: orbit.phi, toPhi: 0.95
     };
     targetRadius = 4.4;
+    backToCollab = false;
     if(AGENT_BY_ID[agentId] && AGENT_BY_ID[agentId].dept.chartDesk) openChartRoom(); else openAgentPanel(agentId);
   }
   function resetView(){
@@ -2396,7 +2397,7 @@
   function activeCollabs(){ return docsOf("collabs").filter(function(x){ return x.d.status==="active"; }).sort(function(p,q){ return timeOf(q.d.updatedAt||q.d.started)-timeOf(p.d.updatedAt||p.d.started); }); }
   function agentChip(id){
     var btn = mk("button","agent-chip", AGENT_BY_ID[id] ? AGENT_BY_ID[id].a.name : id); btn.type = "button";
-    btn.addEventListener("click", function(){ openAgentPanel(id); panelBack.textContent = "← Back to Collaboration Room"; currentDept = COLLAB_ZONE; });
+    btn.addEventListener("click", function(){ backToCollab = true; openAgentPanel(id); });
     return btn;
   }
   function collabCard(x){
@@ -2413,7 +2414,7 @@
     return el;
   }
   function openCollabRoom(){
-    currentDept = COLLAB_ZONE; currentAgentId = null;
+    currentDept = COLLAB_ZONE; currentAgentId = null; backToCollab = false;
     panelBack.style.display = "none";
     document.getElementById("panelBar").style.background = "#1F9690";
     document.getElementById("panelCode").textContent = "OPEN PLAN · CENTER";
@@ -2462,6 +2463,7 @@
   }
 
   function openPanel(dept){
+    backToCollab = false;
     currentDept = dept;
     currentAgentId = null;
     panelBack.style.display = "none";
@@ -2482,7 +2484,7 @@
     currentDept = entry.dept;
     currentAgentId = agentId;
     panelBack.style.display = "block";
-    panelBack.textContent = "← Back to "+entry.dept.name;
+    panelBack.textContent = backToCollab ? "← Back to Collaboration Room" : "← Back to "+entry.dept.name;
     document.getElementById("panelBar").style.background = "var("+entry.dept.cssVar+")";
     document.getElementById("panelCode").textContent = "ROOM "+entry.dept.code+" · "+entry.dept.name;
     document.getElementById("panelTitle").textContent = entry.a.name;
@@ -2495,7 +2497,8 @@
     updateLegendActive(entry.dept);
   }
 
-  panelBack.addEventListener("click", function(){ if(currentDept) openPanel(currentDept); });
+  var backToCollab = false;
+  panelBack.addEventListener("click", function(){ if(backToCollab){ backToCollab = false; openCollabRoom(); } else if(currentDept) openPanel(currentDept); });
 
   function refreshPanelIfOpen(){
     if(!panel.classList.contains("open")) return;
@@ -2504,6 +2507,7 @@
     else if(currentDept) openPanel(currentDept);
   }
   document.getElementById("panelClose").addEventListener("click", function(){
+    backToCollab = false;
     panel.classList.remove("open");
     currentDept = null;
     currentAgentId = null;
@@ -2704,6 +2708,14 @@
     docsOf("changes").forEach(function(x){
       var d = x.d;
       ev.push({kind:"change", t:timeOf(d.applied_at) || timeOf(d.created), dot: d.status==="applied" ? "s-working" : d.status==="pending" ? "s-requested" : "s-blocked", title:"File change "+(d.status||"")+": "+(d.file||x.id), body:d.reason||""});
+    });
+    docsOf("collabs").forEach(function(x){
+      var d = x.d, names = (d.agents||[]).map(function(id){ return AGENT_BY_ID[id] ? AGENT_BY_ID[id].a.name : id; }).join(", ");
+      ev.push({kind:"agent", t:timeOf(d.updatedAt) || timeOf(d.started), dot:d.status==="active" ? "s-working" : "s-fresh", title:(d.status==="active" ? "Collaborating: " : "Collaboration done: ")+clip(d.title||x.id, 140), body:(names ? names+". " : "")+(d.outcome || ((d.log||[]).slice(-1)[0]||{}).note || "")});
+    });
+    docsOf("skillwork").forEach(function(x){
+      var d = x.d, who = AGENT_BY_ID[d.agent] ? AGENT_BY_ID[d.agent].a.name : (d.agent||"");
+      ev.push({kind:"agent", t:timeOf(d.updatedAt) || timeOf(d.created), dot:"s-fresh", title:who+" made with "+(d.skill||"a skill")+": "+clip(d.title||x.id, 120), body:(d.status||"draft").replace(/_/g," ")+(d.value_estimate ? " · "+d.value_estimate : "")+(d.next_step ? " · next: "+d.next_step : "")});
     });
     ev.sort(function(a,b){ return b.t - a.t; });
     return ev;
@@ -3696,7 +3708,7 @@
       ["EARNED", usd(earned), "#57BE79", "money actually received"],
       ["WAITING ON YOU", String(ownerOpenCount()), "#E0A24A", "things only you can do"],
       ["WORKING NOW", String(working), "#7C9BEE", recent+" active in the last 2h"],
-      ["NEXT SHIFT", nextShiftText().replace("next shift ", ""), "#e7ecf3", "runs at :46 every hour"]
+      ["NEXT SHIFT", nextShiftText().replace("next shift ", ""), "#e7ecf3", "main shift at :46, plus the dispatch shift"]
     ];
     var tw = (W-88-3*20)/4;
     tiles.forEach(function(t, i){
