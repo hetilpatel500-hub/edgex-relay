@@ -46,7 +46,7 @@ Work in a scratch folder, not in the repo. `KIT=ai-workforce/video-kit`.
    (open/high/low/close/volume of the named bar). Any mismatch goes back to
    step 4. Never state a reason for a move ("because of earnings…") unless a
    real, cited source says it.
-6. **Video Editor Agent** runs `python3 $KIT/make.py story.json out/`, which takes about 7–9 minutes.
+6. **Voiceover/TTS Agent + Video Editor Agent.** The editor runs `python3 $KIT/make.py story.json out/`, which takes about 7–9 minutes.
    It produces `out/Edgex_*_9x16.mp4`, `out/Edgex_recap_*_16x9.mp4`,
    `out/review_*.png` (frames at every scene and callout),
    `out/report.json` (duration, resolution, audio, loudness, the exact
