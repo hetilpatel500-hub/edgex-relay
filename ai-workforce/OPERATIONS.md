@@ -81,6 +81,31 @@ push) applies every `pending` change, commits, pushes, and marks each doc
 shows `applied`, treat the `decisions` doc as the operative record and
 never describe the file as already updated.
 
+**Never create a new `agents` doc.** The 110 agents on the Studio Floor
+each have exactly one doc; write to that one. Most role files share the
+doc's id (`copywriter.md` → `agents/copywriter`), but these six don't —
+shifts that guessed created duplicate docs the floor can't show:
+
+| Role file | Write to `agents/` doc |
+|---|---|
+| `outreach-agent.md` | `outreach-cold-email-agent` |
+| `account-manager.md` | `account-manager-agent` |
+| `lead-researcher.md` | `client-lead-researcher` |
+| `deliverable-qa.md` | `deliverable-qa-reviewer` |
+| `dev-agent.md` | `full-stack-dev-agent` |
+| `proposal-contract-agent.md` | `contract-proposal-drafting-agent` (deal cards, SOWs) or `proposal-writer` (client-facing proposals) |
+
+**Owner asks come in through `requests`.** The Studio Floor's "Tell the
+studio" box and each agent's "Assign" box write a `requests` doc
+(`from: "owner"`, `status: "pending"`, and `agent` when aimed at one
+agent). Step 0 of every shift picks those up first.
+
+**Things only the owner can do go in `owner_actions`**, one doc each:
+`{title, detail, why_it_matters, status: "open" | "done", created}`. The
+Studio Floor shows them as a "Waiting on you" list. Before adding one,
+check there isn't already an open doc for the same thing — never
+re-escalate the same blocker every shift.
+
 ## Opportunities never get lost
 
 A dedicated **`opportunities`** collection (separate from any one agent's

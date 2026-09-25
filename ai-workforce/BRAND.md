@@ -85,11 +85,20 @@ reaching for a round number.
   eseospace.com). A fuller package with real copywriting and CRO strategy
   runs $1,500–3,000; price toward that only when that scope is included.
   (Chief of Staff sign-off: decisions/2026-09-25-landing-pages-pricing-signoff.)
-- **Research reports**: $400–900 — replaces the old unresearched $300-800.
+- **Research reports (competitor-analysis write-up)**: $400–900 — replaces the old unresearched $300-800.
   Freelance fixed-price competitor write-ups run $100–400 (commodity
   floor); full enterprise competitor-analysis projects run $8,000–30,000
   (wrong tier). $400–900 is deliberate lean positioning above the floor,
   justified by real cited sourcing. (decisions/2026-09-24-research-reports-pricing-signoff.)
+- **Custom market research reports (broader scope: market sizing, demand
+  evidence, buyer/persona analysis — not just a competitor write-up)**:
+  $1,500–5,000, with a $299–499 fast-turnaround budget tier for a
+  narrower ask and full enterprise projects running $5,000–40,000+.
+  This is a genuinely different, higher-scope product from the
+  competitor-write-up line above, not a replacement for it — sourced from
+  fiverr.com/resources/guides/costs/market-researcher, blackridgeresearch.com,
+  yunojuno.com, thefarnsworthgroup.com, and preuve.ai (2026).
+  (decisions/2026-09-25-research-reports-tier-added.)
 - **Dashboards** ($600-2,000) is still an **old, unverified number** — a
   shift researched it on 2026-09-25 but the result was overwritten before
   it reached this file. Market Research Agent should redo it before the
