@@ -104,6 +104,39 @@ collabs/<id> = {
   `done` with their result. Never leave a collaboration hanging across more
   than two shifts. Close it with the reason if it stalls.
 
+## Town Hall briefings (`briefings` collection)
+
+The Town Hall is the open floor between The Dispatch and the video wing: a
+stage, a big screen and 24 seats. It's where the whole studio shares what it
+learned. On the Studio Floor, the presenter walks to the stage, the audience
+sits in the rows, and the screen shows the points.
+
+**Every Dispatch & Skills shift ends with one briefing:**
+
+```
+briefings/<real clock> = {
+  title: "short, specific: what this shift learned or built",
+  presenter: "<agent-id>",            // the agent with the most useful news this shift
+  audience: ["<agent-id>", ...],      // agents touched this shift + whoever the news matters to (max 24)
+  points: ["3-5 real takeaways, each traceable to a brain skill, a skill_work asset, a collab or a decision"],
+  taught: [{from, to, skill}],        // teach-backs that happened at this briefing (may be empty)
+  answers: "<request id>",            // when it answers an owner topic from "Ask the room"
+  held_at: "<real clock>", status: "held"
+}
+```
+
+- **Teach-back.** When the presenter shares a skill, up to 2 audience agents
+  whose roles genuinely fit may adopt it in the same shift. Copy it into their
+  brain with `learned_from: "<presenter id>"`, keep the real sources, and
+  write their own `fit` line. The copy is never automatic: it has to make
+  sense for that role. Record each one in `taught`.
+- **Owner topics.** Requests with `source: "town-hall"` (from "Ask the room"
+  on the floor) belong to the Dispatch & Skills shift, not the main shift.
+  Answer each one with real research as a briefing (`answers` set to the
+  request id), then set the request to `done` with the briefing id in `result`.
+- No filler. If a shift truly learned nothing new, the briefing says what
+  was tried and why it didn't land.
+
 ## Task Dispatch, every shift
 
 Task Matcher Agent, Idle Watch Agent and Capacity Tracker Agent run this in order:
@@ -117,6 +150,8 @@ Task Matcher Agent, Idle Watch Agent and Capacity Tracker Agent run this in orde
    learning, practicing, idle_left, agents_touched: [...], notes}.
    `idle_left` should trend to zero across shifts. If it doesn't, Bottleneck
    Spotter says why in `suggestions`.
+   Then hold the **Town Hall briefing** (above), with any teach-backs, and
+   answer any open owner topics from the Town Hall.
 4. Don't re-stamp an agent without real work. A status change must come with
    a real task or result.
 

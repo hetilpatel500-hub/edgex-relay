@@ -1831,6 +1831,45 @@
     scr.position.set(cx, 1.42, cz-1.46); scene.add(scr);
   }
 
+  // The Town Hall — the open floor between The Dispatch and the video wing.
+  // A stage and big screen at the north end, curved rows facing it. Every
+  // Dispatch shift ends here with a briefing: the presenter walks up, the
+  // agents who did the work take seats, and the screen shows what was learned.
+  var TOWNHALL_SEATS = [], TOWNHALL_ZONE = null, TOWNHALL_STAGE = {x:0.55, z:12.72, rotY:0};
+  var TH_CX = 0, TH_STAGE_Z = 12.3;
+  var thCanvas = document.createElement("canvas"); thCanvas.width = 1280; thCanvas.height = 580;
+  var thTex = new THREE.CanvasTexture(thCanvas); thTex.anisotropy = 4;
+  function buildTownHall(){
+    var rug = new THREE.Mesh(new THREE.PlaneGeometry(5.8, 7.4), new THREE.MeshStandardMaterial({color:0xC97F22, roughness:0.95, transparent:true, opacity:0.16}));
+    rug.rotation.x = -Math.PI/2; rug.position.set(TH_CX, 0.013, 14.75); rug.receiveShadow = true; scene.add(rug);
+    var stage = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.08, 1.5), woodMat);
+    stage.position.set(TH_CX, 0.04, 12.25); stage.receiveShadow = true; stage.castShadow = true; scene.add(stage);
+    var frame = new THREE.Mesh(new THREE.BoxGeometry(3.95, 1.85, 0.08), frameMat);
+    frame.position.set(TH_CX, 1.95, 11.55); frame.castShadow = true; scene.add(frame);
+    var screen = new THREE.Mesh(new THREE.PlaneGeometry(3.8, 1.72), new THREE.MeshBasicMaterial({map:thTex}));
+    screen.position.set(TH_CX, 1.95, 11.6); scene.add(screen);
+    [-1.9, 1.9].forEach(function(dx){ var post = new THREE.Mesh(new THREE.BoxGeometry(0.08, 1.05, 0.08), frameMat); post.position.set(TH_CX+dx, 0.52, 11.55); scene.add(post); });
+    var podium = new THREE.Mesh(new THREE.BoxGeometry(0.5, 1.02, 0.36), new THREE.MeshStandardMaterial({color:0x2b2e34, roughness:0.4}));
+    podium.position.set(TH_CX+1.2, 0.51, 12.6); podium.castShadow = true; scene.add(podium);
+    var podTop = new THREE.Mesh(new THREE.BoxGeometry(0.56, 0.04, 0.42), new THREE.MeshStandardMaterial({color:0xC97F22, roughness:0.5}));
+    podTop.position.set(TH_CX+1.2, 1.04, 12.6); scene.add(podTop);
+    var glow = new THREE.PointLight(0xffd9a0, 0.35, 7, 2); glow.position.set(TH_CX, 3.2, 13.2); scene.add(glow);
+    // three curved rows facing the stage
+    [2.55, 3.55, 4.55].forEach(function(r){
+      var maxA = Math.asin(Math.min(0.98, 2.45/r)), n = Math.max(3, Math.floor(2*maxA*r/0.74)+1);
+      for(var i=0;i<n;i++){
+        var a = -maxA + (2*maxA)*(i/(n-1));
+        var x = TH_CX + r*Math.sin(a), z = TH_STAGE_Z + r*Math.cos(a);
+        var rot = Math.atan2(TH_CX - x, TH_STAGE_Z - z);
+        scene.add(buildChair(x, z, rot, 0xC97F22));
+        TOWNHALL_SEATS.push({x:x, z:z, rotY:rot});
+      }
+    });
+    var sign = makeSign("Town Hall", 3.05, 0); sign.position.set(TH_CX, 3.05, 11.5); scene.add(sign);
+    TOWNHALL_ZONE = {id:"town-hall", code:"--", name:"Town Hall", tag:"Where the whole studio shares what it learned", cssVar:"--a-strategy", hex:0xC97F22, agents:[], x:TH_CX, z:14.6, onOpen:function(){ openTownHall(); }};
+    registerZone(TOWNHALL_ZONE, TH_CX-2.95, TH_CX+2.95, 11.3, 18.2);
+  }
+
   // The Chart Desk: three rows of workstations facing a wall screen that
   // shows the latest chart and the desk's call, door on the west side.
   function buildChartDesk(dept){
@@ -1860,6 +1899,8 @@
   buildReception(-17.2, -2.0);
   buildCollabRoom(0, -2.0);
   setTimeout(drawCollabScreen, 0);
+  buildTownHall();
+  setTimeout(drawTownHall, 0);
 
   // ---------------- scattered office props (fills the bigger floor, makes it feel real) ----------------
   var potMat = new THREE.MeshStandardMaterial({color:0xb5674a, roughness:0.85});
@@ -1973,7 +2014,7 @@
       fromPhi: orbit.phi, toPhi: 0.95
     };
     targetRadius = 4.4;
-    backToCollab = false;
+    backRoom = null;
     if(AGENT_BY_ID[agentId] && AGENT_BY_ID[agentId].dept.chartDesk) openChartRoom(); else openAgentPanel(agentId);
   }
   function resetView(){
@@ -2395,9 +2436,9 @@
 
   // ---- Collaboration Room: real multi-agent work from the collabs collection ----
   function activeCollabs(){ return docsOf("collabs").filter(function(x){ return x.d.status==="active"; }).sort(function(p,q){ return timeOf(q.d.updatedAt||q.d.started)-timeOf(p.d.updatedAt||p.d.started); }); }
-  function agentChip(id){
+  function agentChip(id, room){
     var btn = mk("button","agent-chip", AGENT_BY_ID[id] ? AGENT_BY_ID[id].a.name : id); btn.type = "button";
-    btn.addEventListener("click", function(){ backToCollab = true; openAgentPanel(id); });
+    btn.addEventListener("click", function(){ backRoom = room || "collab"; openAgentPanel(id); });
     return btn;
   }
   function collabCard(x){
@@ -2414,7 +2455,7 @@
     return el;
   }
   function openCollabRoom(){
-    currentDept = COLLAB_ZONE; currentAgentId = null; backToCollab = false;
+    currentDept = COLLAB_ZONE; currentAgentId = null; backRoom = null;
     panelBack.style.display = "none";
     document.getElementById("panelBar").style.background = "#1F9690";
     document.getElementById("panelCode").textContent = "OPEN PLAN · CENTER";
@@ -2462,8 +2503,135 @@
     return n >= 1;
   }
 
+  // ---- Town Hall: briefings, the skill library, and topics from the owner ----
+  function latestBriefing(){ var b = docsOf("briefings").sort(function(p,q){ return timeOf(q.d.held_at)-timeOf(p.d.held_at); }); return b[0] || null; }
+  function skillLibrary(){
+    var lib = {};
+    Object.keys(store.brain).forEach(function(aid){
+      ((store.brain[aid] && store.brain[aid].skills) || []).forEach(function(k){
+        var key = String(k.name||"").trim(); if(!key) return;
+        var e = lib[key.toLowerCase()] = lib[key.toLowerCase()] || {name:key, agents:[], taught:0};
+        if(e.agents.indexOf(aid)===-1) e.agents.push(aid);
+        if(k.learned_from) e.taught++;
+      });
+    });
+    return Object.keys(lib).map(function(k){ return lib[k]; }).sort(function(a,b){ return b.agents.length-a.agents.length || a.name.localeCompare(b.name); });
+  }
+  var thLive = null, thLiveUntil = 0, thSlide = 0;
+  function nameOf(id){ return AGENT_BY_ID[id] ? AGENT_BY_ID[id].a.name : (id||""); }
+  function thWrap(g, text, x, y, maxW, lh, maxLines){
+    var words = String(text||"").split(/\s+/), line = "", n = 0;
+    for(var i=0;i<words.length;i++){ var t = line ? line+" "+words[i] : words[i];
+      if(g.measureText(t).width > maxW && line){ n++; if(n===maxLines){ g.fillText(line+"…", x, y); return y+lh; } g.fillText(line, x, y); y += lh; line = words[i]; } else line = t; }
+    if(line){ g.fillText(line, x, y); y += lh; } return y;
+  }
+  function drawTownHall(){
+    var g = thCanvas.getContext("2d"), W = thCanvas.width, H = thCanvas.height;
+    g.fillStyle = "#12100c"; g.fillRect(0,0,W,H);
+    g.fillStyle = "#E0A24A"; g.fillRect(0,0,W,8);
+    g.textAlign = "left";
+    var live = thLive && Date.now() < thLiveUntil ? thLive : null;
+    function head(k){ g.fillStyle = "#E0A24A"; g.font = "700 30px 'IBM Plex Mono', monospace"; g.fillText(k, 56, 70); }
+    if(live){
+      head((live.replay ? "LATEST BRIEFING" : "NOW PRESENTING")+" · "+nameOf(live.d.presenter).toUpperCase());
+      g.fillStyle = "#ffffff"; g.font = "800 60px 'Big Shoulders Display', sans-serif";
+      var y = thWrap(g, live.d.title||"Briefing", 56, 148, W-112, 62, 2);
+      g.font = "500 34px 'Work Sans', sans-serif"; g.fillStyle = "#e9e1d3";
+      (live.d.points||[]).slice(0,4).forEach(function(pt){ g.fillStyle = "#E0A24A"; g.fillText("•", 56, y+18); g.fillStyle = "#e9e1d3"; y = thWrap(g, pt, 90, y+18, W-150, 42, 2); });
+      thTex.needsUpdate = true; return;
+    }
+    var slides = [];
+    var lib = skillLibrary();
+    if(lib.length) slides.push(function(){ head("STUDIO SKILL LIBRARY · "+lib.length+" SKILL"+(lib.length===1?"":"S")); g.font = "600 38px 'Work Sans', sans-serif";
+      lib.slice(0,6).forEach(function(e, i){ var y = 150+i*64; g.fillStyle = "#ffffff"; g.fillText(clip(e.name, 46), 56, y); g.fillStyle = "#E0A24A"; g.textAlign = "right"; g.fillText(e.agents.length+" agent"+(e.agents.length===1?"":"s")+(e.taught ? " · "+e.taught+" taught" : ""), W-56, y); g.textAlign = "left"; }); });
+    var recent = [];
+    Object.keys(store.brain).forEach(function(aid){ ((store.brain[aid]||{}).skills||[]).forEach(function(k){ recent.push({aid:aid, k:k}); }); });
+    recent.sort(function(a,b){ return timeOf(b.k.learned_at)-timeOf(a.k.learned_at); });
+    if(recent.length) slides.push(function(){ head("JUST LEARNED"); recent.slice(0,4).forEach(function(r, i){ var y = 150+i*98; g.fillStyle = "#ffffff"; g.font = "700 38px 'Work Sans', sans-serif"; g.fillText(clip(nameOf(r.aid), 40)+(r.k.learned_from ? "  ← taught by "+clip(nameOf(r.k.learned_from), 26) : ""), 56, y); g.fillStyle = "#cfc5b4"; g.font = "500 32px 'Work Sans', sans-serif"; g.fillText(clip(r.k.name, 64), 56, y+40); }); });
+    var lb = latestBriefing();
+    if(lb) slides.push(function(){ head("LAST BRIEFING · "+agoText(timeOf(lb.d.held_at)).toUpperCase()); g.fillStyle = "#ffffff"; g.font = "800 56px 'Big Shoulders Display', sans-serif"; var y = thWrap(g, lb.d.title, 56, 150, W-112, 58, 2); g.font = "500 32px 'Work Sans', sans-serif"; g.fillStyle = "#e9e1d3"; (lb.d.points||[]).slice(0,3).forEach(function(pt){ y = thWrap(g, "• "+pt, 56, y+14, W-112, 40, 2); }); });
+    var done = docsOf("collabs").filter(function(x){ return x.d.status==="done" && x.d.outcome; }).sort(function(p,q){ return timeOf(q.d.updatedAt)-timeOf(p.d.updatedAt); });
+    if(done.length) slides.push(function(){ head("TEAMWORK THAT SHIPPED"); g.fillStyle = "#ffffff"; g.font = "800 54px 'Big Shoulders Display', sans-serif"; var y = thWrap(g, done[0].d.title, 56, 150, W-112, 56, 2); g.font = "500 32px 'Work Sans', sans-serif"; g.fillStyle = "#e9e1d3"; thWrap(g, done[0].d.outcome, 56, y+16, W-112, 40, 4); });
+    if(!slides.length) slides.push(function(){ head("TOWN HALL"); g.fillStyle = "#ffffff"; g.font = "800 64px 'Big Shoulders Display', sans-serif"; thWrap(g, "Every Dispatch shift ends here: what the studio learned, taught and built.", 56, 170, W-112, 70, 3); });
+    slides[thSlide % slides.length]();
+    thTex.needsUpdate = true;
+  }
+  setInterval(function(){ thSlide++; drawTownHall(); }, 8000);
+  // A briefing plays out on the floor: the presenter walks to the stage, the
+  // agents who took part sit in the rows, the screen shows the points.
+  function stageBriefing(b, replay){
+    if(!b || prefersReducedMotion) { thLive = b ? {d:b.d, replay:!!replay} : null; thLiveUntil = Date.now()+60000; drawTownHall(); return false; }
+    thLive = {d:b.d, replay:!!replay}; thLiveUntil = Date.now()+62000; drawTownHall();
+    var hold = 48+Math.random()*10, pres = b.d.presenter, n = 0;
+    if(pres && AGENT_GROUPS[pres] && !AGENT_GROUPS[pres].walk && walkTo(pres, {x:TOWNHALL_STAGE.x, z:TOWNHALL_STAGE.z}, hold+4, {face:TOWNHALL_STAGE.rotY, kind:"present"})){
+      showBubble(pres, "s-working", nameOf(pres), (replay ? "Recap: " : "Sharing: ")+(b.d.title||""), 20000); n++;
+    }
+    var aud = shuffle((b.d.audience||[]).filter(function(id){ var r = AGENT_GROUPS[id]; return id!==pres && r && !r.walk && !(chartRun && POSE_OVERRIDE[id]); }));
+    var seats = claimSeats("townhall", Math.min(aud.length, TOWNHALL_SEATS.length));
+    seats.forEach(function(seat, i){ if(walkTo(aud[i], {x:seat.x, z:seat.z}, hold, {face:seat.rotY, holdPose:"sit", kind:"meeting"})){ releaseSeatWhenDone(seat, aud[i]); n++; } else seat.taken = false; });
+    return n > 0;
+  }
+  var lastReplay = 0;
+  function replayBriefing(){
+    var lb = latestBriefing();
+    if(!lb || Date.now()-timeOf(lb.d.held_at) > 24*3600000 || Date.now()-lastReplay < 150000 || (thLive && Date.now() < thLiveUntil)) return false;
+    lastReplay = Date.now();
+    return stageBriefing(lb, true);
+  }
+  function flyTo(x, z, r){
+    spin.vTheta = 0; spin.vPhi = 0; userInteracted = true;
+    orbitAnim = {t0:performance.now(), dur:prefersReducedMotion?1:900, fromTarget:orbit.target.clone(), toTarget:new THREE.Vector3(x, 0.4, z), fromRadius:orbit.radius, toRadius:r, fromPhi:orbit.phi, toPhi:0.78};
+    targetRadius = r;
+  }
+  function openTownHall(){
+    currentDept = TOWNHALL_ZONE; currentAgentId = null; backRoom = null;
+    panelBack.style.display = "none";
+    document.getElementById("panelBar").style.background = "var(--a-strategy)";
+    document.getElementById("panelCode").textContent = "OPEN FLOOR · SOUTH";
+    document.getElementById("panelTitle").textContent = "Town Hall";
+    var brs = docsOf("briefings").sort(function(p,q){ return timeOf(q.d.held_at)-timeOf(p.d.held_at); }), lib = skillLibrary();
+    document.getElementById("panelSub").textContent = brs.length+" briefing"+(brs.length===1?"":"s")+" · "+lib.length+" skill"+(lib.length===1?"":"s")+" in the library · where the whole studio shares what it learned";
+    var wrap = document.getElementById("panelAgents"); wrap.innerHTML = "";
+    // latest briefing
+    if(brs.length){
+      var b = brs[0], c = mk("div","agent-card");
+      c.appendChild(mk("div","brain-h","Latest briefing · "+agoText(timeOf(b.d.held_at))));
+      c.appendChild(mk("div","name", b.d.title||b.id));
+      c.appendChild(mk("div","task-line result-line","Presented by "+nameOf(b.d.presenter)+((b.d.audience||[]).length ? " to "+b.d.audience.length+" agents" : "")));
+      var ul = mk("ul","cd-list"); (b.d.points||[]).forEach(function(pt){ ul.appendChild(mk("li", null, pt)); }); c.appendChild(ul);
+      if((b.d.taught||[]).length){ c.appendChild(mk("div","brain-h","Taught at this briefing")); (b.d.taught||[]).forEach(function(t){ c.appendChild(mk("div","skill", nameOf(t.to)+" learned “"+(t.skill||"")+"” from "+nameOf(t.from))); }); }
+      if(b.d.answers) c.appendChild(mk("div","next-line","Answers your topic: "+clip(b.d.answers, 200)));
+      var chips = mk("div","chip-row"); if(b.d.presenter) chips.appendChild(agentChip(b.d.presenter, "townhall")); (b.d.audience||[]).slice(0,10).forEach(function(id){ chips.appendChild(agentChip(id, "townhall")); }); c.appendChild(chips);
+      var rp = mk("button","btn-line","Replay it on the floor"); rp.type = "button"; rp.style.marginTop = "9px";
+      rp.addEventListener("click", function(){ flyTo(TH_CX, 14.2, 11); stageBriefing(b, true); });
+      c.appendChild(rp);
+      wrap.appendChild(c);
+    } else {
+      wrap.appendChild(mk("div","agent-card","No briefings yet. The Dispatch & Skills shift ends every run here, with what the studio learned, who taught whom, and what got built."));
+    }
+    // ask the room
+    var ask = mk("div","agent-card"); ask.appendChild(mk("div","name","Ask the room"));
+    ask.appendChild(mk("div","desc","Put a topic in front of the whole studio. The next Dispatch shift answers it as a Town Hall briefing, with sources."));
+    var row = mk("div","assign-row"), inp = mk("input"); inp.type = "text"; inp.maxLength = 300; inp.placeholder = "e.g. What's the fastest skill we have that could earn $500 this month?";
+    var go = mk("button", null, "Ask"); go.type = "button"; var msg = mk("div","assign-msg");
+    row.appendChild(inp); row.appendChild(go); ask.appendChild(row); ask.appendChild(msg);
+    function sendTopic(){ var t = inp.value.trim(); if(!t) return; go.disabled = true; msg.textContent = "Sending…";
+      sendRequest(t, null, {source:"town-hall", kind:"townhall_topic"}).then(function(){ inp.value = ""; msg.textContent = "Sent. The next Dispatch shift answers it at the Town Hall."; }).catch(function(e){ msg.textContent = writeError(e); }).then(function(){ go.disabled = false; }); }
+    go.addEventListener("click", sendTopic); inp.addEventListener("keydown", function(e){ if(e.key==="Enter") sendTopic(); });
+    wrap.appendChild(ask);
+    // skill library
+    var libBox = mk("div","agent-card"); libBox.appendChild(mk("div","name","Studio skill library"));
+    if(!lib.length) libBox.appendChild(mk("div","desc","Empty so far. Idle agents learn a money skill and teach it here."));
+    lib.forEach(function(e){ var r = mk("div","skill"); r.appendChild(mk("b", null, e.name)); r.appendChild(document.createTextNode(" · "+e.agents.length+" agent"+(e.agents.length===1?"":"s")+(e.taught ? " ("+e.taught+" taught by a colleague)" : "")));
+      var ch = mk("div","chip-row"); e.agents.slice(0,6).forEach(function(id){ ch.appendChild(agentChip(id, "townhall")); }); libBox.appendChild(r); libBox.appendChild(ch); });
+    wrap.appendChild(libBox);
+    if(brs.length > 1){ wrap.appendChild(mk("div","brain-h","Earlier briefings")); brs.slice(1,6).forEach(function(x){ var c2 = mk("div","agent-card"); c2.appendChild(mk("div","name", x.d.title||x.id)); c2.appendChild(mk("div","task-line result-line", nameOf(x.d.presenter)+" · "+agoText(timeOf(x.d.held_at)))); wrap.appendChild(c2); }); }
+    panel.classList.add("open");
+    document.getElementById("hint").classList.add("hidden");
+  }
+
   function openPanel(dept){
-    backToCollab = false;
+    backRoom = null;
     currentDept = dept;
     currentAgentId = null;
     panelBack.style.display = "none";
@@ -2484,7 +2652,7 @@
     currentDept = entry.dept;
     currentAgentId = agentId;
     panelBack.style.display = "block";
-    panelBack.textContent = backToCollab ? "← Back to Collaboration Room" : "← Back to "+entry.dept.name;
+    panelBack.textContent = backRoom ? "← Back to "+(backRoom==="townhall" ? "Town Hall" : "Collaboration Room") : "← Back to "+entry.dept.name;
     document.getElementById("panelBar").style.background = "var("+entry.dept.cssVar+")";
     document.getElementById("panelCode").textContent = "ROOM "+entry.dept.code+" · "+entry.dept.name;
     document.getElementById("panelTitle").textContent = entry.a.name;
@@ -2497,17 +2665,18 @@
     updateLegendActive(entry.dept);
   }
 
-  var backToCollab = false;
-  panelBack.addEventListener("click", function(){ if(backToCollab){ backToCollab = false; openCollabRoom(); } else if(currentDept) openPanel(currentDept); });
+  var backRoom = null;   // "collab" | "townhall" when an agent was opened from one of those rooms
+  panelBack.addEventListener("click", function(){ if(backRoom){ var r = backRoom; backRoom = null; if(r==="townhall") openTownHall(); else openCollabRoom(); } else if(currentDept) openPanel(currentDept); });
 
   function refreshPanelIfOpen(){
     if(!panel.classList.contains("open")) return;
     if(currentAgentId) openAgentPanel(currentAgentId);
     else if(currentDept && currentDept.id==="collab-room") openCollabRoom();
+    else if(currentDept && currentDept.id==="town-hall") openTownHall();
     else if(currentDept) openPanel(currentDept);
   }
   document.getElementById("panelClose").addEventListener("click", function(){
-    backToCollab = false;
+    backRoom = null;
     panel.classList.remove("open");
     currentDept = null;
     currentAgentId = null;
@@ -2610,7 +2779,7 @@
   rosterSearch.addEventListener("input", renderRoster);
 
   // ---------------- live data: every collection the studio runs on ----------------
-  var store = {deals:{}, decisions:{}, requests:{}, outbox:{}, owner:{}, opps:{}, ideas:{}, changes:{}, charts:{}, collabs:{}, brain:{}, skillwork:{}};
+  var store = {deals:{}, decisions:{}, requests:{}, outbox:{}, owner:{}, opps:{}, ideas:{}, changes:{}, charts:{}, collabs:{}, brain:{}, skillwork:{}, briefings:{}};
   var loaded = {};
   var dbState = "connecting";   // connecting | live | unavailable
 
@@ -2712,6 +2881,10 @@
     docsOf("collabs").forEach(function(x){
       var d = x.d, names = (d.agents||[]).map(function(id){ return AGENT_BY_ID[id] ? AGENT_BY_ID[id].a.name : id; }).join(", ");
       ev.push({kind:"agent", t:timeOf(d.updatedAt) || timeOf(d.started), dot:d.status==="active" ? "s-working" : "s-fresh", title:(d.status==="active" ? "Collaborating: " : "Collaboration done: ")+clip(d.title||x.id, 140), body:(names ? names+". " : "")+(d.outcome || ((d.log||[]).slice(-1)[0]||{}).note || "")});
+    });
+    docsOf("briefings").forEach(function(x){
+      var d = x.d;
+      ev.push({kind:"agent", t:timeOf(d.held_at), dot:"s-working", title:"Town Hall · "+nameOf(d.presenter)+": "+clip(d.title||x.id, 140), body:(d.points||[]).join(" · ")});
     });
     docsOf("skillwork").forEach(function(x){
       var d = x.d, who = AGENT_BY_ID[d.agent] ? AGENT_BY_ID[d.agent].a.name : (d.agent||"");
@@ -3110,6 +3283,17 @@
         drawCollabScreen(); if(!first) seatRealCollab(); refreshPanelIfOpen();
       });
       watch(db, "brain", "brain", function(snap){ snap.docChanges().forEach(function(ch){ if(ch.type==="removed") delete store.brain[ch.doc.id]; else store.brain[ch.doc.id] = ch.doc.data(); }); refreshPanelIfOpen(); });
+      watch(db, "briefings", "briefings", function(snap, first){
+        var fresh = null;
+        snap.docChanges().forEach(function(ch){
+          if(ch.type==="removed"){ delete store.briefings[ch.doc.id]; return; }
+          store.briefings[ch.doc.id] = ch.doc.data();
+          if(!first && ch.type==="added") fresh = {id:ch.doc.id, d:ch.doc.data()};
+        });
+        if(fresh){ toast({dot:"s-working", title:"Town Hall: "+(fresh.d.title||fresh.id)}); stageBriefing(fresh, false); }
+        else if(first){ var lb = latestBriefing(); if(lb && Date.now()-timeOf(lb.d.held_at) < 30*60000) setTimeout(function(){ stageBriefing(lb, false); }, 3000); }
+        drawTownHall(); refreshPanelIfOpen();
+      });
       watch(db, "skillwork", "skill_work", function(snap, first){
         snap.docChanges().forEach(function(ch){
           if(ch.type==="removed"){ delete store.skillwork[ch.doc.id]; return; }
@@ -3318,6 +3502,8 @@
         aR = Math.sin(t*0.9+ph) > 0.4 ? -2.1 : -1.1; aL = -0.2; hy = Math.sin(t*0.5+ph)*0.3;
       } else if(kind==="chat"){
         aR = -0.7+Math.sin(t*2.6+ph)*0.35; aL = -0.25; hy = Math.sin(t*0.7+ph)*0.15;
+      } else if(kind==="present"){  // on stage: talking with the hands, looking over the room
+        aR = -1.25+Math.sin(t*2.3+ph)*0.45; aL = -0.35+Math.sin(t*1.7+ph+1)*0.3; hy = Math.sin(t*0.55+ph)*0.65; hp = -0.04;
       } else if(kind==="handoff"){
         aR = -1.25; aL = -0.2; hp = 0.12;
       } else {                      // window: hands relaxed, looking out
@@ -3412,7 +3598,7 @@
   }
 
   // ---- ambient office routines ----
-  var MEETING_SEATS = { collab: COLLAB_SEATS, team: BOARDROOM_SEATS_WORLD };
+  var MEETING_SEATS = { collab: COLLAB_SEATS, team: BOARDROOM_SEATS_WORLD, townhall: TOWNHALL_SEATS };
   function claimSeats(kind, n){
     var open = MEETING_SEATS[kind].filter(function(s){ return !s.taken; });
     var picked = shuffle(open).slice(0, n);
@@ -3484,7 +3670,7 @@
     // Blocked agents take their problem to the boardroom; people who just
     // finished something are the ones who get pulled into a quick huddle.
     pool.sort(function(x,y){ return (BUSY_SCORE[vstate(y)]||0)-(BUSY_SCORE[vstate(x)]||0); });
-    var n = kind==="collab" ? 2+Math.floor(Math.random()*2) : 1+Math.floor(Math.random()*2);
+    var n = kind==="collab" ? 2+Math.floor(Math.random()*2) : kind==="townhall" ? 4+Math.floor(Math.random()*4) : 1+Math.floor(Math.random()*2);
     var seats = claimSeats(kind, n), hold = 12+Math.random()*10;
     seats.forEach(function(seat, i){
       var id = pool[i];
@@ -3501,7 +3687,8 @@
     if(roll < 0.32) coffeeRun();
     else if(roll < 0.54) deskChat();
     else if(roll < 0.78){ if(!seatRealCollab()) meeting("collab"); }
-    else if(roll < 0.9) meeting("team");
+    else if(roll < 0.86) meeting("team");
+    else if(roll < 0.93){ if(!replayBriefing()) meeting("townhall"); }
     else windowBreak();
   }
 
