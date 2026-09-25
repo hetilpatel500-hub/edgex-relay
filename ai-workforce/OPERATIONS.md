@@ -110,6 +110,15 @@ kind of request with two extra fields, `owner_action` (the doc id) and
 with `resolved_with` and `resolved_at`; the shift carries the choice out
 and adds `resolved_by` (the request id).
 
+**Both hourly shifts take owner requests** (the Dispatch shift at :29 and the
+main shift at :46), so nothing typed on the floor waits more than about half an
+hour. To avoid two shifts doing the same request, **claim before working**: re-read
+the request, and if it is still `pending`, set it to `in_progress` with
+`claimed_by` (the shift and the real clock) before doing anything else. If it is
+already `in_progress`, continue from its `next_step`, never redo it. Requests with
+`source: "town-hall"` always belong to the Dispatch shift. Pipeline work (deals,
+leads, outreach) stays with the main shift.
+
 **Things only the owner can do go in `owner_actions`**, one doc each:
 `{title, detail, why_it_matters, status: "open" | "done", created}`,
 plus optional `order` (position in the list) and `choices`

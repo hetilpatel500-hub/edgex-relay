@@ -11,15 +11,18 @@ board, and each agent's card shows its brain.
 
 ## Honest limits (read first)
 
-- **Agents think only when a shift runs.** Nothing runs "every second". Two
-  Routines drive the studio: the main hourly shift (at :46, owner requests and
-  pipeline) and the **Dispatch & Skills shift** (hourly, this protocol). The
-  floor updates within seconds of every write, so it looks live because it is
+- **Agents think only when a shift runs.** Nothing runs "every second". The
+  platform runs a Routine at most once an hour, and two Routines drive the
+  studio: the **Dispatch & Skills shift** (at :29, this protocol) and the main
+  shift (at :46, owner requests and pipeline). Both take owner requests, so
+  one typed on the floor is picked up within about half an hour. The floor
+  updates within seconds of every write, so it looks live because it is
   showing real writes.
-- **Capacity.** One shift does real work for roughly 10–15 agents. With two
-  shifts an hour, every one of the 110 studio agents gets a turn every few
-  hours, and Task Dispatch rotates them so nobody is skipped. The 20 Chart
-  Desk analysts stay on call for the owner's charts and are not part of this.
+- **Capacity.** A Dispatch shift runs its agents as **parallel crews** (below),
+  about 30 agents a run instead of 10–15. The 90 studio agents outside the
+  Chart Desk each get a turn about every 3 hours, and Task Dispatch rotates
+  them so nobody is skipped. The 20 Chart Desk analysts stay on call for the
+  owner's charts and are not part of this.
 - **Making money needs the owner's accounts.** Agents can't sign up anywhere,
   spend money, post or sell. "Using a skill to make money" means producing a
   real, sellable asset (a gig listing, a template, a priced offer, a lead
@@ -141,6 +144,29 @@ briefings/<real clock> = {
   request id), then set the request to `done` with the briefing id in `result`.
 - No filler. If a shift truly learned nothing new, the briefing says what
   was tried and why it didn't land.
+
+## Parallel crews (speed, 2026-09-25)
+
+A shift session can run helpers side by side (the `Agent` tool). The
+Dispatch shift uses them so one run covers about 30 agents:
+
+- Split the picked agents into 4–5 **crews** of 6–8, grouped by department so
+  each crew shares context. Launch every crew in the same turn so they run at
+  once.
+- Each crew gets a self-contained brief: its agent ids and role files, what
+  each one learns or makes, this file's brain and `skill_work` shapes, the
+  rules below, and the skills and assets that already exist, so nothing
+  is duplicated.
+- **Crews research and draft; they don't write to the database.** Each
+  returns its finished docs as JSON (brain docs, `skill_work`, collab log
+  lines, with sources). The shift checks each one (real sources, the exact
+  shape, no invented numbers), then writes them itself in `ArtifactData`
+  batches. One writer keeps the floor consistent.
+- Last Touch and Chief of Staff can also run as a crew over the whole
+  batch of assets.
+- If the `Agent` tool isn't available, do the same work one agent at a time
+  and pick 10–12 agents, not 30.
+- Finish within 25 minutes, so a run never overlaps the next shift.
 
 ## Task Dispatch, every shift
 
