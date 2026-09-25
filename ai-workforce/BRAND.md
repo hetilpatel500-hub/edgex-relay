@@ -99,10 +99,18 @@ reaching for a round number.
   fiverr.com/resources/guides/costs/market-researcher, blackridgeresearch.com,
   yunojuno.com, thefarnsworthgroup.com, and preuve.ai (2026).
   (decisions/2026-09-25-research-reports-tier-added.)
-- **Dashboards** ($600-2,000) is still an **old, unverified number** — a
-  shift researched it on 2026-09-25 but the result was overwritten before
-  it reached this file. Market Research Agent should redo it before the
-  studio prices a dashboard with any confidence.
+- **Dashboards** (custom reporting build, e.g. a Looker Studio dashboard
+  connecting a client's existing data — GA4, Google Sheets, CRM exports):
+  $2,000–$6,000 one-time — replaces the old unverified $600-2,000 band.
+  Sourced from real 2026 freelancer/consultant pricing for a standard
+  3-5 connected-report build with standard data sources (lets-viz.com
+  "Looker Studio Consultant Cost: 2026 Pricing Guide", datastudio-experts.com
+  "How Much Does It Cost to Hire a Looker Studio Freelancer in 2026?").
+  If a client's data needs a genuinely custom pipeline (an ERP or a
+  proprietary database via a BigQuery-style connector, not just
+  connecting standard sources) that's materially more build work —
+  $5,000–$15,000 — and should be scoped and priced as that larger job,
+  not quoted from this line. (decisions/2026-09-25-dashboard-pricing-signoff.)
 - Marketplace listings (Fiverr, Etsy) are priced from that marketplace's
   own real comparables, not this catalog — see storefront/fiverr/RESEARCH.md
   and storefront/etsy/PACKAGE.md.
