@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>The Studio Floor</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>The Studio Floor</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
 <style>
   :root{
@@ -19,6 +19,13 @@
     --a-lasttouch:#B8901E;
     --status-sent:#3560CC;
     --status-paid:#2F9350;
+    --st-working:#2A8C52;
+    --st-requested:#B7791F;
+    --st-blocked:#C2413F;
+    --st-fresh:#3560CC;
+    --st-stale:#8A95A5;
+    --st-idle:#A9B1BC;
+    --sheet-bg:#F4F6F8;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark){
@@ -34,6 +41,9 @@
       --a-software:#6C8FE8; --a-sales:#57BE79; --a-delivery:#9782E8; --a-growth:#D871BC;
       --a-lasttouch:#DCB24E;
       --status-sent:#6C8FE8; --status-paid:#57BE79;
+      --st-working:#57BE79; --st-requested:#E0A24A; --st-blocked:#E3687A;
+      --st-fresh:#7C9BEE; --st-stale:#6E7888; --st-idle:#5E6672;
+      --sheet-bg:#141922;
       color-scheme: dark;
     }
   }
@@ -45,6 +55,9 @@
     --a-software:#6C8FE8; --a-sales:#57BE79; --a-delivery:#9782E8; --a-growth:#D871BC;
     --a-lasttouch:#DCB24E;
     --status-sent:#6C8FE8; --status-paid:#57BE79;
+    --st-working:#57BE79; --st-requested:#E0A24A; --st-blocked:#E3687A;
+    --st-fresh:#7C9BEE; --st-stale:#6E7888; --st-idle:#5E6672;
+    --sheet-bg:#141922;
     color-scheme: dark;
   }
   html,body{height:100%;margin:0;overflow:hidden;background:var(--bg);}
@@ -57,7 +70,7 @@
   #app{position:fixed;inset:0;pointer-events:none;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px)) 16px;display:flex;flex-direction:column;justify-content:space-between;}
 
   #topRow{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
-  header{pointer-events:auto;display:flex;flex-direction:column;gap:2px;max-width:min(420px,52vw);}
+  header{pointer-events:auto;display:flex;flex-direction:column;gap:2px;max-width:min(560px,56vw);}
   header .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);}
   header h1{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:clamp(22px,3.4vw,32px);line-height:.95;margin:2px 0 0 0;}
 
@@ -172,28 +185,10 @@
   .roster-row .rdot{width:8px;height:8px;border-radius:50%;flex:none;}
   .roster-row .rname{font-weight:600;font-size:13px;flex:none;width:180px;max-width:38%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .roster-row .rmeta{font-size:12px;color:var(--muted);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .roster-row .rdept{display:block;font-family:"IBM Plex Mono",monospace;font-weight:400;font-size:10px;letter-spacing:.03em;color:var(--muted);overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
   .roster-row .rstatus{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);flex:none;}
   .roster-empty{padding:30px 8px;text-align:center;color:var(--muted);font-size:13px;}
 
-  #commandOverlay{
-    position:fixed;inset:0;background:rgba(10,12,16,0.45);backdrop-filter:blur(2px);
-    display:flex;align-items:center;justify-content:center;padding:24px;
-    opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:20;
-  }
-  #commandOverlay.open{opacity:1;pointer-events:auto;}
-  #commandSheet{
-    width:min(820px,100%);height:min(82vh,780px);background:var(--panel-bg);border:1px solid var(--panel-border);
-    border-radius:20px;box-shadow:var(--shadow);backdrop-filter:blur(16px);display:flex;flex-direction:column;overflow:hidden;
-  }
-  #commandHead{padding:20px 22px 16px;border-bottom:1px solid var(--panel-border);flex:none;}
-  #commandHead .toprow{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
-  #commandHead h2{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:24px;margin:0;}
-  #commandHead .sub{font-size:12px;color:var(--muted);margin-top:2px;font-family:"IBM Plex Mono",monospace;}
-  #commandClose{
-    background:var(--chip-bg);border:1px solid var(--panel-border);color:var(--muted);
-    width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;line-height:1;flex:none;
-  }
-  #commandList{flex:1;overflow-y:auto;padding:14px 20px 20px;}
   .deal-card{background:var(--chip-bg);border:1px solid var(--panel-border);border-radius:14px;padding:16px 18px;margin-bottom:12px;}
   .deal-card .dtop{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;}
   .deal-card .dclient{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:19px;}
@@ -208,21 +203,170 @@
   .dstep.done{color:var(--ink);}
   .dstep.done .sdot{background:var(--status-paid);}
   .dstep.pending .sdot{background:var(--muted);}
-  .dstep.blocked .sdot{background:#D24E64;}
-  .command-empty{padding:40px 12px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6;}
+  .dstep.blocked .sdot{background:var(--st-blocked);}
+
+  /* ---------- status colors, shared by badges, dots and the key ---------- */
+  .s-working{background:var(--st-working);} .s-requested{background:var(--st-requested);}
+  .s-blocked{background:var(--st-blocked);} .s-fresh{background:var(--st-fresh);}
+  .s-stale{background:var(--st-stale);} .s-idle{background:var(--st-idle);}
+
+  /* ---------- pulse strip: the studio's vital signs under the title ---------- */
+  #pulse{pointer-events:auto;display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;max-width:min(640px,92vw);}
+  .pchip{
+    display:inline-flex;align-items:center;gap:7px;
+    background:var(--panel-bg);border:1px solid var(--panel-border);color:var(--muted);
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.02em;
+    padding:6px 10px;border-radius:999px;box-shadow:var(--shadow);backdrop-filter:blur(10px);
+    font-variant-numeric:tabular-nums;white-space:nowrap;
+  }
+  button.pchip{cursor:pointer;}
+  button.pchip:hover{color:var(--ink);}
+  .pchip b{color:var(--ink);font-weight:600;}
+  .pchip .pdot{width:7px;height:7px;border-radius:50%;flex:none;}
+  .pchip.attn{border-color:var(--st-requested);}
+  .pchip.attn b{color:var(--st-requested);}
+  @keyframes beat{0%,100%{box-shadow:0 0 0 0 transparent;}50%{box-shadow:0 0 0 4px color-mix(in srgb, var(--st-working) 28%, transparent);}}
+  .pdot.live{animation:beat 2.2s ease-in-out infinite;}
+
+  #statusKey{
+    pointer-events:none;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 12px;
+    font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);
+    background:var(--panel-bg);border:1px solid var(--panel-border);border-radius:999px;
+    padding:5px 12px;box-shadow:var(--shadow);max-width:92vw;
+  }
+  #statusKey span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;}
+  #statusKey i{width:7px;height:7px;border-radius:50%;display:inline-block;}
+
+  /* ---------- sheets (Live, Waiting on you, Money) ---------- */
+  .sheet-overlay{
+    position:fixed;inset:0;background:rgba(10,12,16,0.45);backdrop-filter:blur(2px);
+    display:flex;align-items:center;justify-content:center;padding:24px 16px;
+    opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:20;
+  }
+  .sheet-overlay.open{opacity:1;pointer-events:auto;}
+  .sheet{
+    width:min(820px,100%);height:min(84vh,800px);background:var(--sheet-bg);border:1px solid var(--panel-border);
+    border-radius:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;
+  }
+  .sheet-head{padding:18px 22px 14px;border-bottom:1px solid var(--panel-border);flex:none;display:flex;flex-direction:column;gap:12px;}
+  .sheet-head .toprow{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  .sheet-head h2{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:25px;margin:0;line-height:1;text-wrap:balance;}
+  .sheet-head .sub{font-size:12px;color:var(--muted);margin-top:4px;font-family:"IBM Plex Mono",monospace;}
+  .sheet-close{
+    background:var(--chip-bg);border:1px solid var(--panel-border);color:var(--muted);
+    width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;line-height:1;flex:none;
+  }
+  .sheet-body{flex:1;overflow-y:auto;padding:6px 20px 22px;}
+  .sheet-note{font-size:12px;color:var(--muted);line-height:1.5;padding:12px 2px 4px;}
+
+  .tabbar{display:flex;gap:6px;flex-wrap:wrap;}
+  .tabbar button{
+    font-family:"Work Sans",sans-serif;font-weight:600;font-size:12px;cursor:pointer;
+    background:transparent;border:1px solid var(--panel-border);color:var(--muted);
+    padding:6px 12px;border-radius:999px;
+  }
+  .tabbar button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+
+  /* composer: tell the studio */
+  .composer{display:flex;gap:8px;align-items:flex-end;}
+  .composer textarea{
+    flex:1;min-width:0;resize:vertical;min-height:40px;max-height:160px;
+    font-family:"Work Sans",sans-serif;font-size:13px;line-height:1.4;color:var(--ink);
+    background:var(--panel-bg);border:1px solid var(--panel-border);border-radius:10px;padding:9px 11px;
+  }
+  .btn-ink{
+    font-family:"Work Sans",sans-serif;font-weight:600;font-size:12.5px;cursor:pointer;flex:none;
+    background:var(--ink);color:var(--bg);border:none;border-radius:9px;padding:10px 14px;
+  }
+  .btn-ink:disabled{opacity:.5;cursor:default;}
+  .btn-line{
+    font-family:"Work Sans",sans-serif;font-weight:600;font-size:12px;cursor:pointer;flex:none;
+    background:transparent;color:var(--ink);border:1px solid var(--panel-border);border-radius:9px;padding:7px 11px;
+  }
+  .btn-line:disabled{opacity:.5;cursor:default;}
+  .form-msg{font-size:11.5px;color:var(--muted);min-height:15px;}
+  button:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--st-fresh);outline-offset:2px;}
+
+  /* live feed */
+  .feed-item{display:grid;grid-template-columns:78px 1fr;gap:4px 12px;padding:11px 4px;border-bottom:1px solid var(--panel-border);}
+  .feed-item:last-child{border-bottom:none;}
+  .feed-time{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);padding-top:2px;font-variant-numeric:tabular-nums;}
+  .feed-main{min-width:0;}
+  .feed-top{display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .feed-kind{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--panel-border);border-radius:4px;padding:1px 5px;}
+  .feed-title{font-weight:600;font-size:13px;line-height:1.35;}
+  .feed-body{font-size:12px;color:var(--muted);line-height:1.45;margin-top:3px;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+  .feed-item.open .feed-body{-webkit-line-clamp:unset;display:block;}
+  .feed-item[data-expand]{cursor:pointer;}
+  .feed-dot{width:7px;height:7px;border-radius:50%;flex:none;}
+
+  /* waiting on you */
+  .oa-card{padding:14px 2px;border-bottom:1px solid var(--panel-border);display:flex;flex-direction:column;gap:6px;}
+  .oa-card:last-child{border-bottom:none;}
+  .oa-title{font-weight:600;font-size:14px;line-height:1.35;display:flex;gap:8px;align-items:baseline;}
+  .oa-title .n{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);flex:none;}
+  .oa-detail{font-size:12.5px;line-height:1.5;color:var(--ink);max-width:65ch;}
+  .oa-why{font-size:12px;color:var(--muted);}
+  .oa-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;align-items:center;}
+  .oa-done{opacity:.55;}
+  .oa-done .oa-title{text-decoration:line-through;}
+  .section-label{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:16px 2px 4px;}
+
+  /* money */
+  .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;padding:14px 0 14px;}
+  .stat{border:1px solid var(--panel-border);border-radius:12px;padding:10px 12px;background:var(--panel-bg);}
+  .stat .k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+  .stat .v{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:24px;margin-top:2px;font-variant-numeric:tabular-nums;}
+  .stat .h{font-size:11px;color:var(--muted);margin-top:1px;}
+  .stage{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:3px 8px;border:1px solid var(--panel-border);white-space:nowrap;}
+  .stage.held{color:var(--st-requested);border-color:var(--st-requested);}
+  .stage.moving{color:var(--st-working);border-color:var(--st-working);}
+  .stage.paid{color:var(--bg);background:var(--st-working);border-color:var(--st-working);}
+  .opp-row{padding:12px 2px;border-bottom:1px solid var(--panel-border);}
+  .opp-row:last-child{border-bottom:none;}
+  .opp-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;}
+  .opp-title{font-weight:600;font-size:13.5px;line-height:1.35;}
+  .opp-next{font-size:12px;color:var(--muted);line-height:1.45;margin-top:4px;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+  .mm-bar{display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--chip-bg);border:1px solid var(--panel-border);margin:10px 0 8px;}
+  .mm-bar span{display:block;height:100%;}
+  .mm-legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);}
+  .mm-legend span{display:inline-flex;align-items:center;gap:5px;}
+  .mm-legend i{width:8px;height:8px;border-radius:2px;display:inline-block;}
+  .mm-row{display:grid;grid-template-columns:34px 1fr auto;gap:8px;padding:8px 2px;border-bottom:1px solid var(--panel-border);align-items:baseline;}
+  .mm-row .num{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;}
+  .mm-row .t{font-size:12.5px;line-height:1.35;}
+  .mm-row .why{grid-column:2 / 4;font-size:11.5px;color:var(--muted);line-height:1.4;}
+  .mm-row .st{font-family:"IBM Plex Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;}
+  .c-promoted{background:var(--st-working);} .c-tracked{background:var(--st-fresh);} .c-hold{background:var(--st-requested);}
+  .c-archived{background:var(--st-stale);} .c-unreviewed{background:var(--st-idle);}
+
+  /* toast for things happening right now */
+  #toast{
+    position:fixed;left:50%;transform:translate(-50%,12px);bottom:calc(96px + env(safe-area-inset-bottom,0px));
+    max-width:min(520px,calc(100vw - 32px));pointer-events:auto;cursor:pointer;
+    background:var(--panel-bg);border:1px solid var(--panel-border);border-radius:14px;box-shadow:var(--shadow);
+    padding:9px 13px;font-size:12.5px;line-height:1.4;display:flex;gap:9px;align-items:flex-start;
+    opacity:0;transition:opacity .35s ease, transform .35s ease;z-index:15;backdrop-filter:blur(12px);
+  }
+  #toast.show{opacity:1;transform:translate(-50%,0);}
+  #toast .tdot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex:none;}
+  #toast .tt{color:var(--muted);font-family:"IBM Plex Mono",monospace;font-size:10px;display:block;}
+  @media (prefers-reduced-motion: reduce){ .pdot.live{animation:none;} #toast{transition:none;} }
 
   @media (max-width:720px){
     .roster-row .rname{width:auto;max-width:44%;}
-    #topRow{align-items:flex-start;}
-    header{max-width:46vw;}
-    #topBtns{flex-wrap:wrap;justify-content:flex-end;}
+    #topRow{flex-direction:column;align-items:stretch;gap:10px;}
+    header{max-width:100%;}
+    #topBtns{flex-wrap:wrap;justify-content:flex-start;gap:6px;}
+    .pillbtn{white-space:nowrap;padding:8px 11px;font-size:12px;}
+    .pchip{white-space:normal;}
+    #hint{font-size:10.5px;text-align:center;}
   }
 
   @media (max-width:720px){
     #panel{top:auto;bottom:0;right:0;left:0;width:100%;height:min(56vh,480px);border-left:none;border-top:1px solid var(--panel-border);border-radius:18px 18px 0 0;transform:translateY(105%);}
     #panel.open{transform:translateY(0);}
     #legend{max-width:94vw;}
-    header{max-width:74vw;}
   }
 </style>
 </head><body><canvas id="scene"></canvas>
@@ -230,19 +374,97 @@
 <div id="app">
   <div id="topRow">
     <header>
-      <span class="eyebrow" id="headerEyebrow">40 agents &middot; 8 departments</span>
+      <span class="eyebrow" id="headerEyebrow">110 agents &middot; 22 departments</span>
       <h1>The Studio Floor</h1>
+      <div id="pulse" aria-live="polite">
+        <span class="pchip" id="pShift"><span class="pdot s-idle"></span>Connecting to the live board&hellip;</span>
+      </div>
     </header>
     <div id="topBtns">
-      <button class="pillbtn" id="commandBtn" type="button">Command Center</button>
+      <button class="pillbtn" id="liveBtn" type="button">Live</button>
+      <button class="pillbtn" id="ownerBtn" type="button">Waiting on you</button>
+      <button class="pillbtn" id="moneyBtn" type="button">Money</button>
       <button class="pillbtn" id="rosterBtn" type="button">All agents</button>
       <button class="pillbtn" id="resetViewBtn" type="button">Reset view</button>
     </div>
   </div>
 
   <div id="bottomRow">
-    <div id="hint">drag to orbit &middot; scroll / pinch to zoom &middot; double-tap to zoom in/out &middot; right-drag to pan &middot; arrow keys also work &middot; click a pod or a person</div>
+    <div id="hint">drag to orbit &middot; scroll / pinch to zoom &middot; double-tap to zoom &middot; right-drag to pan &middot; click a room or a person</div>
+    <script>if(window.matchMedia && window.matchMedia("(max-width:720px)").matches){ document.getElementById("hint").textContent = "drag to orbit · pinch to zoom · tap a room or a person"; }</script>
+    <div id="statusKey" aria-hidden="true">
+      <span><i class="s-working"></i>working now</span>
+      <span><i class="s-requested"></i>asked by you</span>
+      <span><i class="s-blocked"></i>blocked</span>
+      <span><i class="s-fresh"></i>worked in the last 2h</span>
+      <span><i class="s-stale"></i>earlier</span>
+      <span><i class="s-idle"></i>no work yet</span>
+    </div>
     <div id="legend"></div>
+  </div>
+</div>
+
+<div id="toast" role="status"></div>
+
+<div class="sheet-overlay" id="liveOverlay">
+  <div class="sheet" role="dialog" aria-labelledby="liveTitle">
+    <div class="sheet-head">
+      <div class="toprow">
+        <div>
+          <h2 id="liveTitle">Live</h2>
+          <div class="sub" id="liveSub">everything the studio did, newest first</div>
+        </div>
+        <button class="sheet-close" type="button" data-close="liveOverlay" aria-label="Close">&#10005;</button>
+      </div>
+      <form class="composer" id="askForm">
+        <textarea id="askText" rows="2" maxlength="1200" placeholder="Tell the studio what to do next, e.g. &quot;Find 5 dentists in Austin that miss calls&quot;"></textarea>
+        <button class="btn-ink" id="askBtn" type="submit">Send</button>
+      </form>
+      <div class="form-msg" id="askMsg">The next hourly shift picks this up first.</div>
+      <div class="tabbar" role="tablist" id="feedTabs">
+        <button type="button" role="tab" data-kind="all" aria-selected="true">Everything</button>
+        <button type="button" role="tab" data-kind="agent" aria-selected="false">Agents</button>
+        <button type="button" role="tab" data-kind="decision" aria-selected="false">Decisions</button>
+        <button type="button" role="tab" data-kind="request" aria-selected="false">Requests</button>
+        <button type="button" role="tab" data-kind="outbox" aria-selected="false">Outbox</button>
+      </div>
+    </div>
+    <div class="sheet-body" id="feedList"></div>
+  </div>
+</div>
+
+<div class="sheet-overlay" id="ownerOverlay">
+  <div class="sheet" role="dialog" aria-labelledby="ownerTitle">
+    <div class="sheet-head">
+      <div class="toprow">
+        <div>
+          <h2 id="ownerTitle">Waiting on you</h2>
+          <div class="sub" id="ownerSub">things only you can do</div>
+        </div>
+        <button class="sheet-close" type="button" data-close="ownerOverlay" aria-label="Close">&#10005;</button>
+      </div>
+    </div>
+    <div class="sheet-body" id="ownerList"></div>
+  </div>
+</div>
+
+<div class="sheet-overlay" id="moneyOverlay">
+  <div class="sheet" role="dialog" aria-labelledby="moneyTitle">
+    <div class="sheet-head">
+      <div class="toprow">
+        <div>
+          <h2 id="moneyTitle">Money</h2>
+          <div class="sub" id="moneySub">deals, opportunities and the 100-idea list</div>
+        </div>
+        <button class="sheet-close" type="button" data-close="moneyOverlay" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="tabbar" role="tablist" id="moneyTabs">
+        <button type="button" role="tab" data-tab="deals" aria-selected="true">Deals</button>
+        <button type="button" role="tab" data-tab="opps" aria-selected="false">Opportunities</button>
+        <button type="button" role="tab" data-tab="ideas" aria-selected="false">100 ideas</button>
+      </div>
+    </div>
+    <div class="sheet-body" id="moneyBody"></div>
   </div>
 </div>
 
@@ -259,21 +481,6 @@
       <input id="rosterSearch" type="text" placeholder="Search by name, task, or result&hellip;">
     </div>
     <div id="rosterList"></div>
-  </div>
-</div>
-
-<div id="commandOverlay">
-  <div id="commandSheet">
-    <div id="commandHead">
-      <div class="toprow">
-        <div>
-          <h2>Command Center</h2>
-          <div class="sub" id="commandSub">every deal, its real status</div>
-        </div>
-        <button id="commandClose" type="button" aria-label="Close">&#10005;</button>
-      </div>
-    </div>
-    <div id="commandList"></div>
   </div>
 </div>
 
@@ -304,7 +511,7 @@
   var DEPARTMENTS = [
     { id:"strategy", code:"00", name:"Strategy & Operations", tag:"Runs the studio itself", cssVar:"--a-strategy", hex:0xC97F22, x:0, z:-8.4, boardroom:true,
       agents:[
-        {name:"Chief of Staff", desc:"Prioritizes the studio's work queue, tracks capacity across all 35 agents."},
+        {name:"Chief of Staff", desc:"Sets the studio's priorities and approves or denies every client-facing action."},
         {name:"Project Manager", desc:"Breaks a signed job into tasks and assigns them to the right department."},
         {name:"Finance & Bookkeeping Agent", desc:"Tracks invoices sent/paid, expenses, and margin per job."},
         {name:"Contract & Proposal Drafting Agent", desc:"Drafts SOWs, contracts, and NDAs from templates."},
@@ -458,7 +665,7 @@
     // organizes the team to build them — see DISPATCH.md. ----------------
     { id:"task-dispatch", code:"18", name:"Task Dispatch", tag:"Never lets an idle agent sit idle", cssVar:"--a-lasttouch", hex:0xB8901E, x:-8.5, z:8.75, group:"E", row:0,
       agents:[
-        {name:"Idle Watch Agent", desc:"Continuously scans the live status board for any agent, across all 90, sitting idle."},
+        {name:"Idle Watch Agent", desc:"Scans the live status board for any agent with real work waiting and nobody on it."},
         {name:"Task Matcher Agent", desc:"Picks the correct next task for that specific idle agent's role, not just any open item."},
         {name:"Priority Triage Agent", desc:"When multiple tasks compete for the same idle agent, decides what's actually most urgent."},
         {name:"Handoff Verification Agent", desc:"Confirms a dispatched task actually lands with the right department, not lost in the handoff."},
@@ -467,7 +674,7 @@
     { id:"capacity-queue", code:"19", name:"Capacity & Queue", tag:"Keeps a real backlog so Dispatch always has the right next task", cssVar:"--a-lasttouch", hex:0xB8901E, x:-8.5, z:10.35, group:"E", row:1,
       agents:[
         {name:"Backlog Curator Agent", desc:"Maintains the actual queue of ready-to-assign tasks per department, not a vague 'go find work.'"},
-        {name:"Capacity Tracker Agent", desc:"Tracks how loaded or idle every one of the 90 agents actually is, in real time."},
+        {name:"Capacity Tracker Agent", desc:"Tracks how loaded or idle every agent in the studio actually is."},
         {name:"Bottleneck Spotter Agent", desc:"Flags departments that are chronically overloaded or chronically idle — a structural signal, not a one-off."},
         {name:"Cross-Division Load Balancer", desc:"When one division is overloaded and the other has idle capacity, looks for a real, sensible way to shift help across."},
         {name:"Queue Health Reporter", desc:"Reports honestly whether the zero-idle policy is actually holding, to Chief of Staff."}
@@ -515,13 +722,18 @@
     A:         { inside:{x:-4.225, z:-2.0}, outside:{x:-3.425, z:-2.0} },
     B:         { inside:{x:4.225,  z:-2.0}, outside:{x:3.425,  z:-2.0} },
     strategy:  { inside:{x:0, z:-5.8}, outside:{x:0, z:-5.0} },
-    lasttouch: { inside:{x:0, z:1.8},  outside:{x:0, z:1.0} }
+    lasttouch: { inside:{x:0, z:1.8},  outside:{x:0, z:1.0} },
+    // The Dispatch rooms sit south of the bullpens; their route runs up the
+    // narrow corridor between bullpen A/B and Last Touch, then turns in
+    // north of Last Touch, so no leg crosses a wall.
+    E:         { inside:{x:-4.225, z:9.55}, outside:{x:-3.425, z:9.55}, via:[{x:-3.425, z:0.9}] },
+    F:         { inside:{x:4.225,  z:9.55}, outside:{x:3.425,  z:9.55}, via:[{x:3.425,  z:0.9}] }
   };
   // A safe path from any seat in `roomKey` to any point in the open
   // corridor/Collaboration Room area (no walls there) — or the reverse.
   function corridorPath(roomKey){
     var d = ROOM_DOOR[roomKey];
-    return d ? [d.inside, d.outside] : [];
+    return d ? [d.inside, d.outside].concat(d.via || []) : [];
   }
 
   function slugify(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,""); }
@@ -539,7 +751,21 @@
     sales: "Every draft goes through Last Touch, then to you for the actual send/approval — nothing goes out on its own.",
     delivery: "Feeds what the client actually receives — checked by Deliverable QA before it ships.",
     growth: "Positioning/content feeds the active opportunity's marketing — reviewed by Last Touch before anything posts.",
-    lasttouch: "Passes to the next Last Touch check, and finally to your approval queue once all five clear it."
+    lasttouch: "Passes to the next Last Touch check, then to Chief of Staff once all five clear it.",
+    "trend-intel": "A current, commentary-safe story goes to Clip Sourcing & Rights to check what footage can be used.",
+    "clip-rights": "Cleared source material and its usage limits go to Commentary & Scripting.",
+    commentary: "A fact-checked script goes to Production & Editing.",
+    production: "A real rendered video goes to Thumbnails & Titles, then Video Last Touch.",
+    thumbnails: "Title, thumbnail and metadata travel with the video into Video Last Touch.",
+    "growth-video": "What the audience actually does feeds back to Trend Intelligence for the next video.",
+    "video-lasttouch": "Publish Coordinator confirms a real render exists, then Chief of Staff approves or denies posting.",
+    "youtube-ops": "Approved videos are queued for YouTube; uploads are still manual (no upload tool).",
+    "tiktok-ops": "Prep work only until a TikTok posting connector exists.",
+    "meta-ops": "Approved Reels can go live on Instagram from a connected session.",
+    "task-dispatch": "Assigns the next real task to whichever agent has work waiting.",
+    "capacity-queue": "Keeps the backlog honest so Dispatch always has a real next task.",
+    "opportunity-discovery": "Triages the 100-idea list and logs real opportunities with sources.",
+    "venture-coordination": "Turns a validated opportunity into a build plan across departments."
   };
 
   // The building isn't square anymore — the video division's wing extends
@@ -656,13 +882,47 @@
   }, 32,32,1,1);
 
   // live per-agent status, filled in by the db subscription below
-  var agentMeshes = {};   // agentId -> {mat: SpriteMaterial}
+  var agentMeshes = {};   // agentId -> {mat: SpriteMaterial, sprite}
   var agentStatus = {};   // agentId -> {status, task, result, updatedAt}
-  var STATUS_COLOR = {idle:0x9aa3ae, requested:0xE0A24A, working:0x3FA35E, done:0x3560CC, blocked:0xD24E64};
+  // A stored status of "done" says nothing about WHEN, so the badge splits it
+  // by recency: worked in the last 2 hours vs. earlier.
+  var FRESH_MS = 2*60*60*1000;
+  var VCOLOR = {working:0x2A8C52, requested:0xD18A1F, blocked:0xC2413F, fresh:0x3560CC, stale:0x8A95A5, idle:0xB3BAC4};
+  var VLABEL = {working:"Working now", requested:"Asked by you, waiting for the next shift", blocked:"Blocked", fresh:"Worked in the last 2 hours", stale:"Last worked earlier", idle:"No work yet"};
   function statusOf(id){ return (agentStatus[id] && agentStatus[id].status) || "idle"; }
+  // A timestamp more than 10 minutes ahead of this device's clock is a bad write,
+  // not a real event: treat it as unknown so it can't float to the top of the feed.
+  function timeOf(s){ var t = Date.parse(s||""); return (isNaN(t) || t - Date.now() > 600000) ? 0 : t; }
+  function vstate(id){
+    var live = agentStatus[id];
+    if(!live) return "idle";
+    var st = live.status || "idle";
+    if(st==="working" || st==="requested" || st==="blocked") return st;
+    if(st==="done"){
+      var t = timeOf(live.updatedAt);
+      return (t && Date.now()-t < FRESH_MS) ? "fresh" : "stale";
+    }
+    return "idle";
+  }
+  var pulsing = {};   // agentId -> true while working or requested (badge breathes)
   function updateBadge(id){
     var m = agentMeshes[id];
-    if(m) m.mat.color.setHex(STATUS_COLOR[statusOf(id)] || STATUS_COLOR.idle);
+    if(!m) return;
+    var v = vstate(id);
+    m.mat.color.setHex(VCOLOR[v]);
+    if(v==="working" || v==="requested") pulsing[id] = true;
+    else { delete pulsing[id]; m.sprite.scale.set(0.15,0.15,1); }
+  }
+  function agoText(ms){
+    if(!ms) return "time unknown";
+    var d = Date.now()-ms;
+    if(d < 0) return "just now";
+    var m = Math.round(d/60000);
+    if(m < 1) return "just now";
+    if(m < 60) return m+" min ago";
+    var h = Math.round(m/60);
+    if(h < 24) return h+" h ago";
+    return Math.round(h/24)+" d ago";
   }
 
   // ---------------- clickable zones (dept bounding rects) ----------------
@@ -907,12 +1167,12 @@
     });
 
     if(agentId){
-      var badgeMat = new THREE.SpriteMaterial({map:badgeTex, color:STATUS_COLOR.idle, transparent:true, depthWrite:false});
+      var badgeMat = new THREE.SpriteMaterial({map:badgeTex, color:VCOLOR.idle, transparent:true, depthWrite:false});
       var badge = new THREE.Sprite(badgeMat);
       badge.scale.set(0.15,0.15,1);
       badge.position.set(0,1.32,0);
       g.add(badge);
-      agentMeshes[agentId] = {mat:badgeMat};
+      agentMeshes[agentId] = {mat:badgeMat, sprite:badge};
 
       if(displayName){
         var tag = makeNameTag(displayName);
@@ -1572,36 +1832,54 @@
   var panelBack = document.getElementById("panelBack");
   var currentDept = null;
   var currentAgentId = null;
-  var STATUS_LABEL = {idle:"Idle — no task assigned", requested:"Requested, not started", working:"Working", done:"Done", blocked:"Blocked"};
+  // Owner asks go to `requests`, which step 0 of every hourly shift reads
+  // first. The agent's own doc only flips to "requested" so its badge shows
+  // the ask is waiting; the request doc is the part the shift acts on.
+  function sendRequest(text, agentId, extra){
+    if(!dbRef) return Promise.reject({code:"no_db"});
+    var now = new Date().toISOString();
+    var body = {from:"owner", source:"studio-floor", request:text, status:"pending", created:now};
+    if(extra) Object.keys(extra).forEach(function(k){ body[k] = extra[k]; });
+    if(agentId){ body.agent = agentId; body.agent_name = (AGENT_BY_ID[agentId] ? AGENT_BY_ID[agentId].a.name : agentId); }
+    return dbRef.collection("requests").add(body).then(function(ref){
+      if(!agentId) return ref;
+      return dbRef.doc("agents/"+agentId).update({status:"requested", task:text, updatedAt:now}).then(function(){ return ref; });
+    });
+  }
+  function writeError(err){
+    if(err && err.code==="no_db") return "The live board isn't connected in this view, so nothing was sent.";
+    if(err && err.code==="invalid_argument") return "Your access to this page is view-only, so it can't send requests.";
+    if(err && err.code==="quota_exceeded") return "The studio database is full. Nothing was sent.";
+    return "That didn't save. Check your connection and send it again.";
+  }
 
   function assignTask(agentId, inputEl, btnEl, msgEl){
-    if(!agentsCol){ msgEl.textContent = "Live status isn't connected in this view."; return; }
     var text = inputEl.value.trim();
     if(!text) return;
     btnEl.disabled = true; inputEl.disabled = true;
-    msgEl.textContent = "Saving…";
-    agentsCol.doc(agentId).update({status:"requested", task:text, updatedAt:new Date().toISOString()})
+    msgEl.textContent = "Sending…";
+    sendRequest(text, agentId)
       .then(function(){
-        inputEl.value = ""; msgEl.textContent = "";
+        inputEl.value = "";
+        msgEl.textContent = "Sent. The next hourly shift picks it up first.";
       })
-      .catch(function(err){
-        msgEl.textContent = (err && err.code==="invalid_argument") ? "You don't have edit access here." : "Couldn't save — try again.";
-      })
+      .catch(function(err){ msgEl.textContent = writeError(err); })
       .then(function(){ btnEl.disabled = false; inputEl.disabled = false; });
   }
 
   function buildAgentCard(a, expanded){
     var live = agentStatus[a.id];
-    var status = (live && live.status) || "idle";
+    var v = vstate(a.id);
+    var status = v==="fresh"||v==="stale" ? "done" : v;
 
     var el = document.createElement("div"); el.className="agent-card";
     var n = document.createElement("div"); n.className="name"; n.textContent=a.name;
     var de = document.createElement("div"); de.className="desc"; de.textContent=a.desc;
 
     var st = document.createElement("div"); st.className="status-line";
-    var dot = document.createElement("span"); dot.className="status-dot"; dot.style.background = "#"+(STATUS_COLOR[status]||STATUS_COLOR.idle).toString(16).padStart(6,"0");
+    var dot = document.createElement("span"); dot.className="status-dot s-"+v;
     var stText = document.createElement("span");
-    stText.textContent = STATUS_LABEL[status] || status;
+    stText.textContent = VLABEL[v] + (live && live.updatedAt ? " · "+agoText(timeOf(live.updatedAt)) : "");
     st.appendChild(dot); st.appendChild(stText);
     el.appendChild(n); el.appendChild(de); el.appendChild(st);
 
@@ -1619,14 +1897,17 @@
     if(expanded){
       var next = document.createElement("div"); next.className="next-line";
       var nextText = NEXT_BY_DEPT[a.dept] || "";
+      var lead = "<b>Next:</b> ";
       if(status === "idle"){
-        next.innerHTML = "<b>Next:</b> hasn't been assigned real work yet — the autonomous shift (hourly) picks up whichever agents have waited longest.";
+        next.innerHTML = lead + "no real work yet. Assign something below, or the hourly shift will pick it up when there's work for this role.";
+      } else if(status === "requested"){
+        next.innerHTML = lead + "your ask is queued. The next hourly shift reads it first.";
       } else if(status === "blocked"){
-        next.innerHTML = "<b>Next:</b> blocked on something only the owner can supply — see the task above.";
+        next.innerHTML = lead + "blocked on something outside the studio's reach. The reason is in the result above.";
       } else if(status === "working"){
-        next.innerHTML = "<b>Next:</b> will report back with a real result once this task is done.";
+        next.innerHTML = lead + "working on it now. The result appears here as soon as it's done.";
       } else {
-        next.innerHTML = "<b>Next:</b> "+nextText;
+        next.innerHTML = lead + (nextText || "Hands its result to whichever department needs it next.");
       }
       el.appendChild(next);
     }
@@ -1691,29 +1972,16 @@
     Array.prototype.forEach.call(legend.children, function(btn){ btn.classList.remove("active"); });
   });
 
-  // ---------------- live agent status (db capability) ----------------
-  var agentsCol = null;
-  if(window.claude && window.claude.use){
-    window.claude.use("db").then(function(db){
-      if(!db) return;
-      agentsCol = db.collection("agents");
-      agentsCol.onSnapshot(function(snap){
-        snap.docs.forEach(function(doc){
-          agentStatus[doc.id] = doc.data();
-          updateBadge(doc.id);
-        });
-        refreshPanelIfOpen();
-        refreshRosterIfOpen();
-      }, function(){ /* live status unavailable in this view; badges stay idle-grey */ });
-    }).catch(function(){});
-  }
+  // The db namespace, once the viewer grants it (null until then, or for good
+  // in a view that can't run it). Every live view below reads from here.
+  var dbRef = null;
 
-  // ---------------- roster (all 35 agents, searchable) ----------------
+  // ---------------- roster (all agents, searchable) ----------------
   var ALL_AGENTS = [];
   DEPARTMENTS.forEach(function(dept){
     dept.agents.forEach(function(a){ ALL_AGENTS.push({a:a, dept:dept}); });
   });
-  var STATUS_ORDER = {working:0, requested:1, blocked:1, done:2, idle:3};
+  var STATUS_ORDER = {working:0, requested:1, blocked:2, fresh:3, stale:4, idle:5};
   document.getElementById("headerEyebrow").textContent = ALL_AGENTS.length+" agents · "+DEPARTMENTS.length+" departments";
   document.getElementById("rosterTitle").textContent = "All "+ALL_AGENTS.length+" Agents";
 
@@ -1727,7 +1995,7 @@
     var q = rosterSearch.value.trim().toLowerCase();
     var rows = ALL_AGENTS.map(function(entry){
       var live = agentStatus[entry.a.id];
-      var status = (live && live.status) || "idle";
+      var status = vstate(entry.a.id);
       return {
         entry:entry, status:status,
         task: (live && live.task) || "", result: (live && live.result) || "",
@@ -1738,17 +2006,15 @@
       var hay = (r.entry.a.name+" "+r.entry.dept.name+" "+r.task+" "+r.result).toLowerCase();
       return hay.indexOf(q) !== -1;
     }).sort(function(r1,r2){
-      var so = (STATUS_ORDER[r1.status]||3) - (STATUS_ORDER[r2.status]||3);
+      var so = STATUS_ORDER[r1.status] - STATUS_ORDER[r2.status];
       if(so !== 0) return so;
-      if(r1.updatedAt !== r2.updatedAt) return r1.updatedAt < r2.updatedAt ? 1 : -1;
+      var t1 = timeOf(r1.updatedAt), t2 = timeOf(r2.updatedAt);
+      if(t1 !== t2) return t2 - t1;
       return r1.entry.a.name.localeCompare(r2.entry.a.name);
     });
 
-    var activeCount = ALL_AGENTS.reduce(function(n,entry){
-      var st = (agentStatus[entry.a.id]&&agentStatus[entry.a.id].status)||"idle";
-      return n + (st==="working"||st==="requested"||st==="done" ? 1 : 0);
-    }, 0);
-    rosterSub.textContent = activeCount + " of " + ALL_AGENTS.length + " have done real work so far · live status, most active first";
+    var recent = ALL_AGENTS.filter(function(entry){ var v = vstate(entry.a.id); return v==="working"||v==="fresh"; }).length;
+    rosterSub.textContent = recent + " of " + ALL_AGENTS.length + " worked in the last 2 hours · grouped by status, most recent first";
 
     rosterList.innerHTML = "";
     if(rows.length === 0){
@@ -1757,21 +2023,25 @@
       rosterList.appendChild(empty);
       return;
     }
-    var lastDept = null;
+    var counts = {};
+    rows.forEach(function(r){ counts[r.status] = (counts[r.status]||0) + 1; });
+    var lastStatus = null;
     rows.forEach(function(r){
-      if(q === "" && r.entry.dept.id !== lastDept){
-        lastDept = r.entry.dept.id;
+      if(r.status !== lastStatus){
+        lastStatus = r.status;
         var h = document.createElement("div"); h.className="roster-dept";
-        h.textContent = r.entry.dept.code+" · "+r.entry.dept.name;
+        h.textContent = VLABEL[r.status]+" ("+counts[r.status]+")";
         rosterList.appendChild(h);
       }
       var row = document.createElement("div"); row.className="roster-row";
-      var dot = document.createElement("span"); dot.className="rdot";
-      dot.style.background = "#"+(STATUS_COLOR[r.status]||STATUS_COLOR.idle).toString(16).padStart(6,"0");
+      var dot = document.createElement("span"); dot.className="rdot s-"+r.status;
       var name = document.createElement("span"); name.className="rname"; name.textContent = r.entry.a.name;
+      var dp = document.createElement("span"); dp.className="rdept"; dp.textContent = r.entry.dept.name;
+      name.appendChild(dp);
       var meta = document.createElement("span"); meta.className="rmeta";
       meta.textContent = r.result || r.task || r.entry.a.desc;
-      var st = document.createElement("span"); st.className="rstatus"; st.textContent = r.status;
+      var st = document.createElement("span"); st.className="rstatus";
+      st.textContent = r.updatedAt ? agoText(timeOf(r.updatedAt)) : "no work yet";
       row.appendChild(dot); row.appendChild(name); row.appendChild(meta); row.appendChild(st);
       row.addEventListener("click", function(){
         closeRoster();
@@ -1797,13 +2067,244 @@
   rosterOverlay.addEventListener("click", function(e){ if(e.target===rosterOverlay) closeRoster(); });
   rosterSearch.addEventListener("input", renderRoster);
 
-  // ---------------- command center (deals: sent / agreed / last touch / delivered / paid) ----------------
-  var dealsCol = null;
-  var deals = {};
-  var commandOverlay = document.getElementById("commandOverlay");
-  var commandList = document.getElementById("commandList");
-  var commandSub = document.getElementById("commandSub");
-  var commandOpen = false;
+  // ---------------- live data: every collection the studio runs on ----------------
+  var store = {deals:{}, decisions:{}, requests:{}, outbox:{}, owner:{}, opps:{}, ideas:{}, changes:{}};
+  var loaded = {};
+  var dbState = "connecting";   // connecting | live | unavailable
+
+  function mk(tag, cls, text){ var e = document.createElement(tag); if(cls) e.className = cls; if(text!=null) e.textContent = text; return e; }
+  function usd(n){ try{ return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(n); }catch(e){ return "$"+Math.round(n); } }
+  function clip(s, n){ s = String(s==null?"":s); return s.length>n ? s.slice(0,n-1)+"…" : s; }
+  function clockText(ms){
+    if(!ms) return "";
+    var d = new Date(ms), now = new Date();
+    var hm = d.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"});
+    return d.toDateString()===now.toDateString() ? hm : d.toLocaleDateString([], {month:"short", day:"numeric"})+", "+hm;
+  }
+  function docsOf(name){ return Object.keys(store[name]).map(function(id){ return {id:id, d:store[name][id]}; }); }
+
+  // ---------------- sheets ----------------
+  var SHEETS = ["liveOverlay","ownerOverlay","moneyOverlay"];
+  var openSheetId = null;
+  function openSheet(id){
+    if(rosterOpen) closeRoster();
+    SHEETS.forEach(function(s){ document.getElementById(s).classList.toggle("open", s===id); });
+    openSheetId = id;
+    renderSheet();
+  }
+  function closeSheet(){
+    SHEETS.forEach(function(s){ document.getElementById(s).classList.remove("open"); });
+    openSheetId = null;
+  }
+  function renderSheet(){
+    if(openSheetId==="liveOverlay") renderFeed();
+    else if(openSheetId==="ownerOverlay") renderOwner();
+    else if(openSheetId==="moneyOverlay") renderMoney();
+  }
+  SHEETS.forEach(function(s){
+    var ov = document.getElementById(s);
+    ov.addEventListener("click", function(e){ if(e.target===ov) closeSheet(); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-close]"), function(b){ b.addEventListener("click", closeSheet); });
+  document.getElementById("liveBtn").addEventListener("click", function(){ openSheet("liveOverlay"); });
+  document.getElementById("ownerBtn").addEventListener("click", function(){ openSheet("ownerOverlay"); });
+  document.getElementById("moneyBtn").addEventListener("click", function(){ openSheet("moneyOverlay"); });
+  window.addEventListener("keydown", function(e){
+    if(e.key!=="Escape") return;
+    if(openSheetId) closeSheet();
+    else if(rosterOpen) closeRoster();
+  });
+  function wireTabs(barId, attr, onPick){
+    var bar = document.getElementById(barId);
+    bar.addEventListener("click", function(e){
+      var b = e.target.closest("button[role=tab]");
+      if(!b) return;
+      Array.prototype.forEach.call(bar.children, function(x){ x.setAttribute("aria-selected", x===b ? "true" : "false"); });
+      onPick(b.getAttribute(attr));
+    });
+  }
+  function selectTab(barId, attr, value){
+    Array.prototype.forEach.call(document.getElementById(barId).children, function(x){ x.setAttribute("aria-selected", x.getAttribute(attr)===value ? "true" : "false"); });
+  }
+
+  // ---------------- Live feed ----------------
+  var feedKind = "all";
+  wireTabs("feedTabs", "data-kind", function(k){ feedKind = k; renderFeed(); });
+  var REQ_DOT = {pending:"s-requested", in_progress:"s-working", done:"s-fresh", blocked:"s-blocked"};
+  var OUT_LABEL = {approved_pending_send:"Approved, waiting to send", held_for_review:"Held for your decision", sent:"Sent", approved_pending_post:"Approved, waiting to post", blocked_no_render:"Blocked: no video file", cancelled:"Cancelled"};
+
+  function feedEvents(){
+    var ev = [];
+    Object.keys(agentStatus).forEach(function(id){
+      var a = agentStatus[id];
+      if(!a || !a.updatedAt) return;
+      var who = AGENT_BY_ID[id] ? AGENT_BY_ID[id].a.name : (a.name || id);
+      var v = vstate(id);
+      var verb = v==="working" ? " is working on: " : v==="requested" ? " has your ask waiting: " : v==="blocked" ? " is blocked on: " : ": ";
+      ev.push({kind:"agent", t:timeOf(a.updatedAt), dot:"s-"+v, title: who + verb + clip(a.task || "(no task text)", 160), body: a.result || "", agentId:id});
+    });
+    docsOf("decisions").forEach(function(x){
+      var d = x.d, dec = String(d.decision||"").toLowerCase();
+      var dot = dec==="approved" ? "s-working" : (dec==="denied"||dec==="blocked") ? "s-blocked" : dec==="retracted" ? "s-stale" : "s-fresh";
+      var who = AGENT_BY_ID[d.agent] ? AGENT_BY_ID[d.agent].a.name : (d.agent || "Studio");
+      ev.push({kind:"decision", t:timeOf(d.timestamp), dot:dot, title: who+" · "+(d.decision||"decided")+": "+clip(d.action||x.id, 180), body: d.reason || ""});
+    });
+    docsOf("requests").forEach(function(x){
+      var d = x.d, st = d.status || "pending";
+      var t = timeOf(d.updatedAt) || timeOf(d.created) || timeOf(d.created_at);
+      var label = st==="in_progress" ? "In progress" : st.charAt(0).toUpperCase()+st.slice(1);
+      ev.push({kind:"request", t:t, dot:REQ_DOT[st]||"s-fresh", title:"Request · "+label+": "+clip(d.request||d.ask||x.id, 180), body: d.result || d.next_step || ""});
+    });
+    docsOf("outbox").forEach(function(x){
+      var d = x.d;
+      var t = timeOf(d.sent_at) || timeOf(d.updatedAt) || timeOf(d.created);
+      var st = d.status || "";
+      var dot = st==="sent" ? "s-working" : st==="held_for_review" ? "s-requested" : st.indexOf("blocked")===0 ? "s-blocked" : "s-fresh";
+      ev.push({kind:"outbox", t:t, dot:dot, title:(OUT_LABEL[st]||st)+": "+clip(d.subject || d.title || x.id, 140)+(d.to ? " → "+d.to : d.platform ? " → "+d.platform : ""), body: d.held_reason || d.correction_note || d.approved_reason || ""});
+    });
+    docsOf("changes").forEach(function(x){
+      var d = x.d;
+      ev.push({kind:"change", t:timeOf(d.applied_at) || timeOf(d.created), dot: d.status==="applied" ? "s-working" : d.status==="pending" ? "s-requested" : "s-blocked", title:"File change "+(d.status||"")+": "+(d.file||x.id), body:d.reason||""});
+    });
+    ev.sort(function(a,b){ return b.t - a.t; });
+    return ev;
+  }
+
+  function renderFeed(){
+    var list = document.getElementById("feedList");
+    list.textContent = "";
+    if(dbState!=="live"){
+      list.appendChild(mk("div","sheet-note", dbState==="connecting" ? "Connecting to the live board…" : "The live board isn't available in this view."));
+      return;
+    }
+    var ev = feedEvents().filter(function(e){ return feedKind==="all" || e.kind===feedKind || (feedKind==="outbox" && e.kind==="change"); }).slice(0, 90);
+    document.getElementById("liveSub").textContent = ev.length ? "newest first · updates as it happens" : "nothing yet";
+    if(!ev.length){ list.appendChild(mk("div","sheet-note","Nothing here yet.")); return; }
+    ev.forEach(function(e){
+      var row = mk("div","feed-item");
+      var tcol = mk("div","feed-time");
+      tcol.appendChild(mk("div", null, clockText(e.t)));
+      tcol.appendChild(mk("div", null, agoText(e.t)));
+      var main = mk("div","feed-main");
+      var top = mk("div","feed-top");
+      top.appendChild(mk("span","feed-dot "+e.dot));
+      top.appendChild(mk("span","feed-kind", FEED_KIND[e.kind]));
+      main.appendChild(top);
+      main.appendChild(mk("div","feed-title", e.title));
+      if(e.body){
+        main.appendChild(mk("div","feed-body", e.body));
+        row.setAttribute("data-expand","1");
+        row.addEventListener("click", function(){ row.classList.toggle("open"); });
+      }
+      if(e.agentId && AGENT_GROUPS[e.agentId]){
+        var go = mk("button","btn-line","Show on the floor");
+        go.type = "button"; go.style.marginTop = "7px";
+        go.addEventListener("click", function(ev2){ ev2.stopPropagation(); closeSheet(); userInteracted = true; focusOnAgent(e.agentId); });
+        main.appendChild(go);
+      }
+      row.appendChild(tcol); row.appendChild(main);
+      list.appendChild(row);
+    });
+  }
+  var FEED_KIND = {agent:"Agent", decision:"Decision", request:"Request", outbox:"Outbox", change:"File"};
+
+  // Tell the studio: one request doc, read first by the next hourly shift.
+  document.getElementById("askForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    var ta = document.getElementById("askText"), btn = document.getElementById("askBtn"), msg = document.getElementById("askMsg");
+    var text = ta.value.trim();
+    if(!text){ msg.textContent = "Write what you want the studio to do first."; return; }
+    btn.disabled = true; ta.disabled = true; msg.textContent = "Sending…";
+    sendRequest(text, null)
+      .then(function(){ ta.value = ""; msg.textContent = "Sent. It's in the request queue; the next hourly shift picks it up first."; })
+      .catch(function(err){ msg.textContent = writeError(err); })
+      .then(function(){ btn.disabled = false; ta.disabled = false; });
+  });
+
+  // ---------------- Waiting on you ----------------
+  function ownerOpenCount(){ return docsOf("owner").filter(function(x){ return x.d.status!=="done"; }).length; }
+  function setOwnerStatus(id, patch, btns, msgEl){
+    btns.forEach(function(b){ b.disabled = true; });
+    msgEl.textContent = "Saving…";
+    patch.updatedAt = new Date().toISOString();
+    return dbRef.doc("owner_actions/"+id).update(patch)
+      .then(function(){ msgEl.textContent = ""; })
+      .catch(function(err){ msgEl.textContent = writeError(err); btns.forEach(function(b){ b.disabled = false; }); });
+  }
+  function renderOwner(){
+    var list = document.getElementById("ownerList");
+    list.textContent = "";
+    if(dbState!=="live"){ list.appendChild(mk("div","sheet-note", dbState==="connecting" ? "Connecting to the live board…" : "The live board isn't available in this view.")); return; }
+    var items = docsOf("owner").sort(function(a,b){ return (a.d.order||99)-(b.d.order||99); });
+    var open = items.filter(function(x){ return x.d.status!=="done"; });
+    var done = items.filter(function(x){ return x.d.status==="done"; });
+    document.getElementById("ownerSub").textContent = open.length ? open.length+" open · the studio can't do these without you" : "nothing waiting on you";
+
+    function card(x, isDone){
+      var d = x.d;
+      var c = mk("div","oa-card"+(isDone?" oa-done":""));
+      var t = mk("div","oa-title");
+      t.appendChild(mk("span","n", String(d.order||"")));
+      t.appendChild(mk("span", null, d.title || x.id));
+      c.appendChild(t);
+      if(d.detail) c.appendChild(mk("div","oa-detail", d.detail));
+      if(d.why_it_matters && !isDone) c.appendChild(mk("div","oa-why", "Why it matters: "+d.why_it_matters));
+      if(isDone && d.resolved_with) c.appendChild(mk("div","oa-why", "You chose: "+d.resolved_with+(d.resolved_at ? " · "+agoText(timeOf(d.resolved_at)) : "")));
+      var acts = mk("div","oa-actions"), msg = mk("div","form-msg"), btns = [];
+      if(!isDone){
+        (d.choices || []).forEach(function(ch){
+          var b = mk("button","btn-ink", ch.label); b.type = "button"; btns.push(b);
+          b.addEventListener("click", function(){
+            btns.forEach(function(z){ z.disabled = true; });
+            msg.textContent = "Sending to the studio…";
+            sendRequest(ch.request, null, {owner_action:x.id, choice:ch.label})
+              .then(function(){ return setOwnerStatus(x.id, {status:"done", resolved_with:ch.label, resolved_at:new Date().toISOString()}, btns, msg); })
+              .then(function(){ toast({dot:"s-working", title:"Sent: "+ch.label, sub:"The next hourly shift acts on it first."}); })
+              .catch(function(err){ msg.textContent = writeError(err); btns.forEach(function(z){ z.disabled = false; }); });
+          });
+          acts.appendChild(b);
+        });
+        var doneBtn = mk("button","btn-line","Mark done"); doneBtn.type = "button"; btns.push(doneBtn);
+        doneBtn.addEventListener("click", function(){ setOwnerStatus(x.id, {status:"done", resolved_with:"Marked done", resolved_at:new Date().toISOString()}, btns, msg); });
+        acts.appendChild(doneBtn);
+      } else {
+        var re = mk("button","btn-line","Reopen"); re.type = "button"; btns.push(re);
+        re.addEventListener("click", function(){ setOwnerStatus(x.id, {status:"open"}, btns, msg); });
+        acts.appendChild(re);
+      }
+      c.appendChild(acts); c.appendChild(msg);
+      return c;
+    }
+    if(!open.length) list.appendChild(mk("div","sheet-note","Nothing is waiting on you right now."));
+    open.forEach(function(x){ list.appendChild(card(x, false)); });
+
+    // What the records themselves say is stuck, beyond the list above.
+    var held = docsOf("outbox").filter(function(x){ return x.d.status==="held_for_review"; });
+    var blockedReq = docsOf("requests").filter(function(x){ return x.d.status==="blocked"; });
+    if(held.length || blockedReq.length){
+      list.appendChild(mk("div","section-label","From the studio's records"));
+      if(held.length){
+        var h = mk("div","oa-card");
+        h.appendChild(mk("div","oa-title", held.length+" outreach email"+(held.length===1?"":"s")+" held for your decision"));
+        h.appendChild(mk("div","oa-detail", held.map(function(x){ return x.d.to || x.id; }).join(", ")));
+        list.appendChild(h);
+      }
+      blockedReq.forEach(function(x){
+        var b = mk("div","oa-card");
+        b.appendChild(mk("div","oa-title","Blocked request: "+clip(x.d.request||x.d.ask||x.id, 140)));
+        if(x.d.result) b.appendChild(mk("div","oa-detail", clip(x.d.result, 420)));
+        list.appendChild(b);
+      });
+    }
+    if(done.length){
+      list.appendChild(mk("div","section-label","Done"));
+      done.forEach(function(x){ list.appendChild(card(x, true)); });
+    }
+  }
+
+  // ---------------- Money ----------------
+  var moneyTab = "deals";
+  wireTabs("moneyTabs", "data-tab", function(t){ moneyTab = t; renderMoney(); });
   var DEAL_STEPS = [
     {key:"outreach_sent", label:"Outreach sent"},
     {key:"deal_agreed", label:"Deal agreed"},
@@ -1811,83 +2312,248 @@
     {key:"work_delivered", label:"Delivered"},
     {key:"payment_received", label:"Paid"}
   ];
-  function money(n, cur){
-    try{ return new Intl.NumberFormat("en-US",{style:"currency",currency:(cur||"usd").toUpperCase()}).format(n); }
-    catch(e){ return "$"+n; }
+  function dealSteps(d){
+    if(d.steps) return d.steps;
+    var s = {}; DEAL_STEPS.forEach(function(k){ s[k.key] = d[k.key]; }); return s;
   }
-  function renderCommand(){
-    var ids = Object.keys(deals);
-    if(ids.length === 0){
-      commandSub.textContent = "no deals yet";
-      commandList.innerHTML = "";
-      var empty = document.createElement("div"); empty.className="command-empty";
-      empty.textContent = "Nothing here yet — once Outreach Agent has a real prospect, it'll show up here with a live status you can track end to end.";
-      commandList.appendChild(empty);
-      return;
-    }
-    var paidCount = ids.filter(function(id){ return deals[id].steps && deals[id].steps.payment_received; }).length;
-    commandSub.textContent = ids.length+" deal"+(ids.length===1?"":"s")+" tracked · "+paidCount+" paid";
-    commandList.innerHTML = "";
-    ids.sort(function(a,b){ return (deals[b].updatedAt||"") < (deals[a].updatedAt||"") ? -1 : 1; }).forEach(function(id){
-      var d = deals[id];
-      var steps = d.steps || {};
-      var card = document.createElement("div"); card.className = "deal-card";
-      var top = document.createElement("div"); top.className = "dtop";
-      var left = document.createElement("div");
-      var client = document.createElement("div"); client.className="dclient"; client.textContent = d.client || id;
-      var service = document.createElement("div"); service.className="dservice"; service.textContent = d.service || "";
-      left.appendChild(client); left.appendChild(service);
-      var price = document.createElement("div"); price.className="dprice";
-      price.textContent = (typeof d.price === "number") ? money(d.price, d.currency) : "";
-      top.appendChild(left); top.appendChild(price);
-      card.appendChild(top);
+  function dealStage(id, d){
+    var s = dealSteps(d);
+    if(s.payment_received===true) return {cls:"paid", label:"Paid"};
+    if(s.work_delivered===true) return {cls:"moving", label:"Delivered"};
+    if(s.deal_agreed===true) return {cls:"moving", label:"Agreed"};
+    if(s.outreach_sent===true) return {cls:"moving", label:"Sent, awaiting reply"};
+    var heldOut = docsOf("outbox").some(function(x){ return x.d.deal_id===id && x.d.status==="held_for_review"; });
+    return heldOut ? {cls:"held", label:"Held for your decision"} : {cls:"", label:"Not sent yet"};
+  }
+  function stat(k, v, h){ var s = mk("div","stat"); s.appendChild(mk("div","k",k)); s.appendChild(mk("div","v",v)); if(h) s.appendChild(mk("div","h",h)); return s; }
 
-      var stepsRow = document.createElement("div"); stepsRow.className="deal-steps";
-      DEAL_STEPS.forEach(function(s){
-        var chip = document.createElement("div");
-        var v = steps[s.key];
-        chip.className = "dstep " + (v===true ? "done" : (v==="blocked" ? "blocked" : "pending"));
-        var dot = document.createElement("span"); dot.className="sdot";
-        var label = document.createElement("span"); label.textContent = s.label;
-        chip.appendChild(dot); chip.appendChild(label);
-        stepsRow.appendChild(chip);
+  function renderMoney(){
+    var body = document.getElementById("moneyBody");
+    body.textContent = "";
+    selectTab("moneyTabs","data-tab",moneyTab);
+    if(dbState!=="live"){ body.appendChild(mk("div","sheet-note", dbState==="connecting" ? "Connecting to the live board…" : "The live board isn't available in this view.")); return; }
+
+    if(moneyTab==="deals"){
+      var deals = docsOf("deals");
+      var quoted = 0, monthly = 0, earned = 0, sent = 0, held = 0;
+      deals.forEach(function(x){
+        var d = x.d, s = dealSteps(d);
+        if(s.payment_received!==true && typeof d.price==="number") quoted += d.price;
+        if(typeof d.price_monthly==="number") monthly += d.price_monthly;
+        if(typeof d.amount_received==="number") earned += d.amount_received;
+        if(s.outreach_sent===true) sent++;
+        if(dealStage(x.id, d).cls==="held") held++;
       });
-      card.appendChild(stepsRow);
+      var sr = mk("div","stat-row");
+      sr.appendChild(stat("Earned", usd(earned), "money actually received"));
+      sr.appendChild(stat("Quoted setup fees", usd(quoted), deals.length+" deal cards"));
+      sr.appendChild(stat("Outreach sent", String(sent), "of "+deals.length+" deals"));
+      sr.appendChild(stat("Held for you", String(held), "approved, not sent"));
+      body.appendChild(sr);
+      document.getElementById("moneySub").textContent = usd(earned)+" earned · "+usd(quoted)+" quoted";
+      if(!deals.length){ body.appendChild(mk("div","sheet-note","No deal cards yet.")); return; }
+      deals.sort(function(a,b){ return (b.d.price||0)-(a.d.price||0); }).forEach(function(x){
+        var d = x.d, stg = dealStage(x.id, d), steps = dealSteps(d);
+        var card = mk("div","deal-card");
+        var top = mk("div","dtop");
+        var left = mk("div");
+        left.appendChild(mk("div","dclient", d.client || x.id));
+        left.appendChild(mk("div","dservice", d.service || ""));
+        var right = mk("div");
+        right.style.display = "flex"; right.style.flexDirection = "column"; right.style.alignItems = "flex-end"; right.style.gap = "6px";
+        var price = (typeof d.price==="number" ? usd(d.price)+" setup" : "") + (typeof d.price_monthly==="number" ? " + "+usd(d.price_monthly)+"/mo" : "");
+        right.appendChild(mk("div","dprice", price));
+        right.appendChild(mk("span","stage "+stg.cls, stg.label));
+        top.appendChild(left); top.appendChild(right);
+        card.appendChild(top);
+        var row = mk("div","deal-steps");
+        DEAL_STEPS.forEach(function(s){
+          var v = steps[s.key];
+          var chip = mk("div","dstep "+(v===true ? "done" : (v==="blocked" ? "blocked" : "pending")));
+          chip.appendChild(mk("span","sdot")); chip.appendChild(mk("span",null,s.label));
+          row.appendChild(chip);
+        });
+        card.appendChild(row);
+        var note = d.status_note || d.pricing_note || "";
+        if(note){ var n = mk("div","opp-next", note); n.style.marginTop = "10px"; card.appendChild(n); }
+        body.appendChild(card);
+      });
+    }
 
-      if(typeof d.amount_received === "number" && d.amount_received > 0){
-        var paidLine = document.createElement("div");
-        paidLine.style.marginTop = "10px"; paidLine.style.fontSize = "12px"; paidLine.style.color = "var(--muted)";
-        paidLine.textContent = money(d.amount_received, d.currency) + " received so far";
-        card.appendChild(paidLine);
-      }
+    if(moneyTab==="opps"){
+      var opps = docsOf("opps");
+      var ORDER = {active:0, validating:1, scouting:2, stalled:3, archived:4};
+      var counts = {};
+      opps.forEach(function(x){ var s = x.d.status||"scouting"; counts[s] = (counts[s]||0)+1; });
+      document.getElementById("moneySub").textContent = (counts.active||0)+" active · "+(counts.validating||0)+" validating · "+(counts.stalled||0)+" stalled";
+      opps.sort(function(a,b){ return (ORDER[a.d.status]??5)-(ORDER[b.d.status]??5); });
+      var last = null;
+      opps.forEach(function(x){
+        var s = x.d.status || "scouting";
+        if(s!==last){ last = s; body.appendChild(mk("div","section-label", s+" ("+counts[s]+")")); }
+        var r = mk("div","opp-row");
+        var t = mk("div","opp-top");
+        t.appendChild(mk("div","opp-title", x.d.title || x.id));
+        t.appendChild(mk("span","stage "+(s==="active" ? "moving" : s==="stalled" ? "held" : ""), s));
+        r.appendChild(t);
+        if(x.d.next_step) r.appendChild(mk("div","opp-next", x.d.next_step));
+        body.appendChild(r);
+      });
+      if(!opps.length) body.appendChild(mk("div","sheet-note","No opportunities logged yet."));
+    }
 
-      commandList.appendChild(card);
-    });
+    if(moneyTab==="ideas"){
+      var ideas = docsOf("ideas").sort(function(a,b){ return (a.d.num||0)-(b.d.num||0); });
+      var ST = ["promoted","tracked","hold","archived","unreviewed"];
+      var LBL = {promoted:"promoted", tracked:"already running", hold:"on hold", archived:"dropped", unreviewed:"not reviewed yet"};
+      var c = {}; ST.forEach(function(s){ c[s] = 0; });
+      ideas.forEach(function(x){ var s = x.d.status||"unreviewed"; c[s] = (c[s]||0)+1; });
+      var reviewed = ideas.length - c.unreviewed;
+      document.getElementById("moneySub").textContent = reviewed+" of "+ideas.length+" ideas reviewed";
+      var bar = mk("div","mm-bar"); bar.setAttribute("role","img");
+      bar.setAttribute("aria-label", ST.map(function(s){ return c[s]+" "+LBL[s]; }).join(", "));
+      ST.forEach(function(s){ if(!c[s]) return; var seg = mk("span","c-"+s); seg.style.width = (100*c[s]/Math.max(1,ideas.length))+"%"; bar.appendChild(seg); });
+      body.appendChild(bar);
+      var lg = mk("div","mm-legend");
+      ST.forEach(function(s){ var sp = mk("span"); sp.appendChild(mk("i","c-"+s)); sp.appendChild(document.createTextNode(c[s]+" "+LBL[s])); lg.appendChild(sp); });
+      body.appendChild(lg);
+      ST.forEach(function(s){
+        var group = ideas.filter(function(x){ return (x.d.status||"unreviewed")===s; });
+        if(!group.length) return;
+        body.appendChild(mk("div","section-label", LBL[s]+" ("+group.length+")"));
+        group.forEach(function(x){
+          var d = x.d, r = mk("div","mm-row");
+          r.appendChild(mk("span","num", "#"+d.num));
+          r.appendChild(mk("span","t", d.title || x.id));
+          var stc = mk("span","st", s==="hold" && d.blocked_on ? "needs: "+clip(d.blocked_on, 28) : (d.tier==="NOW" ? "can start now" : ""));
+          r.appendChild(stc);
+          var why = s==="archived" ? d.reason : s==="hold" ? (d.fit_notes || d.evidence) : s==="promoted" ? (d.evidence || d.decided) : "";
+          if(why) r.appendChild(mk("span","why", clip(why, 260)));
+          body.appendChild(r);
+        });
+      });
+    }
   }
-  function refreshCommandIfOpen(){ if(commandOpen) renderCommand(); }
-  function openCommand(){ commandOpen = true; commandOverlay.classList.add("open"); renderCommand(); }
-  function closeCommand(){ commandOpen = false; commandOverlay.classList.remove("open"); }
-  document.getElementById("commandBtn").addEventListener("click", openCommand);
-  document.getElementById("commandClose").addEventListener("click", closeCommand);
-  commandOverlay.addEventListener("click", function(e){ if(e.target===commandOverlay) closeCommand(); });
 
-  window.addEventListener("keydown", function(e){
-    if(e.key!=="Escape") return;
-    if(commandOpen) closeCommand();
-    else if(rosterOpen) closeRoster();
-  });
+  // ---------------- pulse strip ----------------
+  function latestActivity(){
+    var t = 0;
+    Object.keys(agentStatus).forEach(function(id){ var x = timeOf(agentStatus[id] && agentStatus[id].updatedAt); if(x>t && x<=Date.now()+60000) t = x; });
+    docsOf("decisions").forEach(function(x){ var y = timeOf(x.d.timestamp); if(y>t && y<=Date.now()+60000) t = y; });
+    return t;
+  }
+  function nextShiftText(){
+    // The hourly shift Routine fires at minute 46 past every hour (UTC).
+    var now = new Date(), next = new Date(now);
+    next.setUTCMinutes(46, 0, 0);
+    if(next <= now) next.setUTCHours(next.getUTCHours()+1);
+    var m = Math.max(0, Math.round((next-now)/60000));
+    return m<=1 ? "next shift starting now" : "next shift in "+m+" min";
+  }
+  function pchip(id, dotCls, html, onClick, attn){
+    var node = onClick ? mk("button","pchip") : mk("span","pchip");
+    if(onClick){ node.type = "button"; node.addEventListener("click", onClick); }
+    if(attn) node.classList.add("attn");
+    if(dotCls) node.appendChild(mk("span","pdot "+dotCls));
+    html.forEach(function(part){ node.appendChild(part.b ? mk("b",null,part.b) : document.createTextNode(part.t)); });
+    return node;
+  }
+  function renderPulse(){
+    var p = document.getElementById("pulse");
+    p.textContent = "";
+    if(dbState==="unavailable"){ p.appendChild(pchip(null,"s-idle",[{t:"Live board not available in this view"}])); return; }
+    if(dbState==="connecting"){ p.appendChild(pchip(null,"s-idle",[{t:"Connecting to the live board…"}])); return; }
+    var last = latestActivity();
+    var stalled = !last || Date.now()-last > 75*60000;
+    var working = Object.keys(agentStatus).filter(function(id){ return vstate(id)==="working"; }).length;
+    p.appendChild(pchip(null, working ? "s-working live" : stalled ? "s-requested" : "s-working",
+      working ? [{b:working+" working now"},{t:" · "+nextShiftText()}] : [{t:"last activity "},{b:agoText(last)},{t:" · "+nextShiftText()}]));
+    var recent = ALL_AGENTS.filter(function(e){ var v = vstate(e.a.id); return v==="fresh"||v==="working"; }).length;
+    p.appendChild(pchip(null, "s-fresh", [{b:String(recent)},{t:" agents active in 2h"}]));
+    var owed = ownerOpenCount();
+    if(owed) p.appendChild(pchip(null, "s-requested", [{b:owed+" waiting on you"}], function(){ openSheet("ownerOverlay"); }, true));
+    var q = docsOf("requests").filter(function(x){ return x.d.status==="pending"||x.d.status==="in_progress"; }).length;
+    p.appendChild(pchip(null, null, [{b:String(q)},{t:" request"+(q===1?"":"s")+" in queue"}], function(){ feedKind="request"; selectTab("feedTabs","data-kind","request"); openSheet("liveOverlay"); }));
+    var ideas = docsOf("ideas"), rev = ideas.filter(function(x){ return (x.d.status||"unreviewed")!=="unreviewed"; }).length;
+    if(ideas.length) p.appendChild(pchip(null, null, [{b:rev+"/"+ideas.length},{t:" ideas reviewed"}], function(){ moneyTab="ideas"; openSheet("moneyOverlay"); }));
+    var earned = 0; docsOf("deals").forEach(function(x){ if(typeof x.d.amount_received==="number") earned += x.d.amount_received; });
+    p.appendChild(pchip(null, null, [{b:usd(earned)},{t:" earned"}], function(){ moneyTab="deals"; openSheet("moneyOverlay"); }));
+    var ob = document.getElementById("ownerBtn");
+    ob.textContent = owed ? "Waiting on you · "+owed : "Waiting on you";
+  }
 
+  // ---------------- toasts for things happening right now ----------------
+  var toastQueue = [], toastBusy = false;
+  function toast(t){ toastQueue.push(t); if(toastQueue.length > 4) toastQueue.shift(); if(!toastBusy) nextToast(); }
+  function nextToast(){
+    var t = toastQueue.shift();
+    var box = document.getElementById("toast");
+    if(!t){ toastBusy = false; box.classList.remove("show"); return; }
+    toastBusy = true;
+    box.textContent = "";
+    box.appendChild(mk("span","tdot "+(t.dot||"s-fresh")));
+    var txt = mk("span");
+    txt.appendChild(mk("span","tt", "just now"));
+    txt.appendChild(document.createTextNode(clip(t.title, 150)));
+    box.appendChild(txt);
+    box.classList.add("show");
+    setTimeout(function(){ box.classList.remove("show"); setTimeout(nextToast, 400); }, 5200);
+  }
+  document.getElementById("toast").addEventListener("click", function(){ openSheet("liveOverlay"); });
+
+  // ---------------- connect ----------------
+  function refreshAll(){ renderPulse(); renderSheet(); }
+  function watch(db, name, path, handle){
+    db.collection(path).onSnapshot(function(snap){
+      var first = !loaded[name];
+      if(handle) handle(snap, first);
+      else { var m = {}; snap.docs.forEach(function(doc){ m[doc.id] = doc.data(); }); store[name] = m; }
+      loaded[name] = true;
+      refreshAll();
+    }, function(){ /* this collection stopped updating in this view; the rest keep working */ });
+  }
   if(window.claude && window.claude.use){
     window.claude.use("db").then(function(db){
-      if(!db) return;
-      dealsCol = db.collection("deals");
-      dealsCol.onSnapshot(function(snap){
-        deals = {};
-        snap.docs.forEach(function(doc){ deals[doc.id] = doc.data(); });
-        refreshCommandIfOpen();
-      }, function(){ /* live deals unavailable in this view */ });
-    }).catch(function(){});
+      if(!db){ dbState = "unavailable"; refreshAll(); return; }
+      dbRef = db;
+      dbState = "live";
+      watch(db, "agents", "agents", function(snap, first){
+        snap.docChanges().forEach(function(ch){
+          var id = ch.doc.id;
+          if(ch.type==="removed"){ delete agentStatus[id]; updateBadge(id); return; }
+          var prev = agentStatus[id], next = ch.doc.data();
+          agentStatus[id] = next;
+          updateBadge(id);
+          if(!first && AGENT_BY_ID[id] && (!prev || prev.updatedAt!==next.updatedAt || prev.status!==next.status)){
+            var v = vstate(id), name = AGENT_BY_ID[id].a.name;
+            toast({dot:"s-"+v, title: name + (v==="working" ? " started: "+(next.task||"") : v==="blocked" ? " is blocked: "+(next.result||next.task||"") : " finished: "+(next.task||""))});
+          }
+        });
+        refreshPanelIfOpen();
+        refreshRosterIfOpen();
+      });
+      watch(db, "decisions", "decisions", function(snap, first){
+        snap.docChanges().forEach(function(ch){
+          if(ch.type==="removed"){ delete store.decisions[ch.doc.id]; return; }
+          store.decisions[ch.doc.id] = ch.doc.data();
+          if(!first && ch.type==="added"){ var d = ch.doc.data(); toast({dot:"s-working", title:"Decision: "+(d.decision||"")+" · "+(d.action||ch.doc.id)}); }
+        });
+      });
+      watch(db, "requests", "requests");
+      watch(db, "deals", "deals");
+      watch(db, "outbox", "outbox");
+      watch(db, "owner", "owner_actions");
+      watch(db, "opps", "opportunities");
+      watch(db, "ideas", "money_map");
+      watch(db, "changes", "repo_changes");
+      refreshAll();
+    }).catch(function(){ dbState = "unavailable"; refreshAll(); });
+  } else {
+    dbState = "unavailable";
   }
+  renderPulse();
+  // "2 hours ago" and freshness colors age while the page stays open.
+  setInterval(function(){ Object.keys(agentMeshes).forEach(updateBadge); refreshAll(); }, 60000);
 
   // ---------------- ambient collaboration ----------------
   // People occasionally walk over to a colleague's desk, or into the boardroom's
@@ -2069,6 +2735,7 @@
       });
       updateAgentWalks(dt);
       if(elapsed >= nextCollabAt) maybeStartCollaboration();
+      Object.keys(pulsing).forEach(function(id){ var m = agentMeshes[id]; if(m && m.sprite){ var ps = 0.15*(1+0.22*Math.sin(elapsed*4)); m.sprite.scale.set(ps,ps,1); } });
       walkers.forEach(function(w){
         w.t += w.dir*dt*w.speed;
         if(w.t>1){ w.t=1; w.dir=-1; }

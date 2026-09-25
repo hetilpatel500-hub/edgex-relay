@@ -56,6 +56,9 @@ Two rules every shift follows, because both broke silently before:
 and use that. Never estimate or invent a time. Shifts were stamping
 records with times hours in the future, which breaks "oldest first"
 rotation and makes the office dashboard lie about what happened when.
+The Studio Floor now treats any time more than 10 minutes ahead of the
+viewer's clock as "time unknown", so a future timestamp no longer shows
+as the newest event — it just loses the record's place in the feed.
 
 **Hourly shifts cannot push to git — don't try.** The shift sessions
 don't have this repo in their authorized sources, so every `git push`
@@ -97,11 +100,20 @@ shifts that guessed created duplicate docs the floor can't show:
 
 **Owner asks come in through `requests`.** The Studio Floor's "Tell the
 studio" box and each agent's "Assign" box write a `requests` doc
-(`from: "owner"`, `status: "pending"`, and `agent` when aimed at one
-agent). Step 0 of every shift picks those up first.
+(`from: "owner"`, `source: "studio-floor"`, `status: "pending"`, and
+`agent` plus `agent_name` when aimed at one agent — the page also sets
+that agent's doc to `status: "requested"`, which the shift moves to
+"working" and then "done"/"blocked"). Step 0 of every shift picks those
+up first. A one-click choice on a "Waiting on you" card writes the same
+kind of request with two extra fields, `owner_action` (the doc id) and
+`choice` (the button label), and marks that `owner_actions` doc done
+with `resolved_with` and `resolved_at`; the shift carries the choice out
+and adds `resolved_by` (the request id).
 
 **Things only the owner can do go in `owner_actions`**, one doc each:
-`{title, detail, why_it_matters, status: "open" | "done", created}`. The
+`{title, detail, why_it_matters, status: "open" | "done", created}`,
+plus optional `order` (position in the list) and `choices`
+(`[{label, request}]`, shown as one-click buttons). The
 Studio Floor shows them as a "Waiting on you" list. Before adding one,
 check there isn't already an open doc for the same thing — never
 re-escalate the same blocker every shift.

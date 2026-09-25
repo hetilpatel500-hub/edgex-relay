@@ -45,11 +45,29 @@ offensive/insensitive language, and anything that drifts from
 `BRAND.md` — it doesn't replace your approval, it makes sure what you're
 approving is already clean.
 
-The office's **Command Center** (button top-left) tracks every real
-deal end to end: outreach sent, deal agreed, Last Touch cleared,
-delivered, paid — live, from the same `deals` collection the studio
-writes to as things actually happen. No deal exists there until it's
-real.
+The office page is the owner's live view of the studio, read straight
+from the office database as the shifts write to it:
+
+- **Badges** over each agent show its real state: working now, asked by
+  the owner, blocked, worked in the last 2 hours, earlier, or no work
+  yet. A strip under the title shows last activity, when the next shift
+  starts, how many agents worked in the last 2 hours, what's waiting on
+  the owner, the request queue, money-map progress and money earned.
+- **Live** is a newest-first feed of agent updates, decisions, requests,
+  outbox changes and applied repo changes, with a box for telling the
+  studio what to do next (it writes a `requests` doc with
+  `source: "studio-floor"` that the next shift handles first). A toast
+  pops up when a shift writes something new.
+- **Waiting on you** lists the `owner_actions` docs. Some have one-click
+  choices (for example the held outreach): a choice writes a request
+  tagged with `owner_action` and `choice` and marks the action done.
+- **Money** tracks every real deal end to end (outreach sent, deal
+  agreed, Last Touch cleared, delivered, paid), the opportunities by
+  status, and the 100-item money map. No deal exists there until it's
+  real.
+- Clicking an agent (or a row in **All agents**) lets the owner assign it
+  a task: that writes a request with the agent's id and sets the agent
+  to "asked by you" until a shift picks it up.
 
 An autonomous shift also runs on its own — a Routine (`trig_01BXBEAoHuB48YDR3xKzUbXG`,
 **hourly**), not a session-bound cron job: it's owned by the
