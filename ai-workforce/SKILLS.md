@@ -177,10 +177,16 @@ Task Matcher Agent, Idle Watch Agent and Capacity Tracker Agent run this in orde
 2. **Idle agents next.** An idle agent has status idle, done, or blocked for more
    than 24 h on something outside its control. Rotate oldest `updatedAt` first.
    With no skill yet, it learns one. With a skill, it uses it (makes an asset).
+   **Target: no studio agent goes more than 6 hours without real work.** Any
+   agent past 6 h is picked before anyone else, and it doesn't matter what
+   department it's in.
 3. **Log the shift** as one `dispatch/<real clock>` doc: {working, collaborating,
-   learning, practicing, idle_left, agents_touched: [...], notes}.
-   `idle_left` should trend to zero across shifts. If it doesn't, Bottleneck
-   Spotter says why in `suggestions`.
+   learning, practicing, idle_left, agents_touched: [...], stalest_hours_before,
+   stalest_hours_after, notes}. `stalest_hours` is the age in hours of the
+   agent that has gone longest without work, excluding the Chart Desk.
+   `idle_left` should trend to zero across shifts, and `stalest_hours_after`
+   should stay under 6. If either doesn't, Bottleneck Spotter says why in
+   `suggestions`.
    Then hold the **Town Hall briefing** (above), with any teach-backs, and
    answer any open owner topics from the Town Hall.
 4. Don't re-stamp an agent without real work. A status change must come with
