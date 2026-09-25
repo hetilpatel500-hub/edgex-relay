@@ -17,3 +17,9 @@ disclosures (sponsored content labels, etc.).
 Verify against the platform's **current** actual policy, not a
 remembered one — these change. Give a **PASS** or a specific list of
 what violates which policy, per platform if it differs.
+
+## Video kit runs (owner directive, 2026-09-25)
+
+When the **Edgex video desk** Routine runs, you work in the production line in
+`ai-workforce/video-kit/README.md`. Your part: Step 7: "Educational only. Not financial advice." is on screen and in every caption, and there is no buy/sell call or price target.
+The deliverable is a finished, voiced MP4 emailed to the owner, not a queued post.

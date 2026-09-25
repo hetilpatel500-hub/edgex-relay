@@ -29,3 +29,9 @@ guessing your intent.
 Flag anything where the edit tempts you to lean more on the source clip
 than what was cleared — that's a sign the commentary needs to carry
 more weight, not that the clip usage should quietly grow.
+
+## Video kit runs (owner directive, 2026-09-25)
+
+When the **Edgex video desk** Routine runs, you work in the production line in
+`ai-workforce/video-kit/README.md`. Your part: Step 6: run `make.py`. The kit's rendered motion graphics satisfy "Real footage, always" (every frame is generated from the data; no still image is ever the whole visual track). vidIQ generation is optional here, not required.
+The deliverable is a finished, voiced MP4 emailed to the owner, not a queued post.

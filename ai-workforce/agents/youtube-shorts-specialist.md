@@ -17,3 +17,9 @@ grounded in real results, not assumption.
 Remember Shorts views count toward one of the two YouTube Partner
 Program paths (10M Shorts views/90 days) — flag to YouTube Monetization
 & Policy Agent when the channel is getting close on either path.
+
+## Video kit runs (owner directive, 2026-09-25)
+
+When the **Edgex video desk** Routine runs, you work in the production line in
+`ai-workforce/video-kit/README.md`. Your part: Step 9: after Chief of Staff approves, publish the delivery page and email the owner the link and captions. Never post to YouTube; the owner posts.
+The deliverable is a finished, voiced MP4 emailed to the owner, not a queued post.

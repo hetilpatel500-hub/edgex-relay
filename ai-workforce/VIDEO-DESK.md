@@ -182,10 +182,14 @@ them to the owner's email.** The owner posts them. From now on:
 
 - The division's deliverable is a finished MP4 with a ready caption, not
   a queued `outbox` post. Posting stays with the owner.
-- When vidIQ credits are short, use `video-kit/`. It renders original,
-  data-driven videos from real Webull data for free: animated charts,
-  bar races, stat cards and a synthesized music bed. It meets "Real
-  footage, always" through real motion graphics, not a single still.
+- The **Edgex video desk** Routine runs the whole line every weekday after
+  the close (Mag 7 recap on Fridays): Trend Scout → data → Scriptwriter
+  and Hook Writer → Fact-Checker → Video Editor → all five Video Last
+  Touch checks → Chief of Staff → delivery. The steps are in
+  `video-kit/README.md`. The videos are voiced (Kokoro, an offline
+  open-source voice) with a synthesized music bed, and are built from
+  real Webull data. They meet "Real footage, always" through real motion
+  graphics, not a single still.
 - Delivery is a private artifact page with the videos and Save buttons,
   plus an email to the owner with that link and the captions. The files
   are too large to attach through the Gmail connector.

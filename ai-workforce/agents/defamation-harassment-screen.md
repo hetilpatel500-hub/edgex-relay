@@ -22,3 +22,9 @@ video** — this is not a "note it and move on" check. Send it back with
 exactly what needs a source or needs to be reframed as opinion. This is
 the last real check before something with real legal and reputational
 risk goes out; treat it that way.
+
+## Video kit runs (owner directive, 2026-09-25)
+
+When the **Edgex video desk** Routine runs, you work in the production line in
+`ai-workforce/video-kit/README.md`. Your part: Step 7: no claims about people or companies beyond the price data.
+The deliverable is a finished, voiced MP4 emailed to the owner, not a queued post.

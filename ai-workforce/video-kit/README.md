@@ -1,48 +1,86 @@
-# Video kit: data-driven shorts, rendered locally
+# Video kit: the video desk's production line
 
-Added 2026-09-25 by owner directive: the video agents make finished videos
-and send them to the owner by email, instead of queuing posts that never
-go out. This kit renders original, data-driven videos with no paid
-credits and no third-party footage.
+Owner directive, 2026-09-25: the video agents make finished videos with a
+voiceover, check them, and email them to the owner. The owner posts them.
+This kit is how they do it with no paid credits and no third-party footage.
+
+It runs in the **Edgex video desk** Routine: every weekday after the close,
+with a Mag 7 week recap on Fridays. Any session with the shell, the Webull
+connector (read-only tools) and Gmail can run it by hand the same way.
 
 ## What it makes
 
-- `spy`: one SPY regular session as animated 5-minute candles with VWAP,
-  the prior close, and callouts at the gap, low, biggest candle, high and
-  close. Then a stats card and an outro.
-- `mag`: a "guess which" hook, a bar race of the Magnificent 7 from the
-  prior Friday's close through the latest close, the reveal, and an outro.
+| Video | Format | What's in it |
+|---|---|---|
+| `spy` | 9:16 short | The day's SPY session drawn candle by candle, with VWAP and the prior close. The drawing pauses at each callout (open, low, biggest candle, high, close) while the voice explains it. Then a stats card and an outro. |
+| `mag` | 9:16 short | A "guess which" hook, then a bar race of the Magnificent 7 from last Friday's close. Then the reveal and the scoreboard. |
+| `recap` | 16:9 | Both of the above in one landscape cut for YouTube (only when both exist). |
 
-Each runs at 1080×1920 (Reels/Shorts/TikTok) or 1920×1080 (YouTube). The
-layout switches automatically from `w`/`h`.
+Voice: Kokoro-82M (Apache-2.0), an offline neural voice installed from npm by
+`setup.sh`, using male voice `am_michael` at speed 1.12. Music is synthesized per video.
 
-## Pipeline
+## The run, step by step (each step names the agent who owns it)
 
-1. **Data.** Pull Webull bars (read-only tools only):
-   `get_stock_bars` with SPY M5 RTH for the session, and daily bars for the
-   7 names plus SPY and QQQ. Write them into `data.js` as `SPY` and `MAG`.
-   The current file holds the Sep 24, 2026 session and the Sep 18–24 week
-   as a worked example. Every number on screen comes from here; never type
-   one in by hand.
-2. **Render.** Serve the folder (`python3 -m http.server 8765`), then run
-   `node shoot.js spy 1080 1920 out.mp4`. It needs Playwright and an
-   ffmpeg with libx264 (`pip install imageio-ffmpeg`, or set `FFMPEG`).
-   `node shoot.js spy 1080 1920 stills 3 12 25` writes check frames.
-3. **Music.** `python3 music.py <seconds> bed.wav <seed>` synthesizes a
-   royalty-free bed that matches the video's length.
-4. **Mux.** `ffmpeg -i out.mp4 -i bed.wav -c:v copy -c:a aac -b:a 160k -shortest final.mp4`.
-5. **Deliver.** Files over about 20 MB can't be attached through the
-   Gmail connector, so publish them on a private artifact page (player,
-   caption, a Save button via the `downloads` capability) and email the
-   owner that link together with the captions.
+Work in a scratch folder, not in the repo. `KIT=ai-workforce/video-kit`.
 
-## Rules it follows
+0. **Setup.** Run `bash $KIT/setup.sh` once per machine. It takes about 10 s when cached.
+1. **Video Trend Scout** chooses today's set: always `spy`, and `mag` on
+   Fridays (or when the week already has 3+ sessions and something moved
+   more than 5%). No other topics until the owner asks.
+2. **Data.** Pull with the Webull **read-only** tools only, and save each response
+   **exactly as returned** (the full JSON) to a file:
+   - `raw/spy_m5.json` ← `get_stock_bars` symbols ["SPY"], category US_ETF,
+     timespan M5, trading_sessions "RTH", count 160
+   - `raw/daily.json` ← `get_stock_bars` symbols AAPL,MSFT,NVDA,GOOGL,AMZN,
+     META,TSLA,SPY,QQQ, category US_STOCK, timespan D, count 10
+3. **Prep.** Run `python3 $KIT/prep.py raw/spy_m5.json raw/daily.json story.json [--mag]`.
+   It refuses an incomplete session. It writes every number, the on-screen
+   text (`script.*.hook/outro`), the voiceover (`script.*.vo`), the captions
+   and a `facts` list that traces each number to its bar.
+4. **Commentary Scriptwriter + Hook Writer** may rewrite `script.*` and
+   `captions.*` in story.json for punch. Only words change. Every number
+   must stay one that appears in `facts`. Keep a VO line under ~20 words,
+   because the chart pauses while it plays.
+5. **Video Fact-Checker** checks every number in `script` and `captions`
+   against `facts`. Then it checks each `facts` value against the raw JSON
+   (open/high/low/close/volume of the named bar). Any mismatch goes back to
+   step 4. Never state a reason for a move ("because of earnings…") unless a
+   real, cited source says it.
+6. **Video Editor Agent** runs `python3 $KIT/make.py story.json out/`, which takes about 7–9 minutes.
+   It produces `out/Edgex_*_9x16.mp4`, `out/Edgex_recap_*_16x9.mp4`,
+   `out/review_*.png` (frames at every scene and callout),
+   `out/report.json` (duration, resolution, audio, loudness, the exact
+   spoken text) and `out/index.html` (the delivery page).
+7. **Video Last Touch** looks at the review sheets (open the PNGs) and reads
+   `report.json`:
+   - **Copyright Compliance Reviewer**: all visuals are generated from data, the voice is Kokoro, the music is synthesized. Pass unless something else crept in.
+   - **Content Policy Reviewer**: "Educational only. Not financial advice." is on screen and in each caption. There is no buy/sell call and no price target.
+   - **Defamation & Harassment Screen**: no claims about people or companies beyond the price data.
+   - **Brand & Tone Final Check**: no clipped or overlapping text, the numbers are readable, the brand bar is there, and the spoken text in `report.json` reads naturally. A failure goes back to step 4 or 6 with the exact fix.
+   - **Publish Coordinator (Video)**: every MP4 exists and `report.json` shows h264 at 1080×1920 or 1920×1080, an aac audio track, mean volume between −26 and −14 dB, duration under 60 s for shorts, and every file under 15 MB. Then it stamps CLEARED — VIDEO LAST TOUCH. (For this kit, this replaces the vidIQ compose-job check.)
+8. **Chief of Staff** approves or denies the delivery and logs a `decisions` doc.
+9. **Delivery (YouTube Shorts Specialist + Instagram Reels Agent).** Publish
+   `out/index.html` as a **new** private Artifact with `capabilities:
+   {"downloads": true}` and every `out/*.mp4` and `out/poster_*.jpg` as
+   supporting files at the same names. Then email the owner
+   (hetilpatel500@gmail.com) the page link, one line per video, and each
+   caption. Files can't be attached through the Gmail connector because
+   they're too large.
 
-- The captions and outro say "Educational only, not financial advice" and
-  name Webull as the source. Never add a trade call to a market video.
-- Don't claim a reason for a move ("because of earnings…") unless a real,
-  cited source says so. These videos show what happened, not why.
-- Nothing here posts anywhere. The owner posts the files.
+If any step fails, send nothing half-done. Email the owner one short
+note saying what failed and why, and log it.
 
-Fonts: Inter, Space Grotesk and JetBrains Mono, all under the SIL Open
-Font License (`fonts/LICENSE-fonts.txt`).
+## Rules
+
+- Webull read-only tools only: get_stock_bars and get_stock_snapshot. Never an order, watchlist or account tool.
+- Nothing is posted to any platform. The owner posts.
+- Market videos show what happened, never what to trade.
+
+## Files
+
+`prep.py` (data → story.json), `make.py` (voice, timing, render, music,
+mix, review sheets, report, page), `render.html` (the animation, fully
+data-driven), `shoot.js` (Playwright frame capture → ffmpeg), `music.py`,
+`page.py`, `setup.sh`. `examples/` holds the Sep 24, 2026 data as a test
+fixture (`prep.py examples/spy_m5_2026-09-24.json examples/daily_2026-09-24.json s.json --mag`).
+Fonts are Inter, Space Grotesk and JetBrains Mono (SIL OFL).

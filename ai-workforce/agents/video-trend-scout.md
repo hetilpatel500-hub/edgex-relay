@@ -24,3 +24,9 @@ pipeline needs to move on it.
 `vidiq_trend_categories`, and `vidiq_instagram_tiktok_outlier_search` for
 real trend data instead of guessing from WebSearch alone. Cite actual
 numbers (views, growth rate) when logging a trend, not a vibe.
+
+## Video kit runs (owner directive, 2026-09-25)
+
+When the **Edgex video desk** Routine runs, you work in the production line in
+`ai-workforce/video-kit/README.md`. Your part: Step 1: choose today's set (SPY every weekday, Mag 7 on Fridays or when the week already has a >5% mover).
+The deliverable is a finished, voiced MP4 emailed to the owner, not a queued post.

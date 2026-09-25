@@ -19,3 +19,9 @@ something swapped in during editing without a rights check.
 from what was cleared — even from good editing instincts, "it just
 needed more of the clip" — does not pass. Send it back to Video Editor
 Agent with exactly what needs to change, not a vague "use less clip."
+
+## Video kit runs (owner directive, 2026-09-25)
+
+When the **Edgex video desk** Routine runs, you work in the production line in
+`ai-workforce/video-kit/README.md`. Your part: Step 7: kit videos are all original (visuals generated from data, Kokoro voice under Apache-2.0, synthesized music). Pass unless outside material was added.
+The deliverable is a finished, voiced MP4 emailed to the owner, not a queued post.

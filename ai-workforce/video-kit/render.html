@@ -8,6 +8,7 @@
 @font-face{font-family:JB;src:url(fonts/jetbrains-mono-latin-700-normal.woff2);font-weight:700}
 html,body{margin:0;background:#000}canvas{display:block}
 </style></head><body><canvas id="c"></canvas>
+<!-- data.js is written by build.py from story.json: const STORY = {...} -->
 <script src="data.js"></script>
 <script>
 const Q=new URLSearchParams(location.search);
@@ -16,234 +17,222 @@ const WIDE=W>H;
 const cv=document.getElementById('c');cv.width=W;cv.height=H;
 const X=cv.getContext('2d');
 const C={bg0:'#0a1113',bg1:'#0d1c1a',ink:'#eef3f1',mut:'#8fa19c',dim:'#4f625d',line:'rgba(160,190,180,.12)',
-  green:'#35d39a',red:'#ff6a5c',amber:'#f2b544',accent:'#0b5a4b',teal:'#1f8f76',card:'rgba(18,34,32,.92)'};
+  green:'#35d39a',red:'#ff6a5c',amber:'#f2b544',card:'rgba(18,34,32,.92)',tile:'rgba(20,38,35,.9)'};
+const col=k=>C[k]||C.ink;
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
 const ease=t=>{t=clamp(t);return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2};
 const out=t=>{t=clamp(t);return 1-Math.pow(1-t,3)};
 const back=t=>{t=clamp(t);const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)};
-const S=WIDE?H/1080:W/1080; // unit scale
+const S=WIDE?H/1080:W/1080;
 function font(f,w,px){X.font=`${w} ${px*S}px ${f}`}
-function txt(s,x,y,o={}){X.save();X.globalAlpha*=o.a??1;X.fillStyle=o.c||C.ink;X.textAlign=o.al||'left';X.textBaseline=o.bl||'alphabetic';
-  if(o.ls){X.letterSpacing=o.ls+'px'} X.fillText(s,x,y);X.restore()}
+function txt(s,x,y,o={}){X.save();X.globalAlpha*=o.a??1;X.fillStyle=o.c||C.ink;X.textAlign=o.al||'left';X.textBaseline='alphabetic';
+  if(o.ls)X.letterSpacing=o.ls+'px';X.fillText(s,x,y);X.restore()}
 function rr(x,y,w,h,r){X.beginPath();X.roundRect(x,y,w,h,r)}
+function fitFont(f,w,px,s,maxW){font(f,w,px);while(X.measureText(s).width>maxW&&px>12){px-=2;font(f,w,px)}return px}
+function wrap(s,x,y,w,lh,c){const ws=s.split(' ');let ln='',yy=y;for(const w0 of ws){const tl=ln?ln+' '+w0:w0;if(X.measureText(tl).width>w&&ln){txt(ln,x,yy,{c});ln=w0;yy+=lh}else ln=tl}txt(ln,x,yy,{c})}
 function bg(t){
   const g=X.createLinearGradient(0,0,W*.3,H);g.addColorStop(0,C.bg1);g.addColorStop(1,C.bg0);X.fillStyle=g;X.fillRect(0,0,W,H);
-  // drifting glow
   const gx=W*(.25+.15*Math.sin(t*.35)),gy=H*(.3+.08*Math.cos(t*.27));
   const rg=X.createRadialGradient(gx,gy,0,gx,gy,W*.9);rg.addColorStop(0,'rgba(31,143,118,.20)');rg.addColorStop(1,'rgba(31,143,118,0)');
   X.fillStyle=rg;X.fillRect(0,0,W,H);
-  // grid
   X.strokeStyle='rgba(160,200,190,.045)';X.lineWidth=1;const gs=60*S,off=(t*8*S)%gs;
   X.beginPath();for(let x=-gs+off;x<W;x+=gs){X.moveTo(x,0);X.lineTo(x,H)}for(let y=-gs+off;y<H;y+=gs){X.moveTo(0,y);X.lineTo(W,y)}X.stroke();
 }
 function brand(t,dur,label){
-  const pad=WIDE?70*S:64*S, y=WIDE?70*S:150*S;
-  // logo mark: stacked chevron
+  const pad=WIDE?70*S:64*S,y=WIDE?70*S:150*S;
   X.save();X.translate(pad,y-26*S);X.fillStyle=C.amber;
   X.beginPath();X.moveTo(0,0);X.lineTo(22*S,0);X.lineTo(34*S,14*S);X.lineTo(22*S,28*S);X.lineTo(0,28*S);X.lineTo(12*S,14*S);X.closePath();X.fill();X.restore();
   font('SG',700,30);txt('EDGEX',pad+46*S,y,{ls:4*S});
   font('IN',500,24);txt(label,pad+168*S,y-2*S,{c:C.mut,ls:2*S});
-  // progress
   const py=WIDE?H-6*S:H-10*S;X.fillStyle='rgba(255,255,255,.08)';X.fillRect(0,py,W,6*S);
   X.fillStyle=C.amber;X.fillRect(0,py,W*clamp(t/dur),6*S);
 }
 function fadeIO(t,a,b,f=.35){return clamp((t-a)/f)*clamp((b-t)/f)}
-// word-by-word headline
+// word-by-word headline; shrinks to fit the frame
 function headline(lines,x,y,px,t,o={}){
-  font('SG',700,px);let k=0;
+  const maxW=WIDE?W-240*S:W-128*S;font('SG',700,px);
+  lines.forEach(ln=>{while(X.measureText(ln).width>maxW&&px>30){px-=2;font('SG',700,px)}});
+  let k=0;
   lines.forEach((ln,li)=>{
     let cx=x;const words=ln.split(' ');
-    if(o.al==='center'){const wsum=X.measureText(ln).width;cx=x-wsum/2}
+    if(o.al==='center')cx=x-X.measureText(ln).width/2;
     words.forEach(w=>{
       const d=clamp((t-(o.d||0)-k*0.07)/0.45);k++;
       const ww=X.measureText(w+' ').width;
       X.save();X.globalAlpha*=out(d);X.translate(0,(1-out(d))*px*.6*S);
-      txt(w,cx,y+li*px*1.12*S,{c:(o.hl&&o.hl.includes(w))?C.amber:(o.c||C.ink)});X.restore();cx+=ww;
+      txt(w,cx,y+li*px*1.12*S,{c:(o.hl||[]).includes(w)?C.amber:(o.c||C.ink)});X.restore();cx+=ww;
     });
   });
+  return px;
 }
-function fmt(v,d=2){return v.toFixed(d)}
-function sgn(v,d=2){return (v>=0?'+':'−')+Math.abs(v).toFixed(d)}
+// scenes overlap by 0.3s for crossfades; durations come from build (voiceover length) or defaults
+function timeline(tm,keys,def){const d=(tm&&tm.d)||def;const T={};let t=0;keys.forEach((k,i)=>{T[k]=[t,t+d[i]];t+=d[i]-.3});return {T,DUR:t+.3}}
+function niceStep(r){const raw=r/7,p=Math.pow(10,Math.floor(Math.log10(raw))),m=raw/p;return (m<1.5?1:m<3.5?2:m<7.5?5:10)*p}
 </script>
 <script>
 /* ================= SPY session ================= */
 function spyVideo(){
-  const D=SPY,R=D.rows,N=R.length,prev=D.prev;
-  const T={hook:[0,3.4],chart:[3.1,22.6],stats:[22.3,28.2],out:[27.9,31.5]},DUR=31.5;
-  const lo=Math.min(...R.map(r=>r.l)),hi=Math.max(...R.map(r=>r.h));
-  const pmin=lo-.55,pmax=hi+.45;
+  const D=STORY.spy,SC=STORY.script.spy,R=D.rows,N=R.length,prev=D.prev,marks=D.marks;
+  const {T,DUR}=timeline(STORY.timing&&STORY.timing.spy,['hook','chart','stats','out'],[3.4,19.5,5.9,3.6]);
+  const lo=Math.min(...R.map(r=>r.l),prev),hi=Math.max(...R.map(r=>r.h),prev);
+  const padP=(hi-lo)*.09;const pmin=lo-padP,pmax=hi+padP;
   const CH=WIDE?{x:80*S,y:190*S,w:1180*S,h:640*S,vh:120*S}:{x:56*S,y:500*S,w:860*S,h:700*S,vh:110*S};
   const px=i=>CH.x+(i+.5)*CH.w/N, py=p=>CH.y+CH.h-(p-pmin)/(pmax-pmin)*CH.h;
-  const marks=[
-    {i:0,title:'Gap down at the open',body:`Opened ${fmt(R[0].o)}, ${sgn((R[0].o/prev-1)*100)}% under Wednesday's close.`,p:R[0].o,c:C.red},
-    {i:D.loI,title:`Low of day · ${R[D.loI].t} ET`,body:`${fmt(R[D.loI].l,2)} — ${fmt(prev-R[D.loI].l)} below Wednesday's close.`,p:R[D.loI].l,c:C.red},
-    {i:D.bigI,title:`The ${R[D.bigI].t} candle`,body:`+$${fmt(R[D.bigI].c-R[D.bigI].o)} in five minutes on ${(R[D.bigI].v/1e6).toFixed(2)}M shares (~${Math.round(R[D.bigI].v/D.medv)}× a typical bar). Its high filled the gap.`,p:R[D.bigI].h,c:C.amber},
-    {i:D.hiI,title:`High of day · ${R[D.hiI].t} ET`,body:`${fmt(R[D.hiI].h)} — back above Wednesday's close.`,p:R[D.hiI].h,c:C.green},
-    {i:N-1,title:'Close',body:`${fmt(R[N-1].c)}. ${sgn((R[N-1].c/R[0].o-1)*100)}% from the open, ${sgn((R[N-1].c/prev-1)*100)}% on the day.`,p:R[N-1].c,c:C.ink},
-  ];
+  // warp: [[seconds into chart scene, bars drawn]] — the drawing pauses at each callout while it is narrated
+  const WARP=(STORY.timing&&STORY.timing.spy&&STORY.timing.spy.warp)||[[.6,0],[T.chart[1]-T.chart[0]-2.6,N]];
+  function pfAt(tl){if(tl<=WARP[0][0])return WARP[0][1];for(let i=1;i<WARP.length;i++){const [t1,p1]=WARP[i],[t0,p0]=WARP[i-1];if(tl<=t1)return t1>t0?p0+(p1-p0)*(tl-t0)/(t1-t0):p1}return WARP[WARP.length-1][1]}
+  function tAt(pf){for(let i=1;i<WARP.length;i++){const [t1,p1]=WARP[i],[t0,p0]=WARP[i-1];if(pf<=p1&&p1>p0)return t0+(t1-t0)*clamp((pf-p0)/(p1-p0));}return WARP[WARP.length-1][0]}
+  const dec=pmax>1000?0:2;
   function drawChart(t){
     const a=fadeIO(t,T.chart[0],T.chart[1]);if(a<=0)return;
     X.save();X.globalAlpha=a;
-    const prog=clamp((t-T.chart[0]-.6)/(T.chart[1]-T.chart[0]-3.2));const pf=prog*N;const shown=Math.min(N,Math.floor(pf));
+    const tl=t-T.chart[0];const pf=pfAt(tl);const shown=Math.min(N,Math.floor(pf));
     const cur=Math.max(0,Math.min(N-1,Math.ceil(pf)-1));
-    // header
     const hx=WIDE?80*S:64*S,hy=WIDE?150*S:260*S;
     font('SG',700,WIDE?44:58);txt('SPY',hx,hy);
-    font('IN',500,WIDE?24:28);txt('Thursday, Sep 24 · 5-minute candles',hx+(WIDE?110:145)*S,hy-(WIDE?6:10)*S,{c:C.mut});
+    font('IN',500,WIDE?24:28);txt(D.subtitle,hx+(WIDE?110:145)*S,hy-(WIDE?6:10)*S,{c:C.mut});
     const last=R[cur],chg=(last.c/prev-1)*100;
     const rx=WIDE?1340*S:64*S,ry=WIDE?250*S:390*S;
-    font('JB',700,WIDE?84:96);txt(fmt(last.c),rx,ry);
-    font('JB',700,WIDE?34:40);txt(sgn(chg)+'%',rx+(WIDE?330:385)*S,ry-(WIDE?8:6)*S,{c:chg>=0?C.green:C.red});
-    font('JB',500,WIDE?28:30);txt(last.t+' ET',WIDE?rx:W-64*S,WIDE?ry+50*S:ry-(6)*S,{c:C.mut,al:WIDE?'left':'right'});
-    // price grid
+    font('JB',700,WIDE?84:96);txt(last.c.toFixed(2),rx,ry);const pw=X.measureText(last.c.toFixed(2)).width;
+    font('JB',700,WIDE?34:40);txt((chg>=0?'+':'−')+Math.abs(chg).toFixed(2)+'%',rx+pw+24*S,ry-(WIDE?8:6)*S,{c:chg>=0?C.green:C.red});
+    font('JB',500,WIDE?28:30);txt(last.t+' ET',WIDE?rx:W-64*S,WIDE?ry+50*S:ry-6*S,{c:C.mut,al:WIDE?'left':'right'});
     X.strokeStyle=C.line;X.lineWidth=1*S;font('JB',500,20);
-    for(let p=Math.ceil(pmin);p<=pmax;p++){const y=py(p);X.beginPath();X.moveTo(CH.x,y);X.lineTo(CH.x+CH.w,y);X.stroke();txt(p.toFixed(0),CH.x+CH.w+10*S,y+7*S,{c:C.dim})}
-    // prev close
+    const st=niceStep(pmax-pmin);
+    for(let p=Math.ceil(pmin/st)*st;p<=pmax;p+=st){const y=py(p);X.beginPath();X.moveTo(CH.x,y);X.lineTo(CH.x+CH.w,y);X.stroke();txt(p.toFixed(st<1?1:0),CH.x+CH.w+10*S,y+7*S,{c:C.dim})}
     X.setLineDash([10*S,8*S]);X.strokeStyle='rgba(242,181,68,.7)';X.lineWidth=2*S;X.beginPath();X.moveTo(CH.x,py(prev));X.lineTo(CH.x+CH.w,py(prev));X.stroke();X.setLineDash([]);
-    font('IN',700,20);txt(`WED CLOSE ${fmt(prev)}`,CH.x+8*S,py(prev)-10*S,{c:C.amber,ls:1});
-    // volume
-    const vmax=Math.max(...R.map(r=>r.v))*0.75;
+    font('IN',700,20);txt(D.prevLabel,CH.x+8*S,py(prev)-10*S,{c:C.amber,ls:1});
+    const vs=[...R.map(r=>r.v)].sort((a,b)=>a-b),vmax=vs[Math.floor(N*.97)]*1.15;
     for(let i=0;i<shown+1&&i<N;i++){
       const r=R[i],k=i<shown?1:clamp(pf-i);if(k<=0)continue;
       const vh=Math.min(1,r.v/vmax)*CH.vh*out(k);
       X.fillStyle=i===D.bigI?'rgba(242,181,68,.85)':(r.c>=r.o?'rgba(53,211,154,.28)':'rgba(255,106,92,.28)');
       X.fillRect(px(i)-CH.w/N*.36,CH.y+CH.h+CH.vh+24*S-vh,CH.w/N*.72,vh);
     }
-    // vwap
     X.strokeStyle='rgba(120,170,255,.85)';X.lineWidth=2.5*S;X.beginPath();
     for(let i=0;i<=cur;i++){const y=py(R[i].vw);i?X.lineTo(px(i),y):X.moveTo(px(i),y)}X.stroke();
-    if(cur>2){font('IN',700,19);txt('VWAP',px(cur)+10*S,py(R[cur].vw)+(R[cur].vw>R[cur].c?22:-10)*S,{c:'rgba(150,190,255,.95)'})}
-    // candles
+    if(cur>2){font('IN',700,19);txt('VWAP',Math.min(px(cur)+10*S,CH.x+CH.w-60*S),py(R[cur].vw)+(R[cur].vw>R[cur].c?22:-10)*S,{c:'rgba(150,190,255,.95)'})}
     const bw=CH.w/N*.64;
     for(let i=0;i<shown+1&&i<N;i++){
-      const r=R[i],k=i<shown?1:clamp(pf-i);if(k<=0)continue;const up=r.c>=r.o;const col=up?C.green:C.red;
+      const r=R[i],k=i<shown?1:clamp(pf-i);if(k<=0)continue;const up=r.c>=r.o;const cl=up?C.green:C.red;
       const e=out(k);const o=py(r.o),c=py(lerp(r.o,r.c,e)),h=py(lerp(Math.max(r.o,r.c),r.h,e)),l=py(lerp(Math.min(r.o,r.c),r.l,e));
-      X.strokeStyle=col;X.lineWidth=Math.max(1.5,2*S);X.beginPath();X.moveTo(px(i),h);X.lineTo(px(i),l);X.stroke();
-      X.fillStyle=col;X.fillRect(px(i)-bw/2,Math.min(o,c),bw,Math.max(2*S,Math.abs(c-o)));
+      X.strokeStyle=cl;X.lineWidth=Math.max(1.5,2*S);X.beginPath();X.moveTo(px(i),h);X.lineTo(px(i),l);X.stroke();
+      X.fillStyle=cl;X.fillRect(px(i)-bw/2,Math.min(o,c),bw,Math.max(2*S,Math.abs(c-o)));
       if(i===D.bigI){X.save();X.shadowColor=C.amber;X.shadowBlur=24*S*e;X.strokeStyle=C.amber;X.lineWidth=3*S;X.strokeRect(px(i)-bw/2-5*S,h-5*S,bw+10*S,l-h+10*S);X.restore()}
     }
-    // live price head
-    if(shown<N||t<T.chart[1]){const y=py(R[cur].c);X.save();X.setLineDash([3*S,5*S]);X.strokeStyle='rgba(238,243,241,.35)';X.beginPath();X.moveTo(px(cur),y);X.lineTo(CH.x+CH.w,y);X.stroke();X.restore();
+    {const y=py(R[cur].c);X.save();X.setLineDash([3*S,5*S]);X.strokeStyle='rgba(238,243,241,.35)';X.beginPath();X.moveTo(px(cur),y);X.lineTo(CH.x+CH.w,y);X.stroke();X.restore();
       X.fillStyle=C.ink;X.beginPath();X.arc(px(cur),y,6*S+2*S*Math.sin(t*8),0,7);X.fill();}
-    // markers + callout
     let active=null;
-    marks.forEach((m,j)=>{const st=m.i+0.6;if(pf<st)return;const k=clamp((pf-st)/2.5);active=m;
-      const x=px(m.i),y=py(m.p);X.save();X.globalAlpha*=out(k);X.strokeStyle=m.c;X.lineWidth=3*S;X.beginPath();X.arc(x,y,(14-4*out(k))*S,0,7);X.stroke();
-      font('IN',700,20);const lab=['GAP','LOW','FILL','HIGH','CLOSE'][j];const tw=X.measureText(lab).width;
-      const lx=Math.min(Math.max(x-tw/2-10*S,CH.x),CH.x+CH.w-tw-20*S),ly=(j===1||j===0)?y+26*S:y-54*S;
-      X.fillStyle='rgba(10,17,19,.85)';rr(lx,ly,tw+20*S,32*S,8*S);X.fill();txt(lab,lx+10*S,ly+23*S,{c:m.c,ls:1});X.restore();
+    marks.forEach(m=>{const st=m.i+0.6;if(pf<st)return;const k=clamp((tl-tAt(st))/.6);active=m;
+      const x=px(m.i),y=py(m.p);X.save();X.globalAlpha*=out(k);X.strokeStyle=col(m.color);X.lineWidth=3*S;X.beginPath();X.arc(x,y,(14-4*out(k))*S,0,7);X.stroke();
+      font('IN',700,20);const tw=X.measureText(m.label).width;
+      const below=m.label==='LOW'||(m.label==='OPEN'&&m.p<prev);
+      const lx=Math.min(Math.max(x-tw/2-10*S,CH.x),CH.x+CH.w-tw-20*S),ly=below?y+26*S:y-54*S;
+      X.fillStyle='rgba(10,17,19,.85)';rr(lx,ly,tw+20*S,32*S,8*S);X.fill();txt(m.label,lx+10*S,ly+23*S,{c:col(m.color),ls:1});X.restore();
     });
     if(active){
-      const j=marks.indexOf(active),k=clamp((pf-active.i-0.6)/1.2);
+      const j=marks.indexOf(active),k=clamp((tl-tAt(active.i+.6))/.5);
       const cx=WIDE?1340*S:56*S,cy=WIDE?400*S:CH.y+CH.h+CH.vh+60*S,cw=WIDE?500*S:W-112*S,chh=WIDE?300*S:210*S;
       X.save();X.globalAlpha*=out(k);X.translate(0,(1-back(k))*30*S);
-      X.fillStyle=C.card;rr(cx,cy,cw,chh,18*S);X.fill();X.fillStyle=active.c;X.fillRect(cx,cy+18*S,6*S,chh-36*S);
+      X.fillStyle=C.card;rr(cx,cy,cw,chh,18*S);X.fill();X.fillStyle=col(active.color);X.fillRect(cx,cy+18*S,6*S,chh-36*S);
       font('IN',700,20);txt(`${j+1} / ${marks.length}`,cx+32*S,cy+44*S,{c:C.mut,ls:2});
-      font('SG',700,WIDE?36:40);txt(active.title,cx+32*S,cy+(WIDE?92:94)*S);
-      font('IN',500,WIDE?26:29);wrap(active.body,cx+32*S,cy+(WIDE?140:140)*S,cw-64*S,(WIDE?36:38)*S,C.mut);
+      fitFont('SG',700,WIDE?36:40,active.title,cw-64*S);txt(active.title,cx+32*S,cy+94*S);
+      font('IN',500,WIDE?26:29);wrap(active.body,cx+32*S,cy+140*S,cw-64*S,(WIDE?36:38)*S,C.mut);
       X.restore();
     }
     X.restore();
   }
-  function wrap(s,x,y,w,lh,c){const ws=s.split(' ');let ln='',yy=y;for(const w0 of ws){const tl=ln?ln+' '+w0:w0;if(X.measureText(tl).width>w&&ln){txt(ln,x,yy,{c});ln=w0;yy+=lh}else ln=tl}txt(ln,x,yy,{c})}
-  window.wrap=wrap;
   function drawHook(t){const a=fadeIO(t,T.hook[0],T.hook[1],.3);if(a<=0)return;X.save();X.globalAlpha=a;
     const x=WIDE?W/2:64*S,y=WIDE?420*S:760*S,al=WIDE?'center':'left';
-    font('IN',700,26);txt('SPY · THURSDAY SEP 24',x,y-130*S,{c:C.amber,ls:4,al});
-    headline(['SPY opened in the red.','One candle erased it.'],x,y,WIDE?84:84,t,{al,hl:['red.','One','candle']});
+    font('IN',700,26);txt(D.kicker,x,y-130*S,{c:C.amber,ls:4,al});
+    headline(SC.hook.lines,x,y,84,t,{al,hl:SC.hook.hl});
     const sx=WIDE?W*.2:64*S,sw=WIDE?W*.6:W-128*S,sy=WIDE?640*S:1080*S,sh=WIDE?260*S:320*S,k=out(clamp((t-.5)/2.4));
     const yy=p=>sy+sh-(p-pmin)/(pmax-pmin)*sh;
     X.setLineDash([8*S,8*S]);X.strokeStyle='rgba(242,181,68,.5)';X.lineWidth=2*S;X.beginPath();X.moveTo(sx,yy(prev));X.lineTo(sx+sw,yy(prev));X.stroke();X.setLineDash([]);
     X.strokeStyle=C.ink;X.lineWidth=4*S;X.lineJoin='round';X.beginPath();const m=Math.max(1,Math.floor(k*N));
-    X.moveTo(sx,yy(R[0].o));for(let i=0;i<m;i++){X.lineTo(sx+i/(N-1)*sw,yy(R[i].c))}X.stroke();
-    X.fillStyle=C.red;X.beginPath();X.arc(sx,yy(R[0].o),9*S,0,7);X.fill();
+    X.moveTo(sx,yy(R[0].o));for(let i=0;i<m;i++)X.lineTo(sx+i/(N-1)*sw,yy(R[i].c));X.stroke();
+    X.fillStyle=R[0].o<prev?C.red:C.green;X.beginPath();X.arc(sx,yy(R[0].o),9*S,0,7);X.fill();
     if(m>D.bigI){X.fillStyle=C.amber;X.beginPath();X.arc(sx+D.bigI/(N-1)*sw,yy(R[D.bigI].c),9*S,0,7);X.fill()}
     X.restore()}
   function drawStats(t){const a=fadeIO(t,T.stats[0],T.stats[1]);if(a<=0)return;X.save();X.globalAlpha=a;
     const lt=t-T.stats[0];const x0=WIDE?(W-1580*S)/2:64*S,y0=WIDE?220*S:470*S;
     font('IN',700,26);txt('THE SESSION IN NUMBERS',x0,y0,{c:C.amber,ls:4});
-    const o=R[0].o,c=R[N-1].c,h=R[D.hiI].h,l=R[D.loI].l;
-    const cells=[['Open',fmt(o),C.ink],['Close',fmt(c),C.ink],['High',fmt(h),C.green],['Low',fmt(l),C.red],
-      ['Open → close',sgn((c/o-1)*100)+'%',C.green],['Day vs Wed',sgn((c/prev-1)*100)+'%',C.red],['Range',`$${fmt(h-l)}`,C.ink],['Close vs VWAP',`${c>R[N-1].vw?'above':'below'} ${fmt(R[N-1].vw)}`,C.ink]];
     const cols=WIDE?4:2,cw=WIDE?380*S:466*S,chh=WIDE?220*S:196*S,gap=20*S;
-    cells.forEach((cl,i)=>{const k=clamp((lt-.15-i*.09)/.5);const cx=x0+(i%cols)*(cw+gap),cy=y0+40*S+Math.floor(i/cols)*(chh+gap);
-      X.save();X.globalAlpha*=out(k);X.translate(0,(1-out(k))*40*S);X.fillStyle='rgba(20,38,35,.9)';rr(cx,cy,cw,chh,18*S);X.fill();
-      font('IN',500,26);txt(cl[0],cx+28*S,cy+52*S,{c:C.mut});{const sm=cl[1].length>(WIDE?10:12);font('JB',700,sm?(WIDE?40:34):52);txt(cl[1],cx+28*S,cy+(sm?134:140)*S,{c:cl[2]})};X.restore()});
+    D.stats.forEach((cl,i)=>{const k=clamp((lt-.15-i*.09)/.5);const cx=x0+(i%cols)*(cw+gap),cy=y0+40*S+Math.floor(i/cols)*(chh+gap);
+      X.save();X.globalAlpha*=out(k);X.translate(0,(1-out(k))*40*S);X.fillStyle=C.tile;rr(cx,cy,cw,chh,18*S);X.fill();
+      font('IN',500,26);txt(cl[0],cx+28*S,cy+52*S,{c:C.mut});fitFont('JB',700,52,cl[1],cw-56*S);txt(cl[1],cx+28*S,cy+140*S,{c:col(cl[2])});X.restore()});
     const ny=y0+40*S+(WIDE?2:4)*(chh+gap)+30*S;font('IN',500,24);
     txt('Source: Webull 5-min bars, regular session. VWAP computed from those bars.',x0,ny,{c:C.dim});
     X.restore()}
   function drawOut(t){const a=fadeIO(t,T.out[0],T.out[1]+1,.35);if(a<=0)return;X.save();X.globalAlpha=a;
     const x=WIDE?W/2:64*S,al=WIDE?'center':'left',y=WIDE?430*S:760*S;
-    headline(['Gap down, gap filled,','flat into the close.'],x,y,WIDE?76:80,t,{d:T.out[0],al,hl:['filled,']});
-    font('IN',500,32);txt('Follow for the SPY tape every trading day.',x,y+(WIDE?200:230)*S,{c:C.mut,al});
+    headline(SC.outro.lines,x,y,WIDE?76:80,t,{d:T.out[0],al,hl:SC.outro.hl});
+    font('IN',500,32);txt(SC.outro.sub,x,y+(WIDE?200:230)*S,{c:C.mut,al});
     font('IN',500,24);txt('Educational only. Not financial advice.',x,y+(WIDE?250:285)*S,{c:C.dim,al});
     X.restore()}
   return {DUR,draw(t){bg(t);drawHook(t);drawChart(t);drawStats(t);drawOut(t);brand(t,DUR,'MARKETS')}};
 }
 /* ================= Mag 7 week ================= */
 function magVideo(){
-  const P=MAG.pct,names=['AAPL','MSFT','NVDA','GOOGL','AMZN','META','TSLA'];
-  const T={hook:[0,3.6],race:[3.3,18.6],rev:[18.3,24.6],out:[24.3,28]},DUR=28;
-  const L=WIDE?{x0:200*S,ax:520*S,sc:58*S,top:340*S,rh:78*S,lab:90*S}:{x0:64*S,ax:390*S,sc:30*S,top:640*S,rh:104*S,lab:64*S};
-  function valAt(sym,t){const f=clamp((t-T.race[0]-.9)/(T.race[1]-T.race[0]-2.4))*4;const d=Math.min(3,Math.floor(f)),k=ease(clamp((f-d)/.8));
-    return lerp(P[sym][d],P[sym][d+1],k)}
+  const M=STORY.mag,SC=STORY.script.mag,P=M.pct,names=M.names,nd=M.days.length-1;
+  const {T,DUR}=timeline(STORY.timing&&STORY.timing.mag,['hook','race','rev','out'],[3.6,15.3,6.3,3.7]);
+  const all=[...names,'SPY','QQQ'].flatMap(n=>P[n]);const mx=Math.max(1,...all),mn=Math.min(0,...all);
+  const left=WIDE?470*S:290*S,right=WIDE?1560*S:W-190*S;const sc=(right-left)/(mx-mn),ax=left-mn*sc;
+  const L=WIDE?{x0:200*S,top:340*S,rh:78*S}:{x0:64*S,top:640*S,rh:104*S};
+  function fAt(t){return clamp((t-T.race[0]-.9)/(T.race[1]-T.race[0]-2.4))*nd}
+  function valAt(sym,t){const f=fAt(t);const d=Math.min(nd-1,Math.floor(f)),k=ease(clamp((f-d)/.8));return lerp(P[sym][d],P[sym][d+1],k)}
   function drawHook(t){const a=fadeIO(t,T.hook[0],T.hook[1]);if(a<=0)return;X.save();X.globalAlpha=a;
     const x=WIDE?W/2:64*S,al=WIDE?'center':'left',y=WIDE?420*S:740*S;
-    font('IN',700,26);txt('MAGNIFICENT 7 · WEEK SO FAR',x,y-130*S,{c:C.amber,ls:4,al});
-    headline(['One Mag 7 stock ran','+16.9% in four days.'],x,y,WIDE?84:88,t,{al,hl:['+16.9%']});
-    font('IN',500,34);txt('Can you guess which?',x,y+(WIDE?230:240)*S,{c:C.mut,al,a:clamp((t-1.4)/.5)});
+    font('IN',700,26);txt(SC.hook.kicker,x,y-130*S,{c:C.amber,ls:4,al});
+    headline(SC.hook.lines,x,y,WIDE?84:88,t,{al,hl:SC.hook.hl});
+    font('IN',500,34);txt(SC.hook.sub,x,y+(WIDE?230:240)*S,{c:C.mut,al,a:clamp((t-1.4)/.5)});
     const cw=WIDE?190*S:218*S,chh=84*S,g=16*S,cols=WIDE?7:3;const tot=WIDE?7*cw+6*g:3*cw+2*g,bx=WIDE?W/2-tot/2:64*S,by=y+(WIDE?300:340)*S;
     names.forEach((n,i)=>{const k=out(clamp((t-1.6-i*.08)/.4));const cx=bx+(i%cols)*(cw+g),cy=by+Math.floor(i/cols)*(chh+g);
-      X.save();X.globalAlpha*=k;X.translate(0,(1-k)*30*S);X.fillStyle='rgba(20,38,35,.9)';rr(cx,cy,cw,chh,14*S);X.fill();
+      X.save();X.globalAlpha*=k;X.translate(0,(1-k)*30*S);X.fillStyle=C.tile;rr(cx,cy,cw,chh,14*S);X.fill();
       X.strokeStyle=(Math.floor(t*6)%7===i)?C.amber:'rgba(255,255,255,.08)';X.lineWidth=2*S;X.stroke();
       font('SG',700,38);txt(n,cx+cw/2,cy+56*S,{al:'center'});X.restore()});
     X.restore()}
+  const rk={};
   function drawRace(t){const a=fadeIO(t,T.race[0],T.race[1]);if(a<=0)return;X.save();X.globalAlpha=a;
-    const f=clamp((t-T.race[0]-.9)/(T.race[1]-T.race[0]-2.4))*4;const di=Math.min(4,Math.round(f));
+    const f=fAt(t);const di=Math.min(nd,Math.round(f));
     const hx=WIDE?260*S:64*S,hy=WIDE?150*S:330*S;
-    font('IN',700,26);txt('% CHANGE FROM FRIDAY 9/18 CLOSE',hx,hy,{c:C.amber,ls:3});
-    font('SG',700,WIDE?96:120);txt(MAG.days[di].split(' ')[0],hx,hy+(WIDE?100:130)*S);
-    font('JB',500,WIDE?34:40);txt(MAG.days[di].split(' ')[1],hx+(WIDE?240:300)*S,hy+(WIDE?100:130)*S,{c:C.mut});
-    // day ticks
-    for(let i=0;i<5;i++){const tx=hx+i*(WIDE?70:92)*S,ty=hy+(WIDE?140:180)*S;X.fillStyle=i<=f+.001?C.amber:'rgba(255,255,255,.12)';rr(tx,ty,(WIDE?58:78)*S,8*S,4*S);X.fill()}
+    font('IN',700,26);txt(`% CHANGE FROM ${M.days[0].split(' ')[0]} ${M.days[0].split(' ')[1]} CLOSE`,hx,hy,{c:C.amber,ls:3});
+    font('SG',700,WIDE?96:120);const dl=M.days[di].split(' ');txt(dl[0],hx,hy+(WIDE?100:130)*S);const dw=X.measureText(dl[0]).width;
+    font('JB',500,WIDE?34:40);txt(dl[1],hx+dw+30*S,hy+(WIDE?100:130)*S,{c:C.mut});
+    for(let i=0;i<=nd;i++){const tx=hx+i*(WIDE?70:92)*S,ty=hy+(WIDE?140:180)*S;X.fillStyle=i<=f+.001?C.amber:'rgba(255,255,255,.12)';rr(tx,ty,(WIDE?58:78)*S,8*S,4*S);X.fill()}
     const vals=names.map(n=>({n,v:valAt(n,t)}));const sorted=[...vals].sort((a,b)=>b.v-a.v);
-    // axis
-    const ax=L.ax,yTop=L.top-30*S,yBot=L.top+7*L.rh;
+    const yTop=L.top-30*S,yBot=L.top+7*L.rh;
     X.strokeStyle='rgba(255,255,255,.25)';X.lineWidth=2*S;X.beginPath();X.moveTo(ax,yTop);X.lineTo(ax,yBot);X.stroke();
-    // benchmark lines
-    [['SPY',C.mut],['QQQ','rgba(150,190,255,.9)']].forEach(([b,col],bi)=>{const v=valAt(b,t);const x=ax+v*L.sc;X.save();X.setLineDash([6*S,6*S]);X.strokeStyle=col;X.lineWidth=2*S;X.beginPath();X.moveTo(x,yTop);X.lineTo(x,yBot);X.stroke();X.restore();
-      font('JB',700,20);txt(`${b} ${sgn(v,1)}%`,x+(bi?8:-8)*S,yBot+34*S+bi*28*S,{c:col,al:bi?'left':'right'})});
-    // rank smoothing
-    window.__rk=window.__rk||{};
-    vals.forEach(o=>{const target=sorted.findIndex(s=>s.n===o.n);const prevr=window.__rk[o.n]??target;window.__rk[o.n]=lerp(prevr,target,.18);
-      const y=L.top+window.__rk[o.n]*L.rh;const w=o.v*L.sc;const col=o.v>=0?C.green:C.red;
-      font('SG',700,WIDE?40:44);txt(o.n,L.x0,y+L.rh*.62,{c:o.n==='META'&&f>0.6?C.amber:C.ink});
-      X.fillStyle=col;X.globalAlpha=a*(o.n==='META'?1:.85);rr(w>=0?ax:ax+w,y+L.rh*.18,Math.max(Math.abs(w),2*S),L.rh*.6,8*S);X.fill();X.globalAlpha=a;
-      font('JB',700,WIDE?30:32);{const lab=sgn(o.v)+'%',lx=w>=0?ax+w+12*S:ax+12*S;const tw=X.measureText(lab).width;X.fillStyle='rgba(10,17,19,.92)';rr(lx-6*S,y+L.rh*.26,tw+12*S,L.rh*.46,8*S);X.fill();txt(lab,lx,y+L.rh*.6,{c:col,al:'left'});}
+    [['SPY',C.mut],['QQQ','rgba(150,190,255,.9)']].forEach(([b,cl],bi)=>{const v=valAt(b,t);const x=ax+v*sc;X.save();X.setLineDash([6*S,6*S]);X.strokeStyle=cl;X.lineWidth=2*S;X.beginPath();X.moveTo(x,yTop);X.lineTo(x,yBot);X.stroke();X.restore();
+      font('JB',700,20);txt(`${b} ${(v>=0?'+':'−')+Math.abs(v).toFixed(1)}%`,x+(bi?8:-8)*S,yBot+34*S+bi*28*S,{c:cl,al:bi?'left':'right'})});
+    vals.forEach(o=>{const target=sorted.findIndex(s=>s.n===o.n);const pr=rk[o.n]??target;rk[o.n]=lerp(pr,target,.18);
+      const y=L.top+rk[o.n]*L.rh;const w=o.v*sc;const cl=o.v>=0?C.green:C.red;
+      font('SG',700,WIDE?40:44);txt(o.n,L.x0,y+L.rh*.62,{c:o.n===M.lead&&f>0.6?C.amber:C.ink});
+      X.fillStyle=cl;X.globalAlpha=a*(o.n===M.lead?1:.85);rr(w>=0?ax:ax+w,y+L.rh*.18,Math.max(Math.abs(w),2*S),L.rh*.6,8*S);X.fill();X.globalAlpha=a;
+      font('JB',700,WIDE?30:32);const lab=(o.v>=0?'+':'−')+Math.abs(o.v).toFixed(2)+'%',lx=w>=0?ax+w+12*S:ax+12*S;const tw=X.measureText(lab).width;
+      X.fillStyle='rgba(10,17,19,.92)';rr(lx-6*S,y+L.rh*.26,tw+12*S,L.rh*.46,8*S);X.fill();txt(lab,lx,y+L.rh*.6,{c:cl});
     });
     X.restore()}
-  function drawRev(t){const a=fadeIO(t,T.rev[0],T.rev[1]);if(a<=0)return;X.save();X.globalAlpha=a;const lt=t-T.rev[0];
+  function drawRev(t){const a=fadeIO(t,T.rev[0],T.rev[1]);if(a<=0)return;X.save();X.globalAlpha=a;const lt=t-T.rev[0];const R=M.reveal;
     const x=WIDE?W/2:64*S,al=WIDE?'center':'left',y=WIDE?330*S:600*S;
     font('IN',700,26);txt('THE ANSWER',x,y-120*S,{c:C.amber,ls:4,al});
-    const k=back(clamp(lt/.6));X.save();X.translate(x,y);X.scale(.8+.2*k,.8+.2*k);font('SG',700,WIDE?170:190);txt('META',0,40*S,{al});X.restore();
-    font('JB',700,WIDE?90:100);txt('+16.9%',x,y+(WIDE?150:180)*S,{c:C.green,al,a:clamp((lt-.3)/.4)});
-    font('JB',500,34);txt('$665.23 → $777.59',x,y+(WIDE?215:260)*S,{c:C.mut,al,a:clamp((lt-.6)/.4)});
-    const rows=[['Monday alone','+11.4%',C.green],['Thursday','+4.5%',C.green],['Worst of the 7: GOOGL','−2.1%',C.red],['Nasdaq-100 (QQQ)','+2.8%',C.ink]];
-    rows.forEach((r,i)=>{const kk=clamp((lt-1-i*.35)/.4);const yy=y+(WIDE?300:350)*S+i*(WIDE?62:74)*S;const bx=WIDE?x-360*S:x;const bw=WIDE?720*S:W-128*S;
-      X.save();X.globalAlpha*=out(kk);X.translate((1-out(kk))*40*S,0);X.fillStyle='rgba(20,38,35,.9)';rr(bx,yy-44*S,bw,(WIDE?54:62)*S,12*S);X.fill();
-      font('IN',500,30);txt(r[0],bx+24*S,yy-2*S,{c:C.mut});font('JB',700,32);txt(r[1],bx+bw-24*S,yy-2*S,{c:r[2],al:'right'});X.restore()});
+    const k=back(clamp(lt/.6));X.save();X.translate(x,y);X.scale(.8+.2*k,.8+.2*k);font('SG',700,WIDE?170:190);txt(R.name,0,40*S,{al});X.restore();
+    font('JB',700,WIDE?90:100);txt(R.pct,x,y+(WIDE?150:180)*S,{c:R.pct.startsWith('+')?C.green:C.red,al,a:clamp((lt-.3)/.4)});
+    font('JB',500,34);txt(`${R.frm} → ${R.to}`,x,y+(WIDE?215:260)*S,{c:C.mut,al,a:clamp((lt-.6)/.4)});
+    R.rows.forEach((r,i)=>{const kk=clamp((lt-1-i*.35)/.4);const yy=y+(WIDE?300:350)*S+i*(WIDE?62:74)*S;const bx=WIDE?x-360*S:x;const bw=WIDE?720*S:W-128*S;
+      X.save();X.globalAlpha*=out(kk);X.translate((1-out(kk))*40*S,0);X.fillStyle=C.tile;rr(bx,yy-44*S,bw,(WIDE?54:62)*S,12*S);X.fill();
+      font('IN',500,30);txt(r[0],bx+24*S,yy-2*S,{c:C.mut});font('JB',700,32);txt(r[1],bx+bw-24*S,yy-2*S,{c:col(r[2]),al:'right'});X.restore()});
     X.restore()}
   function drawOut(t){const a=fadeIO(t,T.out[0],T.out[1]+1);if(a<=0)return;X.save();X.globalAlpha=a;
     const x=WIDE?W/2:64*S,al=WIDE?'center':'left',y=WIDE?430*S:760*S;
-    headline(['Friday decides','the week.'],x,y,WIDE?84:92,t,{d:T.out[0],al,hl:['Friday']});
-    font('IN',500,32);txt('Follow for the weekly Mag 7 scoreboard.',x,y+(WIDE?160:200)*S,{c:C.mut,al});
-    font('IN',500,24);txt('Closes Fri 9/18 → Thu 9/24 · Data: Webull · Not financial advice.',x,y+(WIDE?210:255)*S,{c:C.dim,al});
+    headline(SC.outro.lines,x,y,WIDE?84:92,t,{d:T.out[0],al,hl:SC.outro.hl});
+    font('IN',500,32);txt(SC.outro.sub,x,y+(WIDE?160:200)*S,{c:C.mut,al});
+    font('IN',500,24);txt(`${M.span} · Data: Webull · Not financial advice.`,x,y+(WIDE?210:255)*S,{c:C.dim,al});
     X.restore()}
   return {DUR,draw(t){bg(t);drawHook(t);drawRace(t);drawRev(t);drawOut(t);brand(t,DUR,'MARKETS')}};
 }
 const V=VID==='spy'?spyVideo():magVideo();
 window.DUR=V.DUR;
 window.frame=t=>V.draw(t);
-window.ready=document.fonts.load('700 20px SG').then(()=>Promise.all(['500 20px SG','500 20px IN','700 20px IN','500 20px JB','700 20px JB'].map(f=>document.fonts.load(f)))).then(()=>true);
+window.ready=Promise.all(['700 20px SG','500 20px SG','500 20px IN','700 20px IN','500 20px JB','700 20px JB'].map(f=>document.fonts.load(f))).then(()=>true);
 </script></body></html>

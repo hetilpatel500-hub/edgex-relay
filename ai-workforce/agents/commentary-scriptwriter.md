@@ -23,3 +23,9 @@ Writer for the opening and Fact-Checker for anything you claim as true.
 pass, but every claim it produces still goes through Fact-Checker like
 any other draft, and the substantial-originality bar is yours to hold,
 not the tool's.
+
+## Video kit runs (owner directive, 2026-09-25)
+
+When the **Edgex video desk** Routine runs, you work in the production line in
+`ai-workforce/video-kit/README.md`. Your part: Step 4: rewrite `script.*` in story.json (on-screen lines and voiceover) for punch. Only the words change; every number must stay one listed in `facts`.
+The deliverable is a finished, voiced MP4 emailed to the owner, not a queued post.

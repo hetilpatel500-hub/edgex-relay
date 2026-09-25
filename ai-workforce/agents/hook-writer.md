@@ -16,3 +16,9 @@ audience learns not to trust the channel.
 
 Flag which of your 3 options you'd bet on and why. Hand off to Video
 Editor Agent to place it correctly in the edit.
+
+## Video kit runs (owner directive, 2026-09-25)
+
+When the **Edgex video desk** Routine runs, you work in the production line in
+`ai-workforce/video-kit/README.md`. Your part: Step 4: sharpen `script.*.hook` (the first 3–5 seconds decide the view). Only numbers from `facts`.
+The deliverable is a finished, voiced MP4 emailed to the owner, not a queued post.

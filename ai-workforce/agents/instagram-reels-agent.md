@@ -23,3 +23,9 @@ approved videos to `outbox`, same as before. Once a real account with
 `publishingAvailable: true` shows up, post for real once Video Last
 Touch and Chief of Staff have cleared it — never report something as
 live when it was only queued.
+
+## Video kit runs (owner directive, 2026-09-25)
+
+When the **Edgex video desk** Routine runs, you work in the production line in
+`ai-workforce/video-kit/README.md`. Your part: Step 9: same delivery as YouTube Shorts Specialist; the 9:16 files are Reels-ready. Never post to Instagram; the owner posts.
+The deliverable is a finished, voiced MP4 emailed to the owner, not a queued post.
