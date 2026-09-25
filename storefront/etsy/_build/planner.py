@@ -165,8 +165,11 @@ class Planner:
                         else:
                             c.setFont("Sans", 7.2)
                             txt = simpleSplit(val, "Sans", 7.2, cw)[:2]
-                            c.drawString(xs[i] + 5, y - row_h / 2 + 1.5, txt[0])
-                            c.drawString(xs[i] + 5, y - row_h / 2 - 6.5, txt[1])
+                            if len(txt) == 1:
+                                c.drawString(xs[i] + 5, y - row_h / 2 - 2.5, txt[0])
+                            else:
+                                c.drawString(xs[i] + 5, y - row_h / 2 + 1.5, txt[0])
+                                c.drawString(xs[i] + 5, y - row_h / 2 - 6.5, txt[1])
                             c.setFont("Sans", 8.2)
             y -= row_h
             c.setStrokeColor(LINE)
@@ -176,21 +179,24 @@ class Planner:
             c.line(x, y, x, y + rows * row_h)
         return y - 14
 
-    def checklist(self, y, sections, cols=2, fs=8.6, bottom=40, heading_gap=15):
+    def checklist(self, y, sections, cols=2, fs=8.6, bottom=40, heading_gap=15, x0=None, width=None):
         """sections: list of (heading, [items]). Flows into columns."""
         c = self.c
-        width = self.W - 2 * self.M
+        x0 = self.M if x0 is None else x0
+        width = (self.W - 2 * self.M) if width is None else width
         colw = (width - (cols - 1) * 20) / cols
         col = 0
         top = y
-        x = self.M
+        x = x0
+        self._col_low = y
         for heading, items in sections:
             need = heading_gap + 14
             if y - need < bottom:
+                self._col_low = min(self._col_low, y)
                 col += 1
                 if col >= cols:
                     raise ValueError("checklist overflow on page %s" % self.page_no)
-                x = self.M + col * (colw + 20)
+                x = x0 + col * (colw + 20)
                 y = top
             if heading:
                 c.setFillColor(self.accent)
@@ -198,17 +204,23 @@ class Planner:
                 c.drawString(x, y, heading.upper())
                 y -= heading_gap
             for it in items:
-                lines = simpleSplit(it, "Sans", fs, colw - 16)
-                h = len(lines) * (fs + 2.4) + 5
+                blank = not it
+                lines = [""] if blank else simpleSplit(it, "Sans", fs, colw - 16)
+                h = 22 if blank else len(lines) * (fs + 2.4) + 5
                 if y - h < bottom:
+                    self._col_low = min(self._col_low, y)
                     col += 1
                     if col >= cols:
                         raise ValueError("checklist overflow on page %s" % self.page_no)
-                    x = self.M + col * (colw + 20)
+                    x = x0 + col * (colw + 20)
                     y = top
                 c.setStrokeColor(self.accent)
                 c.setLineWidth(0.8)
                 c.roundRect(x, y - 2, 8.5, 8.5, 1.5, stroke=1, fill=0)
+                if blank:
+                    c.setStrokeColor(LINE)
+                    c.setLineWidth(0.6)
+                    c.line(x + 15, y - 2, x + colw, y - 2)
                 c.setFillColor(INK)
                 c.setFont("Sans", fs)
                 yy = y
@@ -217,7 +229,21 @@ class Planner:
                     yy -= fs + 2.4
                 y -= h
             y -= 6
-        return y
+        return min(y, self._col_low) if col else y
+
+    def two_col_checklist(self, y, left, right, fs=8.8, bottom=40):
+        """Explicit two-column checklist: left/right are section lists."""
+        w = (self.W - 2 * self.M - 24) / 2
+        y1 = self.checklist(y, left, cols=1, fs=fs, bottom=bottom, width=w)
+        y2 = self.checklist(y, right, cols=1, fs=fs, bottom=bottom, x0=self.M + w + 24, width=w)
+        return min(y1, y2)
+
+    def notes_fill(self, y, label="Notes", bottom=40):
+        """Fill leftover space with a labelled lined notes area."""
+        if y - bottom < 70:
+            return y
+        y = self.section(y - 4, label)
+        return self.lined(y - 12, bottom=bottom)
 
     def lined(self, y, bottom=40, gap=22, dotted=False):
         c = self.c

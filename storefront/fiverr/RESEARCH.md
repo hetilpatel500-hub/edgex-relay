@@ -152,9 +152,14 @@ All prices below are what real Fiverr sellers list, found via search on
   [Fiverr pitch decks category](https://www.fiverr.com/categories/business/online-presentations/pitch-decks)
 - Real gigs: $40 ([robertwycliffe](https://www.fiverr.com/robertwycliffe/create-your-investor-ready-pitch-deck)), $70 ([waseem100](https://www.fiverr.com/waseem100/create-a-professional-business-presentation-or-investor-pitch-deck)), $80 ([baritechsol](https://www.fiverr.com/baritechsol/write-research-design-investor-pitch-deck-fund-powerpoint-deck-sponsorship)), $100 ([rrgraph](https://www.fiverr.com/rrgraph/design-a-modern-pitch-deck-presentation)), $110 ([spietrobono](https://www.fiverr.com/spietrobono/create-a-professional-pitch-deck-presentation)), $200 ([adamazurek](https://www.fiverr.com/adamazurek/design-a-pitch-deck-presentation-in-powerpoint), [draganna981](https://www.fiverr.com/draganna981/create-3-templates-pitch-deck)), $250 ([sramanaaiift](https://www.fiverr.com/sramanaaiift/create-an-awesome-presentation-and-word-document)), $650 ([williambryan392](https://www.fiverr.com/williambryan392/investor-pitch-deck-presentation-investment-venture-capital-angel-seed-funding)).
 - Visible.vc: well-reviewed Fiverr freelancers $50-$200. [Visible.vc](https://visible.vc/blog/pitch-deck-design-cost/)
-- **Our price:** $75 / $150 / $260. Basic in line with the $70-$110
-  cluster; Premium near the $200-250 category norm because it includes
+- **Our price:** $70 / $140 / $220. Basic in line with the $70-$110
+  cluster; Premium inside the $200-250 category norm because it includes
   writing plus researched market and competitor slides.
+- **Tool limit that shaped the packages:** the studio's Gamma workspace
+  is on the free plan: max **10 cards per generated deck** and 400
+  credits, of which the demo deck used 60 (340 left, about 5 more decks).
+  So no package promises more than 10 slides. Upgrading Gamma is a
+  budget item for the weekly meeting once orders justify it.
 
 ### Market / competitor research
 - Fiverr cost guide: basic packages $43-$100, standard $100-$200.
@@ -175,9 +180,37 @@ All prices below are what real Fiverr sellers list, found via search on
   account with no reviews will get few impressions at first. Expect
   slow weeks; the first 5-10 orders matter most.
 
+### Considered and folded in: Amazon/Etsy listing optimization
+The money-map triage suggested Amazon/Etsy listing optimization as a
+possible 4th gig ($100-500 per Amazon listing off-platform). Real Fiverr
+prices are much lower and crowded: $5 ([ahsan_ali4](https://www.fiverr.com/ahsan_ali4/do-amazon-listing-optimization-write-seo-product-description-bullet-points)), $10 ([oni1_solutions](https://www.fiverr.com/oni1_solutions/amazon-product-listing-with-seo-friendly-title-bullet-points-and-keywords)), $15 ([murtaza1afridi](https://www.fiverr.com/murtaza1afridi/do-amazon-listing-optimization-and-seo-product-description)), $20 ([amazonva27](https://www.fiverr.com/amazonva27/write-compelling-amazon-product-listing-description-amazon-listing-optimization)), $40 ([hamzabut](https://www.fiverr.com/hamzabut/optimize-your-amazon-listing-to-improve-your-ranking-fc3e)), $50 ([vinctosc](https://www.fiverr.com/vinctosc/do-a-great-amazon-fba-listing-optimization)), $100 ([lsp_writes](https://www.fiverr.com/lsp_writes/write-outstanding-amazon-listing-to-rank-your-product-with-seo)).
+Many of those sellers sell "keyword research" backed by paid Amazon tools
+(Helium 10 style search-volume data) that the studio doesn't have. So it
+did not replace a gig. Instead Gig 1 now covers Amazon and Etsy listing
+format (title, 5 bullets, backend search terms), which the studio can
+deliver honestly. Same for the $750-3,000 landing-page rate: that's
+off-platform agency pricing; Fiverr's landing-page copy band is $41-211.
+
 ## 4. Search tags and title keywords (SEO Agent)
 
 Tags come from the words real sellers put in titles in search results
 above (shopify product description, landing page copy, pitch deck,
 investor pitch deck, competitor analysis, market research). No search
 volume numbers were available, so none are claimed.
+
+## 5. Gig images (Brand & Graphic Design Agent)
+
+- Four gig images were designed in Canva (navy #14213D, coral #F2785C,
+  cream #FAF7F2; headline left, simple illustration right, text kept
+  70+ px from the edges, no reviews/stats/contact info):
+  - Product descriptions: https://www.canva.com/d/exMu5J30YxPOMAe (resized to 1280x769)
+  - Landing page copy: https://www.canva.com/d/ti6I5HCaEMO6Svm (resized to 1280x769)
+  - Pitch deck: https://canva.link/jfpfledr46hop82 (original size; Canva's free resize quota ran out)
+  - Research: https://canva.link/m0yv8odg7u2fgae (original size; same reason)
+- Canva exported all four as PNG, but **the download failed**: this
+  environment's network policy blocks Canva's download host (and
+  Gamma's). So the PNGs in `images/` were rendered locally with the same
+  palette and layout brief, at exactly 1280 x 769, and checked by eye.
+  They are the ones to upload. The Canva versions are there if the owner
+  prefers them; export the first two at 1280 x 769 from Canva directly.
+- Profile picture: `images/profile-logo-edgex.png` (800 x 800 wordmark).
