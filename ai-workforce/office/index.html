@@ -506,8 +506,8 @@
   </div>
 
   <div id="bottomRow">
-    <div id="hint">drag to orbit &middot; scroll / pinch to zoom &middot; double-tap to zoom &middot; right-drag to pan &middot; click a room or a person</div>
-    <script>if(window.matchMedia && window.matchMedia("(max-width:720px)").matches){ document.getElementById("hint").textContent = "drag to orbit · pinch to zoom · tap a room or a person"; }</script>
+    <div id="hint">drag or two-finger swipe to move &middot; pinch to zoom &middot; right-drag or Shift+drag to turn &middot; arrows/WASD move, Q/E turn &middot; click a room or a person</div>
+    <script>if(window.matchMedia && window.matchMedia("(max-width:720px)").matches){ document.getElementById("hint").textContent = "drag to move · pinch to zoom · twist to turn · tap a room or a person"; }</script>
     <div id="statusKey" aria-hidden="true">
       <span><i class="s-working"></i>working now</span>
       <span><i class="s-requested"></i>asked by you</span>
@@ -1970,6 +1970,28 @@
     orbit.target.x = Math.max(-PAN_HX, Math.min(PAN_HX, orbit.target.x));
     orbit.target.z = Math.max(PAN_Z_MIN, Math.min(PAN_Z_MAX, orbit.target.z));
   }
+  var panVel = {x:0, y:0};            // glide after a grab-and-move, like a map (world units per frame)
+  var grabV1 = new THREE.Vector3(), grabV2 = new THREE.Vector3();
+  function floorAt(x, y, out){
+    raycaster.setFromCamera(ndcFrom(x, y), camera);
+    var h = raycaster.intersectObject(floor)[0];
+    if(!h) return null;
+    out.copy(h.point); return out;
+  }
+  // Move the view so the floor point under (x0,y0) ends up under (x1,y1).
+  // Falls back to the screen-space pan near the horizon, where the ray misses.
+  function grabPan(x0, y0, x1, y1){
+    applyOrbit(); camera.updateMatrixWorld();
+    var a = floorAt(x0, y0, grabV1), b = a && floorAt(x1, y1, grabV2);
+    if(!a || !b){ doPan(x1-x0, y1-y0); return null; }
+    var dx = a.x-b.x, dz = a.z-b.z;
+    var lim = orbit.radius*0.25;       // guard against huge jumps at grazing angles
+    dx = Math.max(-lim, Math.min(lim, dx)); dz = Math.max(-lim, Math.min(lim, dz));
+    orbit.target.x = Math.max(-PAN_HX, Math.min(PAN_HX, orbit.target.x+dx));
+    orbit.target.z = Math.max(PAN_Z_MIN, Math.min(PAN_Z_MAX, orbit.target.z+dz));
+    return {x:dx, z:dz};
+  }
+  var keysHeld = {};                   // keyboard movement, applied every frame
   function doZoom(factor){
     targetRadius = Math.max(MIN_R, Math.min(MAX_R, targetRadius*factor));
   }
@@ -1980,6 +2002,7 @@
     userInteracted = true;
     orbitAnim = null;
     spin.vTheta = 0; spin.vPhi = 0;
+    panVel.x = panVel.y = 0;
     canvas.setPointerCapture(e.pointerId);
     pointers.set(e.pointerId, {x:e.clientX, y:e.clientY, button:e.button});
     canvas.classList.add("dragging");
@@ -2013,16 +2036,27 @@
     }
 
     if(pointers.size === 1){
-      if(entry.button === 2) doPan(dx,dy); else doRotate(dx,dy,true);
+      // grab and move the floor; turn it with the right button or a modifier key
+      if(entry.button === 2 || e.shiftKey || e.altKey || e.ctrlKey || e.metaKey) doRotate(dx,dy,true);
+      else {
+        var mv = grabPan(e.clientX-dx, e.clientY-dy, e.clientX, e.clientY);
+        if(mv){ panVel.x = panVel.x*0.5 + mv.x*0.5; panVel.y = panVel.y*0.5 + mv.z*0.5; } else { panVel.x = panVel.y = 0; }
+        entry.lastMove = performance.now();
+      }
     } else if(pointers.size === 2){
       var pts = Array.from(pointers.values());
       var dist = Math.hypot(pts[0].x-pts[1].x, pts[0].y-pts[1].y);
+      var ang = Math.atan2(pts[1].y-pts[0].y, pts[1].x-pts[0].x);
       var midX = (pts[0].x+pts[1].x)/2, midY = (pts[0].y+pts[1].y)/2;
       if(twoFinger){
         if(twoFinger.prevDist > 1) doZoom(twoFinger.prevDist/dist);
-        doPan(midX-twoFinger.prevMidX, midY-twoFinger.prevMidY);
+        grabPan(twoFinger.prevMidX, twoFinger.prevMidY, midX, midY);
+        var dAng = ang-twoFinger.prevAng;
+        if(dAng > Math.PI) dAng -= Math.PI*2; if(dAng < -Math.PI) dAng += Math.PI*2;
+        orbit.theta -= dAng;           // twist two fingers to turn
       }
-      twoFinger = {prevDist:dist, prevMidX:midX, prevMidY:midY};
+      twoFinger = {prevDist:dist, prevMidX:midX, prevMidY:midY, prevAng:ang};
+      panVel.x = panVel.y = 0;
     }
   });
 
@@ -2046,6 +2080,8 @@
     targetRadius = toRadius;
   }
   function endPointer(e){
+    var ent = pointers.get(e.pointerId);
+    if(!ent || !ent.lastMove || performance.now()-ent.lastMove > 80) panVel.x = panVel.y = 0;
     var wasDown = downInfo && downInfo.id===e.pointerId;
     pointers.delete(e.pointerId);
     if(pointers.size < 2) twoFinger = null;
@@ -2080,22 +2116,53 @@
   canvas.addEventListener("pointerup", endPointer);
   canvas.addEventListener("pointercancel", endPointer);
 
+  // Trackpads send two-finger swipes as wheel events with small, smooth
+  // deltas (and often a sideways component); a mouse wheel sends big
+  // notched steps. Swipes move the floor, pinches (ctrlKey) zoom, a mouse
+  // wheel zooms, Shift+wheel turns.
+  var lastPadWheel = 0;
   canvas.addEventListener("wheel", function(e){
     e.preventDefault();
     userInteracted = true;
     orbitAnim = null;
-    doZoom(1 + e.deltaY*0.0016);
+    panVel.x = panVel.y = 0;
+    var unit = e.deltaMode===1 ? 16 : e.deltaMode===2 ? innerHeight : 1;
+    var dx = e.deltaX*unit, dy = e.deltaY*unit;
+    if(e.ctrlKey){ doZoom(Math.exp(dy*0.01)); return; }            // pinch
+    if(e.shiftKey){ doRotate(dx || dy, 0, false); return; }
+    var now = performance.now();
+    var looksLikePad = e.deltaMode===0 && (dx !== 0 || Math.abs(dy) < 40 || dy % 1 !== 0);
+    if(looksLikePad) lastPadWheel = now;
+    if(looksLikePad || now-lastPadWheel < 350){                    // content follows the fingers
+      var cx = e.clientX || innerWidth/2, cy = e.clientY || innerHeight/2;
+      grabPan(cx, cy, cx-dx, cy-dy);
+    }
+    else doZoom(1 + dy*0.0016);
   }, {passive:false});
+  // Safari's own pinch and rotate gestures
+  var gestureBase = null;
+  canvas.addEventListener("gesturestart", function(e){ e.preventDefault(); gestureBase = {r:targetRadius, rot:e.rotation||0}; });
+  canvas.addEventListener("gesturechange", function(e){
+    e.preventDefault(); if(!gestureBase) return;
+    userInteracted = true; orbitAnim = null;
+    targetRadius = Math.max(MIN_R, Math.min(MAX_R, gestureBase.r/(e.scale||1)));
+    var rot = e.rotation||0; orbit.theta -= (rot-gestureBase.rot)*Math.PI/180; gestureBase.rot = rot;
+  });
+  canvas.addEventListener("gestureend", function(e){ e.preventDefault(); gestureBase = null; });
 
   window.addEventListener("keydown", function(e){
     var activeTag = document.activeElement && document.activeElement.tagName;
     if(activeTag === "INPUT" || activeTag === "TEXTAREA") return;
     var handled = true;
+    var k = MOVE_KEYS[e.key.length===1 ? e.key.toLowerCase() : e.key];
+    if(k && !e.metaKey && !e.ctrlKey){
+      if(openSheetId || rosterOpen) return;
+      keysHeld[k + (e.shiftKey && (k==="left"||k==="right"||k==="up"||k==="down") ? "Turn" : "")] = true;
+      userInteracted = true; orbitAnim = null; spin.vTheta = 0; spin.vPhi = 0; panVel.x = panVel.y = 0;
+      e.preventDefault();
+      return;
+    }
     switch(e.key){
-      case "ArrowLeft": userInteracted=true; orbitAnim=null; spin.vTheta=0; spin.vPhi=0; doRotate(-55,0); break;
-      case "ArrowRight": userInteracted=true; orbitAnim=null; spin.vTheta=0; spin.vPhi=0; doRotate(55,0); break;
-      case "ArrowUp": userInteracted=true; orbitAnim=null; spin.vTheta=0; spin.vPhi=0; doRotate(0,-55); break;
-      case "ArrowDown": userInteracted=true; orbitAnim=null; spin.vTheta=0; spin.vPhi=0; doRotate(0,55); break;
       case "+": case "=": userInteracted=true; orbitAnim=null; doZoom(0.85); break;
       case "-": case "_": userInteracted=true; orbitAnim=null; doZoom(1.18); break;
       case "0": userInteracted=true; resetView(); break;
@@ -2104,6 +2171,32 @@
     if(handled) e.preventDefault();
   });
 
+  var MOVE_KEYS = {ArrowLeft:"left", ArrowRight:"right", ArrowUp:"up", ArrowDown:"down", a:"left", d:"right", w:"up", s:"down", q:"turnLeft", e:"turnRight", r:"tiltUp", f:"tiltDown"};
+  window.addEventListener("keyup", function(e){
+    var k = MOVE_KEYS[e.key.length===1 ? e.key.toLowerCase() : e.key];
+    if(k){ delete keysHeld[k]; delete keysHeld[k+"Turn"]; }
+    if(e.key==="Shift"){ ["left","right","up","down"].forEach(function(x){ if(keysHeld[x+"Turn"]){ delete keysHeld[x+"Turn"]; } }); }
+  });
+  window.addEventListener("blur", function(){ keysHeld = {}; });
+  // called every frame: held keys move smoothly, a released grab glides to a stop
+  function applyMotionInput(dt){
+    var sp = 520*dt, t = 1.6*dt;
+    if(keysHeld.left) doPan(sp, 0);
+    if(keysHeld.right) doPan(-sp, 0);
+    if(keysHeld.up) doPan(0, sp);
+    if(keysHeld.down) doPan(0, -sp);
+    if(keysHeld.turnLeft || keysHeld.leftTurn) orbit.theta += t;
+    if(keysHeld.turnRight || keysHeld.rightTurn) orbit.theta -= t;
+    if(keysHeld.tiltUp || keysHeld.upTurn) orbit.phi = Math.max(MIN_PHI, orbit.phi - t*0.6);
+    if(keysHeld.tiltDown || keysHeld.downTurn) orbit.phi = Math.min(MAX_PHI, orbit.phi + t*0.6);
+    if(pointers.size===0 && (Math.abs(panVel.x) > 0.002 || Math.abs(panVel.y) > 0.002)){
+      if(prefersReducedMotion){ panVel.x = panVel.y = 0; return; }
+      orbit.target.x = Math.max(-PAN_HX, Math.min(PAN_HX, orbit.target.x+panVel.x*dt*60));
+      orbit.target.z = Math.max(PAN_Z_MIN, Math.min(PAN_Z_MAX, orbit.target.z+panVel.y*dt*60));
+      var decay = Math.pow(0.9, dt*60);
+      panVel.x *= decay; panVel.y *= decay;
+    }
+  }
   document.getElementById("resetViewBtn").addEventListener("click", function(){ userInteracted = true; resetView(); });
 
   // ---------------- theme sync ----------------
@@ -4006,13 +4099,13 @@
     if(!note) return;
     note.hidden = true;
     if(chartSampleState==="unavailable"){ note.hidden = false; note.textContent = "The Chart Desk needs Claude, which isn't available to this page in this view. Open the Studio Floor on claude.ai to use it."; }
-    else if(chartSampleState==="noimages"){ note.hidden = false; note.textContent = "This view can't send images to Claude, so charts can't be analyzed here. Try claude.ai in a desktop browser."; }
+    else if(chartSampleState==="noimages"){ note.hidden = false; note.textContent = "This view may not be able to send images to Claude. Press Analyze anyway; if it can't, you'll see why here."; }
     if(wbn){ wbn.textContent = webullState==="ready" ? "Webull live data: on. Read-only, pulled when you press Analyze." : webullState==="loading" ? "Webull live data: checking…" : "Webull live data: off in this view. The desk will read the screenshots only."; wbn.className = "cd-wb "+webullState; }
     if(sampleLimits && sampleLimits.images) cdFile.accept = sampleLimits.images.mediaTypes.join(",");
     renderShots();
     updateGo();
   }
-  function updateGo(){ cdGo.disabled = !chartFiles.length || !!chartRun || chartSampleState!=="ready"; }
+  function updateGo(){ cdGo.disabled = !chartFiles.length || !!chartRun; }
   function renderShots(){
     cdShots.textContent = "";
     chartFiles.forEach(function(f, i){
@@ -4055,7 +4148,18 @@
     for(var i=0;i<items.length;i++){ if(items[i].kind==="file" && /^image\//.test(items[i].type)){ addChartFile(items[i].getAsFile()); got = true; } }
     if(got) e.preventDefault();
   });
-  cdGo.addEventListener("click", function(){ runChartDesk(false); });
+  var samplePromise = (window.claude && window.claude.use) ? window.claude.use("sample") : Promise.resolve(null);
+  cdGo.addEventListener("click", function(){
+    if(!chartFiles.length || chartRun) return;
+    if(sampleFn){ runChartDesk(false); return; }
+    // Claude may still be connecting in this view: wait for it once, then run or explain
+    cdMsg.textContent = "Connecting to Claude…";
+    cdGo.disabled = true;
+    samplePromise.then(function(s){
+      if(s){ sampleFn = s; if(chartSampleState==="loading") chartSampleState = "ready"; cdMsg.textContent = ""; runChartDesk(false); }
+      else { cdMsg.textContent = "Claude isn't available to this page in this view, so the desk can't run here. Open the Studio Floor on claude.ai (desktop browser or the Claude app) and try again."; updateGo(); }
+    }, function(){ cdMsg.textContent = "Couldn't reach Claude from this page. Reload and try again."; updateGo(); });
+  });
   cdStop.addEventListener("click", function(){ if(chartRun && chartRun.ctl) chartRun.ctl.abort(); });
 
   // ---- the desk's people act it out at their desks ----
@@ -4603,6 +4707,7 @@
       people.forEach(function(p){ if(p.parts) animatePerson(p.parts, p.group, "sit", p.agentId ? (POSE_OVERRIDE[p.agentId] || vstate(p.agentId)) : "idle", 0, 1, "desk"); });
     }
     officeFrame(dt);
+    applyMotionInput(dt);
 
     if(orbitAnim){
       var t = Math.min(1, (performance.now()-orbitAnim.t0)/orbitAnim.dur);
