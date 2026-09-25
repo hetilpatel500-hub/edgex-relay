@@ -72,7 +72,7 @@ block), drafts, and `deliver/`.
 |---|---|
 | 1. Product descriptions | SEO Agent picks one keyword per product from the buyer's material → Copywriter drafts → (Amazon: format to title + 5 bullets + backend terms) → Last Touch |
 | 2. Landing page | Competitor Analysis reads 3 competitor pages (Standard/Premium) → Copywriter drafts sections, headline options, meta tags (and 3 emails for Premium) → Last Touch |
-| 3. Pitch deck | Copywriter writes slide text (8-10 slides) from buyer notes → Market Research + Competitor Analysis add cited market and competitor slides (Premium) → Brand & Graphic Design writes the deck spec (buyer's colors, logo, slide types) and runs `tools/build_deck.py`, then exports a PDF → speaker notes + 1-page summary as .docx (Premium) → Last Touch |
+| 3. Pitch deck | Copywriter writes slide text (up to 8 slides Basic, up to 10 Standard/Premium) from buyer notes → Market Research + Competitor Analysis add cited market and competitor slides (Premium) → Brand & Graphic Design writes the deck spec (buyer's colors, logo, slide types) and runs `tools/build_deck.py`, then exports a PDF → speaker notes + 1-page summary as .docx (Premium) → Last Touch |
 | 4. Research | Market Research + Competitor Analysis gather facts with links → Data Analyst builds tables → Copywriter writes takeaways → a checker opens every link to confirm it says what we claim → PDF → Last Touch |
 
 Hard rules for every order:

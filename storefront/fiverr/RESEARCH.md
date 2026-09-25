@@ -163,8 +163,8 @@ All prices below are what real Fiverr sellers list, found via search on
   design" promise. Upgrading is a spend that needs the owner's budget
   approval. So decks are built with python-pptx instead
   (`tools/build_deck.py`): no watermark, native editable charts, the
-  buyer's colors, and no slide cap. Packages still say 8-10 slides to
-  keep the price and scope sane.
+  buyer's colors, and no slide cap. Packages still cap at 8 slides
+  (Basic) or 10 (Standard/Premium) to keep the price and scope sane.
 
 ### Market / competitor research
 - Fiverr cost guide: basic packages $43-$100, standard $100-$200.
