@@ -70,6 +70,22 @@ skip it); the plan on the underlying; reasons, risks, key levels, the
 devil's advocate's notes, each analyst's checklist, the live data used,
 and a follow-up box.
 
+## Data mode (when a view can't send pictures)
+
+Some Claude views don't let a page show images to Claude (the call
+rejects `images_unavailable`, or `sample.limits()` reports no images).
+Then the desk runs on live Webull data alone: the owner types the ticker
+in the Ticker box, and every analyst gets the recent 1m/5m/15m/1h/daily
+candles as [time, open, high, low, close, volume] arrays alongside the
+computed indicators, levels, scorecard and similar setups. Screenshots
+become optional and are only saved with the call; a candle chart drawn
+from the 5-minute data stands in on the wall and in History. If a view
+claims image support but refuses mid-run, the desk switches to data mode
+and reruns by itself when it knows the ticker.
+
+Every call is also checked against Webull's live price: a target or
+"wrong at" level more than 8% away is flagged as a probable misread.
+
 ## Rules
 
 - **Runs on the owner's own accounts**, from the page: Claude through the

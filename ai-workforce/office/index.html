@@ -417,12 +417,16 @@
   .cd-thumbs.n2,.cd-thumbs.n3,.cd-thumbs.n4{grid-template-columns:1fr 1fr;}
   .cd-thumbs .cd-thumb{width:100%;}
   .cd-options{border-width:1.5px;}
+  .cd-mode-note{font-size:12.5px;line-height:1.5;margin:12px 0 0;padding:10px 12px;border-radius:10px;border:1px solid var(--st-fresh);background:var(--chip-bg);color:var(--ink);}
   .cd-wait{font-size:12.5px;line-height:1.5;margin:6px 0 10px;padding:10px 12px;border-radius:10px;border:1px solid var(--st-requested);color:var(--ink);background:var(--chip-bg);}
   .cd-analog{display:grid;grid-template-columns:minmax(120px,1.4fr) repeat(3,1fr);gap:4px 10px;font-size:12.5px;font-variant-numeric:tabular-nums;margin-top:4px;overflow-x:auto;}
   .cd-analog .h{font:600 10px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
   .cd-analog .k{color:var(--muted);}
   .cd-options.calls{border-color:var(--st-working);} .cd-options.puts{border-color:var(--st-blocked);}
   .cd-options .cd-idea{font-size:15px;}
+  .cd-inputs{display:flex;gap:8px;margin-top:10px;}
+  .cd-ticker{flex:0 0 110px;box-sizing:border-box;padding:10px 12px;border-radius:10px;border:1.5px solid var(--st-fresh);background:var(--panel-bg);color:var(--ink);font:700 15px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.04em;min-width:0;}
+  .cd-inputs .cd-note{margin-top:0;flex:1;min-width:0;}
   .cd-note{width:100%;box-sizing:border-box;margin-top:10px;padding:10px 12px;border-radius:10px;border:1px solid var(--panel-border);background:var(--panel-bg);color:var(--ink);font:500 13px "Work Sans",sans-serif;}
   .cd-modes{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:10px;font-size:13px;}
   .cd-modes label{display:flex;align-items:center;gap:6px;cursor:pointer;}
@@ -614,15 +618,18 @@
         <label class="cd-drop" id="cdDrop">
           <input type="file" id="cdFile" accept="image/png,image/jpeg,image/webp,image/gif" multiple hidden>
           <div class="cd-shots" id="cdShots" hidden></div>
-          <span id="cdDropText">Drop chart screenshots here, paste them (Ctrl/Cmd+V), or tap to pick. Best: the same ticker on 1m, 5m, 15m and 1h.</span>
+          <span id="cdDropText">Optional: drop chart screenshots here, paste them (Ctrl/Cmd+V), or tap to pick.</span>
         </label>
-        <input class="cd-note" id="cdNote" type="text" maxlength="300" placeholder="Ticker and your question, e.g. SPY: calls or puts for the next 30 min? (the ticker unlocks live Webull data)">
+        <div class="cd-inputs">
+          <input class="cd-ticker" id="cdTicker" type="text" maxlength="6" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="Ticker" aria-label="Ticker">
+          <input class="cd-note" id="cdNote" type="text" maxlength="300" placeholder="Your question, e.g. calls or puts for the next 30 min?" aria-label="Your question">
+        </div>
         <div class="cd-wb" id="cdWebull"></div>
         <div class="cd-modes" role="radiogroup" aria-label="How many analysts">
           <label><input type="radio" name="cdMode" value="full" checked> <b>Full desk</b> <span>20 analysts, about 4–6 min</span></label>
           <label><input type="radio" name="cdMode" value="fast"> <b>Fast read</b> <span>head of desk alone, about 1 min</span></label>
         </div>
-        <div class="cd-actions"><button class="btn-ink" id="cdGo" type="button" disabled>Analyze chart</button><button class="btn-line" id="cdStop" type="button" hidden>Stop</button><span class="form-msg" id="cdMsg"></span></div>
+        <div class="cd-actions"><button class="btn-ink" id="cdGo" type="button" disabled>Analyze</button><button class="btn-line" id="cdStop" type="button" hidden>Stop</button><span class="form-msg" id="cdMsg"></span></div>
         <div id="cdResult"></div>
         <div id="cdProgress"></div>
       </div>
@@ -3750,13 +3757,16 @@
 
   // ---- Claude (sample) and Webull (mcp) availability ----
   var sampleFn = null, sampleLimits = null, chartSampleState = "loading";
+  // Some Claude views don't let a page show pictures to Claude. Then the desk
+  // runs in data mode: live Webull bars instead of screenshots.
+  var imagesOK = null;
   var mcpApi = null, webullState = "loading";
   if(window.claude && window.claude.use){
     window.claude.use("sample").then(function(s){
       sampleFn = s;
       if(!s){ chartSampleState = "unavailable"; renderChartAvail(); return; }
-      s.limits().then(function(l){ sampleLimits = l; chartSampleState = l && l.images ? "ready" : "noimages"; renderChartAvail(); })
-        .catch(function(){ chartSampleState = "noimages"; renderChartAvail(); });
+      s.limits().then(function(l){ sampleLimits = l; imagesOK = !!(l && l.images); chartSampleState = "ready"; renderChartAvail(); })
+        .catch(function(){ chartSampleState = "ready"; renderChartAvail(); });
     }).catch(function(){ chartSampleState = "unavailable"; renderChartAvail(); });
     window.claude.use("mcp").then(function(m){ mcpApi = m; webullState = m ? "ready" : "unavailable"; renderChartAvail(); })
       .catch(function(){ webullState = "unavailable"; renderChartAvail(); });
@@ -3806,7 +3816,7 @@
   function barsOf(p){
     var list = p && p.result && p.result[0] && p.result[0].result;
     if(!Array.isArray(list)) return {bars:[], delay:null};
-    var bars = list.map(function(b){ return {t:Date.parse(b.time), o:num(b.open), h:num(b.high), l:num(b.low), c:num(b.close), v:num(b.volume)||0, s:b.trading_session||""}; })
+    var bars = list.map(function(b){ return {t:Date.parse(String(b.time).replace(/([+-]\d\d)(\d\d)$/, "$1:$2")), o:num(b.open), h:num(b.high), l:num(b.low), c:num(b.close), v:num(b.volume)||0, s:b.trading_session||""}; })
       .filter(function(b){ return isFinite(b.t) && b.c!=null; })
       .sort(function(a,b){ return a.t-b.t; });
     return {bars:bars, delay:p.result[0].delay_minutes};
@@ -3873,8 +3883,24 @@
       if(ref && ref.change_pct!=null && M.change_pct!=null) M.relative_strength = {vs:ref.symbol, points:r2(M.change_pct-ref.change_pct)};
       M.scorecard = scorecard(M);
       try{ M.similar_setups = analogs(R.m5h.ok ? R.m5h.v.bars : null); }catch(err){ M.similar_setups = null; }
+      if(M.similar_setups && M.similar_setups.as_of_day !== etParts(Date.now()).day){
+        M.similar_setups.stale = true;
+        M.similar_setups.note = "The regular session hasn't traded yet today: this state is from the last regular-session bar ("+M.similar_setups.as_of_bar+"). Treat it as background, not as today's setup.";
+      }
       return M;
     });
+  }
+  function barRows(b, n, daily){
+    return (b||[]).slice(-n).map(function(x){ var e = etParts(daily ? x.t + 12*3600000 : x.t); var hm = String(Math.floor(e.min/60)).padStart(2,"0")+":"+String(e.min%60).padStart(2,"0"); return [daily ? e.day : e.day.slice(5)+" "+hm, r2(x.o), r2(x.h), r2(x.l), r2(x.c), x.v]; });
+  }
+  function sparkThumb(rows, label){
+    var W = 480, H = 270, c = document.createElement("canvas"); c.width = W; c.height = H;
+    var x = c.getContext("2d"); x.fillStyle = "#0e131b"; x.fillRect(0,0,W,H);
+    var hi = Math.max.apply(null, rows.map(function(r){ return r[2]; })), lo = Math.min.apply(null, rows.map(function(r){ return r[3]; }));
+    var pad = 24, cw = (W-pad*2)/rows.length, y = function(v){ return pad+18+(hi-v)/((hi-lo)||1)*(H-pad*2-18); };
+    rows.forEach(function(r, i){ var up = r[4] >= r[1]; x.strokeStyle = x.fillStyle = up ? "#57BE79" : "#E3687A"; var cx = pad+i*cw+cw/2; x.beginPath(); x.moveTo(cx, y(r[2])); x.lineTo(cx, y(r[3])); x.stroke(); x.fillRect(pad+i*cw+cw*0.18, Math.min(y(r[1]),y(r[4])), cw*0.64, Math.max(1, Math.abs(y(r[1])-y(r[4])))); });
+    x.fillStyle = "#c4ccd8"; x.font = "600 14px sans-serif"; x.fillText(label, pad, 22);
+    return c.toDataURL("image/jpeg", 0.8);
   }
   function buildMarket(symbol, snap, R){
     var now = Date.now(), nowET = etParts(now);
@@ -3912,6 +3938,7 @@
       prior_day:prior ? {high:r2(prior.h), low:r2(prior.l), close:r2(prior.c)} : null, pivots:piv,
       daily:{atr14:r2(dayATR), wk52_high:r2(num(snap.fifty_two_wk_high)), wk52_low:r2(num(snap.fifty_two_wk_low))},
       earnings_next:earnNext, market:ctx,
+      bars:{"1m":barRows(m1, 60, false), "5m":barRows(m5, 60, false), "15m":barRows(R.m15.ok ? R.m15.v.bars : [], 40, false), "1h":barRows(R.m60.ok ? R.m60.v.bars : [], 40, false), "1D":barRows(daily, 30, true)},
       timeframes:[tfStats("1m", m1), tfStats("5m", m5), tfStats("15m", R.m15.ok ? R.m15.v.bars : []), tfStats("1h", R.m60.ok ? R.m60.v.bars : []), tfStats("1D", daily)].filter(Boolean),
       missing:["m1","m5","m15","m60","d","quote","ctx","m5h"].filter(function(k){ return !R[k].ok; })
     };
@@ -3997,7 +4024,8 @@
     var base = collect(function(s){ return s.tod===now.tod; });
     var days = []; info.forEach(function(x){ if(days.indexOf(x.day)===-1) days.push(x.day); });
     var names = {vwap:(now.vwap ? "above" : "below")+" VWAP", ema:(now.ema ? "above" : "below")+" EMA20", slope:"EMA20 "+(now.slope ? "rising" : "falling"), rsi:"RSI "+["under 40","40–60","over 60"][now.rsi], tod:["first hour","midday","last two hours"][now.tod]};
-    return {sessions:days.length, matched_on:used.map(function(k){ return names[k]; }), similar:res, same_time_of_day_baseline:base,
+    var lastInfo = info[info.length-1];
+    return {sessions:days.length, as_of_bar:lastInfo.day+" "+String(Math.floor(lastInfo.min/60)).padStart(2,"0")+":"+String(lastInfo.min%60).padStart(2,"0")+" ET", as_of_day:lastInfo.day, matched_on:used.map(function(k){ return names[k]; }), similar:res, same_time_of_day_baseline:base,
       note:"5-minute bars, regular hours, forward windows stay inside the same session. Edge = similar.pct_up minus baseline.pct_up."};
   }
   // The desk's own record, from calls the owner or Webull already scored.
@@ -4020,7 +4048,8 @@
     return {scored:scored.length, hit_rate_pct:Math.round(hits/scored.length*100), this_ticker:sym.length ? {scored:sym.length, hit_rate_pct:Math.round(sym.filter(function(r){ return r.d.outcome.result==="target"; }).length/sym.length*100)} : null, lens_accuracy:lensRows,
       note:"lens_accuracy = how often each analyst's bias matched what price actually did on scored calls"};
   }
-  function marketText(M){
+  function marketText(M, withBars){
+    if(M && !withBars && M.bars){ var lean = {}; Object.keys(M).forEach(function(k){ if(k!=="bars") lean[k] = M[k]; }); M = lean; }
     if(!M) return "LIVE MARKET DATA: not available for this run (no ticker found, or Webull didn't answer). Work from the screenshots only and say so.";
     var lines = ["LIVE MARKET DATA from the owner's Webull account (exact numbers; prefer them over values read off the pictures). Indicators were computed from real bars: EMA/SMA, RSI(14), MACD(12,26,9), Stochastic(14,3), ATR(14), Bollinger(20,2), session VWAP, opening ranges, pivots from the prior day:", JSON.stringify(M)];
     if(M.earnings_next){ var dd = (Date.parse(M.earnings_next)-Date.now())/86400000; if(dd < 14) lines.push("WARNING: earnings expected "+M.earnings_next+" — options premiums and gap risk around that date."); }
@@ -4107,13 +4136,17 @@
     if(!note) return;
     note.hidden = true;
     if(chartSampleState==="unavailable"){ note.hidden = false; note.textContent = "The Chart Desk needs Claude, which isn't available to this page in this view. Open the Studio Floor on claude.ai to use it."; }
-    else if(chartSampleState==="noimages"){ note.hidden = false; note.textContent = "This view may not be able to send images to Claude. Press Analyze anyway; if it can't, you'll see why here."; }
-    if(wbn){ wbn.textContent = webullState==="ready" ? "Webull live data: on. Read-only, pulled when you press Analyze." : webullState==="loading" ? "Webull live data: checking…" : "Webull live data: off in this view. The desk will read the screenshots only."; wbn.className = "cd-wb "+webullState; }
+    else if(imagesOK===false){ note.hidden = false; note.className = "cd-mode-note"; note.textContent = "In this Claude view a page can't show pictures to Claude, so the desk reads the market straight from Webull: the real 1m, 5m, 15m, 1h and daily candles, every indicator, key levels and similar setups. Type the ticker and press Analyze. Screenshots are optional and get saved with the call."; }
+    if(wbn){ wbn.textContent = webullState==="ready" ? "Webull live data: on. Read-only, pulled when you press Analyze." : webullState==="loading" ? "Webull live data: checking…" : "Webull live data: off in this view."+(imagesOK===false ? " The desk needs it here, because this view can't send pictures to Claude." : " The desk will read the screenshots only."); wbn.className = "cd-wb "+webullState; }
     if(sampleLimits && sampleLimits.images) cdFile.accept = sampleLimits.images.mediaTypes.join(",");
     renderShots();
     updateGo();
   }
-  function updateGo(){ cdGo.disabled = !chartFiles.length || !!chartRun; }
+  function tickerValue(){ return cleanTicker(document.getElementById("cdTicker").value) || tickerFromNote(document.getElementById("cdNote").value); }
+  function updateGo(){ cdGo.disabled = !!chartRun || !(tickerValue() || chartFiles.length); }
+  document.getElementById("cdTicker").addEventListener("input", updateGo);
+  document.getElementById("cdNote").addEventListener("input", updateGo);
+  ["cdTicker","cdNote"].forEach(function(id){ document.getElementById(id).addEventListener("keydown", function(e){ if(e.key==="Enter" && !cdGo.disabled){ e.preventDefault(); cdGo.click(); } }); });
   function renderShots(){
     cdShots.textContent = "";
     chartFiles.forEach(function(f, i){
@@ -4126,9 +4159,11 @@
       cdShots.appendChild(t);
     });
     cdShots.hidden = !chartFiles.length;
-    document.getElementById("cdDropText").textContent = chartFiles.length
+    document.getElementById("cdDropText").textContent = imagesOK===false
+      ? (chartFiles.length ? chartFiles.length+" screenshot"+(chartFiles.length===1?"":"s")+" will be saved with the call. The desk reads the live chart from Webull." : "Optional: add screenshots to keep with the call. In this view the desk reads the live chart from Webull.")
+      : chartFiles.length
       ? chartFiles.length+" of "+maxImages()+" charts ready. Add another timeframe, or press Analyze."
-      : "Drop chart screenshots here, paste them (Ctrl/Cmd+V), or tap to pick. Best: the same ticker on 1m, 5m, 15m and 1h. Up to "+maxImages()+".";
+      : "Optional: drop chart screenshots here, paste them (Ctrl/Cmd+V), or tap to pick (1m, 5m, 15m, 1h of the same ticker work best). Or just type a ticker.";
   }
   function addChartFile(f){
     if(!f || chartRun) return;
@@ -4158,7 +4193,7 @@
   });
   var samplePromise = (window.claude && window.claude.use) ? window.claude.use("sample") : Promise.resolve(null);
   cdGo.addEventListener("click", function(){
-    if(!chartFiles.length || chartRun) return;
+    if(chartRun || cdGo.disabled) return;
     if(sampleFn){ runChartDesk(false); return; }
     // Claude may still be connecting in this view: wait for it once, then run or explain
     cdMsg.textContent = "Connecting to Claude…";
@@ -4217,6 +4252,9 @@
   }
   function compact(o, n){ var s = JSON.stringify(o); return s.length > n ? s.slice(0, n)+"…" : s; }
   function preamble(d, run){
+    if(run.dataMode) return "You are "+deskName(d)+", on the Edgex Chart Desk. Your lens: "+d.lens+".\n"
+      + "The owner wants a read on "+(run.ticker || "this ticker")+". No screenshots are attached in this run: you have the live Webull data below instead, including the recent candles on 1m, 5m, 15m, 1h and daily as [time, open, high, low, close, volume] arrays. Read structure, patterns and candlesticks from those arrays.\n"
+      + "Owner's note: "+(run.note ? "\""+run.note+"\"" : "none")+"\n\n"+CHART_RULES+"\n\n";
     return "You are "+deskName(d)+", on the Edgex Chart Desk. Your lens: "+d.lens+".\n"
       + "Attached: "+run.files.length+" chart screenshot"+(run.files.length===1?"":"s")+" the owner uploaded"+(run.facts && run.facts.charts ? " (timeframes as read: "+run.facts.charts.map(function(c,i){ return "#"+(i+1)+" "+(c.timeframe||"?"); }).join(", ")+")" : "")+".\n"
       + "Owner's note: "+(run.note ? "\""+run.note+"\"" : "none")+"\n\n"+CHART_RULES+"\n\n";
@@ -4230,12 +4268,18 @@
     var ctl = new AbortController(), timedOut = false;
     var follow = function(){ ctl.abort(); };
     run.ctl.signal.addEventListener("abort", follow);
-    var opts = {images:run.blobs || run.files, signal:ctl.signal, modelTier:tier||"default",
+    var opts = {signal:ctl.signal, modelTier:tier||"default",
       onText:function(){ if(!run.anyText){ run.anyText = true; } if(id && run.states[id] && !run.states[id].writing){ run.states[id].writing = true; renderProgress(); } }};
+    if(!run.dataMode) opts.images = run.blobs || run.files;
     if(run.fresh) opts.cache = false;
     var timer = setTimeout(function(){ timedOut = true; ctl.abort(); }, CALL_LIMIT_MS);
     function done(){ clearTimeout(timer); run.ctl.signal.removeEventListener("abort", follow); }
-    return sampleFn.json(prompt, opts).then(function(r){ done(); return r; }, function(e){ done(); if(timedOut && !run.ctl.signal.aborted) throw {code:"timeout"}; throw e; });
+    return sampleFn.json(prompt, opts).then(function(r){ done(); return r; }, function(e){
+      done();
+      if(e && e.code==="images_unavailable" && !run.dataMode){ imagesOK = false; renderChartAvail(); run.switchToData = true; run.ctl.abort(); throw {code:"cancelled"}; }
+      if(timedOut && !run.ctl.signal.aborted) throw {code:"timeout"};
+      throw e;
+    });
   }
   // Shrink screenshots once (long side 1568 px, JPEG) so each of the ~20 calls uploads less.
   function shrinkImage(img, fallback){
@@ -4250,9 +4294,13 @@
   }
   function setStage(run, text){ run.stage = text; renderProgress(); }
   function runChartDesk(fresh){
-    if(!chartFiles.length || chartRun || !sampleFn) return;
+    if(chartRun || !sampleFn) return;
+    var ticker = tickerValue();
+    var dataMode = imagesOK===false || !chartFiles.length;
+    if(dataMode && !ticker){ cdMsg.textContent = "Type the ticker (e.g. SPY) so the desk can pull the live chart from Webull."; document.getElementById("cdTicker").focus(); return; }
+    if(dataMode && webullState!=="ready"){ cdMsg.textContent = imagesOK===false ? "This Claude view can't send pictures to Claude and Webull isn't available here, so there's nothing for the desk to read. Open the Studio Floor on claude.ai in a desktop browser." : "Add a screenshot, or connect Webull for live data."; return; }
     var members = chartMode==="fast" ? [CHART_DESK[CHART_DESK.length-1]] : CHART_DESK.slice();
-    chartRun = {files:chartFiles.map(function(c){ return c.file; }), imgs:chartFiles.map(function(c){ return c.img; }),
+    chartRun = {files:dataMode ? [] : chartFiles.map(function(c){ return c.file; }), imgs:chartFiles.map(function(c){ return c.img; }), dataMode:dataMode, ticker:ticker,
       note:document.getElementById("cdNote").value.trim().slice(0, 300), ctl:new AbortController(), fresh:!!fresh,
       states:{}, members:members, started:Date.now(), mode:chartMode, results:{}, market:null, marketErr:null, stage:""};
     clearTimeout(restTimer);
@@ -4261,13 +4309,13 @@
     cdStop.hidden = false; cdMsg.textContent = ""; updateGo();
     document.getElementById("cdResult").textContent = "";
     renderProgress();
-    drawChartMonitors(chartRun.imgs[0]);
-    drawChartWall(chartRun.imgs, null, chartRun.note || "new charts", "ANALYZING…");
-    toast({dot:"s-working", title:"Chart Desk: "+members.length+" analyst"+(members.length===1?"":"s")+" on your chart"+(chartRun.files.length>1 ? "s" : ""), sub:"Results show up in the Chart Desk and on its wall screen."});
+    drawChartMonitors(chartRun.imgs[0] || null);
+    drawChartWall(chartRun.imgs, null, ticker || chartRun.note || "new charts", "ANALYZING…");
+    toast({dot:"s-working", title:"Chart Desk: "+members.length+" analyst"+(members.length===1?"":"s")+" on "+(ticker || "your chart"), sub:dataMode ? "Reading live Webull data." : "Results show up in the Chart Desk and on its wall screen."});
     var run = chartRun;
     run.tick = setInterval(function(){ if(chartRun===run) renderProgress(); }, 1000);
-    setStage(run, "Preparing your screenshots…");
-    Promise.all(chartFiles.map(function(c){ return shrinkImage(c.img, c.file); })).then(function(blobs){
+    var prep = dataMode ? Promise.resolve(null) : (setStage(run, "Preparing your screenshots…"), Promise.all(chartFiles.map(function(c){ return shrinkImage(c.img, c.file); })));
+    prep.then(function(blobs){
       run.blobs = blobs;
       setStage(run, "");
       return run.mode==="fast" ? runFast(run) : runFull(run);
@@ -4282,13 +4330,14 @@
   function runFast(run){
     var d = CHART_DESK[CHART_DESK.length-1];
     setDeskState(d.id, "thinking");
-    var sym = tickerFromNote(run.note);
-    var first = sym ? Promise.resolve({instrument:sym}) : callJSON(run, "Read the attached chart screenshot(s). Reply with only JSON: {\"instrument\": the ticker symbol shown, or null}", "quick", null).catch(function(e){ if(e && e.code==="cancelled") throw e; return null; });
+    var sym = run.ticker || tickerFromNote(run.note);
+    var first = (sym || run.dataMode) ? Promise.resolve({instrument:sym}) : callJSON(run, "Read the attached chart screenshot(s). Reply with only JSON: {\"instrument\": the ticker symbol shown, or null}", "quick", null).catch(function(e){ if(e && e.code==="cancelled") throw e; return null; });
     return first.then(function(r){
       return getMarket(run, cleanTicker(r && r.instrument));
     }).then(function(){
+      if(run.dataMode && !run.market) throw {code:"no_market", message:run.marketErr};
       var checks = CHART_DESK.filter(function(x){ return x.check; }).map(function(x){ return "- "+x.lens+": "+x.check; }).join("\n");
-      var prompt = preamble(d, run) + marketText(run.market) + "\n\n"
+      var prompt = preamble(d, run) + marketText(run.market, true) + "\n\n"
         + "Work alone this time, but cover the whole desk's checklist in order before deciding:\n"+checks+"\n\n"
         + "Reply with only a JSON object: {\"reader\":{\"instrument\":string or null,\"charts\":[{\"timeframe\":string}],\"readable\":true|false,\"why_not\":string},"
         + "\"desks\":[{\"lens\":string,\"bias\":\"bullish\"|\"bearish\"|\"neutral\",\"confidence\":0-100,\"headline\":string,\"checked\":[string]}] (one per checklist lens),"
@@ -4304,18 +4353,20 @@
   }
   function runFull(run){
     var reader = CHART_DESK[0];
-    var sym = tickerFromNote(run.note);
-    var tickerP = sym ? Promise.resolve(sym) : (function(){
+    var sym = run.ticker || tickerFromNote(run.note);
+    var tickerP = (sym || run.dataMode) ? Promise.resolve(sym) : (function(){
       setStage(run, "Reading the ticker off the chart…");
       return callJSON(run, "Look at the attached chart screenshot(s). Reply with only JSON: {\"instrument\": the ticker symbol shown on the chart, or null}", "quick", null)
         .then(function(r){ return cleanTicker(r && r.instrument); }, function(e){ if(e && e.code==="cancelled") throw e; return null; });
     })();
     return tickerP.then(function(t){ setStage(run, ""); return getMarket(run, t); }).then(function(){
-      var ctxText = marketText(run.market);
+      if(run.dataMode && !run.market) throw {code:"no_market", message:run.marketErr};
+      var ctxText = marketText(run.market, true);
       var readerTask = function(){
         setDeskState(reader.id, "thinking");
         var readerPrompt = preamble(reader, run)
-          + "Read every attached chart precisely so the head of desk and the devil's advocate can check the others' readings. Do not predict.\nReply with only a JSON object: "+READER_JSON;
+          + (run.dataMode ? ctxText+"\n\nSummarize each timeframe's candles precisely (swings, structure, last candles, volume) so the head of desk and the devil's advocate can check the others' readings. Do not predict. Use one entry in \"charts\" per timeframe (1m, 5m, 15m, 1h, 1D).\nReply with only a JSON object: "
+                          : "Read every attached chart precisely so the head of desk and the devil's advocate can check the others' readings. Do not predict.\nReply with only a JSON object: ")+READER_JSON;
         return callJSON(run, readerPrompt, "default", reader.id).then(function(facts){
           run.facts = facts || {};
           if(facts && facts.readable===false){ run.unreadable = facts.why_not || "not readable"; setDeskState(reader.id, "done", "not readable charts"); run.ctl.abort(); return; }
@@ -4328,7 +4379,7 @@
       var tasks = [readerTask].concat(desks.map(function(d){
         return function(){
           setDeskState(d.id, "thinking");
-          var prompt = preamble(d, run) + ctxText + "\n\nRead the screenshots yourself for anything the data doesn't cover.\n\nYour checklist, item by item:\n"+d.check+"\n\nReply with only a JSON object: "+DESK_JSON;
+          var prompt = preamble(d, run) + ctxText + (run.dataMode ? "" : "\n\nRead the screenshots yourself for anything the data doesn't cover.") + "\n\nYour checklist, item by item:\n"+d.check+"\n\nReply with only a JSON object: "+DESK_JSON;
           return callJSON(run, prompt, "default", d.id).then(function(r){
             run.results[d.id] = r;
             var bb = biasOf(r && r.bias);
@@ -4388,7 +4439,16 @@
     updateGo();
     if(err){
       var code = err.code;
-      if(code==="cancelled") cdMsg.textContent = "Stopped.";
+      if(run.switchToData){
+        // this view refused images: rerun straight away on live data if we know the ticker
+        var t = run.ticker || (run.market && run.market.symbol) || tickerValue();
+        if(t && webullState==="ready"){ if(!document.getElementById("cdTicker").value) document.getElementById("cdTicker").value = t; cdMsg.textContent = ""; setTimeout(function(){ runChartDesk(run.fresh); }, 50); return; }
+        cdMsg.textContent = "This Claude view can't show pictures to Claude. Type the ticker and press Analyze: the desk will read the live chart from Webull instead.";
+        document.getElementById("cdTicker").focus();
+        renderProgress(); showLatestOnWall(true); return;
+      }
+      if(code==="no_market") cdMsg.textContent = "Couldn't get live data for "+(run.ticker||"that ticker")+": "+(err.message || "Webull didn't answer.")+" Check the ticker and try again.";
+      else if(code==="cancelled") cdMsg.textContent = "Stopped.";
       else if(code==="unreadable") cdMsg.textContent = "The reader couldn't find readable price charts in those images"+(err.message ? ": "+err.message : ".");
       else if(code==="too_few") cdMsg.textContent = "Too few analysts finished to make a fair call. Run it again.";
       else cdMsg.textContent = sampleErrText(err);
@@ -4397,12 +4457,16 @@
     }
     var v = run.verdict || {};
     if(run.market && run.market.last!=null) v.current_price = run.market.last;
-    var tfs = ((run.facts && run.facts.charts) || []).map(function(c){ return c.timeframe; }).filter(Boolean);
-    var sym = (run.market && run.market.symbol) || cleanTicker(run.facts && run.facts.instrument);
+    var tfs = run.dataMode ? (run.market ? run.market.timeframes.map(function(t){ return t.tf; }) : []) : ((run.facts && run.facts.charts) || []).map(function(c){ return c.timeframe; }).filter(Boolean);
+    var sym = (run.market && run.market.symbol) || run.ticker || cleanTicker(run.facts && run.facts.instrument);
     drawChartWall(run.imgs, v, [sym, tfs.join("/")].filter(Boolean).join(" · ") || run.note || "your charts", null);
     var thumbs = run.imgs.map(function(im){ return makeThumb(im, run.imgs.length > 2 ? 380 : 480, 0.62); });
+    if(run.dataMode && !thumbs.length && run.market && run.market.bars && run.market.bars["5m"] && run.market.bars["5m"].length){
+      thumbs = [sparkThumb(run.market.bars["5m"], run.market.symbol+" · 5m · live Webull data")];
+      loadImage(thumbs[0]).then(function(im){ drawChartMonitors(im); drawChartWall([im], v, (sym||"")+" · live data", null); }).catch(function(){});
+    }
     var record = {
-      created:new Date().toISOString(), mode:run.mode, note:run.note,
+      created:new Date().toISOString(), mode:run.mode, note:run.note, source:run.dataMode ? "webull-data" : "screenshots",
       instrument:sym || null, timeframes:tfs, timeframe:tfs.join("/") || null,
       thumb:thumbs[0], thumbs:thumbs, facts:run.facts || null,
       market:run.market ? {symbol:run.market.symbol, as_of_et:run.market.as_of_et, session:run.market.session, last:run.market.last, change_pct:run.market.change_pct, today:run.market.today, prior_day:run.market.prior_day, pivots:run.market.pivots, daily:run.market.daily, earnings_next:run.market.earnings_next, data_delay_min:run.market.data_delay_min, relative_strength:run.market.relative_strength||null, scorecard:run.market.scorecard||null, similar_setups:run.market.similar_setups||null} : null,
@@ -4419,7 +4483,7 @@
       var save = function(rec){ return dbRef.collection("chart_analyses").add(rec); };
       save(record).then(function(ref){ latestShownId = ref && ref.id; }).catch(function(e){
         // a document has a size cap: retry once with one small thumbnail
-        if(e && e.code==="invalid_argument"){ record.thumbs = [makeThumb(run.imgs[0], 320, 0.55)]; record.thumb = record.thumbs[0]; return save(record).then(function(ref){ latestShownId = ref && ref.id; }); }
+        if(e && e.code==="invalid_argument" && run.imgs[0]){ record.thumbs = [makeThumb(run.imgs[0], 320, 0.55)]; record.thumb = record.thumbs[0]; return save(record).then(function(ref){ latestShownId = ref && ref.id; }); }
         throw e;
       }).catch(function(e){ cdMsg.textContent = "The call is shown below but couldn't be saved to history: "+writeError(e); });
     }
@@ -4488,6 +4552,12 @@
     stats.appendChild(stat("Target 2", fmtP(np.target2)));
     stats.appendChild(stat("Proves it wrong", fmtP(np.invalidation)));
     box.appendChild(stats);
+    // sanity check against the live print: intraday levels far from price are a misread, not a plan
+    var live = rec.market && num(rec.market.last);
+    if(live){
+      var off = [["target 1", np.target1], ["target 2", np.target2], ["wrong-at level", np.invalidation]].filter(function(x){ var n = num(x[1]); return n!=null && Math.abs(n-live)/live > 0.08; });
+      if(off.length) box.appendChild(mk("div","cd-wait", "Check this call: its "+off.map(function(x){ return x[0]+" ("+fmtP(x[1])+")"; }).join(", ")+" is more than 8% from the live price "+fmtP(live)+". For an intraday call that usually means a level was misread. Don't trade it as-is; run it again."));
+    }
     var o = v.options;
     if(o && o.action){
       var ob = mk("div","cd-plan cd-options "+(/call/i.test(o.action) ? "calls" : /put/i.test(o.action) ? "puts" : "none"));
@@ -4551,7 +4621,8 @@
       }
       var an = m.similar_setups;
       if(an && an.similar){
-        var ab = mk("div","cd-block"); ab.appendChild(mk("div","section-label","Similar setups · last "+an.sessions+" sessions of "+m.symbol+" · "+an.matched_on.join(", ")));
+        var ab = mk("div","cd-block"); ab.appendChild(mk("div","section-label","Similar setups · last "+an.sessions+" sessions of "+m.symbol+" · "+an.matched_on.join(", ")+(an.stale ? " · as of "+an.as_of_bar : "")));
+        if(an.stale) ab.appendChild(mk("div","cd-trigger", "The market hasn't opened yet today, so this is based on the last regular-session bar. Rerun after the open for today's setup."));
         var tbl = mk("div","cd-analog");
         ["", "15 min", "30 min", "60 min"].forEach(function(h){ tbl.appendChild(mk("span","h", h)); });
         [["Similar: went up", function(x){ return x.n ? x.pct_up+"% (n="+x.n+")" : "—"; }], ["Same time, any setup", function(x, k){ var b = an.same_time_of_day_baseline[k]; return b && b.n ? b.pct_up+"%" : "—"; }], ["Typical run up", function(x){ return x.n ? "+"+fmtP(x.median_run_up) : "—"; }], ["Typical drawdown", function(x){ return x.n ? "−"+fmtP(x.median_draw_down) : "—"; }], ["Median change", function(x){ return x.n ? (x.median_change>0?"+":"")+fmtP(x.median_change) : "—"; }]].forEach(function(row){
@@ -4597,7 +4668,7 @@
       box.appendChild(db);
     }
     if(live){
-      var files = chartFiles.map(function(c){ return c.file; });
+      var files = rec.source==="webull-data" ? [] : chartFiles.map(function(c){ return c.file; });
       var fu = mk("form","composer cd-follow");
       var ta = mk("textarea"); ta.rows = 2; ta.placeholder = "Ask the desk a follow-up, e.g. \"what if it loses VWAP?\" or \"0DTE or tomorrow's expiry?\"";
       var fb = mk("button","btn-ink","Ask"); fb.type = "submit";
@@ -4605,10 +4676,10 @@
       var ans = mk("div","cd-answer");
       fu.addEventListener("submit", function(e){
         e.preventDefault();
-        var q = ta.value.trim(); if(!q || !sampleFn || !files.length) return;
+        var q = ta.value.trim(); if(!q || !sampleFn) return;
         fb.disabled = true; ans.textContent = "Thinking…";
-        sampleFn("You are the Head of the Edgex Chart Desk. You made this call on the attached charts:\n"+compact(rec.verdict, 6000)+"\n\n"+(rec.market ? "Live data at the time:\n"+compact(rec.market, 4000)+"\n\n" : "")+CHART_RULES+"\n\nThe owner asks: "+q+"\n\nAnswer in under 150 words, plainly, with prices where they help.",
-          {images:files, cache:false, onText:function(u){ ans.textContent = u.text; }})
+        sampleFn("You are the Head of the Edgex Chart Desk. You made this call on "+(files.length ? "the attached charts" : (rec.instrument||"this ticker")+" from live Webull data")+":\n"+compact(rec.verdict, 6000)+"\n\n"+(rec.market ? "Live data at the time:\n"+compact(rec.market, 4000)+"\n\n" : "")+CHART_RULES+"\n\nThe owner asks: "+q+"\n\nAnswer in under 150 words, plainly, with prices where they help.",
+          files.length ? {images:files, cache:false, onText:function(u){ ans.textContent = u.text; }} : {cache:false, onText:function(u){ ans.textContent = u.text; }})
           .catch(function(err){ ans.textContent = (err && err.text) || sampleErrText(err); })
           .then(function(){ fb.disabled = false; });
       });
