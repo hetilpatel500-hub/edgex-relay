@@ -3,7 +3,7 @@
 Everything here is ready to upload. Work top to bottom: shop setup first, then the six listings.
 Prepared 2026-09-25 by the Edgex crew (market research, trend scout, design, copy, SEO).
 
-> **Last Touch review, 2026-09-25:** Listings 4, 5 and 6 (printables) are cleared to upload. Listings 2 and 3 are cleared once their fixes are done and each .xlsx has passed the Google Sheets check at the bottom of this file. **Listing 1 (Freelancer tracker) is on hold. Do not upload it yet:** its yearly tax set-aside figure does not match the profit shown beside it when any month is a loss, so it needs a rebuild first. *Update: rebuilt the same day (set-aside now reconciles, including loss months; "profit" relabelled; unknown categories count as 0% deductible). It still needs a Last Touch re-check before upload.*
+> **Last Touch review, 2026-09-25: CLEARED — LAST TOUCH for all six listings.** Listings 4, 5 and 6 (printables) can go up now. Listings 1, 2 and 3 (spreadsheets) had their review fixes applied and re-checked. List each one once its .xlsx passes the Google Sheets check at the bottom of this file.
 
 **What it costs you to list:** 6 listings x $0.20 = **$1.20**.
 Also expect: a one-time shop setup fee that Etsy charges most new shops (reported as $15 to $29, varies by country; Etsy shows the exact amount before you confirm), and per sale 6.5% transaction fee + payment processing (US: 3% + $0.25). Each sale also re-lists the item for another $0.20.
@@ -21,7 +21,7 @@ You do these steps yourself: identity, bank and card cannot be done by agents.
    3. `EdgexPlanners`
 
    A web search found no existing Etsy shop with these names, but only Etsy's name box can confirm. Pick the first one it accepts.
-3. **Stock your shop:** add Listing 4 below (Etsy makes you add one listing before opening; Listing 1 is on hold). Add the rest after the shop is open.
+3. **Stock your shop:** add Listing 4 below (Etsy makes you add one listing before opening; it needs no Google Sheets check). Add the rest after the shop is open.
 4. **How you'll get paid:** choose the seller type that is actually true for you: **Individual / sole owner** if you have no registered business, **Business** if you do. Etsy also asks separately whether you are a **trader** under EU law (broadly, selling regularly to make a profit). Answer that one honestly too. Traders' name, location and contact details are shown to EU buyers (EU Digital Services Act), and an individual can still be a trader. Do not pick either answer just to stay anonymous; if you are unsure, check with a local adviser. Etsy itself always holds your real identity for payouts and tax.
 5. **Billing:** add a card for Etsy fees. **Security:** turn on 2-step sign-in. Then **Open your shop**.
 
