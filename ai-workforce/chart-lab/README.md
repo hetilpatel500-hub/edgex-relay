@@ -54,11 +54,11 @@ never tuned on from ideas that didn't.
 
 ## Three Routines
 
-| Routine | When | Where it runs | Steps below |
+| Routine (trigger id) | When | Where it runs | Steps below |
 |---|---|---|---|
-| Edgex Chart Desk lab | hourly at :08 | fresh session, no connectors (can't reach Webull or push) | 1, 4-9 |
-| Edgex Chart Desk live tape | weekdays 9:38-15:38 ET, hourly | the owner's connected session (Webull read-only) | 2-3 |
-| Edgex Chart Desk data refresh | weekdays 16:21 ET | the owner's connected session (Webull read-only, can push) | daily run |
+| Edgex Chart Desk lab (`trig_01AJFjuWbhKwKCh2LSzBZKUu`) | hourly at :08 | fresh session, no connectors (can't reach Webull or push) | 1, 4-9 |
+| Edgex Chart Desk live tape (`trig_01TGc1VHHTiGfa5SZrVYNHDR`) | weekdays 9:38-15:38 ET, hourly | the owner's connected session (Webull read-only) | 2-3 |
+| Edgex Chart Desk data refresh (`trig_01M7HWsUwH9ioL1k7ei6P2oN`) | weekdays 16:21 ET | the owner's connected session (Webull read-only, can push) | daily run |
 
 Routines on this account can't attach connectors to fresh sessions, which is
 why the Webull reads run in the owner's session and the research runs fresh
