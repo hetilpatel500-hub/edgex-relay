@@ -87,7 +87,8 @@ skill_work/<id> = {
 - **Sample work uses clearly fictional clients.** Label any made-up business,
   person or account "(fictional example)". Never use a real person's or
   business's name or handle, and never write quotes or comments as if a real
-  account said them.
+  account said them. Don't invent @handles either, because a made-up handle can
+  belong to a real account. Use plain labels such as "Viewer A" or "a customer".
 - The agent's status while doing this is `practicing`, with task "Using <skill>: <title>".
 - Every asset goes through the relevant **Last Touch** (Video Last Touch for
   video), then **Chief of Staff**. When it needs the owner (publishing, an
@@ -197,7 +198,8 @@ Task Matcher Agent, Idle Watch Agent and Capacity Tracker Agent run this in orde
 3. **Log the shift** as one `dispatch/<real clock>` doc: {working, collaborating,
    learning, practicing, idle_left, agents_touched: [...], stalest_hours_before,
    stalest_hours_after, notes}. `stalest_hours` is the age in hours of the
-   agent that has gone longest without work, excluding the Chart Desk.
+   agent that has gone longest without work, excluding the Chart Desk, and
+   it's always written as a number, measured every shift.
    `idle_left` should trend to zero across shifts, and `stalest_hours_after`
    should stay under 6. If either doesn't, Bottleneck Spotter says why in
    `suggestions`.
