@@ -52,7 +52,19 @@ never tuned on from ideas that didn't.
   records the count; the Devil's Advocate reads it before anything is called
   an edge.
 
-## Hourly lab run (Routine "Edgex Chart Desk lab", fresh session, Webull read-only)
+## Three Routines
+
+| Routine | When | Where it runs | Steps below |
+|---|---|---|---|
+| Edgex Chart Desk lab | hourly at :08 | fresh session, no connectors (can't reach Webull or push) | 1, 4-9 |
+| Edgex Chart Desk live tape | weekdays 9:38-15:38 ET, hourly | the owner's connected session (Webull read-only) | 2-3 |
+| Edgex Chart Desk data refresh | weekdays 16:21 ET | the owner's connected session (Webull read-only, can push) | daily run |
+
+Routines on this account can't attach connectors to fresh sessions, which is
+why the Webull reads run in the owner's session and the research runs fresh
+on the bars already in `data/`.
+
+## Hourly lab run steps
 
 Run from `ai-workforce/chart-lab`. Real clock (`date -u +%FT%TZ`) for every
 timestamp. The Office DB is https://claude.ai/artifact/NzBSM8bbGtbqhariCBzfoH.
@@ -61,13 +73,13 @@ timestamp. The Office DB is https://claude.ai/artifact/NzBSM8bbGtbqhariCBzfoH.
    `python3 state.py pull FILE`). Read `repo_changes` docs with
    `status: "pending"` whose `file` starts with `ai-workforce/chart-lab/` and
    create those files locally, so detectors from earlier runs exist here too.
-2. **Fresh bars.** Find the last bar in `data/SPY_M5.csv.gz`. If a newer
+2. **Fresh bars** (live-tape Routine only). Find the last bar in `data/SPY_M5.csv.gz`. If a newer
    session has traded, call `get_stock_bars` (symbols SPY,QQQ,IWM,DIA with
    category US_ETF, then the 8 stocks with US_STOCK; timespan M5, count up to
    1200, trading_sessions RTH, real_time_required false) and `timespan D`
    (count 20); save each response to a file and run `python3 ingest.py M5 FILES`
    / `python3 ingest.py D FILES`.
-3. **Live tape (only 9:30-16:00 ET on weekdays).** For each of the 12 symbols:
+3. **Live tape** (live-tape Routine only, 9:30-16:00 ET on weekdays). For each of the 12 symbols:
    `get_stock_tick` (count "1000", trading_sessions "RTH"),
    `get_stock_quotes` (depth "50"; if refused, "10"), and for the 8 stocks
    `get_stock_capital_flow` (count 5). Save each and run
@@ -100,7 +112,7 @@ timestamp. The Office DB is https://claude.ai/artifact/NzBSM8bbGtbqhariCBzfoH.
 9. Never publish anything, message anyone, or trade. If a Webull call fails,
    say so in the research summary; never fill in numbers.
 
-## Daily after-close run (Routine "Edgex Chart Desk data refresh", this repo's session)
+## Daily after-close run (Routine "Edgex Chart Desk data refresh")
 
 1. `git pull`. Apply pending `repo_changes` under `ai-workforce/chart-lab/`
    (mark them applied with the commit hash after pushing).

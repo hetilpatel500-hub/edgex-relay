@@ -148,12 +148,15 @@ the first 70% of dates and judged on the last 30%, then frozen and forward
 tested on every new day. Results go to `chart_playbook` (one doc per setup,
 shown on the Lab tab and fed into every analyst's prompt), the log to
 `chart_research`, the hourly live read to `chart_live`, and state to
-`chart_lab_state`. Two Routines drive it:
+`chart_lab_state`. Three Routines drive it:
 
-- **Edgex Chart Desk lab** (hourly, fresh session with read-only Webull):
-  one new researched setup per run, backtested and published; during
-  market hours also the live tape for all 12 symbols.
-- **Edgex Chart Desk data refresh** (weekdays after the close, the owner's
+- **Edgex Chart Desk lab** (hourly, fresh session): one new researched
+  setup per run, coded, backtested and published.
+- **Edgex Chart Desk live tape** (weekdays, hourly 9:38-15:38 ET, the
+  owner's connected session with read-only Webull): the live read for all
+  12 symbols to `chart_live`, and the order-flow rows kept for future
+  order-flow backtests.
+- **Edgex Chart Desk data refresh** (weekdays 16:21 ET, the owner's
   connected session): stores the day's bars and tape rows in the repo,
   re-runs every forward test, commits and pushes.
 
