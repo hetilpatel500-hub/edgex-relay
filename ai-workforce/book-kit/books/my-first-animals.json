@@ -1,0 +1,46 @@
+{
+ "id": "my-first-animals",
+ "count": 30,
+ "art": ["art/animals.js"],
+ "subjects": ["dog","cat","cow","pig","sheep","horse","chicken","duck","rabbit","mouse","bear","lion","elephant","giraffe","monkey","panda","fox","hedgehog","owl","penguin","frog","turtle","fish","whale","octopus","crab","snail","bee","butterfly","ladybug"],
+ "cover": {
+  "kicker": "My First",
+  "word": "Animals",
+  "tagline": "30 big & easy animals to color!",
+  "ages": "2-5",
+  "hero": ["lion", "elephant", "pig"],
+  "back_title": "Big pictures for little hands",
+  "back_points": [
+   "30 friendly animals: pets, farm friends, zoo favorites, bugs and sea creatures",
+   "One big picture per page with extra-thick lines, great for chunky crayons",
+   "Each animal's name in big letters to color, for first words",
+   "Every picture has a blank back, so markers won't spoil the next one",
+   "A \"Great job!\" certificate at the end"
+  ],
+  "back_minis": ["dog", "owl", "turtle", "bee"]
+ },
+ "listing": {
+  "title": "My First Animals Coloring Book",
+  "subtitle": "30 Big & Easy Animals – Dogs, Cats, Lions, Elephants & More for Kids Ages 2-5",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "description_html": "<p><b>Big, bold and easy to color: the perfect first animal coloring book!</b></p><p>Little artists meet 30 friendly animals, from the farm and the zoo to the garden and the sea. Every page has one big, simple picture with extra-thick lines, so small hands can color inside the lines and feel proud of every page.</p><p><b>Inside you'll find:</b></p><ul><li>30 cute animals: dog, cat, cow, pig, sheep, horse, chicken, duck, rabbit, mouse, bear, lion, elephant, giraffe, monkey, panda, fox, hedgehog, owl, penguin, frog, turtle, fish, whale, octopus, crab, snail, bee, butterfly and ladybug</li><li>One large picture per page with thick outlines, made for crayons and chunky markers</li><li>The animal's name in big letters on every page, to color and to learn first words</li><li>Single-sided pages with a blank back, so markers won't bleed onto the next picture</li><li>Big 8.5 x 11 inch pages and a \"Great job!\" certificate at the end</li></ul><p>A fun, screen-free activity for toddlers and preschoolers ages 2 to 5, and a sweet gift for birthdays, holidays and travel.</p><p>Part of the <b>my first step</b> series. Also try <i>My First Trucks Coloring Book</i>.</p>",
+  "keywords": [
+   "toddler coloring book animals",
+   "coloring books for kids ages 2-4",
+   "big easy coloring pages for preschoolers",
+   "my first coloring book for toddlers",
+   "farm and zoo animal coloring book for kids",
+   "simple coloring book thick lines",
+   "preschool activity book for boys and girls"
+  ],
+  "categories": [
+   "Children's Books > Activities, Crafts & Games > Coloring Books",
+   "Children's Books > Animals > Zoos",
+   "Children's Books > Early Learning > Basic Concepts > Words"
+  ],
+  "reading_age": "2 - 5 years",
+  "price_note": "Similar toddler coloring books are commonly priced around $5.99-$6.99 (kdpeasy.com age-group guide). Your call.",
+  "ai_disclosure": "KDP asks if the book has AI-generated content. The pictures and the text were made by Edgex's AI agents, so answer Yes for images and text."
+ }
+}
