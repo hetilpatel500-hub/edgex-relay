@@ -4,7 +4,13 @@ Owner directive, 2026-09-26: "keep making me books like these, but different
 topics". The model book is the owner's own **My First Trucks Coloring Book: 30 Big
 & Easy Things That Go** by JONNY COLOR, in the **my first step** series (ages 2–5).
 Every book comes with its title, subtitle, description, 7 keywords and
-categories, ready to paste into KDP.
+categories, ready to paste into KDP, plus an **Amazon Ads kit** (owner
+directive, 2026-09-26: "put all the things I'll need when advertising it from
+Amazon Ads"). The kit has a Sponsored Products campaign plan (automatic, manual
+keywords, product targeting), 15 exact and 8 phrase keywords with starting
+bids, negatives, three 150-character custom ad texts, three Sponsored Brands
+headlines, two 970 x 600 A+ Content images, a keyword CSV, and a break-even
+calculator.
 
 The owner uploads and publishes. Agents never sign in to KDP, never publish,
 and never set a price.
@@ -24,7 +30,7 @@ and never set a price.
 | 1 | Trend Scout + Market Research Agent | Pick the next topic from the rotation below. Check the `books` collection so nothing repeats. |
 | 2 | Brand & Graphic Design Agent | Draw 30 subjects in `book-kit/art/<topic>.js` with the helpers in `art/core.js`: big simple shapes, cute faces, closed outlines, and a colour palette for the cover. |
 | 3 | Quality Bar Agent | `node sheet.js art/<topic>.js sheet.png` and look at every drawing. Fix anything broken, overlapping, too detailed for a 2-year-old, or hard to recognize. |
-| 4 | Copywriter + SEO Agent | Write `books/<id>.json`: title, subtitle, description, 7 keywords (50 characters max each), 3 categories. Keywords are real phrases parents search for. Never use other authors, brands or trademarked characters. |
+| 4 | Copywriter + SEO Agent + Paid Ads Agent | Write `books/<id>.json`: title, subtitle, description, 7 keywords (50 characters max each), 3 categories, and the `ads` section (bids, 15 exact + 8 phrase ad keywords, negatives, targeting categories, 3 custom ad texts of 150 characters max, 3 Sponsored Brands headlines of 50 max). Keywords are real phrases parents search for. Never use other authors, brands or trademarked characters. Ad text never says best seller, sale, free, a price or reviews: Amazon's book ad policy rejects those, and build.js refuses them. |
 | 5 | Grammar & Copy Editor, Deliverable QA Reviewer | `node build.js books/<id>.json OUT`, then `python3 page.py OUT`. Check the page previews, the cover, and that the cover size printed by page.py matches KDP's formula. |
 | 6 | Legal Desk (all ten counsel) | Review the book and listing per `LEGAL-DESK.md`: trademark (title, keywords), copyright (original art, font license, AI-art copyright note), platform (KDP AI disclosure, metadata rules), kids/COPPA, advertising (description claims). Write one `legal_reviews` doc. |
 | 7 | Chief of Staff | Approve or deny, only with a `cleared` legal review, and log it in `decisions`. |
@@ -35,10 +41,12 @@ already in the environment). Build output goes in the scratchpad, never the repo
 
 ## Topic rotation (my first step)
 
-Done: Trucks (owner's), Animals (2026-09-26).
-Next, in order, unless the owner asks for something else: Dinosaurs, Fruits &
-Veggies, Bugs & Butterflies, Ocean, Space, Toys, Yummy Food, Birds, Shapes &
-Colors, At Home, Weather & Nature, Pets, Music, Sports.
+Done: Trucks (owner's), Animals, Fruits & Veggies, Dinosaurs (all 2026-09-26).
+Next, in order, unless the owner asks for something else: Toys, Bugs & Butterflies,
+Ocean, Space, Yummy Food, Birds, Shapes & Colors, At Home, Weather & Nature,
+Pets, Music, Sports.
+
+Cadence: one book every weekday (the "Edgex book desk" Routine, 9:46 am ET).
 
 ## Rules
 

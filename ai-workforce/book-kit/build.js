@@ -29,6 +29,17 @@ if ((L.title + ': ' + L.subtitle).length > 200) problems.push('title + subtitle 
 if (L.keywords.length !== 7) problems.push('need exactly 7 keywords');
 L.keywords.forEach(k => { if (k.length > 50) problems.push(`keyword over 50 chars: ${k}`); });
 if (L.description_html.length > 4000) problems.push('description over 4000 characters');
+// Amazon Ads kit checks: custom text 150 chars max, headlines 50 max, and
+// none of the claims Amazon's book ad policy rejects (best seller, sale, price).
+const AD = book.ads;
+if (!AD) problems.push('missing ads section');
+else {
+  const banned = /(best ?sell|#1|number one|on sale|\bsale\b|(?<![-\w])free\b|\$|discount|cheap|review|stars?\b|award)/i;
+  (AD.custom_text || []).forEach(t => { if (t.length > 150) problems.push(`ad text over 150 chars: ${t}`); if (banned.test(t)) problems.push(`ad text has a banned claim: ${t}`); });
+  (AD.headlines || []).forEach(t => { if (t.length > 50) problems.push(`headline over 50 chars: ${t}`); if (banned.test(t)) problems.push(`headline has a banned claim: ${t}`); });
+  ['exact', 'phrase'].forEach(m => (AD.keywords[m] || []).forEach(k => { if (k.length > 80) problems.push(`ad keyword too long: ${k}`); }));
+  if ((AD.keywords.exact || []).length < 10) problems.push('need at least 10 exact keywords');
+}
 if (problems.length) { console.error('LISTING PROBLEMS:\n' + problems.join('\n')); process.exit(2); }
 
 // ---- interior ----
@@ -64,7 +75,7 @@ function interiorHtml() {
   </style></head><body>${pages.join('')}<script>${artJs}</script><script>
   document.querySelectorAll('.art').forEach(el=>{el.innerHTML=ART.svg(el.dataset.id,'line','preserveAspectRatio="xMidYMid meet"')});
   document.querySelectorAll('.star').forEach(el=>{el.innerHTML='<svg viewBox="0 0 100 100"><path d="M50 6 L62 38 L96 38 L68 58 L79 92 L50 71 L21 92 L32 58 L4 38 L38 38 Z" fill="#fff" stroke="#111" stroke-width="3" stroke-linejoin="round"/></svg>'});
-  </script></body></html>`.replace(/SUBJ_LABEL_([a-z0-9-]+)/g, (m, id) => label(ART.subjects[id].label, 185));
+  </script></body></html>`.replace(/SUBJ_LABEL_([a-z0-9-]+)/g, (m, id) => label(ART.subjects[id].label, Math.min(185, Math.floor(1750 / ART.subjects[id].label.length))));
 }
 
 // ---- cover (full wrap) ----
@@ -145,6 +156,29 @@ function coverHtml(pages, frontOnly) {
   p = await newPage({ width: 1980, height: 2562 });
   await p.setContent(fixHero(fr.html).replace('<body>', '<body style="zoom:2.4265">'), { waitUntil: 'load' }); await p.evaluate(() => document.fonts.ready);
   await p.screenshot({ path: path.join(out, 'cover-kindle.jpg'), type: 'jpeg', quality: 92 });
+  // A+ Content images, 970 x 600 ("Standard Image Header with Text" module)
+  const c = book.cover, picks = c.aplus_pages || book.subjects.slice(0, 4);
+  const aplusCss = `${FONTS} body{margin:0} .a{width:970px;height:600px;position:relative;overflow:hidden;font-family:Fredoka;background:linear-gradient(#bfe6ff,#fff)}
+    h1{margin:0;position:absolute;top:26px;left:0;right:0;text-align:center;font:700 44px Fredoka;color:#333}
+    .row{position:absolute;left:30px;right:30px;top:110px;display:flex;justify-content:space-between}
+    .pg{width:205px;height:265px;background:#fff;border:3px solid #555;border-radius:14px;box-shadow:0 6px 0 #0002;display:flex;flex-direction:column;align-items:center}
+    .pg .t{font:700 20px Fredoka;margin-top:8px;color:#333;text-align:center;padding:0 6px;overflow-wrap:anywhere}.pg svg{width:185px;height:200px}
+    .foot{position:absolute;bottom:0;left:0;right:0;height:170px;background:#8fd694;border-top:6px solid #5fb865;display:flex;align-items:center;justify-content:center;gap:34px;font:600 25px Fredoka;color:#1f4d24}
+    .foot span{background:#fff;border-radius:40px;padding:10px 22px;border:3px solid #5fb865}
+    ul{position:absolute;left:50px;right:340px;top:120px;margin:0;padding:0;list-style:none;font:600 27px/1.25 Fredoka;color:#333;display:grid;gap:16px}
+    li:before{content:'★ ';color:#f5b400}
+    .hero{position:absolute;right:25px;top:150px;width:300px;height:300px}.hero svg{width:100%;height:100%}`;
+  const aplus = [
+    ['aplus-look-inside.png', `<div class="a"><h1>Look inside: ${esc(c.word.toLowerCase())} to color!</h1><div class="row">${picks.map(id => `<div class="pg"><div class="t">${esc(ART.subjects[id].label)}</div>SVG_${id}</div>`).join('')}</div><div class="foot"><span>Big pictures</span><span>Thick lines</span><span>Ages ${esc(c.ages)}</span></div></div>`],
+    ['aplus-whats-inside.png', `<div class="a"><h1>${esc(c.kicker)} ${esc(c.word)} Coloring Book</h1><ul>${(c.aplus_points || c.back_points.slice(0, 4)).map(t => `<li>${esc(t)}</li>`).join('')}</ul><div class="hero">HERO_${c.hero[1]}</div></div>`],
+  ];
+  for (const [name, body] of aplus) {
+    p = await newPage({ width: 970, height: 600 });
+    await p.setContent(`<html><head><style>${aplusCss}</style></head><body>${body}<script>${artJs}</script><script>
+      document.body.innerHTML=document.body.innerHTML.replace(/SVG_([a-z0-9-]+)/g,(m,id)=>ART.svg(id,'line')).replace(/HERO_([a-z0-9-]+)/g,(m,id)=>ART.svg(id,'color'));</script></body></html>`, { waitUntil: 'load' });
+    await p.evaluate(() => document.fonts.ready);
+    await p.screenshot({ path: path.join(out, name), clip: { x: 0, y: 0, width: 970, height: 600 } });
+  }
   await b.close();
   if (errs.length) { console.error('PAGE ERRORS:\n' + errs.join('\n')); process.exit(3); }
   // preview strip of interior pages
@@ -152,7 +186,7 @@ function coverHtml(pages, frontOnly) {
   const listing = {
     title: L.title, subtitle: L.subtitle, series: L.series, author: L.author, description_html: L.description_html,
     keywords: L.keywords, categories: L.categories, reading_age: L.reading_age, price_note: L.price_note,
-    ai_disclosure: L.ai_disclosure,
+    ai_disclosure: L.ai_disclosure, ads: AD,
     print: { trim: `${TRIM_W} x ${TRIM_H} in`, bleed: 'No bleed (interior)', paper: 'White', pages, spine_in: +cov.spine.toFixed(4), cover_in: `${cov.W.toFixed(3)} x ${cov.H.toFixed(3)}`, spine_text: pages > 79 ? 'allowed' : 'none (79 pages or fewer)' },
   };
   fs.writeFileSync(path.join(out, 'listing.json'), JSON.stringify(listing, null, 1));

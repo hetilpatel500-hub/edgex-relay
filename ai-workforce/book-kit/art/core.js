@@ -38,6 +38,15 @@
         for (let i = 0; i < n; i++) { const a = i / n * 2 * Math.PI; s += `<circle cx="${cx + R * Math.cos(a)}" cy="${cy + R * Math.sin(a)}" r="${r}" fill="${F(k)}" ${st}/>`; }
         return s + `<circle cx="${cx}" cy="${cy}" r="${R}" fill="${F(k)}"/>`;
       },
+      // a cute face: two eyes, a smile and rosy cheeks, centred on x,y, size s
+      face: (x, y, s = 200) => {
+        const e = s * 0.34, r = Math.max(12, s * 0.085);
+        return `<circle cx="${x - e}" cy="${y}" r="${r}" fill="#111"/><circle cx="${x - e - r * 0.32}" cy="${y - r * 0.32}" r="${r * 0.34}" fill="#fff"/>` +
+          `<circle cx="${x + e}" cy="${y}" r="${r}" fill="#111"/><circle cx="${x + e - r * 0.32}" cy="${y - r * 0.32}" r="${r * 0.34}" fill="#fff"/>` +
+          `<path d="M${x - s * 0.16} ${y + s * 0.2} Q${x} ${y + s * 0.38} ${x + s * 0.16} ${y + s * 0.2}" fill="none" stroke="#111" stroke-width="${SW * 0.85}" stroke-linecap="round"/>` +
+          `<circle cx="${x - e - s * 0.08}" cy="${y + s * 0.22}" r="${s * 0.09}" fill="${F('pink')}" stroke="#111" stroke-width="${SW * 0.6}"/>` +
+          `<circle cx="${x + e + s * 0.08}" cy="${y + s * 0.22}" r="${s * 0.09}" fill="${F('pink')}" stroke="#111" stroke-width="${SW * 0.6}"/>`;
+      },
       grass: (y = 900) => `<path d="M60 ${y} Q280 ${y - 24} 500 ${y} T 940 ${y}" fill="none" ${st}/>`,
       water: (y = 880) => `<path d="M60 ${y} q55 -30 110 0 t110 0 t110 0 t110 0 t110 0 t110 0 t110 0 t110 0" fill="none" ${st}/>`,
     };

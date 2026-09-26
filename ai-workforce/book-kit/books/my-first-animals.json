@@ -1,14 +1,51 @@
 {
  "id": "my-first-animals",
  "count": 30,
- "art": ["art/animals.js"],
- "subjects": ["dog","cat","cow","pig","sheep","horse","chicken","duck","rabbit","mouse","bear","lion","elephant","giraffe","monkey","panda","fox","hedgehog","owl","penguin","frog","turtle","fish","whale","octopus","crab","snail","bee","butterfly","ladybug"],
+ "art": [
+  "art/animals.js"
+ ],
+ "subjects": [
+  "dog",
+  "cat",
+  "cow",
+  "pig",
+  "sheep",
+  "horse",
+  "chicken",
+  "duck",
+  "rabbit",
+  "mouse",
+  "bear",
+  "lion",
+  "elephant",
+  "giraffe",
+  "monkey",
+  "panda",
+  "fox",
+  "hedgehog",
+  "owl",
+  "penguin",
+  "frog",
+  "turtle",
+  "fish",
+  "whale",
+  "octopus",
+  "crab",
+  "snail",
+  "bee",
+  "butterfly",
+  "ladybug"
+ ],
  "cover": {
   "kicker": "My First",
   "word": "Animals",
   "tagline": "30 big & easy animals to color!",
   "ages": "2-5",
-  "hero": ["lion", "elephant", "pig"],
+  "hero": [
+   "lion",
+   "elephant",
+   "pig"
+  ],
   "back_title": "Big pictures for little hands",
   "back_points": [
    "30 friendly animals: pets, farm friends, zoo favorites, bugs and sea creatures",
@@ -17,7 +54,18 @@
    "Every picture has a blank back, so markers won't spoil the next one",
    "A \"Great job!\" certificate at the end"
   ],
-  "back_minis": ["dog", "owl", "turtle", "bee"]
+  "back_minis": [
+   "dog",
+   "owl",
+   "turtle",
+   "bee"
+  ],
+  "aplus_points": [
+   "30 friendly animals, one big picture per page",
+   "Extra-thick lines for little hands",
+   "Each animal's name in big letters to color",
+   "Blank backs, so markers won't spoil the next picture"
+  ]
  },
  "listing": {
   "title": "My First Animals Coloring Book",
@@ -42,5 +90,72 @@
   "reading_age": "2 - 5 years",
   "price_note": "Similar toddler coloring books are commonly priced around $5.99-$6.99 (kdpeasy.com age-group guide). Your call.",
   "ai_disclosure": "KDP asks if the book has AI-generated content. The pictures and the text were made by Edgex's AI agents, so answer Yes for images and text."
+ },
+ "ads": {
+  "bids": {
+   "auto": "0.35",
+   "exact": "0.45",
+   "phrase": "0.40"
+  },
+  "keywords": {
+   "exact": [
+    "toddler coloring book",
+    "coloring books for toddlers",
+    "animal coloring book for kids",
+    "animal coloring book for toddlers",
+    "toddler coloring book ages 2-4",
+    "coloring books for kids ages 2-4",
+    "coloring book for 2 year old",
+    "coloring book for 3 year old",
+    "my first coloring book",
+    "big and easy coloring book",
+    "simple coloring book for toddlers",
+    "preschool coloring book",
+    "farm animal coloring book",
+    "zoo animal coloring book",
+    "cute animal coloring book for kids"
+   ],
+   "phrase": [
+    "toddler coloring",
+    "animal coloring book",
+    "coloring book toddler",
+    "coloring books for kids",
+    "coloring book for 2 year olds",
+    "preschool activity book",
+    "baby coloring book",
+    "jumbo coloring book"
+   ]
+  },
+  "negatives": [
+   "adult",
+   "adults",
+   "for adults",
+   "mandala",
+   "grayscale",
+   "free",
+   "printable",
+   "pdf",
+   "sticker",
+   "stickers",
+   "dot markers",
+   "paint by number",
+   "teen",
+   "sketchbook"
+  ],
+  "categories": [
+   "Children's Coloring Books",
+   "Children's Activity Books",
+   "Children's Animal Books (or the closest match Amazon shows)"
+  ],
+  "custom_text": [
+   "30 big, friendly animals with extra-thick lines, made for little hands. A screen-free first coloring book for ages 2 to 5.",
+   "From puppies to penguins: one big animal per page, its name in letters to color, and a Great job! certificate at the end.",
+   "Your toddler's first animal coloring book: simple pictures, thick lines and blank backs so markers won't spoil the next page."
+  ],
+  "headlines": [
+   "Big, easy coloring books for little hands",
+   "My First coloring books for ages 2 to 5",
+   "Thick lines, big pictures, happy toddlers"
+  ]
  }
 }
