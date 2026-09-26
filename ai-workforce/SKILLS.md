@@ -77,6 +77,17 @@ skill_work/<id> = {
 }
 ```
 
+- **`body` holds the finished deliverable itself,** the exact text a buyer would
+  receive: every reply, every caption, the full audit, the whole calendar. A
+  description of the work ("4 drafted replies plus a 6-item checklist") is not an
+  asset. Last Touch fails it and Chief of Staff can't approve it. On 2026-09-26, 31
+  "approved" assets turned out to be descriptions; they were reopened as `draft`
+  with a `review_note`. **Reopened drafts come first** when picking what an agent
+  with a skill works on.
+- **Sample work uses clearly fictional clients.** Label any made-up business,
+  person or account "(fictional example)". Never use a real person's or
+  business's name or handle, and never write quotes or comments as if a real
+  account said them.
 - The agent's status while doing this is `practicing`, with task "Using <skill>: <title>".
 - Every asset goes through the relevant **Last Touch** (Video Last Touch for
   video), then **Chief of Staff**. When it needs the owner (publishing, an
@@ -159,9 +170,12 @@ Dispatch shift uses them so one run covers about 30 agents:
   is duplicated.
 - **Crews research and draft; they don't write to the database.** Each
   returns its finished docs as JSON (brain docs, `skill_work`, collab log
-  lines, with sources). The shift checks each one (real sources, the exact
-  shape, no invented numbers), then writes them itself in `ArtifactData`
-  batches. One writer keeps the floor consistent.
+  lines, with sources), and each `skill_work` body in full, never a summary.
+  The shift checks each one (2+ real sources per skill, the exact shape, no
+  invented numbers, a body that is the actual deliverable), then writes them
+  itself in `ArtifactData` batches. One writer keeps the floor consistent.
+- Fewer finished assets beat many summaries. If a crew can't finish its assets
+  in time, give it fewer agents next run.
 - Last Touch and Chief of Staff can also run as a crew over the whole
   batch of assets.
 - If the `Agent` tool isn't available, do the same work one agent at a time
