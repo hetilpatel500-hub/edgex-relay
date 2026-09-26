@@ -99,6 +99,7 @@ reaching for a round number.
   fiverr.com/resources/guides/costs/market-researcher, blackridgeresearch.com,
   yunojuno.com, thefarnsworthgroup.com, and preuve.ai (2026).
   (decisions/2026-09-25-research-reports-tier-added.)
+- **Fixed-price SEO audit (checklist-based, no implementation)**: $450-$750 for a single small-business site, positioned at the low-to-mid end of the real $300-2,500 range for this MONEY-MAP item 42 tier -- distinct from the broader Research reports and Custom market research report lines above. (decisions/2026-09-25-skill-work-batch-2.)
 - **Dashboards** (custom reporting build, e.g. a Looker Studio dashboard
   connecting a client's existing data — GA4, Google Sheets, CRM exports):
   $2,000–$6,000 one-time — replaces the old unverified $600-2,000 band.
