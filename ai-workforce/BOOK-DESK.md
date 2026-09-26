@@ -26,8 +26,9 @@ and never set a price.
 | 3 | Quality Bar Agent | `node sheet.js art/<topic>.js sheet.png` and look at every drawing. Fix anything broken, overlapping, too detailed for a 2-year-old, or hard to recognize. |
 | 4 | Copywriter + SEO Agent | Write `books/<id>.json`: title, subtitle, description, 7 keywords (50 characters max each), 3 categories. Keywords are real phrases parents search for. Never use other authors, brands or trademarked characters. |
 | 5 | Grammar & Copy Editor, Deliverable QA Reviewer | `node build.js books/<id>.json OUT`, then `python3 page.py OUT`. Check the page previews, the cover, and that the cover size printed by page.py matches KDP's formula. |
-| 6 | Chief of Staff | Approve or deny and log it in `decisions`. |
-| 7 | Publish Coordinator | Publish `OUT/index.html` as a new private artifact (`capabilities {"downloads": true}`, files: interior.pdf, cover-paperback.pdf, cover-kindle.jpg, preview-cover.jpg, preview-pages.png). Email the owner the link, title, subtitle, description, keywords and categories. Add a `books` doc. |
+| 6 | Legal Desk (all ten counsel) | Review the book and listing per `LEGAL-DESK.md`: trademark (title, keywords), copyright (original art, font license, AI-art copyright note), platform (KDP AI disclosure, metadata rules), kids/COPPA, advertising (description claims). Write one `legal_reviews` doc. |
+| 7 | Chief of Staff | Approve or deny, only with a `cleared` legal review, and log it in `decisions`. |
+| 8 | Publish Coordinator | Publish `OUT/index.html` as a new private artifact (`capabilities {"downloads": true}`, files: interior.pdf, cover-paperback.pdf, cover-kindle.jpg, preview-cover.jpg, preview-pages.png). Email the owner the link, title, subtitle, description, keywords and categories. Add a `books` doc. |
 
 Run with `NODE_PATH=/opt/node22/lib/node_modules` (Playwright and Chromium are
 already in the environment). Build output goes in the scratchpad, never the repo.

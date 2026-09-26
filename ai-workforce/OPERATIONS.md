@@ -234,6 +234,19 @@ over a payment method for a specific approved purchase. If real autonomous
 spending is wanted later, that's a separate, bigger integration (a
 virtual-card connector) — not something to wire in quietly alongside this.
 
+## Legal Desk: the law check on everything outbound (owner directive, 2026-09-26)
+
+Nothing leaves the studio without a Legal Desk review. That covers emails,
+videos, books, listings, posts, proposals, website pages and `skill_work`
+assets. The order is author, then Last Touch (or Video Last Touch), then the
+Legal Desk (all ten counsel), then Chief of Staff, then the owner's session
+sends it. Each review is one `legal_reviews` doc with all ten checks and General
+Counsel's verdict (`cleared`, `fix_first`, `blocked`, `needs_attorney`). The
+daily check-in only sends outbox items whose `legal_review` says `cleared`. The
+rules and the review record are in `LEGAL-DESK.md`. The Legal Desk is AI
+reviewers, not licensed attorneys: anything with real legal exposure goes to
+the owner as `needs_attorney`.
+
 ## Zero idle: collaborations, brains and money skills (owner directive, 2026-09-25)
 
 Every shift, Task Dispatch follows `SKILLS.md`. Real work comes first, opening a

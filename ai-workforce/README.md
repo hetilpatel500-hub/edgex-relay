@@ -1,6 +1,8 @@
 # AI Workforce — Deal Desk
 
-**110 agents across 22 departments**, in three divisions:
+**120 studio agents across 23 departments** (plus the owner's 20-analyst Chart
+Desk), in three divisions, with the 10-agent **Legal Desk** (added 2026-09-26)
+checking everything that goes out (`LEGAL-DESK.md`):
 
 - **The original 40** — the studio playbook's 35 plus **Last Touch**
   (5 agents: grammar, visual/formatting, tone/sensitivity, brand
@@ -135,6 +137,9 @@ Full detail in `DEAL-DESK.md`; the short version:
    improvised live.
 2. The draft clears **Last Touch** (5-agent quality gate — grammar,
    formatting, tone, brand consistency, final release).
+   Then the **Legal Desk** (10 counsel, `LEGAL-DESK.md`) checks the law on it:
+   advertising, anti-spam, privacy, copyright, trademark, financial content,
+   platform rules, kids and COPPA, and contracts. It needs a `cleared` verdict.
 3. **Chief of Staff** reviews the cleared draft and approves or denies
    it — checking it against `BRAND.md`, the studio's catalog, and plain
    judgment. This replaced the owner's personal review.

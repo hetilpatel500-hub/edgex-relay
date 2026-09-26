@@ -32,8 +32,9 @@ Final Check. If any flagged something unresolved, this does not clear —
 send it back to whichever agent owns the fix.
 
 Once the render is confirmed real AND all four are clean, mark it
-**CLEARED — VIDEO LAST TOUCH** and hand it to Chief of Staff for the
-approve/deny decision (logged to `decisions`, same as the rest of the
+**CLEARED — VIDEO LAST TOUCH** and send it to the **Legal Desk**
+(`ai-workforce/LEGAL-DESK.md`). Only with a `cleared` legal verdict does it go
+to Chief of Staff for the approve/deny decision (logged to `decisions`, same as the rest of the
 studio), then to the right platform agent(s) to queue for posting once
 approved.
 

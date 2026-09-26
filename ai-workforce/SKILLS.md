@@ -91,7 +91,8 @@ skill_work/<id> = {
   belong to a real account. Use plain labels such as "Viewer A" or "a customer".
 - The agent's status while doing this is `practicing`, with task "Using <skill>: <title>".
 - Every asset goes through the relevant **Last Touch** (Video Last Touch for
-  video), then **Chief of Staff**. When it needs the owner (publishing, an
+  video), then the **Legal Desk** (all ten counsel, `LEGAL-DESK.md`), then
+  **Chief of Staff**. When it needs the owner (publishing, an
   account, a payment link), add one `owner_actions` doc and set the asset to
   `needs_owner`.
 - Never duplicate an asset that already exists (check `skill_work` and the

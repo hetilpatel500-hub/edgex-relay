@@ -17,6 +17,7 @@
     --a-delivery:#6E4FCC;
     --a-growth:#B33F94;
     --a-lasttouch:#B8901E;
+    --a-legal:#5B4B8A;
     --status-sent:#3560CC;
     --status-paid:#2F9350;
     --st-working:#2A8C52;
@@ -39,7 +40,7 @@
       --shadow:0 24px 64px rgba(0,0,0,0.55);
       --a-strategy:#E0A24A; --a-research:#3FC0B9; --a-content:#E67B8E;
       --a-software:#6C8FE8; --a-sales:#57BE79; --a-delivery:#9782E8; --a-growth:#D871BC;
-      --a-lasttouch:#DCB24E;
+      --a-lasttouch:#DCB24E; --a-legal:#A294DA;
       --status-sent:#6C8FE8; --status-paid:#57BE79;
       --st-working:#57BE79; --st-requested:#E0A24A; --st-blocked:#E3687A;
       --st-fresh:#7C9BEE; --st-stale:#6E7888; --st-idle:#5E6672;
@@ -53,7 +54,7 @@
     --shadow:0 24px 64px rgba(0,0,0,0.55);
     --a-strategy:#E0A24A; --a-research:#3FC0B9; --a-content:#E67B8E;
     --a-software:#6C8FE8; --a-sales:#57BE79; --a-delivery:#9782E8; --a-growth:#D871BC;
-    --a-lasttouch:#DCB24E;
+    --a-lasttouch:#DCB24E; --a-legal:#A294DA;
     --status-sent:#6C8FE8; --status-paid:#57BE79;
     --st-working:#57BE79; --st-requested:#E0A24A; --st-blocked:#E3687A;
     --st-fresh:#7C9BEE; --st-stale:#6E7888; --st-idle:#5E6672;
@@ -881,6 +882,21 @@
     // live Webull data when a ticker is known). It
     // works when the owner drops a chart in (through the owner's own Claude
     // account), never in the hourly business shifts, and never trades.
+    // Legal Desk: every outbound item (email, video, book, listing, post,
+    // proposal) is checked by all ten after Last Touch, before Chief of Staff.
+    { id:"legal", code:"23", name:"Legal Desk", tag:"Checks the law on everything before it goes out", cssVar:"--a-legal", hex:0x5B4B8A, x:-14, z:24.6, door:["east"],
+      agents:[
+        {name:"General Counsel Agent", desc:"Runs the legal review: collects all ten checks and gives the one legal verdict (cleared, fix first, or blocked)."},
+        {name:"Advertising & Consumer Protection Counsel", desc:"Truth in advertising: every claim provable, no fake reviews or urgency, clear pricing, endorsements disclosed."},
+        {name:"Email & Anti-Spam Compliance Counsel", desc:"CAN-SPAM, CASL, UK PECR, Australia's Spam Act: sender, address, opt-out and consent before any email goes out."},
+        {name:"Privacy & Data Protection Counsel", desc:"GDPR, UK GDPR, CCPA and PIPEDA: what personal data we hold, why, and whether we may use it."},
+        {name:"Copyright & Fair Use Counsel", desc:"Every clip, image, font, song and quote: licensed, original, or genuinely fair use."},
+        {name:"Trademark & Brand Clearance Counsel", desc:"Names, titles, keywords and hashtags: no one else's trademark or look-alike."},
+        {name:"Financial Content Compliance Counsel", desc:"Market videos and money claims: education only, no advice or calls, earnings claims backed up."},
+        {name:"Platform Terms & Policy Counsel", desc:"YouTube, Instagram, TikTok, KDP, Etsy, Fiverr, Stripe: each platform's rules, including AI disclosure."},
+        {name:"Kids' Content & COPPA Counsel", desc:"Anything for or about children: COPPA, made-for-kids labels, age-appropriate content."},
+        {name:"Contracts & Commercial Terms Counsel", desc:"Proposals, quotes, SOWs and refunds: clear terms, no promises we can't keep."}
+      ]},
     { id:"chart-desk", code:"22", name:"Chart Desk", tag:"Reads your chart screenshots and calls the next move", cssVar:"--a-software", hex:0x3560CC, x:12, z:-9.6, chartDesk:true,
       onOpen:function(){ openChartRoom(); },
       agents:[
@@ -976,6 +992,7 @@
     "capacity-queue": "Keeps the backlog honest so Dispatch always has a real next task.",
     "opportunity-discovery": "Triages the 100-idea list and logs real opportunities with sources.",
     "venture-coordination": "Turns a validated opportunity into a build plan across departments.",
+    legal: "General Counsel gives one verdict for all ten checks. Cleared work goes to Chief of Staff; anything that needs fixing goes back to its author and through Last Touch again.",
     "chart-desk": "Only works when you drop a chart in. The call and every analyst's read go to the Chart Desk sheet and its history."
   };
 
@@ -3630,7 +3647,7 @@
     WINDOW_SPOTS.push({x:-22.3, z:zz, face:-Math.PI/2});
     WINDOW_SPOTS.push({x:22.3, z:zz, face:Math.PI/2});
   });
-  var ROOM_KEYS = ["A","B","lasttouch","strategy","C","D","P","video-lasttouch","E","F","chart-desk"];
+  var ROOM_KEYS = ["A","B","lasttouch","strategy","C","D","P","video-lasttouch","E","F","chart-desk","legal"];
   function freeAgents(filter){
     return ALL_AGENTS.map(function(e){ return e.a.id; }).filter(function(id){
       var r = AGENT_GROUPS[id];
@@ -3706,7 +3723,7 @@
     "opportunity-discovery":"lasttouch", "venture-coordination":"lasttouch",
     "trend-intel":"video-lasttouch", "clip-rights":"video-lasttouch", commentary:"video-lasttouch",
     production:"video-lasttouch", thumbnails:"video-lasttouch", "growth-video":"video-lasttouch",
-    lasttouch:"strategy", "video-lasttouch":"strategy"
+    lasttouch:"legal", "video-lasttouch":"legal", legal:"strategy"
   };
   var DEPT_BY_ID = {};
   DEPARTMENTS.forEach(function(d){ DEPT_BY_ID[d.id] = d; });

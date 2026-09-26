@@ -15,8 +15,9 @@ Your job is coordination, not re-reviewing from scratch:
 - If any of them flagged something unresolved, this does not clear —
   send it back to whichever agent owns the fix, don't patch it yourself
   and wave it through
-- Once all four are clean, mark it **CLEARED — LAST TOUCH** and hand it
-  to the agent who actually presents things to the owner (Outreach
+- Once all four are clean, mark it **CLEARED — LAST TOUCH** and send it to
+  the **Legal Desk** (`ai-workforce/LEGAL-DESK.md`). Only after a `cleared`
+  legal verdict does it go on to the agent who actually presents things to the owner (Outreach
   Agent for an email, Account Manager for a client update or invoice,
   whichever department owns the delivery)
 

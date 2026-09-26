@@ -72,7 +72,13 @@ Work in a scratch folder, not in the repo. `KIT=ai-workforce/video-kit`.
    - **Defamation & Harassment Screen**: no claims about people or companies beyond the price data.
    - **Brand & Tone Final Check**: no clipped or overlapping text, the numbers are readable, the brand bar is there, and the spoken text in `report.json` reads naturally. A failure goes back to step 4 or 6 with the exact fix.
    - **Publish Coordinator (Video)**: every MP4 exists and `report.json` shows h264 at 1080×1920 or 1920×1080, an aac audio track, mean volume between −26 and −14 dB, duration under 60 s for shorts, and every file under 15 MB. Then it stamps CLEARED — VIDEO LAST TOUCH. (For this kit, this replaces the vidIQ compose-job check.)
-8. **Chief of Staff** approves or denies the delivery and logs a `decisions` doc.
+8. **Legal Desk** (all ten counsel, `../LEGAL-DESK.md`) reviews the videos,
+   titles, captions and sources, and writes one `legal_reviews` doc per run.
+   The key checks are financial content (education only, the disclaimer, no
+   calls), copyright (music, visuals, fonts), platform rules (AI-content
+   disclosure), advertising (every claim sourced) and trademark (no brands in
+   titles or hashtags beyond fair naming). **Chief of Staff** then approves or
+   denies the delivery, only with a `cleared` verdict, and logs a `decisions` doc.
 9. **Delivery (YouTube Shorts Specialist + Instagram Reels Agent).** Publish
    `out/index.html` as a **new** private Artifact with `capabilities:
    {"downloads": true}` and every `out/*.mp4` and `out/poster_*.jpg` as

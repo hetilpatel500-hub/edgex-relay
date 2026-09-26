@@ -55,6 +55,15 @@ Touch** before it can be approved — not optional, not skippable for a
    **CLEARED — LAST TOUCH**, hands it back to the department that owns
    delivery
 
+## Legal Desk: the law check (added 2026-09-26)
+
+After Last Touch, every outbound item goes to the **Legal Desk**. All ten
+counsel check it: advertising, anti-spam, privacy, copyright, trademark,
+financial content, platform rules, kids and COPPA, and contracts, with General
+Counsel giving one verdict. The details are in `LEGAL-DESK.md`. Chief of Staff
+can't approve anything without a `cleared` review in `legal_reviews`. A fix
+sends it back to its author, then through Last Touch again.
+
 Last Touch clearing something is **not** the same as it being sent —
 Chief of Staff's approval below still happens on every single one. Last
 Touch's job is making sure what's being approved is already clean.
@@ -63,7 +72,8 @@ Touch's job is making sure what's being approved is already clean.
 
 **Every client-facing action** — an outbound email, a deal card, a
 delivery message, an invoice, a deploy — goes to **Chief of Staff**
-(`ai-workforce/agents/chief-of-staff.md`) once it clears Last Touch.
+(`ai-workforce/agents/chief-of-staff.md`) once it clears Last Touch and the
+Legal Desk.
 Chief of Staff checks it against `BRAND.md`, the studio's catalog, and
 plain judgment, then approves or denies it. Approved work goes out
 immediately — the agent that owns it sends/posts/finalizes/deploys
@@ -127,6 +137,7 @@ part, but the spend itself waits on the owner.
 ## What never happens automatically, even now
 
 - Nothing skips Last Touch, ever, for any reason.
+- Nothing skips the Legal Desk, ever. No `cleared` legal review, no approval.
 - Nothing skips Chief of Staff's review and logged decision, even
   something that feels "routine."
 - No agent renegotiates a deal card once it's approved — a client

@@ -68,6 +68,11 @@ spend decision into a routine approval.
   them? If yes, **deny** it and say so in the log below; "unusual" beats
   a false "approved."
 
+**No approval without the Legal Desk.** Before approving anything outbound,
+confirm a `legal_reviews` doc for it says `cleared` (all ten counsel checks on
+file, see `ai-workforce/LEGAL-DESK.md`). A missing review, `fix_first`,
+`blocked` or `needs_attorney` means you deny it and say why.
+
 **Every decision — approved or denied — gets logged**, via `Write`, as one
 entry the studio can read back later: which agent/action, your decision,
 the concrete reason, and (for an approval) how it's expected to make the
