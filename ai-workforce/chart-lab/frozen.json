@@ -1,0 +1,121 @@
+{
+ "d_rsi2_pullback": {
+  "side": "with",
+  "filter": "none",
+  "exit": "2atr/hold10",
+  "tf": "D",
+  "frozen_at": "2026-09-25",
+  "status_at_freeze": "validated",
+  "oos_at_freeze": {
+   "n": 425,
+   "win_rate": 0.511,
+   "avg_r": 0.091,
+   "total_r": 38.74,
+   "profit_factor": 1.23,
+   "t_stat": 1.75,
+   "max_drawdown_r": 37.01
+  }
+ },
+ "pd_sweep": {
+  "side": "fade",
+  "filter": "vwap",
+  "exit": "1atr/1.5atr",
+  "tf": "M5",
+  "frozen_at": "2026-09-25",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 60,
+   "win_rate": 0.5,
+   "avg_r": 0.067,
+   "total_r": 4.03,
+   "profit_factor": 1.12,
+   "t_stat": 0.42,
+   "max_drawdown_r": 6.83
+  }
+ },
+ "bos": {
+  "side": "fade",
+  "filter": "vwap",
+  "exit": "3atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-09-25",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 639,
+   "win_rate": 0.52,
+   "avg_r": 0.105,
+   "total_r": 66.98,
+   "profit_factor": 1.29,
+   "t_stat": 2.46,
+   "max_drawdown_r": 27.51
+  }
+ },
+ "protected_hold": {
+  "side": "fade",
+  "filter": "rvol",
+  "exit": "1atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-09-25",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 54,
+   "win_rate": 0.241,
+   "avg_r": 0.134,
+   "total_r": 7.21,
+   "profit_factor": 1.15,
+   "t_stat": 0.33,
+   "max_drawdown_r": 24.0
+  }
+ },
+ "ib_ivb_acceptance": {
+  "side": "with",
+  "filter": "rvol+trend",
+  "exit": "1atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-09-25",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 62,
+   "win_rate": 0.29,
+   "avg_r": 0.033,
+   "total_r": 2.07,
+   "profit_factor": 1.04,
+   "t_stat": 0.12,
+   "max_drawdown_r": 13.27
+  }
+ },
+ "poc_migration": {
+  "side": "with",
+  "filter": "rvol",
+  "exit": "1atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-09-25",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 45,
+   "win_rate": 0.311,
+   "avg_r": 0.034,
+   "total_r": 1.54,
+   "profit_factor": 1.04,
+   "t_stat": 0.11,
+   "max_drawdown_r": 15.08
+  }
+ },
+ "sweep_then_vwap": {
+  "side": "fade",
+  "filter": "rvol",
+  "exit": "3atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-09-25",
+  "status_at_freeze": "validated",
+  "oos_at_freeze": {
+   "n": 40,
+   "win_rate": 0.6,
+   "avg_r": 0.257,
+   "total_r": 10.27,
+   "profit_factor": 2.08,
+   "t_stat": 1.97,
+   "max_drawdown_r": 2.75
+  }
+ }
+}

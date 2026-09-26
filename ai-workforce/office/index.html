@@ -437,6 +437,41 @@
   .cd-options.calls{border-color:var(--st-working);} .cd-options.puts{border-color:var(--st-blocked);}
   .cd-options .cd-idea{font-size:15px;}
   .cd-inputs{display:flex;gap:8px;margin-top:10px;}
+  .lt-bar{margin-top:4px;} .lt-bar .cd-ticker{flex:0 0 96px;} .lt-bar .cd-wb{margin-top:0;flex:1 1 200px;}
+  .lt-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:10px;}
+  @media (max-width:560px){ .lt-tiles{grid-template-columns:repeat(2,minmax(0,1fr));} }
+  .lt-tile{border:1px solid var(--panel-border);border-radius:10px;padding:8px 10px;background:var(--panel-bg);min-width:0;}
+  .lt-tile.up{border-color:var(--st-working);} .lt-tile.down{border-color:var(--st-blocked);}
+  .lt-k,.lt-levels .k,.lt-foot .h,.lt-pb .h{font:600 10px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+  .lt-v{font:600 13px "IBM Plex Mono",monospace;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;}
+  .lt-card{border:1px solid var(--panel-border);border-radius:12px;padding:10px 12px;background:var(--panel-bg);margin-top:10px;min-width:0;}
+  .lt-heat{display:block;width:100%;height:340px;margin-top:8px;border-radius:8px;}
+  .lt-legend{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:6px;font:500 10.5px "IBM Plex Mono",monospace;color:var(--muted);}
+  .lt-legend .up,.lt-list .up,.lt-foot .d.up{color:var(--st-working);} .lt-legend .down,.lt-list .down,.lt-foot .d.down{color:var(--st-blocked);}
+  .lt-legend .acc{color:var(--a-software);} .lt-legend .gold{color:var(--a-strategy);}
+  .lt-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 10px;}
+  .lt-foot{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:2px 8px;margin-top:8px;font:500 11.5px "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;align-items:center;}
+  .lt-foot .p.now{font-weight:700;color:var(--a-software);}
+  .lt-foot .bar{position:relative;height:16px;border-radius:3px;background:var(--chip-bg);overflow:hidden;}
+  .lt-foot .bar::before{content:"";position:absolute;top:0;bottom:0;width:var(--w);}
+  .lt-foot .bar.sell::before{right:0;background:color-mix(in srgb, var(--st-blocked) 35%, transparent);}
+  .lt-foot .bar.buy::before{left:0;background:color-mix(in srgb, var(--st-working) 35%, transparent);}
+  .lt-foot .bar.imb{outline:1.5px solid var(--a-strategy);}
+  .lt-foot .bar span{position:relative;padding:0 4px;line-height:16px;}
+  .lt-foot .bar.sell span{float:right;}
+  .lt-foot .d{text-align:right;}
+  .lt-levels{display:grid;grid-template-columns:minmax(120px,auto) 1fr;gap:4px 10px;margin-top:8px;font-size:12.5px;font-variant-numeric:tabular-nums;}
+  .lt-gap{margin-top:12px;}
+  .lt-list{list-style:none;margin:6px 0 0;padding:0;font:500 11.5px "IBM Plex Mono",monospace;display:grid;gap:3px;}
+  .lt-list .k{color:var(--muted);font-family:"Work Sans",sans-serif;}
+  .lt-scroll{overflow-x:auto;}
+  .lt-pb{display:grid;grid-template-columns:auto minmax(200px,2fr) minmax(110px,1fr) minmax(150px,1.3fr) minmax(150px,1.3fr);gap:6px 12px;font-size:12.5px;min-width:720px;margin-top:8px;align-items:start;}
+  .lt-pb .k{color:var(--muted);font-size:11.5px;margin-top:2px;}
+  .lt-pb .st{font:600 10px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;border-radius:999px;border:1px solid var(--panel-border);justify-self:start;}
+  .lt-pb .st-validated{color:var(--st-working);border-color:var(--st-working);} .lt-pb .st-promising{color:var(--st-requested);border-color:var(--st-requested);}
+  .lt-pb .st-rejected,.lt-pb .st-retired{color:var(--st-stale);} .lt-pb .st-insufficient{color:var(--muted);}
+  .lt-h{font-size:14px;margin:16px 0 4px;}
+  .lt-log{margin:0;padding-left:18px;font-size:12.5px;display:grid;gap:4px;}
   .cd-ticker{flex:0 0 110px;box-sizing:border-box;padding:10px 12px;border-radius:10px;border:1.5px solid var(--st-fresh);background:var(--panel-bg);color:var(--ink);font:700 15px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.04em;min-width:0;}
   .cd-inputs .cd-note{margin-top:0;flex:1;min-width:0;}
   .cd-note{width:100%;box-sizing:border-box;margin-top:10px;padding:10px 12px;border-radius:10px;border:1px solid var(--panel-border);background:var(--panel-bg);color:var(--ink);font:500 13px "Work Sans",sans-serif;}
@@ -616,12 +651,14 @@
       <div class="toprow">
         <div>
           <h2 id="chartTitle">Chart Desk</h2>
-          <div class="sub" id="chartSub">20 chart specialists · live Webull data · built for intraday options</div>
+          <div class="sub" id="chartSub">20 chart specialists · live Webull tape · lab-tested playbook · built for intraday options</div>
         </div>
         <button class="sheet-close" type="button" data-close="chartOverlay" aria-label="Close">&#10005;</button>
       </div>
       <div class="tabbar" role="tablist" id="chartTabs">
         <button type="button" role="tab" data-tab="analyze" aria-selected="true">Analyze</button>
+        <button type="button" role="tab" data-tab="live" aria-selected="false">Live tape</button>
+        <button type="button" role="tab" data-tab="lab" aria-selected="false">Lab</button>
         <button type="button" role="tab" data-tab="history" aria-selected="false">History &amp; track record</button>
       </div>
     </div>
@@ -646,6 +683,27 @@
         <div id="cdResult"></div>
         <div id="cdProgress"></div>
       </div>
+      <div id="chartLive" hidden>
+        <div class="cd-actions lt-bar">
+          <input class="cd-ticker" id="ltSym" type="text" maxlength="6" autocapitalize="characters" autocomplete="off" spellcheck="false" value="SPY" aria-label="Symbol to follow">
+          <button class="btn-ink" id="ltGo" type="button">Start</button>
+          <span class="cd-wb" id="ltStatus"></span>
+        </div>
+        <div class="lt-tiles" id="ltTiles"></div>
+        <div class="lt-card">
+          <div class="cd-kicker">Liquidity heatmap · price · big prints · levels</div>
+          <canvas id="ltHeat" class="lt-heat" aria-label="Liquidity heatmap: resting bid (green) and ask (red) size by price over time, the price path, big prints as bubbles, and the session levels"></canvas>
+          <div class="lt-legend"><span class="up">■ resting bids</span><span class="down">■ resting asks</span><span>● big prints</span><span class="acc">VWAP ±2σ</span><span class="gold">POC · value area · yesterday's POC</span><span>IB · IVB · PDH/PDL · protected level</span></div>
+        </div>
+        <div class="lt-cols">
+          <div class="lt-card"><div class="cd-kicker">Footprint (from the tick tape)</div><div class="lt-foot" id="ltFoot"></div></div>
+          <div class="lt-card"><div class="cd-kicker">Session levels</div><div class="lt-levels" id="ltLevels"></div>
+            <div class="cd-kicker lt-gap">Big prints</div><ul class="lt-list" id="ltBig"></ul>
+            <div class="cd-kicker lt-gap">Playbook signals today</div><ul class="lt-list" id="ltSig"></ul></div>
+        </div>
+        <p class="sheet-note">Read-only Webull data through your own connector: level 2 book, tick-by-tick trades, 5-minute bars. Webull's footprint feed is a paid add-on, so the footprint is rebuilt from the tick tape (side B = bought at the ask, S = sold at the bid). The Analyze tab's desk gets this same read when you analyze the ticker you're following. Nothing here places orders.</p>
+      </div>
+      <div id="chartLab" hidden></div>
       <div id="chartHistory" hidden></div>
     </div>
   </div>
@@ -897,7 +955,7 @@
         {name:"Kids' Content & COPPA Counsel", desc:"Anything for or about children: COPPA, made-for-kids labels, age-appropriate content."},
         {name:"Contracts & Commercial Terms Counsel", desc:"Proposals, quotes, SOWs and refunds: clear terms, no promises we can't keep."}
       ]},
-    { id:"chart-desk", code:"22", name:"Chart Desk", tag:"Reads your chart screenshots and calls the next move", cssVar:"--a-software", hex:0x3560CC, x:12, z:-9.6, chartDesk:true,
+    { id:"chart-desk", code:"22", name:"Chart Desk", tag:"Reads your charts, follows the live tape, backtests new setups hourly", cssVar:"--a-software", hex:0x3560CC, x:12, z:-9.6, chartDesk:true,
       onOpen:function(){ openChartRoom(); },
       agents:[
         {name:"Chart Reader", desc:"Reads the screenshot first: instrument, timeframe, price axis, last price, indicators shown, swings, so the whole desk works from the same facts."},
@@ -993,7 +1051,7 @@
     "opportunity-discovery": "Triages the 100-idea list and logs real opportunities with sources.",
     "venture-coordination": "Turns a validated opportunity into a build plan across departments.",
     legal: "General Counsel gives one verdict for all ten checks. Cleared work goes to Chief of Staff; anything that needs fixing goes back to its author and through Last Touch again.",
-    "chart-desk": "Only works when you drop a chart in. The call and every analyst's read go to the Chart Desk sheet and its history."
+    "chart-desk": "Reads your charts on demand; the rest of the time the Chart Desk lab researches and backtests new setups on Webull data every hour and reads the live tape while the market is open. Results are on the Chart Desk sheet's Lab and Live tape tabs."
   };
 
   // The building isn't square anymore — the video division's wing extends
@@ -2804,7 +2862,7 @@
   rosterSearch.addEventListener("input", renderRoster);
 
   // ---------------- live data: every collection the studio runs on ----------------
-  var store = {deals:{}, decisions:{}, requests:{}, outbox:{}, owner:{}, opps:{}, ideas:{}, changes:{}, charts:{}, collabs:{}, brain:{}, skillwork:{}, briefings:{}};
+  var store = {deals:{}, decisions:{}, requests:{}, outbox:{}, owner:{}, opps:{}, ideas:{}, changes:{}, charts:{}, collabs:{}, brain:{}, skillwork:{}, briefings:{}, playbook:{}, research:{}, chartlive:{}};
   var loaded = {};
   var dbState = "connecting";   // connecting | live | unavailable
 
@@ -3299,6 +3357,9 @@
       watch(db, "ideas", "money_map");
       watch(db, "changes", "repo_changes");
       watch(db, "charts", "chart_analyses");
+      watch(db, "playbook", "chart_playbook");
+      watch(db, "research", "chart_research");
+      watch(db, "chartlive", "chart_live");
       watch(db, "collabs", "collabs", function(snap, first){
         snap.docChanges().forEach(function(ch){
           if(ch.type==="removed"){ delete store.collabs[ch.doc.id]; return; }
@@ -4103,6 +4164,8 @@
     "- The owner trades INTRADAY OPTIONS on the underlying. What matters: the next 15-60 minutes and into the close, how big the move is likely to be, and whether it comes fast enough to beat option time decay.",
     "- Screenshots can be any platform or timeframe, even a phone photo of a screen. With several timeframes, work top-down: the higher timeframe sets the bias, the lower ones time the entry.",
     "- The data includes a SCORECARD (trend/momentum/VWAP per timeframe, computed from bars) and SIMILAR SETUPS (what this ticker actually did next, the last times it was in the same state). Treat similar_setups as the base rate: start from it, and move away from it only with specific evidence. If the similar setups' edge over the same-time-of-day baseline is small, say so.",
+    "- LIVE TAPE (when given) is order flow and auction levels computed from Webull: VWAP bands, 15-minute opening range, initial balance (first hour), initial volume bar (heaviest bar of the first 30 minutes), developing POC/value area, yesterday's POC/value area/high/low, structure trend and the protected level (the swing that must hold for the trend to stay intact), a footprint rebuilt from tick trades (buy vs sell volume per price, delta, 3:1 diagonal imbalances), big prints and the level 2 book (imbalance, walls). Use it: where is price against value, is delta confirming or diverging from price, is size being absorbed at a level, which side's liquidity is resting closer. Say \"not available\" for any part that is missing.",
+    "- LAB PLAYBOOK is what the Chart Desk lab measured on real Webull bars, with costs, on dates the tuning never saw. Trust setups marked validated more than promising; treat rejected ones as ideas that did NOT hold up. If today matches a setup, cite its held-out result. Past results are not a promise.",
     "- This is a probabilistic read, not a certainty. Calibrate: 50 = coin flip; above 75 needs several independent confirmations."
   ].join("\n");
   var CHART_DESK = [
@@ -4115,13 +4178,13 @@
     {id:"candlestick-specialist", lens:"Candlesticks", check:"The last 1-5 candles on the lowest timeframe and the last 1-3 on the higher ones: engulfing, hammer/shooting star, doji, morning/evening star, harami, tweezers, marubozu, inside/outside bars, long rejection wicks — and whether they printed at a level that matters."},
     {id:"momentum-analyst", lens:"Momentum oscillators", check:"RSI(14) and Stochastic(14,3) on each timeframe from the data: level, direction, overbought/oversold, failure swings; any other oscillator visible on the screenshots. Say which timeframe's momentum is leading."},
     {id:"macd-divergence-analyst", lens:"MACD & divergences", check:"MACD(12,26,9) line vs signal, histogram growing or shrinking, zero-line position on each timeframe (data); regular and hidden divergences between price swings and RSI/MACD, naming the swings you compare."},
-    {id:"volume-vwap-analyst", lens:"Volume & VWAP", check:"Price vs session VWAP (data) and whether VWAP is holding as support/resistance; relative volume of the latest bars vs their 20-bar average; volume on breakouts vs pullbacks; climax or dry-up; volume profile/POC if shown on a screenshot."},
+    {id:"volume-vwap-analyst", lens:"Volume, VWAP & order flow", check:"Price vs session VWAP and its 1/2-sigma bands (data) and whether VWAP is holding; relative volume; volume on breakouts vs pullbacks; climax or dry-up; developing POC and value area vs yesterday's (LIVE TAPE); footprint delta and imbalances, big prints and absorption; level 2 book imbalance and walls (liquidity heatmap). Say which side is in control of the auction."},
     {id:"fibonacci-harmonics-analyst", lens:"Fibonacci & harmonics", check:"From the most recent clear swing on the timeframe that matters most (name its high and low), compute retracements 38.2/50/61.8/78.6% and extensions 127.2/161.8% with the arithmetic; confluence with other levels; AB=CD or harmonic patterns only if the swings really fit."},
     {id:"elliott-wave-analyst", lens:"Elliott waves & cycles", check:"The most likely intraday Elliott count and one alternate, each with the price that invalidates it; impulse vs corrective character; time symmetry between swings. Be explicit that counts are subjective."},
     {id:"volatility-analyst", lens:"Volatility & expected move", check:"ATR(14) on each timeframe and the daily ATR from the data; how much of today's average range is already used; Bollinger(20,2) squeeze or band walk; the realistic move size for the next 15-60 minutes and into the close."},
     {id:"session-gap-specialist", lens:"Session, time & gaps", check:"Current session and minutes left to the close (data); opening-range high/low (5/15/30 min) and whether it broke; premarket high/low; the opening gap and whether it is filling; time-of-day behaviour (open drive, midday chop, power hour, last-15-minute 0DTE risk)."},
     {id:"wyckoff-phase-analyst", lens:"Wyckoff & market phase", check:"Accumulation, markup, distribution or markdown on the intraday timeframes; springs, upthrusts, tests, signs of strength/weakness; effort vs result (volume vs spread)."},
-    {id:"strategy-playbook-analyst", lens:"Strategy playbook", check:"Test each and say active / forming / not present: trend pullback to 9/20 EMA; opening-range breakout; VWAP reclaim or rejection; breakout and retest; range fade; mean reversion to VWAP; premarket high/low break; liquidity sweep then reversal; gap fill; EMA cross; first red/green day. Name the single best active setup with entry, stop and targets on the underlying."},
+    {id:"strategy-playbook-analyst", lens:"Strategy playbook", check:"Start with the LAB PLAYBOOK: for each validated or promising setup, say active / forming / not present right now and quote its held-out result. Then test each and say active / forming / not present: initial balance breakout or failed breakout; initial volume breakout; value-area re-entry or acceptance outside value; test of yesterday's POC; protected level holding or breaking; trend pullback to 9/20 EMA; opening-range breakout; VWAP reclaim or rejection; breakout and retest; range fade; mean reversion to VWAP; premarket high/low break; liquidity sweep then reversal; gap fill; EMA cross; first red/green day. Name the single best active setup with entry, stop and targets on the underlying."},
     {id:"risk-manager", lens:"Risk", check:"Where a sensible stop sits on the underlying (beyond structure, ATR-aware), reward-to-risk of the best long and best short, how much of the move may already be done, and when to stand aside (chop inside VWAP, no clear level, news/earnings risk)."},
     {id:"options-strategist", lens:"Intraday options plan", check:"Turn the chart into an options plan on this underlying: calls, puts or no trade; expiry (0DTE vs next day vs weekly, given minutes left and the expected move); strike choice (ATM, 1 strike ITM for more delta, avoid far OTM lottery tickets); entry trigger on the UNDERLYING price; stop on an underlying level; targets on the underlying; a time stop to limit theta decay; when not to trade (first minutes, midday chop, last 15 minutes for 0DTE, earnings). No option-chain data is available: never quote premiums, IV or greeks as numbers."},
     {id:"devil-s-advocate", lens:"Devil's advocate & fact-check", role:"qa"},
@@ -4242,7 +4305,8 @@
     var jobs = {
       snap: wb("get_stock_snapshot", {symbols:symbol, category:cat, extend_hour_required:true, overnight_required:false}),
       m1: bars("M1", 1000, "PRE,RTH"), m5: bars("M5", 400, "PRE,RTH"), m15: bars("M15", 300, "RTH"), m60: bars("M60", 300, "RTH"), d: bars("D", 260),
-      quote: wb("get_stock_quotes", {symbol:symbol, category:cat, depth:"1", overnight_required:false}),
+      quote: wb("get_stock_quotes", {symbol:symbol, category:ltCat(symbol), depth:"10", overnight_required:false}).catch(function(){ return wb("get_stock_quotes", {symbol:symbol, category:cat, depth:"1", overnight_required:false}); }),
+      tick: wb("get_stock_tick", {symbol:symbol, category:ltCat(symbol), count:"1000", trading_sessions:"RTH"}),
       ctx: wb("get_stock_snapshot", {symbols:ctxSyms, category:cat, extend_hour_required:true, overnight_required:false}),
       earn: ETFS.test(symbol) ? Promise.resolve(null) : wb("get_stock_earnings_calendar", {symbol:symbol, category:cat}),
       m5h: bars("M5", 1200, "RTH")
@@ -4257,6 +4321,15 @@
       var ref = (M.market||[]).filter(function(x){ return x.symbol==="SPY"; })[0] || (M.market||[])[0];
       if(ref && ref.change_pct!=null && M.change_pct!=null) M.relative_strength = {vs:ref.symbol, points:r2(M.change_pct-ref.change_pct)};
       M.scorecard = scorecard(M);
+      try{
+        if(LT.sym===symbol && (LT.lv || LT.ticks.length)) M.live_tape = ltSummary();
+        else {
+          var Lv = R.m5h.ok ? ltComputeLevels(R.m5h.v.bars) : null;
+          var Bq = R.quote.ok && R.quote.v ? ltBookOf({bids:ltLevels(R.quote.v.bids), asks:ltLevels(R.quote.v.asks)}) : null;
+          M.live_tape = ltSummaryOf(symbol, Lv, R.tick.ok ? ltFootprintOf(ltTicksOf(R.tick.v, Lv ? Lv.day : null), Lv ? Lv.last : null) : null, Bq);
+        }
+      }catch(err){ M.live_tape = null; }
+      M.lab_playbook = labPlaybook();
       try{ M.similar_setups = analogs(R.m5h.ok ? R.m5h.v.bars : null); }catch(err){ M.similar_setups = null; }
       if(M.similar_setups && M.similar_setups.as_of_day !== etParts(Date.now()).day){
         M.similar_setups.stale = true;
@@ -4315,7 +4388,7 @@
       earnings_next:earnNext, market:ctx,
       bars:{"1m":barRows(m1, 60, false), "5m":barRows(m5, 60, false), "15m":barRows(R.m15.ok ? R.m15.v.bars : [], 40, false), "1h":barRows(R.m60.ok ? R.m60.v.bars : [], 40, false), "1D":barRows(daily, 30, true)},
       timeframes:[tfStats("1m", m1), tfStats("5m", m5), tfStats("15m", R.m15.ok ? R.m15.v.bars : []), tfStats("1h", R.m60.ok ? R.m60.v.bars : []), tfStats("1D", daily)].filter(Boolean),
-      missing:["m1","m5","m15","m60","d","quote","ctx","m5h"].filter(function(k){ return !R[k].ok; })
+      missing:["m1","m5","m15","m60","d","quote","ctx","m5h","tick"].filter(function(k){ return !R[k].ok; })
     };
   }
   // ---- quant layer: numbers computed here, not by a model ----
@@ -4423,6 +4496,13 @@
     return {scored:scored.length, hit_rate_pct:Math.round(hits/scored.length*100), this_ticker:sym.length ? {scored:sym.length, hit_rate_pct:Math.round(sym.filter(function(r){ return r.d.outcome.result==="target"; }).length/sym.length*100)} : null, lens_accuracy:lensRows,
       note:"lens_accuracy = how often each analyst's bias matched what price actually did on scored calls"};
   }
+  // What the Chart Desk lab (chart-lab/lab.py) measured, compact for prompts.
+  function labPlaybook(){
+    var pb = docsOf("playbook").map(function(x){ return x.d; }).filter(function(r){ return r.status==="validated" || r.status==="promising"; });
+    if(!pb.length) return null;
+    return {note:"Backtested on Webull bars with costs; tuned on the first 70% of dates, judged on the last 30%; forward = results since the variant was frozen.",
+      setups:pb.map(function(r){ return {status:r.status, setup:r.name, rules:r.rules, variant:r.variant, held_out:r.oos_text, forward:r.forward_text}; })};
+  }
   function marketText(M, withBars){
     if(M && !withBars && M.bars){ var lean = {}; Object.keys(M).forEach(function(k){ if(k!=="bars") lean[k] = M[k]; }); M = lean; }
     if(!M) return "LIVE MARKET DATA: not available for this run (no ticker found, or Webull didn't answer). Work from the screenshots only and say so.";
@@ -4504,7 +4584,7 @@
   var cdGo = document.getElementById("cdGo"), cdStop = document.getElementById("cdStop"), cdMsg = document.getElementById("cdMsg");
   function openChartRoom(){ openSheet("chartOverlay"); }
   document.getElementById("chartBtn").addEventListener("click", openChartRoom);
-  wireTabs("chartTabs", "data-tab", function(t){ chartTab = t; renderChart(); });
+  wireTabs("chartTabs", "data-tab", function(t){ chartTab = t; document.getElementById("chartBody").scrollTop = 0; renderChart(); });
   Array.prototype.forEach.call(document.querySelectorAll("input[name=cdMode]"), function(r){ r.addEventListener("change", function(){ if(r.checked) chartMode = r.value; }); });
   function renderChartAvail(){
     var note = document.getElementById("cdAvail"), wbn = document.getElementById("cdWebull");
@@ -5155,13 +5235,357 @@
   function renderChart(){
     document.getElementById("chartAnalyze").hidden = chartTab!=="analyze";
     document.getElementById("chartHistory").hidden = chartTab!=="history";
+    document.getElementById("chartLive").hidden = chartTab!=="live";
+    document.getElementById("chartLab").hidden = chartTab!=="lab";
     if(chartTab==="history") renderChartHistory();
+    else if(chartTab==="live"){ if(!LT.on && mcpApi && ltMarketOpen()) ltStart(LT.sym); else renderLive(); }
+    else if(chartTab==="lab") renderLab();
     else renderProgress();
   }
   function chartDataChanged(){
     if(openSheetId==="chartOverlay" && chartTab==="history" && !scoring) renderChartHistory();
+    if(openSheetId==="chartOverlay" && chartTab==="lab") renderLab();
     if(!chartRun) showLatestOnWall(false);
   }
+  // ---------------- Chart Desk: live tape & lab ----------------
+  // While the market is open and the Live tab is on, the page reads the
+  // owner's Webull feed every few seconds (read-only: level 2 book,
+  // tick-by-tick trades, 5-minute bars) and draws a liquidity heatmap (resting
+  // bid/ask size by price over time), a footprint rebuilt from the tick tape
+  // (Webull's own footprint feed is a paid add-on), big prints, cumulative
+  // delta and book imbalance, plus the session levels the lab tests: VWAP
+  // bands, opening range, initial balance, initial volume bar, developing
+  // POC/value area, yesterday's POC/value area/high/low, structure trend and
+  // the protected level. Same math as chart-lab/core.py. No orders exist here.
+  var LT = {sym:"SPY", on:false, timer:null, busy:false, snaps:[], ticks:[], tickKeys:{}, bars:[], lv:null, err:null, lastBars:0, lastTick:0, day:null, gap:5000, l2:null};
+  var LT_MAX_SNAPS = 720;   // one hour of book snapshots at 5 s
+  function ltMarketOpen(){ var e = etParts(Date.now()), wd = new Date(Date.parse(e.day+"T12:00:00Z")).getUTCDay(); return wd>=1 && wd<=5 && e.min>=570 && e.min<960; }
+  function ltCat(sym){ return ETFS.test(sym) ? "US_ETF" : "US_STOCK"; }
+  function ltLevels(book){
+    return (book||[]).map(function(x){
+      if(Array.isArray(x)) return [num(x[0]), num(x[1])];
+      return [num(x.price), num(x.size!=null ? x.size : x.volume!=null ? x.volume : x.quantity)];
+    }).filter(function(x){ return x[0]!=null && x[1]!=null; });
+  }
+  // ---- levels from 5-minute regular-session bars (mirrors core.py) ----
+  function ltSessions(bars){
+    var days = {}, order = [];
+    bars.forEach(function(b){ var e = etParts(b.t); if(e.min < 570 || e.min >= 960) return; if(!days[e.day]){ days[e.day] = []; order.push(e.day); } days[e.day].push({m:e.min, o:b.o, h:b.h, l:b.l, c:b.c, v:b.v}); });
+    order.sort();
+    return order.map(function(d){ return {day:d, bars:days[d].sort(function(a,b){ return a.m-b.m; })}; }).filter(function(s){ return s.bars[0].m===570; });
+  }
+  function ltProfile(b){
+    var cs = b.map(function(x){ return x.c; }).sort(function(a,c){ return a-c; }), px = cs[Math.floor(cs.length/2)], step = px*5/1e4, vol = {};
+    b.forEach(function(x){ var lo = Math.floor(x.l/step), hi = Math.floor(x.h/step), sh = x.v/(hi-lo+1); for(var k=lo;k<=hi;k++) vol[k] = (vol[k]||0)+sh; });
+    var keys = Object.keys(vol).map(Number), poc = keys[0], tot = 0;
+    keys.forEach(function(k){ tot += vol[k]; if(vol[k] > vol[poc]) poc = k; });
+    var lo = poc, hi = poc, acc = vol[poc];
+    while(acc < 0.7*tot){ var up = vol[hi+1]||0, dn = vol[lo-1]||0; if(!up && !dn) break; if(up >= dn){ hi++; acc += up; } else { lo--; acc += dn; } }
+    return {poc:(poc+0.5)*step, vah:(hi+1)*step, val:lo*step, step:step, vol:vol};
+  }
+  function ltStructure(b){
+    var trend = 0, prot = null, sh = null, sl = null, shU = false, slU = false, last = null;
+    for(var i=0;i<b.length;i++){
+      var k = i-2;
+      if(k >= 2){
+        if([k-2,k-1,k+1,k+2].every(function(j){ return b[k].h > b[j].h; })){ sh = b[k].h; shU = false; }
+        if([k-2,k-1,k+1,k+2].every(function(j){ return b[k].l < b[j].l; })){ sl = b[k].l; slU = false; }
+      }
+      var c = b[i].c, hiSoFar = Math.max.apply(null, b.slice(0,i+1).map(function(x){ return x.h; })), loSoFar = Math.min.apply(null, b.slice(0,i+1).map(function(x){ return x.l; }));
+      if(trend===1 && prot!=null && c < prot){ trend = -1; prot = sh!=null ? sh : hiSoFar; last = [b[i].m, "change of character down"]; }
+      else if(trend===-1 && prot!=null && c > prot){ trend = 1; prot = sl!=null ? sl : loSoFar; last = [b[i].m, "change of character up"]; }
+      else if(sh!=null && !shU && c > sh && trend >= 0){ shU = true; var cu = sl!=null ? sl : loSoFar; prot = (trend===1 && prot!=null) ? Math.max(prot, cu) : cu; trend = 1; last = [b[i].m, "break of structure up"]; }
+      else if(sl!=null && !slU && c < sl && trend <= 0){ slU = true; var cd = sh!=null ? sh : hiSoFar; prot = (trend===-1 && prot!=null) ? Math.min(prot, cd) : cd; trend = -1; last = [b[i].m, "break of structure down"]; }
+    }
+    return {trend:trend, prot:prot, last:last};
+  }
+  var ET_CLK = new Intl.DateTimeFormat("en-GB", {timeZone:"America/New_York", hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false});
+  function etClock(ms){ return ET_CLK.format(new Date(ms)); }
+  function hm(m){ return Math.floor(m/60)+":"+String(m%60).padStart(2,"0"); }
+  function ltComputeLevels(bars){
+    var S = ltSessions(bars); if(!S.length) return null;
+    var s = S[S.length-1], p = S.length > 1 ? S[S.length-2] : null, b = s.bars;
+    var pv = 0, vv = 0, pv2 = 0; b.forEach(function(x){ var tp = (x.h+x.l+x.c)/3; pv += tp*x.v; vv += x.v; pv2 += tp*tp*x.v; });
+    var vw = vv ? pv/vv : b[b.length-1].c, sd = vv ? Math.sqrt(Math.max(pv2/vv-vw*vw, 0)) : 0;
+    function rng(n){ var w = b.slice(0, n); return [Math.min.apply(null, w.map(function(x){ return x.l; })), Math.max.apply(null, w.map(function(x){ return x.h; }))]; }
+    var first6 = b.slice(0, 6), iv = 0; first6.forEach(function(x, i){ if(x.v > first6[iv].v) iv = i; });
+    var pf = ltProfile(b), pp = p ? ltProfile(p.bars) : null, st = ltStructure(b);
+    var slot = b.length-1, hist = S.slice(Math.max(0, S.length-21), S.length-1).map(function(x){ return x.bars[slot] ? x.bars[slot].v : null; }).filter(function(v){ return v!=null; });
+    var rvol = hist.length >= 5 ? b[slot].v / (hist.reduce(function(a,c){ return a+c; },0)/hist.length) : null;
+    var tr = [], pc = p ? p.bars[p.bars.length-1].c : null;
+    b.forEach(function(x){ tr.push(pc==null ? x.h-x.l : Math.max(x.h-x.l, Math.abs(x.h-pc), Math.abs(x.l-pc))); pc = x.c; });
+    var atr5 = tr.slice(-14).reduce(function(a,c){ return a+c; },0)/Math.min(14, tr.length);
+    return {
+      day:s.day, as_of_et:hm(b[b.length-1].m+5), bars:b.length, last:b[b.length-1].c,
+      vwap:vw, vwap_sd:sd, or15:rng(3), ib:rng(12), ib_complete:b.length >= 12,
+      ivb:{bar_et:hm(first6[iv].m), low:first6[iv].l, high:first6[iv].h},
+      poc:pf.poc, vah:pf.vah, val:pf.val, profile:pf,
+      prior:p ? {day:p.day, high:Math.max.apply(null, p.bars.map(function(x){ return x.h; })), low:Math.min.apply(null, p.bars.map(function(x){ return x.l; })), close:p.bars[p.bars.length-1].c, poc:pp.poc, vah:pp.vah, val:pp.val} : null,
+      trend:st.trend, prot:st.prot, last_event:st.last, rvol:rvol, atr5:atr5
+    };
+  }
+  // ---- footprint from the tick tape ----
+  function ltFootprint(){ return ltFootprintOf(LT.ticks, LT.lv ? LT.lv.last : null); }
+  function ltTicksOf(p, day){
+    return ((p && p.result) || []).map(function(x){ return {t:parseInt(x.time, 10), p:num(x.price), v:num(x.volume)||0, s:x.side}; })
+      .filter(function(t){ return t.p!=null && (!day || etParts(t.t).day===day); }).sort(function(a,b){ return a.t-b.t; });
+  }
+  function ltFootprintOf(ticks, last){
+    if(last==null && ticks.length) last = ticks[ticks.length-1].p;
+    if(!ticks.length || last==null) return null;
+    var LTt = {ticks:ticks};
+    var step = Math.max(0.01, Math.round(last*0.0002*100)/100), rows = {}, buy = 0, sell = 0, cum = [], c = 0;
+    LTt.ticks.forEach(function(t){
+      var k = (Math.round(t.p/step)*step).toFixed(2), r = rows[k] = rows[k] || {buy:0, sell:0, other:0};
+      if(t.s==="B"){ r.buy += t.v; buy += t.v; c += t.v; } else if(t.s==="S"){ r.sell += t.v; sell += t.v; c -= t.v; } else r.other += t.v;
+      cum.push([t.t, c]);
+    });
+    var sizes = LTt.ticks.map(function(t){ return t.v; }).sort(function(a,b){ return a-b; });
+    var cut = Math.max(5000, sizes[Math.floor(sizes.length*0.99)] || 0);
+    var big = LTt.ticks.filter(function(t){ return t.v >= cut; }).slice(-40);
+    var prices = Object.keys(rows).map(Number).sort(function(a,b){ return b-a; });
+    var imb = {};
+    for(var i=0;i<prices.length-1;i++){
+      var hi = rows[prices[i].toFixed(2)], lo = rows[prices[i+1].toFixed(2)];
+      if(hi.buy > 0 && hi.buy >= 3*Math.max(lo.sell, 1)) imb[prices[i].toFixed(2)] = "buy";
+      if(lo.sell > 0 && lo.sell >= 3*Math.max(hi.buy, 1)) imb[prices[i+1].toFixed(2)] = "sell";
+    }
+    return {step:step, rows:rows, prices:prices, buy:buy, sell:sell, delta:buy-sell, cum:cum, big:big, cut:cut, imb:imb,
+      from:LTt.ticks[0].t, to:LTt.ticks[LTt.ticks.length-1].t, trades:LTt.ticks.length};
+  }
+  function ltBookStats(){ return ltBookOf(LT.snaps[LT.snaps.length-1]); }
+  function ltBookOf(s){
+    if(!s || (!s.bids.length && !s.asks.length)) return null;
+    var bs = s.bids.reduce(function(a,x){ return a+x[1]; },0), as = s.asks.reduce(function(a,x){ return a+x[1]; },0);
+    var all = s.bids.concat(s.asks).map(function(x){ return x[1]; }).sort(function(a,b){ return a-b; }), med = all[Math.floor(all.length/2)] || 0;
+    var walls = s.bids.map(function(x){ return {side:"bid", p:x[0], s:x[1]}; }).concat(s.asks.map(function(x){ return {side:"ask", p:x[0], s:x[1]}; })).filter(function(w){ return med && w.s >= 3*med; });
+    return {bid:s.bids[0]||null, ask:s.asks[0]||null, bidSize:bs, askSize:as, imbalance:(bs+as) ? (bs-as)/(bs+as) : 0, walls:walls, levels:Math.max(s.bids.length, s.asks.length)};
+  }
+  // A compact read for the desk's prompts (Analyze uses it when the symbol matches).
+  function ltSummary(){ return ltSummaryOf(LT.sym, LT.lv, ltFootprint(), ltBookStats()); }
+  function ltSummaryOf(sym, L, F, B){
+    if(!L && !F) return null;
+    var out = {symbol:sym, note:"Live tape from this page: levels from 5-minute bars (same math as the lab), footprint rebuilt from Webull tick trades (side B = bought at the ask, S = sold at the bid), level 2 from get_stock_quotes."};
+    if(L) out.levels = {session:L.day, as_of_et:L.as_of_et, last:r2(L.last), vwap:r2(L.vwap), vwap_1sd:[r2(L.vwap-L.vwap_sd), r2(L.vwap+L.vwap_sd)], vwap_2sd:[r2(L.vwap-2*L.vwap_sd), r2(L.vwap+2*L.vwap_sd)],
+      opening_range_15m:L.or15.map(r2), initial_balance:L.ib.map(r2), ib_complete:L.ib_complete, initial_volume_bar:{bar_et:L.ivb.bar_et, low:r2(L.ivb.low), high:r2(L.ivb.high)},
+      developing_poc:r2(L.poc), developing_vah:r2(L.vah), developing_val:r2(L.val),
+      prior:L.prior ? {high:r2(L.prior.high), low:r2(L.prior.low), close:r2(L.prior.close), poc:r2(L.prior.poc), vah:r2(L.prior.vah), val:r2(L.prior.val)} : null,
+      structure:{trend:["down","none","up"][L.trend+1], protected_level:r2(L.prot), last_event:L.last_event ? hm(L.last_event[0])+" "+L.last_event[1] : null},
+      rvol_last_bar:L.rvol!=null ? r2(L.rvol) : null, atr_5m:r2(L.atr5)};
+    if(F) out.footprint = {window_utc:[new Date(F.from).toISOString().slice(11,19), new Date(F.to).toISOString().slice(11,19)], trades:F.trades, buy_volume:F.buy, sell_volume:F.sell, delta:F.delta,
+      imbalances:Object.keys(F.imb).slice(0,12).map(function(k){ return k+" "+F.imb[k]; }), big_prints:F.big.slice(-10).map(function(t){ return {utc:new Date(t.t).toISOString().slice(11,19), price:t.p, size:t.v, side:t.s==="B" ? "buy" : t.s==="S" ? "sell" : "other"}; })};
+    if(B) out.book = {levels:B.levels, best_bid:B.bid, best_ask:B.ask, bid_size:B.bidSize, ask_size:B.askSize, imbalance:r2(B.imbalance), walls:B.walls.slice(0,8)};
+    return out;
+  }
+  // ---- polling ----
+  function ltTick(){
+    if(!LT.on || LT.busy || !mcpApi) return;
+    var sym = LT.sym, cat = ltCat(sym), open = ltMarketOpen(), jobs = [];
+    LT.busy = true;
+    var needBars = !LT.bars.length || Date.now()-LT.lastBars > 60000;
+    jobs.push(needBars ? wb("get_stock_bars", {symbols:[sym], category:cat, timespan:"M5", count:LT.bars.length ? 60 : 1200, real_time_required:true, trading_sessions:"RTH"}).then(barsOf) : Promise.resolve(null));
+    jobs.push(wb("get_stock_tick", {symbol:sym, category:cat, count:LT.ticks.length ? "300" : "1000", trading_sessions:"RTH"}));
+    jobs.push(open ? wb("get_stock_quotes", {symbol:sym, category:cat, depth:"50", overnight_required:false}).catch(function(){ return wb("get_stock_quotes", {symbol:sym, category:cat, depth:"10", overnight_required:false}); }) : Promise.resolve(null));
+    Promise.all(jobs.map(function(p){ return p.then(function(v){ return {ok:true, v:v}; }, function(e){ return {ok:false, e:e}; }); })).then(function(R){
+      LT.busy = false;
+      if(sym !== LT.sym) return;
+      LT.err = null;
+      if(R[0].ok && R[0].v && R[0].v.bars.length){
+        var m = {}; LT.bars.concat(R[0].v.bars.filter(function(b){ return b.s==="RTH" || !b.s; })).forEach(function(b){ m[b.t] = b; });
+        LT.bars = Object.keys(m).map(Number).sort(function(a,b){ return a-b; }).map(function(t){ return m[t]; }).slice(-1600);
+        LT.lastBars = Date.now();
+        LT.lv = ltComputeLevels(LT.bars);
+      } else if(!R[0].ok) LT.err = webullErrText(R[0].e);
+      if(R[1].ok && R[1].v && Array.isArray(R[1].v.result)){
+        var day = LT.lv ? LT.lv.day : null;
+        R[1].v.result.forEach(function(x, i){
+          var t = parseInt(x.time, 10), k = x.time+"|"+x.price+"|"+x.volume+"|"+x.side;
+          if(LT.tickKeys[k]) return;
+          if(day && etParts(t).day !== day) return;
+          LT.tickKeys[k] = 1;
+          LT.ticks.push({t:t, p:num(x.price), v:num(x.volume)||0, s:x.side});
+        });
+        LT.ticks.sort(function(a,b){ return a.t-b.t; });
+        if(LT.ticks.length > 60000){ LT.ticks = LT.ticks.slice(-50000); }
+      } else if(!R[1].ok) LT.err = webullErrText(R[1].e);
+      if(R[2].ok && R[2].v){
+        var bids = ltLevels(R[2].v.bids), asks = ltLevels(R[2].v.asks);
+        LT.l2 = bids.length || asks.length ? "on" : "empty";
+        if(bids.length || asks.length){
+          LT.snaps.push({t:Date.now(), bids:bids, asks:asks, last:LT.ticks.length ? LT.ticks[LT.ticks.length-1].p : (LT.lv ? LT.lv.last : null)});
+          if(LT.snaps.length > LT_MAX_SNAPS) LT.snaps.shift();
+        }
+      } else if(R[2].ok===false){ LT.l2 = "error"; }
+      LT.gap = 5000;
+      renderLive();
+    }, function(){ LT.busy = false; });
+  }
+  function ltSchedule(){
+    clearTimeout(LT.timer);
+    if(!LT.on) return;
+    LT.timer = setTimeout(function(){ ltTick(); ltSchedule(); }, ltMarketOpen() ? LT.gap : 60000);
+  }
+  function ltStart(sym){
+    sym = String(sym||"").toUpperCase().replace(/[^A-Z.]/g,"").slice(0,6) || "SPY";
+    if(sym !== LT.sym){ LT.snaps = []; LT.ticks = []; LT.tickKeys = {}; LT.bars = []; LT.lv = null; LT.l2 = null; }
+    LT.sym = sym; LT.on = true; ltTick(); ltSchedule(); renderLive();
+  }
+  function ltStop(){ LT.on = false; clearTimeout(LT.timer); renderLive(); }
+  // ---- drawing ----
+  function cssv(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim() || "#888"; }
+  function ltDrawHeat(cv){
+    var W = cv.clientWidth || 600, H = 340, dpr = window.devicePixelRatio || 1;
+    cv.width = W*dpr; cv.height = H*dpr; cv.style.height = H+"px";
+    var g = cv.getContext("2d"); g.setTransform(dpr,0,0,dpr,0,0);
+    var ink = cssv("--ink"), muted = cssv("--muted"), up = cssv("--st-working"), dn = cssv("--st-blocked"), acc = cssv("--a-software"), gold = cssv("--a-strategy"), leg = cssv("--a-legal");
+    g.fillStyle = cssv("--sheet-bg"); g.fillRect(0,0,W,H);
+    var L = LT.lv, snaps = LT.snaps, ticks = LT.ticks;
+    var lastP = ticks.length ? ticks[ticks.length-1].p : (L ? L.last : null);
+    if(lastP==null){ g.fillStyle = muted; g.font = "500 12px 'IBM Plex Mono',monospace"; g.fillText("Waiting for Webull data…", 12, 24); return; }
+    // window: the last hour while the market is open, else the whole last session
+    var open = ltMarketOpen(), lastT = ticks.length ? ticks[ticks.length-1].t : Date.now();
+    var t1 = open ? Date.now() : (LT.bars.length ? Math.max(LT.bars[LT.bars.length-1].t+300000, lastT) : lastT);
+    var t0 = open ? t1-60*60000 : (LT.bars.length && L ? LT.bars.filter(function(b){ return etParts(b.t).day===L.day; })[0].t : t1-60*60000);
+    if(open && snaps.length && snaps[0].t < t0) t0 = Math.max(snaps[0].t, t1-2*3600000);
+    var cand = LT.bars.filter(function(b){ return b.t+300000 > t0 && b.t <= t1; });
+    var pxs = cand.map(function(b){ return b.h; }).concat(cand.map(function(b){ return b.l; }), [lastP]);
+    var lo = Math.min.apply(null, pxs), hi = Math.max.apply(null, pxs), pad = Math.max((hi-lo)*0.12, lastP*0.0005); lo -= pad; hi += pad;
+    var padR = 64, padT = 8, plotW = W-padR, plotH = H-padT-18;
+    var y = function(p){ return padT + (hi-p)/(hi-lo)*plotH; };
+    var x = function(t){ return (t-t0)/(t1-t0)*plotW; };
+    // 5-minute candles as the backdrop
+    var cw = Math.max(1, 300000/(t1-t0)*plotW*0.7);
+    cand.forEach(function(b){ var cx = x(b.t+150000); g.strokeStyle = g.fillStyle = b.c >= b.o ? up : dn; g.globalAlpha = 0.45; g.beginPath(); g.moveTo(cx, y(b.h)); g.lineTo(cx, y(b.l)); g.stroke(); g.fillRect(cx-cw/2, Math.min(y(b.o), y(b.c)), cw, Math.max(1, Math.abs(y(b.o)-y(b.c)))); });
+    g.globalAlpha = 1;
+    // heatmap: each snapshot is a column, each level a cell, alpha by size
+    if(snaps.length){
+      var sizes = []; snaps.forEach(function(s){ s.bids.concat(s.asks).forEach(function(l){ sizes.push(l[1]); }); });
+      sizes.sort(function(a,b){ return a-b; }); var ref = sizes[Math.floor(sizes.length*0.95)] || 1;
+      var tick = L ? Math.max(0.01, L.profile.step/5) : lastP*0.0001, ch = Math.max(2, tick/(hi-lo)*plotH);
+      snaps.forEach(function(s, i){
+        var xa = x(s.t), xb = i < snaps.length-1 ? x(snaps[i+1].t) : Math.min(plotW, xa+6);
+        [[s.bids, up], [s.asks, dn]].forEach(function(pair){
+          g.fillStyle = pair[1];
+          pair[0].forEach(function(l){ if(l[0] < lo || l[0] > hi) return; g.globalAlpha = Math.min(0.9, 0.08 + 0.82*l[1]/ref); g.fillRect(xa, y(l[0])-ch/2, Math.max(1, xb-xa), ch); });
+        });
+      });
+      g.globalAlpha = 1;
+    }
+    // level lines
+    function line(p, col, label, dash){ if(p==null || p < lo || p > hi) return; g.strokeStyle = col; g.lineWidth = 1; g.setLineDash(dash||[]); g.beginPath(); g.moveTo(0, y(p)); g.lineTo(plotW, y(p)); g.stroke(); g.setLineDash([]); g.fillStyle = col; g.font = "600 10px 'IBM Plex Mono',monospace"; g.fillText(label, plotW+4, y(p)+3); }
+    if(L){
+      line(L.vwap, acc, "VWAP"); line(L.vwap+2*L.vwap_sd, acc, "+2σ", [2,3]); line(L.vwap-2*L.vwap_sd, acc, "−2σ", [2,3]);
+      line(L.poc, gold, "POC"); line(L.vah, gold, "VAH", [4,3]); line(L.val, gold, "VAL", [4,3]);
+      if(L.ib_complete){ line(L.ib[1], muted, "IB hi", [6,3]); line(L.ib[0], muted, "IB lo", [6,3]); }
+      line(L.ivb.high, leg, "IVB hi", [1,3]); line(L.ivb.low, leg, "IVB lo", [1,3]);
+      if(L.prior){ line(L.prior.poc, gold, "pPOC", [1,2]); line(L.prior.high, muted, "PDH", [1,2]); line(L.prior.low, muted, "PDL", [1,2]); }
+      if(L.prot!=null) line(L.prot, L.trend===1 ? up : dn, "protect", [8,2]);
+    }
+    // price path from ticks, big prints as bubbles
+    var tk = ticks.filter(function(t){ return t.t >= t0; });
+    if(tk.length){
+      g.strokeStyle = ink; g.lineWidth = 1.4; g.beginPath();
+      tk.forEach(function(t, i){ var px = x(t.t), py = y(t.p); if(i) g.lineTo(px, py); else g.moveTo(px, py); }); g.stroke();
+      var F = ltFootprint();
+      if(F) F.big.forEach(function(t){ if(t.t < t0 || t.p < lo || t.p > hi) return; g.fillStyle = t.s==="B" ? up : t.s==="S" ? dn : muted; g.globalAlpha = 0.55; g.beginPath(); g.arc(x(t.t), y(t.p), Math.min(16, 3+Math.sqrt(t.v/F.cut)*4), 0, Math.PI*2); g.fill(); g.globalAlpha = 1; });
+    }
+    line(lastP, ink, r2(lastP)+"");
+    g.fillStyle = muted; g.font = "500 10px 'IBM Plex Mono',monospace";
+    g.fillText(etClock(t0).slice(0,5)+" ET", 2, H-4);
+    var endLbl = open ? "now" : etClock(t1).slice(0,5)+" ET"; g.fillText(endLbl, plotW-g.measureText(endLbl).width-2, H-4);
+  }
+  function mk(tag, cls, text){ var e = document.createElement(tag); if(cls) e.className = cls; if(text!=null) e.textContent = text; return e; }
+  function fmtK(v){ v = Math.abs(v)>=1e6 ? (v/1e6).toFixed(2)+"M" : Math.abs(v)>=1e3 ? (v/1e3).toFixed(1)+"k" : String(Math.round(v)); return v; }
+  function renderLive(){
+    var box = document.getElementById("chartLive"); if(!box || box.hidden) return;
+    var open = ltMarketOpen();
+    var st = document.getElementById("ltStatus");
+    var bits = [];
+    if(!mcpApi) bits.push(webullState==="loading" ? "Connecting to Webull…" : "Webull isn't available in this view.");
+    else if(!LT.on) bits.push("Off. Press Start to follow "+LT.sym+" live.");
+    else bits.push((open ? "Live · every 5 s" : "Market closed · showing the last session, checking once a minute")+" · "+LT.sym);
+    if(LT.on && LT.l2==="empty") bits.push(open ? "level 2 book came back empty (the Webull account may only have level 1)" : "no level 2 book outside market hours");
+    if(LT.err) bits.push(LT.err);
+    st.textContent = bits.join(" · ");
+    document.getElementById("ltGo").textContent = LT.on ? "Stop" : "Start";
+    ltDrawHeat(document.getElementById("ltHeat"));
+    var L = LT.lv, F = ltFootprint(), B = ltBookStats();
+    // stat tiles
+    var tiles = document.getElementById("ltTiles"); tiles.textContent = "";
+    function tile(k, v, cls){ var d = mk("div", "lt-tile"+(cls ? " "+cls : "")); d.appendChild(mk("div", "lt-k", k)); d.appendChild(mk("div", "lt-v", v)); tiles.appendChild(d); }
+    if(L){ tile("Last", r2(L.last)+""); tile("VWAP", r2(L.vwap)+(L.last > L.vwap ? " · above" : " · below"), L.last > L.vwap ? "up" : "down"); tile("Trend / protected", ["Down","None","Up"][L.trend+1]+(L.prot!=null ? " · "+r2(L.prot) : ""), L.trend===1 ? "up" : L.trend===-1 ? "down" : ""); tile("Rel. volume (last bar)", L.rvol!=null ? r2(L.rvol)+"×" : "n/a"); }
+    if(F) tile("Delta (tape)", (F.delta>0 ? "+" : "")+fmtK(F.delta)+" · "+F.trades+" trades", F.delta > 0 ? "up" : F.delta < 0 ? "down" : "");
+    if(B) tile("Book imbalance", (B.imbalance>0 ? "+" : "")+Math.round(B.imbalance*100)+"% bids · "+B.levels+" levels", B.imbalance > 0.1 ? "up" : B.imbalance < -0.1 ? "down" : "");
+    // levels table
+    var lvBox = document.getElementById("ltLevels"); lvBox.textContent = "";
+    if(L){
+      var rows = [["VWAP ±1σ / ±2σ", r2(L.vwap)+"  ("+r2(L.vwap-L.vwap_sd)+"–"+r2(L.vwap+L.vwap_sd)+" / "+r2(L.vwap-2*L.vwap_sd)+"–"+r2(L.vwap+2*L.vwap_sd)+")"],
+        ["Opening range 15m", r2(L.or15[0])+" – "+r2(L.or15[1])], ["Initial balance"+(L.ib_complete ? "" : " (forming)"), r2(L.ib[0])+" – "+r2(L.ib[1])],
+        ["Initial volume bar "+L.ivb.bar_et, r2(L.ivb.low)+" – "+r2(L.ivb.high)], ["Developing POC · VA", r2(L.poc)+" · "+r2(L.val)+" – "+r2(L.vah)]];
+      if(L.prior) rows.push(["Yesterday POC · VA", r2(L.prior.poc)+" · "+r2(L.prior.val)+" – "+r2(L.prior.vah)], ["Yesterday high / low / close", r2(L.prior.high)+" / "+r2(L.prior.low)+" / "+r2(L.prior.close)]);
+      rows.push(["Structure", ["Down","None","Up"][L.trend+1]+(L.prot!=null ? ", protected level "+r2(L.prot) : "")+(L.last_event ? " · "+hm(L.last_event[0])+" "+L.last_event[1] : "")], ["ATR 5m", r2(L.atr5)+""]);
+      rows.forEach(function(r){ lvBox.appendChild(mk("div", "k", r[0])); lvBox.appendChild(mk("div", "", r[1])); });
+    }
+    // footprint ladder around price
+    var fp = document.getElementById("ltFoot"); fp.textContent = "";
+    if(F){
+      var lastP = LT.ticks[LT.ticks.length-1].p, idx = 0, best = Infinity;
+      F.prices.forEach(function(p, i){ var d = Math.abs(p-lastP); if(d < best){ best = d; idx = i; } });
+      var show = F.prices.slice(Math.max(0, idx-12), idx+13), maxV = 1;
+      show.forEach(function(p){ var r = F.rows[p.toFixed(2)]; maxV = Math.max(maxV, r.buy, r.sell); });
+      ["Price","Sold at bid","Bought at ask","Delta"].forEach(function(h){ fp.appendChild(mk("div", "h", h)); });
+      show.forEach(function(p){
+        var k = p.toFixed(2), r = F.rows[k], near = Math.abs(p-lastP) < F.step/2;
+        fp.appendChild(mk("div", "p"+(near ? " now" : ""), k));
+        var s = mk("div", "bar sell"+(F.imb[k]==="sell" ? " imb" : "")); s.style.setProperty("--w", (r.sell/maxV*100)+"%"); s.appendChild(mk("span", "", fmtK(r.sell))); fp.appendChild(s);
+        var b = mk("div", "bar buy"+(F.imb[k]==="buy" ? " imb" : "")); b.style.setProperty("--w", (r.buy/maxV*100)+"%"); b.appendChild(mk("span", "", fmtK(r.buy))); fp.appendChild(b);
+        fp.appendChild(mk("div", "d "+(r.buy-r.sell >= 0 ? "up" : "down"), (r.buy-r.sell > 0 ? "+" : "")+fmtK(r.buy-r.sell)));
+      });
+    }
+    var bp = document.getElementById("ltBig"); bp.textContent = "";
+    if(F && F.big.length){
+      F.big.slice(-12).reverse().forEach(function(t){ var li = mk("li", t.s==="B" ? "up" : t.s==="S" ? "down" : ""); li.textContent = etClock(t.t)+" ET  "+fmtK(t.v)+" @ "+t.p+"  "+(t.s==="B" ? "bought at ask" : t.s==="S" ? "sold at bid" : "other"); bp.appendChild(li); });
+    } else bp.appendChild(mk("li", "", "No big prints yet (threshold: the top 1% of trade sizes, at least 5,000 shares)."));
+    // what the hourly lab run saw for this symbol
+    var liveDoc = store.chartlive ? store.chartlive[LT.sym] : null, sig = document.getElementById("ltSig"); sig.textContent = "";
+    if(liveDoc && liveDoc.playbook_signals_today && liveDoc.playbook_signals_today.length){
+      liveDoc.playbook_signals_today.forEach(function(s){ sig.appendChild(mk("li", s.lean==="up" ? "up" : "down", s.bar_et+" ET · "+s.name+" · lean "+s.lean+" ("+s.variant+")")); });
+      sig.appendChild(mk("li", "k", "From the Chart Desk lab's run at "+(liveDoc.generated_at||"?")+". Only setups the lab has frozen for forward testing are listed."));
+    } else sig.appendChild(mk("li", "k", liveDoc ? "No frozen playbook setup has fired on "+LT.sym+" today (lab run "+(liveDoc.generated_at||"?")+")." : "The lab's hourly market-hours run hasn't written a read for "+LT.sym+" yet."));
+  }
+  function renderLab(){
+    var box = document.getElementById("chartLab"); if(!box || box.hidden) return;
+    box.textContent = "";
+    var pb = docsOf("playbook").map(function(x){ return x.d; });
+    var order = {validated:0, promising:1, insufficient:2, rejected:3, retired:4};
+    pb.sort(function(a,b){ return (order[a.status]-order[b.status]) || ((b.oos_avg_r||-9)-(a.oos_avg_r||-9)); });
+    var head = mk("p", "sheet-note");
+    head.textContent = pb.length ? "Every setup is backtested on Webull bars with costs, tuned on the first 70% of dates only and judged on the last 30% it never saw. Frozen setups then face every new trading day with no re-tuning (the forward test). Past results are not a promise, and Edgex never trades." : "The lab hasn't published a playbook yet.";
+    box.appendChild(head);
+    if(pb.length){
+      var g = mk("div", "lt-pb");
+      ["Status","Setup","Variant","Held-out result","Forward test"].forEach(function(h){ g.appendChild(mk("div", "h", h)); });
+      pb.forEach(function(r){
+        g.appendChild(mk("div", "st st-"+r.status, r.status));
+        var n = mk("div", ""); n.appendChild(mk("b", "", r.name)); n.appendChild(mk("div", "k", r.rules||"")); g.appendChild(n);
+        g.appendChild(mk("div", "k", r.variant||"–"));
+        g.appendChild(mk("div", "", r.oos_text||"–"));
+        g.appendChild(mk("div", "", r.forward_text||"–"));
+      });
+      var wrap = mk("div", "lt-scroll"); wrap.appendChild(g); box.appendChild(wrap);
+    }
+    var res = docsOf("research").map(function(x){ return x.d; }).sort(function(a,b){ return String(b.at).localeCompare(String(a.at)); }).slice(0, 12);
+    if(res.length){
+      box.appendChild(mk("h3", "lt-h", "Lab log"));
+      var ul = mk("ul", "lt-log");
+      res.forEach(function(r){ var li = mk("li", ""); li.appendChild(mk("b", "", (r.at||"").replace("T"," ").slice(0,16)+"Z  ")); li.appendChild(document.createTextNode(r.summary||"")); ul.appendChild(li); });
+      box.appendChild(ul);
+    }
+  }
+  document.getElementById("ltGo").addEventListener("click", function(){ if(LT.on) ltStop(); else ltStart(document.getElementById("ltSym").value); });
+  document.getElementById("ltSym").addEventListener("keydown", function(e){ if(e.key==="Enter") ltStart(this.value); });
+  window.addEventListener("resize", function(){ if(openSheetId==="chartOverlay" && chartTab==="live") renderLive(); });
+
   renderShots();
   restDesk();
 

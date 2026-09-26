@@ -127,10 +127,15 @@ Studio Floor shows them as a "Waiting on you" list. Before adding one,
 check there isn't already an open doc for the same thing — never
 re-escalate the same blocker every shift.
 
-**The Chart Desk is owner-run, not shift work.** Its 19 agents (see
-`CHART-DESK.md`) only work when the owner drops a chart into the Studio
-Floor. Shifts never create `agents` docs for them, never assign them
-tasks, and never read or write `chart_analyses`.
+**The Chart Desk is not shift work.** Its 20 agents (see `CHART-DESK.md`)
+work for the owner's charts on the Studio Floor and, the rest of the time,
+in the **Chart Desk lab** (`chart-lab/README.md`): an hourly Routine that
+researches, codes and backtests new setups on Webull data and reads the
+live tape during market hours. Their 20 `agents` docs (ids in the lab
+README, created 2026-09-26) are written only by the lab runs. Business
+shifts never assign them tasks, never write their docs, and never read or
+write `chart_analyses`, `chart_playbook`, `chart_research`, `chart_live`
+or `chart_lab_state`.
 
 ## Opportunities never get lost
 

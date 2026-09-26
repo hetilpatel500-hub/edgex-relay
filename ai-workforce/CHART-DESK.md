@@ -106,7 +106,56 @@ Every call is also checked against Webull's live price: a target or
   whether target 1 or the "wrong at" level came first; both in one bar
   counts as wrong. The owner can also mark calls by hand. The hit rate
   means little before 20+ scored calls.
-- **Not part of the business shifts.** The desk's agents have no docs in
-  the `agents` collection; the hourly shifts never assign them work and
-  never read or write `chart_analyses`. The Edgex Capital trading system
-  stays separate.
+- **Not part of the business shifts.** The hourly business shifts never
+  assign the desk work and never read or write its collections. Between
+  the owner's charts the desk works in the **Chart Desk lab** (below); its
+  20 `agents` docs are written only by lab runs. The Edgex Capital trading
+  system stays separate.
+
+## Live tape (Studio Floor, Chart Desk → Live tape)
+
+While the market is open the tab follows one symbol (default SPY) every 5
+seconds from the owner's Webull connector, read-only:
+
+- **Liquidity heatmap**: every level 2 snapshot (`get_stock_quotes`, depth
+  50, or 10 if the account's data plan refuses 50) becomes a column; resting
+  bids green, asks red, brighter = more size. 5-minute candles, the tick
+  price path and big prints (bubbles) sit on top, with VWAP ±2σ, developing
+  POC/VAH/VAL, yesterday's POC/high/low, IB high/low, the initial volume bar
+  and the protected level drawn as lines.
+- **Footprint**: Webull's own footprint feed is a paid add-on
+  (`MARKET_DATA_NOT_SUBSCRIBED`), so the page rebuilds it from
+  `get_stock_tick`: volume bought at the ask vs sold at the bid per price
+  bucket (2 bps), delta, and 3:1 diagonal imbalances outlined.
+- **Big prints** ("deep trades"): the top 1% of trade sizes, at least 5,000
+  shares, with side.
+- **Session levels** and **playbook signals today** (from the lab's hourly
+  market-hours run, `chart_live/<SYM>`).
+
+When the owner runs Analyze on the symbol being followed, the desk gets this
+same read (`live_tape` in the market data), plus the lab playbook
+(`lab_playbook`); otherwise Analyze pulls 1,000 ticks and a 10-level book
+once for the ticker. Level 2 was untested at build time (the book is empty
+outside market hours); if the page reports an empty book during market hours,
+the owner's Webull account likely has level 1 data only.
+
+## Chart Desk lab
+
+`chart-lab/` backtests the desk's knowledge on Webull bars and keeps it
+honest: 5-minute bars for 12 symbols (SPY QQQ IWM DIA AAPL MSFT NVDA AMZN
+GOOGL META TSLA AMD) and 4.7 years of daily bars, costs included, tuned on
+the first 70% of dates and judged on the last 30%, then frozen and forward
+tested on every new day. Results go to `chart_playbook` (one doc per setup,
+shown on the Lab tab and fed into every analyst's prompt), the log to
+`chart_research`, the hourly live read to `chart_live`, and state to
+`chart_lab_state`. Two Routines drive it:
+
+- **Edgex Chart Desk lab** (hourly, fresh session with read-only Webull):
+  one new researched setup per run, backtested and published; during
+  market hours also the live tape for all 12 symbols.
+- **Edgex Chart Desk data refresh** (weekdays after the close, the owner's
+  connected session): stores the day's bars and tape rows in the repo,
+  re-runs every forward test, commits and pushes.
+
+Runbook, method and research queue: `chart-lab/README.md`. Current
+results: `chart-lab/PLAYBOOK.md`.
