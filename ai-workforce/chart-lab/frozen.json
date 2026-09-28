@@ -170,37 +170,54 @@
   "tf": "M5"
  },
  "bull_bear_flag": {
-  "side": "fade",
-  "filter": "rvol+trend",
   "exit": "1atr/close",
-  "tf": "M5",
+  "filter": "rvol+trend",
   "frozen_at": "2026-09-25",
-  "status_at_freeze": "promising",
   "oos_at_freeze": {
-   "n": 118,
-   "win_rate": 0.356,
    "avg_r": 0.14,
-   "total_r": 16.49,
+   "max_drawdown_r": 14.74,
+   "n": 118,
    "profit_factor": 1.19,
    "t_stat": 0.74,
-   "max_drawdown_r": 14.74
-  }
+   "total_r": 16.49,
+   "win_rate": 0.356
+  },
+  "side": "fade",
+  "status_at_freeze": "promising",
+  "tf": "M5"
  },
  "spring_upthrust": {
-  "side": "with",
-  "filter": "ppoc",
   "exit": "2atr/4atr",
-  "tf": "M5",
+  "filter": "ppoc",
   "frozen_at": "2026-09-25",
-  "status_at_freeze": "promising",
   "oos_at_freeze": {
-   "n": 39,
-   "win_rate": 0.487,
    "avg_r": 0.107,
-   "total_r": 4.16,
+   "max_drawdown_r": 7.24,
+   "n": 39,
    "profit_factor": 1.25,
    "t_stat": 0.6,
-   "max_drawdown_r": 7.24
-  }
+   "total_r": 4.16,
+   "win_rate": 0.487
+  },
+  "side": "with",
+  "status_at_freeze": "promising",
+  "tf": "M5"
+ },
+ "round_number_bounce": {
+  "exit": "1atr/close",
+  "filter": "vwap+rvol",
+  "frozen_at": "2026-09-25",
+  "oos_at_freeze": {
+   "avg_r": 0.264,
+   "max_drawdown_r": 18.52,
+   "n": 75,
+   "profit_factor": 1.32,
+   "t_stat": 0.8,
+   "total_r": 19.8,
+   "win_rate": 0.253
+  },
+  "side": "with",
+  "status_at_freeze": "promising",
+  "tf": "M5"
  }
 }
