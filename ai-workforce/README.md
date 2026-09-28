@@ -206,6 +206,11 @@ detail in `VIDEO-DESK.md`; the short version:
   Instagram & Facebook), Growth & Community (Video), and **Video Last
   Touch** (5 agents: copyright, platform policy, defamation/harassment,
   brand/tone, publish coordination).
+- **Since 2026-09-28 the YouTube and TikTok operations agents work on
+  the print-on-demand desk** (owner directive): the YouTube team runs the
+  Etsy Shop Desk and the TikTok team runs the Printify Studio. See
+  `POD-DESK.md`, "The team". Instagram & Facebook Operations stays on
+  video.
 - **The one hard rule**: commentary and reaction with real original
   work, never a raw repost of someone else's clip. "Non-copyrighted
   streamer clip" isn't a real legal category — Copyright Compliance

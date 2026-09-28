@@ -1,4 +1,9 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>The Studio Floor</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Studio Floor</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&family=Silkscreen&family=VT323&display=swap">
 <style>
   :root{
@@ -580,7 +585,10 @@
   .t-obj{font-size:16px;padding:2px 0;} .t-done{color:#3fae6c;}
   @media (prefers-reduced-motion: reduce){ .t-working .t-bar i{animation:none;} }
   @media (max-width:560px){ .t-screen{font-size:17px;padding:10px;} .t-title{font-size:21px;} .t-v{font-size:20px;} }
-</style></head><body>
+</style>
+</head>
+<body>
+
 
 <canvas id="scene"></canvas>
 <div id="station" hidden><canvas id="stationCanvas" aria-label="Space station map: each module is a department; tap one to open its terminal"></canvas></div>
@@ -933,21 +941,21 @@
         {name:"Video Brand & Tone Final Check", desc:"Confirms the finished video sounds and looks like the channel."},
         {name:"Publish Coordinator (Video)", desc:"Collects all four checks into one verdict before Chief of Staff and posting."}
       ]},
-    { id:"youtube-ops", code:"13", name:"YouTube Operations", tag:"Long-form, Shorts, and real Partner Program tracking", cssVar:"--a-sales", hex:0x2F9350, x:0, z:26.1, group:"P", row:0,
+    { id:"youtube-ops", code:"13", name:"Etsy Shop Desk", tag:"The YouTube team, now on Etsy: research, policy, publishing", cssVar:"--a-sales", hex:0x2F9350, x:0, z:26.1, group:"P", row:0,
       agents:[
-        {name:"YouTube Upload/Scheduling Agent", desc:"Queues cleared, approved videos for YouTube and manages the schedule."},
-        {name:"YouTube Shorts Specialist", desc:"Adapts content specifically for the Shorts format and algorithm."},
-        {name:"YouTube Community Tab Agent", desc:"Drafts Community tab posts that keep the audience engaged between uploads."},
-        {name:"YouTube Analytics Agent", desc:"Tracks real views, retention, and CTR — turns it into next steps."},
-        {name:"YouTube Monetization & Policy Agent", desc:"Tracks real Partner Program eligibility — never rounds up."}
+        {name:"YouTube Upload/Scheduling Agent", desc:"Etsy Publish Coordinator: publishes cleared products within the $3/day cap and confirms each went live."},
+        {name:"YouTube Shorts Specialist", desc:"Product Line Adapter: fits each design to tees, sweatshirts, mugs, prints and stickers."},
+        {name:"YouTube Community Tab Agent", desc:"Shop Presence: plans sections and seasonal collections, drafts shop text for you."},
+        {name:"YouTube Analytics Agent", desc:"Competitor Analyst: studies 5+ competing Etsy listings and finds a different angle."},
+        {name:"YouTube Monetization & Policy Agent", desc:"Etsy & Printify Policy: checks each batch against the current marketplace rules."}
       ]},
-    { id:"tiktok-ops", code:"14", name:"TikTok Operations", tag:"Fast trends, high posting frequency", cssVar:"--a-sales", hex:0x2F9350, x:0, z:27.7, group:"P", row:1,
+    { id:"tiktok-ops", code:"14", name:"Printify Studio", tag:"The TikTok team, now on Printify: trends, products, margins, sales", cssVar:"--a-sales", hex:0x2F9350, x:0, z:27.7, group:"P", row:1,
       agents:[
-        {name:"TikTok Posting/Scheduling Agent", desc:"Queues cleared, approved videos for TikTok and manages the schedule."},
-        {name:"TikTok Trend-Sync Agent", desc:"Fast pre-post check that a video's sound/format is still actually current."},
-        {name:"TikTok Live/Engagement Agent", desc:"Drafts responses to comments, duets, and stitches."},
-        {name:"TikTok Analytics Agent", desc:"Tracks real completion rate, shares, and follower growth."},
-        {name:"TikTok Monetization Agent", desc:"Tracks the current Creativity Program thresholds — they change often."}
+        {name:"TikTok Posting/Scheduling Agent", desc:"Printify Product Builder: turns a cleared design into Printify products."},
+        {name:"TikTok Trend-Sync Agent", desc:"Trend Scout: finds what's rising 4-8 weeks ahead, with sources."},
+        {name:"TikTok Live/Engagement Agent", desc:"Buyer Care: watches orders for problems and drafts buyer replies for you."},
+        {name:"TikTok Analytics Agent", desc:"Sales Analyst: weekly review of real Printify orders by design and product."},
+        {name:"TikTok Monetization Agent", desc:"Pricing & Margin: keeps every product above cost + $4 and tracks the $3/day cap."}
       ]},
     { id:"meta-ops", code:"15", name:"Instagram & Facebook Operations", tag:"Reels, Stories, and Meta's own norms", cssVar:"--a-sales", hex:0x2F9350, x:0, z:29.3, group:"P", row:2,
       agents:[
@@ -1103,8 +1111,8 @@
     thumbnails: "Title, thumbnail and metadata travel with the video into Video Last Touch.",
     "growth-video": "What the audience actually does feeds back to Trend Intelligence for the next video.",
     "video-lasttouch": "Publish Coordinator confirms a real render exists, then Chief of Staff approves or denies posting.",
-    "youtube-ops": "Approved videos are queued for YouTube; uploads are still manual (no upload tool).",
-    "tiktok-ops": "Prep work only until a TikTok posting connector exists.",
+    "youtube-ops": "Publishes cleared products to your Etsy shop through Printify, within $3 a day of listing fees.",
+    "tiktok-ops": "Finds trends and turns cleared designs into Printify products; the Etsy Shop Desk publishes them.",
     "meta-ops": "Approved Reels can go live on Instagram from a connected session.",
     "task-dispatch": "Assigns the next real task to whichever agent has work waiting.",
     "capacity-queue": "Keeps the backlog honest so Dispatch always has a real next task.",
@@ -5937,14 +5945,14 @@
     var work = docsOf("skillwork").filter(function(x){ return ids.indexOf(x.d.agent) >= 0; })
       .sort(function(a,b){ return timeOf(b.d.created||b.d.updatedAt) - timeOf(a.d.created||a.d.updatedAt); });
     var pods = docsOf("pod").filter(function(x){ return x.d.thumb; });
-    if(d.id === "content" && pods.length){
+    if(["content","youtube-ops","tiktok-ops"].indexOf(d.id) >= 0 && pods.length){
       var cards = tel("div", "t-cards");
       pods.forEach(function(x){ var c = tel("div", "t-card"); var im = document.createElement("img"); im.src = x.d.thumb; im.alt = x.d.title+" design"; c.appendChild(im); c.appendChild(tel("div", "t-cap", (x.d.title||"").toUpperCase()+" DESIGN")); c.appendChild(tel("div", "t-dim", (x.d.status||"") + " · " + ago(timeOf(x.d.created)))); if(x.d.artifact){ c.style.cursor = "pointer"; c.addEventListener("click", function(){ window.open(x.d.artifact, "_blank", "noopener"); }); } cards.appendChild(c); });
       q.appendChild(cards);
     }
     if(work.length){
       work.slice(0, 8).forEach(function(x){ var r = tel("div", "t-item"); r.appendChild(tel("span", "", "▸ "+(x.d.title || x.id))); r.appendChild(tel("span", "t-dim", " "+(x.d.status||"").replace(/_/g," "))); q.appendChild(r); });
-    } else if(!(d.id === "content" && pods.length)) q.appendChild(tel("p", "t-dim", "No finished work from this room yet."));
+    } else if(!(["content","youtube-ops","tiktok-ops"].indexOf(d.id) >= 0 && pods.length)) q.appendChild(tel("p", "t-dim", "No finished work from this room yet."));
     grid.appendChild(q);
     // operations feed
     var feed = termPanel("OPERATIONS FEED");
@@ -6073,4 +6081,6 @@
 })();
 </script>
 
-</body></html>
+
+</body>
+</html>

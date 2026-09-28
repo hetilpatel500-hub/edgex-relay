@@ -23,6 +23,19 @@ board, and each agent's card shows its brain.
   Chart Desk each get a turn about every 3 hours, and Task Dispatch rotates
   them so nobody is skipped. The 20 Chart Desk analysts stay on call for the
   owner's charts and are not part of this.
+- **The POD team (owner directive, 2026-09-28).** The five TikTok and five
+  YouTube operations agents (depts `tiktok-ops` and `youtube-ops`, shown as
+  Printify Studio and Etsy Shop Desk) work only on print-on-demand for Etsy
+  and Printify now: no TikTok or YouTube skill work. When a shift picks one,
+  its work comes from its role file and `POD-DESK.md`: Trend Scout writes a
+  `pod_research` doc with 3 sourced candidate phrases for coming seasons,
+  Competitor Analyst scores open candidates (5+ competing listings), the
+  Policy agent checks the newest designs against current Etsy/Printify
+  rules, Shop Presence drafts sections and collections for the owner, Buyer
+  Care checks Printify orders, Pricing & Margin re-checks costs, and the
+  Product Line Adapter reviews the newest products' fit and wording.
+  Creating, editing or publishing Printify products happens only in the
+  "Edgex POD desk" Routine, which owns the $3/day cap.
 - **Making money needs the owner's accounts.** Agents can't sign up anywhere,
   spend money, post or sell. "Using a skill to make money" means producing a
   real, sellable asset (a gig listing, a template, a priced offer, a lead

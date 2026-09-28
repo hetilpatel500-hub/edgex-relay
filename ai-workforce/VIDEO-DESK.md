@@ -196,6 +196,15 @@ them to the owner's email.** The owner posts them. From now on:
 - First drop: SPY Sep 24 session short, Mag 7 week-so-far short, and a
   59-second YouTube recap, emailed 2026-09-25.
 
+## Owner directive, 2026-09-28: TikTok and YouTube teams move to Etsy
+
+"From now on the tik tok agents and the youtube agents will work on
+printify and etsy, not instagram, keep those agents for insta." The five
+YouTube Operations agents and the five TikTok Operations agents now work on
+the print-on-demand desk (`POD-DESK.md`, "The team"). The video desk keeps
+making videos with its other departments and delivers them for Instagram
+and Facebook through Instagram & Facebook Operations; the owner posts.
+
 ## What this division does NOT do
 
 - Never posts a raw, minimally-transformed clip, regardless of how
