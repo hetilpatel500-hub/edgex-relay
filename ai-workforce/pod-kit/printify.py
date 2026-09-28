@@ -3,6 +3,7 @@
 to the owner's connected Etsy shop.
 
 usage: printify.py designs/<id>.json BUILD_DIR [--products tee,sweatshirt,mug,poster,sticker]
+                   (pattern designs: --products mug_wrap,accent_mug)
                    [--publish]
 
 One Etsy listing per product type. Each type has its own blueprint, printer,
@@ -40,6 +41,16 @@ PRODUCTS = {
     'mug': dict(blueprint=68, provider=1, noun='Mug', alt='Coffee Mug', art='clear', fit=('both_sides', 0.9, 0.5),
                 price={'default': 1800},
                 details="- 11 oz white ceramic mug with a glossy finish\n- The design is printed on both sides\n- Microwave and dishwasher safe",
+                care="Dishwasher safe; hand washing keeps the print bright longest."),
+    # Full-wrap products take an all-over pattern design ("kind": "pattern", see pattern.py):
+    # the art is painted at each print area's exact size, seamless around the handle.
+    'mug_wrap': dict(blueprint=68, provider=1, noun='Mug', alt='Coffee Mug', art='wrap', fit=('exact', 1.0, 0.5),
+                price={'default': 1800},
+                details="- 11 oz white ceramic mug with a glossy finish\n- The watercolor pattern wraps all the way around\n- Microwave and dishwasher safe",
+                care="Dishwasher safe; hand washing keeps the print bright longest."),
+    'accent_mug': dict(blueprint=635, provider=99, noun='Mug', alt='Accent Coffee Mug', art='wrap', fit=('exact', 1.0, 0.5),
+                colors_from_mug=True, sizes=['11oz', '15oz'], price={'11oz': 2200, '15oz': 2500},
+                details="- Ceramic accent mug: the handle, rim and inside are colored (your choice of color)\n- 11 oz or 15 oz\n- The watercolor pattern wraps around the mug\n- Microwave and dishwasher safe",
                 care="Dishwasher safe; hand washing keeps the print bright longest."),
     # Tote: not in the lineup. This organic tote costs $20.72 from Printify (2026-09-28), too
     # little margin at a market price; find a cheaper tote blueprint before using it.
@@ -155,6 +166,8 @@ def product_listing(L, spec, key, P):
 def pick_variants(vs, spec, P):
     out = []
     colors = P.get('colors')
+    if P.get('colors_from_mug'):
+        colors = [c for c in spec.get('mug_colors', []) if c != 'White']
     if P.get('colors_from_spec'):
         colors = list(dict.fromkeys(P['color_map'][c] for c in spec.get('shirt_colors', ['white']) if c in P['color_map']))[:4]
     for v in vs:
@@ -183,15 +196,30 @@ def make(spec, build_dir, key, shop, publish):
     chosen = pick_variants(vs, spec, P)
     if not chosen:
         raise SystemExit(f'{key}: no variants matched')
-    data, aspect, ext = artwork(build_dir, sid, P['art'])
-    up = call('POST', '/uploads/images.json', {'file_name': f'{sid}-{key}.{ext}', 'contents': base64.b64encode(data).decode()})
     # group variants by print-area shape so each group gets the right scale
     groups = {}
     for v in chosen:
         ph = next(p for p in v['placeholders'] if p['position'] == 'front')
         groups.setdefault((ph['width'], ph['height']), []).append(v['id'])
-    print_areas = [{'variant_ids': ids, 'placeholders': [{'position': 'front', 'images': placements(P['fit'], aspect, W, H, up['id'])}]}
-                   for (W, H), ids in groups.items()]
+    print_areas = []
+    if P['art'] == 'wrap':
+        # all-over pattern: painted at each print area's exact size, placed edge to edge
+        for (W, H), ids in groups.items():
+            f = os.path.join(build_dir, f'{sid}-wrap-{W}x{H}.png')
+            if not os.path.exists(f):
+                import pattern
+                os.makedirs(build_dir, exist_ok=True)
+                pattern.paint(spec, W, H).save(f, dpi=(300, 300))
+            buf = io.BytesIO(); Image.open(f).save(buf, 'PNG', optimize=True)
+            up = call('POST', '/uploads/images.json', {'file_name': f'{sid}-{key}-{W}x{H}.png',
+                                                        'contents': base64.b64encode(buf.getvalue()).decode()})
+            print_areas.append({'variant_ids': ids, 'placeholders': [{'position': 'front', 'images': [
+                {'id': up['id'], 'x': 0.5, 'y': 0.5, 'scale': 1, 'angle': 0}]}]})
+    else:
+        data, aspect, ext = artwork(build_dir, sid, P['art'])
+        up = call('POST', '/uploads/images.json', {'file_name': f'{sid}-{key}.{ext}', 'contents': base64.b64encode(data).decode()})
+        print_areas = [{'variant_ids': ids, 'placeholders': [{'position': 'front', 'images': placements(P['fit'], aspect, W, H, up['id'])}]}
+                       for (W, H), ids in groups.items()]
     def price_of(v):
         p = P['price']
         return p.get(v['options'].get('size'), p['default'] if 'default' in p else max(p.values()))

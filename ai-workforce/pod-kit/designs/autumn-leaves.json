@@ -1,0 +1,158 @@
+{
+ "id": "autumn-leaves",
+ "kind": "pattern",
+ "name": "Autumn Leaves",
+ "seed": 23,
+ "background": "#f7efe1",
+ "palette": "autumn",
+ "elements": [
+  {
+   "motif": "maple_leaf",
+   "size": 0.17,
+   "count": 10,
+   "tilt": 1.2,
+   "spacing": 0.82,
+   "colors": [
+    [
+     "#c8643b",
+     "#e8a05d"
+    ],
+    [
+     "#b4462f",
+     "#d9774a"
+    ],
+    [
+     "#d9a441",
+     "#efcf86"
+    ],
+    [
+     "#8a8a4a",
+     "#c2b86e"
+    ],
+    [
+     "#9c3b2e",
+     "#c96a4a"
+    ],
+    [
+     "#d97a2b",
+     "#f2b35c"
+    ]
+   ]
+  },
+  {
+   "motif": "maple_leaf",
+   "size": 0.1,
+   "count": 22,
+   "tilt": 1.4,
+   "spacing": 0.85,
+   "colors": [
+    [
+     "#c8643b",
+     "#e8a05d"
+    ],
+    [
+     "#b4462f",
+     "#d9774a"
+    ],
+    [
+     "#d9a441",
+     "#efcf86"
+    ],
+    [
+     "#8a8a4a",
+     "#c2b86e"
+    ],
+    [
+     "#9c3b2e",
+     "#c96a4a"
+    ],
+    [
+     "#d97a2b",
+     "#f2b35c"
+    ]
+   ]
+  },
+  {
+   "motif": "pumpkin",
+   "size": 0.065,
+   "count": 4,
+   "spacing": 1.1
+  },
+  {
+   "motif": "acorn",
+   "size": 0.045,
+   "count": 14,
+   "tilt": 0.7,
+   "spacing": 1.05
+  },
+  {
+   "motif": "berries",
+   "size": 0.045,
+   "count": 6,
+   "spacing": 1.1
+  },
+  {
+   "motif": "maple_leaf",
+   "size": 0.045,
+   "fill": true,
+   "tilt": 1.5,
+   "spacing": 1.0,
+   "colors": [
+    [
+     "#c8643b",
+     "#e8a05d"
+    ],
+    [
+     "#b4462f",
+     "#d9774a"
+    ],
+    [
+     "#d9a441",
+     "#efcf86"
+    ],
+    [
+     "#8a8a4a",
+     "#c2b86e"
+    ],
+    [
+     "#9c3b2e",
+     "#c96a4a"
+    ],
+    [
+     "#d97a2b",
+     "#f2b35c"
+    ]
+   ]
+  }
+ ],
+ "mug_colors": [
+  "Orange",
+  "Maroon",
+  "White"
+ ],
+ "listing": {
+  "title": "Watercolor Autumn Leaves Mug, Fall Maple Leaf Coffee Mug, Cozy Fall Mug with Acorns, Thanksgiving Gift, Autumn Kitchen Decor",
+  "tags": [
+   "fall mug",
+   "autumn leaves mug",
+   "maple leaf mug",
+   "fall coffee mug",
+   "thanksgiving mug",
+   "autumn mug",
+   "cozy fall mug",
+   "fall leaves",
+   "watercolor mug",
+   "acorn mug",
+   "fall gift",
+   "autumn decor",
+   "thanksgiving gift"
+  ],
+  "description": "Maple leaves in rust, gold, olive and pumpkin orange drift all the way around this mug with acorns and berries, painted in layered watercolor on a warm cream background. Made for slow fall mornings, from September through Thanksgiving.",
+  "products": [
+   "11 oz white mug, full wrap (68 / SPOKE)",
+   "Accent mug 11 or 15 oz, orange or maroon handle and inside (635 / Printify Choice)"
+  ],
+  "price_note": "$18 white wrap mug, $22 (11 oz) / $25 (15 oz) accent mug. Fall mugs in the owner's Etsy screenshots of 2026-09-28: stained glass autumn leaves $15.22, fall vibes $8.99, faux patchwork pumpkin $14.49, cozy autumn $13-24.",
+  "trademark_check": "2026-09-28, IP & Trademark Counsel: WebSearch '\"AUTUMN LEAVES\" trademark ... class 21' found no AUTUMN LEAVES mark for mugs; AUTUMN marks exist (Justia reg. 1493797, 5220382) and are not used as a brand here: 'autumn leaves' only describes the art. 'Autumn Leaves' is also a song title; no lyrics are used. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen, not a clearance."
+ }
+}

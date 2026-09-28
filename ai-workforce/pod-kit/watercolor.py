@@ -108,6 +108,11 @@ class Canvas:
         self.cover = np.zeros((h, w), dtype=np.float32)
         self.ink = Image.new('RGBA', (w, h), (0, 0, 0, 0))
         self._grain = self._make_grain()
+        # shapes kept white under a background wash (like masking fluid)
+        self.reserves = []
+
+    def reserve(self, shape):
+        self.reserves.append(shape)
 
     # a tileable-ish grain texture: two octaves of smoothed noise
     def _make_grain(self):
@@ -179,7 +184,9 @@ class Canvas:
         """Loose pen line along a path: two slightly offset passes."""
         rnd = self.rnd
         d = ImageDraw.Draw(self.ink)
-        span = max(self.w, self.h) * jitter
+        # wobble scales with the canvas but never more than the line is wide,
+        # so small motifs keep a clean hand-drawn line instead of a scribble
+        span = min(max(self.w, self.h) * jitter, width * 0.9)
         for k in range(passes):
             seq = [(x + rnd.gauss(0, span * 0.35), y + rnd.gauss(0, span * 0.35)) for x, y, *_ in pts]
             if closed:

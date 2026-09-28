@@ -283,8 +283,153 @@ def pumpkin(c, x, y, s, P):
     for dx, w in ((-0.45, 0.5), (0.45, 0.5), (0, 0.55)):
         c.wash(ellipse(x + s * dx, y, s * w, s * 0.7, 16), '#e07b39', '#f2a766', strength=0.7, layers=26)
     c.wash(rect(x - s * 0.06, y - s * 0.95, x + s * 0.08, y - s * 0.6), '#6b5a3a', None, strength=0.9, layers=12)
+    for dx in (-0.45, 0.45):
+        c.ink_line([(x + s * dx * 0.6 + s * dx * 0.5 * math.sin(math.pi * t / 8), y - s * 0.62 + s * 1.24 * t / 8) for t in range(9)],
+                   width=max(1, s * 0.03), closed=False, alpha=110, passes=1, color=(150, 70, 30), jitter=0.001)
+
+
+# ---------------------------------------------------------------- autumn & spooky-cute
+def smooth(pts, rounds=2, closed=True):
+    """Chaikin corner cutting: a polygon becomes a smooth curve."""
+    for _ in range(rounds):
+        out = []
+        m = len(pts) if closed else len(pts) - 1
+        for i in range(m):
+            (x0, y0), (x1, y1) = pts[i][:2], pts[(i + 1) % len(pts)][:2]
+            out += [(0.75 * x0 + 0.25 * x1, 0.75 * y0 + 0.25 * y1), (0.25 * x0 + 0.75 * x1, 0.25 * y0 + 0.75 * y1)]
+        pts = out
+    return pts
+
+
+def ghost_shape(x, y, s, lean=0.0, n=40):
+    """A little sheet ghost: round head, soft sides, scalloped hem."""
+    pts = []
+    top = y - s * 0.62
+    # head: a tall dome from the left side over the top to the right side
+    for i in range(n // 2 + 1):
+        a = math.pi + math.pi * i / (n // 2)
+        pts.append((x + s * 0.5 * math.cos(a), top + s * 0.55 + s * 0.55 * math.sin(a)))
+    # right side down, flaring a little, then a scalloped hem back to the left
+    hem = y + s * 0.62
+    pts.append((x + s * 0.56, y + s * 0.2)); pts.append((x + s * 0.62, hem))
+    k = 3
+    for j in range(k * 6 + 1):
+        t = j / (k * 6)
+        hx = x + s * 0.62 - t * s * 1.24
+        hy = hem - s * 0.1 * abs(math.sin(math.pi * t * k))
+        pts.append((hx, hy))
+    pts.append((x - s * 0.56, y + s * 0.2))
+    return _rot(pts, x, y, lean)
+
+
+def ghost(c, x, y, s, P, lean=0.0, book=False, color=None):
+    """A cute watercolor ghost; with book=True it holds an open book."""
+    raw = ghost_shape(x, y, s, lean)[::2]
+    wob = s * 0.012
+    shape = smooth([(px + c.rnd.gauss(0, wob), py + c.rnd.gauss(0, wob)) for px, py in raw], rounds=3)
+    c.reserve(shape)
+    shade = color or P.get('ghost', '#cfcadf')
+    c.wash(shape, shade, '#f4f1f8', strength=0.3, spread=0.006, layers=26, edge=1.2, granulate=0.2, base_depth=1, layer_depth=2)
+    c.ink_line(shape, width=max(2, s * 0.024), alpha=185, passes=1, jitter=0)
+    ex = s * 0.17
+    for sx in (-1, 1):
+        ecx, ecy = _rot([(x + sx * ex, y - s * 0.3)], x, y, lean)[0]
+        c.wash(ellipse(ecx, ecy, s * 0.055, s * 0.08, 10), '#2e2a33', None, strength=1.3, layers=14, spread=0.02, blur=1)
+        bcx, bcy = _rot([(x + sx * s * 0.28, y - s * 0.16)], x, y, lean)[0]
+        c.wash(ellipse(bcx, bcy, s * 0.08, s * 0.05, 10), '#e89aa5', None, strength=0.45, layers=12, spread=0.04)
+    if book:
+        bx, by = _rot([(x, y + s * 0.18)], x, y, lean)[0]
+        col = P.get('object', '#9cc0cf')
+        for side in (-1, 1):
+            pg = [(bx, by + s * 0.05), (bx + side * s * 0.34, by - s * 0.05), (bx + side * s * 0.34, by + s * 0.2), (bx, by + s * 0.3)]
+            c.wash(pg, col, P.get('object2'), strength=0.75, spread=0.01, layers=16, edge=0.8)
+            inner = [(bx, by + s * 0.02), (bx + side * s * 0.3, by - s * 0.07), (bx + side * s * 0.3, by + s * 0.14), (bx, by + s * 0.24)]
+            c.reserve(inner)
+            c.ink_line(pg, width=max(2, s * 0.02), alpha=190, jitter=0.001, passes=1)
+
+
+MAPLE = ((0, 1.0), (10, 0.78), (16, 0.84), (24, 0.62), (34, 0.42), (48, 0.74), (56, 0.7), (64, 0.92), (74, 0.66),
+         (84, 0.62), (96, 0.36), (112, 0.52), (122, 0.6), (132, 0.4), (150, 0.26), (172, 0.12))
+
+
+def maple_outline(x, y, s, angle=0.0):
+    """A sugar-maple leaf: five pointed lobes with small teeth, stem at the bottom."""
+    half = [(d, r) for d, r in MAPLE]
+    pts = [(d, r) for d, r in half] + [(360 - d, r) for d, r in reversed(half[1:])]
+    out = []
+    for d, r in pts:
+        a = math.radians(d) - math.pi / 2 + angle
+        out.append((x + s * r * math.cos(a), y + s * r * math.sin(a)))
+    return out
+
+
+def maple_leaf(c, x, y, s, P, angle=0.0, color=None, color2=None):
+    col = color or P['main']; col2 = color2 or P.get('main2', col)
+    shape = maple_outline(x, y, s, angle)
+    c.wash(shape, col2, col, strength=0.6, spread=0.035, layers=30, edge=0.9)
+    # second, darker glaze toward the middle (wet on dry)
+    c.wash(maple_outline(x, y + s * 0.05, s * 0.55, angle + c.rnd.uniform(-0.2, 0.2)), col, None, strength=0.35,
+           spread=0.05, layers=16, edge=0.6)
+    for d in (0, 62, -62, 120, -120):
+        a = math.radians(d) - math.pi / 2 + angle
+        c.ink_line([(x, y), (x + s * 0.62 * math.cos(a), y + s * 0.62 * math.sin(a))], width=max(1, s * 0.016),
+                   closed=False, alpha=85, passes=1, color=(120, 60, 40))
+    a = angle + math.pi / 2
+    c.ink_line([(x, y), (x + s * 0.42 * math.cos(a), y + s * 0.42 * math.sin(a))], width=max(2, s * 0.028),
+               closed=False, alpha=170, passes=1, color=(110, 70, 45))
+
+
+def acorn(c, x, y, s, P, angle=0.0):
+    body = _rot(ellipse(x, y + s * 0.15, s * 0.36, s * 0.46, 16), x, y, angle)
+    c.wash(body, '#c98f4f', '#e3b574', strength=0.65, spread=0.03, layers=22)
+    cap = _rot([(x - s * 0.44, y - s * 0.12)] + [(x + s * 0.44 * math.cos(math.pi + math.pi * i / 10),
+               y - s * 0.12 + s * 0.3 * math.sin(math.pi + math.pi * i / 10)) for i in range(11)] +
+               [(x + s * 0.44, y - s * 0.12), (x, y + s * 0.02)], x, y, angle)
+    c.wash(cap, '#7a5234', '#9b6c45', strength=0.85, spread=0.03, layers=20)
+    c.ink_line(cap, width=max(2, s * 0.03), alpha=170)
+    top = _rot([(x, y - s * 0.38), (x + s * 0.06, y - s * 0.52)], x, y, angle)
+    c.ink_line(top, width=max(2, s * 0.05), closed=False, alpha=200, passes=1, color=(90, 60, 40))
+
+
+def sparkle(c, x, y, s, P, color=None):
+    col = color or P.get('accent', '#e5b85a')
+    pts = []
+    for i in range(8):
+        a = i * math.pi / 4 - math.pi / 2
+        r = s if i % 2 == 0 else s * 0.28
+        pts.append((x + r * math.cos(a), y + r * math.sin(a)))
+    c.wash(pts, col, P.get('accent2'), strength=0.8, spread=0.015, layers=14, edge=0.6)
+
+
+def moon(c, x, y, s, P, color=None):
+    col = color or P.get('accent', '#e5b85a')
+    c.wash(crescent(x, y, s, -math.pi * 0.95, math.pi * 0.35, s * 0.62, n=16), col, P.get('accent2'),
+           strength=0.7, spread=0.03, layers=20)
+
+
+def bat(c, x, y, s, P, color='#4a4152'):
+    w = []
+    for i in range(13):
+        t = i / 12
+        w.append((x + s * t, y - s * 0.35 * math.sin(math.pi * t) + s * 0.12 * abs(math.sin(math.pi * t * 3)) * t))
+    wing = [(x, y)] + w + [(x + s * 0.2, y + s * 0.15)]
+    for side in (1, -1):
+        c.wash([(x + (px - x) * side, py) for px, py in wing], color, None, strength=0.8, spread=0.02, layers=16)
+    c.wash(ellipse(x, y, s * 0.16, s * 0.22, 12), color, None, strength=0.9, layers=16)
+
+
+def book_single(c, x, y, s, P, angle=0.0, color=None):
+    col = color or P.get('object', '#9cc0cf')
+    box = _rot(rect(x - s * 0.22, y - s * 0.6, x + s * 0.22, y + s * 0.6), x, y, angle)
+    c.wash(box, col, P.get('object2'), strength=0.65, spread=0.012, layers=18)
+    c.ink_line(box, width=max(2, s * 0.03), alpha=190)
+    for dy in (-0.4, 0.4):
+        band = _rot([(x - s * 0.18, y + s * dy), (x + s * 0.18, y + s * dy)], x, y, angle)
+        c.ink_line(band, width=max(1, s * 0.03), closed=False, alpha=150, passes=1, color=(150, 110, 60))
 
 
 MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip, 'sprig': sprig, 'eucalyptus': eucalyptus,
           'berries': berries, 'bouquet': bouquet, 'mug': mug, 'books': books, 'heart': heart, 'paw': paw, 'dog': dog,
-          'lemon': lemon, 'strawberry': strawberry, 'sun': sun, 'succulent': succulent, 'pumpkin': pumpkin}
+          'lemon': lemon, 'strawberry': strawberry, 'sun': sun, 'succulent': succulent, 'pumpkin': pumpkin,
+          'ghost': ghost, 'maple_leaf': maple_leaf, 'acorn': acorn, 'sparkle': sparkle, 'moon': moon, 'bat': bat,
+          'book_single': book_single}

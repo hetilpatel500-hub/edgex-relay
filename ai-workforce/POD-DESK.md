@@ -39,6 +39,8 @@ doesn't suit one (say why in the `pod_listings` doc):
 | 11 oz mug (art on both sides) | 68 / SPOKE 1 | $6.44 | $18 |
 | Art print (the painting on cream paper) | Matte poster 282 / Sensaria 2 | $6.60 / $11.84 / $12.00 | $22 / $30 / $36 (11x14 / 16x20 / 18x24) |
 | Kiss-cut sticker | 400 / SPOKE 1 | $1.66 (3x3) / $2.08 (4x4) | $5.99 (3x3) / $6.99 (4x4) |
+| Full-wrap white mug (pattern designs) | 68 / SPOKE 1, wrap 2700 x 1120 | $6.44 | $18 |
+| Accent mug, colored handle/rim/inside (pattern designs) | 635 / Printify Choice 99, wrap 2475 x 1155 (11 oz), 2475 x 1275 (15 oz) | $6.40 / $8.44 | $22 / $25 |
 
 Costs are Printify's catalog prices read through the API on 2026-09-28,
 before shipping (the buyer pays shipping). `printify.py` refuses to price
@@ -69,6 +71,47 @@ Quality Bar and Legal Desk agents named in the steps below.
 | | YouTube Monetization & Policy Agent | Etsy & Printify Policy | 7 (before the Legal Desk) |
 | | YouTube Upload/Scheduling Agent | Etsy Publish Coordinator | 9 (publish) |
 | | YouTube Community Tab Agent | Shop Presence (sections, collections, announcement drafts) | weekly |
+
+## What sells: the owner's Etsy scan (2026-09-28)
+
+The owner sent 7 screenshots of Etsy mug searches (saved as
+`pod_research/owner-etsy-mug-scan-2026-09-28`). What they show:
+
+- **All-over wraps win.** The biggest printed sellers are patterns that go
+  all the way around: ghosts and pumpkins (18.1k reviews), ghost library,
+  faux patchwork pumpkins (812), bookshelves, dachshund florals. A single
+  picture on each side looks plain next to them.
+- **Accent mugs** (colored handle, rim and inside: orange, pink, black,
+  maroon) are everywhere and look finished. Offer 2-3 accent colors that
+  match the art.
+- **Themes now:** cute ghosts (often with florals or books), fall
+  leaves and pumpkins, witchy moons, black cats, dark-academia books, pets
+  with florals. Stained-glass styles are a strong trend.
+- **Personalized mugs are the biggest category** (a repeating-name mug
+  shows 152.6k reviews, $6.99). Not done yet: it needs per-order artwork,
+  so it waits for the owner's go-ahead.
+- **Price band** for printed mugs: about $9-24, often shown as a "sale".
+  We never inflate an original price to fake a discount.
+- **Photos sell:** hands, sweaters, books, candles, autumn leaves, and a
+  short video. Printify generates mockups for the Etsy listing; our own
+  3D mockups (`pattern.py`) go on the delivery page.
+- **Our edge:** almost every printed competitor is flat vector or
+  stained glass. Real-looking watercolor on painted paper is rare (one
+  watercolor witch mug, 54 reviews). Keep every design unmistakably
+  watercolor.
+
+## Pattern designs (all-over mugs)
+
+`pod-kit/pattern.py` paints seamless all-over patterns: motifs placed by
+dart throwing (no overlaps unless `spacing` < 1), largest first, then
+fillers; the wrap joins invisibly at the handle; a painted cream paper
+background with white kept under the ghosts (like masking fluid). A spec
+has `"kind": "pattern"`, `elements`, `background` and `mug_colors` (see
+`designs/reading-ghosts.json`). `build.py` paints every mug print area at
+its exact size plus 3D mockups for each accent color; `printify.py
+--products mug_wrap,accent_mug` creates the products. Look at the full-size
+wrap, not just the preview: ink lines and small motifs must read at print
+size. Aim for the density of the best sellers: little empty background.
 
 ## Why our own watercolor engine (the smart part)
 

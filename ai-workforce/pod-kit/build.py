@@ -62,7 +62,12 @@ def page(spec, out, files):
                 f'<textarea rows="{rows}" readonly>{html.escape(text)}</textarea></div>')
     imgs = ''.join(f'<figure><img src="{f}" alt="{html.escape(f)}"><figcaption>{html.escape(f)}</figcaption></figure>'
                    for f in files if f.endswith('.jpg'))
-    body = f'''<title>{html.escape(spec.get('name') or spec.get('top', 'Design'))} Tee</title>
+    pattern = spec.get('kind') == 'pattern'
+    noun = 'Mug' if pattern else 'Tee'
+    files_note = ("Wrap files are painted at each mug's exact print area (2475 x 1155 and 2475 x 1275 for the accent mug, "
+                  "2700 x 1120 for the white mug), seamless around the handle." if pattern else
+                  "The print file is 4500 x 5400 px, transparent, 300 dpi: Printify's front print area for most tees and sweatshirts.")
+    body = f'''<title>{html.escape(spec.get('name') or spec.get('top', 'Design'))} {noun}</title>
 <style>
 :root{{--bg:#f6f3ee;--ink:#2d2a2e;--mut:#6d6670;--line:#ddd6cc;--card:#fffdf9;--acc:#a1506b}}
 @media (prefers-color-scheme:dark){{:root:not([data-theme="light"]){{--bg:#1c1a1d;--ink:#efeae4;--mut:#a9a1ab;--line:#3a353b;--card:#252226;--acc:#e59ab3;color-scheme:dark}}}}
@@ -81,7 +86,7 @@ ol{{margin:0;padding-left:20px}} li{{margin:4px 0}}
 </style>
 <main>
 <div><div class="mut">Edgex print-on-demand desk</div><h1>{html.escape(L['title'])}</h1></div>
-<div class="card"><h2>Files</h2><p class="mut">The print file is 4500 x 5400 px, transparent, 300 dpi: Printify's front print area for most tees and sweatshirts.</p>
+<div class="card"><h2>Files</h2><p class="mut">{html.escape(files_note)}</p>
 <div class="dl">{''.join(f'<button type="button" data-file="{f}">{html.escape(f)}</button>' for f in files)}</div></div>
 <div class="grid">{imgs}</div>
 <div class="card"><h2>Listing (copy into Etsy)</h2>
@@ -90,7 +95,7 @@ ol{{margin:0;padding-left:20px}} li{{margin:4px 0}}
 {copy('Description', desc, 14)}
 <p class="mut">Products: {html.escape(', '.join(L.get('products', [])))}. Price: {html.escape(L.get('price_note', ''))}</p>
 <p class="mut">Trademark check: {html.escape(L['trademark_check'])}</p></div>
-<div class="card"><h2>How to publish (about 10 minutes)</h2><ol>
+<div class="card"><h2>Publishing</h2><p class="mut">The studio creates these products on Printify and publishes them to Etsy within your $3/day listing budget. To do it by hand instead:</p><ol>
 <li>In Printify, create a product for each item listed above and upload <b>{sid}.png</b> to the front print area. Keep it centred; don't stretch it.</li>
 <li>Choose the colors shown in the mockups (the art is made for light shirts).</li>
 <li>Publish to your Etsy shop from Printify, then in Etsy paste the title, tags and description above.</li>
@@ -113,7 +118,11 @@ def main():
     errs = check(spec.get('listing', {}))
     if errs:
         print('REFUSED:\n- ' + '\n- '.join(errs)); sys.exit(1)
-    args = [sys.executable, os.path.join(HERE, 'design.py'), spec_path, out] + (['--preview'] if '--preview' in sys.argv else [])
+    if spec.get('kind') == 'pattern':
+        args = [sys.executable, os.path.join(HERE, 'pattern.py'), spec_path, out, '--size', '2475x1155', '2475x1275', '2700x1120']
+    else:
+        args = [sys.executable, os.path.join(HERE, 'design.py'), spec_path, out]
+    args += ['--preview'] if '--preview' in sys.argv else []
     subprocess.check_call(args)
     sid = spec['id']
     files = sorted(f for f in os.listdir(out) if f.startswith(sid) and not f.endswith('-preview.jpg'))
