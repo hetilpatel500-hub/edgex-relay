@@ -96,7 +96,8 @@ class Session:
         # opening range, initial balance, initial volume bar
         self.or_hi, self.or_lo = max(x.h for x in b[:3]), min(x.l for x in b[:3])
         self.ib_hi, self.ib_lo = max(x.h for x in b[:12]), min(x.l for x in b[:12])
-        k = max(range(6), key=lambda j: b[j].v)
+        # initial volume bar: heaviest of the first 30 minutes (fewer bars early in a live session)
+        k = max(range(min(6, len(b))), key=lambda j: b[j].v)
         self.ivb_i, self.ivb_hi, self.ivb_lo = k, b[k].h, b[k].l
         self.hi, self.lo, self.close = max(x.h for x in b), min(x.l for x in b), b[-1].c
         self.poc, self.vah, self.val = profile(b)

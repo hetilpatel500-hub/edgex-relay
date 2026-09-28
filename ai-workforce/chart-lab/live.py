@@ -143,8 +143,17 @@ def fired_today(s):
         if stp['tf'] != 'M5' or stp['id'] not in frozen:
             continue
         fz = frozen[stp['id']]
-        for i, d in stp['detect'](s):
-            if not lab.passes(fz['filter'], lab.FILTERS, s, i, d):
+        # detectors are written for full sessions; early in a live session a
+        # setup that needs bars not printed yet simply hasn't fired
+        try:
+            events = [(i, d) for i, d in stp['detect'](s) if i < len(s.bars)]
+        except IndexError:
+            continue
+        for i, d in events:
+            try:
+                if not lab.passes(fz['filter'], lab.FILTERS, s, i, d):
+                    continue
+            except IndexError:
                 continue
             lean = d if fz['side'] == 'with' else -d
             out.append({'setup': stp['id'], 'name': stp['name'], 'bar_et': f"{s.bars[i].m // 60}:{s.bars[i].m % 60:02d}",
