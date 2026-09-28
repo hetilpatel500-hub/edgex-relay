@@ -168,5 +168,39 @@
   "side": "fade",
   "status_at_freeze": "promising",
   "tf": "M5"
+ },
+ "bull_bear_flag": {
+  "side": "fade",
+  "filter": "rvol+trend",
+  "exit": "1atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-09-25",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 118,
+   "win_rate": 0.356,
+   "avg_r": 0.14,
+   "total_r": 16.49,
+   "profit_factor": 1.19,
+   "t_stat": 0.74,
+   "max_drawdown_r": 14.74
+  }
+ },
+ "spring_upthrust": {
+  "side": "with",
+  "filter": "ppoc",
+  "exit": "2atr/4atr",
+  "tf": "M5",
+  "frozen_at": "2026-09-25",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 39,
+   "win_rate": 0.487,
+   "avg_r": 0.107,
+   "total_r": 4.16,
+   "profit_factor": 1.25,
+   "t_stat": 0.6,
+   "max_drawdown_r": 7.24
+  }
  }
 }

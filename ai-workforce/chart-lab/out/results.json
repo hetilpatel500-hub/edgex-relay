@@ -1,6 +1,6 @@
 {
  "meta": {
-  "generated_at": "2026-09-27T19:32:05Z",
+  "generated_at": "2026-09-28T13:23:01Z",
   "source": "Webull get_stock_bars (read-only), stored in chart-lab/data",
   "universe": [
    "SPY",
@@ -40,8 +40,8 @@
    "2atr/4atr": -0.092,
    "3atr/close": -0.068
   },
-  "variants_tried_total": 3970,
-  "runtime_s": 3.9
+  "variants_tried_total": 5482,
+  "runtime_s": 5.1
  },
  "results": [
   {
@@ -2311,6 +2311,520 @@
   },
   {
    "variants_tried": 126,
+   "signals_total": 1310,
+   "status": "promising",
+   "side": "fade",
+   "filter": "rvol+trend",
+   "exit": "1atr/close",
+   "random_baseline_r": -0.228,
+   "edge_vs_random_oos": 0.368,
+   "in_sample": {
+    "n": 187,
+    "win_rate": 0.262,
+    "avg_r": 0.112,
+    "total_r": 21.01,
+    "profit_factor": 1.14,
+    "t_stat": 0.61,
+    "max_drawdown_r": 42.62
+   },
+   "out_of_sample": {
+    "n": 118,
+    "win_rate": 0.356,
+    "avg_r": 0.14,
+    "total_r": 16.49,
+    "profit_factor": 1.19,
+    "t_stat": 0.74,
+    "max_drawdown_r": 14.74
+   },
+   "longs": {
+    "n": 136,
+    "win_rate": 0.257,
+    "avg_r": -0.05,
+    "total_r": -6.85,
+    "profit_factor": 0.94,
+    "t_stat": -0.25,
+    "max_drawdown_r": 28.98
+   },
+   "shorts": {
+    "n": 169,
+    "win_rate": 0.331,
+    "avg_r": 0.262,
+    "total_r": 44.34,
+    "profit_factor": 1.36,
+    "t_stat": 1.44,
+    "max_drawdown_r": 23.54
+   },
+   "symbols_positive": "8/12",
+   "by_symbol": {
+    "AAPL": 27.61,
+    "AMD": 4.12,
+    "AMZN": -5.0,
+    "DIA": -21.82,
+    "GOOGL": 9.78,
+    "IWM": 5.18,
+    "META": 4.06,
+    "MSFT": -5.47,
+    "NVDA": -10.54,
+    "QQQ": 10.26,
+    "SPY": 8.6,
+    "TSLA": 10.71
+   },
+   "id": "bull_bear_flag",
+   "name": "Bull/bear flag after a 2-ATR impulse",
+   "family": "pattern",
+   "rules": "A net move over the last 4 bars of at least 2x that bar's ATR marks an impulse. The following bars form a flag as long as each one's own range stays within 60% of the impulse bars' average range and the pullback never exceeds 50% of the impulse, for up to 8 bars. The first close beyond the flag's own high (low) confirms the breakout in the impulse's direction.",
+   "tf": "M5",
+   "file": "setups/pattern-specialist-bull-bear-flag.py",
+   "frozen": {
+    "side": "fade",
+    "filter": "rvol+trend",
+    "exit": "1atr/close",
+    "tf": "M5",
+    "frozen_at": "2026-09-25",
+    "status_at_freeze": "promising",
+    "oos_at_freeze": {
+     "n": 118,
+     "win_rate": 0.356,
+     "avg_r": 0.14,
+     "total_r": 16.49,
+     "profit_factor": 1.19,
+     "t_stat": 0.74,
+     "max_drawdown_r": 14.74
+    }
+   },
+   "forward": {
+    "n": 0,
+    "verdict": "tracking"
+   }
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 29,
+   "status": "insufficient",
+   "note": "fewer than 30 in-sample signals for every variant",
+   "id": "double_top_bottom",
+   "name": "Double top / bottom at a prior-day level",
+   "family": "pattern",
+   "rules": "Two confirmed swing highs (lows) both within 0.3 ATR of yesterday's high (low), the second no more than 0.1 ATR above (below) the first, mark a double top (bottom) at that level. The first close back through the low (high) between the two peaks (troughs) confirms it and leans against the level, before 15:00.",
+   "tf": "M5",
+   "file": "setups/pattern-specialist-double-top-bottom.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 106,
+   "status": "insufficient",
+   "side": "with",
+   "filter": "none",
+   "exit": "1atr/2atr",
+   "random_baseline_r": -0.193,
+   "edge_vs_random_oos": -0.072,
+   "in_sample": {
+    "n": 81,
+    "win_rate": 0.407,
+    "avg_r": 0.101,
+    "total_r": 8.16,
+    "profit_factor": 1.16,
+    "t_stat": 0.63,
+    "max_drawdown_r": 13.58
+   },
+   "out_of_sample": {
+    "n": 25,
+    "win_rate": 0.28,
+    "avg_r": -0.265,
+    "total_r": -6.62,
+    "profit_factor": 0.67,
+    "t_stat": -0.98,
+    "max_drawdown_r": 10.16
+   },
+   "longs": {
+    "n": 49,
+    "win_rate": 0.388,
+    "avg_r": 0.064,
+    "total_r": 3.15,
+    "profit_factor": 1.1,
+    "t_stat": 0.31,
+    "max_drawdown_r": 7.68
+   },
+   "shorts": {
+    "n": 57,
+    "win_rate": 0.368,
+    "avg_r": -0.028,
+    "total_r": -1.61,
+    "profit_factor": 0.96,
+    "t_stat": -0.15,
+    "max_drawdown_r": 14.79
+   },
+   "symbols_positive": "6/12",
+   "by_symbol": {
+    "AAPL": -2.73,
+    "AMD": -2.37,
+    "AMZN": 0.41,
+    "DIA": -6.2,
+    "GOOGL": 3.51,
+    "IWM": -1.1,
+    "META": -3.45,
+    "MSFT": 1.69,
+    "NVDA": 4.5,
+    "QQQ": -6.79,
+    "SPY": 4.52,
+    "TSLA": 9.56
+   },
+   "id": "bos_before1100",
+   "name": "Break of structure (continuation), before 11:00 only",
+   "family": "time of day",
+   "rules": "Same event as bos (close beyond the last swing in the trend's direction) but only counted when the break closes before 11:00 ET, instead of the usual 10:00-15:00 window.",
+   "tf": "M5",
+   "file": "setups/risk-manager-time-of-day-filter.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 36,
+   "status": "insufficient",
+   "note": "fewer than 30 in-sample signals for every variant",
+   "id": "choch_before1100",
+   "name": "Change of character, before 11:00 only",
+   "family": "time of day",
+   "rules": "Same event as choch (the protected swing that held the trend is closed through) but only counted when it closes before 11:00 ET, instead of the usual 10:00-15:00 window.",
+   "tf": "M5",
+   "file": "setups/risk-manager-time-of-day-filter.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 118,
+   "status": "insufficient",
+   "side": "with",
+   "filter": "vwap",
+   "exit": "1atr/close",
+   "random_baseline_r": -0.228,
+   "edge_vs_random_oos": 0.341,
+   "in_sample": {
+    "n": 32,
+    "win_rate": 0.406,
+    "avg_r": 0.989,
+    "total_r": 31.66,
+    "profit_factor": 2.57,
+    "t_stat": 1.63,
+    "max_drawdown_r": 8.47
+   },
+   "out_of_sample": {
+    "n": 28,
+    "win_rate": 0.214,
+    "avg_r": 0.113,
+    "total_r": 3.16,
+    "profit_factor": 1.13,
+    "t_stat": 0.22,
+    "max_drawdown_r": 17.88
+   },
+   "longs": {
+    "n": 35,
+    "win_rate": 0.457,
+    "avg_r": 0.906,
+    "total_r": 31.7,
+    "profit_factor": 2.53,
+    "t_stat": 1.88,
+    "max_drawdown_r": 11.65
+   },
+   "shorts": {
+    "n": 25,
+    "win_rate": 0.12,
+    "avg_r": 0.125,
+    "total_r": 3.12,
+    "profit_factor": 1.13,
+    "t_stat": 0.18,
+    "max_drawdown_r": 11.94
+   },
+   "symbols_positive": "7/12",
+   "by_symbol": {
+    "AAPL": -5.35,
+    "AMD": 1.5,
+    "AMZN": -2.59,
+    "DIA": 10.39,
+    "GOOGL": -6.47,
+    "IWM": 2.58,
+    "META": 12.66,
+    "MSFT": 4.96,
+    "NVDA": 0.03,
+    "QQQ": 20.35,
+    "SPY": -1.1,
+    "TSLA": -2.13
+   },
+   "id": "gap_go_rvol",
+   "name": "Gap-and-go on heavy early volume",
+   "family": "session/gaps",
+   "rules": "A gap of 0.25%+ from yesterday's close with the first 15 minutes averaging 1.3x normal volume for those slots leans WITH the gap direction, fired at 9:45.",
+   "tf": "M5",
+   "file": "setups/session-gap-specialist-gap-rvol-split.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 354,
+   "status": "insufficient",
+   "side": "fade",
+   "filter": "vwap+ppoc",
+   "exit": "1atr/close",
+   "random_baseline_r": -0.228,
+   "edge_vs_random_oos": 0.549,
+   "in_sample": {
+    "n": 39,
+    "win_rate": 0.256,
+    "avg_r": 0.597,
+    "total_r": 23.27,
+    "profit_factor": 1.74,
+    "t_stat": 1.23,
+    "max_drawdown_r": 8.99
+   },
+   "out_of_sample": {
+    "n": 15,
+    "win_rate": 0.2,
+    "avg_r": 0.321,
+    "total_r": 4.82,
+    "profit_factor": 1.36,
+    "t_stat": 0.41,
+    "max_drawdown_r": 7.88
+   },
+   "longs": {
+    "n": 33,
+    "win_rate": 0.303,
+    "avg_r": 0.85,
+    "total_r": 28.05,
+    "profit_factor": 2.11,
+    "t_stat": 1.55,
+    "max_drawdown_r": 9.0
+   },
+   "shorts": {
+    "n": 21,
+    "win_rate": 0.143,
+    "avg_r": 0.002,
+    "total_r": 0.05,
+    "profit_factor": 1.0,
+    "t_stat": 0.0,
+    "max_drawdown_r": 16.57
+   },
+   "symbols_positive": "7/12",
+   "by_symbol": {
+    "AAPL": 1.57,
+    "AMD": -6.28,
+    "AMZN": -1.59,
+    "DIA": -2.34,
+    "GOOGL": -2.24,
+    "IWM": 3.73,
+    "META": 9.62,
+    "MSFT": 17.06,
+    "NVDA": 4.03,
+    "QQQ": -2.36,
+    "SPY": 3.3,
+    "TSLA": 3.6
+   },
+   "id": "gap_fade_rvol",
+   "name": "Gap fade on light early volume",
+   "family": "session/gaps",
+   "rules": "A gap of 0.25%+ from yesterday's close with the first 15 minutes averaging under 1x normal volume for those slots (no conviction) leans AGAINST the gap direction, fired at 9:45.",
+   "tf": "M5",
+   "file": "setups/session-gap-specialist-gap-rvol-split.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 79,
+   "status": "insufficient",
+   "side": "fade",
+   "filter": "vwap",
+   "exit": "1atr/close",
+   "random_baseline_r": -0.228,
+   "edge_vs_random_oos": -0.002,
+   "in_sample": {
+    "n": 32,
+    "win_rate": 0.344,
+    "avg_r": 0.424,
+    "total_r": 13.55,
+    "profit_factor": 1.6,
+    "t_stat": 0.87,
+    "max_drawdown_r": 7.91
+   },
+   "out_of_sample": {
+    "n": 21,
+    "win_rate": 0.381,
+    "avg_r": -0.23,
+    "total_r": -4.83,
+    "profit_factor": 0.66,
+    "t_stat": -0.9,
+    "max_drawdown_r": 8.54
+   },
+   "longs": {
+    "n": 33,
+    "win_rate": 0.424,
+    "avg_r": 0.102,
+    "total_r": 3.36,
+    "profit_factor": 1.16,
+    "t_stat": 0.37,
+    "max_drawdown_r": 5.42
+   },
+   "shorts": {
+    "n": 20,
+    "win_rate": 0.25,
+    "avg_r": 0.268,
+    "total_r": 5.36,
+    "profit_factor": 1.33,
+    "t_stat": 0.38,
+    "max_drawdown_r": 9.86
+   },
+   "symbols_positive": "5/12",
+   "by_symbol": {
+    "AAPL": 4.98,
+    "AMD": -2.79,
+    "AMZN": -1.5,
+    "DIA": 12.5,
+    "GOOGL": -4.27,
+    "IWM": -2.13,
+    "META": -1.82,
+    "MSFT": 4.03,
+    "NVDA": 3.06,
+    "QQQ": 2.75,
+    "SPY": -1.91,
+    "TSLA": -4.17
+   },
+   "id": "open_drive",
+   "name": "Open type: open-drive",
+   "family": "session/gaps",
+   "rules": "The session never moves more than 0.15 ATR against its own eventual direction through the initial balance (60 minutes) and closes the IB at least 0.75 ATR from the open: a one-way drive from the bell. Leans with the drive.",
+   "tf": "M5",
+   "file": "setups/session-gap-specialist-open-type.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 589,
+   "status": "rejected",
+   "side": "with",
+   "filter": "trend",
+   "exit": "1atr/1.5atr",
+   "random_baseline_r": -0.177,
+   "edge_vs_random_oos": -0.114,
+   "in_sample": {
+    "n": 115,
+    "win_rate": 0.504,
+    "avg_r": 0.17,
+    "total_r": 19.53,
+    "profit_factor": 1.32,
+    "t_stat": 1.48,
+    "max_drawdown_r": 7.55
+   },
+   "out_of_sample": {
+    "n": 63,
+    "win_rate": 0.333,
+    "avg_r": -0.291,
+    "total_r": -18.36,
+    "profit_factor": 0.59,
+    "t_stat": -2.04,
+    "max_drawdown_r": 19.86
+   },
+   "longs": {
+    "n": 83,
+    "win_rate": 0.422,
+    "avg_r": -0.063,
+    "total_r": -5.21,
+    "profit_factor": 0.9,
+    "t_stat": -0.47,
+    "max_drawdown_r": 16.92
+   },
+   "shorts": {
+    "n": 95,
+    "win_rate": 0.463,
+    "avg_r": 0.067,
+    "total_r": 6.38,
+    "profit_factor": 1.12,
+    "t_stat": 0.54,
+    "max_drawdown_r": 21.82
+   },
+   "symbols_positive": "5/12",
+   "by_symbol": {
+    "AAPL": -0.26,
+    "AMD": -6.32,
+    "AMZN": -1.79,
+    "DIA": -6.94,
+    "GOOGL": 1.41,
+    "IWM": 9.1,
+    "META": 4.28,
+    "MSFT": -5.32,
+    "NVDA": -2.89,
+    "QQQ": -1.52,
+    "SPY": 1.68,
+    "TSLA": 9.75
+   },
+   "id": "open_test_drive",
+   "name": "Open type: open-test-drive",
+   "family": "session/gaps",
+   "rules": "The first 15 minutes test at least 0.35 ATR opposite the eventual direction, then the IB closes at least 0.35 ATR beyond the open the other way: a fast-failing test followed by a drive. Leans with the drive.",
+   "tf": "M5",
+   "file": "setups/session-gap-specialist-open-type.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 90,
+   "status": "insufficient",
+   "side": "with",
+   "filter": "vwap",
+   "exit": "1.5atr/3atr",
+   "random_baseline_r": -0.132,
+   "edge_vs_random_oos": 0.05,
+   "in_sample": {
+    "n": 37,
+    "win_rate": 0.514,
+    "avg_r": 0.279,
+    "total_r": 10.31,
+    "profit_factor": 1.66,
+    "t_stat": 1.36,
+    "max_drawdown_r": 4.29
+   },
+   "out_of_sample": {
+    "n": 22,
+    "win_rate": 0.364,
+    "avg_r": -0.082,
+    "total_r": -1.81,
+    "profit_factor": 0.85,
+    "t_stat": -0.33,
+    "max_drawdown_r": 4.92
+   },
+   "longs": {
+    "n": 26,
+    "win_rate": 0.5,
+    "avg_r": 0.234,
+    "total_r": 6.09,
+    "profit_factor": 1.55,
+    "t_stat": 0.97,
+    "max_drawdown_r": 4.43
+   },
+   "shorts": {
+    "n": 33,
+    "win_rate": 0.424,
+    "avg_r": 0.073,
+    "total_r": 2.41,
+    "profit_factor": 1.15,
+    "t_stat": 0.34,
+    "max_drawdown_r": 7.13
+   },
+   "symbols_positive": "7/12",
+   "by_symbol": {
+    "AAPL": 0.89,
+    "AMD": 5.37,
+    "AMZN": 2.44,
+    "DIA": 0.15,
+    "GOOGL": 0.84,
+    "IWM": 1.01,
+    "META": -0.51,
+    "MSFT": -1.97,
+    "NVDA": 4.21,
+    "QQQ": -2.56,
+    "SPY": -0.06,
+    "TSLA": -1.31
+   },
+   "id": "open_rejection_reverse",
+   "name": "Open type: open-rejection-reverse",
+   "family": "session/gaps",
+   "rules": "Anywhere in the initial balance price tests at least 0.35 ATR one way, then the IB closes at least 0.15 ATR the other way: a slower, less clean rejection than open-test-drive. Leans with the reversal.",
+   "tf": "M5",
+   "file": "setups/session-gap-specialist-open-type.py"
+  },
+  {
+   "variants_tried": 126,
    "signals_total": 2756,
    "status": "rejected",
    "side": "fade",
@@ -2597,6 +3111,228 @@
    "rules": "Bollinger(20,2) band width at its 20-bar low marks a squeeze; the first of the next 6 bars whose close breaks back outside that bar's own bands leans with the breakout, before 15:00.",
    "tf": "M5",
    "file": "setups/volatility-analyst-bb-squeeze.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 267,
+   "status": "rejected",
+   "side": "fade",
+   "filter": "rvol",
+   "exit": "2atr/close",
+   "random_baseline_r": -0.119,
+   "edge_vs_random_oos": -0.259,
+   "in_sample": {
+    "n": 46,
+    "win_rate": 0.413,
+    "avg_r": 0.367,
+    "total_r": 16.89,
+    "profit_factor": 1.63,
+    "t_stat": 1.31,
+    "max_drawdown_r": 8.8
+   },
+   "out_of_sample": {
+    "n": 30,
+    "win_rate": 0.3,
+    "avg_r": -0.378,
+    "total_r": -11.34,
+    "profit_factor": 0.49,
+    "t_stat": -1.79,
+    "max_drawdown_r": 14.45
+   },
+   "longs": {
+    "n": 38,
+    "win_rate": 0.316,
+    "avg_r": -0.219,
+    "total_r": -8.31,
+    "profit_factor": 0.69,
+    "t_stat": -0.96,
+    "max_drawdown_r": 14.59
+   },
+   "shorts": {
+    "n": 38,
+    "win_rate": 0.421,
+    "avg_r": 0.365,
+    "total_r": 13.87,
+    "profit_factor": 1.63,
+    "t_stat": 1.19,
+    "max_drawdown_r": 8.44
+   },
+   "symbols_positive": "8/12",
+   "by_symbol": {
+    "AAPL": -4.59,
+    "AMD": 1.61,
+    "AMZN": -2.03,
+    "DIA": 2.31,
+    "GOOGL": 1.97,
+    "IWM": -0.55,
+    "META": 3.39,
+    "MSFT": 2.2,
+    "NVDA": 2.35,
+    "QQQ": 0.42,
+    "SPY": -3.2,
+    "TSLA": 1.69
+   },
+   "id": "single_print_fill",
+   "name": "Fill through yesterday's single-print zone",
+   "family": "volume profile",
+   "rules": "Yesterday's widest price bin touched by only one 5-minute bar (a thin, fast passage) is the single-print zone. The first bar today that trades into it and closes back out the side it entered from leans WITH that close (continuation through the thin spot), before 15:00.",
+   "tf": "M5",
+   "file": "setups/volume-vwap-analyst-single-prints.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 284,
+   "status": "rejected",
+   "side": "fade",
+   "filter": "vwap",
+   "exit": "2atr/4atr",
+   "random_baseline_r": -0.092,
+   "edge_vs_random_oos": 0.016,
+   "in_sample": {
+    "n": 150,
+    "win_rate": 0.493,
+    "avg_r": 0.223,
+    "total_r": 33.52,
+    "profit_factor": 1.47,
+    "t_stat": 2.13,
+    "max_drawdown_r": 12.04
+   },
+   "out_of_sample": {
+    "n": 81,
+    "win_rate": 0.395,
+    "avg_r": -0.076,
+    "total_r": -6.13,
+    "profit_factor": 0.88,
+    "t_stat": -0.54,
+    "max_drawdown_r": 11.5
+   },
+   "longs": {
+    "n": 100,
+    "win_rate": 0.45,
+    "avg_r": 0.028,
+    "total_r": 2.8,
+    "profit_factor": 1.05,
+    "t_stat": 0.22,
+    "max_drawdown_r": 16.49
+   },
+   "shorts": {
+    "n": 131,
+    "win_rate": 0.466,
+    "avg_r": 0.188,
+    "total_r": 24.6,
+    "profit_factor": 1.38,
+    "t_stat": 1.67,
+    "max_drawdown_r": 6.59
+   },
+   "symbols_positive": "7/12",
+   "by_symbol": {
+    "AAPL": 2.01,
+    "AMD": -1.32,
+    "AMZN": -4.49,
+    "DIA": 1.23,
+    "GOOGL": -3.67,
+    "IWM": 7.0,
+    "META": 7.37,
+    "MSFT": -4.92,
+    "NVDA": -0.03,
+    "QQQ": 13.87,
+    "SPY": 7.07,
+    "TSLA": 3.28
+   },
+   "id": "poor_high_low_break",
+   "name": "Break of yesterday's poor high/low",
+   "family": "volume profile",
+   "rules": "If yesterday's session high (low) bin was touched by more than one 5-minute bar, the auction didn't reject it cleanly (a poor high/low, unfinished business). The first close today beyond that poor high (low) leans WITH the break, before 15:00. A clean (single-touch) high/low is left untested by this setup.",
+   "tf": "M5",
+   "file": "setups/volume-vwap-analyst-single-prints.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 491,
+   "status": "promising",
+   "side": "with",
+   "filter": "ppoc",
+   "exit": "2atr/4atr",
+   "random_baseline_r": -0.092,
+   "edge_vs_random_oos": 0.199,
+   "in_sample": {
+    "n": 75,
+    "win_rate": 0.507,
+    "avg_r": 0.069,
+    "total_r": 5.16,
+    "profit_factor": 1.15,
+    "t_stat": 0.52,
+    "max_drawdown_r": 14.09
+   },
+   "out_of_sample": {
+    "n": 39,
+    "win_rate": 0.487,
+    "avg_r": 0.107,
+    "total_r": 4.16,
+    "profit_factor": 1.25,
+    "t_stat": 0.6,
+    "max_drawdown_r": 7.24
+   },
+   "longs": {
+    "n": 53,
+    "win_rate": 0.528,
+    "avg_r": 0.037,
+    "total_r": 1.96,
+    "profit_factor": 1.09,
+    "t_stat": 0.26,
+    "max_drawdown_r": 8.53
+   },
+   "shorts": {
+    "n": 61,
+    "win_rate": 0.475,
+    "avg_r": 0.121,
+    "total_r": 7.35,
+    "profit_factor": 1.25,
+    "t_stat": 0.78,
+    "max_drawdown_r": 6.77
+   },
+   "symbols_positive": "7/12",
+   "by_symbol": {
+    "AAPL": -5.91,
+    "AMD": 3.54,
+    "AMZN": -1.0,
+    "DIA": 2.05,
+    "GOOGL": 1.04,
+    "IWM": 5.71,
+    "META": 4.56,
+    "MSFT": -1.47,
+    "NVDA": -2.49,
+    "QQQ": 2.29,
+    "SPY": -1.56,
+    "TSLA": 2.55
+   },
+   "id": "spring_upthrust",
+   "name": "Wyckoff spring / upthrust at the IB extreme",
+   "family": "wyckoff",
+   "rules": "After the initial balance, a bar wicks beyond the IB low (high) and closes back inside on below-average volume for that time slot (low effort) while closing in the outer half of its own range against the wick (strong result): the effort-vs-result divergence marks a spring (lean long) or upthrust (lean short), before 15:00. One per side per session.",
+   "tf": "M5",
+   "file": "setups/wyckoff-phase-analyst-spring-upthrust.py",
+   "frozen": {
+    "side": "with",
+    "filter": "ppoc",
+    "exit": "2atr/4atr",
+    "tf": "M5",
+    "frozen_at": "2026-09-25",
+    "status_at_freeze": "promising",
+    "oos_at_freeze": {
+     "n": 39,
+     "win_rate": 0.487,
+     "avg_r": 0.107,
+     "total_r": 4.16,
+     "profit_factor": 1.25,
+     "t_stat": 0.6,
+     "max_drawdown_r": 7.24
+    }
+   },
+   "forward": {
+    "n": 0,
+    "verdict": "tracking"
+   }
   }
  ]
 }
