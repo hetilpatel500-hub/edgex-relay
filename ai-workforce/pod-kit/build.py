@@ -28,20 +28,7 @@ RISKY = re.compile(r"\b(disney|pixar|marvel|star wars|harry potter|hogwarts|tayl
                    r"nike|adidas|stanley|starbucks|coca.?cola|nfl|nba|mlb|nhl|super bowl|olympic|pokemon|hello kitty|"
                    r"sanrio|peanuts|snoopy|bluey|paw patrol|sesame street|minecraft|fortnite|lego|crocs|yeti|"
                    r"best ?seller|free shipping|#1)\b", re.I)
-STANDARD_DESC = """
-
-HOW IT'S MADE
-The artwork is digitally painted by our studio with its own watercolor-painting code (no stock art, no copied designs). Each item is printed on demand and shipped by our production partner, so it's made just for you.
-
-DETAILS
-- Soft, lightweight fabric; printed with water-based inks directly into the fabric (direct-to-garment)
-- Unisex fit; see the size chart photo before ordering
-- Colors can look slightly different on screens
-
-CARE
-Wash inside out in cold water, tumble dry low or hang dry, don't iron the print.
-
-Because each item is made to order, please double-check size and color before checking out."""
+STANDARD_DESC = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'standard_description.txt')).read()
 
 
 def check(listing):
