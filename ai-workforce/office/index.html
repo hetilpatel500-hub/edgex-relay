@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>The Studio Floor</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&family=Silkscreen&family=VT323&display=swap">
 <style>
   :root{
     --bg:#c9d3da;
@@ -532,9 +532,58 @@
   @media (prefers-reduced-motion: reduce){ .cd-agent.thinking .cd-dot{animation:none;} }
   #soundBtn[aria-pressed="true"]{background:var(--ink);color:var(--panel-bg);}
   @media (max-width:720px){ #tourCard{bottom:calc(150px + env(safe-area-inset-bottom,0px));} #tourCard .tc-quote{-webkit-line-clamp:2;} .bubble{max-width:200px;font-size:11.5px;} }
+
+  /* ---- station view (a deliberate single-look space scene) ---- */
+  #station{position:fixed;inset:0;background:#05060d;}
+  #stationCanvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab;image-rendering:pixelated;}
+  .station-on #scene,.station-on #bubbles{visibility:hidden;}
+  .station-on #legend{display:none;}
+  .station-on #hint{background:rgba(5,9,14,0.78);border:1px solid #1f5c38;border-radius:999px;padding:4px 12px;color:#7fd6a0;}
+  .station-on header{background:rgba(5,9,14,0.78);border:1px solid #1f5c38;border-radius:12px;padding:10px 12px;box-shadow:0 0 18px rgba(60,255,140,0.08);}
+  .station-on header h1{color:#d9ffe7;text-shadow:0 0 10px rgba(92,255,157,0.35);}
+  .station-on header .eyebrow{color:#7fd6a0;}
+  .station-on #statusKey{background:rgba(5,9,14,0.78);border:1px solid #1f5c38;border-radius:999px;padding:6px 12px;color:#9fdcb4;}
+  .pill-term{font-family:"VT323",monospace;font-size:17px;letter-spacing:.04em;}
+  .station-on .pill-term{background:#062012;color:#6dff9e;border-color:#2e8b57;}
+  #term{position:fixed;inset:0;z-index:25;background:rgba(2,6,4,0.72);display:flex;align-items:center;justify-content:center;padding:calc(12px + env(safe-area-inset-top,0px)) 12px calc(12px + env(safe-area-inset-bottom,0px));}
+  #term[hidden]{display:none!important;}
+  .t-screen{position:relative;width:min(1180px,100%);max-height:100%;overflow:auto;background:#030a06;color:#7dffa8;border:2px solid #2e8b57;border-radius:10px;
+    box-shadow:0 0 0 1px #0d3a22 inset,0 0 40px rgba(60,255,140,0.18);font:18px/1.25 "VT323","IBM Plex Mono",monospace;padding:14px 16px 18px;text-shadow:0 0 4px rgba(92,255,157,0.45);}
+  .t-screen::after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.18) 0 1px,transparent 1px 3px);mix-blend-mode:multiply;}
+  .t-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border-bottom:1px solid #1f5c38;padding-bottom:8px;}
+  .t-title{font-size:26px;letter-spacing:.06em;color:#b8ffcf;}
+  .t-dim{color:#3fae6c;}
+  .t-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:12px 0;}
+  .t-stat{border:1px solid #1f5c38;padding:6px 10px;background:rgba(20,80,45,0.12);}
+  .t-k{font-size:14px;color:#3fae6c;letter-spacing:.06em;} .t-v{font-size:24px;color:#b8ffcf;}
+  .t-alert,.t-alert .t-v{color:#ff7b8a!important;border-color:#7a1f2a;}
+  .t-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;}
+  .t-panel{border:1px solid #1f5c38;padding:8px 10px;min-width:0;background:rgba(10,40,24,0.25);}
+  .t-ph{display:flex;justify-content:space-between;gap:8px;color:#b8ffcf;letter-spacing:.08em;border-bottom:1px dashed #1f5c38;padding-bottom:4px;margin-bottom:6px;}
+  .t-sub{margin-top:12px;}
+  .t-crew{padding:5px 0;border-bottom:1px solid rgba(31,92,56,0.4);cursor:pointer;}
+  .t-crew:hover{background:rgba(92,255,157,0.06);}
+  .t-crew-top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+  .t-badge{font-size:14px;color:#3fae6c;}
+  .t-line{font-size:16px;color:#5fd48a;overflow-wrap:anywhere;}
+  .t-bar{height:4px;background:#0b2a18;margin-top:4px;} .t-bar i{display:block;height:100%;background:#2e8b57;}
+  .t-working .t-bar i{background:#5cff9d;animation:tpulse 1.4s ease-in-out infinite;} .t-requested .t-bar i{background:#e0a24a;} .t-blocked .t-bar i{background:#ff4d5e;}
+  .t-working .t-badge{color:#5cff9d;} .t-requested .t-badge{color:#e0a24a;} .t-blocked .t-badge{color:#ff7b8a;}
+  @keyframes tpulse{50%{opacity:.45;}}
+  .t-item{font-size:16px;padding:3px 0;overflow-wrap:anywhere;}
+  .t-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:8px;}
+  .t-card{border:1px solid #1f5c38;padding:4px;background:#07130c;} .t-card img{width:100%;display:block;background:#f7f3ea;}
+  .t-cap{font-size:14px;margin-top:4px;color:#b8ffcf;}
+  .t-btns{display:flex;flex-wrap:wrap;gap:6px;}
+  .t-btn{font:17px "VT323",monospace;letter-spacing:.05em;background:#062012;color:#7dffa8;border:1px solid #2e8b57;padding:4px 10px;cursor:pointer;text-shadow:inherit;}
+  .t-btn:hover,.t-btn:focus-visible{background:#0d3a22;outline:1px solid #7dffa8;}
+  .t-obj{font-size:16px;padding:2px 0;} .t-done{color:#3fae6c;}
+  @media (prefers-reduced-motion: reduce){ .t-working .t-bar i{animation:none;} }
+  @media (max-width:560px){ .t-screen{font-size:17px;padding:10px;} .t-title{font-size:21px;} .t-v{font-size:20px;} }
 </style></head><body>
 
 <canvas id="scene"></canvas>
+<div id="station" hidden><canvas id="stationCanvas" aria-label="Space station map: each module is a department; tap one to open its terminal"></canvas></div>
 <div id="bubbles" aria-hidden="true"></div>
 
 <div id="app">
@@ -547,6 +596,7 @@
       </div>
     </header>
     <div id="topBtns">
+      <button class="pillbtn pill-term" id="viewBtn" type="button" aria-pressed="false">3D office</button>
       <button class="pillbtn" id="liveBtn" type="button">Live</button>
       <button class="pillbtn" id="ownerBtn" type="button">Waiting on you</button>
       <button class="pillbtn" id="moneyBtn" type="button">Money</button>
@@ -574,6 +624,16 @@
 </div>
 
 <div id="toast" role="status"></div>
+
+<div id="term" hidden>
+  <div class="t-screen" role="dialog" aria-labelledby="termTitle">
+    <div class="t-top">
+      <div><div class="t-title" id="termTitle"></div><div class="t-dim" id="termTag"></div></div>
+      <button class="t-btn" id="termClose" type="button" aria-label="Close terminal">MAP ✕</button>
+    </div>
+    <div id="termBody"></div>
+  </div>
+</div>
 
 <div id="tourCard" hidden>
   <div class="tc-top"><span class="tc-step" id="tourStep"></span><span class="tc-btns"><button type="button" id="tourSkip">Next</button><button type="button" id="tourStop">Stop</button></span></div>
@@ -2862,7 +2922,7 @@
   rosterSearch.addEventListener("input", renderRoster);
 
   // ---------------- live data: every collection the studio runs on ----------------
-  var store = {deals:{}, decisions:{}, requests:{}, outbox:{}, owner:{}, opps:{}, ideas:{}, changes:{}, charts:{}, collabs:{}, brain:{}, skillwork:{}, briefings:{}, playbook:{}, research:{}, chartlive:{}};
+  var store = {deals:{}, decisions:{}, requests:{}, outbox:{}, owner:{}, opps:{}, ideas:{}, changes:{}, charts:{}, collabs:{}, brain:{}, skillwork:{}, briefings:{}, playbook:{}, research:{}, chartlive:{}, pod:{}};
   var loaded = {};
   var dbState = "connecting";   // connecting | live | unavailable
 
@@ -3360,6 +3420,7 @@
       watch(db, "playbook", "chart_playbook");
       watch(db, "research", "chart_research");
       watch(db, "chartlive", "chart_live");
+      watch(db, "pod", "pod_designs");
       watch(db, "collabs", "collabs", function(snap, first){
         snap.docChanges().forEach(function(ch){
           if(ch.type==="removed"){ delete store.collabs[ch.doc.id]; return; }
@@ -5586,6 +5647,362 @@
   document.getElementById("ltSym").addEventListener("keydown", function(e){ if(e.key==="Enter") ltStart(this.value); });
   window.addEventListener("resize", function(){ if(openSheetId==="chartOverlay" && chartTab==="live") renderLive(); });
 
+  // ---------------- Station view: pixel-art space station + green terminals ----------------
+  // The default view. Every department is a module on the station; its agents
+  // are pixel sprites at desks (working) or drifting around (idle). Tapping a
+  // module opens a green CRT terminal with that room's crew, live workflows,
+  // output queue, operations feed, mission control and objectives — all from
+  // the same live database as the 3D office. The 3D office is one tap away.
+  var stationOn = true;
+  try{ if(localStorage.getItem("edgex-view")==="3d") stationOn = false; }catch(e){}
+  var STN = {zoom:2, camX:0, camY:0, hover:null, mods:[], sprites:{}, stars:[], t:0, drag:null, pointers:{}, pinch:null, fitDone:false};
+  var stEl = document.getElementById("station"), stCv = document.getElementById("stationCanvas"), stCtx = stCv.getContext("2d");
+  var lowCv = document.createElement("canvas"), low = lowCv.getContext("2d");
+  var MOD_W = 72, MOD_H = 48, GAP_X = 18, GAP_Y = 26;
+  function stHexCss(h){ return "#"+("000000"+h.toString(16)).slice(-6); }
+  function stShade(h, f){ var r=(h>>16)&255, g=(h>>8)&255, b=h&255; function c(v){ return Math.max(0, Math.min(255, Math.round(f>=0 ? v+(255-v)*f : v*(1+f)))); } return "rgb("+c(r)+","+c(g)+","+c(b)+")"; }
+  function stHash(s){ var h = 2166136261; for(var i=0;i<s.length;i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h>>>0; }
+  function stationModules(){
+    var list = DEPARTMENTS.slice().sort(function(a,b){ return parseInt(a.code,10)-parseInt(b.code,10); });
+    if(COLLAB_ZONE) list.push(COLLAB_ZONE);
+    if(TOWNHALL_ZONE) list.push(TOWNHALL_ZONE);
+    return list;
+  }
+  function stationLayout(){
+    var vw = stCv.clientWidth || innerWidth, vh = stCv.clientHeight || innerHeight;
+    var mods = stationModules(), n = mods.length;
+    var aspect = vw / Math.max(1, vh - 120);
+    var cols = Math.max(3, Math.min(7, Math.round(Math.sqrt(n * aspect * (MOD_H+GAP_Y) / (MOD_W+GAP_X)))));
+    var rows = Math.ceil(n / cols);
+    STN.mods = mods.map(function(d, i){
+      var r = Math.floor(i / cols), c = i % cols;
+      return {d:d, x:70 + c*(MOD_W+GAP_X), y:40 + r*(MOD_H+GAP_Y), w:MOD_W, h:MOD_H, row:r, col:c};
+    });
+    STN.cols = cols; STN.rows = rows;
+    STN.worldW = 70*2 + cols*(MOD_W+GAP_X) - GAP_X;
+    STN.worldH = 40 + rows*(MOD_H+GAP_Y) - GAP_Y + 40;
+    // sprite seats per module
+    STN.mods.forEach(function(m){
+      var agents = m.d.agents || [];
+      var perRow = agents.length > 12 ? 5 : 4, rowsN = Math.ceil(agents.length / perRow);
+      agents.forEach(function(a, k){
+        var cx = m.x + 8 + (k % perRow) * ((m.w-16) / Math.max(1, perRow-1 || 1));
+        var cy = m.y + 14 + Math.floor(k / perRow) * Math.min(10, (m.h-20) / Math.max(1, rowsN));
+        if(perRow === 1) cx = m.x + m.w/2;
+        var sp = STN.sprites[a.id] || (STN.sprites[a.id] = {x:cx, y:cy+4, tx:cx, ty:cy+4, wait:0});
+        sp.deskX = Math.round(cx); sp.deskY = Math.round(cy); sp.mod = m;
+      });
+    });
+  }
+  function stationFit(){
+    var vw = stCv.clientWidth || innerWidth, vh = stCv.clientHeight || innerHeight;
+    var tr = document.getElementById("topRow"), br = document.getElementById("bottomRow");
+    var top = tr ? tr.getBoundingClientRect().bottom + 10 : 110;
+    var bottom = br ? vh - br.getBoundingClientRect().top + 6 : 60;
+    var availH = Math.max(160, vh - top - bottom);
+    var z = Math.min(vw / (STN.worldW + 16), availH / (STN.worldH + 6));
+    STN.zoom = Math.max(1, Math.min(6, Math.floor(z * 4) / 4 || 1));
+    STN.camX = STN.worldW/2 - vw/STN.zoom/2;
+    // fits: centre it in the free band; doesn't fit: start at the top of the station
+    STN.camY = (STN.worldH * STN.zoom <= availH) ? STN.worldH/2 - (top + availH/2)/STN.zoom : 20 - top/STN.zoom;
+  }
+  function stationResize(){
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    var vw = stEl.clientWidth || innerWidth, vh = stEl.clientHeight || innerHeight;
+    stCv.width = Math.round(vw * dpr); stCv.height = Math.round(vh * dpr);
+    stCv.style.width = vw+"px"; stCv.style.height = vh+"px";
+    stationLayout();
+    if(!STN.fitDone){ stationFit(); STN.fitDone = true; }
+    if(!STN.stars.length){ for(var i=0;i<260;i++) STN.stars.push({x:Math.random(), y:Math.random(), b:Math.random(), s:Math.random()<0.12 ? 2 : 1, p:Math.random()*6.28}); }
+  }
+  function modStats(d){
+    var n = 0, live = 0, blocked = 0, req = 0, last = 0;
+    (d.agents||[]).forEach(function(a){ n++; var v = vstate(a.id); if(v==="working"){ live++; } if(v==="requested") req++; if(v==="blocked") blocked++; var s = agentStatus[a.id]; if(s) last = Math.max(last, timeOf(s.updatedAt)); });
+    return {n:n, live:live, blocked:blocked, req:req, last:last};
+  }
+  function drawStation(dt){
+    STN.t += dt;
+    var z = STN.zoom, vw = stCv.width, vh = stCv.height, dpr = vw / (stCv.clientWidth || vw);
+    var lw = Math.ceil(stCv.clientWidth / z), lh = Math.ceil(stCv.clientHeight / z);
+    if(lowCv.width !== lw || lowCv.height !== lh){ lowCv.width = lw; lowCv.height = lh; }
+    var g = low, ox = -Math.round(STN.camX), oy = -Math.round(STN.camY), T = STN.t;
+    // space
+    g.fillStyle = "#05060d"; g.fillRect(0,0,lw,lh);
+    STN.stars.forEach(function(s){
+      var tw = prefersReducedMotion ? 1 : 0.55 + 0.45*Math.sin(T*1.3 + s.p);
+      var v = Math.round(90 + 150*s.b*tw); g.fillStyle = "rgb("+v+","+v+","+Math.min(255, v+30)+")";
+      g.fillRect(Math.floor(((s.x*lw*1.3 + ox*0.15) % lw + lw) % lw), Math.floor(((s.y*lh*1.3 + oy*0.15) % lh + lh) % lh), s.s, s.s);
+    });
+    // a dithered planet in the corner
+    var px = lw - 40 + ox*0.05, py = lh + 30 + oy*0.05, pr = 110;
+    for(var yy = Math.max(0, Math.floor(py-pr)); yy < Math.min(lh, py+pr); yy+=1){
+      for(var xx = Math.max(0, Math.floor(px-pr)); xx < Math.min(lw, px+pr); xx+=1){
+        var dx = xx-px, dy = yy-py, d2 = dx*dx+dy*dy; if(d2 > pr*pr) continue;
+        var lit = (-dx - dy) / pr; var band = Math.sin(yy*0.18 + dx*0.02);
+        if(((xx+yy)&1) && lit < -0.2) continue;
+        g.fillStyle = lit > 0.3 ? (band>0.3 ? "#3c5a8a" : "#2f4a78") : lit > -0.2 ? "#223759" : "#141f36";
+        g.fillRect(xx, yy, 1, 1);
+      }
+    }
+    g.save(); g.translate(ox, oy);
+    // solar wings and spine
+    var W = STN.worldW, H = STN.worldH;
+    g.fillStyle = "#3a4152"; g.fillRect(10, H/2-2, W-20, 4);
+    for(var sx=0; sx<2; sx++){
+      var bx = sx ? W-58 : 6;
+      for(var pnl=0; pnl<3; pnl++){
+        var by = H/2 - 60 + pnl*42;
+        g.fillStyle = "#16233f"; g.fillRect(bx, by, 52, 34);
+        g.fillStyle = "#24407a"; for(var cxp=0; cxp<5; cxp++) for(var cyp=0; cyp<3; cyp++) g.fillRect(bx+2+cxp*10, by+2+cyp*11, 8, 9);
+        g.fillStyle = "#6f86b8"; g.fillRect(bx+2, by+2, 1, 1);
+      }
+      g.fillStyle = "#4b5468"; g.fillRect(sx ? W-60 : 58, H/2-70, 2, 140);
+    }
+    // corridors between rows and columns
+    STN.mods.forEach(function(m){
+      g.fillStyle = "#2b3242";
+      if(m.col < STN.cols-1) g.fillRect(m.x+m.w, m.y+m.h/2-3, GAP_X, 6);
+      if(m.row < STN.rows-1) g.fillRect(m.x+m.w/2-3, m.y+m.h, 6, GAP_Y);
+      g.fillStyle = "#586178";
+      if(m.col < STN.cols-1) for(var k=2;k<GAP_X;k+=4) g.fillRect(m.x+m.w+k, m.y+m.h/2-1, 1, 2);
+      if(m.row < STN.rows-1) for(var k2=2;k2<GAP_Y;k2+=4) g.fillRect(m.x+m.w/2-1, m.y+m.h+k2, 2, 1);
+    });
+    // modules
+    STN.mods.forEach(function(m){
+      var d = m.d, st = modStats(d), hot = STN.hover === m;
+      var col = d.hex || 0x3560CC;
+      g.fillStyle = hot ? "#9fb0cf" : "#4a5367"; g.fillRect(m.x-2, m.y-2, m.w+4, m.h+4);   // hull rim
+      g.fillStyle = "#1b202b"; g.fillRect(m.x, m.y, m.w, m.h);
+      // floor tiles tinted by the room color, brighter with more agents working
+      var glow = Math.min(1, 0.15 + st.live*0.18 + st.req*0.08);
+      for(var ty=0; ty<m.h; ty+=6) for(var tx=0; tx<m.w; tx+=6){
+        g.fillStyle = ((tx+ty)/6)%2 ? stShade(col, -0.82 + glow*0.25) : stShade(col, -0.86 + glow*0.25);
+        g.fillRect(m.x+tx, m.y+ty, 6, 6);
+      }
+      // wall light strip
+      var pulse = prefersReducedMotion ? 1 : 0.6 + 0.4*Math.sin(T*2 + m.x*0.05);
+      g.fillStyle = st.blocked ? (Math.sin(T*6)>0 ? "#ff4d5e" : "#7a1f2a") : stShade(col, -0.2 + 0.4*pulse*glow);
+      g.fillRect(m.x+2, m.y+1, m.w-4, 1);
+      g.fillRect(m.x+2, m.y+m.h-2, m.w-4, 1);
+      // beacon
+      g.fillStyle = st.live ? (Math.sin(T*4 + m.y)>0 ? "#5cff9d" : "#1d6b3d") : "#39424f";
+      g.fillRect(m.x+m.w-5, m.y+3, 2, 2);
+      // desks
+      (d.agents||[]).forEach(function(a){
+        var sp = STN.sprites[a.id]; if(!sp) return;
+        var v = vstate(a.id);
+        g.fillStyle = "#5b4636"; g.fillRect(sp.deskX-3, sp.deskY+2, 7, 2);          // desk
+        g.fillStyle = "#11151c"; g.fillRect(sp.deskX-1, sp.deskY-1, 3, 3);        // monitor
+        g.fillStyle = v==="working" ? (Math.sin(T*9 + sp.deskX)>-0.3 ? "#6dff9e" : "#2a8c52") : v==="requested" ? "#e0a24a" : v==="blocked" ? "#e3687a" : "#2a3140";
+        g.fillRect(sp.deskX, sp.deskY, 1, 1);
+      });
+    });
+    // agents
+    STN.mods.forEach(function(m){
+      (m.d.agents||[]).forEach(function(a){
+        var sp = STN.sprites[a.id]; if(!sp) return;
+        var v = vstate(a.id), atDesk = v==="working" || v==="requested";
+        if(atDesk){ sp.tx = sp.deskX; sp.ty = sp.deskY+4; }
+        else if(!prefersReducedMotion){
+          sp.wait -= dt;
+          if(sp.wait <= 0){ sp.tx = m.x + 5 + Math.random()*(m.w-10); sp.ty = m.y + 8 + Math.random()*(m.h-14); sp.wait = 2 + Math.random()*5; }
+        }
+        var ddx = sp.tx - sp.x, ddy = sp.ty - sp.y, dist = Math.hypot(ddx, ddy), spd = 9*dt;
+        if(dist > spd){ sp.x += ddx/dist*spd; sp.y += ddy/dist*spd; } else { sp.x = sp.tx; sp.y = sp.ty; }
+        var x = Math.round(sp.x), y = Math.round(sp.y), h = stHash(a.id);
+        var skins = ["#f1c9a5","#d9a27a","#b07a52","#8a5a3c","#f5d7bd"];
+        var step = (dist > spd && !prefersReducedMotion) ? (Math.floor(T*6)%2) : 0;
+        g.fillStyle = stShade(m.d.hex || 0x3560CC, 0.1); g.fillRect(x-1, y-2, 3, 3);    // body
+        g.fillStyle = skins[h % skins.length]; g.fillRect(x-1, y-4, 3, 2);            // head
+        g.fillStyle = "#1a1d24"; g.fillRect(x-1, y+1, 1, 1+step); g.fillRect(x+1, y+1, 1, 2-step);
+        if(v==="blocked"){ g.fillStyle = "#ff4d5e"; g.fillRect(x, y-8, 1, 2); g.fillRect(x, y-5, 1, 1); }
+        else if(v==="requested"){ g.fillStyle = "#e0a24a"; g.fillRect(x, y-6, 1, 1); }
+      });
+    });
+    g.restore();
+    // blit scaled up, crisp
+    stCtx.setTransform(1,0,0,1,0,0);
+    stCtx.imageSmoothingEnabled = false;
+    stCtx.drawImage(lowCv, 0, 0, lw*z*dpr, lh*z*dpr);
+    // module labels in a pixel font at screen resolution
+    stCtx.setTransform(dpr,0,0,dpr,0,0);
+    var fs = Math.max(9, Math.min(13, Math.round(z*4.2)));
+    stCtx.font = fs+"px Silkscreen, 'VT323', monospace";
+    stCtx.textBaseline = "bottom";
+    STN.mods.forEach(function(m){
+      var sx = (m.x + ox) * z, sy = (m.y + oy) * z - 4;
+      var st = modStats(m.d);
+      var label = (m.d.code && m.d.code !== "--" ? m.d.code+" " : "") + shortName(m.d.name);
+      var maxW = m.w * z;
+      while(stCtx.measureText(label).width > maxW && label.length > 4) label = label.slice(0, -2) + "…";
+      stCtx.fillStyle = "rgba(5,6,13,0.75)"; stCtx.fillRect(sx-2, sy-fs-2, stCtx.measureText(label).width+4, fs+3);
+      stCtx.fillStyle = STN.hover === m ? "#b8ffcf" : "#8fe0a8"; stCtx.fillText(label, sx, sy);
+      if(st.live || st.blocked){
+        var tag = st.blocked ? st.blocked+" BLOCKED" : st.live+" LIVE";
+        stCtx.fillStyle = st.blocked ? "#ff7b8a" : "#5cff9d";
+        stCtx.fillText(tag, sx + maxW - stCtx.measureText(tag).width, (m.y + oy + m.h) * z + fs + 4);
+      }
+    });
+  }
+  function shortName(n){ return String(n).replace(/\s*\(.*\)/, "").replace(/ & .*/, "").replace(/ Operations$/, " Ops").toUpperCase(); }
+  function stationPick(clientX, clientY){
+    var r = stCv.getBoundingClientRect();
+    var wx = (clientX - r.left) / STN.zoom + STN.camX, wy = (clientY - r.top) / STN.zoom + STN.camY;
+    for(var i=0;i<STN.mods.length;i++){ var m = STN.mods[i]; if(wx >= m.x-3 && wx <= m.x+m.w+3 && wy >= m.y-6 && wy <= m.y+m.h+3) return m; }
+    return null;
+  }
+  function zoomAt(clientX, clientY, nz){
+    var r = stCv.getBoundingClientRect();
+    nz = Math.max(1, Math.min(8, nz));
+    var wx = (clientX - r.left) / STN.zoom + STN.camX, wy = (clientY - r.top) / STN.zoom + STN.camY;
+    STN.zoom = nz;
+    STN.camX = wx - (clientX - r.left) / nz; STN.camY = wy - (clientY - r.top) / nz;
+  }
+  stCv.addEventListener("pointerdown", function(e){
+    stCv.setPointerCapture(e.pointerId);
+    STN.pointers[e.pointerId] = {x:e.clientX, y:e.clientY};
+    var ids = Object.keys(STN.pointers);
+    if(ids.length === 2){ var a = STN.pointers[ids[0]], b = STN.pointers[ids[1]]; STN.pinch = {d:Math.hypot(a.x-b.x, a.y-b.y), z:STN.zoom}; STN.drag = null; }
+    else STN.drag = {x:e.clientX, y:e.clientY, cx:STN.camX, cy:STN.camY, moved:false};
+  });
+  stCv.addEventListener("pointermove", function(e){
+    if(STN.pointers[e.pointerId]) STN.pointers[e.pointerId] = {x:e.clientX, y:e.clientY};
+    var ids = Object.keys(STN.pointers);
+    if(STN.pinch && ids.length === 2){
+      var a = STN.pointers[ids[0]], b = STN.pointers[ids[1]];
+      zoomAt((a.x+b.x)/2, (a.y+b.y)/2, STN.pinch.z * Math.hypot(a.x-b.x, a.y-b.y) / STN.pinch.d);
+      return;
+    }
+    if(STN.drag){
+      var dx = e.clientX - STN.drag.x, dy = e.clientY - STN.drag.y;
+      if(Math.abs(dx) + Math.abs(dy) > 5) STN.drag.moved = true;
+      if(STN.drag.moved){ STN.camX = STN.drag.cx - dx / STN.zoom; STN.camY = STN.drag.cy - dy / STN.zoom; }
+    } else {
+      STN.hover = stationPick(e.clientX, e.clientY);
+      stCv.style.cursor = STN.hover ? "pointer" : "grab";
+    }
+  });
+  function stEndPointer(e){
+    var wasDrag = STN.drag && STN.drag.moved, wasPinch = !!STN.pinch;
+    delete STN.pointers[e.pointerId];
+    if(Object.keys(STN.pointers).length < 2) STN.pinch = null;
+    if(e.type === "pointerup" && !wasDrag && !wasPinch){ var m = stationPick(e.clientX, e.clientY); if(m) openTerminal(m.d); }
+    STN.drag = null;
+  }
+  stCv.addEventListener("pointerup", stEndPointer);
+  stCv.addEventListener("pointercancel", stEndPointer);
+  stCv.addEventListener("wheel", function(e){ e.preventDefault(); zoomAt(e.clientX, e.clientY, STN.zoom * (e.deltaY < 0 ? 1.15 : 1/1.15)); }, {passive:false});
+
+  // ---- green terminal ----
+  var termEl = document.getElementById("term"), termBody = document.getElementById("termBody"), termDept = null;
+  function tel(tag, cls, text){ var e = document.createElement(tag); if(cls) e.className = cls; if(text!=null) e.textContent = text; return e; }
+  function ago(t){ if(!t) return "no activity yet"; var m = Math.round((Date.now()-t)/60000); return m < 1 ? "just now" : m < 60 ? m+" min ago" : m < 1440 ? Math.round(m/60)+" h ago" : Math.round(m/1440)+" d ago"; }
+  function termPanel(title, extra){ var p = tel("section", "t-termPanel"); var h = tel("div", "t-ph"); h.appendChild(tel("span", "", title)); if(extra) h.appendChild(tel("span", "t-dim", extra)); p.appendChild(h); return p; }
+  function openTerminal(d){
+    termDept = d;
+    renderTerminal();
+    termEl.hidden = false;
+    document.body.classList.add("term-open");
+    var cl = document.getElementById("termClose"); if(cl) cl.focus();
+  }
+  function closeTerminal(){ termEl.hidden = true; termDept = null; document.body.classList.remove("term-open"); }
+  function renderTerminal(){
+    var d = termDept; if(!d) return;
+    var st = modStats(d), agents = d.agents || [], ids = agents.map(function(a){ return a.id; });
+    document.getElementById("termTitle").textContent = (d.code && d.code !== "--" ? "ROOM "+d.code+" · " : "") + d.name.toUpperCase();
+    document.getElementById("termTag").textContent = d.tag || "";
+    termBody.textContent = "";
+    // stat strip
+    var strip = tel("div", "t-strip");
+    [["ROOM CREW", st.n+" AGENTS"], ["ACTIVE WORKFLOWS", st.live+" LIVE"], ["WAITING ON NEXT SHIFT", st.req+" ASKED"], ["BLOCKED", String(st.blocked)], ["LAST ACTIVITY", ago(st.last).toUpperCase()]].forEach(function(p){
+      var b = tel("div", "t-stat"+(p[0]==="BLOCKED" && st.blocked ? " t-alert" : "")); b.appendChild(tel("div", "t-k", p[0])); b.appendChild(tel("div", "t-v", p[1])); strip.appendChild(b);
+    });
+    termBody.appendChild(strip);
+    var grid = tel("div", "t-grid");
+    // crew
+    var crew = termPanel("ROOM CREW", st.n ? st.live+" live" : "");
+    if(!agents.length) crew.appendChild(tel("p", "t-dim", d.id==="collab-room" ? "Agents come here to work together; open the room for the live collaborations." : d.id==="town-hall" ? "The whole studio meets here; open the room for the latest briefing." : "No agents."));
+    agents.slice().sort(function(a,b){ return STATUS_ORDER[vstate(a.id)] - STATUS_ORDER[vstate(b.id)]; }).forEach(function(a){
+      var v = vstate(a.id), s = agentStatus[a.id] || {};
+      var row = tel("div", "t-crew t-"+v);
+      var top = tel("div", "t-crew-top"); top.appendChild(tel("b", "", a.name.toUpperCase())); top.appendChild(tel("span", "t-badge", VLABEL[v] ? VLABEL[v].toUpperCase() : v)); row.appendChild(top);
+      row.appendChild(tel("div", "t-line", (s.task || a.desc || "").slice(0, 140)));
+      var bar = tel("div", "t-bar"); var fill = tel("i"); fill.style.width = v==="working" ? "100%" : v==="requested" ? "35%" : v==="fresh" ? "100%" : v==="blocked" ? "100%" : "8%"; bar.appendChild(fill); row.appendChild(bar);
+      row.addEventListener("click", function(){ closeTerminal(); openAgentPanel(a.id); });
+      crew.appendChild(row);
+    });
+    grid.appendChild(crew);
+    // output queue: real finished work from this room
+    var q = termPanel("OUTPUT QUEUE");
+    var work = docsOf("skillwork").filter(function(x){ return ids.indexOf(x.d.agent) >= 0; })
+      .sort(function(a,b){ return timeOf(b.d.created||b.d.updatedAt) - timeOf(a.d.created||a.d.updatedAt); });
+    var pods = docsOf("pod").filter(function(x){ return x.d.thumb; });
+    if(d.id === "content" && pods.length){
+      var cards = tel("div", "t-cards");
+      pods.forEach(function(x){ var c = tel("div", "t-card"); var im = document.createElement("img"); im.src = x.d.thumb; im.alt = x.d.title+" design"; c.appendChild(im); c.appendChild(tel("div", "t-cap", (x.d.title||"").toUpperCase()+" DESIGN")); c.appendChild(tel("div", "t-dim", (x.d.status||"") + " · " + ago(timeOf(x.d.created)))); if(x.d.artifact){ c.style.cursor = "pointer"; c.addEventListener("click", function(){ window.open(x.d.artifact, "_blank", "noopener"); }); } cards.appendChild(c); });
+      q.appendChild(cards);
+    }
+    if(work.length){
+      work.slice(0, 8).forEach(function(x){ var r = tel("div", "t-item"); r.appendChild(tel("span", "", "▸ "+(x.d.title || x.id))); r.appendChild(tel("span", "t-dim", " "+(x.d.status||"").replace(/_/g," "))); q.appendChild(r); });
+    } else if(!(d.id === "content" && pods.length)) q.appendChild(tel("p", "t-dim", "No finished work from this room yet."));
+    grid.appendChild(q);
+    // operations feed
+    var feed = termPanel("OPERATIONS FEED");
+    var evts = [];
+    agents.forEach(function(a){ var s = agentStatus[a.id]; if(s && s.result) evts.push({t:timeOf(s.updatedAt), text:a.name+": "+s.result}); });
+    docsOf("decisions").forEach(function(x){ if(ids.indexOf(x.d.agent) >= 0) evts.push({t:timeOf(x.d.created), text:"Decision "+(x.d.decision||"")+": "+(x.d.action||x.id)}); });
+    evts.sort(function(a,b){ return b.t - a.t; });
+    if(!evts.length) feed.appendChild(tel("p", "t-dim", "Nothing logged yet."));
+    evts.slice(0, 9).forEach(function(e){ var r = tel("div", "t-item"); r.appendChild(tel("span", "t-dim", (e.t ? ago(e.t) : "—")+"  ")); r.appendChild(tel("span", "", e.text.slice(0, 180))); feed.appendChild(r); });
+    grid.appendChild(feed);
+    // mission control
+    var mc = termPanel("MISSION CONTROL");
+    var btns = tel("div", "t-btns");
+    function tb(label, fn){ var b = tel("button", "t-btn", label); b.type = "button"; b.addEventListener("click", fn); btns.appendChild(b); }
+    tb("▣ ROOM DETAILS", function(){ closeTerminal(); if(d.onOpen) d.onOpen(); else openPanel(d); });
+    tb("✎ ASK THIS ROOM", function(){ closeTerminal(); openSheet("liveOverlay"); var t = document.getElementById("askText"); if(t){ t.value = d.name+": "; t.focus(); } });
+    tb("◈ SEE IN 3D", function(){ closeTerminal(); setStation(false); focusOn(d); });
+    mc.appendChild(btns);
+    // daily objectives from the crew's real tasks
+    mc.appendChild(tel("div", "t-ph t-sub", "DAILY OBJECTIVES"));
+    var objs = [];
+    agents.forEach(function(a){ var s = agentStatus[a.id]; var v = vstate(a.id); if(!s) return; if(v==="working" || v==="requested" || v==="blocked") objs.push({done:false, text:s.task||a.name, v:v}); else if(v==="fresh" && s.result) objs.push({done:true, text:s.result}); });
+    if(!objs.length) mc.appendChild(tel("p", "t-dim", "No open objectives right now."));
+    objs.slice(0, 8).forEach(function(o){ mc.appendChild(tel("div", "t-obj"+(o.done ? " t-done" : "")+(o.v==="blocked" ? " t-alert" : ""), (o.done ? "[x] " : o.v==="blocked" ? "[!] " : "[ ] ") + String(o.text).slice(0, 150))); });
+    grid.appendChild(mc);
+    termBody.appendChild(grid);
+  }
+  document.getElementById("termClose").addEventListener("click", closeTerminal);
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !termEl.hidden) closeTerminal(); });
+  termEl.addEventListener("click", function(e){ if(e.target === termEl) closeTerminal(); });
+
+  // ---- switching views ----
+  var viewBtn = document.getElementById("viewBtn");
+  function setStation(on){
+    stationOn = on;
+    try{ localStorage.setItem("edgex-view", on ? "station" : "3d"); }catch(e){}
+    document.body.classList.toggle("station-on", on);
+    var hint = document.getElementById("hint");
+    if(hint){ if(!hint.dataset.office) hint.dataset.office = hint.textContent;
+      hint.textContent = on ? "tap a module to open its terminal · drag to move · pinch or scroll to zoom" : hint.dataset.office; }
+    stEl.hidden = !on;
+    viewBtn.textContent = on ? "3D office" : "Station";
+    viewBtn.setAttribute("aria-pressed", on ? "false" : "true");
+    if(on){ stationResize(); lastSt = performance.now(); requestAnimationFrame(stationLoop); }
+  }
+  viewBtn.addEventListener("click", function(){ setStation(!stationOn); });
+  var lastSt = performance.now();
+  function stationLoop(now){
+    if(!stationOn) return;
+    var dt = Math.min(0.1, (now - lastSt)/1000); lastSt = now;
+    drawStation(dt);
+    requestAnimationFrame(stationLoop);
+  }
+  window.addEventListener("resize", function(){ if(stationOn){ STN.fitDone = false; stationResize(); } });
+  setStation(stationOn);
+  // keep an open terminal current as the database changes
+  setInterval(function(){ if(termDept && !termEl.hidden) renderTerminal(); }, 5000);
+
   renderShots();
   restDesk();
 
@@ -5595,6 +6012,7 @@
   function easeInOut(t){ return t<0.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2; }
   function frame(){
     requestAnimationFrame(frame);
+    if(stationOn){ clock.getDelta(); return; }   // the station view is showing: don't render the 3D office
     var dt = Math.min(0.05, clock.getDelta());
     elapsed += dt;
 

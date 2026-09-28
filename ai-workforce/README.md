@@ -82,6 +82,13 @@ from the office database as the shifts write to it:
   breaks. Lighting and the view out the windows follow the viewer's
   local time; a wall clock and a live studio board (earned, waiting on
   you, working now, next shift, latest update) hang on the north wall.
+  The floor opens on the **Station** view: a pixel-art space station where
+  every department is a module and agents are pixel sprites at desks
+  (working) or walking around (idle). Tapping a module opens a green
+  terminal: room crew, active workflows, output queue (the Content room
+  shows the watercolor print-on-demand designs), operations feed, mission
+  control and today's objectives, all from the live database. The
+  **3D office** button switches to the 3D view (the choice is remembered).
   **Chart Desk** opens a 20-analyst room that reads a chart screenshot
   and calls the next direction and price, a **Live tape** tab (liquidity
   heatmap from level 2, footprint from tick trades, big prints, VWAP,
