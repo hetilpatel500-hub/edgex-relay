@@ -1,0 +1,52 @@
+{
+ "id": "currently-reading",
+ "template": "arch",
+ "top": "Currently",
+ "bottom": "Reading",
+ "top_font": "DancingScript",
+ "bottom_font": "PlayfairDisplay",
+ "art": [
+  {
+   "motif": "books",
+   "x": 0.0,
+   "y": -0.06,
+   "s": 0.22
+  }
+ ],
+ "florals": "bouquet",
+ "florals_dy": 0.13,
+ "florals_s": 0.22,
+ "palette": "lavender",
+ "seed": 11,
+ "shirt_colors": [
+  "white",
+  "natural",
+  "heather_pink"
+ ],
+ "listing": {
+  "title": "Currently Reading Shirt, Watercolor Floral Book Stack Tee, Book Lover Gift, Bookish T-Shirt for Readers, Librarian and Book Club Shirt",
+  "tags": [
+   "currently reading",
+   "bookish shirt",
+   "book lover gift",
+   "book club shirt",
+   "reading shirt",
+   "librarian shirt",
+   "floral book tee",
+   "watercolor books",
+   "gift for reader",
+   "bookworm shirt",
+   "teacher reading tee",
+   "bibliophile gift",
+   "literary shirt"
+  ],
+  "description": "A stack of well-loved books tucked into a soft watercolor bouquet of lavender roses, blush blooms and eucalyptus, with \"Currently Reading\" in flowing script. Made for book club nights, library days, and anyone whose to-be-read pile keeps growing.",
+  "products": [
+   "Unisex tee (Bella+Canvas 3001)",
+   "Crewneck sweatshirt (Gildan 18000)"
+  ],
+  "price_note": "Tee $24-$28 (Printify Bella+Canvas 3001 base is about $10-$11 without Premium, before shipping and Etsy fees; Etsy tees in this style commonly sell for $22-$32 - sellermockups.com and marginory.com 2026 guides). Sweatshirt $38-$45. You set the final price.",
+  "trademark_check": "Web search 2026-09-28 for 'currently reading' trademarks on apparel found no registration for the phrase (a common descriptive phrase many sellers use). The USPTO search site is blocked from this environment, so run tmsearch.uspto.gov yourself before scaling ads."
+ },
+ "name": "Currently Reading"
+}
