@@ -9,16 +9,45 @@ publish up to $3 a day." Agents publish finished, Legal-cleared designs to
 the owner's Etsy shop through the Printify API, up to **$3.00 of Etsy listing
 fees per day** ($0.20 each = 15 listings/day). Count today's `pod_listings`
 docs with `published: true` before every publish; at 15, create the product
-unpublished instead. Default price $26 (2XL $28) unless the owner sets
-another. The Printify key is an API credential on the cloud environment (the
+unpublished instead. Prices are in the product table below unless the owner sets
+others. The Printify key is an API credential on the cloud environment (the
 proxy attaches it to api.printify.com; agents never see it). Agents never
 buy anything, never order samples, and never change the owner's Etsy or
 Printify account settings.
 
 Shop: Printify shop 29114200 ("My new store"), sales channel Etsy.
-Product: Bella+Canvas 3001 (blueprint 12), Monster Digital (provider 29),
-S-2XL, 3 light colors. Printify's cost: $11.77 (S-XL), $14.38 (2XL), before
-shipping.
+
+**Etsy status (2026-09-28):** the owner submitted Etsy's ID + selfie check;
+Etsy said it takes 1-3 days. Until it clears, Printify accepts publish calls
+but no Etsy listing appears (the product's `external` stays empty). While a
+product has no Etsy listing ID: create new products **unpublished** (drafts,
+$0), don't call publish again, and check once a day
+(`GET /v1/shops/29114200/products/<id>.json`, field `external.id`). When the
+first one shows an Etsy ID, publish the waiting drafts oldest first, within
+the daily cap.
+
+## Product lineup (one Etsy listing per product per design)
+
+Owner, 2026-09-28: "don't just design only t-shirts, also use other things
+they offer to print." Every design is made into all of these unless it
+doesn't suit one (say why in the `pod_listings` doc):
+
+| Product | Printify blueprint / printer | Printify cost | Our price |
+|---|---|---|---|
+| Unisex tee | Bella+Canvas 3001, 12 / Monster Digital 29 | $11.77 (2XL $14.38) | $26 (2XL $28) |
+| Crewneck sweatshirt | Gildan 18000, 49 / Monster Digital 29 | $19.45 (2XL $22.35) | $42 (2XL $45) |
+| 11 oz mug (art on both sides) | 68 / SPOKE 1 | $6.44 | $18 |
+| Art print (the painting on cream paper) | Matte poster 282 / Sensaria 2 | $6.60 / $11.84 / $12.00 | $22 / $30 / $36 (11x14 / 16x20 / 18x24) |
+| Kiss-cut sticker | 400 / SPOKE 1 | see Printify | $4.50 (3x3) / $5.50 (4x4) |
+
+Costs are Printify's catalog prices read through the API on 2026-09-28,
+before shipping (the buyer pays shipping). `printify.py` refuses to price
+anything below cost + $4 and raises that variant's price instead. The tote
+(609 / 74) costs $20.72, too little margin: not in the lineup until a
+cheaper tote is found. Sweatshirts sell best Sept-Feb; mugs and stickers are
+cheap add-ons and gifts; art prints suit the evergreen niches (books,
+flowers, pets). With 5 listings per design, the $3/day cap covers 3 designs a
+day.
 
 ## Why our own watercolor engine (the smart part)
 
@@ -48,7 +77,7 @@ Legal Desk still notes this on every delivery.
 | 6 | Grammar & Copy Editor, Deliverable QA Reviewer | `python3 build.py designs/<id>.json OUT` (full size). build.py refuses the build if a title, tag or trademark rule is broken. Check `<id>.png` is 4500 x 5400 with a transparent background. |
 | 7 | Legal Desk (all ten counsel) | One `legal_reviews` doc: trademark (the phrase, tags, title), copyright (original art, OFL fonts in `pod-kit/fonts`), platform (Etsy's production-partner disclosure; the description says the art is digitally painted by the studio and printed by a production partner), advertising (no claims like "best seller" or "free"). |
 | 8 | Chief of Staff | Approve or deny, only with a `cleared` legal review, in `decisions`. |
-| 9 | Publish Coordinator | Check the $3/day cap, then `python3 printify.py designs/<id>.json OUT --publish` (creates the tee on Printify and publishes it to Etsy). Write a `pod_listings` doc {design, product_id, published, listing_fee_usd, price_cents, created}. Publish `OUT/index.html` as a private artifact (`capabilities {"downloads": true}`, all files in OUT) as the record. Email the owner the title, the artifact link and that it's live on Etsy. Add or update the `pod_designs` doc {title, phrase, niche, artifact, product_id, created, status: "listed"}. |
+| 9 | Publish Coordinator | Check the $3/day cap and the Etsy status above, then `python3 printify.py designs/<id>.json OUT --products tee,sweatshirt,mug,poster,sticker [--publish]` (creates one Printify product per type with its own title, tags, description, colors and price; `--publish` sends them to Etsy). Only pass `--publish` when Etsy is verified and the cap allows all of them; otherwise run once with `--publish` for the ones that fit and once without for the rest. If Printify answers 429 (rate limit), the script waits and retries; run product types one at a time with a pause if it keeps happening. Write one `pod_listings` doc per product {design, product, product_id, published, listing_fee_usd, price_cents, etsy_listing_id, created}. Publish `OUT/index.html` as a private artifact (`capabilities {"downloads": true}`, all files in OUT) as the record. Email the owner the title, the artifact link, and which products are live on Etsy and which are drafts. Add or update the `pod_designs` doc {title, phrase, niche, artifact, product_ids: {product: id}, created, status: "listed" or "drafted"}. |
 | 10 | Analytics & Reporting Agent (weekly, Mondays) | **Learn from sales.** Pull orders from Printify (`GET /v1/shops/29114200/orders.json`) and count sales per design and niche. Write a `pod_review` doc: what sold, what didn't, and the rule for next week (more of the winning niche and style, retire what isn't working after 60 days). Trend Scout reads the latest review before step 1a. |
 
 Run with plain `python3` (numpy and Pillow are enough). Output goes in the
@@ -72,7 +101,9 @@ Studio Floor at any time.
 
 ## Done
 
-- 2026-09-28: Currently Reading, Morning Walks & Good Dogs, Strawberry Season
-  (published to Etsy through Printify on 2026-09-28, $0.60 of listing fees)
+- 2026-09-28: Currently Reading, Morning Walks & Good Dogs, Strawberry Season.
+  Tees sent to Etsy through Printify on 2026-09-28 (3 publish calls; no
+  Etsy listing yet, waiting on Etsy's ID check). Sweatshirt, mug, art print
+  and sticker drafts created unpublished, waiting for the same check
   ("Farmers Market Club" rejected in trademark screening: existing apparel
   brand, and a FARMERS MARKET clothing filing).
