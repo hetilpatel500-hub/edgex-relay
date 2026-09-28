@@ -40,6 +40,8 @@ def words(n):
         return ONES[n // 100] + ' hundred' + ('' if n % 100 == 0 else ' ' + words(n % 100))
     if n < 1000000:
         return words(n // 1000) + ' thousand' + ('' if n % 1000 == 0 else ' ' + words(n % 1000))
+    if n < 1000000000:
+        return words(n // 1000000) + ' million' + ('' if n % 1000000 == 0 else ' ' + words(n % 1000000))
     return str(n)
 
 
@@ -70,6 +72,7 @@ def speakable(s):
     for k, v in TICK.items():
         s = re.sub(r'\b' + re.escape(k) + r'\b', v, s)
     s = re.sub(r'\bET\b', '', s)
+    s = re.sub(r'\b(\d{1,3}(?:,\d{3})+)\b', lambda m: m.group(1).replace(',', ''), s)  # 450,000 -> 450000
     s = re.sub(r'\$(\d+)\.(\d\d)\b', lambda m: (words(m.group(1)) + ' dollars ' if m.group(1) != '0' else '') +
                ('and ' if m.group(1) != '0' and m.group(2) != '00' else '') + (words(int(m.group(2))) + ' cents' if m.group(2) != '00' else ''), s)
     s = re.sub(r'([+-]?)(\d+)(?:\.(\d+))?%', lambda m: ('plus ' if m.group(1) == '+' else 'minus ' if m.group(1) == '-' else '') +
