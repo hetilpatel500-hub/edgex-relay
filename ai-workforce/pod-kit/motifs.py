@@ -428,8 +428,159 @@ def book_single(c, x, y, s, P, angle=0.0, color=None):
         c.ink_line(band, width=max(1, s * 0.03), closed=False, alpha=150, passes=1, color=(150, 110, 60))
 
 
+# ---------------------------------------------------------------- kitchen & soup
+def bowl_body(x, y0, s, rim_h, depth=0.72, n=24):
+    """Outside of a round bowl: from the front lip of the rim ellipse (centre
+    y0, half-height rim_h) down around the belly."""
+    lip = [(x + s * math.cos(math.pi * i / n), y0 + rim_h * math.sin(math.pi * i / n)) for i in range(n + 1)]
+    belly = [(x + s * math.cos(math.pi * i / n), y0 + s * depth * math.sin(math.pi * i / n)) for i in range(n, -1, -1)]
+    return lip, belly
+
+
+def soup_bowl(c, x, y, s, P, color=None, color2=None, broth='#e3a54c', broth2='#f3d18d', steam=True):
+    """A steaming bowl of vegetable soup seen a little from above; s = half the bowl width."""
+    rnd = c.rnd
+    col = color or P.get('object', '#8fb0b8'); col2 = color2 or P.get('object2', '#c8dade')
+    y0 = y - s * 0.18
+    rim_h = s * 0.27
+    lip, belly = bowl_body(x, y0, s, rim_h)
+    # the bowl: light first wash, then a darker glaze on the shadow side (wet on dry)
+    c.wash(lip + belly, col2, col, strength=0.65, spread=0.01, layers=30, edge=0.8)
+    n = 24
+    shade = [(x + s * math.cos(math.pi * i / n), y0 + rim_h * math.sin(math.pi * i / n)) for i in range(0, 4)]
+    shade += [(x + s * 0.6 * math.cos(math.pi * i / n), y0 + s * 0.62 * math.sin(math.pi * i / n)) for i in range(3, 13)]
+    shade += [(x + s * 0.99 * math.cos(math.pi * i / n), y0 + s * 0.71 * math.sin(math.pi * i / n)) for i in range(12, -1, -1)]
+    c.wash(smooth(shade, rounds=2), col, None, strength=0.35, spread=0.03, layers=18, edge=0.35)
+    # a painted band just under the lip, following the bowl's curve
+    band = [(x + s * 0.99 * math.cos(math.pi * i / 20), y0 + rim_h * math.sin(math.pi * i / 20) + s * 0.1) for i in range(21)]
+    band += [(x + s * 0.95 * math.cos(math.pi * i / 20), y0 + rim_h * math.sin(math.pi * i / 20) + s * 0.19) for i in range(20, -1, -1)]
+    c.wash(band, P.get('main', '#c8643b'), None, strength=0.55, spread=0.01, layers=14, edge=0.6)
+    # foot ring
+    fy = y0 + s * 0.66
+    foot = [(x - s * 0.3, fy), (x + s * 0.3, fy), (x + s * 0.36, fy + s * 0.13), (x - s * 0.36, fy + s * 0.13)]
+    c.wash(foot, col, col2, strength=0.55, spread=0.01, layers=14)
+    # inside wall at the back, then the broth
+    c.wash(ellipse(x, y0, s, rim_h, 28), col2, None, strength=0.25, spread=0.008, layers=16, edge=0.5)
+    c.wash(ellipse(x, y0 + s * 0.035, s * 0.86, rim_h * 0.78, 28), broth, broth2, strength=0.85, spread=0.012, layers=26, edge=1.0)
+    # what's in it: carrot coins, herbs, a few noodles
+    def spot(r_max):
+        a = rnd.uniform(0, 2 * math.pi); r = math.sqrt(rnd.random()) * r_max
+        return x + s * 0.8 * r * math.cos(a), y0 + s * 0.035 + rim_h * 0.7 * r * math.sin(a)
+    for _ in range(9):
+        cx, cy = spot(0.8)
+        c.wash(ellipse(cx, cy, s * 0.07, s * 0.042, 10), '#f07a2a', '#f7a55a', strength=0.8, layers=12, spread=0.03, edge=1.1)
+    for _ in range(4):
+        cx, cy = spot(0.7)
+        c.wash(ellipse(cx, cy, s * 0.06, s * 0.035, 10), '#f4ead6', None, strength=0.3, layers=10, spread=0.04, edge=1.2)
+    for _ in range(10):
+        cx, cy = spot(0.85)
+        c.wash(leaf(cx, cy, s * 0.07, s * 0.025, rnd.uniform(0, 6.28)), '#5f8f45', None, strength=1.0, layers=8, spread=0.04)
+    for _ in range(4):
+        cx, cy = spot(0.6)
+        c.ink_line([(cx + s * 0.03 * k, cy + s * 0.012 * math.sin(k * 1.7)) for k in range(7)], width=max(2, s * 0.016),
+                   closed=False, alpha=170, passes=1, color=(244, 222, 170), jitter=0)
+    # ink: rim, belly, foot
+    w = max(2, s * 0.02)
+    c.ink_line(smooth(ellipse(x, y0, s, rim_h, 24), rounds=2), width=w, alpha=200, passes=1, jitter=0)
+    c.ink_line(belly, width=w, closed=False, alpha=200, passes=1, jitter=0)
+    c.ink_line(foot[1:] + foot[:1], width=w * 0.9, closed=False, alpha=190, passes=1, jitter=0)
+    if steam:
+        for k, (dx, ln) in enumerate(((-0.33, 8), (0.02, 10), (0.36, 7))):
+            ph = rnd.uniform(0, 6.28)
+            pts = [(x + s * dx + s * 0.06 * math.sin(t * 0.8 + ph) * (0.5 + t / ln), y0 - rim_h * 0.95 - s * 0.07 * t)
+                   for t in range(ln)]
+            body = smooth([(px - s * 0.06, py) for px, py in pts] + [(px + s * 0.06, py) for px, py in pts[::-1]], rounds=2)
+            c.wash(body, '#d6cdc4', None, strength=0.22, layers=12, spread=0.05, edge=0.3)
+            c.ink_line(smooth(pts, rounds=2, closed=False), width=max(2, s * 0.013), closed=False, alpha=115, passes=1, jitter=0)
+
+
+def carrot(c, x, y, s, P, angle=0.0, greens=True):
+    """A whole carrot lying along `angle` (the thick end at (x, y)); s = its length."""
+    n = 14
+    top = [(s * t, s * 0.13 * (1 - t) ** 0.8 + s * 0.012) for t in [i / n for i in range(n + 1)]]
+    pts = top + [(px, -py) for px, py in reversed(top[:-1])]
+    root = [(x + px * math.cos(angle) - py * math.sin(angle), y + px * math.sin(angle) + py * math.cos(angle)) for px, py in pts]
+    c.wash(root, '#f39a4a', '#e0612a', strength=0.85, spread=0.02, layers=26, edge=0.9)
+    ca, sa = math.cos(angle), math.sin(angle)
+    for t in (0.18, 0.33, 0.47, 0.6, 0.72, 0.83):
+        hw = s * 0.13 * (1 - t) ** 0.8 * 0.7
+        px, py = x + s * t * ca, y + s * t * sa
+        side = 1 if int(t * 100) % 2 else -1
+        c.ink_line([(px - sa * hw * side, py + ca * hw * side), (px - sa * hw * 0.2 * side + ca * s * 0.02, py + ca * hw * 0.2 * side + sa * s * 0.02)],
+                   width=max(1, s * 0.01), closed=False, alpha=140, passes=1, color=(150, 70, 30), jitter=0)
+    c.ink_line(smooth(root, rounds=1), width=max(2, s * 0.013), alpha=170, passes=1, jitter=0, color=(120, 60, 35))
+    if greens:
+        for d in (-0.55, -0.2, 0.15, 0.5):
+            a = angle + math.pi + d
+            sx, sy = x - ca * s * 0.01, y - sa * s * 0.01
+            c.wash(leaf(sx, sy, s * 0.42, s * 0.018, a), '#5f8f45', None, strength=0.9, layers=8, spread=0.02)
+            for k in range(3):
+                t = 0.4 + 0.2 * k
+                lx, ly = sx + s * 0.42 * t * math.cos(a), sy + s * 0.42 * t * math.sin(a)
+                for side in (-1, 1):
+                    c.wash(leaf(lx, ly, s * 0.1, s * 0.035, a + side * 0.7), '#6f9e4f', '#9cc471', strength=0.7, layers=10, spread=0.05)
+
+
+def garlic(c, x, y, s, P):
+    """A garlic bulb: round shoulders, violet streaks, a papery neck and a root tuft."""
+    by = y + s * 0.1
+    bulb = []
+    for i in range(32):
+        a = 2 * math.pi * i / 32
+        px, py = math.cos(a), math.sin(a)
+        ry = 0.5 if py < 0 else 0.42              # a little flatter underneath
+        pinch = 1 - 0.28 * max(0, -py) ** 6       # shoulders draw in toward the neck
+        bulb.append((x + s * 0.62 * px * pinch, by + s * ry * py))
+    bulb = smooth(bulb, rounds=1)
+    neck = [(x - s * 0.13, by - s * 0.42), (x - s * 0.04, by - s * 0.82), (x + s * 0.04, by - s * 0.82), (x + s * 0.13, by - s * 0.42)]
+    c.wash(neck, '#d8c7a6', '#efe4cf', strength=0.7, layers=14, spread=0.02, edge=0.8)
+    c.wash(bulb, '#e9dcc8', '#f6efe4', strength=0.7, spread=0.015, layers=24, edge=1.0)
+    for dx in (-0.38, -0.13, 0.13, 0.38):
+        stripe = leaf(x + s * dx * 0.45, by + s * 0.4, s * 0.8, s * 0.045, -math.pi / 2 + dx * 0.75)
+        c.wash(stripe, '#c4a0c0', None, strength=0.3, layers=10, spread=0.05, edge=0.3)
+    w = max(2, s * 0.022)
+    c.ink_line(bulb, width=w, alpha=180, passes=1, jitter=0, color=(90, 70, 70))
+    c.ink_line(neck, width=w * 0.8, closed=False, alpha=150, passes=1, jitter=0, color=(110, 90, 70))
+    for dx in (-0.46, -0.18, 0.18, 0.46):
+        c.ink_line([(x + s * dx * math.sin(math.pi * t) ** 0.8, by - s * 0.42 + s * 0.86 * t) for t in [k / 12 for k in range(13)]],
+                   width=w * 0.6, closed=False, alpha=110, passes=1, jitter=0, color=(120, 90, 110))
+    for k in range(7):
+        a = math.pi / 2 + (k - 3) * 0.22
+        rx = x + s * 0.05 * (k - 3)
+        c.ink_line([(rx, by + s * 0.42), (rx + s * 0.14 * math.cos(a), by + s * 0.42 + s * 0.14 * math.sin(a))],
+                   width=w * 0.5, closed=False, alpha=130, passes=1, jitter=0, color=(120, 100, 80))
+
+
+def mushroom(c, x, y, s, P, angle=0.0, color=None):
+    """A little brown cap mushroom with gills and a pale stem."""
+    col = color or '#a8643e'
+    cap = [(x + s * 0.62 * math.cos(math.pi + math.pi * i / 16), y - s * 0.12 + s * 0.52 * math.sin(math.pi + math.pi * i / 16)) for i in range(17)]
+    cap += [(x + s * 0.5, y - s * 0.02), (x, y + s * 0.04), (x - s * 0.5, y - s * 0.02)]
+    cap = _rot(cap, x, y, angle)
+    stem = _rot([(x - s * 0.15, y), (x + s * 0.15, y), (x + s * 0.19, y + s * 0.62), (x - s * 0.19, y + s * 0.62)], x, y, angle)
+    c.wash(stem, '#efe3cf', '#d9c6a6', strength=0.75, spread=0.015, layers=20, edge=0.9)
+    c.wash(_rot(ellipse(x, y - s * 0.03, s * 0.5, s * 0.07, 14), x, y, angle), '#dcc4a2', None, strength=0.6, layers=12)
+    c.wash(cap, '#d49a68', col, strength=0.85, spread=0.02, layers=28, edge=1.0)
+    c.wash(_rot(ellipse(x - s * 0.18, y - s * 0.38, s * 0.14, s * 0.07, 10), x, y, angle), '#f0d6b4', None, strength=0.35, layers=10)
+    w = max(2, s * 0.025)
+    c.ink_line(smooth(cap, rounds=1), width=w, alpha=185, passes=1, jitter=0, color=(80, 50, 40))
+    c.ink_line(stem[1:3] + stem[3:4], width=w * 0.8, closed=False, alpha=160, passes=1, jitter=0, color=(90, 70, 55))
+    c.ink_line([stem[0], stem[3]], width=w * 0.8, closed=False, alpha=160, passes=1, jitter=0, color=(90, 70, 55))
+
+
+def bay_leaf(c, x, y, s, P, angle=0.0):
+    c.wash(leaf(x, y, s, s * 0.22, angle), '#7f9a5a', '#b3c48a', strength=0.65, spread=0.03, layers=20, edge=0.8)
+    c.ink_line([(x, y), (x + s * 0.95 * math.cos(angle), y + s * 0.95 * math.sin(angle))], width=max(1, s * 0.012),
+               closed=False, alpha=110, passes=1, jitter=0, color=(80, 90, 50))
+
+
+def peppercorns(c, x, y, s, P, n=5):
+    berries(c, x, y, s, P, n=n, color='#5b463a')
+
+
 MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip, 'sprig': sprig, 'eucalyptus': eucalyptus,
           'berries': berries, 'bouquet': bouquet, 'mug': mug, 'books': books, 'heart': heart, 'paw': paw, 'dog': dog,
           'lemon': lemon, 'strawberry': strawberry, 'sun': sun, 'succulent': succulent, 'pumpkin': pumpkin,
           'ghost': ghost, 'maple_leaf': maple_leaf, 'acorn': acorn, 'sparkle': sparkle, 'moon': moon, 'bat': bat,
-          'book_single': book_single}
+          'book_single': book_single, 'soup_bowl': soup_bowl, 'carrot': carrot,
+          'garlic': garlic, 'mushroom': mushroom, 'bay_leaf': bay_leaf, 'peppercorns': peppercorns}

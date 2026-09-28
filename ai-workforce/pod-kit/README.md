@@ -9,7 +9,7 @@ See `../POD-DESK.md` for the runbook. Quick start:
     python3 printify.py designs/reading-ghosts.json OUT --products mug_wrap,accent_mug   # Printify drafts
 
 - `watercolor.py`: the painting engine (stacked deformed washes, edge darkening, granulation, wet-in-wet, subtractive mixing, loose ink, lettering)
-- `motifs.py`: rose, daisy, wildflower, tulip, sprig, eucalyptus, berries, bouquet, wreath, mug, books, heart, paw, dog, lemon, strawberry, sun, succulent, pumpkin, ghost (optionally reading), maple_leaf, acorn, sparkle, moon, bat, book_single
+- `motifs.py`: rose, daisy, wildflower, tulip, sprig, eucalyptus, berries, bouquet, wreath, mug, books, heart, paw, dog, lemon, strawberry, sun, succulent, pumpkin, ghost (optionally reading), maple_leaf, acorn, sparkle, moon, bat, book_single, soup_bowl, carrot, garlic, mushroom, bay_leaf, peppercorns
 - `pattern.py`: seamless all-over patterns for wraparound mugs, and 3D accent-mug mockups
 - `printify.py`: creates products on Printify (and publishes within the owner's $3/day cap)
 - `design.py`: templates (arch, stack, badge, wreath), palettes, shirt mockups

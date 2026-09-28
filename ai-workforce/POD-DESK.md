@@ -171,3 +171,10 @@ Studio Floor at any time.
   and sticker drafts created unpublished, waiting for the same check
   ("Farmers Market Club" rejected in trademark screening: existing apparel
   brand, and a FARMERS MARKET clothing filing).
+- 2026-09-28 (15:17 UTC run): Soup Season (watercolor soup bowl with carrots,
+  garlic, mushrooms, bay leaves; new motifs `soup_bowl`, `carrot`, `garlic`,
+  `mushroom`, `bay_leaf`, `peppercorns`). Tee, sweatshirt, mug, art print and
+  sticker created as Printify drafts (Etsy ID check still pending). The
+  Winter Cardinals & Snowy Pine pattern research
+  (`pod_research/winter-cardinals-pine-2026-09-28`) is queued for the next
+  pattern-day run.
