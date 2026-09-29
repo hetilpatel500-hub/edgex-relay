@@ -55,6 +55,7 @@ CHECKS
   * Stability: first 70% of dates vs last 30%, each quarter, each symbol.
 
 usage: python3 study.py            writes results.json and prints a summary
+       python3 study.py --spy      SPY only (data_spy), writes results_spy.json
 """
 import json, math, os, random, sys
 from datetime import date
@@ -65,6 +66,11 @@ sys.path.insert(0, LAB)
 import core  # noqa: E402
 
 core.HERE = os.path.join(LAB, 'studies', 'data_1y')   # the shared one-year data folder (data_1y/data)
+SPY_ONLY = '--spy' in sys.argv   # SPY only: 3 years of 5-minute bars, daily bars from 2002 (data_spy/data)
+if SPY_ONLY:
+    core.HERE = os.path.join(LAB, 'studies', 'data_spy')
+    core.UNIVERSE = ['SPY']
+OUT = 'results_spy.json' if SPY_ONLY else 'results.json'
 
 TOL, DEPTH, MIN_GAP, WINDOW, BUF = 0.25, 0.5, 3, 12, 0.1
 LAST_ENTRY_M = 900        # 15:00 ET
@@ -323,7 +329,8 @@ def main():
         'coach_full_rule': lambda t: t['vwap_ok'] and t['ma200_ok'],
     }
     res = {'data': {'intraday_sessions': len(all_days), 'first': all_days[0], 'last': all_days[-1],
-                    'symbols': core.UNIVERSE, 'source': 'Webull get_stock_bars (read-only), 5-minute RTH bars'},
+                    'symbols': core.UNIVERSE, 'source': 'Webull get_stock_bars (read-only), 5-minute RTH bars',
+                    'daily_bars': {'first': str(core.Daily(core.UNIVERSE[0]).day[0]), 'last': str(core.Daily(core.UNIVERSE[0]).day[-1])}},
            'intraday': {}, 'daily': {}}
     for name, f in versions.items():
         rows = [t for t in trades if f(t)]
@@ -377,7 +384,7 @@ def main():
                               'split': split_stats(rows, ddays) if ddays else None,
                               'by_symbol': by(rows, lambda t: t['sym'])}
     res['daily_trades'] = dt
-    json.dump(res, open(os.path.join(HERE, 'results.json'), 'w'), indent=1, default=str)
+    json.dump(res, open(os.path.join(HERE, OUT), 'w'), indent=1, default=str)
     for name, v in res['intraday'].items():
         print('INTRADAY', name, v['all'], 'baseline', v['random_baseline_avg_r'], 'p', v['p_value_vs_random'],
               'sym+', v['symbols_positive'])
