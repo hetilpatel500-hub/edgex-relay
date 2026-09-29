@@ -160,6 +160,7 @@ Owner's list first. Tick marks mean tested (see `PLAYBOOK.md` for the result).
 - [ ] Waiting for tape: stacked imbalances continuation (volume-vwap-analyst)
 - [ ] Waiting for tape: level 2 wall pulled vs wall held (liquidity heatmap) (smart-money-analyst)
 - [ ] Waiting for tape: large-order money flow confirming the daily trend (strategy-playbook-analyst)
+- [ ] Waiting for tape: SPY daily vote >= 2 (studies/combo_spy, D2) confirmed by real tick delta and level 2 book imbalance at the next open (strategy-playbook-analyst)
 
 ## Who does what
 
