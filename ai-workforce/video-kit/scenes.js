@@ -59,7 +59,7 @@ function scenesVideo(id){
       for(let i=0;i<=Math.floor(m);i++){const xx=px(i),yy=py(vs[i]);i?X.lineTo(xx,yy):X.moveTo(xx,yy)}
       if(m%1&&Math.ceil(m)<P.length){const i=Math.floor(m),f=m-i;X.lineTo(lerp(px(i),px(i+1),f),lerp(py(vs[i]),py(vs[i+1]),f))}X.stroke();
       font('JB',500,22);P.forEach((p,i)=>{if(i<=m&&(i===0||i===P.length-1||P.length<=8))txt(p[0],px(i),y+h+36*S,{c:C.mut,al:i===0?'left':i===P.length-1?'right':'center'})});
-      if(k>.98){const i=P.length-1;X.fillStyle=C.ink;X.beginPath();X.arc(px(i),py(vs[i]),8*S,0,7);X.fill();font('JB',700,34);txt(P[i][2]||String(vs[i]),px(i)-14*S,py(vs[i])-22*S,{al:'right'})}
+      if(k>.98){const i=P.length-1;X.fillStyle=C.ink;X.beginPath();X.arc(px(i),py(vs[i]),8*S,0,7);X.fill();font('JB',700,34);const lab=P[i][2]||String(vs[i]),lw0=X.measureText(lab).width,ly=py(vs[i])-(py(vs[i])-y>60*S?44:-70)*S;X.fillStyle=C.bg0;rr(px(i)-lw0-26*S,ly-34*S,lw0+24*S,46*S,10*S);X.fill();txt(lab,px(i)-14*S,ly,{al:'right'})}
       note(s.note);
     },
     compare(s,lt,D){
