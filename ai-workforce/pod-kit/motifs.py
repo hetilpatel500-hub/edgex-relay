@@ -578,9 +578,245 @@ def peppercorns(c, x, y, s, P, n=5):
     berries(c, x, y, s, P, n=n, color='#5b463a')
 
 
+
+# ---------------------------------------------------------------- winter birds & greenery
+def gouache(c, shape, color=(252, 251, 248), alpha=235, soft=0.012):
+    """Opaque white body color on top of the washes (snow), the way a watercolorist
+    finishes with white gouache: painted into the ink layer, edges softened a touch."""
+    from watercolor import deform
+    from PIL import Image, ImageDraw, ImageFilter
+    pts = deform([(p[0], p[1]) for p in shape], 2, 0.03, rnd=c.rnd)
+    xs = [p[0] for p in pts]; ys = [p[1] for p in pts]
+    size = max(max(xs) - min(xs), max(ys) - min(ys), 1)
+    pad = int(size * 0.1) + 4
+    x0 = max(0, int(min(xs)) - pad); y0 = max(0, int(min(ys)) - pad)
+    x1 = min(c.w, int(max(xs)) + pad); y1 = min(c.h, int(max(ys)) + pad)
+    if x1 <= x0 or y1 <= y0:
+        return
+    m = Image.new('L', (x1 - x0, y1 - y0), 0)
+    ImageDraw.Draw(m).polygon([(px - x0, py - y0) for px, py, *_ in pts], fill=alpha)
+    m = m.filter(ImageFilter.GaussianBlur(max(0.8, size * soft)))
+    layer = Image.new('RGBA', m.size, tuple(color) + (0,))
+    layer.putalpha(m)
+    c.ink.alpha_composite(layer, (x0, y0))
+
+
+def _pine_path(x, y, s, angle, bend, n=13):
+    """Points along a gently curved bough, base to tip."""
+    pts = []
+    for i in range(n):
+        t = i / (n - 1)
+        px = -s + 2 * s * t
+        py = bend * s * (t - 0.5) ** 2 * 1.6 - bend * s * 0.1
+        pts.append((x + px, y + py))
+    return _rot(pts, x, y, angle)
+
+
+def _needles(c, path, L0, L1, P, clear=None, dense=3):
+    """Tapered needle strokes angled forward along a twig, both sides.
+    clear = (x0, x1, y): skip needles pointing up from under something perched there."""
+    rnd = c.rnd
+    g1, g2, g3 = P.get('leaf', '#4f7a5a'), P.get('leaf2', '#8fb39a'), P.get('leaf_dark', '#2f5443')
+    n = len(path)
+    for i in range(1, n):
+        t = i / (n - 1)
+        px, py = path[i]
+        a0 = math.atan2(path[i][1] - path[i - 1][1], path[i][0] - path[i - 1][0])
+        L = L0 * (1 - t) + L1 * t
+        for side in (-1, 1):
+            for k in range(dense):
+                a = a0 + side * rnd.uniform(0.5, 1.05) - 0.1 * k * side
+                if clear and clear[0] < px < clear[1] and math.sin(a) < -0.25:
+                    continue
+                col = rnd.choice((g1, g1, g3, g2))
+                c.wash(leaf(px, py, L * rnd.uniform(0.75, 1.1), L * 0.085, a), col, None,
+                       strength=rnd.uniform(0.55, 0.85), spread=0.03, layers=7, edge=0.7, granulate=0.2)
+    c.ink_line(path, width=max(2, L0 * 0.09), closed=False, alpha=190, passes=1, jitter=0, color=(95, 65, 45))
+
+
+def pine_bough(c, x, y, s, P, angle=0.0, bend=0.35, snow=True, cones=0, clear=None, twigs=3):
+    """A fir bough: a pale first wash, a main stem with forward-angled side
+    twigs, needle strokes in three greens, and clumps of snow (a blue-grey
+    shadow wash under white gouache) resting on top."""
+    rnd = c.rnd
+    path = _pine_path(x, y, s, angle, bend)
+    n = len(path)
+    # 1. soft first wash under the whole bough
+    top, bot = [], []
+    for i, (px, py) in enumerate(path):
+        t = i / (n - 1)
+        wdt = s * 0.24 * math.sin(math.pi * (0.08 + 0.84 * t)) ** 0.7
+        j = min(i + 1, n - 1); k = max(i - 1, 0)
+        dx, dy = path[j][0] - path[k][0], path[j][1] - path[k][1]
+        L = math.hypot(dx, dy) or 1
+        top.append((px - dy / L * wdt, py + dx / L * wdt)); bot.append((px + dy / L * wdt, py - dx / L * wdt))
+    c.wash(top + bot[::-1], P.get('leaf2', '#8fb39a'), None, strength=0.18, spread=0.1, layers=14, edge=0.35)
+    # 2. side twigs first (they sit behind the main stem), then the main stem
+    tw = []
+    for k in range(twigs):
+        t = 0.2 + 0.55 * k / max(1, twigs - 1) + rnd.uniform(-0.05, 0.05)
+        i = int(t * (n - 1))
+        px, py = path[i]
+        a0 = math.atan2(path[i + 1][1] - py, path[i + 1][0] - px)
+        side = 1 if k % 2 == 0 else -1
+        a = a0 + side * rnd.uniform(0.45, 0.7)
+        ln = s * (0.75 - 0.45 * t)
+        twig = [(px + ln * u * math.cos(a + side * 0.15 * u), py + ln * u * math.sin(a + side * 0.15 * u)) for u in
+                (0, 0.25, 0.5, 0.75, 1.0)]
+        tw.append(twig)
+        _needles(c, twig, s * 0.24, s * 0.12, P, clear=clear, dense=3)
+    _needles(c, path, s * 0.34, s * 0.14, P, clear=clear, dense=4)
+    if cones:
+        for k in range(cones):
+            px, py = path[int((n - 1) * (0.4 + 0.2 * k))]
+            pinecone(c, px, py + s * 0.3, s * 0.2, P, angle=angle + rnd.uniform(-0.25, 0.25))
+    # 3. snow clumps resting on top of the stem and twigs
+    if snow:
+        spots = [path[i] for i in range(2, n - 2, 3)] + [t[2] for t in tw]
+        for px, py in spots:
+            if rnd.random() < 0.25 or (clear and clear[0] - s * 0.15 < px < clear[1] + s * 0.1):
+                continue
+            w, h = s * rnd.uniform(0.13, 0.2), s * rnd.uniform(0.05, 0.075)
+            cx, cy = px + rnd.uniform(-0.04, 0.04) * s, py - h * 0.35
+            blob = smooth([(cx - w, cy + h * 0.5), (cx - w * 0.6, cy - h * 0.6), (cx - w * 0.1, cy - h),
+                           (cx + w * 0.5, cy - h * 0.8), (cx + w, cy + h * 0.4), (cx + w * 0.3, cy + h * 0.9),
+                           (cx - w * 0.4, cy + h * 0.8)], rounds=2)
+            blob = _rot(blob, cx, cy, angle * 0.6)
+            c.wash([(bx, by + h * 0.45) for bx, by in blob], P.get('shadow', '#a9bccb'), None, strength=0.4,
+                   spread=0.04, layers=8, edge=0.9)
+            gouache(c, blob, alpha=236, soft=0.03)
+
+
+def pinecone(c, x, y, s, P, angle=0.0):
+    body = _rot(ellipse(x, y, s * 0.42, s * 0.72, 18), x, y, angle)
+    c.wash(body, '#b4835a', '#d7ae7d', strength=0.6, spread=0.03, layers=20, edge=0.9)
+    rnd = c.rnd
+    rows = 6
+    for r in range(rows):
+        yy = y - s * 0.55 + r * s * 1.1 / (rows - 1)
+        half = s * 0.4 * math.sin(math.pi * (0.15 + 0.7 * r / (rows - 1)))
+        k = 3 if r % 2 == 0 else 2
+        for j in range(k):
+            xx = x - half + (j + 0.5) * 2 * half / k
+            sc = _rot([(xx - s * 0.16, yy - s * 0.02), (xx, yy + s * 0.14), (xx + s * 0.16, yy - s * 0.02),
+                       (xx, yy + s * 0.04)], x, y, angle)
+            c.wash(sc, '#6f4a2f', None, strength=0.6 * rnd.uniform(0.8, 1.1), spread=0.03, layers=8, edge=0.9)
+    c.ink_line(body, width=max(1, s * 0.03), alpha=120, passes=1, jitter=0, color=(90, 60, 40))
+    st = _rot([(x, y - s * 0.72), (x + s * 0.04, y - s * 0.9)], x, y, angle)
+    c.ink_line(st, width=max(2, s * 0.06), closed=False, alpha=190, passes=1, jitter=0, color=(90, 60, 40))
+
+
+def holly_leaf(x, y, s, angle, n=5):
+    """A spiky holly leaf pointing along `angle`, base at (x, y)."""
+    top, bot = [], []
+    for i in range(n * 2 + 1):
+        t = i / (n * 2)
+        w = s * 0.34 * math.sin(math.pi * t) ** 0.8
+        spike = 1.0 if i % 2 == 1 else 0.62
+        top.append((s * t, -w * spike)); bot.append((s * t, w * spike))
+    pts = top + bot[::-1][1:-1]
+    ca, sa = math.cos(angle), math.sin(angle)
+    return [(x + px * ca - py * sa, y + px * sa + py * ca) for px, py in pts]
+
+
+def holly(c, x, y, s, P, angle=0.0):
+    for da in (-0.9, 0.25, 2.3):
+        a = angle + da + c.rnd.uniform(-0.15, 0.15)
+        shp = holly_leaf(x, y, s * 0.95, a)
+        c.wash(shp, P.get('holly', '#2f6b4f'), P.get('holly2', '#6fa27e'), strength=0.7, spread=0.02, layers=18, edge=1.0)
+        c.ink_line([(x, y), (x + s * 0.85 * math.cos(a), y + s * 0.85 * math.sin(a))], width=max(1, s * 0.02),
+                   closed=False, alpha=110, passes=1, jitter=0, color=(30, 60, 45))
+        c.ink_line(shp, width=max(1, s * 0.02), alpha=120, passes=1, jitter=0, color=(30, 60, 45))
+    for k in range(3):
+        a = angle + 1.2 + k * 0.9
+        bx, by = x + s * 0.13 * math.cos(a), y + s * 0.13 * math.sin(a)
+        c.wash(ellipse(bx, by, s * 0.13, s * 0.13, 12), P.get('berry', '#c1272d'), '#e2574c', strength=0.85,
+               spread=0.03, layers=16, edge=1.0)
+        c.ink_line(ellipse(bx, by, s * 0.13, s * 0.13, 12), width=max(1, s * 0.018), alpha=110, passes=1, jitter=0,
+                   color=(90, 20, 25))
+
+
+# cardinal outline, facing right, in units of s (center of the motif at 0, 0)
+CARDINAL = ((0.82, -0.2), (0.64, -0.36), (0.55, -0.47), (0.44, -0.55), (0.36, -0.62), (0.18, -0.95), (0.22, -0.72),
+            (0.12, -0.72), (0.02, -0.58), (0.0, -0.44), (-0.16, -0.32), (-0.4, -0.14), (-0.56, 0.06),
+            (-0.8, 0.36), (-1.0, 0.62), (-0.93, 0.7), (-0.74, 0.62), (-0.46, 0.4), (-0.16, 0.5), (0.14, 0.46),
+            (0.4, 0.3), (0.56, 0.08), (0.64, -0.08))
+CARD_WING = ((0.28, -0.14), (0.06, -0.24), (-0.22, -0.18), (-0.5, 0.06), (-0.78, 0.46), (-0.5, 0.36),
+             (-0.18, 0.3), (0.1, 0.18), (0.26, 0.04))
+CARD_MASK = ((0.68, -0.33), (0.56, -0.38), (0.45, -0.35), (0.42, -0.25), (0.47, -0.13), (0.56, -0.02), (0.64, -0.04),
+             (0.68, -0.16))
+CARD_BEAK = ((0.6, -0.36), (0.92, -0.22), (0.6, -0.07), (0.55, -0.22))
+
+
+def cardinal(c, x, y, s, P, facing=1, female=False, perch=True, angle=0.0, snow=False):
+    """A plump watercolor cardinal perched on a snowy pine sprig. facing 1 = right."""
+    u = s * 0.62
+    by = y - s * 0.09
+    def pts(seq, dy=0.0):
+        return _rot([(x + facing * px * u, by + (py + dy) * u) for px, py in seq], x, y, angle)
+    if perch:
+        pine_bough(c, x - facing * s * 0.1, y + s * 0.3, s * 0.8, P, angle=angle + facing * 0.1 + c.rnd.uniform(-0.08, 0.08),
+                   bend=0.25, snow=snow, clear=(x - 0.62 * s, x + 0.55 * s), twigs=2)
+    body = smooth(pts(CARDINAL), rounds=2)
+    if female:
+        c.wash(body, '#b99474', '#d9bb9a', strength=0.6, spread=0.02, layers=28, edge=1.0, granulate=0.3)
+        c.wash(smooth(pts(CARD_WING), rounds=2), '#b5503f', '#8f6a50', strength=0.5, spread=0.03, layers=18, edge=0.8)
+        crest = pts(((0.36, -0.62), (0.18, -0.95), (0.22, -0.72), (0.12, -0.72), (0.2, -0.56)))
+        c.wash(crest, '#c0523f', None, strength=0.45, spread=0.03, layers=12)
+        tail = pts(((-0.56, 0.06), (-0.8, 0.36), (-1.0, 0.62), (-0.93, 0.7), (-0.74, 0.62), (-0.5, 0.3)))
+        c.wash(tail, '#b5503f', None, strength=0.45, spread=0.03, layers=12)
+    else:
+        red, red2, dark = P.get('bird', '#c62b33'), P.get('bird2', '#e8604e'), P.get('bird_dark', '#8e1f2b')
+        c.wash(body, red2, red, strength=0.7, spread=0.02, layers=30, edge=1.1, granulate=0.3)
+        # rounder breast glow, then the darker wing and tail glazed wet on dry
+        c.wash(ellipse(x + facing * 0.28 * u, by + 0.08 * u, 0.2 * u, 0.16 * u, 12), red2, None, strength=0.22, layers=12)
+        c.wash(smooth(pts(CARD_WING), rounds=2), dark, red, strength=0.55, spread=0.03, layers=18, edge=0.9)
+        tail = pts(((-0.56, 0.06), (-0.8, 0.36), (-1.0, 0.62), (-0.93, 0.7), (-0.74, 0.62), (-0.5, 0.3)))
+        c.wash(tail, dark, None, strength=0.45, spread=0.03, layers=12)
+    c.wash(smooth(pts(CARD_MASK), rounds=1), '#3a2a2c' if not female else '#6b5a52', None,
+           strength=1.0 if not female else 0.6, spread=0.02, layers=16, edge=0.6)
+    c.wash(pts(CARD_BEAK), '#ee8a3a', '#f6b35c', strength=0.85, spread=0.01, layers=14, edge=0.8)
+    # eye with a catch light
+    ex, ey = pts(((0.46, -0.3),))[0]
+    c.wash(ellipse(ex, ey, u * 0.045, u * 0.05, 10), '#141012', None, strength=1.4, spread=0.01, layers=10, blur=1)
+    gouache(c, ellipse(ex + facing * u * 0.012, ey - u * 0.016, u * 0.014, u * 0.014, 8), alpha=240, soft=0.1)
+    # feather marks on the wing, loose outline, feet
+    ink = (70, 30, 32) if not female else (80, 60, 50)
+    for k in range(3):
+        a0 = (0.1 - k * 0.18, -0.06 + k * 0.1); a1 = (-0.3 - k * 0.16, 0.2 + k * 0.1)
+        c.ink_line(pts((a0, a1)), width=max(1, s * 0.012), closed=False, alpha=110, passes=1, jitter=0, color=ink)
+    c.ink_line(body, width=max(2, s * 0.018), alpha=150, passes=1, jitter=0, color=ink)
+    for fx in (-0.08, 0.1):
+        c.ink_line(pts(((fx, 0.46), (fx + 0.04, 0.68))), width=max(2, s * 0.02), closed=False, alpha=170, passes=1,
+                   jitter=0, color=(90, 60, 50))
+
+
+def snowflake(c, x, y, s, P, angle=0.0):
+    col = P.get('snow', '#8fb0c8')
+    c.wash(ellipse(x, y, s * 0.3, s * 0.3, 10), col, None, strength=0.5, spread=0.05, layers=10)
+    rgb = tuple(int(col.lstrip('#')[i:i + 2], 16) for i in (0, 2, 4))
+    for k in range(6):
+        a = angle + k * math.pi / 3
+        ex, ey = x + s * math.cos(a), y + s * math.sin(a)
+        c.ink_line([(x, y), (ex, ey)], width=max(1, s * 0.06), closed=False, alpha=140, passes=1, jitter=0, color=rgb)
+        for f in (0.55,):
+            mx, my = x + s * f * math.cos(a), y + s * f * math.sin(a)
+            for side in (-1, 1):
+                b = a + side * 0.7
+                c.ink_line([(mx, my), (mx + s * 0.3 * math.cos(b), my + s * 0.3 * math.sin(b))], width=max(1, s * 0.05),
+                           closed=False, alpha=120, passes=1, jitter=0, color=rgb)
+
+
+def snow_dot(c, x, y, s, P):
+    s *= c.rnd.uniform(0.55, 1.15)
+    c.wash(ellipse(x, y, s, s, 10), P.get('snow', '#8fb0c8'), None, strength=c.rnd.uniform(0.3, 0.55), spread=0.08,
+           layers=8, edge=0.9)
+
 MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip, 'sprig': sprig, 'eucalyptus': eucalyptus,
           'berries': berries, 'bouquet': bouquet, 'mug': mug, 'books': books, 'heart': heart, 'paw': paw, 'dog': dog,
           'lemon': lemon, 'strawberry': strawberry, 'sun': sun, 'succulent': succulent, 'pumpkin': pumpkin,
           'ghost': ghost, 'maple_leaf': maple_leaf, 'acorn': acorn, 'sparkle': sparkle, 'moon': moon, 'bat': bat,
           'book_single': book_single, 'soup_bowl': soup_bowl, 'carrot': carrot,
-          'garlic': garlic, 'mushroom': mushroom, 'bay_leaf': bay_leaf, 'peppercorns': peppercorns}
+          'garlic': garlic, 'mushroom': mushroom, 'bay_leaf': bay_leaf, 'peppercorns': peppercorns,
+          'cardinal': cardinal, 'pine_bough': pine_bough, 'pinecone': pinecone, 'holly': holly,
+          'snowflake': snowflake, 'snow_dot': snow_dot}

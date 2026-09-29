@@ -12,6 +12,8 @@ A pattern spec (designs/<id>.json) has "kind": "pattern":
     {"motif": "maple_leaf", "size": 0.08, "count": 14, "colors": [["#d8612e", "#f0a24a"], ...]},
     {"motif": "sparkle", "size": 0.025, "fill": true}   # "fill": as many as fit
   Optional per element: "spacing" (gap multiplier), "tilt" (random rotation),
+  "gaps": true (placed after the rest, only where the paint left the paper empty;
+  "clear" sets how much empty paper it needs, in radii),
   "y_range": [0.1, 0.6] (keep it in part of the height), "args" (motif options).
   ]
   "mug_colors": ["Orange", "Black"]   accent colors (rim, handle, inside) for mockups
@@ -48,7 +50,7 @@ def place(spec, W, H, rnd):
             if math.hypot(dx, y - oy) < (r + orr) * k:
                 return False
         return True
-    els = sorted(spec['elements'], key=lambda e: -e['size'])
+    els = sorted((e for e in spec['elements'] if not e.get('gaps')), key=lambda e: -e['size'])
     for e in els:
         r = e['size'] * H
         want = 10 ** 6 if e.get('fill') else e.get('count', 5)
@@ -85,6 +87,32 @@ def paint(spec, W, H, seed_offset=0):
             key = 'lean' if e['motif'] == 'ghost' else 'angle'
             kw[key] = rnd.uniform(-e['tilt'], e['tilt'])
         fn(c, m + x, y, r, P, **kw)
+    # "gaps" elements (falling snow, sparkles) go last, only where the paint left
+    # the paper empty: the dart circles above are much bigger than the painted shapes
+    for e in sorted((e for e in spec['elements'] if e.get('gaps')), key=lambda e: -e['size']):
+        r = e['size'] * H
+        want = 10 ** 6 if e.get('fill') else e.get('count', 5)
+        mine, got, fails = [], 0, 0
+        while got < want and fails < 3000:
+            x = rnd.uniform(0, W); y = rnd.uniform(r * 1.2, H - r * 1.2)
+            k = r * e.get('clear', 1.6)
+            busy = False
+            for cx in (m + x, m + x - W, m + x + W):
+                x0, x1 = int(max(0, cx - k)), int(min(W + 2 * m, cx + k))
+                if x1 > x0 and c.cover[int(max(0, y - k)):int(min(H, y + k)), x0:x1].max(initial=0) > 0.04:
+                    busy = True; break
+            if not busy:
+                for ox, oy in mine:
+                    dx = abs(x - ox); dx = min(dx, W - dx)
+                    if math.hypot(dx, y - oy) < 2 * r * e.get('spacing', 1.05):
+                        busy = True; break
+            if busy:
+                fails += 1; continue
+            mine.append((x, y)); got += 1; fails = 0
+            kw = dict(e.get('args', {}))
+            if e.get('tilt'):
+                kw['angle'] = rnd.uniform(-e['tilt'], e['tilt'])
+            M.MOTIFS[e['motif']](c, m + x, y, r, P, **kw)
     # fold the spill beyond each edge back onto the other side (seamless wrap)
     A = c.absorb
     absorb = A[:, m:m + W].copy()

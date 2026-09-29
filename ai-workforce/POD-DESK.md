@@ -178,3 +178,11 @@ Studio Floor at any time.
   Winter Cardinals & Snowy Pine pattern research
   (`pod_research/winter-cardinals-pine-2026-09-28`) is queued for the next
   pattern-day run.
+- 2026-09-29 (15:18 UTC run, pattern day): Snowy Pine Cardinals, an all-over
+  watercolor mug wrap (cardinals on snowy pine, holly, pinecones, falling
+  snow; new motifs `cardinal`, `pine_bough`, `pinecone`, `holly`,
+  `snowflake`, `snow_dot`; new `pattern.py` option `"gaps": true` for snow
+  placed only where the paint left the paper empty). Wrap mug and accent
+  mug (Red, Navy, Black) created as Printify drafts (Etsy ID check still
+  pending). The spec's `listing.per_product` now gives each product its own
+  title and tags, so the two mugs no longer carry duplicate listings.

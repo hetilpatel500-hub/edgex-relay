@@ -115,7 +115,12 @@ b.addEventListener('click',async()=>{{try{{const r=await fetch(b.dataset.file);a
 def main():
     spec_path, out = sys.argv[1], sys.argv[2]
     spec = json.load(open(spec_path))
-    errs = check(spec.get('listing', {}))
+    L = spec.get('listing', {})
+    errs = check(L)
+    # optional per-product title/tags (so two products of the same noun, e.g. the
+    # wrap mug and the accent mug, don't carry duplicate listings)
+    for key, over in (L.get('per_product') or {}).items():
+        errs += [f'per_product[{key}]: {e}' for e in check(dict(L, **over))]
     if errs:
         print('REFUSED:\n- ' + '\n- '.join(errs)); sys.exit(1)
     if spec.get('kind') == 'pattern':

@@ -131,6 +131,7 @@ def placements(fit, aspect, W, H, image_id):
 def product_listing(L, spec, key, P):
     """Adapt the tee listing to this product: title, 13 tags (<= 20 chars), description."""
     noun, alt = P['noun'], P['alt']
+    L = dict(L, **(L.get('per_product') or {}).get(key, {}))   # optional per-product title/tags/description
     title = L['title']
     title = re.sub(r'\bT-Shirts?\b|\bTshirts?\b', noun, title, flags=re.I)
     title = re.sub(r'\bShirts?\b', noun, title, flags=re.I)
