@@ -42,9 +42,8 @@ already in the environment). Build output goes in the scratchpad, never the repo
 ## Topic rotation (my first step)
 
 Done: Trucks (owner's), Animals, Fruits & Veggies, Dinosaurs (all 2026-09-26),
-Toys (2026-09-28).
-Next, in order, unless the owner asks for something else: Bugs & Butterflies,
-Ocean, Space, Yummy Food, Birds, Shapes & Colors, At Home, Weather & Nature,
+Toys (2026-09-28), Bugs & Butterflies (2026-09-29).
+Next, in order, unless the owner asks for something else: Ocean, Space, Yummy Food, Birds, Shapes & Colors, At Home, Weather & Nature,
 Pets, Music, Sports.
 
 Cadence: one book every weekday (the "Edgex book desk" Routine, 9:46 am ET).
