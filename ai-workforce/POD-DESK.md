@@ -38,7 +38,7 @@ doesn't suit one (say why in the `pod_listings` doc):
 | Crewneck sweatshirt | Gildan 18000, 49 / Monster Digital 29 | $19.45 (2XL $22.35) | $42 (2XL $45) |
 | 11 oz mug (art on both sides) | 68 / SPOKE 1 | $6.44 | $18 |
 | Art print (the painting on cream paper) | Matte poster 282 / Sensaria 2 | $6.60 / $11.84 / $12.00 | $22 / $30 / $36 (11x14 / 16x20 / 18x24) |
-| Kiss-cut sticker | 400 / SPOKE 1 | $1.66 (3x3) / $2.08 (4x4) | $5.99 (3x3) / $6.99 (4x4) |
+| Kiss-cut sticker | 400 / SPOKE 1 | $1.66 (3x3) / $2.08 (4x4) | $6.75 (3x3) / $7.40 (4x4) |
 | Full-wrap white mug (pattern designs) | 68 / SPOKE 1, wrap 2700 x 1120 | $6.44 | $18 |
 | Accent mug, colored handle/rim/inside (pattern designs) | 635 / Printify Choice 99, wrap 2475 x 1155 (11 oz), 2475 x 1275 (15 oz) | $6.40 / $8.44 | $22 / $25 |
 
@@ -46,7 +46,7 @@ Costs are Printify's catalog prices read through the API on 2026-09-28,
 before shipping (the buyer pays shipping). `printify.py` refuses to price
 anything below cost + $4 and raises that variant's price instead. The tote
 (609 / 74) costs $20.72, too little margin: not in the lineup until a
-cheaper tote is found. Sweatshirts sell best Sept-Feb; mugs and stickers are
+cheaper tote is found. Kiss-cut sticker prices were raised 2026-09-28 (from $5.99/$6.99 to $6.75/$7.40) after a live Etsy fee re-check found the old prices cleared cost+$4 in raw margin but only $3.31/$3.80 net of Etsy's real $0.20 listing + 6.5% transaction + 3%+$0.25 payment-processing fees (suggestions/2026-09-28-tiktok-monetization-sticker-margin, decisions/2026-09-28-sticker-pricing-update). Sweatshirts sell best Sept-Feb; mugs and stickers are
 cheap add-ons and gifts; art prints suit the evergreen niches (books,
 flowers, pets). With 5 listings per design, the $3/day cap covers 3 designs a
 day.
