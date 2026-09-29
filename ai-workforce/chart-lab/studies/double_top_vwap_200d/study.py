@@ -10,8 +10,8 @@ Every rule below was fixed BEFORE any result was looked at. Nothing is tuned.
 
 Data (Webull get_stock_bars, read-only, saved as returned):
   5-minute RTH bars, 2025-10-01 .. 2026-09-28, SPY QQQ IWM DIA AAPL MSFT NVDA
-  AMZN GOOGL META TSLA AMD (data/<SYM>_M5.csv.gz); daily bars 2021-12 ..
-  2026-09-25 (data/<SYM>_D.csv.gz).
+  AMZN GOOGL META TSLA AMD (../data_1y/data/<SYM>_M5.csv.gz); daily bars
+  2021-12 .. 2026-09-25 (../data_1y/data/<SYM>_D.csv.gz).
 
 INTRADAY TEST (5-minute bars)
   Swing high/low: a bar whose high (low) beats the 2 bars on each side,
@@ -64,7 +64,7 @@ LAB = os.path.abspath(os.path.join(HERE, '..', '..'))
 sys.path.insert(0, LAB)
 import core  # noqa: E402
 
-core.HERE = HERE          # read this study's own one-year data folder
+core.HERE = os.path.join(LAB, 'studies', 'data_1y')   # the shared one-year data folder (data_1y/data)
 
 TOL, DEPTH, MIN_GAP, WINDOW, BUF = 0.25, 0.5, 3, 12, 0.1
 LAST_ENTRY_M = 900        # 15:00 ET
