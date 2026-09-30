@@ -1,8 +1,9 @@
 # Publishing the Edgex site
 
 **Live now (2026-09-30):** deployed by the owner on Cloudflare (Workers static
-assets) at `https://fragrant-river-4ddb.ai-edgex.workers.dev`. The domain is
-**`edgexstudio.com`** (Cloudflare Registrar); attach it in the Worker under
+assets) as the Worker `ancient-shape-7cdf`. The domain is
+**`edgexstudio.com`** (Cloudflare Registrar), connected as a custom domain.
+Keep it attached in the Worker under
 **Settings → Domains & Routes → Add → Custom domain** (`edgexstudio.com` and
 `www.edgexstudio.com`). Canonical links, `sitemap.xml` and `robots.txt` use
 `https://edgexstudio.com`. `edgex--ai.com` stays reserved for another use
