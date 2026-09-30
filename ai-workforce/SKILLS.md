@@ -110,9 +110,19 @@ skill_work/<id> = {
   `needs_owner`.
 - Never duplicate an asset that already exists (check `skill_work` and the
   storefront folders). Improving or extending an existing one is fine.
-- `value_estimate` must cite where the number came from. `earned` is only set
-  when real money arrived (a Stripe payout, a Fiverr order, an Etsy sale, all
-  confirmed by the daily check-in).
+- `value_estimate` must cite where the number came from: one public URL per
+  number, or leave it out. `earned` is only set when real money arrived (a
+  Stripe payout, a Fiverr order, an Etsy sale, all confirmed by the daily
+  check-in).
+- Author brief (repeat fix_first causes, 2026-09-30): `body` is only what the
+  buyer will read. Owner notes, name-check remarks, internal price comparables
+  and pricing rationale go in `next_step`, never in `body`. Run one WebSearch
+  per invented client or business name and rename it if it matches a real
+  business. Check platform rules are current (e.g. Google Business Profile Q&A
+  was retired) and that any summary counts match the list beneath them.
+- Before writing a new sample, finish a `fix_first` draft or run a Legal
+  re-check on an approved asset that has no `legal_reviews` doc; held drafts
+  are already piling up.
 
 ## Collaborations (`collabs` collection)
 
