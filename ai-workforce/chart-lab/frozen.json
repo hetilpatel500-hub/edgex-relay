@@ -272,37 +272,54 @@
   "tf": "M5"
  },
  "order_block": {
-  "side": "with",
-  "filter": "rvol+trend",
   "exit": "2atr/4atr",
-  "tf": "M5",
+  "filter": "rvol+trend",
   "frozen_at": "2026-09-29",
-  "status_at_freeze": "promising",
   "oos_at_freeze": {
-   "n": 41,
-   "win_rate": 0.512,
    "avg_r": 0.079,
-   "total_r": 3.24,
+   "max_drawdown_r": 6.5,
+   "n": 41,
    "profit_factor": 1.16,
    "t_stat": 0.42,
-   "max_drawdown_r": 6.5
-  }
+   "total_r": 3.24,
+   "win_rate": 0.512
+  },
+  "side": "with",
+  "status_at_freeze": "promising",
+  "tf": "M5"
  },
  "td_setup_nine": {
-  "side": "fade",
-  "filter": "vwap+trend",
   "exit": "2atr/4atr",
-  "tf": "M5",
+  "filter": "vwap+trend",
   "frozen_at": "2026-09-29",
-  "status_at_freeze": "promising",
   "oos_at_freeze": {
-   "n": 40,
-   "win_rate": 0.425,
    "avg_r": 0.073,
-   "total_r": 2.91,
+   "max_drawdown_r": 5.39,
+   "n": 40,
    "profit_factor": 1.14,
    "t_stat": 0.38,
-   "max_drawdown_r": 5.39
+   "total_r": 2.91,
+   "win_rate": 0.425
+  },
+  "side": "fade",
+  "status_at_freeze": "promising",
+  "tf": "M5"
+ },
+ "williams_vol_break": {
+  "side": "fade",
+  "filter": "ppoc",
+  "exit": "1atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-09-30",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 173,
+   "win_rate": 0.295,
+   "avg_r": 0.039,
+   "total_r": 6.77,
+   "profit_factor": 1.05,
+   "t_stat": 0.23,
+   "max_drawdown_r": 28.76
   }
  }
 }
