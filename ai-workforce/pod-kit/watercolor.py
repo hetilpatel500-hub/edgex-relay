@@ -110,9 +110,31 @@ class Canvas:
         self._grain = self._make_grain()
         # shapes kept white under a background wash (like masking fluid)
         self.reserves = []
+        # 0..1 per pixel: an object in front that later paint goes around
+        self.occl = None
 
     def reserve(self, shape):
         self.reserves.append(shape)
+
+    def snapshot(self):
+        return self.cover.copy(), np.asarray(self.ink.getchannel('A'), dtype=np.float32)
+
+    def paint_around(self, before):
+        """Everything painted since `before` (a snapshot) becomes an object in
+        front: later washes, gouache and pen lines go around it, the way a
+        watercolorist paints a bough behind a mug instead of over it."""
+        cov0, ink0 = before
+        ink1 = np.asarray(self.ink.getchannel('A'), dtype=np.float32)
+        m = np.clip(np.maximum((self.cover - cov0) * 4, (ink1 - ink0) / 64), 0, 1)
+        im = Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(5))
+        m = np.asarray(im.filter(ImageFilter.GaussianBlur(max(1.0, self.w / 1500))), dtype=np.float32) / 255
+        self.occl = m if self.occl is None else np.maximum(self.occl, m)
+
+    def _around(self, x0, y0, x1, y1):
+        """How much paint may land here (1 - occlusion), or None if nothing is in front."""
+        if self.occl is None:
+            return None
+        return 1 - self.occl[y0:y1, x0:x1]
 
     # a tileable-ish grain texture: two octaves of smoothed noise
     def _make_grain(self):
@@ -156,6 +178,9 @@ class Canvas:
         g = self._grain[y0:y1, x0:x1]
         d = d * (1 + granulate * (g - 0.5) * 2)
         d = np.clip(d * strength, 0, 1.4)
+        keep = self._around(x0, y0, x1, y1)
+        if keep is not None:
+            d = d * keep
         # color: optional wet-in-wet gradient along a random direction
         c1 = hexrgb(color)
         if color2:
@@ -183,16 +208,36 @@ class Canvas:
     def ink_line(self, pts, width=10, color=(52, 48, 52), closed=True, jitter=0.004, passes=2, alpha=225):
         """Loose pen line along a path: two slightly offset passes."""
         rnd = self.rnd
-        d = ImageDraw.Draw(self.ink)
+        target, off = self.ink, (0, 0)
+        if self.occl is not None:
+            xs = [p[0] for p in pts]; ys = [p[1] for p in pts]
+            pad = int(width * 2) + 4
+            x0 = max(0, int(min(xs)) - pad); y0 = max(0, int(min(ys)) - pad)
+            x1 = min(self.w, int(max(xs)) + pad); y1 = min(self.h, int(max(ys)) + pad)
+            if x1 <= x0 or y1 <= y0:
+                return
+            target, off = Image.new('RGBA', (x1 - x0, y1 - y0), (0, 0, 0, 0)), (x0, y0)
+        d = ImageDraw.Draw(target)
         # wobble scales with the canvas but never more than the line is wide,
         # so small motifs keep a clean hand-drawn line instead of a scribble
         span = min(max(self.w, self.h) * jitter, width * 0.9)
         for k in range(passes):
-            seq = [(x + rnd.gauss(0, span * 0.35), y + rnd.gauss(0, span * 0.35)) for x, y, *_ in pts]
+            seq = [(x - off[0] + rnd.gauss(0, span * 0.35), y - off[1] + rnd.gauss(0, span * 0.35)) for x, y, *_ in pts]
             if closed:
                 seq = seq + seq[:1]
             wd = max(1, int(width * (1 if k == 0 else 0.55)))
             d.line(seq, fill=color + (alpha if k == 0 else int(alpha * 0.6),), width=wd, joint='curve')
+        if target is not self.ink:
+            self.composite_around(target, off)
+
+    def composite_around(self, layer, off):
+        """Put an RGBA layer onto the ink layer, going around objects in front."""
+        x0, y0 = off
+        keep = self._around(x0, y0, x0 + layer.width, y0 + layer.height)
+        if keep is not None:
+            a = np.asarray(layer.getchannel('A'), dtype=np.float32) * keep
+            layer.putalpha(Image.fromarray(a.astype(np.uint8)))
+        self.ink.alpha_composite(layer, (x0, y0))
 
     def text(self, s, font_path, size, cx, cy, fill=(52, 48, 52), arc=None, tracking=0.0, stroke=0):
         """Lettering, straight or along an arc (arc = radius in px; positive

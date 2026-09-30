@@ -17,7 +17,7 @@ Spec (see designs/*.json):
   "template": "arch" | "stack" | "badge" | "wreath",
   "top": "Currently", "bottom": "Reading", "small": "optional third line",
   "top_font": "DancingScript", "bottom_font": "PlayfairDisplay", "small_font": "JosefinSans",
-  "art": [{"motif": "books", "x": 0.0, "y": 0.0, "s": 0.28}],    # x/y in design widths from centre
+  "art": [{"motif": "books", "x": 0.0, "y": 0.0, "s": 0.28}],    # x/y in design widths from centre; "front": true = painted first, later paint goes around it
   "florals": "bouquet" | "wreath" | null,
   "flowers": ["rose", "daisy", "rose", "wildflower"],   # the bouquet's four blooms
   "palette": "blush" | "sage" | "citrus" | "autumn" | "lavender" | "ocean",
@@ -79,10 +79,15 @@ def render(spec, scale=1.0):
                   flowers=tuple(spec.get('flowers', ('rose', 'daisy', 'rose', 'wildflower'))))
     elif fl == 'wreath':
         M.wreath(c, cx, art_y, w * spec.get('florals_s', 0.36), P)
-    for a in spec.get('art', []):
+    # objects marked "front" are painted first; everything after goes around them
+    art = spec.get('art', [])
+    for a in [a for a in art if a.get('front')] + [a for a in art if not a.get('front')]:
         fn = M.MOTIFS[a['motif']]
-        kw = {k: v for k, v in a.items() if k not in ('motif', 'x', 'y', 's')}
+        kw = {k: v for k, v in a.items() if k not in ('motif', 'x', 'y', 's', 'front')}
+        before = c.snapshot() if a.get('front') else None
         fn(c, cx + a.get('x', 0) * w, art_y + a.get('y', 0) * w, a.get('s', 0.2) * w, P, **kw)
+        if before:
+            c.paint_around(before)
     # lettering
     top, bot, small = spec.get('top'), spec.get('bottom'), spec.get('small')
     if t in ('arch', 'badge'):

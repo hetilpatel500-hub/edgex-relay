@@ -186,3 +186,14 @@ Studio Floor at any time.
   mug (Red, Navy, Black) created as Printify drafts (Etsy ID check still
   pending). The spec's `listing.per_product` now gives each product its own
   title and tags, so the two mugs no longer carry duplicate listings.
+- 2026-09-30 (15:19 UTC run, motif day): Cocoa Season (a red mug of hot cocoa
+  with marshmallows and a cinnamon stick, snowy pine boughs behind it,
+  peppermint, star anise, holly and a dried orange wheel; subline "extra
+  marshmallows, please"; new motifs `cocoa_mug`, `marshmallow`,
+  `cinnamon_stick`, `orange_slice`, `star_anise`, `peppermint`). New engine
+  option: an art item with `"front": true` is painted first and everything
+  after goes around it (washes, gouache and pen lines), so boughs sit behind
+  the mug instead of showing through its transparent paint. `printify.py`
+  sticker prices now match the approved $6.75/$7.40. Tee, sweatshirt, mug,
+  art print and sticker created as Printify drafts (Etsy ID check still
+  pending: 0 of 26 products had an Etsy listing ID).

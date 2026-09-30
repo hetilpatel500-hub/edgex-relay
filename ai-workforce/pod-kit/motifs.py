@@ -598,7 +598,7 @@ def gouache(c, shape, color=(252, 251, 248), alpha=235, soft=0.012):
     m = m.filter(ImageFilter.GaussianBlur(max(0.8, size * soft)))
     layer = Image.new('RGBA', m.size, tuple(color) + (0,))
     layer.putalpha(m)
-    c.ink.alpha_composite(layer, (x0, y0))
+    c.composite_around(layer, (x0, y0))
 
 
 def _pine_path(x, y, s, angle, bend, n=13):
@@ -812,6 +812,188 @@ def snow_dot(c, x, y, s, P):
     c.wash(ellipse(x, y, s, s, 10), P.get('snow', '#8fb0c8'), None, strength=c.rnd.uniform(0.3, 0.55), spread=0.08,
            layers=8, edge=0.9)
 
+
+# ---------------------------------------------------------------- hot cocoa
+def _rrect(x, y, w, h, r, angle=0.0, n=5):
+    """A rounded rectangle centred at (x, y), rotated by angle."""
+    pts = []
+    for cx, cy, a0 in ((w / 2 - r, -h / 2 + r, -math.pi / 2), (w / 2 - r, h / 2 - r, 0.0),
+                       (-w / 2 + r, h / 2 - r, math.pi / 2), (-w / 2 + r, -h / 2 + r, math.pi)):
+        for i in range(n + 1):
+            a = a0 + math.pi / 2 * i / n
+            pts.append((x + cx + r * math.cos(a), y + cy + r * math.sin(a)))
+    return _rot(pts, x, y, angle)
+
+
+def marshmallow(c, x, y, s, P, angle=0.0, tint=None, ink=True):
+    """A soft marshmallow in white gouache (opaque, so it sits on the cocoa),
+    a warm shadow on the lower side and a light pen line. s = its width."""
+    body = _rrect(x, y, s, s * 0.82, s * 0.28, angle)
+    base = tint or (252, 250, 245)
+    gouache(c, body, color=base, alpha=246, soft=0.02)
+    ca, sa = math.cos(angle), math.sin(angle)
+    shade = _rrect(x + s * 0.1 * ca - s * 0.14 * sa, y + s * 0.1 * sa + s * 0.14 * ca, s * 0.72, s * 0.36, s * 0.16, angle)
+    shadow = tuple(max(0, v - 22) for v in base[:1]) + tuple(max(0, v - 30) for v in base[1:2]) + tuple(max(0, v - 40) for v in base[2:3])
+    gouache(c, shade, color=shadow, alpha=120, soft=0.08)
+    if ink:
+        c.ink_line(smooth(body, rounds=1), width=max(1, s * 0.03), alpha=120, passes=1, jitter=0, color=(150, 110, 90))
+
+
+def cinnamon_stick(c, x, y, s, P, angle=0.0, n=1):
+    """Rolled cinnamon bark, (x, y) is the middle, s = its length; n = 1-3 sticks side by side."""
+    ca, sa = math.cos(angle), math.sin(angle)
+    for k in range(n):
+        off = (k - (n - 1) / 2) * s * 0.12
+        ox, oy = x - sa * off, y + ca * off
+        L = s * (1 - 0.08 * k)
+        wd = s * 0.055
+        body = _rot([(ox - L / 2, oy - wd), (ox + L / 2, oy - wd), (ox + L / 2, oy + wd), (ox - L / 2, oy + wd)], ox, oy, angle)
+        c.wash(body, '#b8703d', '#8e4f28', strength=0.85, spread=0.012, layers=20, edge=1.0, granulate=0.5)
+        # the curled edge of the bark runs down one side
+        curl = _rot([(ox - L / 2, oy + wd * 0.1), (ox + L / 2, oy + wd * 0.1), (ox + L / 2, oy + wd * 0.55), (ox - L / 2, oy + wd * 0.55)], ox, oy, angle)
+        c.wash(curl, '#6e3a1e', None, strength=0.45, spread=0.02, layers=10, edge=0.8)
+        for end in (-1, 1):
+            ex, ey = ox + end * L / 2 * ca, oy + end * L / 2 * sa
+            spiral = [(ex + wd * 0.9 * (1 - t * 0.7) * math.cos(t * 9) * 0.35, ey + wd * 0.9 * (1 - t * 0.7) * math.sin(t * 9))
+                      for t in [i / 16 for i in range(17)]]
+            spiral = _rot(spiral, ex, ey, angle)
+            c.ink_line(spiral, width=max(1, s * 0.008), closed=False, alpha=150, passes=1, jitter=0, color=(90, 45, 25))
+        c.ink_line(body, width=max(1, s * 0.009), alpha=150, passes=1, jitter=0, color=(90, 45, 25))
+        for t in (0.22, 0.47, 0.71):
+            px, py = ox + (t - 0.5) * L * ca, oy + (t - 0.5) * L * sa
+            c.ink_line([(px - sa * wd * 0.8, py + ca * wd * 0.8), (px + ca * s * 0.03 - sa * wd * 0.1, py + sa * s * 0.03 + ca * wd * 0.1)],
+                       width=max(1, s * 0.006), closed=False, alpha=100, passes=1, jitter=0, color=(90, 45, 25))
+
+
+def orange_slice(c, x, y, s, P, angle=0.0):
+    """A dried orange wheel: rind ring, pale pith, juicy segments. s = radius."""
+    c.wash(ellipse(x, y, s, s, 30), '#f7c98a', None, strength=0.35, spread=0.01, layers=16, edge=0.5)
+    ring = [(x + s * math.cos(2 * math.pi * i / 36), y + s * math.sin(2 * math.pi * i / 36)) for i in range(37)]
+    ring += [(x + s * 0.86 * math.cos(2 * math.pi * i / 36), y + s * 0.86 * math.sin(2 * math.pi * i / 36)) for i in range(36, -1, -1)]
+    c.wash(ring, '#e8782a', '#f29a3c', strength=0.9, spread=0.006, layers=18, edge=0.9)
+    for k in range(9):
+        a0 = angle + 2 * math.pi * k / 9 + 0.06
+        a1 = angle + 2 * math.pi * (k + 1) / 9 - 0.06
+        seg = [(x + s * 0.08 * math.cos((a0 + a1) / 2), y + s * 0.08 * math.sin((a0 + a1) / 2))]
+        seg += [(x + s * 0.76 * math.cos(a0 + (a1 - a0) * t), y + s * 0.76 * math.sin(a0 + (a1 - a0) * t)) for t in (0, 0.25, 0.5, 0.75, 1)]
+        c.wash(smooth(seg, rounds=1), '#f5a13a', '#f8c060', strength=0.85, spread=0.02, layers=14, edge=1.2)
+    c.ink_line(ellipse(x, y, s, s, 30), width=max(1, s * 0.03), alpha=140, passes=1, jitter=0, color=(150, 70, 25))
+
+
+def star_anise(c, x, y, s, P, angle=0.0):
+    """An eight-pointed star anise pod. s = radius."""
+    for k in range(8):
+        a = angle + 2 * math.pi * k / 8
+        pod = petal(x, y, s, s * 0.34, a)
+        c.wash(pod, '#8a5230', '#b0703f', strength=0.8, spread=0.02, layers=12, edge=1.1, granulate=0.5)
+        sx, sy = x + s * 0.55 * math.cos(a), y + s * 0.55 * math.sin(a)
+        c.wash(ellipse(sx, sy, s * 0.1, s * 0.07, 8, rot=a), '#e0b27a', None, strength=0.5, layers=8)
+        c.ink_line(pod, width=max(1, s * 0.03), alpha=120, passes=1, jitter=0, color=(80, 45, 25))
+    c.wash(ellipse(x, y, s * 0.16, s * 0.16, 10), '#5e3620', None, strength=0.8, layers=10)
+
+
+def peppermint(c, x, y, s, P, angle=0.0):
+    """A round peppermint candy: white with red swirl wedges. s = radius."""
+    red, red2 = P.get('berry', '#c62b33'), '#e0525a'
+    for k in range(6):
+        a0 = angle + 2 * math.pi * k / 6
+        wedge = [(x, y)]
+        for t in [i / 8 for i in range(9)]:
+            r = s * 0.95 * t ** 0.5
+            wedge.append((x + r * math.cos(a0 + 0.9 * t), y + r * math.sin(a0 + 0.9 * t)))
+        for t in [i / 8 for i in range(8, -1, -1)]:
+            r = s * 0.95 * t ** 0.5
+            wedge.append((x + r * math.cos(a0 + 0.9 * t + 0.42), y + r * math.sin(a0 + 0.9 * t + 0.42)))
+        c.wash(wedge, red, red2, strength=0.85, spread=0.01, layers=14, edge=1.0)
+    c.ink_line(ellipse(x, y, s, s, 24), width=max(1, s * 0.04), alpha=150, passes=1, jitter=0, color=(120, 40, 45))
+
+
+def cocoa_mug(c, x, y, s, P, color=None, color2=None, marshmallows=5, stick=True, steam=True, flake=True):
+    """A steaming mug of hot cocoa seen a little from above, marshmallows
+    floating, a cinnamon stick leaning on the rim. s = half the mug's width."""
+    rnd = c.rnd
+    col = color or P.get('object', '#b7323a'); col2 = color2 or P.get('object2', '#d9575a')
+    y0 = y - s * 0.62                      # rim centre
+    rim_h = s * 0.26
+    yb = y + s * 0.78                      # bottom
+    n = 24
+    # the body tapers a touch and has soft bottom corners
+    right = [(x + s * (1 - 0.06 * t), y0 + (yb - y0) * t) for t in (0.2, 0.5, 0.8, 0.95)]
+    left = [(2 * x - px, py) for px, py in right]
+    bottom = [(x + s * 0.9 * math.cos(math.pi * i / 12), yb + s * 0.1 * math.sin(math.pi * i / 12)) for i in range(13)]
+    # handle: a thick C on the right
+    hx, hy = x + s * 0.93, y0 + (yb - y0) * 0.45
+    outer = [(hx + s * 0.42 * math.cos(a), hy + s * 0.48 * math.sin(a)) for a in [(-1.35 + 2.7 * i / 16) for i in range(17)]]
+    inner = [(hx + s * 0.22 * math.cos(a), hy + s * 0.28 * math.sin(a)) for a in [(-1.25 + 2.5 * i / 16) for i in range(16, -1, -1)]]
+    c.wash(smooth(outer + inner, rounds=1), col, col2, strength=0.75, spread=0.01, layers=20, edge=1.0)
+    # the mug: first wash, then a darker glaze down the shadow side, a pale highlight left on the left
+    lip = [(x + s * math.cos(math.pi * i / n), y0 + rim_h * math.sin(math.pi * i / n)) for i in range(n + 1)]   # right to left
+    body_poly = lip + left + bottom[::-1] + right[::-1]
+    c.wash(body_poly, col2, col, strength=0.72, spread=0.008, layers=30, edge=0.9)
+    shade = [(x + s * 0.25, y0 + rim_h * 0.95), (x + s * 0.96, y0 + rim_h * 0.2)] + right + [(x + s * 0.6, yb + s * 0.07), (x + s * 0.3, yb + s * 0.09)]
+    c.wash(smooth(shade, rounds=2), col, None, strength=0.35, spread=0.03, layers=16, edge=0.4)
+    # a white gouache snowflake painted on the front of the mug
+    if flake:
+        fx, fy, fr = x - s * 0.1, y0 + (yb - y0) * 0.55, s * 0.22
+        for k in range(6):
+            a = k * math.pi / 3 + 0.26
+            ex, ey = fx + fr * math.cos(a), fy + fr * math.sin(a)
+            c.ink_line([(fx, fy), (ex, ey)], width=max(2, s * 0.028), closed=False, alpha=230, passes=1, jitter=0, color=(250, 246, 238))
+            mx, my = fx + fr * 0.58 * math.cos(a), fy + fr * 0.58 * math.sin(a)
+            for side in (-1, 1):
+                b = a + side * 0.75
+                c.ink_line([(mx, my), (mx + fr * 0.3 * math.cos(b), my + fr * 0.3 * math.sin(b))], width=max(2, s * 0.022),
+                           closed=False, alpha=230, passes=1, jitter=0, color=(250, 246, 238))
+        for dx, dy, rr in ((-0.62, 0.12, 0.035), (0.42, 0.3, 0.03), (0.55, -0.05, 0.025), (-0.45, 0.58, 0.03), (0.2, 0.7, 0.028)):
+            gouache(c, ellipse(x + s * dx, y0 + (yb - y0) * (0.1 + dy), s * rr, s * rr, 8), color=(250, 246, 238), alpha=225, soft=0.05)
+    # inside wall at the back, then the cocoa
+    c.wash(ellipse(x, y0, s, rim_h, 28), col2, None, strength=0.25, spread=0.006, layers=14, edge=0.5)
+    cy0 = y0 + rim_h * 0.12
+    c.wash(ellipse(x, cy0, s * 0.9, rim_h * 0.8, 28), '#7a4630', '#a8704c', strength=0.95, spread=0.01, layers=28, edge=1.2)
+    c.wash(ellipse(x - s * 0.1, cy0 + rim_h * 0.1, s * 0.55, rim_h * 0.4, 20), '#c79a72', None, strength=0.3, spread=0.04, layers=12, edge=0.3)
+    # cinnamon stick leaning out of the back left
+    if stick:
+        sx0, sy0 = x - s * 0.35, cy0 + rim_h * 0.05
+        ang = -2.2
+        L = s * 1.1
+        cinnamon_stick(c, sx0 + math.cos(ang) * L * 0.5, sy0 + math.sin(ang) * L * 0.5, L, P, angle=ang)
+    # ink: rim (the back half skips where the stick crosses it), body, handle
+    w = max(2, s * 0.02)
+    rim = smooth(ellipse(x, y0, s, rim_h, 32), rounds=1)
+    if stick:
+        # where the stick crosses the back of the rim
+        t = (y0 - rim_h * 0.85 - sy0) / math.sin(ang)
+        gx = sx0 + t * math.cos(ang)
+        gap = (gx - s * 0.085, gx + s * 0.085)
+        segs, cur = [], []
+        for px, py in rim + rim[:1]:
+            if py < y0 and gap[0] < px < gap[1]:
+                if cur: segs.append(cur); cur = []
+            else:
+                cur.append((px, py))
+        if cur: segs.append(cur)
+        for sg in segs:
+            if len(sg) > 1:
+                c.ink_line(sg, width=w, closed=False, alpha=200, passes=1, jitter=0, color=(70, 30, 30))
+    else:
+        c.ink_line(rim, width=w, alpha=200, passes=1, jitter=0, color=(70, 30, 30))
+    c.ink_line(smooth([(x - s, y0)] + left + bottom[::-1] + right[::-1] + [(x + s, y0)], rounds=1, closed=False), width=w, closed=False, alpha=200, passes=1, jitter=0, color=(70, 30, 30))
+    c.ink_line(smooth(outer, rounds=1, closed=False), width=w * 0.9, closed=False, alpha=190, passes=1, jitter=0, color=(70, 30, 30))
+    c.ink_line(smooth(inner, rounds=1, closed=False), width=w * 0.8, closed=False, alpha=170, passes=1, jitter=0, color=(70, 30, 30))
+    # marshmallows floating, a couple tipped against the rim
+    spots = [(-0.02, 0.0, 0.1), (0.3, 0.12, -0.25), (-0.3, 0.25, 0.3), (0.45, -0.25, 0.5), (0.08, -0.45, -0.1), (-0.52, -0.1, 0.2)]
+    for dx, dy, a in spots[:marshmallows]:
+        tint = (250, 226, 230) if rnd.random() < 0.35 else None
+        marshmallow(c, x + s * dx, cy0 + rim_h * dy - s * 0.06, s * 0.3, P, angle=a, tint=tint)
+    if steam:
+        for dx, ln in ((-0.3, 8), (0.05, 10), (0.38, 7)):
+            ph = rnd.uniform(0, 6.28)
+            pts = [(x + s * dx + s * 0.07 * math.sin(t * 0.8 + ph) * (0.5 + t / ln), y0 - rim_h * 1.2 - s * 0.075 * t) for t in range(ln)]
+            bd = smooth([(px - s * 0.06, py) for px, py in pts] + [(px + s * 0.06, py) for px, py in pts[::-1]], rounds=2)
+            c.wash(bd, '#d6cdc4', None, strength=0.22, layers=12, spread=0.05, edge=0.3)
+            c.ink_line(smooth(pts, rounds=2, closed=False), width=max(2, s * 0.013), closed=False, alpha=115, passes=1, jitter=0)
+
+
 MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip, 'sprig': sprig, 'eucalyptus': eucalyptus,
           'berries': berries, 'bouquet': bouquet, 'mug': mug, 'books': books, 'heart': heart, 'paw': paw, 'dog': dog,
           'lemon': lemon, 'strawberry': strawberry, 'sun': sun, 'succulent': succulent, 'pumpkin': pumpkin,
@@ -819,4 +1001,6 @@ MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip
           'book_single': book_single, 'soup_bowl': soup_bowl, 'carrot': carrot,
           'garlic': garlic, 'mushroom': mushroom, 'bay_leaf': bay_leaf, 'peppercorns': peppercorns,
           'cardinal': cardinal, 'pine_bough': pine_bough, 'pinecone': pinecone, 'holly': holly,
-          'snowflake': snowflake, 'snow_dot': snow_dot}
+          'snowflake': snowflake, 'snow_dot': snow_dot,
+          'cocoa_mug': cocoa_mug, 'marshmallow': marshmallow, 'cinnamon_stick': cinnamon_stick,
+          'orange_slice': orange_slice, 'star_anise': star_anise, 'peppermint': peppermint}
