@@ -128,8 +128,8 @@ Market Research
 Competitor Analysis
 ```
 
-**Education, Certifications:** leave empty. **Personal website:** leave
-empty (Edgex has none yet).
+**Education, Certifications:** leave empty. **Personal website:**
+`https://edgexstudio.com`
 
 ## Step 5. Account security
 

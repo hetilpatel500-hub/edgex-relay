@@ -1,5 +1,14 @@
 # Publishing the Edgex site
 
+**Live now (2026-09-30):** deployed by the owner on Cloudflare (Workers static
+assets) at `https://fragrant-river-4ddb.ai-edgex.workers.dev`. The domain is
+**`edgexstudio.com`** (Cloudflare Registrar); attach it in the Worker under
+**Settings → Domains & Routes → Add → Custom domain** (`edgexstudio.com` and
+`www.edgexstudio.com`). Canonical links, `sitemap.xml` and `robots.txt` use
+`https://edgexstudio.com`. `edgex--ai.com` stays reserved for another use
+(the studio email still runs on it). To update the live site: run Step 0,
+then **New deployment** in the Worker and upload `site-public/`.
+
 The site is plain HTML and CSS (no build step, no JavaScript, no server).
 Any static host works. Three free options are below. They all do the job;
 the choice is yours.
