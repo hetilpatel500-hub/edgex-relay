@@ -5,6 +5,14 @@ for **intraday options** trading. It lives in its own room on the Studio
 Floor (north-east corner, door on the west side) and opens from the
 **Chart Desk** button.
 
+**Webull use (owner, 2026-10-01):** "Just keep Webull for getting all the data
+we can, don't worry about trading in my account." Every desk uses the Webull
+connector for market data only (bars, ticks, order book, capital flow,
+snapshots, earnings, sectors, fundamentals), and pulls as much of it as is
+useful. Agents never place, change or cancel orders or instructions, and
+never use account, position or watchlist tools. Trading in the account is
+the owner's business, not the studio's.
+
 ## How a run works
 
 1. The owner drops, pastes or picks up to 5 screenshots, usually the same
