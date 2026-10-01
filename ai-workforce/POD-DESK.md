@@ -197,3 +197,11 @@ Studio Floor at any time.
   sticker prices now match the approved $6.75/$7.40. Tee, sweatshirt, mug,
   art print and sticker created as Printify drafts (Etsy ID check still
   pending: 0 of 26 products had an Etsy listing ID).
+- 2026-10-01 (15:19 UTC run, pattern day): Christmas Cookies, an all-over
+  watercolor mug wrap (gingerbread men, iced sugar cookies in five shapes,
+  candy canes, peppermints, holly, star anise and sprinkles on cream; no
+  lettering; new motifs `gingerbread_man`, `sugar_cookie` with kinds star,
+  tree, heart, round and mitten, `candy_cane`, `sprinkles`; the cookie's baked
+  edge is painted as a ring so blue and pink icing stay clean). Wrap mug and
+  accent mug (Red, Light Green, Maroon) created as Printify drafts (Etsy ID
+  check still pending: 0 of 31 products had an Etsy listing ID).

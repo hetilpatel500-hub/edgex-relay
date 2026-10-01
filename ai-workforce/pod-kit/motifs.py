@@ -994,6 +994,233 @@ def cocoa_mug(c, x, y, s, P, color=None, color2=None, marshmallows=5, stick=True
             c.ink_line(smooth(pts, rounds=2, closed=False), width=max(2, s * 0.013), closed=False, alpha=115, passes=1, jitter=0)
 
 
+# ---------------------------------------------------------------- christmas cookies
+def _icing(c, pts, s, closed=True, w=0.032, alpha=235):
+    """Piped royal icing: a white line on top of the paint (ink layer), with a
+    faint grey-blue shadow line just below so it reads raised."""
+    c.ink_line([(px + s * 0.008, py + s * 0.012) for px, py, *_ in pts], width=max(2, s * w * 1.1), closed=closed,
+               alpha=70, passes=1, jitter=0, color=(150, 140, 150))
+    c.ink_line(pts, width=max(2, s * w), closed=closed, alpha=alpha, passes=1, jitter=0, color=(252, 250, 244))
+
+
+def _dot(c, x, y, r, color, alpha=240, hl=True):
+    """A candy or icing dot in gouache with a small white highlight."""
+    gouache(c, ellipse(x, y, r, r, 10), color=color, alpha=alpha, soft=0.06)
+    if hl:
+        gouache(c, ellipse(x - r * 0.3, y - r * 0.32, r * 0.3, r * 0.26, 8), color=(255, 252, 248), alpha=200, soft=0.1)
+
+
+def gingerbread_shape(x, y, s, angle=0.0):
+    """A gingerbread man: round head, arms out, legs apart. s = half his height."""
+    # head arc from lower-left over the top to lower-right (screen y points down)
+    head = [(x + s * 0.3 * math.cos(a), y - s * 0.62 + s * 0.3 * math.sin(a)) for a in [math.pi * (0.68 + 1.64 * i / 14) for i in range(15)]]
+    pts = [(x + s * 0.13, y - s * 0.36),                       # neck right
+           (x + s * 0.62, y - s * 0.3), (x + s * 0.74, y - s * 0.2), (x + s * 0.66, y - s * 0.07),  # right arm
+           (x + s * 0.3, y - s * 0.06),
+           (x + s * 0.34, y + s * 0.3), (x + s * 0.56, y + s * 0.78), (x + s * 0.48, y + s * 0.93), (x + s * 0.32, y + s * 0.92),  # right leg
+           (x + s * 0.02, y + s * 0.5),
+           (x - s * 0.02, y + s * 0.5),
+           (x - s * 0.32, y + s * 0.92), (x - s * 0.48, y + s * 0.93), (x - s * 0.56, y + s * 0.78), (x - s * 0.34, y + s * 0.3),
+           (x - s * 0.3, y - s * 0.06),
+           (x - s * 0.66, y - s * 0.07), (x - s * 0.74, y - s * 0.2), (x - s * 0.62, y - s * 0.3),
+           (x - s * 0.13, y - s * 0.36)]
+    full = [(x - s * 0.13, y - s * 0.36)] + [p for p in head] + pts
+    return _rot(smooth(full, rounds=2), x, y, angle)
+
+
+def gingerbread_man(c, x, y, s, P, angle=0.0, buttons=None):
+    """A baked gingerbread man: warm ginger wash with a darker baked rim,
+    white piped icing at wrists, ankles and smile, gouache candy buttons."""
+    rnd = c.rnd
+    body = gingerbread_shape(x, y, s, angle)
+    c.wash(body, '#c98a4e', '#b06c35', strength=0.9, spread=0.006, layers=26, edge=1.3, granulate=0.55)
+    c.wash(_rot(smooth([(x - s * 0.22, y - s * 0.3), (x + s * 0.18, y - s * 0.32), (x + s * 0.12, y + s * 0.3), (x - s * 0.18, y + s * 0.28)]), x, y, angle),
+           '#e0a868', None, strength=0.25, spread=0.05, layers=10, edge=0.2)
+    c.ink_line(body, width=max(2, s * 0.018), alpha=150, passes=1, jitter=0, color=(110, 60, 30))
+    R = lambda px, py: _rot([(x + px * s, y + py * s)], x, y, angle)[0]
+    # icing squiggles: wrists and ankles
+    for (ax, ay, bx, by) in ((0.5, -0.27, 0.56, -0.09), (-0.5, -0.27, -0.56, -0.09), (0.3, 0.7, 0.5, 0.66), (-0.3, 0.7, -0.5, 0.66)):
+        zz = []
+        for i in range(7):
+            t = i / 6
+            px, py = ax + (bx - ax) * t, ay + (by - ay) * t
+            nx, ny = -(by - ay), (bx - ax)
+            nl = math.hypot(nx, ny) or 1
+            o = 0.045 * (1 if i % 2 else -1)
+            zz.append(R(px + nx / nl * o, py + ny / nl * o))
+        _icing(c, smooth(zz, rounds=1, closed=False), s, closed=False, w=0.03)
+    # face: eyes and a smile
+    for sx in (-1, 1):
+        ex, ey = R(sx * 0.1, -0.66)
+        gouache(c, ellipse(ex, ey, s * 0.045, s * 0.05, 8), color=(60, 35, 25), alpha=235, soft=0.05)
+    smile = [R(-0.13 + 0.26 * t, -0.53 + 0.06 * math.sin(math.pi * t)) for t in [i / 8 for i in range(9)]]
+    _icing(c, smile, s, closed=False, w=0.03)
+    cheeks = [R(-0.2, -0.56), R(0.2, -0.56)]
+    for cx, cy in cheeks:
+        c.wash(ellipse(cx, cy, s * 0.06, s * 0.04, 8), '#e06a5a', None, strength=0.45, layers=10, spread=0.05)
+    # candy buttons down the middle
+    cols = buttons or [(198, 43, 51), (63, 122, 82), (198, 43, 51)]
+    for k, py in enumerate((-0.25, -0.05, 0.15)):
+        bx, by = R(0, py)
+        _dot(c, bx, by, s * 0.06, tuple(cols[k % len(cols)]))
+
+
+def _star_pts(x, y, r, r2, n=5, angle=0.0):
+    pts = []
+    for i in range(n * 2):
+        a = angle - math.pi / 2 + math.pi * i / n
+        rr = r if i % 2 == 0 else r2
+        pts.append((x + rr * math.cos(a), y + rr * math.sin(a)))
+    return pts
+
+
+def cookie_shape(kind, x, y, s, angle=0.0):
+    """Outline of a cut-out cookie: star, tree, heart, round, mitten. s = radius."""
+    if kind == 'star':
+        pts = smooth(_star_pts(x, y, s, s * 0.52), rounds=1)
+    elif kind == 'tree':
+        pts = [(x, y - s), (x + s * 0.42, y - s * 0.45), (x + s * 0.25, y - s * 0.45), (x + s * 0.68, y + s * 0.15),
+               (x + s * 0.42, y + s * 0.15), (x + s * 0.88, y + s * 0.68), (x + s * 0.16, y + s * 0.68), (x + s * 0.16, y + s * 0.98),
+               (x - s * 0.16, y + s * 0.98), (x - s * 0.16, y + s * 0.68), (x - s * 0.88, y + s * 0.68), (x - s * 0.42, y + s * 0.15),
+               (x - s * 0.68, y + s * 0.15), (x - s * 0.25, y - s * 0.45), (x - s * 0.42, y - s * 0.45)]
+        pts = smooth(pts, rounds=1)
+    elif kind == 'heart':
+        pts = []
+        for i in range(36):
+            t = 2 * math.pi * i / 36
+            hx = 16 * math.sin(t) ** 3
+            hy = -(13 * math.cos(t) - 5 * math.cos(2 * t) - 2 * math.cos(3 * t) - math.cos(4 * t))
+            pts.append((x + hx / 17 * s, y + (hy + 2) / 17 * s))
+    elif kind == 'mitten':
+        pts = [(x - s * 0.5, y + s * 0.95), (x - s * 0.55, y - s * 0.2), (x - s * 0.45, y - s * 0.75), (x - s * 0.05, y - s * 0.95),
+               (x + s * 0.35, y - s * 0.8), (x + s * 0.48, y - s * 0.4), (x + s * 0.5, y - s * 0.1), (x + s * 0.72, y - s * 0.38),
+               (x + s * 0.9, y - s * 0.3), (x + s * 0.85, y), (x + s * 0.5, y + s * 0.45), (x + s * 0.48, y + s * 0.95)]
+        pts = smooth(pts, rounds=2)
+    else:
+        pts = ellipse(x, y, s, s, 32)
+    return _rot(pts, x, y, angle)
+
+
+def _inset(pts, x, y, k):
+    return [(x + (px - x) * k, y + (py - y) * k) for px, py, *_ in pts]
+
+
+ICING = {'red': ('#cf3a40', '#e2605f'), 'green': ('#3f8a5a', '#6fae7f'), 'blue': ('#8fbad6', '#bcd7e8'),
+         'pink': ('#eea2b0', '#f6c6cf'), 'white': None}
+
+
+def sugar_cookie(c, x, y, s, P, kind=None, icing=None, angle=0.0):
+    """An iced cut-out sugar cookie: a golden baked edge, flooded icing in a
+    Christmas color (or white gouache), then piped white details and sprinkles."""
+    rnd = c.rnd
+    kind = kind or rnd.choice(('star', 'tree', 'heart', 'round', 'mitten', 'star', 'tree'))
+    if icing is None:
+        icing = {'tree': rnd.choice(('green', 'green', 'white')), 'heart': rnd.choice(('red', 'pink', 'red')),
+                 'star': rnd.choice(('white', 'blue', 'red')), 'mitten': rnd.choice(('red', 'blue', 'green')),
+                 'round': rnd.choice(('white', 'red', 'green', 'blue'))}[kind]
+    outer = cookie_shape(kind, x, y, s, angle)
+    inner = smooth(_inset(outer, x, y, 0.84), rounds=1)
+    # the baked edge is painted as a ring, so the icing colors stay clean
+    ring = list(outer) + [outer[0]] + [inner[0]] + list(inner[::-1])
+    c.wash(outer, '#efd3a2', None, strength=0.25 if ICING.get(icing) else 0.6, spread=0.004, layers=14, edge=0.6, granulate=0.4)
+    c.wash(ring, '#e2b475', '#d39a55', strength=0.8, spread=0.004, layers=18, edge=1.2, granulate=0.5)
+    c.ink_line(smooth(outer, rounds=1), width=max(2, s * 0.02), alpha=130, passes=1, jitter=0, color=(150, 95, 45))
+    if ICING.get(icing):
+        a, b = ICING[icing]
+        c.wash(inner, a, b, strength=0.9, spread=0.004, layers=22, edge=0.9, granulate=0.15)
+    else:
+        gouache(c, inner, color=(250, 248, 242), alpha=238, soft=0.008)
+        gouache(c, _inset(inner, x + s * 0.06, y + s * 0.08, 0.8), color=(222, 228, 236), alpha=70, soft=0.08)
+    _icing(c, inner, s, w=0.04)
+    accent = (198, 43, 51) if icing in ('white', 'green', 'blue') else (63, 122, 82)
+    R = lambda px, py: _rot([(x + px * s, y + py * s)], x, y, angle)[0]
+    if kind == 'tree':
+        for yy, ww in ((-0.38, 0.22), (0.05, 0.42), (0.48, 0.62)):
+            zz = [R(-ww + 2 * ww * t, yy + 0.07 * math.sin(math.pi * t) + (t - 0.5) * 0.12) for t in [i / 8 for i in range(9)]]
+            _icing(c, zz, s, closed=False, w=0.032)
+        for px, py in ((-0.12, -0.2), (0.2, 0.2), (-0.3, 0.35), (0.1, 0.55), (0.4, 0.58), (-0.08, 0.15)):
+            bx, by = R(px, py)
+            _dot(c, bx, by, s * 0.055, rnd.choice(((198, 43, 51), (240, 200, 80), (250, 248, 242))))
+        sx, sy = R(0, -0.88)
+        gouache(c, _star_pts(sx, sy, s * 0.16, s * 0.07), color=(240, 200, 80), alpha=245, soft=0.03)
+    elif kind == 'star':
+        for i in range(5):
+            a = angle - math.pi / 2 + 2 * math.pi * i / 5
+            _icing(c, [(x + s * 0.12 * math.cos(a), y + s * 0.12 * math.sin(a)), (x + s * 0.55 * math.cos(a), y + s * 0.55 * math.sin(a))],
+                   s, closed=False, w=0.03)
+        _dot(c, x, y, s * 0.08, accent)
+    elif kind == 'heart':
+        for k in range(3):
+            pts = [R(-0.42 + 0.84 * t, -0.15 + 0.24 * k + 0.06 * math.sin(math.pi * 3 * t)) for t in [i / 12 for i in range(13)]]
+            _icing(c, pts, s, closed=False, w=0.026)
+    elif kind == 'mitten':
+        gouache(c, smooth([R(-0.4, 0.5), R(0.4, 0.5), R(0.4, 0.74), R(-0.4, 0.74)], rounds=1), color=(250, 248, 242), alpha=240, soft=0.01)
+        for k in range(5):
+            _dot(c, *R(-0.3 + 0.15 * k, 0.62), s * 0.035, (120, 170, 200) if icing != 'blue' else (198, 43, 51), hl=False)
+        for px, py in ((-0.15, -0.45), (0.12, -0.2), (-0.22, 0.1), (0.2, 0.25)):
+            fx, fy = R(px, py)
+            for j in range(3):
+                b = math.pi / 3 * j + angle
+                _icing(c, [(fx - s * 0.08 * math.cos(b), fy - s * 0.08 * math.sin(b)), (fx + s * 0.08 * math.cos(b), fy + s * 0.08 * math.sin(b))],
+                       s, closed=False, w=0.022)
+    else:
+        if icing == 'white':
+            for _ in range(14):
+                a = rnd.uniform(0, 2 * math.pi); r = s * 0.62 * math.sqrt(rnd.random())
+                px, py = x + r * math.cos(a), y + r * math.sin(a)
+                b = rnd.uniform(0, math.pi)
+                col = rnd.choice(((198, 43, 51), (63, 122, 82), (240, 200, 80), (143, 186, 214)))
+                gouache(c, _rrect(px, py, s * 0.13, s * 0.045, s * 0.02, b), color=col, alpha=240, soft=0.03)
+        else:
+            for j in range(6):
+                b = math.pi / 3 * j + angle
+                _icing(c, [(x, y), (x + s * 0.55 * math.cos(b), y + s * 0.55 * math.sin(b))], s, closed=False, w=0.03)
+                mx, my = x + s * 0.34 * math.cos(b), y + s * 0.34 * math.sin(b)
+                for side in (-1, 1):
+                    bb = b + side * 0.8
+                    _icing(c, [(mx, my), (mx + s * 0.15 * math.cos(bb), my + s * 0.15 * math.sin(bb))], s, closed=False, w=0.024)
+
+
+def candy_cane(c, x, y, s, P, angle=0.0, flip=False):
+    """A striped candy cane: white kept as bare paper, red stripes spiralling
+    round it, a soft shadow down one side. s = half its length."""
+    sg = -1 if flip else 1
+    sx = x - sg * s * 0.18                       # the shaft
+    path = [(sx, y + s - t / 9 * s * 1.35) for t in range(10)]
+    hr = s * 0.28                                # the hook: over the top and a little way down
+    hx, hy = sx + sg * hr, y - s * 0.35
+    for i in range(1, 15):
+        a = (math.pi + math.pi * i / 11) if sg > 0 else (-math.pi * i / 11)
+        path.append((hx + hr * math.cos(a), hy + hr * math.sin(a) + (s * 0.05 * (i - 11) if i > 11 else 0)))
+    path = _rot(path, x, y, angle)
+    w = s * 0.085
+    L, Rr = [], []
+    n = len(path)
+    for i in range(n):
+        p0 = path[max(0, i - 1)]; p1 = path[min(n - 1, i + 1)]
+        dx, dy = p1[0] - p0[0], p1[1] - p0[1]; d = math.hypot(dx, dy) or 1
+        nx, ny = -dy / d, dx / d
+        L.append((path[i][0] + nx * w, path[i][1] + ny * w)); Rr.append((path[i][0] - nx * w, path[i][1] - ny * w))
+    body = L + Rr[::-1]
+    c.reserve(body)
+    mid = [((L[i][0] + Rr[i][0]) / 2, (L[i][1] + Rr[i][1]) / 2) for i in range(n)]
+    c.wash(Rr + mid[::-1], '#d9c9cf', None, strength=0.35, spread=0.01, layers=12, edge=0.4)   # shadow side
+    for i in range(0, n - 2, 2):
+        stripe = [L[i], L[i + 1], Rr[i + 2], Rr[i + 1]]
+        c.wash(stripe, '#c62b33', '#e0525a', strength=0.95, spread=0.01, layers=10, edge=0.9, granulate=0.1)
+    c.ink_line(smooth(body, rounds=1), width=max(2, s * 0.012), alpha=150, passes=1, jitter=0, color=(120, 40, 45))
+
+
+def sprinkles(c, x, y, s, P, n=9):
+    """A scatter of rainbow-free Christmas sprinkles in gouache: red, green, gold, white."""
+    rnd = c.rnd
+    for _ in range(n):
+        a = rnd.uniform(0, 2 * math.pi); r = s * math.sqrt(rnd.random())
+        col = rnd.choice(((198, 43, 51), (63, 122, 82), (240, 200, 80), (250, 248, 242), (198, 43, 51)))
+        gouache(c, _rrect(x + r * math.cos(a), y + r * math.sin(a), s * 0.32, s * 0.11, s * 0.05, rnd.uniform(0, math.pi)),
+                color=col, alpha=240, soft=0.03)
+
+
 MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip, 'sprig': sprig, 'eucalyptus': eucalyptus,
           'berries': berries, 'bouquet': bouquet, 'mug': mug, 'books': books, 'heart': heart, 'paw': paw, 'dog': dog,
           'lemon': lemon, 'strawberry': strawberry, 'sun': sun, 'succulent': succulent, 'pumpkin': pumpkin,
@@ -1003,4 +1230,5 @@ MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip
           'cardinal': cardinal, 'pine_bough': pine_bough, 'pinecone': pinecone, 'holly': holly,
           'snowflake': snowflake, 'snow_dot': snow_dot,
           'cocoa_mug': cocoa_mug, 'marshmallow': marshmallow, 'cinnamon_stick': cinnamon_stick,
-          'orange_slice': orange_slice, 'star_anise': star_anise, 'peppermint': peppermint}
+          'orange_slice': orange_slice, 'star_anise': star_anise, 'peppermint': peppermint,
+          'gingerbread_man': gingerbread_man, 'sugar_cookie': sugar_cookie, 'candy_cane': candy_cane, 'sprinkles': sprinkles}
