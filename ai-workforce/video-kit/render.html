@@ -102,7 +102,6 @@ function spyVideo(){
     const st=niceStep(pmax-pmin);
     for(let p=Math.ceil(pmin/st)*st;p<=pmax;p+=st){const y=py(p);X.beginPath();X.moveTo(CH.x,y);X.lineTo(CH.x+CH.w,y);X.stroke();txt(p.toFixed(st<1?1:0),CH.x+CH.w+10*S,y+7*S,{c:C.dim})}
     X.setLineDash([10*S,8*S]);X.strokeStyle='rgba(242,181,68,.7)';X.lineWidth=2*S;X.beginPath();X.moveTo(CH.x,py(prev));X.lineTo(CH.x+CH.w,py(prev));X.stroke();X.setLineDash([]);
-    font('IN',700,20);txt(D.prevLabel,CH.x+8*S,py(prev)-10*S,{c:C.amber,ls:1});
     const vs=[...R.map(r=>r.v)].sort((a,b)=>a-b),vmax=vs[Math.floor(N*.97)]*1.15;
     for(let i=0;i<shown+1&&i<N;i++){
       const r=R[i],k=i<shown?1:clamp(pf-i);if(k<=0)continue;
@@ -123,6 +122,9 @@ function spyVideo(){
     }
     {const y=py(R[cur].c);X.save();X.setLineDash([3*S,5*S]);X.strokeStyle='rgba(238,243,241,.35)';X.beginPath();X.moveTo(px(cur),y);X.lineTo(CH.x+CH.w,y);X.stroke();X.restore();
       X.fillStyle=C.ink;X.beginPath();X.arc(px(cur),y,6*S+2*S*Math.sin(t*8),0,7);X.fill();}
+    // prior-close label last, on a backing pill, so candles and the VWAP label never cover it
+    {font('IN',700,20);X.save();X.letterSpacing='1px';const lw=X.measureText(D.prevLabel).width;X.restore();const lx=CH.x+8*S,ly=py(prev)-10*S;
+      X.save();X.fillStyle=C.bg0;X.globalAlpha=.88;rr(lx-6*S,ly-20*S,lw+12*S,27*S,6*S);X.fill();X.restore();txt(D.prevLabel,lx,ly,{c:C.amber,ls:1})}
     let active=null;
     marks.forEach(m=>{const st=m.i+0.6;if(pf<st)return;const k=clamp((tl-tAt(st))/.6);active=m;
       const x=px(m.i),y=py(m.p);X.save();X.globalAlpha*=out(k);X.strokeStyle=col(m.color);X.lineWidth=3*S;X.beginPath();X.arc(x,y,(14-4*out(k))*S,0,7);X.stroke();
