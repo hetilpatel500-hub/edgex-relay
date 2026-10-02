@@ -56,7 +56,7 @@ function interiorHtml() {
     pages.push(`<div class="pg"><div class="labwrap">SUBJ_LABEL_${id}</div><div class="art" data-id="${id}"></div></div>`);
     pages.push('<div class="pg"></div>');
   }
-  pages.push(`<div class="pg cert"><div class="box">${label('Great job!', 170)}<p>You colored all ${book.count} ${esc(book.cover.word.toLowerCase())}!</p><div class="star"></div><p class="nm">Name: ______________________</p></div></div>`);
+  pages.push(`<div class="pg cert"><div class="box">${label('Great job!', 170)}<p>You colored all ${book.count} ${esc(book.cover.cert_word || book.cover.word.toLowerCase())}!</p><div class="star"></div><p class="nm">Name: ______________________</p></div></div>`);
   pages.push('<div class="pg"></div>');
   return `<html><head><style>${FONTS}
   @page{size:${TRIM_W}in ${TRIM_H}in;margin:0} body{margin:0}
