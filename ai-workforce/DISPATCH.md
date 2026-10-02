@@ -118,3 +118,7 @@ money skill into their `brain`, and agents that already have one use it to make
 a sellable asset (`skill_work`), which then goes through Last Touch and Chief of
 Staff. Each shift logs one `dispatch` doc. The Collaboration Room on the Studio
 Floor shows all of it live.
+
+## Reporting idle honestly (2026-10-01)
+
+`idle_left` counts agents untouched for 6 h or more, not agents sitting at status done. Held drafts that wait on an attorney or the owner are reported separately (`held_on_owner`) so the owner can see they, not agent capacity, are the bottleneck. Keep `drafts_left` and `stalest_hours_after` as they are.
