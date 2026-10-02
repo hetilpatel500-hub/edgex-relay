@@ -17,6 +17,15 @@ Printify account settings.
 
 Shop: Printify shop 29114200 ("My new store"), sales channel Etsy.
 
+**Etsy status (2026-10-02):** the owner says the Etsy account is created and
+approved, and pays $10/month for **Etsy Plus** ("just keep that in mind and
+work"). Etsy Plus includes 15 listing credits a month (covers 15 x $0.20
+listing fees) and a $5 Etsy Ads credit a month; both expire at the end of
+each billing cycle if unused, so use the 15 credits every month before paying
+listing fees. Etsy Ads stays off unless the owner asks (agents don't change
+Etsy settings). On 2026-10-02 none of the 33 Printify products had an Etsy
+listing ID yet; publishing resumes once the owner confirms it.
+
 **Etsy status (2026-09-28):** the owner submitted Etsy's ID + selfie check;
 Etsy said it takes 1-3 days. Until it clears, Printify accepts publish calls
 but no Etsy listing appears (the product's `external` stays empty). While a
