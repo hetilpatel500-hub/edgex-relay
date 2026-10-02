@@ -34,6 +34,8 @@ products are published to Etsy as soon as they're Legal-cleared. The $3/day cap
 counts **paid** listing fees only, so each month the first 15 listings (credits)
 don't count toward it. Etsy Ads: the owner turns it on in Etsy Shop Manager
 with the $5 monthly credit; agents suggest which listings, never change the setting.
+Etsy makes new shops wait 15 days before Etsy Ads: Ads open for Edgexhp about
+2026-10-13 (a reminder Routine emails the owner the plan that day).
 Printify sits behind Cloudflare: every API call must send a User-Agent
 (printify.py sends `edgex-pod-desk`), or it fails with 403 "error code: 1010".
 
