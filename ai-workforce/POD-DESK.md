@@ -227,3 +227,11 @@ Studio Floor at any time.
   edge is painted as a ring so blue and pink icing stay clean). Wrap mug and
   accent mug (Red, Light Green, Maroon) created as Printify drafts (Etsy ID
   check still pending: 0 of 31 products had an Etsy listing ID).
+- 2026-10-02 (15:18 UTC run, motif day): Sufganiyot Season, a watercolor
+  Hanukkah design (a lit nine-branch gold menorah with blue candles over a
+  plate of jam-filled sufganiyot dusted with sugar, two dreidels with nun,
+  gimel, shin and hei, gold and silver gelt, olive sprigs; subline "jelly
+  donuts by candlelight"; new motifs `menorah`, `flame`, `plate`,
+  `sufganiyah`, `dreidel`, `gelt`, `olive_sprig`). Tee, sweatshirt, mug, art
+  print and sticker created as Printify drafts: today's paid listing fees were
+  already at the $3.00 cap, so they publish on the next run with room.

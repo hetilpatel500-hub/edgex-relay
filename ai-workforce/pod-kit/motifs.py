@@ -1221,6 +1221,237 @@ def sprinkles(c, x, y, s, P, n=9):
                 color=col, alpha=240, soft=0.03)
 
 
+# ---------------------------------------------------------------- hanukkah
+GOLD, GOLD2, GOLD_INK = '#d29a38', '#f0cc72', (120, 78, 25)
+
+
+def _arc_band(x, y, r, w, n=24):
+    """A U-shaped band (lower half circle) centred at (x, y), radius r, width w."""
+    outer = [(x + (r + w / 2) * math.cos(math.pi * i / n), y + (r + w / 2) * math.sin(math.pi * i / n)) for i in range(n + 1)]
+    inner = [(x + (r - w / 2) * math.cos(math.pi * i / n), y + (r - w / 2) * math.sin(math.pi * i / n)) for i in range(n, -1, -1)]
+    return outer + inner
+
+
+def flame(c, x, y, s, glow=True):
+    """A candle flame (x, y) = its base, s = its height: a soft glow, a gold
+    outer flame, a pale core and a touch of blue at the wick."""
+    if glow:
+        c.wash(ellipse(x, y - s * 0.5, s * 0.62, s * 0.85, 18), '#f8dc8c', '#fbe9b8', strength=0.2, spread=0.09,
+               layers=14, edge=0.15, granulate=0.15)
+    body = [(x, y - s)] + [(x + s * 0.3 * math.sin(math.pi * t) * (1 - 0.35 * t), y - s * (1 - t)) for t in (0.2, 0.4, 0.6, 0.8)]
+    body += [(x + s * 0.2 * math.cos(a), y + s * 0.02 * math.sin(a)) for a in (0.0, 1.2, 1.9, 3.14)]
+    body += [(x - s * 0.3 * math.sin(math.pi * t) * (1 - 0.35 * t), y - s * (1 - t)) for t in (0.8, 0.6, 0.4, 0.2)]
+    body = smooth(body, rounds=2)
+    c.wash(body, '#f2a43a', '#f6c656', strength=0.95, spread=0.01, layers=14, edge=1.0, granulate=0.1)
+    core = [(px * 0.55 + x * 0.45, py * 0.6 + (y - s * 0.12) * 0.4) for px, py in body]
+    gouache(c, core, color=(255, 246, 214), alpha=225, soft=0.08)
+    c.wash(ellipse(x, y - s * 0.03, s * 0.08, s * 0.1, 8), '#6f8fc0', None, strength=0.6, layers=8)
+
+
+def menorah(c, x, y, s, P, lit=9, candle=None, candle2=None):
+    """A nine-branch Hanukkah menorah in gold with blue candles, the raised
+    centre candle (shamash) lit plus `lit` - 1 others. (x, y) = centre of the
+    arms, s = half the width across the outer cups."""
+    col = candle or P.get('candle', '#4a7fc0'); col2 = candle2 or P.get('candle2', '#9cc2e6')
+    d = s / 4                                    # spacing between branches
+    cup_y = y - s * 0.12                         # top of the eight side cups
+    sh_y = cup_y - s * 0.2                       # top of the shamash cup
+    base_y = y + s * 0.95
+    w = s * 0.055                                # arm width
+    # arms: nested U bands from each pair of cups down to the stem
+    for k in (4, 3, 2, 1):
+        c.wash(_arc_band(x, cup_y, k * d, w), GOLD, GOLD2, strength=0.85, spread=0.008, layers=16, edge=1.0, granulate=0.45)
+    # the centre stem and a stepped foot
+    stem = [(x - w * 0.8, sh_y + s * 0.04), (x + w * 0.8, sh_y + s * 0.04), (x + w * 0.9, base_y - s * 0.12), (x - w * 0.9, base_y - s * 0.12)]
+    c.wash(stem, GOLD, GOLD2, strength=0.9, spread=0.006, layers=16, edge=1.0, granulate=0.45)
+    knop = ellipse(x, cup_y + s * 0.62, w * 1.7, w * 1.1, 14)
+    c.wash(knop, GOLD, None, strength=0.95, spread=0.01, layers=12, edge=1.1)
+    foot = [(x - s * 0.36, base_y), (x - s * 0.3, base_y - s * 0.07), (x - s * 0.1, base_y - s * 0.13), (x + s * 0.1, base_y - s * 0.13),
+            (x + s * 0.3, base_y - s * 0.07), (x + s * 0.36, base_y)]
+    foot = smooth(foot + [(x + s * 0.34, base_y + s * 0.04), (x - s * 0.34, base_y + s * 0.04)], rounds=1)
+    c.wash(foot, GOLD, GOLD2, strength=0.9, spread=0.008, layers=18, edge=1.0, granulate=0.5)
+    # shading down the right of the stem and foot
+    c.wash([(x + w * 0.1, sh_y + s * 0.05), (x + w * 0.85, sh_y + s * 0.05), (x + w * 0.9, base_y - s * 0.13), (x + w * 0.1, base_y - s * 0.13)],
+           '#a8732a', None, strength=0.35, spread=0.01, layers=8, edge=0.4)
+    ink = dict(alpha=190, passes=1, jitter=0, color=GOLD_INK)
+    lw = max(1, s * 0.008)
+    for k in (4, 3, 2, 1):
+        for rr in (k * d + w / 2, k * d - w / 2):
+            c.ink_line([(x + rr * math.cos(math.pi * i / 24), cup_y + rr * math.sin(math.pi * i / 24)) for i in range(25)],
+                       width=lw, closed=False, **ink)
+    c.ink_line(stem, width=lw, closed=False, **ink)
+    c.ink_line(foot, width=lw, **ink)
+    c.ink_line(smooth(knop, rounds=1), width=lw, **ink)
+    # cups, candles, flames: side candles left to right, the shamash raised in the middle
+    tops = [(x + (i - 4) * d, cup_y) for i in range(9) if i != 4]
+    order = [tops[i] for i in (0, 1, 2, 3)] + [(x, sh_y)] + [tops[i] for i in (4, 5, 6, 7)]
+    ch, cw = s * 0.36, s * 0.062
+    lit_idx = {4} | set(sorted(range(9), key=lambda i: -i)[:max(0, lit - 1)] if lit < 9 else range(9))
+    if lit >= 9:
+        lit_idx = set(range(9))
+    for i, (px, py) in enumerate(order):
+        cup = _rrect(px, py, s * 0.13, s * 0.07, s * 0.02)
+        c.wash(cup, GOLD, GOLD2, strength=0.95, spread=0.008, layers=12, edge=1.1)
+        c.ink_line(cup, width=lw, **ink)
+        ctop = py - s * 0.035 - ch
+        body = _rrect(px, (ctop + py - s * 0.035) / 2, cw, ch, cw * 0.25)
+        cc = col if i % 2 == 0 else col2
+        c.wash(body, cc, col2 if cc == col else col, strength=0.8, spread=0.008, layers=14, edge=0.9)
+        c.wash([(px + cw * 0.12, ctop + s * 0.01), (px + cw * 0.48, ctop + s * 0.01), (px + cw * 0.48, py - s * 0.04), (px + cw * 0.12, py - s * 0.04)],
+               '#3a5f94', None, strength=0.3, spread=0.01, layers=8, edge=0.3)
+        c.ink_line(body, width=max(1, s * 0.006), alpha=150, passes=1, jitter=0, color=(45, 65, 100))
+        c.ink_line([(px, ctop), (px + s * 0.004, ctop - s * 0.03)], width=max(1, s * 0.008), closed=False, alpha=200, passes=1, jitter=0, color=(50, 40, 35))
+        if i in lit_idx:
+            flame(c, px, ctop - s * 0.025, s * 0.14)
+
+
+def plate(c, x, y, s, P, color=None, color2=None):
+    """A shallow round serving plate seen from the front: s = half its width.
+    A pale blue glaze with a darker rim band."""
+    col = color or P.get('plate', '#8fb6da'); col2 = color2 or P.get('plate2', '#d6e6f3')
+    ry = s * 0.3
+    c.wash(ellipse(x, y, s, ry, 40), col2, '#f3f7fb', strength=0.55, spread=0.006, layers=18, edge=0.6)
+    ring = [(x + s * math.cos(2 * math.pi * i / 40), y + ry * math.sin(2 * math.pi * i / 40)) for i in range(41)]
+    ring += [(x + s * 0.84 * math.cos(2 * math.pi * i / 40), y + ry * 0.8 * math.sin(2 * math.pi * i / 40)) for i in range(40, -1, -1)]
+    c.wash(ring, col, None, strength=0.75, spread=0.006, layers=14, edge=1.0)
+    # the plate's front edge thickness
+    lip = [(x + s * math.cos(math.pi * i / 20), y + ry * math.sin(math.pi * i / 20)) for i in range(21)]
+    lip += [(x + s * 0.97 * math.cos(math.pi * i / 20), y + ry * math.sin(math.pi * i / 20) + s * 0.06) for i in range(20, -1, -1)]
+    c.wash(lip, col, None, strength=0.6, spread=0.01, layers=12, edge=0.8)
+    c.ink_line(smooth(ellipse(x, y, s, ry, 40), rounds=1), width=max(1, s * 0.012), alpha=170, passes=1, jitter=0, color=(50, 70, 100))
+    c.ink_line([(x + s * 0.97 * math.cos(math.pi * i / 20), y + ry * math.sin(math.pi * i / 20) + s * 0.06) for i in range(21)],
+               width=max(1, s * 0.012), closed=False, alpha=170, passes=1, jitter=0, color=(50, 70, 100))
+
+
+def sufganiyah(c, x, y, s, P, jam=None, angle=0.0):
+    """A jam-filled Hanukkah doughnut: a round golden fried bun with the pale
+    band round its middle, a heavy dusting of powdered sugar and a dab of red
+    jam piped in on top. s = radius."""
+    rnd = c.rnd
+    jam = jam or P.get('jam', '#b5222f')
+    h = s * 0.86
+    dome = smooth([(x + s * math.cos(a), y + h * 0.62 * math.sin(a)) for a in [math.pi + math.pi * i / 16 for i in range(17)]] +
+                  [(x + s * 0.98, y + h * 0.14), (x + s * 0.84, y + h * 0.36), (x + s * 0.42, y + h * 0.46), (x - s * 0.42, y + h * 0.46),
+                   (x - s * 0.84, y + h * 0.36), (x - s * 0.98, y + h * 0.14)], rounds=2)
+    c.wash(dome, '#dba25a', '#c47c36', strength=0.85, spread=0.012, layers=26, edge=1.0, granulate=0.45)
+    # the pale ring where the dough floated above the oil
+    band = [(x + s * 0.99 * math.cos(a), y + h * 0.12 + h * 0.2 * math.sin(a)) for a in [math.pi * i / 18 for i in range(19)]]
+    band += [(x + s * 0.93 * math.cos(a), y + h * 0.02 + h * 0.12 * math.sin(a)) for a in [math.pi * i / 18 for i in range(18, -1, -1)]]
+    gouache(c, smooth(band, rounds=1), color=(244, 222, 178), alpha=215, soft=0.03)
+    # a darker crown and shadow under the belly
+    c.wash(ellipse(x - s * 0.1, y - h * 0.3, s * 0.7, h * 0.3, 18), '#a8622a', None, strength=0.3, spread=0.03, layers=12, edge=0.4)
+    c.wash(ellipse(x + s * 0.1, y + h * 0.36, s * 0.7, h * 0.1, 18), '#9a5a26', None, strength=0.35, spread=0.03, layers=10, edge=0.3)
+    # powdered sugar: soft drifts and a scatter of dots over the top
+    for _ in range(7):
+        a = rnd.uniform(math.pi * 1.1, math.pi * 1.9); r = rnd.uniform(0.15, 0.7)
+        gouache(c, ellipse(x + s * r * math.cos(a), y - h * 0.2 + h * 0.5 * r * math.sin(a), s * 0.32, h * 0.11, 12, rot=rnd.uniform(-0.3, 0.3)),
+                color=(253, 251, 247), alpha=150, soft=0.12)
+    for _ in range(70):
+        a = rnd.uniform(math.pi * 1.04, math.pi * 1.96); r = s * math.sqrt(rnd.random()) * 0.92
+        px, py = x + r * math.cos(a), y - h * 0.06 + r * 0.6 * math.sin(a)
+        rr = s * rnd.uniform(0.012, 0.03)
+        gouache(c, ellipse(px, py, rr, rr, 6), color=(254, 252, 248), alpha=240, soft=0.06)
+    # the jam: a glossy dab piped in on top, with a small drip
+    k = 1.35
+    jx, jy = x + s * 0.06, y - h * 0.5
+    blob = smooth([(jx - s * 0.2 * k, jy), (jx - s * 0.1 * k, jy - s * 0.1 * k), (jx + s * 0.12 * k, jy - s * 0.11 * k), (jx + s * 0.22 * k, jy - s * 0.02 * k),
+                   (jx + s * 0.15 * k, jy + s * 0.06 * k), (jx + s * 0.1 * k, jy + s * 0.2 * k), (jx + s * 0.04 * k, jy + s * 0.21 * k),
+                   (jx + s * 0.02 * k, jy + s * 0.07 * k), (jx - s * 0.14 * k, jy + s * 0.06 * k)], rounds=2)
+    c.wash(blob, jam, '#d6404a', strength=1.05, spread=0.01, layers=18, edge=1.2)
+    gouache(c, ellipse(jx - s * 0.05, jy - s * 0.06, s * 0.06, s * 0.03, 8), color=(255, 236, 236), alpha=210, soft=0.1)
+    c.ink_line(blob, width=max(1, s * 0.012), alpha=150, passes=1, jitter=0, color=(110, 20, 30))
+    c.ink_line(dome, width=max(1, s * 0.014), alpha=150, passes=1, jitter=0, color=(110, 65, 30))
+
+
+def _letter(c, name, x, y, h, color=(250, 244, 226), width=None, angle=0.0, skew=0.0):
+    """A Hebrew dreidel letter drawn as brush strokes (nun, gimel, hei, shin),
+    h = letter height, (x, y) its centre; skew shears it onto a face."""
+    w = width or max(2, h * 0.13)
+    S = {
+        'nun':   [[(-0.08, -0.5), (0.18, -0.5), (0.2, 0.45), (-0.3, 0.45)]],
+        'gimel': [[(-0.22, -0.5), (0.1, -0.5), (0.14, 0.45)], [(0.14, 0.2), (-0.26, 0.48)]],
+        'hei':   [[(-0.32, -0.48), (0.32, -0.48), (0.32, 0.48)], [(-0.24, -0.1), (-0.24, 0.48)]],
+        'shin':  [[(-0.36, -0.48), (-0.3, 0.42), (0.36, 0.42), (0.36, -0.48)], [(0.0, -0.48), (-0.05, 0.1), (-0.3, 0.38)]],
+    }
+    for stroke in S[name]:
+        pts = [(x + (px + skew * py) * h, y + py * h) for px, py in stroke]
+        c.ink_line(_rot(pts, x, y, angle), width=w, closed=False, alpha=235, passes=1, jitter=0, color=color)
+
+
+def dreidel(c, x, y, s, P, angle=0.0, color=None, color2=None, letters=('nun', 'gimel')):
+    """A spinning top with four lettered sides, seen at three quarters: front
+    face, side face, top with its stem, and the point. s = front face width."""
+    col = color or P.get('dreidel', '#3f72b0'); col2 = color2 or P.get('dreidel2', '#86b2de')
+    f = s / 2
+    sk = s * 0.42                                   # depth of the side face
+    up = s * 0.2
+    front = [(x - f, y - f), (x + f, y - f), (x + f, y + f), (x - f, y + f)]
+    side = [(x + f, y - f), (x + f + sk, y - f - up), (x + f + sk, y + f - up), (x + f, y + f)]
+    top = [(x - f, y - f), (x - f + sk, y - f - up), (x + f + sk, y - f - up), (x + f, y - f)]
+    tip = (x + sk * 0.35, y + f + s * 0.62)
+    point_f = [(x - f, y + f), (x + f, y + f), tip]
+    point_s = [(x + f, y + f), (x + f + sk, y + f - up), tip]
+    R = lambda pts: _rot(pts, x, y, angle)
+    c.wash(R(top), col2, '#cfe1f2', strength=0.7, spread=0.008, layers=14, edge=0.8)
+    c.wash(R(front), col, col2, strength=0.85, spread=0.008, layers=20, edge=1.0, granulate=0.4)
+    c.wash(R(side), col, None, strength=1.1, spread=0.008, layers=18, edge=1.0, granulate=0.4)
+    c.wash(R(point_f), col, col2, strength=0.85, spread=0.008, layers=14, edge=1.0)
+    c.wash(R(point_s), col, None, strength=1.15, spread=0.008, layers=12, edge=1.0)
+    # stem on the top face
+    tcx, tcy = x + sk / 2, y - f - up / 2
+    stem = [(tcx - s * 0.07, tcy), (tcx - s * 0.06, tcy - s * 0.4), (tcx + s * 0.06, tcy - s * 0.4), (tcx + s * 0.07, tcy)]
+    ink = dict(alpha=185, passes=1, jitter=0, color=(30, 45, 80))
+    lw = max(1, s * 0.016)
+    for poly in (front, side, top, point_f, point_s):
+        c.ink_line(R(poly), width=lw, **ink)
+    # the stem goes on last in opaque gold so the top face's outline doesn't cross it
+    gouache(c, R(stem), color=(214, 160, 70), alpha=250, soft=0.01)
+    gouache(c, R([(tcx + s * 0.005, tcy), (tcx + s * 0.005, tcy - s * 0.4), (tcx + s * 0.06, tcy - s * 0.4), (tcx + s * 0.07, tcy)]),
+            color=(178, 122, 45), alpha=150, soft=0.04)
+    gouache(c, R(ellipse(tcx, tcy - s * 0.4, s * 0.06, s * 0.025, 10)), color=(236, 198, 112), alpha=245, soft=0.02)
+    c.ink_line(R(stem), width=lw, closed=False, **ink)          # open at the foot, where it meets the top
+    # letters in gold-cream gouache: one on the front, a narrower one on the side
+    _letter(c, letters[0], *(_rot([(x, y)], x, y, angle)[0]), s * 0.52, color=(248, 230, 170), width=max(2, s * 0.07), angle=angle)
+    sx, sy = x + f + sk / 2, y - up / 2
+    _letter(c, letters[1], *(_rot([(sx, sy)], x, y, angle)[0]), s * 0.42, color=(240, 214, 140), width=max(2, s * 0.05),
+            angle=angle, skew=-0.25)
+
+
+def gelt(c, x, y, s, P, angle=0.0, silver=False):
+    """A foil-wrapped chocolate coin seen at a slant. s = radius."""
+    c1, c2, ink = ('#b9c0c8', '#e4e8ec', (90, 95, 105)) if silver else (GOLD, GOLD2, GOLD_INK)
+    rim = ellipse(x, y, s, s * 0.62, 28, rot=angle)
+    c.wash(rim, c1, c2, strength=0.95, spread=0.008, layers=16, edge=1.1, granulate=0.5)
+    c.wash(ellipse(x + s * 0.04, y + s * 0.07, s * 0.98, s * 0.6, 28, rot=angle), c1, None, strength=0.5, spread=0.01, layers=10, edge=0.6)
+    c.wash(ellipse(x, y, s * 0.72, s * 0.44, 24, rot=angle), c2, None, strength=0.55, spread=0.01, layers=10, edge=0.8)
+    c.ink_line(smooth(rim, rounds=1), width=max(1, s * 0.04), alpha=170, passes=1, jitter=0, color=ink)
+    c.ink_line(smooth(ellipse(x, y, s * 0.72, s * 0.44, 24, rot=angle), rounds=1), width=max(1, s * 0.025), alpha=130, passes=1, jitter=0, color=ink)
+    gouache(c, ellipse(x - s * 0.35, y - s * 0.2, s * 0.16, s * 0.06, 8, rot=angle - 0.4), color=(255, 250, 230), alpha=190, soft=0.1)
+
+
+def olive_sprig(c, x, y, s, P, angle=-1.0, n=7):
+    """An olive branch: a thin stem with narrow silvery-green leaves in pairs
+    and two or three small olives. s = branch length."""
+    ca, sa = math.cos(angle), math.sin(angle)
+    stem = [(x + s * ca * t + s * 0.04 * math.sin(t * 3) * -sa, y + s * sa * t + s * 0.04 * math.sin(t * 3) * ca) for t in [i / 10 for i in range(11)]]
+    c.ink_line(stem, width=max(2, s * 0.012), closed=False, alpha=200, passes=1, jitter=0, color=(95, 100, 60))
+    for i in range(n):
+        t = (i + 0.6) / (n + 0.4)
+        px, py = stem[min(10, int(t * 10))]
+        side = 1 if i % 2 else -1
+        la = angle + side * 0.75 + c.rnd.uniform(-0.15, 0.15)
+        L = s * 0.24 * (1 - t * 0.35)
+        lf = leaf(px + L * 0.5 * math.cos(la), py + L * 0.5 * math.sin(la), L, L * 0.17, la)
+        c.wash(lf, P.get('olive', '#7c8a4c'), P.get('olive2', '#aeb88a'), strength=0.75, spread=0.03, layers=14, edge=0.9)
+        c.ink_line([(px, py), (px + L * 0.9 * math.cos(la), py + L * 0.9 * math.sin(la))], width=max(1, s * 0.005), closed=False,
+                   alpha=110, passes=1, jitter=0, color=(80, 85, 50))
+    for t, off in ((0.35, 0.06), (0.62, -0.05)):
+        px, py = stem[int(t * 10)]
+        ox, oy = px - sa * s * off, py + ca * s * off
+        c.wash(ellipse(ox, oy, s * 0.045, s * 0.032, 10, rot=angle), '#5b5a3a', '#8a8a52', strength=0.9, layers=10, edge=1.0)
+
+
+
 MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip, 'sprig': sprig, 'eucalyptus': eucalyptus,
           'berries': berries, 'bouquet': bouquet, 'mug': mug, 'books': books, 'heart': heart, 'paw': paw, 'dog': dog,
           'lemon': lemon, 'strawberry': strawberry, 'sun': sun, 'succulent': succulent, 'pumpkin': pumpkin,
@@ -1231,4 +1462,6 @@ MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip
           'snowflake': snowflake, 'snow_dot': snow_dot,
           'cocoa_mug': cocoa_mug, 'marshmallow': marshmallow, 'cinnamon_stick': cinnamon_stick,
           'orange_slice': orange_slice, 'star_anise': star_anise, 'peppermint': peppermint,
-          'gingerbread_man': gingerbread_man, 'sugar_cookie': sugar_cookie, 'candy_cane': candy_cane, 'sprinkles': sprinkles}
+          'gingerbread_man': gingerbread_man, 'sugar_cookie': sugar_cookie, 'candy_cane': candy_cane, 'sprinkles': sprinkles,
+          'menorah': menorah, 'flame': flame, 'plate': plate, 'sufganiyah': sufganiyah, 'dreidel': dreidel,
+          'gelt': gelt, 'olive_sprig': olive_sprig}
