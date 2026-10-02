@@ -26,6 +26,17 @@ listing fees. Etsy Ads stays off unless the owner asks (agents don't change
 Etsy settings). On 2026-10-02 none of the 33 Printify products had an Etsy
 listing ID yet; publishing resumes once the owner confirms it.
 
+**Etsy is live (2026-10-02):** the owner said "publish the 33 drafts, use the
+$5 monthly for ads". 30 went live on Etsy that day, seasonal first. The first
+15 used the month's Etsy Plus credits and the next 15 paid $3.00, the daily cap.
+The last 3 (strawberry sweatshirt, art print, sticker) publish on Oct 3. From now on, new
+products are published to Etsy as soon as they're Legal-cleared. The $3/day cap
+counts **paid** listing fees only, so each month the first 15 listings (credits)
+don't count toward it. Etsy Ads: the owner turns it on in Etsy Shop Manager
+with the $5 monthly credit; agents suggest which listings, never change the setting.
+Printify sits behind Cloudflare: every API call must send a User-Agent
+(printify.py sends `edgex-pod-desk`), or it fails with 403 "error code: 1010".
+
 **Etsy status (2026-09-28):** the owner submitted Etsy's ID + selfie check;
 Etsy said it takes 1-3 days. Until it clears, Printify accepts publish calls
 but no Etsy listing appears (the product's `external` stays empty). While a
