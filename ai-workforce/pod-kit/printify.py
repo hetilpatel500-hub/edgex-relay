@@ -65,7 +65,7 @@ PRODUCTS = {
                 care="Keep out of direct sunlight to protect the colors."),
     'sticker': dict(blueprint=400, provider=1, noun='Sticker', alt='Vinyl Sticker', art='clear', fit=('contain', 0.92, 0.5),
                 surfaces=['White'], sizes=['3" × 3"', '4" × 4"'], price={'3" × 3"': 675, '4" × 4"': 740},
-                details="- Kiss-cut vinyl sticker with a white backing\n- Durable and easy to peel\n- Great for laptops, water bottles and journals",
+                details="- Kiss-cut vinyl sticker with a white backing\n- Durable and easy to peel\n- Great for laptops, notebooks and journals\n- Best indoors: the vinyl isn't waterproof",
                 care="Apply to a clean, dry, smooth surface."),
 }
 MIN_MARGIN_CENTS = 400     # never list below Printify cost + $4 (Etsy fees come out of the rest)

@@ -48,7 +48,7 @@ Same steps every time:
 
 1. **Name** and **price:** paste from the product below.
 2. **Description:** paste the block. **URL:** set the custom slug shown.
-3. **Cover:** upload `images/<folder>_cover.png` (1280 x 720, Gumroad's recommended size). You can add the four extra images from `storefront/etsy/<folder>/images/` (02 to 05) as more covers.
+3. **Cover:** upload `images/<folder>_cover.png` (1280 x 720, Gumroad's recommended size). You can add the eight extra images from `storefront/etsy/<folder>/images/` (02 to 09) as more covers.
 4. **Thumbnail:** upload `images/<folder>_thumb.png` (600 x 600).
 5. **Summary** and **Additional details** (in the product info box): paste from below.
 6. **Content:** upload the files listed, from `storefront/etsy/<folder>/`.

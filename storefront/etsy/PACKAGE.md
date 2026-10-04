@@ -83,7 +83,7 @@ Message us through Etsy. We reply within 1 to 2 business days.
 
 Same steps for each listing:
 
-1. **Photos:** upload the 5 PNGs from the product's `images/` folder, in file-name order (01 is the thumbnail). All are 2700 x 2025 px (4:3), above Etsy's 2000 px recommendation.
+1. **Photos:** upload the 9 PNGs from the product's `images/` folder, in file-name order (01 is the thumbnail; Etsy allows up to 20). All are 2700 x 2025 px (4:3), above Etsy's 2000 px recommendation.
 2. **Title, description, tags, price:** paste from below.
 3. **Category:** type "planner templates" and choose **Paper & Party Supplies > Paper > Stationery > Design & Templates > Templates > Planner Templates**. (Confirmed as a live Etsy category; if Etsy suggests a closer one, take it.)
 4. **Type:** Digital files. **Quantity:** leave Etsy's default. **Renewal:** automatic.
@@ -469,12 +469,12 @@ Etsy's own pages could not be opened directly from our environment, so the rules
 ```
 storefront/etsy/
   PACKAGE.md                              this guide
-  01-freelancer-income-tax-tracker/       .xlsx, quick-start PDF, .zip (both), images/ (5 PNG)
-  02-wedding-budget-planner/              .xlsx, quick-start PDF, .zip (both), images/ (5 PNG)
-  03-debt-payoff-planner/                 .xlsx, quick-start PDF, .zip (both), images/ (5 PNG)
-  04-home-maintenance-planner/            US-Letter PDF, A4 PDF, images/ (5 PNG)
-  05-pet-care-record/                     US-Letter PDF, A4 PDF, images/ (5 PNG)
-  06-moving-planner/                      US-Letter PDF, A4 PDF, images/ (5 PNG)
+  01-freelancer-income-tax-tracker/       .xlsx, quick-start PDF, .zip (both), images/ (9 PNG)
+  02-wedding-budget-planner/              .xlsx, quick-start PDF, .zip (both), images/ (9 PNG)
+  03-debt-payoff-planner/                 .xlsx, quick-start PDF, .zip (both), images/ (9 PNG)
+  04-home-maintenance-planner/            US-Letter PDF, A4 PDF, images/ (9 PNG)
+  05-pet-care-record/                     US-Letter PDF, A4 PDF, images/ (9 PNG)
+  06-moving-planner/                      US-Letter PDF, A4 PDF, images/ (9 PNG)
   _build/                                 scripts that rebuild every file (Python: openpyxl, reportlab, Pillow, PyMuPDF),
                                           plus the fonts used (DM Sans, Fraunces; SIL Open Font License, embedding allowed)
 ```
