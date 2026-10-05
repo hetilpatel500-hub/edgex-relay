@@ -33,12 +33,14 @@ W, H = 2400, 1800
 CREAM, INK, MUTED = (248, 244, 237), (38, 49, 59), (107, 117, 128)
 KIND = {12: 'tee', 49: 'sweatshirt', 68: 'mug', 635: 'accent_mug', 282: 'poster', 400: 'sticker'}
 NOUN = {'tee': 'Shirt', 'sweatshirt': 'Sweatshirt', 'mug': 'Mug', 'accent_mug': 'Accent Mug', 'poster': 'Art Print', 'sticker': 'Sticker'}
-DESIGN_KEYS = [('Sufganiyot', 'sufganiyot-season'), ('Gingerbread', 'christmas-cookies'), ('Christmas Cookie', 'christmas-cookies'),
+DESIGN_KEYS = [('Pumpkins and Purrs', 'pumpkins-and-purrs'), ("Grandma's Garden", 'grandmas-garden'), ('Sufganiyot', 'sufganiyot-season'), ('Gingerbread', 'christmas-cookies'), ('Christmas Cookie', 'christmas-cookies'),
                ('Cocoa', 'cocoa-season'), ('Cardinal', 'snowy-pine-cardinals'), ('Soup', 'soup-season'),
                ('Autumn Leaves', 'autumn-leaves'), ('Ghost', 'reading-ghosts'), ('Strawberry', 'strawberry-season'),
                ('Morning Walks', 'dog-walks-club'), ('Currently Reading', 'currently-reading')]
-DISPLAY = {'dog-walks-club': 'Morning Walks & Good Dogs'}   # the name the Etsy listings use
+DISPLAY = {'dog-walks-club': 'Morning Walks & Good Dogs', 'pumpkins-and-purrs': 'Pumpkins & Purrs'}   # the name the Etsy listings use
 FOR_WHO = {
+    'pumpkins-and-purrs': 'cat people who like their Halloween more cozy than creepy',
+    'grandmas-garden': 'grandmas who grow the best flowers, from the grandkids',
     'sufganiyot-season': 'Hanukkah hosts, latke parties and anyone who loves a jelly donut',
     'christmas-cookies': 'holiday bakers and cookie-swap regulars',
     'cocoa-season': 'snow days, cozy nights and hot cocoa lovers',
