@@ -56,13 +56,15 @@ doesn't suit one (say why in the `pod_listings` doc):
 
 | Product | Printify blueprint / printer | Printify cost | Our price |
 |---|---|---|---|
-| Unisex tee | Bella+Canvas 3001, 12 / Monster Digital 29 | $11.77 (2XL $14.38) | $26 (2XL $28) |
-| Crewneck sweatshirt | Gildan 18000, 49 / Monster Digital 29 | $19.45 (2XL $22.35) | $42 (2XL $45) |
-| 11 oz mug (art on both sides) | 68 / SPOKE 1 | $6.44 | $18 |
-| Art print (the painting on cream paper) | Matte poster 282 / Sensaria 2 | $6.60 / $11.84 / $12.00 | $22 / $30 / $36 (11x14 / 16x20 / 18x24) |
+| Unisex tee | Bella+Canvas 3001, 12 / Monster Digital 29 | $11.77 (2XL $14.38) | $24.99 (2XL $26.99) |
+| Crewneck sweatshirt | Gildan 18000, 49 / Monster Digital 29 | $19.45 (2XL $22.35) | $35.99 (2XL $38.99) |
+| 11 oz mug (art on both sides) | 68 / SPOKE 1 | $6.44 | $16.99 |
+| Art print (the painting on cream paper) | Matte poster 282 / Sensaria 2 | $6.60 / $11.84 / $12.00 | $19.99 / $29.99 / $34.99 (11x14 / 16x20 / 18x24) |
 | Kiss-cut sticker | 400 / SPOKE 1 | $1.66 (3x3) / $2.08 (4x4) | $6.75 (3x3) / $7.40 (4x4) |
-| Full-wrap white mug (pattern designs) | 68 / SPOKE 1, wrap 2700 x 1120 | $6.44 | $18 |
-| Accent mug, colored handle/rim/inside (pattern designs) | 635 / Printify Choice 99, wrap 2475 x 1155 (11 oz), 2475 x 1275 (15 oz) | $6.40 / $8.44 | $22 / $25 |
+| Full-wrap white mug (pattern designs) | 68 / SPOKE 1, wrap 2700 x 1120 | $6.44 | $16.99 |
+| Accent mug, colored handle/rim/inside (pattern designs) | 635 / Printify Choice 99, wrap 2475 x 1155 (11 oz), 2475 x 1275 (15 oz) | $6.40 / $8.44 | $19.99 / $22.99 |
+
+**Pricing review (owner, 2026-10-05: "competitive pricing while also making profits").** Prices were checked against Etsy search results for the same product types: tees $23-59 (often on sale at $15-28), watercolor crewnecks $25-40, 11 oz mugs $12-28 (mostly $14-21), accent mugs about $15-21, prints $18+ (11x14) and $30-50 (16x20), 3" stickers $3-5.50 with free shipping. The buyer also pays Printify's US shipping (tee $4.95, sweatshirt $8.79, mug $7.29, print $7.49-7.69, sticker $4.79; the highest US rate is used to be safe). Net profit per sale after cost and Etsy's 6.5% transaction, 3% + $0.25 processing and $0.20 listing fees: tee $9.93, sweatshirt $11.84, mug $7.79, accent mug $10.55-11.02, prints $10.33 / $13.96 / $18.65, stickers $3.54 / $3.71. A sale that comes through Etsy Offsite Ads loses another 15% of the order (the tee still nets $5.43). The sweatshirt was the outlier: $42 plus shipping was about $51 to the buyer. Stickers stay at $6.75/$7.40 (decisions/2026-09-28-sticker-pricing-update): Printify's $4.79 sticker shipping means no POD sticker can match the $3-5 free-shipping sellers, so they earn their place as add-ons. Price floor: never below the lower of these prices without a new margin check; `printify.py` still refuses cost + $4.
 
 Costs are Printify's catalog prices read through the API on 2026-09-28,
 before shipping (the buyer pays shipping). `printify.py` refuses to price
