@@ -1,0 +1,203 @@
+{
+  "id": "campfire-season",
+  "name": "Campfire Season",
+  "template": "arch",
+  "top": "Campfire Season",
+  "bottom": "s'mores under the stars",
+  "top_font": "KaushanScript",
+  "bottom_font": "DancingScript",
+  "art": [
+    {
+      "motif": "campfire",
+      "x": 0.0,
+      "y": 0.27,
+      "s": 0.13,
+      "front": true
+    },
+    {
+      "motif": "tent",
+      "x": -0.2,
+      "y": 0.22,
+      "s": 0.13,
+      "front": true
+    },
+    {
+      "motif": "pine_tree",
+      "x": 0.25,
+      "y": 0.27,
+      "s": 0.32,
+      "front": true
+    },
+    {
+      "motif": "pine_tree",
+      "x": 0.36,
+      "y": 0.27,
+      "s": 0.24,
+      "front": true
+    },
+    {
+      "motif": "pine_tree",
+      "x": -0.36,
+      "y": 0.27,
+      "s": 0.27,
+      "front": true
+    },
+    {
+      "motif": "mountains",
+      "x": 0.0,
+      "y": 0.16,
+      "s": 0.26
+    },
+    {
+      "motif": "moon",
+      "x": 0.18,
+      "y": -0.2,
+      "s": 0.05
+    },
+    {
+      "motif": "sparkle",
+      "x": -0.2,
+      "y": -0.24,
+      "s": 0.022
+    },
+    {
+      "motif": "sparkle",
+      "x": -0.05,
+      "y": -0.28,
+      "s": 0.016
+    },
+    {
+      "motif": "sparkle",
+      "x": 0.33,
+      "y": -0.12,
+      "s": 0.018
+    },
+    {
+      "motif": "sparkle",
+      "x": -0.34,
+      "y": -0.08,
+      "s": 0.016
+    }
+  ],
+  "florals": null,
+  "palette": "autumn",
+  "colors": {
+    "mtn": "#6f86a6",
+    "mtn2": "#aebdd2",
+    "pine": "#355e47",
+    "pine2": "#6f9a66",
+    "tent": "#d9672e",
+    "tent2": "#f0a35a",
+    "accent": "#e2b04a",
+    "accent2": "#f3d58f"
+  },
+  "ink": "#2f3a33",
+  "seed": 41,
+  "shirt_colors": [
+    "natural",
+    "white",
+    "sand"
+  ],
+  "listing": {
+    "title": "Campfire Season Shirt, Watercolor Camping Tee, Gift for Him Outdoorsy Dad Shirt, Mountains Tent S'mores Shirt, Hiking Camper Gift for Men",
+    "tags": [
+      "campfire season",
+      "camping shirt",
+      "gift for him",
+      "outdoorsy gift",
+      "camper gift",
+      "camping gift",
+      "hiking shirt",
+      "mountain shirt",
+      "smores shirt",
+      "gift for dad",
+      "outdoor lover gift",
+      "fall camping tee",
+      "camp life shirt"
+    ],
+    "description": "A watercolor camp scene: a crackling campfire, an orange tent with a little flag, pine trees and snow-capped mountains under a crescent moon and stars. \"Campfire Season\" in brush script on top and \"s'mores under the stars\" below. A gift for the camper, hiker or outdoorsy dad who counts down to fall nights by the fire.",
+    "per_product": {
+      "sweatshirt": {
+        "title": "Campfire Season Sweatshirt, Watercolor Camping Crewneck, Gift for Him Outdoorsy Pullover, Mountains Tent S'mores Sweater, Camper Gift",
+        "tags": [
+          "campfire season",
+          "camping sweatshirt",
+          "gift for him",
+          "outdoorsy gift",
+          "camper gift",
+          "camping gift",
+          "hiking sweatshirt",
+          "mountain crewneck",
+          "smores sweatshirt",
+          "gift for dad",
+          "outdoor lover gift",
+          "fall camping",
+          "cozy camp sweater"
+        ]
+      },
+      "mug": {
+        "title": "Campfire Season Mug, Watercolor Camping Coffee Mug, Gift for Him Outdoorsy Mug, Mountains Tent S'mores Mug, Camper Gift for Dad",
+        "tags": [
+          "campfire season",
+          "camping mug",
+          "gift for him",
+          "outdoorsy gift",
+          "camper gift",
+          "camping gift",
+          "hiking mug",
+          "mountain mug",
+          "smores mug",
+          "gift for dad",
+          "outdoor lover gift",
+          "campfire coffee",
+          "camp coffee mug"
+        ]
+      },
+      "poster": {
+        "title": "Campfire Season Art Print, Watercolor Camping Wall Art, Mountains Tent Campfire Print, Cabin Decor, Outdoorsy Gift for Him",
+        "tags": [
+          "campfire season",
+          "camping wall art",
+          "gift for him",
+          "outdoorsy gift",
+          "cabin decor",
+          "camping gift",
+          "hiking print",
+          "mountain art print",
+          "campfire print",
+          "gift for dad",
+          "outdoor lover gift",
+          "camper decor",
+          "lodge wall art"
+        ]
+      },
+      "sticker": {
+        "title": "Campfire Season Sticker, Watercolor Camping Vinyl Sticker, Mountains Tent Campfire Laptop Sticker, Water Bottle Decal, Camper Gift",
+        "tags": [
+          "campfire season",
+          "camping sticker",
+          "gift for him",
+          "outdoorsy sticker",
+          "camper sticker",
+          "camping gift",
+          "hiking sticker",
+          "mountain sticker",
+          "campfire sticker",
+          "laptop sticker",
+          "water bottle decal",
+          "outdoor lover gift",
+          "adventure sticker"
+        ]
+      }
+    },
+    "products": [
+      "Unisex tee (Bella+Canvas 3001)",
+      "Crewneck sweatshirt (Gildan 18000)",
+      "11 oz mug",
+      "Art print (matte poster)",
+      "Kiss-cut sticker"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table after the 2026-10-05 pricing review (decisions/pricing-2026-10-05): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. Etsy 'camping gift for him' and 'outdoorsy gifts for him' market pages (checked 2026-10-05) show camping tees, mugs and prints as top gift-for-him sellers; our prices sit in the middle of those pages. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-10-05 (before any art): web searches '\"Campfire Season\" trademark apparel' and '\"campfire\" trademark apparel'. Found CAMPFIRE COLLECTIVE (OUTDOORsmart! Inc., reg. 6430782, apparel and gear), a CAMPFIRE apparel mark (serial 76315541) abandoned in 2003, CAMPFIRE for marshmallows (Doumak, reg. 2217455), a 2025 CAMPFIRE application with a final refusal, and Campfire Clothing Co, a different name. No CAMPFIRE SEASON mark found; our phrase does not use 'Collective'. A competitor's phrase 'No City Lights Just Camp Fire Nights' is avoided. tmsearch.uspto.gov and Justia are blocked from our sessions, so this is a search-engine screen, not a clearance."
+  }
+}

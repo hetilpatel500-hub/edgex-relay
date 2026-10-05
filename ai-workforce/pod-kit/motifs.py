@@ -1533,6 +1533,165 @@ def cat(c, x, y, s, P, color=None, color2=None, eyes=None, tail=1, ink=True):
                 c.ink_line([(x + sx * s * 0.13, y + s * dy), (x + sx * s * 0.42, y + s * (dy - 0.05 + 0.05 * k))], width=lw * 0.8,
                            closed=False, alpha=170, passes=1, color=(236, 228, 214), jitter=0.0005)
 
+
+# ---------------------------------------------------------------- zodiac
+CONSTELLATIONS = {
+    # star positions in a unit box (x right, y down) and the lines between them
+    'scorpius': {'stars': [(0.42, -0.86), (0.56, -0.62), (0.52, -0.36), (0.33, -0.47), (0.17, -0.3), (0.08, -0.12), (0.04, 0.12),
+                           (0.03, 0.34), (-0.04, 0.55), (-0.2, 0.7), (-0.44, 0.74), (-0.63, 0.62), (-0.66, 0.4), (-0.5, 0.28)],
+                 'lines': [(0, 1), (1, 2), (1, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 8), (8, 9), (9, 10), (10, 11), (11, 12), (12, 13)],
+                 'bright': [4, 13]},
+    'libra': {'stars': [(0.08, -0.72), (-0.55, -0.05), (0.62, -0.18), (-0.62, 0.6), (0.48, 0.42), (0.7, 0.72)],
+              'lines': [(0, 1), (0, 2), (1, 2), (1, 3), (2, 4), (4, 5)],
+              'bright': [0, 1]},
+}
+
+
+def _gline(c, x1, y1, x2, y2, w, color, alpha=220):
+    dx, dy = x2 - x1, y2 - y1
+    L = math.hypot(dx, dy) or 1
+    nx, ny = -dy / L * w / 2, dx / L * w / 2
+    gouache(c, [(x1 + nx, y1 + ny), (x2 + nx, y2 + ny), (x2 - nx, y2 - ny), (x1 - nx, y1 - ny)], color=color, alpha=alpha, soft=0.02)
+
+
+def _rgbh(h):
+    h = h.lstrip('#'); return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
+
+
+def night_sky(c, x, y, s, P, color=None, color2=None, stars=26):
+    """A round watercolor night sky: deep wet-in-wet blues, a darker rim and
+    tiny white gouache stars."""
+    col = color or P.get('sky', '#2b3a6b'); col2 = color2 or P.get('sky2', '#5b6fb0')
+    c.wash(ellipse(x, y, s, s, 40), col2, col, strength=1.0, spread=0.03, layers=40, edge=0.9, granulate=0.5)
+    c.wash(ellipse(x + s * 0.12, y - s * 0.15, s * 0.7, s * 0.66, 28), col, None, strength=0.22, spread=0.09, layers=20, edge=0.15, blur=s * 0.03)
+    rnd = c.rnd
+    for _ in range(stars):
+        a, r = rnd.uniform(0, 2 * math.pi), s * 0.88 * math.sqrt(rnd.random())
+        rr = s * rnd.uniform(0.006, 0.014)
+        gouache(c, ellipse(x + r * math.cos(a), y + r * math.sin(a), rr, rr, 8), color=(250, 246, 232), alpha=rnd.randint(150, 235), soft=0.05)
+
+
+def constellation(c, x, y, s, P, name='scorpius', color=None):
+    """Star map of a constellation in light gold gouache: thin lines, four-point
+    stars, the brightest stars bigger."""
+    k = CONSTELLATIONS[name]
+    col = _rgbh(color or P.get('star', '#f6dc8c'))
+    pts = [(x + s * px, y + s * py) for px, py in k['stars']]
+    for a, b in k['lines']:
+        _gline(c, *pts[a], *pts[b], max(2, s * 0.012), col, alpha=170)
+    for i, (px, py) in enumerate(pts):
+        r = s * (0.085 if i in k['bright'] else 0.055)
+        star = []
+        for j in range(8):
+            ang = j * math.pi / 4 - math.pi / 2
+            rr = r if j % 2 == 0 else r * 0.3
+            star.append((px + rr * math.cos(ang), py + rr * math.sin(ang)))
+        gouache(c, star, color=col, alpha=245, soft=0.03)
+        gouache(c, ellipse(px, py, r * 0.22, r * 0.22, 10), color=(255, 253, 240), alpha=250, soft=0.05)
+
+
+def chrysanthemum(c, x, y, s, P, color=None, color2=None):
+    """November's birth flower: many narrow petals in rings, darker at the centre."""
+    col = color or P.get('mum', '#c98ad8'); col2 = color2 or P.get('mum2', '#e9c4f0')
+    rnd = c.rnd
+    for ring, (rr, n, st) in enumerate(((1.0, 18, 0.5), (0.75, 15, 0.6), (0.5, 12, 0.7))):
+        for i in range(n):
+            a = i * 2 * math.pi / n + ring * 0.18 + rnd.uniform(-0.06, 0.06)
+            c.wash(petal(x, y, s * rr, s * rr * 0.17, a), col2 if ring == 0 else col, col, strength=st, spread=0.035, layers=14)
+    gouache(c, ellipse(x, y, s * 0.22, s * 0.22, 16), color=_rgbh(P.get('accent2', '#f3d58f')), alpha=235, soft=0.04)
+    gouache(c, ellipse(x, y, s * 0.11, s * 0.11, 12), color=_rgbh(P.get('accent', '#e2b04a')), alpha=220, soft=0.05)
+
+
+def marigold(c, x, y, s, P, color=None, color2=None):
+    """October's birth flower: a ruffled orange pom of scalloped petals."""
+    col = color or P.get('gold', '#f08a2c'); col2 = color2 or P.get('gold2', '#f8c45a')
+    rnd = c.rnd
+    for rr, n in ((1.0, 14), (0.72, 11), (0.45, 8)):
+        for i in range(n):
+            a = i * 2 * math.pi / n + rnd.uniform(-0.15, 0.15)
+            px, py = x + s * rr * 0.55 * math.cos(a), y + s * rr * 0.55 * math.sin(a)
+            c.wash(ellipse(px, py, s * rr * 0.36, s * rr * 0.3, 12, a), col2, col, strength=0.55, spread=0.05, layers=14, edge=0.8)
+    c.wash(ellipse(x, y, s * 0.18, s * 0.18, 10), '#c4561c', None, strength=0.8, layers=14)
+
+
+def libra_scales(c, x, y, s, P, color=None, color2=None):
+    """Balance scales in watercolor gold: a post, a beam and two hanging pans."""
+    col = color or P.get('brass', '#d9a441'); col2 = color2 or P.get('brass2', '#f2d58a')
+    c.wash(ellipse(x, y + s * 0.95, s * 0.42, s * 0.12, 18), col, col2, strength=0.8, layers=22)
+    c.wash([(x - s * 0.05, y - s * 0.55), (x + s * 0.05, y - s * 0.55), (x + s * 0.07, y + s * 0.9), (x - s * 0.07, y + s * 0.9)], col, col2, strength=0.8, layers=20)
+    c.wash([(x - s * 0.9, y - s * 0.5), (x + s * 0.9, y - s * 0.5), (x + s * 0.9, y - s * 0.43), (x - s * 0.9, y - s * 0.43)], col, col2, strength=0.85, layers=20)
+    c.wash(ellipse(x, y - s * 0.6, s * 0.1, s * 0.1, 12), col, None, strength=0.9, layers=16)
+    for side in (-1, 1):
+        px = x + side * s * 0.82
+        for dx in (-0.22, 0.22):
+            c.ink_line([(px, y - s * 0.46), (px + s * dx, y + s * 0.12)], width=max(2, s * 0.012), closed=False, passes=1, alpha=200, jitter=0.0005)
+        pan = [(px - s * 0.3, y + s * 0.12)] + [(px + s * 0.3 * math.cos(math.pi * t / 10), y + s * 0.12 + s * 0.16 * math.sin(math.pi * t / 10)) for t in range(11)]
+        c.wash(pan, col, col2, strength=0.85, layers=20, edge=0.8)
+
+
+# ---------------------------------------------------------------- outdoors
+def mountains(c, x, y, s, P, color=None, color2=None):
+    """A soft mountain range, back peak paler, with white gouache snow caps.
+    (x, y) is the middle of the base line; s is half the width."""
+    col = color or P.get('mtn', '#7f93ad'); col2 = color2 or P.get('mtn2', '#b9c6d6')
+    for dx, h, w, k, st in ((-0.45, 0.95, 0.6, col2, 0.45), (0.4, 1.15, 0.7, col2, 0.5), (0.0, 1.35, 0.75, col, 0.6)):
+        px = x + s * dx
+        peak = (px, y - s * h)
+        c.wash([(px - s * w, y), peak, (px + s * w, y)], k, None, strength=st, spread=0.02, layers=24, edge=0.7)
+        cap = [(px - s * w * 0.28, y - s * h * 0.72), (px - s * w * 0.12, y - s * h * 0.78), peak,
+               (px + s * w * 0.1, y - s * h * 0.8), (px + s * w * 0.28, y - s * h * 0.72), (px + s * w * 0.1, y - s * h * 0.75), (px, y - s * h * 0.7)]
+        gouache(c, cap, color=(250, 250, 246), alpha=230, soft=0.02)
+
+
+def pine_tree(c, x, y, s, P, color=None, color2=None):
+    """A stacked-triangle watercolor pine: three tiers, darker underneath each.
+    (x, y) is the foot of the trunk; s is the height."""
+    col = color or P.get('pine', '#3f6b4f'); col2 = color2 or P.get('pine2', '#7da26f')
+    c.wash([(x - s * 0.04, y), (x - s * 0.04, y - s * 0.18), (x + s * 0.04, y - s * 0.18), (x + s * 0.04, y)], '#7a5136', None, strength=0.9, layers=12)
+    for i, (top, bot, w) in enumerate(((0.62, 1.0, 0.18), (0.38, 0.72, 0.26), (0.12, 0.45, 0.33))):
+        yt, yb = y - s * bot, y - s * top
+        c.wash([(x - s * w, yb), (x, yt), (x + s * w, yb), (x, yb + s * 0.035)], col2, col, strength=0.75, spread=0.025, layers=22, edge=0.8)
+
+
+def tent(c, x, y, s, P, color=None, color2=None):
+    """A little A-frame tent with an open door. (x, y) is the middle of the base."""
+    col = color or P.get('tent', '#e07a3f'); col2 = color2 or P.get('tent2', '#f2b066')
+    c.wash([(x - s, y), (x - s * 0.1, y - s * 0.95), (x + s * 0.1, y - s * 0.95), (x + s, y)], col2, col, strength=0.8, spread=0.015, layers=26, edge=0.8)
+    c.wash([(x - s * 0.32, y), (x, y - s * 0.75), (x + s * 0.32, y)], '#5a3a2c', None, strength=0.85, spread=0.01, layers=18)
+    c.ink_line([(x - s * 1.05, y), (x - s * 0.1, y - s * 0.95), (x + s * 0.1, y - s * 0.95), (x + s * 1.05, y)], width=max(2, s * 0.022), closed=False, alpha=170, passes=1, jitter=0.0006)
+    c.ink_line([(x, y - s * 0.95), (x, y - s * 1.12)], width=max(2, s * 0.02), closed=False, alpha=180, passes=1, jitter=0.0005)
+    c.wash([(x, y - s * 1.12), (x + s * 0.22, y - s * 1.05), (x, y - s * 0.98)], P.get('accent', '#e2b04a'), None, strength=0.8, layers=10)
+
+
+def campfire(c, x, y, s, P):
+    """Crossed logs, ring of stones and layered flames (red, orange, yellow).
+    (x, y) is the base centre; s is about the flame height."""
+    rnd = c.rnd
+    for i in range(9):
+        a = math.pi * (0.05 + 0.9 * i / 8)
+        c.wash(ellipse(x + s * 0.72 * math.cos(a) * -1, y + s * 0.08 * math.sin(a), s * 0.13, s * 0.09, 12), '#8f9aa6', '#c3cbd3', strength=0.6, layers=14, edge=0.8)
+    for ang in (-0.32, 0.32):
+        cx2, cy2 = x, y - s * 0.12
+        dx, dy = math.cos(ang) * s * 0.62, math.sin(ang) * s * 0.62
+        log = [(cx2 - dx - math.sin(ang) * s * 0.07, cy2 - dy + math.cos(ang) * s * 0.07), (cx2 + dx - math.sin(ang) * s * 0.07, cy2 + dy + math.cos(ang) * s * 0.07),
+               (cx2 + dx + math.sin(ang) * s * 0.07, cy2 + dy - math.cos(ang) * s * 0.07), (cx2 - dx + math.sin(ang) * s * 0.07, cy2 - dy - math.cos(ang) * s * 0.07)]
+        c.wash(log, '#8a5a3b', '#b98257', strength=0.85, layers=18, edge=0.8)
+    for col, col2, h, w, st in (('#e04b2c', '#f08a3c', 1.0, 0.36, 0.75), ('#f08a2c', '#f8c14a', 0.72, 0.25, 0.7), ('#f8d24a', '#fff0a8', 0.44, 0.14, 0.75)):
+        # teardrop: widest near the base, tapering to a pointed tip
+        base = y - s * 0.12
+        lean = rnd.uniform(-0.06, 0.06) * s
+        left, right = [], []
+        for t in range(19):
+            u = t / 18
+            r = w * s * (u ** 0.35) * ((1 - u) ** 1.4) / 0.416 if 0 < u < 1 else 0.0
+            yy = base - s * h * u
+            left.append((x - r + lean * u * u, yy))
+            right.append((x + r + lean * u * u, yy))
+        c.wash(left + right[::-1], col2, col, strength=st, spread=0.04, layers=24, edge=0.6)
+    for _ in range(3):
+        ex, ey = x + rnd.uniform(-0.18, 0.18) * s, y - s * rnd.uniform(1.12, 1.3)
+        c.wash(ellipse(ex, ey, s * 0.02, s * 0.02, 8), '#f8b34a', None, strength=0.8, layers=8)
+
 MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip, 'sprig': sprig, 'eucalyptus': eucalyptus,
           'berries': berries, 'bouquet': bouquet, 'mug': mug, 'books': books, 'heart': heart, 'paw': paw, 'dog': dog,
           'lemon': lemon, 'strawberry': strawberry, 'sun': sun, 'succulent': succulent, 'pumpkin': pumpkin,
@@ -1545,4 +1704,6 @@ MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip
           'orange_slice': orange_slice, 'star_anise': star_anise, 'peppermint': peppermint,
           'gingerbread_man': gingerbread_man, 'sugar_cookie': sugar_cookie, 'candy_cane': candy_cane, 'sprinkles': sprinkles,
           'menorah': menorah, 'flame': flame, 'plate': plate, 'sufganiyah': sufganiyah, 'dreidel': dreidel,
-          'gelt': gelt, 'olive_sprig': olive_sprig, 'cat': cat}
+          'gelt': gelt, 'olive_sprig': olive_sprig, 'cat': cat,
+          'night_sky': night_sky, 'constellation': constellation, 'chrysanthemum': chrysanthemum, 'marigold': marigold, 'libra_scales': libra_scales,
+          'mountains': mountains, 'pine_tree': pine_tree, 'tent': tent, 'campfire': campfire}

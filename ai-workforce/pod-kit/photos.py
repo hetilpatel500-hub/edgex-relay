@@ -33,12 +33,15 @@ W, H = 2400, 1800
 CREAM, INK, MUTED = (248, 244, 237), (38, 49, 59), (107, 117, 128)
 KIND = {12: 'tee', 49: 'sweatshirt', 68: 'mug', 635: 'accent_mug', 282: 'poster', 400: 'sticker'}
 NOUN = {'tee': 'Shirt', 'sweatshirt': 'Sweatshirt', 'mug': 'Mug', 'accent_mug': 'Accent Mug', 'poster': 'Art Print', 'sticker': 'Sticker'}
-DESIGN_KEYS = [('Pumpkins and Purrs', 'pumpkins-and-purrs'), ("Grandma's Garden", 'grandmas-garden'), ('Sufganiyot', 'sufganiyot-season'), ('Gingerbread', 'christmas-cookies'), ('Christmas Cookie', 'christmas-cookies'),
+DESIGN_KEYS = [('Scorpio Constellation', 'scorpio-constellation'), ('Libra Constellation', 'libra-constellation'), ('Campfire Season', 'campfire-season'), ('Pumpkins and Purrs', 'pumpkins-and-purrs'), ("Grandma's Garden", 'grandmas-garden'), ('Sufganiyot', 'sufganiyot-season'), ('Gingerbread', 'christmas-cookies'), ('Christmas Cookie', 'christmas-cookies'),
                ('Cocoa', 'cocoa-season'), ('Cardinal', 'snowy-pine-cardinals'), ('Soup', 'soup-season'),
                ('Autumn Leaves', 'autumn-leaves'), ('Ghost', 'reading-ghosts'), ('Strawberry', 'strawberry-season'),
                ('Morning Walks', 'dog-walks-club'), ('Currently Reading', 'currently-reading')]
 DISPLAY = {'dog-walks-club': 'Morning Walks & Good Dogs', 'pumpkins-and-purrs': 'Pumpkins & Purrs'}   # the name the Etsy listings use
 FOR_WHO = {
+    'scorpio-constellation': 'Scorpios born October 23 to November 21, and the people who love them',
+    'libra-constellation': 'Libras born September 23 to October 22, and the people who love them',
+    'campfire-season': 'campers, hikers and outdoorsy dads who live for fall nights by the fire',
     'pumpkins-and-purrs': 'cat people who like their Halloween more cozy than creepy',
     'grandmas-garden': 'grandmas who grow the best flowers, from the grandkids',
     'sufganiyot-season': 'Hanukkah hosts, latke parties and anyone who loves a jelly donut',
@@ -268,6 +271,8 @@ def make_set(product, group, art_cache, out):
     al = t.getchannel('A').resize((max(1, t.width // 20), max(1, t.height // 20)))
     import numpy as np
     A = np.asarray(al, dtype=np.float32); k = max(1, cw // 20); best = []
+    if A.mean() > 250:   # opaque print file (art prints): rank by colour saturation so crops land on the painting, not the lettering
+        A = np.asarray(t.convert('RGB').convert('HSV').getchannel('S').resize(al.size), dtype=np.float32)
     for yy in range(0, max(1, A.shape[0] - k), max(1, k // 4)):
         for xx in range(0, max(1, A.shape[1] - k), max(1, k // 4)):
             best.append((A[yy:yy + k, xx:xx + k].mean(), xx * 20, yy * 20))

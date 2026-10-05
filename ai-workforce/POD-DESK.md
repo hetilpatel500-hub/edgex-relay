@@ -139,8 +139,8 @@ open rows, in order) instead of 1, and marks each row done with the date.
 | Top 100 Halloween Finds | Reading Ghosts, Autumn Leaves, Pumpkins & Purrs (Oct 5) | done for 2026 |
 | Gifts for Pets & Owners | Morning Walks & Good Dogs, Pumpkins & Purrs | 4. a dog-breed florals design (dachshund was in the owner's mug scan) |
 | Gifts for Grandparents | Grandma's Garden (Oct 5) | 5. a grandpa design (garden, fishing or coffee) |
-| Top 100 Gifts for Libras (zodiac) | none | 1. zodiac series, one design per sign (constellation + birth flower), starting with Scorpio (Oct 23-Nov 21) and Libra; one sign a day after that |
-| Gifts for Him | none | 2. an outdoors design (campfire, hiking or fishing) |
+| Top 100 Gifts for Libras (zodiac) | Scorpio Constellation (drafted Oct 5) | 1. zodiac series, one design per sign (constellation + birth-month flower): **Scorpio done 2026-10-05** (drafts). **Libra held 2026-10-05**: a pending LIBRA application covers t-shirts and sweatshirts (Astryx LLC, serial 99209588), so the owner decides; the art is ready in `designs/libra-constellation.json`. Next: Sagittarius (Nov 22-Dec 21), then one sign a day; screen each sign name for clothing marks first |
+| Gifts for Him | Campfire Season (drafted Oct 5) | 2. outdoors: **Campfire Season done 2026-10-05** (drafts) |
 | Top 100 Holiday Gifts | Cocoa Season, Christmas Cookies, Snowy Pine Cardinals, Sufganiyot Season (live Oct 5) | 3. Thanksgiving (Nov 26) design; then more Christmas |
 | Housewarming Gifts | Soup Season and Cocoa Season art prints and mugs | 6. a kitchen or home art print design |
 | Gifts for Couples, Anniversary, Engagement, Special Wedding Gifts | none | 7. a couples design that works on matching mugs (no names, no dates) |
@@ -150,6 +150,10 @@ open rows, in order) instead of 1, and marks each row done with the date.
 | Gifts under $50 / under $100 | every product (our highest price is $38.99) | covered: Etsy groups these by price |
 | Personalized Gifts | none | **waits for the owner:** needs per-order artwork (a name or date added to each order by hand) |
 | Gifts for Kids | none | **waits for the owner and Legal:** kids' sizes are children's products under US law (CPSIA tracking labels and testing); the Legal Desk checks what Printify's kids' blueprints cover first |
+
+**Drafts waiting for Etsy:** Scorpio Constellation and Campfire Season (10 Printify drafts, made 2026-10-05 after the day's
+$3.00 cap was used). The next run publishes these first, within that day's cap (10 listings = $2.00), then makes new rows
+with what is left of the cap (1 design = $1.00), and creates any extra designs as drafts.
 
 More best sellers outside the menu (from the 2026 Etsy/Printify niche guides):
 9. teacher appreciation, 10. nurse, 11. coffee lover, 12. plant lover,
@@ -281,3 +285,16 @@ Studio Floor at any time.
   for grandparents. "Cookies at Grandma's" was rejected in trademark screening
   (GRANDMA'S cookies is a Frito-Lay brand) and "where love grows" too (LOVE +
   GROW CLOTHING CO). 15 paid listings = $3.00, the daily cap.
+- 2026-10-05 (15:18 UTC run, gift-category queue rows 1-2): **Scorpio
+  Constellation** (the Scorpius stars in gold on a watercolor night sky,
+  framed by November chrysanthemums, the birth-month flower; "October 23 -
+  November 21") and **Campfire Season** (a campfire, an orange tent, pine
+  trees and snowy mountains under a crescent moon; subline "s'mores under the
+  stars") for Gifts for Him. New motifs `night_sky`, `constellation`
+  (`scorpius`, `libra`), `chrysanthemum`, `marigold`, `libra_scales`,
+  `mountains`, `pine_tree`, `tent`, `campfire`. 10 Printify drafts ($0; the
+  day's $3.00 cap was already used). Libra Constellation was painted but held:
+  a pending LIBRA application for t-shirts and sweatshirts (Astryx LLC,
+  99209588). Sticker tag "nalgene sticker" was dropped (a brand).
+  `photos.py` close-ups for opaque art-print files now follow color
+  saturation instead of transparency, so they land on the painting.
