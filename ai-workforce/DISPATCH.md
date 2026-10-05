@@ -122,3 +122,8 @@ Floor shows all of it live.
 ## Reporting idle honestly (2026-10-01)
 
 `idle_left` counts agents untouched for 6 h or more, not agents sitting at status done. Held drafts that wait on an attorney or the owner are reported separately (`held_on_owner`) so the owner can see they, not agent capacity, are the bottleneck. Keep `drafts_left` and `stalest_hours_after` as they are.
+
+
+## Author self-check before returning a draft (2026-10-05)
+
+Only 2 of 21 assets passed review first time in one shift. Every crew brief now tells the author to do these before returning JSON: recount every number and word total; check every weekday against a calendar; search each statistic for a primary source (drop it if none); grep the draft for leftover [brackets]; keep the shop's own prices out of sellable briefs. Give each crew a unique output path (two crews overwrote one file). Run the same Last Touch crew over the fix rounds so drafts finish the next shift.
