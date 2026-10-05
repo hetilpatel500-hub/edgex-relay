@@ -174,7 +174,7 @@ def main():
                ['High', f'{R[hiI]["h"]:.2f}', 'green'], ['Low', f'{R[loI]["l"]:.2f}', 'red'],
                ['Open → close', sg(pct(c, o)) + '%', 'green' if c >= o else 'red'],
                [f'Day vs {pname[:3]}', sg(day) + '%', 'green' if day >= 0 else 'red'],
-               ['Range', f'${R[hiI]["h"] - R[loI]["l"]:.2f}', 'ink'],
+               ['Range', f'${round(R[hiI]["h"], 2) - round(R[loI]["l"], 2):.2f}', 'ink'],
                ['Close vs VWAP', f'{"above" if c > R[-1]["vw"] else "below"} {R[-1]["vw"]:.2f}', 'ink']],
     )
     facts = [
@@ -215,7 +215,7 @@ def main():
                              outro=dict(lines=[f'Close {c:.2f},', f'{sg(day)}% on the day.'], hl=[f'{sg(day)}%'],
                                         sub='Follow for the SPY tape every trading day.'),
                              vo=dict(hook=f'{line1} {line2}', marks=vo_marks,
-                                     stats=f'Open to close: {ud(pct(c, o))}. The range was ${R[hiI]["h"] - R[loI]["l"]:.2f}.',
+                                     stats=f'Open to close: {ud(pct(c, o))}. The range was ${round(R[hiI]["h"], 2) - round(R[loI]["l"], 2):.2f}.',
                                      outro='Follow for the SPY tape, every trading day.'))),
         captions=dict(spy=dict(
             title=f'SPY {dname} {MON3[sd.month-1]} {sd.day}: ' + line1.replace('SPY ', '').rstrip('.') + (', then filled it' if fillI is not None else ''),
