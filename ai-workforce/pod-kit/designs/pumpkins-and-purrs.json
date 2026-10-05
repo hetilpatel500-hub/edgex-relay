@@ -1,0 +1,220 @@
+{
+  "id": "pumpkins-and-purrs",
+  "name": "Pumpkins & Purrs",
+  "template": "arch",
+  "top": "Pumpkins & Purrs",
+  "bottom": "a cozy spooky season",
+  "top_font": "Pacifico",
+  "bottom_font": "DancingScript",
+  "art": [
+    {
+      "motif": "pumpkin",
+      "x": -0.19,
+      "y": 0.235,
+      "s": 0.09,
+      "front": true
+    },
+    {
+      "motif": "pumpkin",
+      "x": 0.2,
+      "y": 0.25,
+      "s": 0.07,
+      "front": true
+    },
+    {
+      "motif": "pumpkin",
+      "x": -0.31,
+      "y": 0.265,
+      "s": 0.05,
+      "front": true
+    },
+    {
+      "motif": "mushroom",
+      "x": 0.07,
+      "y": 0.285,
+      "s": 0.035,
+      "angle": 0.1,
+      "front": true
+    },
+    {
+      "motif": "cat",
+      "x": 0.0,
+      "y": -0.06,
+      "s": 0.24,
+      "tail": 1
+    },
+    {
+      "motif": "maple_leaf",
+      "x": -0.37,
+      "y": 0.19,
+      "s": 0.055,
+      "angle": -0.6
+    },
+    {
+      "motif": "maple_leaf",
+      "x": 0.32,
+      "y": 0.28,
+      "s": 0.05,
+      "angle": 0.7
+    },
+    {
+      "motif": "acorn",
+      "x": 0.3,
+      "y": 0.19,
+      "s": 0.028,
+      "angle": 0.3
+    },
+    {
+      "motif": "moon",
+      "x": 0.27,
+      "y": -0.16,
+      "s": 0.06
+    },
+    {
+      "motif": "bat",
+      "x": -0.27,
+      "y": -0.13,
+      "s": 0.055
+    },
+    {
+      "motif": "bat",
+      "x": -0.19,
+      "y": -0.22,
+      "s": 0.035
+    },
+    {
+      "motif": "sparkle",
+      "x": 0.35,
+      "y": -0.05,
+      "s": 0.02
+    },
+    {
+      "motif": "sparkle",
+      "x": -0.34,
+      "y": 0.02,
+      "s": 0.018
+    },
+    {
+      "motif": "sparkle",
+      "x": 0.18,
+      "y": -0.25,
+      "s": 0.015
+    }
+  ],
+  "florals": null,
+  "palette": "autumn",
+  "colors": {
+    "cat": "#3b3547",
+    "cat2": "#6a6180",
+    "cat_eye": "#e7b23f"
+  },
+  "ink": "#3a3140",
+  "seed": 5,
+  "shirt_colors": [
+    "white",
+    "natural",
+    "sand"
+  ],
+  "listing": {
+    "title": "Pumpkins and Purrs Shirt, Watercolor Black Cat Halloween Tee, Cute Fall Cat Lover Gift, Pumpkin Patch Cat Shirt, Cozy Spooky Season Top",
+    "tags": [
+      "pumpkins and purrs",
+      "black cat shirt",
+      "halloween cat tee",
+      "cat lover gift",
+      "fall cat shirt",
+      "spooky season tee",
+      "watercolor cat",
+      "pumpkin shirt",
+      "cute halloween tee",
+      "cat mom gift",
+      "gift for cat lover",
+      "autumn cat shirt",
+      "cozy fall shirt"
+    ],
+    "description": "A little black cat with amber eyes sits among watercolor pumpkins, a mushroom, maple leaves and an acorn, with a crescent moon and two bats overhead, painted in layered watercolor under \"Pumpkins & Purrs\" in round script and \"a cozy spooky season\" below. For cat people who like their Halloween more cozy than creepy.",
+    "per_product": {
+      "sweatshirt": {
+        "title": "Pumpkins and Purrs Sweatshirt, Watercolor Black Cat Halloween Crewneck, Cute Fall Cat Lover Gift, Pumpkin Cat Pullover, Cozy Spooky Sweater",
+        "tags": [
+          "pumpkins and purrs",
+          "black cat sweater",
+          "halloween crewneck",
+          "cat lover gift",
+          "fall cat sweatshirt",
+          "spooky season",
+          "watercolor cat",
+          "pumpkin sweatshirt",
+          "cozy fall crewneck",
+          "cat mom gift",
+          "gift for cat lover",
+          "autumn sweatshirt",
+          "halloween pullover"
+        ]
+      },
+      "mug": {
+        "title": "Pumpkins and Purrs Mug, Watercolor Black Cat Halloween Coffee Mug, Cute Fall Cat Lover Gift, Pumpkin Cat Mug, Cozy Spooky Season Cup",
+        "tags": [
+          "pumpkins and purrs",
+          "black cat mug",
+          "halloween mug",
+          "cat lover gift",
+          "fall coffee mug",
+          "spooky season mug",
+          "watercolor cat mug",
+          "pumpkin mug",
+          "cute halloween mug",
+          "cat mom gift",
+          "gift for cat lover",
+          "autumn mug",
+          "cat coffee mug"
+        ]
+      },
+      "poster": {
+        "title": "Pumpkins and Purrs Art Print, Watercolor Black Cat Halloween Wall Art, Cute Fall Cat Decor, Pumpkin Cat Poster, Cozy Spooky Season Print",
+        "tags": [
+          "pumpkins and purrs",
+          "black cat print",
+          "halloween wall art",
+          "cat lover gift",
+          "fall decor",
+          "spooky season decor",
+          "watercolor cat art",
+          "pumpkin art print",
+          "cute halloween art",
+          "cat wall art",
+          "gift for cat lover",
+          "autumn wall art",
+          "cat poster"
+        ]
+      },
+      "sticker": {
+        "title": "Pumpkins and Purrs Sticker, Watercolor Black Cat Halloween Vinyl Sticker, Cute Pumpkin Cat Laptop Sticker, Fall Cat Water Bottle Decal",
+        "tags": [
+          "pumpkins and purrs",
+          "black cat sticker",
+          "halloween sticker",
+          "cat lover gift",
+          "fall sticker",
+          "spooky sticker",
+          "watercolor sticker",
+          "pumpkin sticker",
+          "laptop sticker",
+          "planner sticker",
+          "journal sticker",
+          "cat sticker",
+          "autumn sticker"
+        ]
+      }
+    },
+    "products": [
+      "Unisex tee (Bella+Canvas 3001)",
+      "Crewneck sweatshirt (Gildan 18000)",
+      "11 oz mug",
+      "Art print (matte poster)",
+      "Kiss-cut sticker"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table after the 2026-10-05 pricing review (decisions/pricing-2026-10-05): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. Search results for 'ghost cat' show most Halloween cat items around $18 (rankhero.com keyword page); Etsy black cat pumpkin crewnecks are listed by many sellers. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-10-05 (before any art): web searches '\"Pumpkins and Purrs\" trademark clothing', '\"Pumpkins & Purrs\" OR \"pumpkins and purrs\" shirt brand etsy' and '\"cozy spooky season\" trademark' found no PUMPKINS AND PURRS or COZY SPOOKY SEASON registration, filing or apparel brand. Nearby but different: PUMPKINS AND TIGERS (children's clothing, 1986-87 filings), PUMPKIN (Pumpkin Babes, baby clothing), FELINE (Purr Inc.), 'Purrs and Boos' (a fabric collection). We use the full phrase only, never PUMPKIN alone as a brand. 'Spooky season' is used as a common descriptive term. Kept out: 'Hocus Pocus' (film), 'Purrfect' wordplay already common in brand names, any character. tmsearch.uspto.gov, Justia and uspto.report pages are blocked from our sessions, so the official database was not searched directly; this is a search-engine screen, not a clearance."
+  }
+}

@@ -124,6 +124,38 @@ The owner sent 7 screenshots of Etsy mug searches (saved as
   watercolor witch mug, 54 reviews). Keep every design unmistakably
   watercolor.
 
+## Gift-category plan (owner, 2026-10-05)
+
+The owner sent Etsy's gift-category menu and said: "i want to you to list for
+all these products and more if there are more best selling products". Every
+category gets at least one design (5 products each: tee, sweatshirt, mug, art
+print, sticker), researched, trademark-screened and Legal-cleared as usual.
+The $3/day cap allows 15 paid listings a day, so up to **3 designs a day**:
+while this queue has open rows, the daily POD run makes up to 3 (the next
+open rows, in order) instead of 1, and marks each row done with the date.
+
+| Etsy category | Live designs | Next (queue order) |
+|---|---|---|
+| Top 100 Halloween Finds | Reading Ghosts, Autumn Leaves, Pumpkins & Purrs (Oct 5) | done for 2026 |
+| Gifts for Pets & Owners | Morning Walks & Good Dogs, Pumpkins & Purrs | 4. a dog-breed florals design (dachshund was in the owner's mug scan) |
+| Gifts for Grandparents | Grandma's Garden (Oct 5) | 5. a grandpa design (garden, fishing or coffee) |
+| Top 100 Gifts for Libras (zodiac) | none | 1. zodiac series, one design per sign (constellation + birth flower), starting with Scorpio (Oct 23-Nov 21) and Libra; one sign a day after that |
+| Gifts for Him | none | 2. an outdoors design (campfire, hiking or fishing) |
+| Top 100 Holiday Gifts | Cocoa Season, Christmas Cookies, Snowy Pine Cardinals, Sufganiyot Season (live Oct 5) | 3. Thanksgiving (Nov 26) design; then more Christmas |
+| Housewarming Gifts | Soup Season and Cocoa Season art prints and mugs | 6. a kitchen or home art print design |
+| Gifts for Couples, Anniversary, Engagement, Special Wedding Gifts | none | 7. a couples design that works on matching mugs (no names, no dates) |
+| Birthday Gifts | every design (tags) | 8. a birthday design (cake and candles) |
+| Most Whimsical Finds | Reading Ghosts, Pumpkins & Purrs, Christmas Cookies | covered |
+| Gifts for Her | Currently Reading, Strawberry Season, Grandma's Garden, Good Dogs | covered |
+| Gifts under $50 / under $100 | every product (our highest price is $38.99) | covered: Etsy groups these by price |
+| Personalized Gifts | none | **waits for the owner:** needs per-order artwork (a name or date added to each order by hand) |
+| Gifts for Kids | none | **waits for the owner and Legal:** kids' sizes are children's products under US law (CPSIA tracking labels and testing); the Legal Desk checks what Printify's kids' blueprints cover first |
+
+More best sellers outside the menu (from the 2026 Etsy/Printify niche guides):
+9. teacher appreciation, 10. nurse, 11. coffee lover, 12. plant lover,
+13. Valentine's Day (from early January), 14. Mother's Day (from early April).
+Book lovers are covered by Currently Reading and Reading Ghosts.
+
 ## Pattern designs (all-over mugs)
 
 `pod-kit/pattern.py` paints seamless all-over patterns: motifs placed by
@@ -185,7 +217,8 @@ scratchpad, never the repo. Only the design JSON files are committed.
 ## Cadence
 
 One design every weekday, from the "Edgex POD desk" Routine: researched,
-made, Legal-cleared, published to Etsy, and reported to the owner by email. The owner can ask for a themed batch from the
+made, Legal-cleared, published to Etsy, and reported to the owner by email. While the gift-category queue above has open rows, the run makes up to 3
+designs (15 listings, the $3 cap) instead of 1. The owner can ask for a themed batch from the
 Studio Floor at any time.
 
 ## Done
@@ -238,3 +271,13 @@ Studio Floor at any time.
   `sufganiyah`, `dreidel`, `gelt`, `olive_sprig`). Tee, sweatshirt, mug, art
   print and sticker created as Printify drafts: today's paid listing fees were
   already at the $3.00 cap, so they publish on the next run with room.
+- 2026-10-05 (owner request: list for every Etsy gift category): the 5
+  Sufganiyot Season drafts went live on Etsy. Two new designs went live the same
+  day: **Pumpkins & Purrs** (a watercolor black cat with pumpkins, a mushroom,
+  maple leaves, a crescent moon and bats; subline "a cozy spooky season"; new
+  motif `cat` with `tail` 1/-1 and `color`/`color2` for other coats; the tail
+  is painted around the body so it sits behind it) for Halloween and pet
+  owners, and **Grandma's Garden** (a rose bouquet; subline "picked with love")
+  for grandparents. "Cookies at Grandma's" was rejected in trademark screening
+  (GRANDMA'S cookies is a Frito-Lay brand) and "where love grows" too (LOVE +
+  GROW CLOTHING CO). 15 paid listings = $3.00, the daily cap.

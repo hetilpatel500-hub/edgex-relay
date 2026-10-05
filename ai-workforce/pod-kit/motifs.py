@@ -1452,6 +1452,87 @@ def olive_sprig(c, x, y, s, P, angle=-1.0, n=7):
 
 
 
+
+# ---------------------------------------------------------------- cats
+def _band(path, w0, w1):
+    """A tapering band (tail, whisker-free limbs) along a path of points."""
+    n = len(path); left, right = [], []
+    for i, (px, py) in enumerate(path):
+        qx, qy = path[min(i + 1, n - 1)] if i < n - 1 else path[i]
+        rx, ry = path[max(i - 1, 0)]
+        dx, dy = qx - rx, qy - ry
+        L = math.hypot(dx, dy) or 1
+        w = w0 + (w1 - w0) * i / max(1, n - 1)
+        left.append((px - dy / L * w, py + dx / L * w)); right.append((px + dy / L * w, py - dx / L * w))
+    return left + right[::-1]
+
+
+def _rgb(h):
+    h = h.lstrip('#'); return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
+
+
+def cat(c, x, y, s, P, color=None, color2=None, eyes=None, tail=1, ink=True):
+    """A sitting cat, front view: rounded body, curled tail, pointed ears,
+    big eyes. Default is a black cat in indigo-charcoal washes; pass
+    color/color2 for a tabby or gray. tail=1 curls right, -1 left."""
+    col = color or P.get('cat', '#3b3547'); col2 = color2 or P.get('cat2', '#6a6180')
+    eye = eyes or P.get('cat_eye', '#e7b23f')
+    rnd = c.rnd
+    # the whole silhouette (ears, head, body, haunches) in one wash, so no
+    # overlapping layers darken where the parts meet
+    half = [(0.0, -0.53), (0.13, -0.51), (0.33, -0.82), (0.41, -0.33), (0.43, -0.2), (0.39, -0.06), (0.29, 0.05),
+            (0.37, 0.2), (0.46, 0.44), (0.5, 0.66), (0.6, 0.82), (0.62, 0.98), (0.52, 1.1), (0.3, 1.14), (0.0, 1.13)]
+    out = [(x + s * px, y + s * py) for px, py in half] + [(x - s * px, y + s * py) for px, py in reversed(half[1:-1])]
+    occ0 = None if c.occl is None else c.occl.copy()
+    before = c.snapshot()
+    c.wash(smooth(out, 2), col, col2, strength=0.95, spread=0.012, layers=38, edge=0.75)
+    # the tail goes behind the body: paint around it, then let later strokes back on
+    c.paint_around(before)
+    path = []
+    for i in range(16):
+        t = i / 15
+        path.append((x + tail * s * (0.3 + 0.6 * math.sin(t * 2.0)), y + s * (1.02 - 0.9 * t ** 1.3)))
+    band = _band(path, s * 0.1, s * 0.075)
+    (lx, ly), (rx, ry) = band[len(path) - 1], band[len(path)]
+    mx, my = (lx + rx) / 2, (ly + ry) / 2
+    a0 = math.atan2(ly - my, lx - mx)
+    cap = [(mx + s * 0.075 * math.cos(a0 - math.pi * k / 8), my + s * 0.075 * math.sin(a0 - math.pi * k / 8)) for k in range(1, 8)]
+    if tail < 0:
+        cap = [(mx + s * 0.075 * math.cos(a0 + math.pi * k / 8), my + s * 0.075 * math.sin(a0 + math.pi * k / 8)) for k in range(1, 8)]
+    band = band[:len(path)] + cap + band[len(path):]
+    c.wash(smooth(band, 1), col, col2, strength=0.9, spread=0.012, layers=26, edge=0.8)
+    c.occl = occ0
+    # shadow on the haunches and under the chin, wet on dry
+    for side in (-1, 1):
+        c.wash(ellipse(x + side * s * 0.36, y + s * 0.92, s * 0.2, s * 0.15, 14), col, None, strength=0.22, spread=0.05, layers=14, edge=0.3)
+    # front legs: a soft light edge and a dark gap between them; paws lifted lighter
+    for dx in (-0.15, 0.15):
+        c.wash(leaf(x + s * dx, y + s * 0.78, s * 0.3, s * 0.035, math.pi / 2), col2, None, strength=0.35, layers=10)
+        c.wash(ellipse(x + s * dx, y + s * 1.07, s * 0.11, s * 0.055, 10), col2, None, strength=0.5, layers=14)
+    c.wash(leaf(x, y + s * 0.85, s * 0.24, s * 0.018, math.pi / 2), '#1f1b24', None, strength=0.7, layers=10)
+    for side in (-1, 1):
+        inner = [(x + side * s * 0.19, y - s * 0.45), (x + side * s * 0.32, y - s * 0.7), (x + side * s * 0.36, y - s * 0.38)]
+        gouache(c, smooth(inner, 1), color=_rgb('#b9808c'), alpha=120, soft=0.03)
+    # eyes: amber with slit pupils and a white catch-light
+    for sx in (-1, 1):
+        ex, ey = x + sx * s * 0.15, y - s * 0.22
+        # opaque body color on the dark fur, light to dark
+        gouache(c, ellipse(ex, ey, s * 0.085, s * 0.075, 32), color=_rgb(eye), alpha=245)
+        gouache(c, ellipse(ex - s * 0.015, ey - s * 0.02, s * 0.05, s * 0.035, 24), color=_rgb('#f6dc8c'), alpha=150)
+        gouache(c, smooth(ellipse(ex, ey, s * 0.022, s * 0.064, 16), 2), color=(31, 27, 36), alpha=250, soft=0.006)
+        gouache(c, ellipse(ex + s * 0.03, ey - s * 0.03, s * 0.016, s * 0.016, 20), color=(255, 255, 252), alpha=245, soft=0.006)
+    # nose, mouth, whiskers (light gouache lines read on a black cat)
+    nose = [(x - s * 0.04, y - s * 0.1), (x + s * 0.04, y - s * 0.1), (x, y - s * 0.055)]
+    gouache(c, smooth(nose, 1), color=_rgb('#d98f9a'), alpha=235, soft=0.006)
+    if ink:
+        lw = max(2, s * 0.012)
+        c.ink_line([(x - s * 0.07, y - s * 0.02), (x, y - s * 0.05), (x + s * 0.07, y - s * 0.02)], width=lw, closed=False,
+                   alpha=200, passes=1, color=(236, 228, 214), jitter=0.0005)
+        for sx in (-1, 1):
+            for k, dy in enumerate((-0.09, -0.05, -0.01)):
+                c.ink_line([(x + sx * s * 0.13, y + s * dy), (x + sx * s * 0.42, y + s * (dy - 0.05 + 0.05 * k))], width=lw * 0.8,
+                           closed=False, alpha=170, passes=1, color=(236, 228, 214), jitter=0.0005)
+
 MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip, 'sprig': sprig, 'eucalyptus': eucalyptus,
           'berries': berries, 'bouquet': bouquet, 'mug': mug, 'books': books, 'heart': heart, 'paw': paw, 'dog': dog,
           'lemon': lemon, 'strawberry': strawberry, 'sun': sun, 'succulent': succulent, 'pumpkin': pumpkin,
@@ -1464,4 +1545,4 @@ MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip
           'orange_slice': orange_slice, 'star_anise': star_anise, 'peppermint': peppermint,
           'gingerbread_man': gingerbread_man, 'sugar_cookie': sugar_cookie, 'candy_cane': candy_cane, 'sprinkles': sprinkles,
           'menorah': menorah, 'flame': flame, 'plate': plate, 'sufganiyah': sufganiyah, 'dreidel': dreidel,
-          'gelt': gelt, 'olive_sprig': olive_sprig}
+          'gelt': gelt, 'olive_sprig': olive_sprig, 'cat': cat}
