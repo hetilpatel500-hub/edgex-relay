@@ -36,6 +36,16 @@ don't count toward it. Etsy Ads: the owner turns it on in Etsy Shop Manager
 with the $5 monthly credit; agents suggest which listings, never change the setting.
 Etsy makes new shops wait 15 days before Etsy Ads: Ads open for Edgexhp about
 2026-10-13 (a reminder Routine emails the owner the plan that day).
+
+**Etsy Ads allowed (owner, 2026-10-06: "lift for etsy, try to do everything by
+you").** The no-ads rule is lifted for Etsy Ads only (no Meta, Pinterest,
+Zeely or other ad tools). Agents do all the ad work: pick listings, sharpen
+titles and tags, set the stop rules and read results. The plan lives in the
+office DB at `etsy_ads/plan-2026-10` (Legal cleared, Chief of Staff approved).
+Etsy itself is blocked from the cloud environment, so the owner still makes
+the Shop Manager clicks. Spend stays on the $5 monthly Etsy Plus credit
+($1/day, about 5 days); after that Etsy bills the owner's card, so ads pause
+unless the owner approves a paid budget. Agents never raise or extend it.
 Printify sits behind Cloudflare: every API call must send a User-Agent
 (printify.py sends `edgex-pod-desk`), or it fails with 403 "error code: 1010".
 
