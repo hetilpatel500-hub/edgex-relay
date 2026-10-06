@@ -1692,6 +1692,180 @@ def campfire(c, x, y, s, P):
         ex, ey = x + rnd.uniform(-0.18, 0.18) * s, y - s * rnd.uniform(1.12, 1.3)
         c.wash(ellipse(ex, ey, s * 0.02, s * 0.02, 8), '#f8b34a', None, strength=0.8, layers=8)
 
+
+# ---------------------------------------------------------------- Thanksgiving pie
+def _cream(c, x, y, s):
+    """A dollop of whipped cream: soft white swirl tiers with a peak, s = its radius."""
+    tiers = [(0.0, 1.0, 0.42), (-0.32, 0.72, 0.34), (-0.6, 0.44, 0.26)]
+    for dy, k, hk in tiers:
+        body = smooth([(x + s * k * math.cos(a), y + s * dy + s * hk * math.sin(a)) for a in [2 * math.pi * i / 14 for i in range(14)]], rounds=2)
+        c.wash(body, '#e9e2d6', None, strength=0.25, spread=0.02, layers=8, edge=0.4)
+        gouache(c, body, color=(254, 251, 244), alpha=232, soft=0.04)
+        c.ink_line([(x + s * k * 0.86 * math.cos(a), y + s * dy + s * hk * 0.86 * math.sin(a)) for a in [math.pi * (0.15 + 0.7 * i / 10) for i in range(11)]],
+                   width=max(1, s * 0.05), closed=False, alpha=150, passes=1, jitter=0, color=(170, 120, 80))
+    tip = smooth([(x - s * 0.22, y - s * 0.7), (x - s * 0.02, y - s * 1.05), (x + s * 0.06, y - s * 0.98), (x + s * 0.22, y - s * 0.7)], rounds=2)
+    gouache(c, tip, color=(254, 251, 244), alpha=236, soft=0.04)
+    c.ink_line([(x - s * 0.2, y - s * 0.72), (x - s * 0.02, y - s * 1.03), (x + s * 0.05, y - s * 0.97)], width=max(1, s * 0.05),
+               closed=False, alpha=150, passes=1, jitter=0, color=(170, 120, 80))
+
+
+def pie(c, x, y, s, P, color=None, color2=None, cream=True, dish=None):
+    """A whole pumpkin pie in a ceramic pie dish, seen a little from above:
+    a fluted golden crust round a smooth spiced-orange filling, a dollop of
+    whipped cream in the middle. s = half the dish width."""
+    rnd = c.rnd
+    fill, fill2 = color or P.get('pie', '#d5772b'), color2 or P.get('pie2', '#eba156')
+    dish = dish or P.get('dish', '#7fa6c9')
+    ry = s * 0.4
+    # the dish's sloped side below the rim (front half only shows)
+    n = 28
+    lip = [(x + s * math.cos(math.pi * i / n), y + ry * math.sin(math.pi * i / n)) for i in range(n + 1)]
+    base = [(x + s * 0.84 * math.cos(math.pi * i / n), y + s * 0.2 + ry * 0.86 * math.sin(math.pi * i / n)) for i in range(n, -1, -1)]
+    c.wash(lip + base, '#d7e4ef', dish, strength=0.65, spread=0.01, layers=22, edge=0.8)
+    c.wash(smooth(lip[:9] + base[-9:], rounds=1), dish, None, strength=0.35, spread=0.02, layers=12, edge=0.4)
+    # crust: a golden ring with darker baked edges
+    ring = [(x + s * 0.99 * math.cos(2 * math.pi * i / 40), y + ry * 0.99 * math.sin(2 * math.pi * i / 40)) for i in range(41)]
+    ring += [(x + s * 0.8 * math.cos(2 * math.pi * i / 40), y + ry * 0.78 * math.sin(2 * math.pi * i / 40)) for i in range(40, -1, -1)]
+    c.wash(ring, '#e8c286', '#cf9247', strength=0.85, spread=0.008, layers=24, edge=1.0, granulate=0.5)
+    # filling
+    c.wash(ellipse(x, y + ry * 0.02, s * 0.81, ry * 0.79, 36), fill2, fill, strength=0.95, spread=0.01, layers=30, edge=1.1, granulate=0.55)
+    c.wash(ellipse(x - s * 0.12, y - ry * 0.3, s * 0.55, ry * 0.32, 20), fill, None, strength=0.3, spread=0.03, layers=12, edge=0.3)
+    # nutmeg flecks
+    for _ in range(26):
+        a = rnd.uniform(0, 2 * math.pi); r = math.sqrt(rnd.random()) * 0.72
+        c.wash(ellipse(x + s * r * math.cos(a), y + ry * r * math.sin(a), s * 0.012, s * 0.008, 6), '#8a4a1c', None,
+               strength=0.8, layers=4, spread=0.05, edge=1.0)
+    # fluted crimps: a bump every 1/22 of the way round, shaded on the front
+    k = 22
+    for i in range(k):
+        a = 2 * math.pi * (i + 0.5) / k
+        px, py = x + s * 0.9 * math.cos(a), y + ry * 0.89 * math.sin(a)
+        c.wash(ellipse(px, py, s * 0.075, ry * 0.11, 10, rot=a + math.pi / 2), '#f1d39c', '#d99a52', strength=0.6, layers=8, spread=0.03, edge=0.9)
+    scallop = []
+    for i in range(k * 6 + 1):
+        a = 2 * math.pi * i / (k * 6)
+        r = 1.0 - 0.03 * abs(math.cos(math.pi * i / 6))
+        scallop.append((x + s * r * math.cos(a), y + ry * r * math.sin(a)))
+    w = max(1, s * 0.014)
+    c.ink_line(scallop, width=w, alpha=170, passes=1, jitter=0, color=(120, 70, 30))
+    c.ink_line(smooth(ellipse(x, y + ry * 0.02, s * 0.8, ry * 0.78, 30), rounds=1), width=w * 0.8, alpha=130, passes=1, jitter=0, color=(130, 60, 20))
+    c.ink_line(base[::-1], width=w, closed=False, alpha=170, passes=1, jitter=0, color=(50, 70, 100))
+    if cream:
+        _cream(c, x + s * 0.02, y + ry * 0.12, s * 0.26)
+
+
+def pie_slice(c, x, y, s, P, color=None, color2=None, cream=True, flip=False):
+    """One wedge of pumpkin pie lying on its side so the cut shows: orange
+    custard over a thin golden base, the fluted crust at the back.
+    s = the wedge's length; the point faces left (right with flip)."""
+    fill, fill2 = color or P.get('pie', '#d5772b'), color2 or P.get('pie2', '#eba156')
+    f = -1 if flip else 1
+    X = lambda dx: x + f * dx * s
+    h = s * 0.2
+    T, B1, B2 = (X(-0.55), y), (X(0.33), y - s * 0.26), (X(0.5), y + s * 0.1)
+    # top face of the filling
+    top = [T, B1, B2]
+    c.wash(top, fill2, fill, strength=0.95, spread=0.01, layers=24, edge=1.1, granulate=0.5)
+    # the cut side: filling over a golden base layer
+    side = [T, B2, (B2[0], B2[1] + h * 0.72), (T[0], T[1] + h * 0.72)]
+    c.wash(side, fill, '#c2601f', strength=0.95, spread=0.008, layers=22, edge=1.0, granulate=0.5)
+    basel = [(T[0], T[1] + h * 0.72), (B2[0], B2[1] + h * 0.72), (B2[0], B2[1] + h), (T[0], T[1] + h)]
+    c.wash(basel, '#e6bd7c', '#cf9247', strength=0.85, spread=0.008, layers=14, edge=0.9)
+    # back crust: a thick rounded rim along B1-B2
+    mx, my = (B1[0] + B2[0]) / 2 + f * s * 0.07, (B1[1] + B2[1]) / 2
+    rim = smooth([(B1[0] - f * s * 0.03, B1[1] - s * 0.04), (mx + f * s * 0.05, my - s * 0.02), (B2[0] + f * s * 0.07, B2[1] + h + s * 0.02),
+                  (B2[0] - f * s * 0.03, B2[1] + h), (B2[0] - f * s * 0.02, B2[1]), (B1[0] - f * s * 0.05, B1[1] + s * 0.03)], rounds=2)
+    c.wash(rim, '#f0cf94', '#cf9247', strength=0.9, spread=0.01, layers=18, edge=1.0, granulate=0.5)
+    w = max(1, s * 0.012)
+    col = (120, 60, 25)
+    c.ink_line([T, B1], width=w, closed=False, alpha=170, passes=1, jitter=0, color=col)
+    c.ink_line([T, B2, (B2[0], B2[1] + h), (T[0], T[1] + h), T], width=w, closed=False, alpha=170, passes=1, jitter=0, color=col)
+    c.ink_line(rim, width=w, alpha=160, passes=1, jitter=0, color=col)
+    if cream:
+        _cream(c, X(0.1), y - s * 0.03, s * 0.16)
+
+
+def wheat(c, x, y, s, P, angle=-1.57, n=7):
+    """A stalk of wheat: s = its length along `angle`, plump grains up the top half."""
+    ca, sa = math.cos(angle), math.sin(angle)
+    pt = lambda t, o=0.0: (x + s * t * ca - o * sa * s, y + s * t * sa + o * ca * s)
+    c.ink_line([pt(0), pt(0.5), pt(1.02)], width=max(1, s * 0.012), closed=False, alpha=170, passes=1, jitter=0, color=(150, 110, 50))
+    for i in range(n):
+        t = 0.45 + 0.52 * i / (n - 1)
+        for side in (-1, 1):
+            gx, gy = pt(t, side * 0.035)
+            c.wash(leaf(gx, gy, s * 0.11, s * 0.045, angle + side * 0.45), '#e2b55d', '#c98f35', strength=0.85, layers=10, spread=0.03, edge=1.0)
+    tx, ty = pt(1.0)
+    c.wash(leaf(tx, ty, s * 0.1, s * 0.04, angle), '#e2b55d', '#c98f35', strength=0.85, layers=10, spread=0.03, edge=1.0)
+
+
+
+# ---------------------------------------------------------------- dachshund
+DACHSHUND_COATS = {
+    # coat: (light wash, dark wash, tan points or None, ink)
+    'red': ('#d98a4a', '#a8552a', None, (95, 45, 20)),
+    'black_tan': ('#4a3f3c', '#26201f', '#c98a4b', (25, 20, 20)),
+    'chocolate': ('#8a5a3c', '#5c3522', '#c9925a', (50, 28, 18)),
+    'cream': ('#efcf9c', '#d2a46a', None, (120, 80, 40)),
+}
+
+
+def dachshund(c, x, y, s, P, facing=1, coat='red', collar=None, angle=0.0):
+    """A standing dachshund in profile: long low body, deep chest, short legs,
+    a floppy ear, a long nose and a little collar. s = half the dog's length;
+    facing 1 = nose to the right."""
+    light, dark, tan, inkc = DACHSHUND_COATS.get(coat, DACHSHUND_COATS['red'])
+    collar = collar or P.get('collar', P.get('main', '#c94f5e'))
+    f = facing
+    ca, sa = math.cos(angle), math.sin(angle)
+    def T(px, py):
+        px *= f
+        return (x + s * (px * ca - py * sa), y + s * (px * sa + py * ca))
+    def poly(pts):
+        return [T(px, py) for px, py in pts]
+    # far legs, a shade darker, a little behind the near ones
+    for lx in (0.22, -0.46):
+        c.wash(smooth(poly([(lx - 0.05, 0.2), (lx + 0.07, 0.2), (lx + 0.07, 0.37), (lx + 0.11, 0.41), (lx - 0.06, 0.41)]), rounds=1),
+               dark, None, strength=0.75, spread=0.02, layers=14, edge=0.9)
+    body = smooth(poly([(-0.98, -0.36), (-0.8, -0.24), (-0.66, -0.14), (-0.45, -0.19), (-0.1, -0.2), (0.25, -0.2), (0.38, -0.24),
+                        (0.48, -0.38), (0.54, -0.5), (0.66, -0.53), (0.78, -0.45), (0.9, -0.36), (1.0, -0.3), (1.02, -0.26),
+                        (0.99, -0.22), (0.84, -0.22), (0.72, -0.2), (0.6, -0.12), (0.56, 0.02), (0.5, 0.2), (0.42, 0.28),
+                        (0.42, 0.36), (0.48, 0.42), (0.3, 0.42), (0.3, 0.3), (0.1, 0.25), (-0.3, 0.23), (-0.36, 0.28),
+                        (-0.36, 0.41), (-0.52, 0.42), (-0.53, 0.3), (-0.63, 0.16), (-0.71, 0.0), (-0.71, -0.08),
+                        (-0.73, -0.12), (-0.85, -0.27)]), rounds=2)
+    c.wash(body, light, dark, strength=0.8, spread=0.012, layers=30, edge=1.0, granulate=0.45)
+    # shading: a darker saddle along the back and under the belly
+    c.wash(smooth(poly([(-0.62, -0.12), (0.32, -0.17), (0.42, -0.08), (-0.5, -0.03)]), rounds=2), dark, None, strength=0.35, spread=0.03, layers=12, edge=0.4)
+    c.wash(smooth(poly([(-0.3, 0.15), (0.3, 0.17), (0.3, 0.24), (-0.3, 0.22)]), rounds=2), dark, None, strength=0.35, spread=0.03, layers=10, edge=0.3)
+    if tan:
+        # tan points over a dark coat: opaque body color, the way a painter adds light over dark
+        r, g, b = (int(tan[k:k + 2], 16) for k in (1, 3, 5))
+        for pts in ([(0.8, -0.3), (1.0, -0.28), (0.98, -0.22), (0.82, -0.21)],
+                    [(0.52, -0.02), (0.57, 0.04), (0.5, 0.18), (0.45, 0.08)],
+                    [(0.31, 0.35), (0.44, 0.35), (0.47, 0.42), (0.3, 0.42)],
+                    [(-0.51, 0.35), (-0.37, 0.35), (-0.37, 0.41), (-0.51, 0.42)]):
+            gouache(c, smooth(poly(pts), rounds=1), color=(r, g, b), alpha=225, soft=0.03)
+        bx, by = T(0.75, -0.46)
+        gouache(c, ellipse(bx, by, s * 0.03, s * 0.02, 8), color=(r, g, b), alpha=230, soft=0.05)
+    # the floppy ear
+    ear = smooth(poly([(0.58, -0.46), (0.68, -0.45), (0.7, -0.28), (0.65, -0.14), (0.58, -0.18), (0.56, -0.36)]), rounds=2)
+    c.wash(ear, dark, None, strength=0.8, spread=0.02, layers=16, edge=1.0)
+    # collar and its little gold tag
+    c.wash(smooth(poly([(0.47, -0.33), (0.55, -0.4), (0.63, -0.14), (0.56, -0.1)]), rounds=1), collar, None, strength=0.9, spread=0.015, layers=12, edge=1.0)
+    tx, ty = T(0.6, -0.08)
+    c.wash(ellipse(tx, ty, s * 0.03, s * 0.03, 8), '#e2b04a', None, strength=0.9, layers=8)
+    # eye and nose
+    ex, ey = T(0.77, -0.4)
+    c.wash(ellipse(ex, ey, s * 0.03, s * 0.032, 8), '#241e1e', None, strength=1.5, layers=10)
+    gouache(c, ellipse(ex + f * s * 0.008, ey - s * 0.01, s * 0.008, s * 0.008, 6), color=(255, 255, 255), alpha=230, soft=0.1)
+    nx, ny = T(1.0, -0.265)
+    c.wash(ellipse(nx, ny, s * 0.042, s * 0.036, 8), '#241e1e', None, strength=1.5, layers=10)
+    w = max(1, s * 0.016)
+    c.ink_line(body, width=w, alpha=190, passes=1, jitter=0, color=inkc)
+    c.ink_line(ear, width=w * 0.9, alpha=170, passes=1, jitter=0, color=inkc)
+    c.ink_line(poly([(0.86, -0.22), (0.93, -0.205)]), width=w * 0.9, closed=False, alpha=170, passes=1, jitter=0, color=inkc)
+
+
 MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip, 'sprig': sprig, 'eucalyptus': eucalyptus,
           'berries': berries, 'bouquet': bouquet, 'mug': mug, 'books': books, 'heart': heart, 'paw': paw, 'dog': dog,
           'lemon': lemon, 'strawberry': strawberry, 'sun': sun, 'succulent': succulent, 'pumpkin': pumpkin,
@@ -1706,4 +1880,5 @@ MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip
           'menorah': menorah, 'flame': flame, 'plate': plate, 'sufganiyah': sufganiyah, 'dreidel': dreidel,
           'gelt': gelt, 'olive_sprig': olive_sprig, 'cat': cat,
           'night_sky': night_sky, 'constellation': constellation, 'chrysanthemum': chrysanthemum, 'marigold': marigold, 'libra_scales': libra_scales,
-          'mountains': mountains, 'pine_tree': pine_tree, 'tent': tent, 'campfire': campfire}
+          'mountains': mountains, 'pine_tree': pine_tree, 'tent': tent, 'campfire': campfire,
+          'pie': pie, 'pie_slice': pie_slice, 'wheat': wheat, 'dachshund': dachshund}

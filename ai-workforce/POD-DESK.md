@@ -147,11 +147,11 @@ open rows, in order) instead of 1, and marks each row done with the date.
 | Etsy category | Live designs | Next (queue order) |
 |---|---|---|
 | Top 100 Halloween Finds | Reading Ghosts, Autumn Leaves, Pumpkins & Purrs (Oct 5) | done for 2026 |
-| Gifts for Pets & Owners | Morning Walks & Good Dogs, Pumpkins & Purrs | 4. a dog-breed florals design (dachshund was in the owner's mug scan) |
+| Gifts for Pets & Owners | Morning Walks & Good Dogs, Pumpkins & Purrs | 4. dog-breed florals: **Dachshund Florals done 2026-10-06** (all-over mugs; built and Legal-cleared, not on Printify yet, see below) |
 | Gifts for Grandparents | Grandma's Garden (Oct 5) | 5. a grandpa design (garden, fishing or coffee) |
-| Top 100 Gifts for Libras (zodiac) | Scorpio Constellation (drafted Oct 5) | 1. zodiac series, one design per sign (constellation + birth-month flower): **Scorpio done 2026-10-05** (drafts). **Libra held 2026-10-05**: a pending LIBRA application covers t-shirts and sweatshirts (Astryx LLC, serial 99209588), so the owner decides; the art is ready in `designs/libra-constellation.json`. Next: Sagittarius (Nov 22-Dec 21), then one sign a day; screen each sign name for clothing marks first |
+| Top 100 Gifts for Libras (zodiac) | Scorpio Constellation (drafted Oct 5) | 1. zodiac series, one design per sign (constellation + birth-month flower): **Scorpio done 2026-10-05** (drafts). **Libra held 2026-10-05**: a pending LIBRA application covers t-shirts and sweatshirts (Astryx LLC, serial 99209588), so the owner decides; the art is ready in `designs/libra-constellation.json`. **Sagittarius held 2026-10-06**: a pending SAGITTARIUS ATHLETIC application covers tees and sweatshirts (Sagittarius Athletic, LLC, serial 97660475), so the owner decides with Libra; no art made. Next: Capricorn (Dec 22-Jan 19), then one sign a day; screen each sign name for clothing marks first |
 | Gifts for Him | Campfire Season (drafted Oct 5) | 2. outdoors: **Campfire Season done 2026-10-05** (drafts) |
-| Top 100 Holiday Gifts | Cocoa Season, Christmas Cookies, Snowy Pine Cardinals, Sufganiyot Season (live Oct 5) | 3. Thanksgiving (Nov 26) design; then more Christmas |
+| Top 100 Holiday Gifts | Cocoa Season, Christmas Cookies, Snowy Pine Cardinals, Sufganiyot Season (live Oct 5) | 3. Thanksgiving (Nov 26): **Pie Season done 2026-10-06** (built and Legal-cleared, not on Printify yet, see below); then more Christmas |
 | Housewarming Gifts | Soup Season and Cocoa Season art prints and mugs | 6. a kitchen or home art print design |
 | Gifts for Couples, Anniversary, Engagement, Special Wedding Gifts | none | 7. a couples design that works on matching mugs (no names, no dates) |
 | Birthday Gifts | every design (tags) | 8. a birthday design (cake and candles) |
@@ -164,6 +164,11 @@ open rows, in order) instead of 1, and marks each row done with the date.
 **Drafts waiting for Etsy:** Scorpio Constellation and Campfire Season (10 Printify drafts, made 2026-10-05 after the day's
 $3.00 cap was used). The next run publishes these first, within that day's cap (10 listings = $2.00), then makes new rows
 with what is left of the cap (1 design = $1.00), and creates any extra designs as drafts.
+
+**Blocked 2026-10-06:** this session's permission check refused both publishing the 10 drafts and creating new Printify
+products ("unrequested commit in a connected app"). Nothing changed on Printify or Etsy that day. Pie Season (5 products)
+and Dachshund Florals (2 mugs) are built, Legal-cleared and approved, with print files and listing copy on their delivery
+pages; they go to Printify once the owner allows Printify writes from the scheduled run again.
 
 More best sellers outside the menu (from the 2026 Etsy/Printify niche guides):
 9. teacher appreciation, 10. nurse, 11. coffee lover, 12. plant lover,
@@ -308,3 +313,14 @@ Studio Floor at any time.
   99209588). Sticker tag "nalgene sticker" was dropped (a brand).
   `photos.py` close-ups for opaque art-print files now follow color
   saturation instead of transparency, so they land on the painting.
+- 2026-10-06 (15:18 UTC run, gift-category queue rows 1, 3 and 4): **Pie Season**
+  (a whole watercolor pumpkin pie with a fluted crust and whipped cream, a cut
+  slice, wheat, maple leaves, acorns, cinnamon and star anise; subline "save me
+  a slice"; new motifs `pie`, `pie_slice`, `wheat`) for Thanksgiving, and
+  **Dachshund Florals** (an all-over mug wrap: dachshunds in red, black and
+  tan, chocolate and cream among roses, daisies, wildflowers, eucalyptus and
+  hearts; new motif `dachshund` with `coat`, `facing` and `collar`; accent
+  mugs in Pink, Maroon and Black). Sagittarius was held at the trademark
+  screen (SAGITTARIUS ATHLETIC application, 97660475). No Printify products
+  were made and the 10 waiting drafts weren't published: the session's
+  permission check blocked Printify writes.
