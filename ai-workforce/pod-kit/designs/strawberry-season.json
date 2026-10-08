@@ -1,0 +1,70 @@
+{
+ "id": "strawberry-season",
+ "template": "arch",
+ "top": "Strawberry Season",
+ "bottom": "picked with love",
+ "top_font": "Pacifico",
+ "bottom_font": "DancingScript",
+ "art": [
+  {
+   "motif": "strawberry",
+   "x": -0.15,
+   "y": 0.0,
+   "s": 0.12
+  },
+  {
+   "motif": "strawberry",
+   "x": 0.15,
+   "y": -0.03,
+   "s": 0.13
+  },
+  {
+   "motif": "strawberry",
+   "x": 0.0,
+   "y": 0.1,
+   "s": 0.1
+  }
+ ],
+ "florals": "bouquet",
+ "florals_dy": 0.0,
+ "florals_s": 0.27,
+ "palette": "citrus",
+ "seed": 5,
+ "shirt_colors": [
+  "natural",
+  "white",
+  "heather_pink"
+ ],
+ "listing": {
+  "title": "Strawberry Season Shirt, Watercolor Strawberry Tee, Cottagecore Fruit T-Shirt, Summer Berry Picking Gift, Berry Lover Top",
+  "tags": [
+   "strawberry shirt",
+   "strawberry season",
+   "cottagecore tee",
+   "fruit t-shirt",
+   "berry picking",
+   "watercolor fruit",
+   "summer tee",
+   "strawberry gift",
+   "garden shirt",
+   "cute fruit shirt",
+   "spring tee",
+   "floral fruit tee",
+   "picnic shirt"
+  ],
+  "description": "Juicy watercolor strawberries nestled in a loose bouquet of blooms and leaves, with \"Strawberry Season\" in cheerful script. A sunny pick for berry-picking days, picnics and markets.",
+  "products": [
+   "Unisex tee (Bella+Canvas 3001)",
+   "Crewneck sweatshirt (Gildan 18000)"
+  ],
+  "price_note": "Tee $24-$28 (Printify Bella+Canvas 3001 base is about $10-$11 without Premium, before shipping and Etsy fees; Etsy tees in this style commonly sell for $22-$32 - sellermockups.com and marginory.com 2026 guides). Sweatshirt $38-$45. You set the final price.",
+  "trademark_check": "Renamed from 'Farmers Market Club' after the Legal Desk found an apparel brand of that name (farmersmarketclub.com) and a FARMERS MARKET clothing filing (Oneworld Apparel, serial 88550087); also rejected 'Saturdays are for the market' (Barstool's 'Saturdays Are For The Boys' registrations) and 'Saturday Market' (registered for clothing, reg. 5891363). Web search 2026-09-28 found no 'Strawberry Season' clothing registration. 'Farmers market' is kept out of the title and tags entirely."
+ },
+ "flowers": [
+  "none",
+  "none",
+  "none",
+  "daisy"
+ ],
+ "name": "Strawberry Season"
+}

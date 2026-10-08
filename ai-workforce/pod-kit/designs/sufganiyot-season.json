@@ -1,0 +1,254 @@
+{
+ "id": "sufganiyot-season",
+ "name": "Sufganiyot Season",
+ "template": "arch",
+ "top": "Sufganiyot Season",
+ "bottom": "jelly donuts by candlelight",
+ "top_font": "Pacifico",
+ "bottom_font": "DancingScript",
+ "art": [
+  {
+   "motif": "sufganiyah",
+   "x": -0.085,
+   "y": 0.235,
+   "s": 0.08,
+   "front": true
+  },
+  {
+   "motif": "sufganiyah",
+   "x": 0.085,
+   "y": 0.24,
+   "s": 0.077,
+   "front": true
+  },
+  {
+   "motif": "sufganiyah",
+   "x": 0.0,
+   "y": 0.19,
+   "s": 0.08,
+   "front": true
+  },
+  {
+   "motif": "plate",
+   "x": 0.0,
+   "y": 0.27,
+   "s": 0.19,
+   "front": true
+  },
+  {
+   "motif": "dreidel",
+   "x": -0.3,
+   "y": 0.165,
+   "s": 0.085,
+   "angle": -0.2,
+   "letters": [
+    "nun",
+    "gimel"
+   ],
+   "front": true
+  },
+  {
+   "motif": "dreidel",
+   "x": 0.285,
+   "y": 0.17,
+   "s": 0.075,
+   "angle": 0.25,
+   "letters": [
+    "shin",
+    "hei"
+   ],
+   "color": "#5a86c4",
+   "front": true
+  },
+  {
+   "motif": "menorah",
+   "x": 0.0,
+   "y": -0.02,
+   "s": 0.3
+  },
+  {
+   "motif": "olive_sprig",
+   "x": -0.27,
+   "y": 0.285,
+   "s": 0.2,
+   "angle": -2.75
+  },
+  {
+   "motif": "olive_sprig",
+   "x": 0.27,
+   "y": 0.285,
+   "s": 0.2,
+   "angle": -0.4
+  },
+  {
+   "motif": "gelt",
+   "x": -0.215,
+   "y": 0.31,
+   "s": 0.035,
+   "angle": 0.2
+  },
+  {
+   "motif": "gelt",
+   "x": 0.215,
+   "y": 0.315,
+   "s": 0.033,
+   "angle": -0.3,
+   "silver": true
+  },
+  {
+   "motif": "gelt",
+   "x": 0.262,
+   "y": 0.29,
+   "s": 0.03,
+   "angle": 0.4
+  },
+  {
+   "motif": "sparkle",
+   "x": -0.36,
+   "y": -0.11,
+   "s": 0.025
+  },
+  {
+   "motif": "sparkle",
+   "x": 0.37,
+   "y": -0.09,
+   "s": 0.022
+  },
+  {
+   "motif": "sparkle",
+   "x": -0.33,
+   "y": -0.22,
+   "s": 0.015
+  },
+  {
+   "motif": "sparkle",
+   "x": 0.34,
+   "y": -0.23,
+   "s": 0.016
+  }
+ ],
+ "florals": null,
+ "palette": "ocean",
+ "colors": {
+  "accent": "#e2b04a",
+  "accent2": "#f3d58f",
+  "candle": "#4a7fc0",
+  "candle2": "#9cc2e6",
+  "dreidel": "#3f72b0",
+  "dreidel2": "#86b2de",
+  "plate": "#8fb6da",
+  "plate2": "#d6e6f3",
+  "jam": "#b5222f",
+  "olive": "#7c8a4c",
+  "olive2": "#aeb88a"
+ },
+ "ink": "#2f3b57",
+ "seed": 3,
+ "shirt_colors": [
+  "white",
+  "natural",
+  "light_blue"
+ ],
+ "listing": {
+  "title": "Sufganiyot Season Shirt, Watercolor Hanukkah Tee, Menorah and Jelly Donut Chanukah Shirt, Jewish Holiday Gift, Dreidel Festival of Lights",
+  "tags": [
+   "sufganiyot season",
+   "hanukkah shirt",
+   "chanukah shirt",
+   "menorah shirt",
+   "jelly donut shirt",
+   "jewish holiday tee",
+   "festival of lights",
+   "dreidel shirt",
+   "watercolor shirt",
+   "hanukkah gift",
+   "sufganiyot shirt",
+   "chanukah gift",
+   "holiday tee"
+  ],
+  "description": "A lit gold menorah with nine blue candles glows over a plate of jam-filled sufganiyot dusted with powdered sugar, with two dreidels, chocolate gelt and olive sprigs, painted in layered watercolor under \"Sufganiyot Season\" in warm script and \"jelly donuts by candlelight\" below. Made for eight nights of candles, family dinners and anyone who saves the last jelly donut for themselves.",
+  "per_product": {
+   "sweatshirt": {
+    "title": "Sufganiyot Season Sweatshirt, Watercolor Hanukkah Crewneck, Menorah and Jelly Donut Chanukah Pullover, Jewish Holiday Gift, Dreidel Sweater",
+    "tags": [
+     "sufganiyot season",
+     "hanukkah sweatshirt",
+     "chanukah sweatshirt",
+     "menorah crewneck",
+     "jelly donut sweater",
+     "jewish holiday gift",
+     "festival of lights",
+     "dreidel sweatshirt",
+     "watercolor crewneck",
+     "hanukkah gift",
+     "sufganiyot gift",
+     "chanukah pullover",
+     "winter sweatshirt"
+    ]
+   },
+   "mug": {
+    "title": "Sufganiyot Season Mug, Watercolor Hanukkah Coffee Mug, Menorah and Jelly Donut Chanukah Mug, Jewish Holiday Gift, Festival of Lights Cup",
+    "tags": [
+     "sufganiyot season",
+     "hanukkah mug",
+     "chanukah mug",
+     "menorah mug",
+     "jelly donut mug",
+     "jewish gift",
+     "festival of lights",
+     "dreidel mug",
+     "watercolor mug",
+     "hanukkah gift",
+     "coffee mug gift",
+     "chanukah gift",
+     "holiday mug"
+    ]
+   },
+   "poster": {
+    "title": "Sufganiyot Season Art Print, Watercolor Hanukkah Wall Art, Menorah and Jelly Donut Chanukah Decor, Jewish Holiday Kitchen Print, Dreidel Art",
+    "tags": [
+     "sufganiyot season",
+     "hanukkah wall art",
+     "chanukah decor",
+     "menorah print",
+     "jelly donut art",
+     "jewish home decor",
+     "festival of lights",
+     "dreidel art print",
+     "watercolor print",
+     "hanukkah decor",
+     "kitchen wall art",
+     "chanukah print",
+     "holiday poster"
+    ]
+   },
+   "sticker": {
+    "title": "Sufganiyot Season Sticker, Watercolor Hanukkah Menorah Vinyl Sticker, Jelly Donut Chanukah Laptop Sticker, Dreidel Water Bottle Decal",
+    "tags": [
+     "sufganiyot season",
+     "hanukkah sticker",
+     "chanukah sticker",
+     "menorah sticker",
+     "jelly donut sticker",
+     "dreidel sticker",
+     "laptop sticker",
+     "planner sticker",
+     "watercolor sticker",
+     "journal sticker",
+     "hanukkah gift",
+     "jewish sticker",
+     "holiday sticker"
+    ]
+   }
+  },
+  "products": [
+   "Unisex tee (Bella+Canvas 3001)",
+   "Crewneck sweatshirt (Gildan 18000)",
+   "11 oz mug",
+   "Art print (matte poster)",
+   "Kiss-cut sticker"
+  ],
+  "price_note": "Prices from the POD-DESK.md product table (Printify catalog costs read through the API on 2026-09-28): tee $26, sweatshirt $42, mug $18, art print $22/$30/$36, sticker $6.75/$7.40 (decisions/2026-09-28-sticker-pricing-update). Competitor prices seen in 2026-10-02 search snippets: a watercolor menorah tee at $10.00 on sale from $20.00, a text Hanukkah sweatshirt at $20.15, Hanukkah mugs at $19.99-$25.00; we don't run fake sales. The owner can change any price.",
+  "trademark_check": "Legal Desk screen 2026-10-02 (before any art): web searches '\"sufganiyot season\" trademark', 'SUFGANIYOT trademark registration clothing USPTO justia', '\"sufganiyot season\" OR \"donut season\" hanukkah shirt' and '\"jelly donuts by candlelight\"' found no SUFGANIYOT SEASON or JELLY DONUTS BY CANDLELIGHT registration, filing or apparel brand. 'Sufganiyot season' is used descriptively in news and food writing (Israeli bakeries, the Histadrut). Sufganiyot products seen use other wording (Sufganiyot Squad, Sufganiyot Monster, The Best Part About Hanukkah Sufganiyot). Kept out: 'Eight Nights of Light' (an Etsy sign uses it), 'Eight Little Lights' (contains LITTLE LIGHTS, a children's clothing brand), '8 Crazy Nights' (film title), 'Let's Get Lit', 'Oy to the World', and any brand, bakery or character. tmsearch.uspto.gov, Justia and uspto.report pages are blocked from our sessions, so the official database was not searched directly; this is a search-engine screen, not a clearance."
+ }
+}

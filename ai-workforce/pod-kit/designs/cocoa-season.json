@@ -1,0 +1,277 @@
+{
+ "id": "cocoa-season",
+ "name": "Cocoa Season",
+ "template": "arch",
+ "top": "Cocoa Season",
+ "bottom": "extra marshmallows, please",
+ "top_font": "Pacifico",
+ "bottom_font": "DancingScript",
+ "art": [
+  {
+   "motif": "pine_bough",
+   "x": -0.25,
+   "y": 0.03,
+   "s": 0.21,
+   "angle": -0.32,
+   "bend": 0.3,
+   "snow": true,
+   "twigs": 3
+  },
+  {
+   "motif": "pine_bough",
+   "x": 0.25,
+   "y": 0.02,
+   "s": 0.21,
+   "angle": 3.38,
+   "bend": -0.3,
+   "snow": true,
+   "twigs": 3
+  },
+  {
+   "motif": "snowflake",
+   "x": -0.34,
+   "y": -0.2,
+   "s": 0.03,
+   "angle": 0.2
+  },
+  {
+   "motif": "snowflake",
+   "x": 0.36,
+   "y": -0.21,
+   "s": 0.026,
+   "angle": 0.5
+  },
+  {
+   "motif": "snowflake",
+   "x": -0.21,
+   "y": -0.27,
+   "s": 0.018,
+   "angle": 0.1
+  },
+  {
+   "motif": "snowflake",
+   "x": 0.23,
+   "y": -0.28,
+   "s": 0.02,
+   "angle": 0.4
+  },
+  {
+   "motif": "snow_dot",
+   "x": -0.42,
+   "y": -0.1,
+   "s": 0.007
+  },
+  {
+   "motif": "snow_dot",
+   "x": -0.27,
+   "y": -0.14,
+   "s": 0.006
+  },
+  {
+   "motif": "snow_dot",
+   "x": 0.28,
+   "y": -0.12,
+   "s": 0.007
+  },
+  {
+   "motif": "snow_dot",
+   "x": 0.43,
+   "y": -0.08,
+   "s": 0.006
+  },
+  {
+   "motif": "snow_dot",
+   "x": 0.13,
+   "y": -0.3,
+   "s": 0.005
+  },
+  {
+   "motif": "snow_dot",
+   "x": -0.12,
+   "y": -0.3,
+   "s": 0.005
+  },
+  {
+   "motif": "cocoa_mug",
+   "x": -0.02,
+   "y": 0.02,
+   "s": 0.18,
+   "front": true
+  },
+  {
+   "motif": "cinnamon_stick",
+   "x": -0.35,
+   "y": 0.235,
+   "s": 0.2,
+   "angle": 0.22,
+   "n": 2
+  },
+  {
+   "motif": "star_anise",
+   "x": -0.19,
+   "y": 0.245,
+   "s": 0.035,
+   "angle": 0.2
+  },
+  {
+   "motif": "marshmallow",
+   "x": -0.095,
+   "y": 0.25,
+   "s": 0.05,
+   "angle": 0.3
+  },
+  {
+   "motif": "marshmallow",
+   "x": -0.03,
+   "y": 0.262,
+   "s": 0.045,
+   "angle": -0.4,
+   "tint": [
+    250,
+    226,
+    230
+   ]
+  },
+  {
+   "motif": "peppermint",
+   "x": 0.065,
+   "y": 0.245,
+   "s": 0.04,
+   "angle": 0.6
+  },
+  {
+   "motif": "holly",
+   "x": 0.165,
+   "y": 0.245,
+   "s": 0.065,
+   "angle": 3.6
+  },
+  {
+   "motif": "orange_slice",
+   "x": 0.33,
+   "y": 0.215,
+   "s": 0.075,
+   "angle": 0.3
+  }
+ ],
+ "florals": null,
+ "palette": "autumn",
+ "colors": {
+  "object": "#b3303a",
+  "object2": "#d85a5c",
+  "leaf": "#4f7a5e",
+  "leaf2": "#8fb39a",
+  "holly": "#2f6b4f",
+  "holly2": "#6fa27e",
+  "berry": "#c62b33",
+  "snow": "#8fb0c8"
+ },
+ "seed": 5,
+ "shirt_colors": [
+  "natural",
+  "white",
+  "sand"
+ ],
+ "listing": {
+  "title": "Cocoa Season Shirt, Watercolor Hot Cocoa Tee, Cozy Winter Christmas Shirt, Hot Chocolate Lover Gift, Marshmallow Holiday Top",
+  "tags": [
+   "cocoa season",
+   "hot cocoa shirt",
+   "hot chocolate shirt",
+   "cozy winter shirt",
+   "christmas shirt",
+   "hot cocoa lover",
+   "marshmallow shirt",
+   "watercolor shirt",
+   "winter tee",
+   "holiday shirt",
+   "cocoa lover gift",
+   "christmas gift idea",
+   "cozy season shirt"
+  ],
+  "description": "A steaming red mug of hot cocoa, piled with marshmallows and a cinnamon stick, sits among snowy pine boughs with a peppermint, star anise, holly and a dried orange slice, painted in layered watercolor under \"Cocoa Season\" in warm script and \"extra marshmallows, please\" below. Made for snow days, holiday movie nights and anyone who keeps the cocoa tin full from the first frost on.",
+  "per_product": {
+   "sweatshirt": {
+    "title": "Cocoa Season Sweatshirt, Watercolor Hot Cocoa Crewneck, Cozy Winter Christmas Sweatshirt, Hot Chocolate Lover Gift, Marshmallow Pullover",
+    "tags": [
+     "cocoa season",
+     "hot cocoa sweatshirt",
+     "hot cocoa crewneck",
+     "christmas sweatshirt",
+     "cozy winter crewneck",
+     "hot chocolate gift",
+     "marshmallow lover",
+     "watercolor crewneck",
+     "winter sweatshirt",
+     "holiday pullover",
+     "cocoa lover gift",
+     "christmas gift her",
+     "cozy season sweater"
+    ]
+   },
+   "mug": {
+    "title": "Cocoa Season Mug, Watercolor Hot Cocoa Coffee Mug, Marshmallow and Peppermint Christmas Mug, Cozy Winter Gift for Hot Chocolate Lovers",
+    "tags": [
+     "cocoa season mug",
+     "hot cocoa mug",
+     "hot chocolate mug",
+     "christmas mug",
+     "marshmallow mug",
+     "winter coffee mug",
+     "watercolor mug",
+     "cocoa lover gift",
+     "peppermint mug",
+     "holiday mug gift",
+     "cozy winter mug",
+     "stocking stuffer",
+     "secret santa gift"
+    ]
+   },
+   "poster": {
+    "title": "Cocoa Season Art Print, Watercolor Hot Cocoa Wall Art, Christmas Kitchen Decor, Hot Cocoa Bar Print, Cozy Winter Holiday Poster",
+    "tags": [
+     "cocoa season print",
+     "hot cocoa wall art",
+     "hot cocoa bar decor",
+     "holiday kitchen art",
+     "winter wall art",
+     "hot chocolate print",
+     "watercolor print",
+     "holiday decor print",
+     "cozy kitchen decor",
+     "marshmallow art",
+     "christmas poster",
+     "farmhouse christmas",
+     "winter art print"
+    ]
+   },
+   "sticker": {
+    "title": "Cocoa Season Sticker, Watercolor Hot Cocoa Mug Vinyl Sticker, Marshmallow Christmas Laptop Sticker, Cozy Winter Water Bottle Decal",
+    "tags": [
+     "cocoa season sticker",
+     "hot cocoa sticker",
+     "christmas sticker",
+     "marshmallow sticker",
+     "winter sticker",
+     "laptop sticker",
+     "planner sticker",
+     "watercolor sticker",
+     "journal sticker",
+     "stocking stuffer",
+     "hot chocolate decal",
+     "cozy sticker",
+     "holiday sticker"
+    ]
+   }
+  },
+  "products": [
+   "Unisex tee (Bella+Canvas 3001)",
+   "Crewneck sweatshirt (Gildan 18000)",
+   "11 oz mug",
+   "Art print (matte poster)",
+   "Kiss-cut sticker"
+  ],
+  "price_note": "Prices from the POD-DESK.md product table (Printify catalog costs read through the API on 2026-09-28): tee $26, sweatshirt $42, mug $18, art print $22/$30/$36, sticker $6.75/$7.40 (raised 2026-09-28, decisions/2026-09-28-sticker-pricing-update). Competitor prices were not visible in the 2026-09-30 search results, so none are claimed. The owner can change any price.",
+  "trademark_check": "Legal Desk screen 2026-09-30 (before any art): web searches '\"cocoa season\" trademark clothing', '\"COCOA SEASON\" trademark USPTO registration', '\"cocoa season\" brand apparel' and '\"extra marshmallows please\" trademark OR shirt' found no COCOA SEASON or EXTRA MARSHMALLOWS PLEASE registration, filing or apparel brand. Clothing marks that contain COCOA use different wording (COCOAMATO, filed 2021 for clothing; LA COCOA; the Cocoa Spain label); the chocolate marks seen (COCOA K'CHOO, COCOA BOMBS, COCOA BAMA, UN COCOA LOCO) cover food, not apparel or mugs. 'Cocoa season' and 'hot cocoa season' are used descriptively by independent sellers. Kept out: the crowded phrase 'Hot Cocoa Weather', any cocoa or marshmallow brand, the DJ name Marshmello, cereal brands. tmsearch.uspto.gov, Justia and uspto.report pages are blocked from our sessions, so the official database was not searched directly; this is a search-engine screen, not a clearance."
+ }
+}

@@ -1,0 +1,4 @@
+__pycache__/
+setups/__pycache__/
+out/db/
+out/tape_rows.jsonl
