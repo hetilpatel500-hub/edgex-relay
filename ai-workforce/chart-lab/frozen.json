@@ -1341,5 +1341,90 @@
   "side": "fade",
   "status_at_freeze": "promising",
   "tf": "M5"
+ },
+ "donchian_hurst": {
+  "exit": "2atr/4atr",
+  "filter": "rvol+trend",
+  "frozen_at": "2026-10-09",
+  "oos_at_freeze": {
+   "avg_r": 0.17,
+   "max_drawdown_r": 5.41,
+   "n": 89,
+   "profit_factor": 1.38,
+   "t_stat": 1.36,
+   "total_r": 15.11,
+   "win_rate": 0.483
+  },
+  "side": "fade",
+  "status_at_freeze": "promising",
+  "tf": "M5"
+ },
+ "no_demand_no_supply": {
+  "exit": "1atr/2atr",
+  "filter": "rvol+trend",
+  "frozen_at": "2026-10-09",
+  "oos_at_freeze": {
+   "avg_r": 0.024,
+   "max_drawdown_r": 10.83,
+   "n": 33,
+   "profit_factor": 1.04,
+   "t_stat": 0.1,
+   "total_r": 0.81,
+   "win_rate": 0.424
+  },
+  "side": "fade",
+  "status_at_freeze": "promising",
+  "tf": "M5"
+ },
+ "failed_auction_next_day": {
+  "side": "fade",
+  "filter": "vwap",
+  "exit": "1atr/2atr",
+  "tf": "M5",
+  "frozen_at": "2026-10-12",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 43,
+   "win_rate": 0.372,
+   "avg_r": 0.005,
+   "total_r": 0.22,
+   "profit_factor": 1.01,
+   "t_stat": 0.02,
+   "max_drawdown_r": 11.67
+  }
+ },
+ "heikin_ashi_vwap": {
+  "side": "fade",
+  "filter": "rvol",
+  "exit": "3atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-10-12",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 166,
+   "win_rate": 0.512,
+   "avg_r": 0.104,
+   "total_r": 17.21,
+   "profit_factor": 1.31,
+   "t_stat": 1.46,
+   "max_drawdown_r": 6.92
+  }
+ },
+ "rvi_dorsey_cross": {
+  "side": "fade",
+  "filter": "rvol+trend",
+  "exit": "2atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-10-12",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 55,
+   "win_rate": 0.436,
+   "avg_r": 0.009,
+   "total_r": 0.5,
+   "profit_factor": 1.02,
+   "t_stat": 0.04,
+   "max_drawdown_r": 7.25
+  }
  }
 }
