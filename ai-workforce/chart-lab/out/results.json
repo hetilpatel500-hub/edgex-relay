@@ -1,6 +1,6 @@
 {
  "meta": {
-  "generated_at": "2026-10-11T16:06:16Z",
+  "generated_at": "2026-10-12T13:26:51Z",
   "source": "Webull get_stock_bars (read-only), stored in chart-lab/data",
   "universe": [
    "SPY",
@@ -40,8 +40,8 @@
    "2atr/4atr": -0.094,
    "3atr/close": -0.062
   },
-  "variants_tried_total": 32700,
-  "runtime_s": 25.0
+  "variants_tried_total": 35472,
+  "runtime_s": 48.2
  },
  "results": [
   {
@@ -2916,6 +2916,73 @@
   },
   {
    "variants_tried": 126,
+   "signals_total": 973,
+   "status": "rejected",
+   "side": "with",
+   "filter": "rvol",
+   "exit": "1atr/1.5atr",
+   "random_baseline_r": -0.144,
+   "edge_vs_random_oos": 0.118,
+   "in_sample": {
+    "n": 93,
+    "win_rate": 0.484,
+    "avg_r": 0.099,
+    "total_r": 9.24,
+    "profit_factor": 1.17,
+    "t_stat": 0.77,
+    "max_drawdown_r": 7.16
+   },
+   "out_of_sample": {
+    "n": 64,
+    "win_rate": 0.453,
+    "avg_r": -0.026,
+    "total_r": -1.68,
+    "profit_factor": 0.96,
+    "t_stat": -0.17,
+    "max_drawdown_r": 11.3
+   },
+   "longs": {
+    "n": 84,
+    "win_rate": 0.512,
+    "avg_r": 0.161,
+    "total_r": 13.55,
+    "profit_factor": 1.29,
+    "t_stat": 1.18,
+    "max_drawdown_r": 6.45
+   },
+   "shorts": {
+    "n": 73,
+    "win_rate": 0.425,
+    "avg_r": -0.082,
+    "total_r": -5.98,
+    "profit_factor": 0.87,
+    "t_stat": -0.57,
+    "max_drawdown_r": 9.31
+   },
+   "symbols_positive": "7/12",
+   "by_symbol": {
+    "AAPL": -6.72,
+    "AMD": 3.73,
+    "AMZN": -2.7,
+    "DIA": -1.48,
+    "GOOGL": -3.9,
+    "IWM": -2.99,
+    "META": 8.01,
+    "MSFT": 2.93,
+    "NVDA": 1.14,
+    "QQQ": 5.68,
+    "SPY": 3.22,
+    "TSLA": 0.64
+   },
+   "id": "bop_cross",
+   "name": "Balance of Power zero cross with VWAP",
+   "family": "momentum",
+   "rules": "Balance of Power scores each 5-minute bar by how far it closed from its open as a share of its range (+1 all buyers, -1 all sellers), averaged over 14 bars. Between 10:30 and 14:30 the first cross of that average up through zero while price is above VWAP leans long, the first cross down through zero while price is below VWAP leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/momentum-analyst-balance-of-power-cross.py"
+  },
+  {
+   "variants_tried": 126,
    "signals_total": 389,
    "status": "rejected",
    "side": "fade",
@@ -3171,6 +3238,207 @@
   },
   {
    "variants_tried": 126,
+   "signals_total": 1025,
+   "status": "insufficient",
+   "side": "fade",
+   "filter": "vwap+rvol",
+   "exit": "2atr/4atr",
+   "random_baseline_r": -0.094,
+   "edge_vs_random_oos": 0.328,
+   "in_sample": {
+    "n": 49,
+    "win_rate": 0.49,
+    "avg_r": 0.195,
+    "total_r": 9.55,
+    "profit_factor": 1.41,
+    "t_stat": 1.08,
+    "max_drawdown_r": 7.55
+   },
+   "out_of_sample": {
+    "n": 21,
+    "win_rate": 0.524,
+    "avg_r": 0.234,
+    "total_r": 4.92,
+    "profit_factor": 1.56,
+    "t_stat": 0.88,
+    "max_drawdown_r": 3.59
+   },
+   "longs": {
+    "n": 36,
+    "win_rate": 0.528,
+    "avg_r": 0.169,
+    "total_r": 6.09,
+    "profit_factor": 1.35,
+    "t_stat": 0.8,
+    "max_drawdown_r": 4.71
+   },
+   "shorts": {
+    "n": 34,
+    "win_rate": 0.471,
+    "avg_r": 0.247,
+    "total_r": 8.38,
+    "profit_factor": 1.57,
+    "t_stat": 1.15,
+    "max_drawdown_r": 5.48
+   },
+   "symbols_positive": "9/12",
+   "by_symbol": {
+    "AAPL": 1.71,
+    "AMD": 0.93,
+    "AMZN": 1.72,
+    "DIA": 2.39,
+    "GOOGL": -0.55,
+    "IWM": 3.52,
+    "META": 0.33,
+    "MSFT": 3.39,
+    "NVDA": 1.68,
+    "QQQ": 1.73,
+    "SPY": -1.36,
+    "TSLA": -1.02
+   },
+   "id": "connors_rsi_reentry",
+   "name": "ConnorsRSI re-entry from 10/90",
+   "family": "momentum",
+   "rules": "ConnorsRSI averages a 3-bar RSI of price, a 2-bar RSI of the up/down streak length and the percent rank of the latest bar's return among earlier returns that session. Between 10:30 and 14:30 the first cross back up through 10 leans long and the first cross back down through 90 leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/momentum-analyst-connors-rsi-reentry.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 1044,
+   "status": "rejected",
+   "side": "with",
+   "filter": "ppoc",
+   "exit": "1atr/1.5atr",
+   "random_baseline_r": -0.144,
+   "edge_vs_random_oos": -0.164,
+   "in_sample": {
+    "n": 241,
+    "win_rate": 0.519,
+    "avg_r": 0.148,
+    "total_r": 35.67,
+    "profit_factor": 1.27,
+    "t_stat": 1.85,
+    "max_drawdown_r": 12.78
+   },
+   "out_of_sample": {
+    "n": 164,
+    "win_rate": 0.348,
+    "avg_r": -0.308,
+    "total_r": -50.48,
+    "profit_factor": 0.6,
+    "t_stat": -3.33,
+    "max_drawdown_r": 58.68
+   },
+   "longs": {
+    "n": 203,
+    "win_rate": 0.478,
+    "avg_r": 0.03,
+    "total_r": 6.01,
+    "profit_factor": 1.05,
+    "t_stat": 0.34,
+    "max_drawdown_r": 25.34
+   },
+   "shorts": {
+    "n": 202,
+    "win_rate": 0.421,
+    "avg_r": -0.103,
+    "total_r": -20.82,
+    "profit_factor": 0.85,
+    "t_stat": -1.19,
+    "max_drawdown_r": 44.38
+   },
+   "symbols_positive": "4/12",
+   "by_symbol": {
+    "AAPL": -7.3,
+    "AMD": -1.32,
+    "AMZN": 3.27,
+    "DIA": -7.47,
+    "GOOGL": 5.52,
+    "IWM": -2.9,
+    "META": -1.17,
+    "MSFT": -9.55,
+    "NVDA": 10.3,
+    "QQQ": -0.09,
+    "SPY": -4.23,
+    "TSLA": 0.12
+   },
+   "id": "coppock_turn",
+   "name": "Coppock curve turn against zero",
+   "family": "momentum",
+   "rules": "Coppock is a weighted average of two rates of change (14 and 11 bars). Between 10:30 and 14:30, when it is below zero and turns up it leans long; when above zero and it turns down it leans short. Needs about two hours of session history. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/momentum-analyst-coppock-turn.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 1036,
+   "status": "insufficient",
+   "side": "fade",
+   "filter": "vwap+ppoc",
+   "exit": "1atr/close",
+   "random_baseline_r": -0.198,
+   "edge_vs_random_oos": 0.129,
+   "in_sample": {
+    "n": 50,
+    "win_rate": 0.24,
+    "avg_r": 0.399,
+    "total_r": 19.93,
+    "profit_factor": 1.46,
+    "t_stat": 0.76,
+    "max_drawdown_r": 22.19
+   },
+   "out_of_sample": {
+    "n": 24,
+    "win_rate": 0.25,
+    "avg_r": -0.069,
+    "total_r": -1.65,
+    "profit_factor": 0.92,
+    "t_stat": -0.15,
+    "max_drawdown_r": 7.28
+   },
+   "longs": {
+    "n": 31,
+    "win_rate": 0.226,
+    "avg_r": -0.233,
+    "total_r": -7.23,
+    "profit_factor": 0.75,
+    "t_stat": -0.58,
+    "max_drawdown_r": 21.36
+   },
+   "shorts": {
+    "n": 43,
+    "win_rate": 0.256,
+    "avg_r": 0.593,
+    "total_r": 25.51,
+    "profit_factor": 1.71,
+    "t_stat": 1.0,
+    "max_drawdown_r": 14.59
+   },
+   "symbols_positive": "6/12",
+   "by_symbol": {
+    "AAPL": 3.47,
+    "AMD": 1.49,
+    "AMZN": 4.36,
+    "DIA": 2.31,
+    "GOOGL": 24.35,
+    "IWM": -0.58,
+    "META": -4.41,
+    "MSFT": 6.07,
+    "NVDA": -4.74,
+    "QQQ": -3.98,
+    "SPY": -6.03,
+    "TSLA": -4.03
+   },
+   "id": "demarker_reentry",
+   "name": "DeMarker re-entry from 0.30 / 0.70",
+   "family": "momentum",
+   "rules": "The DeMarker oscillator compares how much each 5-minute bar's high exceeds the previous high with how much its low undercuts the previous low, over 14 bars (0 to 1). Between 10:30 and 14:30 the first cross back up through 0.30 leans long and the first cross back down through 0.70 leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/momentum-analyst-demarker-reentry.py"
+  },
+  {
+   "variants_tried": 126,
    "signals_total": 1138,
    "status": "insufficient",
    "side": "fade",
@@ -3359,6 +3627,140 @@
   },
   {
    "variants_tried": 126,
+   "signals_total": 964,
+   "status": "rejected",
+   "side": "with",
+   "filter": "rvol",
+   "exit": "2atr/4atr",
+   "random_baseline_r": -0.094,
+   "edge_vs_random_oos": -0.118,
+   "in_sample": {
+    "n": 104,
+    "win_rate": 0.471,
+    "avg_r": 0.117,
+    "total_r": 12.17,
+    "profit_factor": 1.22,
+    "t_stat": 0.92,
+    "max_drawdown_r": 13.85
+   },
+   "out_of_sample": {
+    "n": 85,
+    "win_rate": 0.318,
+    "avg_r": -0.212,
+    "total_r": -17.99,
+    "profit_factor": 0.69,
+    "t_stat": -1.6,
+    "max_drawdown_r": 21.59
+   },
+   "longs": {
+    "n": 117,
+    "win_rate": 0.427,
+    "avg_r": 0.056,
+    "total_r": 6.54,
+    "profit_factor": 1.1,
+    "t_stat": 0.47,
+    "max_drawdown_r": 16.36
+   },
+   "shorts": {
+    "n": 72,
+    "win_rate": 0.361,
+    "avg_r": -0.172,
+    "total_r": -12.36,
+    "profit_factor": 0.74,
+    "t_stat": -1.18,
+    "max_drawdown_r": 21.77
+   },
+   "symbols_positive": "4/12",
+   "by_symbol": {
+    "AAPL": -5.62,
+    "AMD": -5.61,
+    "AMZN": -6.53,
+    "DIA": -2.08,
+    "GOOGL": -2.81,
+    "IWM": -6.97,
+    "META": 0.19,
+    "MSFT": -4.02,
+    "NVDA": 4.1,
+    "QQQ": 10.67,
+    "SPY": 14.34,
+    "TSLA": -1.49
+   },
+   "id": "kst_signal_cross",
+   "name": "Know Sure Thing signal cross with VWAP",
+   "family": "momentum",
+   "rules": "The Know Sure Thing adds up four smoothed rates of change (5, 8, 10 and 15 bars, longer ones weighted more) into one momentum line and compares it with its own 5-bar average. Between 11:30 and 14:30, the first time the line crosses above its average while price is above VWAP leans long; the first cross below while price is below VWAP leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/momentum-analyst-kst-signal-cross.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 1020,
+   "status": "insufficient",
+   "side": "fade",
+   "filter": "vwap+rvol",
+   "exit": "1atr/2atr",
+   "random_baseline_r": -0.14,
+   "edge_vs_random_oos": -0.092,
+   "in_sample": {
+    "n": 40,
+    "win_rate": 0.45,
+    "avg_r": 0.211,
+    "total_r": 8.43,
+    "profit_factor": 1.36,
+    "t_stat": 0.92,
+    "max_drawdown_r": 3.88
+   },
+   "out_of_sample": {
+    "n": 27,
+    "win_rate": 0.296,
+    "avg_r": -0.232,
+    "total_r": -6.25,
+    "profit_factor": 0.71,
+    "t_stat": -0.87,
+    "max_drawdown_r": 8.33
+   },
+   "longs": {
+    "n": 33,
+    "win_rate": 0.364,
+    "avg_r": 0.005,
+    "total_r": 0.18,
+    "profit_factor": 1.01,
+    "t_stat": 0.02,
+    "max_drawdown_r": 4.76
+   },
+   "shorts": {
+    "n": 34,
+    "win_rate": 0.412,
+    "avg_r": 0.059,
+    "total_r": 2.0,
+    "profit_factor": 1.09,
+    "t_stat": 0.24,
+    "max_drawdown_r": 9.65
+   },
+   "symbols_positive": "8/12",
+   "by_symbol": {
+    "AAPL": 0.26,
+    "AMD": 2.88,
+    "AMZN": 0.81,
+    "DIA": -7.78,
+    "GOOGL": 1.61,
+    "IWM": 2.53,
+    "META": 1.31,
+    "MSFT": 1.63,
+    "NVDA": -0.23,
+    "QQQ": -1.42,
+    "SPY": -2.29,
+    "TSLA": 2.86
+   },
+   "id": "laguerre_rsi_reentry",
+   "name": "Laguerre RSI re-entry from 0.15 / 0.85",
+   "family": "momentum",
+   "rules": "Ehlers' Laguerre RSI is a heavily smoothed RSI that runs 0 to 1. Between 10:30 and 14:30 the first cross back up through 0.15 leans long and the first cross back down through 0.85 leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/momentum-analyst-laguerre-rsi-reentry.py"
+  },
+  {
+   "variants_tried": 126,
    "signals_total": 27,
    "status": "insufficient",
    "note": "fewer than 30 in-sample signals for every variant",
@@ -3368,6 +3770,249 @@
    "rules": "If yesterday's 3-period RSI of the daily change in close (Raschke's Pinball) closed under 30, look only for longs; over 70, only shorts. After the first hour, lean with the first close beyond that hour's high (long) or low (short), before 14:00. One per day.",
    "tf": "M5",
    "file": "setups/momentum-analyst-momentum-pinball.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 250,
+   "status": "rejected",
+   "side": "with",
+   "filter": "ppoc",
+   "exit": "2atr/close",
+   "random_baseline_r": -0.105,
+   "edge_vs_random_oos": -0.107,
+   "in_sample": {
+    "n": 116,
+    "win_rate": 0.379,
+    "avg_r": 0.026,
+    "total_r": 2.99,
+    "profit_factor": 1.04,
+    "t_stat": 0.17,
+    "max_drawdown_r": 18.67
+   },
+   "out_of_sample": {
+    "n": 54,
+    "win_rate": 0.352,
+    "avg_r": -0.212,
+    "total_r": -11.46,
+    "profit_factor": 0.65,
+    "t_stat": -1.37,
+    "max_drawdown_r": 21.74
+   },
+   "longs": {
+    "n": 87,
+    "win_rate": 0.391,
+    "avg_r": -0.099,
+    "total_r": -8.58,
+    "profit_factor": 0.83,
+    "t_stat": -0.73,
+    "max_drawdown_r": 21.87
+   },
+   "shorts": {
+    "n": 83,
+    "win_rate": 0.349,
+    "avg_r": 0.001,
+    "total_r": 0.1,
+    "profit_factor": 1.0,
+    "t_stat": 0.01,
+    "max_drawdown_r": 15.04
+   },
+   "symbols_positive": "6/12",
+   "by_symbol": {
+    "AAPL": 4.01,
+    "AMD": -2.84,
+    "AMZN": 2.71,
+    "DIA": 3.97,
+    "GOOGL": 9.14,
+    "IWM": -7.58,
+    "META": -0.82,
+    "MSFT": -7.55,
+    "NVDA": 1.95,
+    "QQQ": -5.31,
+    "SPY": -7.51,
+    "TSLA": 1.37
+   },
+   "id": "pgo_breakout",
+   "name": "Pretty Good Oscillator +/-3 breakout",
+   "family": "momentum",
+   "rules": "PGO is how far the close sits from its 14-bar average, measured in average true ranges. Between 10:30 and 14:30 the first cross above +3 leans long and the first cross below -3 leans short (Mark Johnson's breakout rule). One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/momentum-analyst-pretty-good-oscillator.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 959,
+   "status": "promising",
+   "side": "fade",
+   "filter": "trend",
+   "exit": "2atr/close",
+   "random_baseline_r": -0.105,
+   "edge_vs_random_oos": 0.25,
+   "in_sample": {
+    "n": 111,
+    "win_rate": 0.45,
+    "avg_r": 0.16,
+    "total_r": 17.73,
+    "profit_factor": 1.31,
+    "t_stat": 0.99,
+    "max_drawdown_r": 10.75
+   },
+   "out_of_sample": {
+    "n": 57,
+    "win_rate": 0.421,
+    "avg_r": 0.145,
+    "total_r": 8.27,
+    "profit_factor": 1.26,
+    "t_stat": 0.73,
+    "max_drawdown_r": 5.54
+   },
+   "longs": {
+    "n": 84,
+    "win_rate": 0.452,
+    "avg_r": -0.036,
+    "total_r": -3.0,
+    "profit_factor": 0.93,
+    "t_stat": -0.28,
+    "max_drawdown_r": 13.56
+   },
+   "shorts": {
+    "n": 84,
+    "win_rate": 0.429,
+    "avg_r": 0.345,
+    "total_r": 29.0,
+    "profit_factor": 1.65,
+    "t_stat": 1.6,
+    "max_drawdown_r": 7.5
+   },
+   "symbols_positive": "8/12",
+   "by_symbol": {
+    "AAPL": 0.77,
+    "AMD": -2.93,
+    "AMZN": -3.24,
+    "DIA": 1.07,
+    "GOOGL": 12.17,
+    "IWM": 4.73,
+    "META": -0.99,
+    "MSFT": 6.43,
+    "NVDA": 1.3,
+    "QQQ": 3.67,
+    "SPY": -3.91,
+    "TSLA": 6.92
+   },
+   "id": "pzo_reentry",
+   "name": "Price Zone Oscillator re-entry from +/-40",
+   "family": "momentum",
+   "rules": "PZO is the 14-bar EMA of the close signed by the direction of each bar's change, divided by the 14-bar EMA of the close. Between 10:30 and 14:30, when it climbs back above -40 it leans long; when it falls back below +40 it leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/momentum-analyst-price-zone-oscillator.py",
+   "frozen": {
+    "exit": "2atr/close",
+    "filter": "trend",
+    "frozen_at": "2026-10-09",
+    "oos_at_freeze": {
+     "avg_r": 0.145,
+     "max_drawdown_r": 5.54,
+     "n": 57,
+     "profit_factor": 1.26,
+     "t_stat": 0.73,
+     "total_r": 8.27,
+     "win_rate": 0.421
+    },
+    "side": "fade",
+    "status_at_freeze": "promising",
+    "tf": "M5"
+   },
+   "forward": {
+    "n": 0,
+    "verdict": "tracking"
+   }
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 1026,
+   "status": "promising",
+   "side": "fade",
+   "filter": "rvol+trend",
+   "exit": "2atr/4atr",
+   "random_baseline_r": -0.094,
+   "edge_vs_random_oos": 0.344,
+   "in_sample": {
+    "n": 47,
+    "win_rate": 0.511,
+    "avg_r": 0.183,
+    "total_r": 8.58,
+    "profit_factor": 1.44,
+    "t_stat": 1.09,
+    "max_drawdown_r": 3.61
+   },
+   "out_of_sample": {
+    "n": 31,
+    "win_rate": 0.581,
+    "avg_r": 0.25,
+    "total_r": 7.74,
+    "profit_factor": 1.6,
+    "t_stat": 1.18,
+    "max_drawdown_r": 2.36
+   },
+   "longs": {
+    "n": 30,
+    "win_rate": 0.6,
+    "avg_r": 0.346,
+    "total_r": 10.39,
+    "profit_factor": 1.99,
+    "t_stat": 1.65,
+    "max_drawdown_r": 2.18
+   },
+   "shorts": {
+    "n": 48,
+    "win_rate": 0.5,
+    "avg_r": 0.124,
+    "total_r": 5.93,
+    "profit_factor": 1.27,
+    "t_stat": 0.74,
+    "max_drawdown_r": 3.64
+   },
+   "symbols_positive": "8/12",
+   "by_symbol": {
+    "AAPL": 2.43,
+    "AMD": -1.24,
+    "AMZN": 2.26,
+    "DIA": 6.08,
+    "GOOGL": 3.82,
+    "IWM": 6.08,
+    "META": 0.48,
+    "MSFT": 1.13,
+    "NVDA": 0.37,
+    "QQQ": -2.15,
+    "SPY": -2.2,
+    "TSLA": -0.74
+   },
+   "id": "qstick_zero_cross",
+   "name": "Qstick zero-line cross with VWAP",
+   "family": "momentum",
+   "rules": "Qstick is the 8-bar average of candle bodies (close minus open). Between 10:30 and 14:30, when it turns from negative to positive and price closes above VWAP, it leans long; the mirror (positive to negative, price under VWAP) leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/momentum-analyst-qstick-zero-cross.py",
+   "frozen": {
+    "exit": "2atr/4atr",
+    "filter": "rvol+trend",
+    "frozen_at": "2026-10-09",
+    "oos_at_freeze": {
+     "avg_r": 0.25,
+     "max_drawdown_r": 2.36,
+     "n": 31,
+     "profit_factor": 1.6,
+     "t_stat": 1.18,
+     "total_r": 7.74,
+     "win_rate": 0.581
+    },
+    "side": "fade",
+    "status_at_freeze": "promising",
+    "tf": "M5"
+   },
+   "forward": {
+    "n": 0,
+    "verdict": "tracking"
+   }
   },
   {
    "variants_tried": 126,
@@ -3973,6 +4618,73 @@
   },
   {
    "variants_tried": 126,
+   "signals_total": 171,
+   "status": "rejected",
+   "side": "with",
+   "filter": "trend",
+   "exit": "3atr/close",
+   "random_baseline_r": -0.062,
+   "edge_vs_random_oos": -0.332,
+   "in_sample": {
+    "n": 56,
+    "win_rate": 0.482,
+    "avg_r": 0.001,
+    "total_r": 0.07,
+    "profit_factor": 1.0,
+    "t_stat": 0.01,
+    "max_drawdown_r": 9.38
+   },
+   "out_of_sample": {
+    "n": 36,
+    "win_rate": 0.25,
+    "avg_r": -0.394,
+    "total_r": -14.19,
+    "profit_factor": 0.38,
+    "t_stat": -2.52,
+    "max_drawdown_r": 14.19
+   },
+   "longs": {
+    "n": 41,
+    "win_rate": 0.488,
+    "avg_r": 0.087,
+    "total_r": 3.58,
+    "profit_factor": 1.21,
+    "t_stat": 0.54,
+    "max_drawdown_r": 12.16
+   },
+   "shorts": {
+    "n": 51,
+    "win_rate": 0.314,
+    "avg_r": -0.347,
+    "total_r": -17.71,
+    "profit_factor": 0.37,
+    "t_stat": -3.0,
+    "max_drawdown_r": 18.26
+   },
+   "symbols_positive": "4/12",
+   "by_symbol": {
+    "AAPL": -3.26,
+    "AMD": -0.43,
+    "AMZN": -1.96,
+    "DIA": -0.87,
+    "GOOGL": 2.06,
+    "IWM": 2.29,
+    "META": 3.24,
+    "MSFT": -3.58,
+    "NVDA": -0.56,
+    "QQQ": 0.07,
+    "SPY": -8.45,
+    "TSLA": -2.68
+   },
+   "id": "tsi_signal_cross",
+   "name": "True Strength Index signal cross with VWAP",
+   "family": "momentum",
+   "rules": "The True Strength Index is a double-smoothed measure of price momentum. Between 10:30 and 14:30, when it crosses above its 9-bar signal line while still below zero (a turn up from weakness) and price closes above VWAP, it leans long; the mirror (cross down while above zero, price under VWAP) leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/momentum-analyst-tsi-signal-cross.py"
+  },
+  {
+   "variants_tried": 126,
    "signals_total": 11,
    "status": "insufficient",
    "note": "fewer than 30 in-sample signals for every variant",
@@ -3982,6 +4694,73 @@
    "rules": "Larry Williams' Ultimate Oscillator blends 7, 14 and 28-bar buying pressure. A bullish signal needs price to make a lower low while the oscillator makes a higher low, the first low having been below 30; it triggers when the oscillator rises back above its highest reading between the two lows (mirror above 70 for bearish). Signals between 10:30 and 14:30, within 8 bars of the second swing, one per side per session; tested with and against.",
    "tf": "M5",
    "file": "setups/momentum-analyst-ultimate-oscillator-divergence.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 418,
+   "status": "rejected",
+   "side": "with",
+   "filter": "ppoc",
+   "exit": "2atr/close",
+   "random_baseline_r": -0.105,
+   "edge_vs_random_oos": -0.044,
+   "in_sample": {
+    "n": 45,
+    "win_rate": 0.578,
+    "avg_r": 0.289,
+    "total_r": 13.01,
+    "profit_factor": 1.68,
+    "t_stat": 1.42,
+    "max_drawdown_r": 6.26
+   },
+   "out_of_sample": {
+    "n": 40,
+    "win_rate": 0.375,
+    "avg_r": -0.149,
+    "total_r": -5.96,
+    "profit_factor": 0.76,
+    "t_stat": -0.79,
+    "max_drawdown_r": 12.36
+   },
+   "longs": {
+    "n": 39,
+    "win_rate": 0.41,
+    "avg_r": -0.138,
+    "total_r": -5.37,
+    "profit_factor": 0.77,
+    "t_stat": -0.67,
+    "max_drawdown_r": 10.57
+   },
+   "shorts": {
+    "n": 46,
+    "win_rate": 0.543,
+    "avg_r": 0.27,
+    "total_r": 12.42,
+    "profit_factor": 1.62,
+    "t_stat": 1.41,
+    "max_drawdown_r": 7.17
+   },
+   "symbols_positive": "6/12",
+   "by_symbol": {
+    "AAPL": -3.97,
+    "AMD": 1.44,
+    "AMZN": -1.05,
+    "DIA": 6.72,
+    "GOOGL": -1.11,
+    "IWM": -0.23,
+    "META": -0.35,
+    "MSFT": 1.43,
+    "NVDA": -1.93,
+    "QQQ": 4.31,
+    "SPY": 1.71,
+    "TSLA": 0.08
+   },
+   "id": "wavetrend_cross",
+   "name": "WaveTrend cross out of the +/-53 zone",
+   "family": "momentum",
+   "rules": "WaveTrend (LazyBear) smooths a CCI-style reading of the typical price. Between 10:30 and 14:30, when the fast line crosses up through its 4-bar signal line while still at or below -53 (stretched down), it leans long; the mirror cross down from +53 or higher leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/momentum-analyst-wavetrend-cross.py"
   },
   {
    "variants_tried": 126,
@@ -9166,6 +9945,73 @@
   },
   {
    "variants_tried": 126,
+   "signals_total": 919,
+   "status": "rejected",
+   "side": "fade",
+   "filter": "vwap+rvol",
+   "exit": "1atr/2atr",
+   "random_baseline_r": -0.14,
+   "edge_vs_random_oos": -0.128,
+   "in_sample": {
+    "n": 91,
+    "win_rate": 0.418,
+    "avg_r": 0.104,
+    "total_r": 9.45,
+    "profit_factor": 1.16,
+    "t_stat": 0.68,
+    "max_drawdown_r": 15.57
+   },
+   "out_of_sample": {
+    "n": 60,
+    "win_rate": 0.3,
+    "avg_r": -0.268,
+    "total_r": -16.07,
+    "profit_factor": 0.67,
+    "t_stat": -1.54,
+    "max_drawdown_r": 17.95
+   },
+   "longs": {
+    "n": 75,
+    "win_rate": 0.427,
+    "avg_r": 0.11,
+    "total_r": 8.22,
+    "profit_factor": 1.17,
+    "t_stat": 0.65,
+    "max_drawdown_r": 6.45
+   },
+   "shorts": {
+    "n": 76,
+    "win_rate": 0.316,
+    "avg_r": -0.195,
+    "total_r": -14.84,
+    "profit_factor": 0.75,
+    "t_stat": -1.23,
+    "max_drawdown_r": 23.85
+   },
+   "symbols_positive": "5/12",
+   "by_symbol": {
+    "AAPL": -1.39,
+    "AMD": 6.58,
+    "AMZN": -1.56,
+    "DIA": -8.42,
+    "GOOGL": -6.53,
+    "IWM": 6.04,
+    "META": -3.58,
+    "MSFT": 3.44,
+    "NVDA": 0.06,
+    "QQQ": 3.28,
+    "SPY": -3.92,
+    "TSLA": -0.65
+   },
+   "id": "fvg_first_retest",
+   "name": "Fair value gap first retest",
+   "family": "smart-money",
+   "rules": "A 3-bar imbalance (bar 3's low above bar 1's high, or the mirror) at least 0.3 ATR wide. The first bar within 12 bars that trades back into the gap without closing through it and closes in the displacement direction (green for a bullish gap, red for bearish) leans with the displacement; a bar that trades through the gap voids it. Before 15:00.",
+   "tf": "M5",
+   "file": "setups/smart-money-analyst-fvg-first-retest.py"
+  },
+  {
+   "variants_tried": 126,
    "signals_total": 3112,
    "status": "promising",
    "side": "fade",
@@ -9380,6 +10226,94 @@
    "rules": "In the first hour, price pushes at least 0.5 ATR to one side of the day's opening price and never the other way, then a 5-minute bar closes back through the open. A false move down that closes back above the open leans long; a false move up that closes back below leans short.",
    "tf": "M5",
    "file": "setups/smart-money-analyst-judas-swing.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 225,
+   "status": "promising",
+   "side": "fade",
+   "filter": "vwap+ppoc",
+   "exit": "2atr/4atr",
+   "random_baseline_r": -0.094,
+   "edge_vs_random_oos": 0.311,
+   "in_sample": {
+    "n": 55,
+    "win_rate": 0.473,
+    "avg_r": 0.219,
+    "total_r": 12.05,
+    "profit_factor": 1.45,
+    "t_stat": 1.25,
+    "max_drawdown_r": 5.39
+   },
+   "out_of_sample": {
+    "n": 32,
+    "win_rate": 0.469,
+    "avg_r": 0.217,
+    "total_r": 6.93,
+    "profit_factor": 1.37,
+    "t_stat": 0.86,
+    "max_drawdown_r": 5.47
+   },
+   "longs": {
+    "n": 43,
+    "win_rate": 0.372,
+    "avg_r": 0.019,
+    "total_r": 0.81,
+    "profit_factor": 1.03,
+    "t_stat": 0.09,
+    "max_drawdown_r": 6.67
+   },
+   "shorts": {
+    "n": 44,
+    "win_rate": 0.568,
+    "avg_r": 0.413,
+    "total_r": 18.16,
+    "profit_factor": 1.93,
+    "t_stat": 2.03,
+    "max_drawdown_r": 5.46
+   },
+   "symbols_positive": "7/12",
+   "by_symbol": {
+    "AAPL": 2.44,
+    "AMD": 2.73,
+    "AMZN": 3.8,
+    "DIA": -4.69,
+    "GOOGL": 6.64,
+    "IWM": -0.09,
+    "META": -2.78,
+    "MSFT": -4.29,
+    "NVDA": 3.89,
+    "QQQ": 7.71,
+    "SPY": -3.69,
+    "TSLA": 7.3
+   },
+   "id": "order_block_retest",
+   "name": "Order block first retest",
+   "family": "smart-money",
+   "rules": "A displacement bar (body at least 1.2 ATR, closing in the outer quarter of its range) marks the last opposite-colour bar before it (within 5 bars) as the order block. The first bar within 15 bars that trades back into the block's body, does not close through it, and closes in the displacement direction leans with the displacement; a close through the block voids it. Before 15:00.",
+   "tf": "M5",
+   "file": "setups/smart-money-analyst-order-block-retest.py",
+   "frozen": {
+    "exit": "2atr/4atr",
+    "filter": "vwap+ppoc",
+    "frozen_at": "2026-10-09",
+    "oos_at_freeze": {
+     "avg_r": 0.217,
+     "max_drawdown_r": 5.47,
+     "n": 32,
+     "profit_factor": 1.37,
+     "t_stat": 0.86,
+     "total_r": 6.93,
+     "win_rate": 0.469
+    },
+    "side": "fade",
+    "status_at_freeze": "promising",
+    "tf": "M5"
+   },
+   "forward": {
+    "n": 0,
+    "verdict": "tracking"
+   }
   },
   {
    "variants_tried": 126,
@@ -10663,6 +11597,73 @@
   },
   {
    "variants_tried": 126,
+   "signals_total": 583,
+   "status": "rejected",
+   "side": "fade",
+   "filter": "vwap+trend",
+   "exit": "1atr/close",
+   "random_baseline_r": -0.198,
+   "edge_vs_random_oos": -0.355,
+   "in_sample": {
+    "n": 105,
+    "win_rate": 0.248,
+    "avg_r": 0.155,
+    "total_r": 16.25,
+    "profit_factor": 1.18,
+    "t_stat": 0.61,
+    "max_drawdown_r": 38.97
+   },
+   "out_of_sample": {
+    "n": 53,
+    "win_rate": 0.151,
+    "avg_r": -0.553,
+    "total_r": -29.29,
+    "profit_factor": 0.45,
+    "t_stat": -2.18,
+    "max_drawdown_r": 37.37
+   },
+   "longs": {
+    "n": 76,
+    "win_rate": 0.224,
+    "avg_r": -0.003,
+    "total_r": -0.21,
+    "profit_factor": 1.0,
+    "t_stat": -0.01,
+    "max_drawdown_r": 24.64
+   },
+   "shorts": {
+    "n": 82,
+    "win_rate": 0.207,
+    "avg_r": -0.156,
+    "total_r": -12.83,
+    "profit_factor": 0.83,
+    "t_stat": -0.63,
+    "max_drawdown_r": 24.91
+   },
+   "symbols_positive": "4/12",
+   "by_symbol": {
+    "AAPL": -0.03,
+    "AMD": 19.02,
+    "AMZN": -11.26,
+    "DIA": 3.46,
+    "GOOGL": 8.73,
+    "IWM": -13.44,
+    "META": -4.15,
+    "MSFT": -4.02,
+    "NVDA": -2.02,
+    "QQQ": 5.49,
+    "SPY": -5.9,
+    "TSLA": -8.92
+   },
+   "id": "chandelier_exit_flip",
+   "name": "Chandelier Exit flip",
+   "family": "trend",
+   "rules": "The Chandelier Exit trails 3 average true ranges below the highest close of the last 22 bars (or above the lowest close). When the close breaks through the trailing line the trend flips. Between 10:30 and 14:30 the first flip up leans long and the first flip down leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/trend-moving-average-analyst-chandelier-exit-flip.py"
+  },
+  {
+   "variants_tried": 126,
    "signals_total": 739,
    "status": "rejected",
    "side": "with",
@@ -10928,6 +11929,73 @@
    "rules": "A 5-minute bar closing above the highest high of the previous 10 bars (50 minutes) leans long; closing below the lowest low of the previous 10 bars leans short. From 10:20 to 14:55, at most one signal per direction per session. Period fixed from published intraday defaults before testing.",
    "tf": "M5",
    "file": "setups/trend-moving-average-analyst-donchian10-break.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 1019,
+   "status": "rejected",
+   "side": "with",
+   "filter": "vwap+rvol",
+   "exit": "1atr/close",
+   "random_baseline_r": -0.198,
+   "edge_vs_random_oos": -0.116,
+   "in_sample": {
+    "n": 55,
+    "win_rate": 0.345,
+    "avg_r": 0.131,
+    "total_r": 7.21,
+    "profit_factor": 1.19,
+    "t_stat": 0.46,
+    "max_drawdown_r": 16.45
+   },
+   "out_of_sample": {
+    "n": 30,
+    "win_rate": 0.3,
+    "avg_r": -0.314,
+    "total_r": -9.41,
+    "profit_factor": 0.57,
+    "t_stat": -1.35,
+    "max_drawdown_r": 17.13
+   },
+   "longs": {
+    "n": 51,
+    "win_rate": 0.333,
+    "avg_r": -0.233,
+    "total_r": -11.86,
+    "profit_factor": 0.66,
+    "t_stat": -1.29,
+    "max_drawdown_r": 14.74
+   },
+   "shorts": {
+    "n": 34,
+    "win_rate": 0.324,
+    "avg_r": 0.284,
+    "total_r": 9.66,
+    "profit_factor": 1.38,
+    "t_stat": 0.67,
+    "max_drawdown_r": 13.72
+   },
+   "symbols_positive": "5/12",
+   "by_symbol": {
+    "AAPL": -3.99,
+    "AMD": -2.23,
+    "AMZN": -7.47,
+    "DIA": 8.44,
+    "GOOGL": -0.17,
+    "IWM": 1.54,
+    "META": -4.72,
+    "MSFT": 0.74,
+    "NVDA": -3.33,
+    "QQQ": 4.0,
+    "SPY": 6.89,
+    "TSLA": -1.91
+   },
+   "id": "ehlers_itrend_cross",
+   "name": "Ehlers Instantaneous Trendline trigger cross",
+   "family": "trend",
+   "rules": "Ehlers' Instantaneous Trendline is a very low-lag smoothing of the bar midpoint (alpha 0.07), with a trigger line that leads it. Between 10:30 and 14:30, when the trigger crosses up through the trendline it leans long; crossing down leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/trend-moving-average-analyst-ehlers-itrend-cross.py"
   },
   {
    "variants_tried": 126,
@@ -11332,6 +12400,73 @@
     "max_drawdown_r": 17.65,
     "verdict": "retired"
    }
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 1040,
+   "status": "rejected",
+   "side": "fade",
+   "filter": "rvol",
+   "exit": "1atr/1.5atr",
+   "random_baseline_r": -0.144,
+   "edge_vs_random_oos": -0.061,
+   "in_sample": {
+    "n": 105,
+    "win_rate": 0.467,
+    "avg_r": 0.068,
+    "total_r": 7.14,
+    "profit_factor": 1.12,
+    "t_stat": 0.57,
+    "max_drawdown_r": 15.82
+   },
+   "out_of_sample": {
+    "n": 70,
+    "win_rate": 0.371,
+    "avg_r": -0.205,
+    "total_r": -14.34,
+    "profit_factor": 0.71,
+    "t_stat": -1.45,
+    "max_drawdown_r": 15.89
+   },
+   "longs": {
+    "n": 79,
+    "win_rate": 0.43,
+    "avg_r": -0.019,
+    "total_r": -1.47,
+    "profit_factor": 0.97,
+    "t_stat": -0.14,
+    "max_drawdown_r": 11.86
+   },
+   "shorts": {
+    "n": 96,
+    "win_rate": 0.427,
+    "avg_r": -0.06,
+    "total_r": -5.73,
+    "profit_factor": 0.91,
+    "t_stat": -0.47,
+    "max_drawdown_r": 15.85
+   },
+   "symbols_positive": "4/12",
+   "by_symbol": {
+    "AAPL": -8.11,
+    "AMD": -5.61,
+    "AMZN": 4.92,
+    "DIA": -0.38,
+    "GOOGL": -0.45,
+    "IWM": 0.44,
+    "META": 5.23,
+    "MSFT": -1.3,
+    "NVDA": -1.05,
+    "QQQ": -1.79,
+    "SPY": -1.29,
+    "TSLA": 2.2
+   },
+   "id": "gann_hilo_flip",
+   "name": "Gann HiLo Activator flip with VWAP",
+   "family": "trend",
+   "rules": "The HiLo Activator averages the highs and the lows of the last three bars. A 5-minute close above the high average turns the state up, a close below the low average turns it down. Between 10:30 and 14:30, the first flip from down to up that closes above VWAP leans long; the mirror flip below VWAP leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/trend-moving-average-analyst-gann-hilo-flip.py"
   },
   {
    "variants_tried": 126,
@@ -12019,6 +13154,73 @@
   },
   {
    "variants_tried": 126,
+   "signals_total": 197,
+   "status": "insufficient",
+   "side": "with",
+   "filter": "vwap+ppoc",
+   "exit": "2atr/4atr",
+   "random_baseline_r": -0.094,
+   "edge_vs_random_oos": -0.078,
+   "in_sample": {
+    "n": 31,
+    "win_rate": 0.613,
+    "avg_r": 0.45,
+    "total_r": 13.94,
+    "profit_factor": 2.2,
+    "t_stat": 2.03,
+    "max_drawdown_r": 4.41
+   },
+   "out_of_sample": {
+    "n": 18,
+    "win_rate": 0.333,
+    "avg_r": -0.172,
+    "total_r": -3.09,
+    "profit_factor": 0.74,
+    "t_stat": -0.58,
+    "max_drawdown_r": 6.87
+   },
+   "longs": {
+    "n": 18,
+    "win_rate": 0.611,
+    "avg_r": 0.435,
+    "total_r": 7.84,
+    "profit_factor": 2.11,
+    "t_stat": 1.44,
+    "max_drawdown_r": 3.22
+   },
+   "shorts": {
+    "n": 31,
+    "win_rate": 0.452,
+    "avg_r": 0.097,
+    "total_r": 3.01,
+    "profit_factor": 1.18,
+    "t_stat": 0.43,
+    "max_drawdown_r": 5.5
+   },
+   "symbols_positive": "8/12",
+   "by_symbol": {
+    "AAPL": -3.36,
+    "AMD": 6.56,
+    "AMZN": -1.31,
+    "DIA": -3.53,
+    "GOOGL": -2.02,
+    "IWM": 1.96,
+    "META": 3.48,
+    "MSFT": 0.1,
+    "NVDA": 1.42,
+    "QQQ": 2.44,
+    "SPY": 1.63,
+    "TSLA": 3.47
+   },
+   "id": "reg_channel_fade",
+   "name": "Flat regression channel band fade",
+   "family": "trend",
+   "rules": "Fit a straight line through the last 30 closes and draw bands 2 standard errors either side. When the channel is flat (drift across the window under 2 standard errors) and, between 10:30 and 14:30, price closes back inside after the prior close was outside a band, it leans back toward the middle: long from below, short from above. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/trend-moving-average-analyst-regression-channel-fade.py"
+  },
+  {
+   "variants_tried": 126,
    "signals_total": 757,
    "status": "rejected",
    "side": "fade",
@@ -12177,6 +13379,140 @@
     "max_drawdown_r": 2.21,
     "verdict": "tracking"
    }
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 1044,
+   "status": "insufficient",
+   "side": "with",
+   "filter": "vwap+rvol",
+   "exit": "1atr/2atr",
+   "random_baseline_r": -0.14,
+   "edge_vs_random_oos": -0.13,
+   "in_sample": {
+    "n": 39,
+    "win_rate": 0.462,
+    "avg_r": 0.208,
+    "total_r": 8.13,
+    "profit_factor": 1.36,
+    "t_stat": 0.91,
+    "max_drawdown_r": 4.31
+   },
+   "out_of_sample": {
+    "n": 20,
+    "win_rate": 0.3,
+    "avg_r": -0.27,
+    "total_r": -5.4,
+    "profit_factor": 0.65,
+    "t_stat": -0.93,
+    "max_drawdown_r": 9.17
+   },
+   "longs": {
+    "n": 28,
+    "win_rate": 0.429,
+    "avg_r": 0.079,
+    "total_r": 2.21,
+    "profit_factor": 1.13,
+    "t_stat": 0.3,
+    "max_drawdown_r": 4.33
+   },
+   "shorts": {
+    "n": 31,
+    "win_rate": 0.387,
+    "avg_r": 0.017,
+    "total_r": 0.52,
+    "profit_factor": 1.03,
+    "t_stat": 0.07,
+    "max_drawdown_r": 8.77
+   },
+   "symbols_positive": "5/12",
+   "by_symbol": {
+    "AAPL": 3.5,
+    "AMD": 0.94,
+    "AMZN": -0.25,
+    "DIA": 0.83,
+    "GOOGL": -3.21,
+    "IWM": -0.9,
+    "META": 2.44,
+    "MSFT": -1.28,
+    "NVDA": -1.23,
+    "QQQ": -2.28,
+    "SPY": 6.43,
+    "TSLA": -2.26
+   },
+   "id": "trix_signal_cross",
+   "name": "TRIX signal-line cross against zero",
+   "family": "trend",
+   "rules": "TRIX is the one-bar change of a triple-smoothed average of price (length 9), compared with its own 9-bar average. Between 10:30 and 14:30, the first time TRIX is below zero and crosses up through its average leans long (a pullback ending); the first time it is above zero and crosses down leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/trend-moving-average-analyst-trix-signal-cross.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 668,
+   "status": "rejected",
+   "side": "fade",
+   "filter": "rvol",
+   "exit": "2atr/4atr",
+   "random_baseline_r": -0.094,
+   "edge_vs_random_oos": -0.114,
+   "in_sample": {
+    "n": 90,
+    "win_rate": 0.467,
+    "avg_r": 0.123,
+    "total_r": 11.1,
+    "profit_factor": 1.24,
+    "t_stat": 0.92,
+    "max_drawdown_r": 14.03
+   },
+   "out_of_sample": {
+    "n": 73,
+    "win_rate": 0.315,
+    "avg_r": -0.208,
+    "total_r": -15.17,
+    "profit_factor": 0.68,
+    "t_stat": -1.51,
+    "max_drawdown_r": 18.16
+   },
+   "longs": {
+    "n": 74,
+    "win_rate": 0.365,
+    "avg_r": -0.101,
+    "total_r": -7.47,
+    "profit_factor": 0.84,
+    "t_stat": -0.68,
+    "max_drawdown_r": 11.74
+   },
+   "shorts": {
+    "n": 89,
+    "win_rate": 0.427,
+    "avg_r": 0.038,
+    "total_r": 3.4,
+    "profit_factor": 1.07,
+    "t_stat": 0.3,
+    "max_drawdown_r": 11.79
+   },
+   "symbols_positive": "4/12",
+   "by_symbol": {
+    "AAPL": 8.94,
+    "AMD": -4.0,
+    "AMZN": -1.95,
+    "DIA": -3.42,
+    "GOOGL": -0.3,
+    "IWM": -2.69,
+    "META": -1.89,
+    "MSFT": -1.7,
+    "NVDA": 5.96,
+    "QQQ": 0.18,
+    "SPY": -9.97,
+    "TSLA": 6.79
+   },
+   "id": "vhf_trend_start",
+   "name": "Vertical Horizontal Filter trend start with VWAP",
+   "family": "trend",
+   "rules": "VHF compares the 28-bar high-to-low close range with the total distance price travelled; above 0.30 the market is moving in one direction. Between 11:50 and 14:30, when VHF crosses up through 0.30, price is above its close 28 bars ago and above VWAP, it leans long; the mirror leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/trend-moving-average-analyst-vhf-trend-start.py"
   },
   {
    "variants_tried": 126,
@@ -13171,6 +14507,139 @@
   },
   {
    "variants_tried": 126,
+   "signals_total": 635,
+   "status": "rejected",
+   "side": "fade",
+   "filter": "rvol+trend",
+   "exit": "2atr/close",
+   "random_baseline_r": -0.105,
+   "edge_vs_random_oos": 0.098,
+   "in_sample": {
+    "n": 73,
+    "win_rate": 0.479,
+    "avg_r": 0.16,
+    "total_r": 11.67,
+    "profit_factor": 1.3,
+    "t_stat": 0.87,
+    "max_drawdown_r": 10.26
+   },
+   "out_of_sample": {
+    "n": 56,
+    "win_rate": 0.429,
+    "avg_r": -0.007,
+    "total_r": -0.41,
+    "profit_factor": 0.99,
+    "t_stat": -0.04,
+    "max_drawdown_r": 7.25
+   },
+   "longs": {
+    "n": 51,
+    "win_rate": 0.451,
+    "avg_r": 0.166,
+    "total_r": 8.44,
+    "profit_factor": 1.32,
+    "t_stat": 0.73,
+    "max_drawdown_r": 7.54
+   },
+   "shorts": {
+    "n": 78,
+    "win_rate": 0.462,
+    "avg_r": 0.036,
+    "total_r": 2.82,
+    "profit_factor": 1.06,
+    "t_stat": 0.21,
+    "max_drawdown_r": 14.07
+   },
+   "symbols_positive": "5/12",
+   "by_symbol": {
+    "AAPL": 19.15,
+    "AMD": -0.41,
+    "AMZN": 1.74,
+    "DIA": 0.34,
+    "GOOGL": -4.32,
+    "IWM": -2.39,
+    "META": -6.48,
+    "MSFT": -2.54,
+    "NVDA": -5.32,
+    "QQQ": 6.29,
+    "SPY": 8.38,
+    "TSLA": -3.16
+   },
+   "id": "rvi_dorsey_cross",
+   "name": "Relative Volatility Index 50 cross with VWAP",
+   "family": "volatility",
+   "rules": "The Relative Volatility Index measures whether the recent size of price swings (10-bar standard deviation of closes) is coming on up bars or down bars, smoothed over 14 bars and scaled 0-100. Between 10:30 and 14:30 the first cross up through 50 while price is above VWAP leans long, the first cross down through 50 while price is below VWAP leans short. One signal per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/volatility-analyst-relative-volatility-index.py"
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 490,
+   "status": "insufficient",
+   "side": "fade",
+   "filter": "vwap+trend",
+   "exit": "1atr/close",
+   "random_baseline_r": -0.198,
+   "edge_vs_random_oos": 0.289,
+   "in_sample": {
+    "n": 38,
+    "win_rate": 0.395,
+    "avg_r": 1.113,
+    "total_r": 42.31,
+    "profit_factor": 2.58,
+    "t_stat": 1.57,
+    "max_drawdown_r": 11.18
+   },
+   "out_of_sample": {
+    "n": 17,
+    "win_rate": 0.176,
+    "avg_r": 0.091,
+    "total_r": 1.55,
+    "profit_factor": 1.09,
+    "t_stat": 0.12,
+    "max_drawdown_r": 14.46
+   },
+   "longs": {
+    "n": 30,
+    "win_rate": 0.233,
+    "avg_r": 0.022,
+    "total_r": 0.65,
+    "profit_factor": 1.02,
+    "t_stat": 0.05,
+    "max_drawdown_r": 17.83
+   },
+   "shorts": {
+    "n": 25,
+    "win_rate": 0.44,
+    "avg_r": 1.728,
+    "total_r": 43.21,
+    "profit_factor": 3.74,
+    "t_stat": 1.64,
+    "max_drawdown_r": 3.66
+   },
+   "symbols_positive": "5/11",
+   "by_symbol": {
+    "AAPL": 3.08,
+    "AMD": -1.07,
+    "AMZN": -3.15,
+    "DIA": 23.12,
+    "GOOGL": 17.87,
+    "IWM": -4.18,
+    "META": -6.7,
+    "MSFT": -1.19,
+    "NVDA": 9.08,
+    "SPY": 8.18,
+    "TSLA": -1.17
+   },
+   "id": "starc_band_reversal",
+   "name": "STARC band tag closing back inside",
+   "family": "volatility",
+   "rules": "Bands sit 2 ATR above and below the 6-bar average close. A 5-minute bar that pokes through the upper band but closes back inside leans short (the mirror at the lower band leans long), between 10:00 and 14:30, if the previous bar did not also tag that band. At most two signals per session; tested with and against.",
+   "tf": "M5",
+   "file": "setups/volatility-analyst-starc-band-reversal.py"
+  },
+  {
+   "variants_tried": 126,
    "signals_total": 424,
    "status": "insufficient",
    "side": "fade",
@@ -13487,6 +14956,73 @@
     "n": 0,
     "verdict": "tracking"
    }
+  },
+  {
+   "variants_tried": 126,
+   "signals_total": 1267,
+   "status": "rejected",
+   "side": "with",
+   "filter": "vwap+rvol",
+   "exit": "2atr/4atr",
+   "random_baseline_r": -0.094,
+   "edge_vs_random_oos": -0.045,
+   "in_sample": {
+    "n": 103,
+    "win_rate": 0.417,
+    "avg_r": 0.043,
+    "total_r": 4.43,
+    "profit_factor": 1.07,
+    "t_stat": 0.33,
+    "max_drawdown_r": 8.61
+   },
+   "out_of_sample": {
+    "n": 79,
+    "win_rate": 0.405,
+    "avg_r": -0.139,
+    "total_r": -11.01,
+    "profit_factor": 0.75,
+    "t_stat": -1.13,
+    "max_drawdown_r": 17.49
+   },
+   "longs": {
+    "n": 84,
+    "win_rate": 0.476,
+    "avg_r": 0.154,
+    "total_r": 12.93,
+    "profit_factor": 1.3,
+    "t_stat": 1.09,
+    "max_drawdown_r": 13.47
+   },
+   "shorts": {
+    "n": 98,
+    "win_rate": 0.357,
+    "avg_r": -0.199,
+    "total_r": -19.52,
+    "profit_factor": 0.68,
+    "t_stat": -1.73,
+    "max_drawdown_r": 35.01
+   },
+   "symbols_positive": "3/12",
+   "by_symbol": {
+    "AAPL": -7.62,
+    "AMD": -0.36,
+    "AMZN": 5.93,
+    "DIA": -0.77,
+    "GOOGL": -2.45,
+    "IWM": -1.77,
+    "META": -2.29,
+    "MSFT": -0.32,
+    "NVDA": -1.85,
+    "QQQ": 3.8,
+    "SPY": 3.24,
+    "TSLA": -2.12
+   },
+   "id": "williams_vix_fix",
+   "name": "Williams VIX Fix capitulation spike",
+   "family": "volatility",
+   "rules": "Measure how far the 5-minute low has fallen below the highest close of the last 22 bars (Larry Williams' VIX Fix). When that drop jumps above its own Bollinger band (20 bars, 2 sd) or above 85% of its 50-bar high, the selling looks like a capitulation low: lean long; the mirror (high far above the lowest close of 22 bars) leans short. One signal per side per session, only after about 13:00 ET when enough bars exist; tested with and against.",
+   "tf": "M5",
+   "file": "setups/volatility-analyst-williams-vix-fix.py"
   },
   {
    "variants_tried": 126,
