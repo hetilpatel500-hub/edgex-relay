@@ -1377,54 +1377,258 @@
   "tf": "M5"
  },
  "failed_auction_next_day": {
-  "side": "fade",
-  "filter": "vwap",
   "exit": "1atr/2atr",
-  "tf": "M5",
+  "filter": "vwap",
   "frozen_at": "2026-10-12",
-  "status_at_freeze": "promising",
   "oos_at_freeze": {
-   "n": 43,
-   "win_rate": 0.372,
    "avg_r": 0.005,
-   "total_r": 0.22,
+   "max_drawdown_r": 11.67,
+   "n": 43,
    "profit_factor": 1.01,
    "t_stat": 0.02,
-   "max_drawdown_r": 11.67
-  }
+   "total_r": 0.22,
+   "win_rate": 0.372
+  },
+  "side": "fade",
+  "status_at_freeze": "promising",
+  "tf": "M5"
  },
  "heikin_ashi_vwap": {
-  "side": "fade",
-  "filter": "rvol",
   "exit": "3atr/close",
-  "tf": "M5",
+  "filter": "rvol",
   "frozen_at": "2026-10-12",
-  "status_at_freeze": "promising",
   "oos_at_freeze": {
-   "n": 166,
-   "win_rate": 0.512,
    "avg_r": 0.104,
-   "total_r": 17.21,
+   "max_drawdown_r": 6.92,
+   "n": 166,
    "profit_factor": 1.31,
    "t_stat": 1.46,
-   "max_drawdown_r": 6.92
-  }
+   "total_r": 17.21,
+   "win_rate": 0.512
+  },
+  "side": "fade",
+  "status_at_freeze": "promising",
+  "tf": "M5"
  },
  "rvi_dorsey_cross": {
-  "side": "fade",
-  "filter": "rvol+trend",
   "exit": "2atr/close",
-  "tf": "M5",
+  "filter": "rvol+trend",
   "frozen_at": "2026-10-12",
-  "status_at_freeze": "promising",
   "oos_at_freeze": {
-   "n": 55,
-   "win_rate": 0.436,
    "avg_r": 0.009,
-   "total_r": 0.5,
+   "max_drawdown_r": 7.25,
+   "n": 55,
    "profit_factor": 1.02,
    "t_stat": 0.04,
-   "max_drawdown_r": 7.25
+   "total_r": 0.5,
+   "win_rate": 0.436
+  },
+  "side": "fade",
+  "status_at_freeze": "promising",
+  "tf": "M5"
+ },
+ "decycler_osc_vwap": {
+  "exit": "3atr/close",
+  "filter": "trend",
+  "frozen_at": "2026-10-12",
+  "oos_at_freeze": {
+   "avg_r": 0.119,
+   "max_drawdown_r": 13.44,
+   "n": 284,
+   "profit_factor": 1.29,
+   "t_stat": 1.56,
+   "total_r": 33.85,
+   "win_rate": 0.486
+  },
+  "side": "fade",
+  "status_at_freeze": "validated",
+  "tf": "M5"
+ },
+ "ema920_pullback": {
+  "exit": "2atr/4atr",
+  "filter": "rvol+trend",
+  "frozen_at": "2026-10-12",
+  "oos_at_freeze": {
+   "avg_r": 0.018,
+   "max_drawdown_r": 10.64,
+   "n": 53,
+   "profit_factor": 1.03,
+   "t_stat": 0.11,
+   "total_r": 0.95,
+   "win_rate": 0.415
+  },
+  "side": "fade",
+  "status_at_freeze": "promising",
+  "tf": "M5"
+ },
+ "mama_fama_cross_vwap": {
+  "exit": "2atr/4atr",
+  "filter": "rvol+trend",
+  "frozen_at": "2026-10-12",
+  "oos_at_freeze": {
+   "avg_r": 0.116,
+   "max_drawdown_r": 6.07,
+   "n": 65,
+   "profit_factor": 1.21,
+   "t_stat": 0.72,
+   "total_r": 7.52,
+   "win_rate": 0.462
+  },
+  "side": "fade",
+  "status_at_freeze": "promising",
+  "tf": "M5"
+ },
+ "roofing_cross_vwap": {
+  "exit": "2atr/close",
+  "filter": "trend",
+  "frozen_at": "2026-10-12",
+  "oos_at_freeze": {
+   "avg_r": 0.184,
+   "max_drawdown_r": 13.77,
+   "n": 184,
+   "profit_factor": 1.37,
+   "t_stat": 1.63,
+   "total_r": 33.91,
+   "win_rate": 0.473
+  },
+  "side": "fade",
+  "status_at_freeze": "validated",
+  "tf": "M5"
+ },
+ "demark_rei_reentry": {
+  "side": "fade",
+  "filter": "rvol+trend",
+  "exit": "2atr/4atr",
+  "tf": "M5",
+  "frozen_at": "2026-10-13",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 88,
+   "win_rate": 0.443,
+   "avg_r": 0.006,
+   "total_r": 0.56,
+   "profit_factor": 1.01,
+   "t_stat": 0.05,
+   "max_drawdown_r": 10.45
+  }
+ },
+ "rvi_signal_cross": {
+  "side": "fade",
+  "filter": "rvol+trend",
+  "exit": "1atr/2atr",
+  "tf": "M5",
+  "frozen_at": "2026-10-13",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 39,
+   "win_rate": 0.436,
+   "avg_r": 0.065,
+   "total_r": 2.52,
+   "profit_factor": 1.1,
+   "t_stat": 0.28,
+   "max_drawdown_r": 7.17
+  }
+ },
+ "darvas_box_break": {
+  "side": "with",
+  "filter": "rvol+trend",
+  "exit": "1atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-10-13",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 68,
+   "win_rate": 0.25,
+   "avg_r": 0.156,
+   "total_r": 10.61,
+   "profit_factor": 1.18,
+   "t_stat": 0.43,
+   "max_drawdown_r": 18.02
+  }
+ },
+ "crabel_stretch": {
+  "side": "with",
+  "filter": "vwap+rvol",
+  "exit": "1atr/2atr",
+  "tf": "M5",
+  "frozen_at": "2026-10-13",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 60,
+   "win_rate": 0.367,
+   "avg_r": 0.006,
+   "total_r": 0.36,
+   "profit_factor": 1.01,
+   "t_stat": 0.03,
+   "max_drawdown_r": 15.8
+  }
+ },
+ "or5_vwap_near_break": {
+  "side": "with",
+  "filter": "ppoc",
+  "exit": "1atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-10-13",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 49,
+   "win_rate": 0.245,
+   "avg_r": 0.033,
+   "total_r": 1.61,
+   "profit_factor": 1.04,
+   "t_stat": 0.08,
+   "max_drawdown_r": 16.74
+  }
+ },
+ "ehlers_bandpass_rms": {
+  "side": "with",
+  "filter": "vwap+rvol",
+  "exit": "1.5atr/3atr",
+  "tf": "M5",
+  "frozen_at": "2026-10-13",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 135,
+   "win_rate": 0.393,
+   "avg_r": 0.035,
+   "total_r": 4.66,
+   "profit_factor": 1.05,
+   "t_stat": 0.29,
+   "max_drawdown_r": 22.2
+  }
+ },
+ "pvo_signal_cross": {
+  "side": "fade",
+  "filter": "rvol+trend",
+  "exit": "3atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-10-13",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 104,
+   "win_rate": 0.452,
+   "avg_r": 0.049,
+   "total_r": 5.11,
+   "profit_factor": 1.12,
+   "t_stat": 0.45,
+   "max_drawdown_r": 9.68
+  }
+ },
+ "single_print_fill": {
+  "side": "with",
+  "filter": "rvol",
+  "exit": "1atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-10-13",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 37,
+   "win_rate": 0.243,
+   "avg_r": 0.046,
+   "total_r": 1.7,
+   "profit_factor": 1.05,
+   "t_stat": 0.11,
+   "max_drawdown_r": 9.72
   }
  }
 }
