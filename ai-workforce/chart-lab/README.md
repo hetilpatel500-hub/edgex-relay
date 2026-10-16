@@ -1,0 +1,286 @@
+# Chart Desk lab
+
+Owner directives, 2026-09-26: "I want the chart desk to keep on improving every
+moment, don't just let them sit around: learn new technical analysis, new
+profitable patterns, use Webull's data to backtest the chart desk's knowledge
+and improve using that", and "use heat map, level 2 data, POC, initial volume
+breakout, protection level, initial balance breakout area, price action,
+volume profile, deep trades, footprint chart, liquidity heatmap, VWAP and many
+more ... make new patterns, test those out, make sure it's profitable; always
+when the market is open keep track of all this and prices in real time".
+
+**Analysis only.** The lab never places, stages or suggests orders, and only
+uses Webull's read-only tools (`get_stock_bars`, `get_stock_tick`,
+`get_stock_quotes`, `get_stock_capital_flow`, `get_stock_snapshot`). Edgex
+Capital is a separate operation and nothing here touches it. Past results are
+not a promise: the lab exists to separate ideas that held up on data they were
+never tuned on from ideas that didn't.
+
+## What's here
+
+| File | What it does |
+|---|---|
+| `data/` | Webull bars, gzip CSV: `<SYM>_M5.csv.gz` (5-minute, regular hours) and `<SYM>_D.csv.gz` (daily) for SPY QQQ IWM DIA AAPL MSFT NVDA AMZN GOOGL META TSLA AMD |
+| `ingest.py` | Merges saved `get_stock_bars` responses into `data/` |
+| `core.py` | Sessions and levels: VWAP bands, 15-min opening range, initial balance, initial volume bar, volume profile (POC/VAH/VAL), yesterday's levels, swing structure with break of structure / change of character and the protected level; simulated exits and stats |
+| `setups/*.py` | Detectors. Every file exports `SETUPS`, a list of `dict(id, name, family, rules, detect[, tf='D'])`; `detect(session)` yields `(bar index, +1/-1)` |
+| `lab.py` | Backtests every setup (method below), writes `out/results.json`, `PLAYBOOK.md` and `frozen.json` |
+| `publish.py` | Turns results into Office DB docs under `out/db/` |
+| `live.py` | Live read of one symbol: levels, footprint rebuilt from ticks, big prints, level 2 book, money flow, playbook setups that fired today |
+| `state.py` | Moves `frozen.json` and the day's tape rows through the DB (hourly sessions can't push) |
+| `tape/` | One gzip JSONL per day: hourly order-flow rows per symbol (delta, big prints, book imbalance, walls, large-order money flow) |
+| `PLAYBOOK.md` | The current playbook, generated |
+
+## Method (never loosen it to make something pass)
+
+- Signal at a bar's close, simulated entry at the next bar's open, round-trip
+  costs of 2 bps (ETFs) / 3 bps (stocks). Stops and targets in ATR; intraday
+  trades are flat at the close. If a bar touches stop and target, the stop counts.
+- Each setup is tested with and against its signal ("fade"), with 9 filters
+  and 7 exits. One variant is chosen on the first 70% of dates only, then
+  judged once on the last 30% (held out).
+- **validated**: in-sample ≥ +0.05R, held-out n ≥ 30, ≥ +0.05R, profit factor ≥ 1.1,
+  t ≥ 1.5, at least half the symbols positive. **promising**: positive on both
+  but short of that. **rejected** / **insufficient** otherwise.
+- The first time a setup is validated or promising, its variant is **frozen**
+  with the date. Every later trading day is a true forward test of that exact
+  variant. A frozen setup with 30+ forward trades averaging below −0.05R is
+  **retired**.
+- Random entries lose about the cost of trading (−0.14 to −0.20R intraday);
+  `results.json` reports each setup's edge over that.
+- The more variants tried, the more likely a good number is luck. The lab
+  records the count; the Devil's Advocate reads it before anything is called
+  an edge.
+
+## Three Routines
+
+| Routine (trigger id) | When | Where it runs | Steps below |
+|---|---|---|---|
+| Edgex Chart Desk lab (`trig_01AJFjuWbhKwKCh2LSzBZKUu`) | hourly at :08 | fresh session, no connectors (can't reach Webull or push) | 1, 4-9 |
+| Edgex Chart Desk live tape (`trig_01TGc1VHHTiGfa5SZrVYNHDR`) | weekdays 9:38-15:38 ET, hourly | the owner's connected session (Webull read-only) | 2-3 |
+| Edgex Chart Desk data refresh (`trig_01M7HWsUwH9ioL1k7ei6P2oN`) | weekdays 16:21 ET | the owner's connected session (Webull read-only, can push) | daily run |
+
+Routines on this account can't attach connectors to fresh sessions, which is
+why the Webull reads run in the owner's session and the research runs fresh
+on the bars already in `data/`.
+
+## Hourly lab run steps
+
+Run from `ai-workforce/chart-lab`. Real clock (`date -u +%FT%TZ`) for every
+timestamp. The Office DB is https://claude.ai/artifact/NzBSM8bbGtbqhariCBzfoH.
+
+1. **Sync state.** Read `chart_lab_state/frozen` from the DB (save it to a file,
+   `python3 state.py pull FILE`). Read `repo_changes` docs with
+   `status: "pending"` whose `file` starts with `ai-workforce/chart-lab/` and
+   create those files locally, so detectors from earlier runs exist here too.
+2. **Fresh bars** (live-tape Routine only). Find the last bar in `data/SPY_M5.csv.gz`. If a newer
+   session has traded, call `get_stock_bars` (symbols SPY,QQQ,IWM,DIA with
+   category US_ETF, then the 8 stocks with US_STOCK; timespan M5, count up to
+   1200, trading_sessions RTH, real_time_required false) and `timespan D`
+   (count 20); save each response to a file and run `python3 ingest.py M5 FILES`
+   / `python3 ingest.py D FILES`.
+3. **Live tape** (live-tape Routine only, 9:30-16:00 ET on weekdays). For each of the 12 symbols:
+   `get_stock_tick` (count "1000", trading_sessions "RTH"),
+   `get_stock_quotes` (depth "50"; if refused, "10"), and for the 8 stocks
+   `get_stock_capital_flow` (count 5). Save each and run
+   `python3 live.py SYM --ticks F --book F [--flow F] --db`. Then write every
+   `out/db/chart_live/<SYM>.json` to `chart_live/<SYM>` and append the printed
+   rows to `chart_lab_state/tape-<YYYY-MM-DD>` (`{day, rows: [...]}`; update,
+   don't replace, the rows already there).
+4. **Research one new idea.** Take the next open line of the research queue
+   below (or, when it's empty, use WebSearch for a documented intraday
+   technique the lab hasn't tested, and add it to the queue). The agent who
+   owns that family writes the detector in a new `setups/<agent>-<topic>.py`,
+   following the contract above, with rules text a trader can read. Order-flow
+   ideas that need tick or book history go on the queue marked "waiting for
+   tape" until `tape/` holds 30+ sessions.
+5. **Backtest.** `python3 lab.py --only NEW_ID` to check it runs, then
+   `python3 lab.py`. Never edit the method, costs or thresholds to rescue a
+   setup; a rejected idea is a finished result.
+6. **Publish.** `python3 publish.py "<2-3 sentence summary: what was tested,
+   which agent built it, held-out result and status, anything that changed in
+   the forward tests>"` and `python3 state.py push`. Write to the DB in one
+   batch: every `out/db/chart_playbook/*.json`, the new
+   `out/db/chart_research/*.json`, and `out/db/chart_lab_state/frozen.json`.
+7. **Queue the code.** For every new or changed file under `setups/` and for
+   `PLAYBOOK.md`, write one `repo_changes` doc (`op: "create"` with the whole
+   file as `new_str`, `status: "pending"`). The daily after-close run commits them.
+8. **Agents.** Update the `agents` doc of every Chart Desk agent who worked this
+   run (see the table below): `status: "working"` or `"done"`, `task`, `result`
+   (one line with the real numbers), `updatedAt`. Only these 20 ids; never
+   create any other agents doc.
+9. Never publish anything, message anyone, or trade. If a Webull call fails,
+   say so in the research summary; never fill in numbers.
+
+## Daily after-close run (Routine "Edgex Chart Desk data refresh")
+
+1. `git pull`. Apply pending `repo_changes` under `ai-workforce/chart-lab/`
+   (mark them applied with the commit hash after pushing).
+2. `python3 state.py pull` the DB's `chart_lab_state/frozen`; for each
+   `chart_lab_state/tape-*` doc, `python3 state.py tape FILE`, then delete the
+   doc once the file is committed.
+3. Fetch today's M5 and D bars for all 12 symbols (as in step 2 above), ingest.
+4. `python3 lab.py`, `python3 publish.py "<daily summary with the forward-test
+   changes>"`, `python3 state.py push`, write the DB batch.
+5. Commit `data/`, `tape/`, `setups/`, `frozen.json`, `PLAYBOOK.md`,
+   `out/results.json` and push.
+
+## Research queue
+
+Owner's list first. Tick marks mean tested (see `PLAYBOOK.md` for the result).
+
+- [x] Initial balance breakout / failed breakout / IB sweep (session-gap-specialist)
+- [x] Initial volume breakout (volume-vwap-analyst)
+- [x] POC: pull to yesterday's POC, POC migration (volume-vwap-analyst)
+- [x] Value area: 80% rule re-entry, edge rejection, acceptance outside value (volume-vwap-analyst)
+- [x] Protected level: holds / breaks (change of character), BOS (price-structure-analyst)
+- [x] VWAP reclaim, VWAP 2-sigma snap-back (volume-vwap-analyst)
+- [x] Liquidity sweeps of yesterday's high/low and IB extremes; sweep then VWAP cross (smart-money-analyst)
+- [x] Composite: IB + IVB outside value; protected level at VWAP (strategy-playbook-analyst)
+- [x] Fair value gap (3-bar imbalance) first retest (smart-money-analyst, 2026-10-12: rejected)
+- [x] Order block: last opposite candle before a displacement, first retest (smart-money-analyst, 2026-10-12: promising, held-out t 0.86)
+- [x] EMA 9/20 pullback in a trending session (trend-moving-average-analyst, 2026-10-13: promising only, held-out +0.018R, t 0.11)
+- [x] Bollinger squeeze → expansion on 5-minute bars (volatility-analyst, tested earlier as bb_squeeze_expansion: rejected)
+- [x] Inside bar / NR4 on 5-minute bars at a session level (candlestick-specialist, tested earlier as inside_nr4_at_level: rejected)
+- [x] Engulfing or hammer at VWAP, POC or IB extreme (candlestick-specialist, tested earlier as engulfing_hammer_at_level)
+- [x] RSI(14) divergence at the day's high/low (macd-divergence-analyst, tested earlier as rsi_divergence)
+- [x] MACD histogram flip with VWAP agreement (macd-divergence-analyst, tested earlier as macd_vwap_flip)
+- [x] 61.8% retracement of the opening drive holding (fibonacci-harmonics-analyst, tested earlier as fib618_opening_drive)
+- [x] ABC pullback after an impulse leg (elliott-wave-analyst, tested earlier as abc_pullback)
+- [x] Spring / upthrust at the IB extreme (wyckoff-phase-analyst, tested earlier as spring_upthrust)
+- [x] Double top/bottom at a prior-day level (pattern-specialist, tested earlier as double_top_bottom)
+- [x] Bull/bear flag after a 2-ATR impulse (pattern-specialist, tested earlier as bull_bear_flag)
+- [x] Single prints / poor high or low from yesterday's profile revisited (volume-vwap-analyst, tested earlier as single_print_fill)
+- [x] Open type (open-drive, open-test-drive, open-rejection-reverse, open-auction) (session-gap-specialist)
+- [x] Gap-and-go vs gap-fade split by relative volume (session-gap-specialist)
+- [x] Time-of-day filter study: which setups only work before 11:00 (risk-manager)
+- [x] Exit study: trailing stop on the protected level vs fixed ATR exits (risk-manager)
+- [x] Klinger oscillator signal cross with VWAP (volume-vwap-analyst, WebSearch 2026-10-10)
+- [x] OBV divergence at a new session extreme (volume-vwap-analyst, WebSearch 2026-10-10)
+- [x] Negative Volume Index EMA cross with VWAP (volume-vwap-analyst, WebSearch 2026-10-11)
+- [x] Positive + Negative Volume Index agreement with VWAP (volume-vwap-analyst, WebSearch 2026-10-11)
+- [x] Relative Vigor Index signal cross with VWAP (momentum-analyst, WebSearch 2026-10-11)
+- [x] Percentage Volume Oscillator signal cross with VWAP (volume-vwap-analyst, WebSearch 2026-10-11)
+- [x] Bollinger band tag confirmed by normalized Intraday Intensity (volume-vwap-analyst, WebSearch 2026-10-11)
+- [x] Ultimate Oscillator divergence breakout (momentum-analyst, WebSearch 2026-10-11)
+- [x] Stochastic Momentum Index cross out of +/-40 (momentum-analyst, WebSearch 2026-10-11)
+- [x] Volume-weighted MACD signal-line cross (macd-divergence-analyst, WebSearch 2026-10-11)
+- [x] Volume Zone Oscillator re-entry from +/-40 (volume-vwap-analyst, WebSearch 2026-10-11)
+- [x] Chande Momentum Oscillator re-entry from +/-50 (momentum-analyst, WebSearch 2026-10-11)
+- [x] Mass Index reversal bulge (27/26.5) with EMA9 direction (volatility-analyst, WebSearch 2026-10-11)
+- [x] Know Sure Thing signal cross with VWAP (momentum-analyst, WebSearch 2026-10-11)
+- [x] TRIX (9) signal-line cross against zero (trend-moving-average-analyst, WebSearch 2026-10-11)
+- [x] Balance of Power cross with VWAP (momentum-analyst, WebSearch 2026-10-11)
+- [x] DeMarker re-entry from extremes (momentum-analyst, WebSearch 2026-10-11)
+- [x] Williams VIX Fix capitulation spike (volatility-analyst, WebSearch 2026-10-11)
+- [x] True Strength Index signal cross with VWAP (momentum-analyst, WebSearch 2026-10-11)
+- [x] Relative Volatility Index 50-line cross with VWAP (volatility-analyst, WebSearch 2026-10-11)
+- [x] Qstick (8) zero-line cross with VWAP (momentum-analyst, WebSearch 2026-10-11)
+- [x] Ehlers Instantaneous Trendline trigger cross (trend-moving-average-analyst, WebSearch 2026-10-12)
+- [x] Vertical Horizontal Filter trend start with VWAP (trend-moving-average-analyst, WebSearch 2026-10-12)
+- [x] ConnorsRSI re-entry from 10/90 (momentum-analyst, WebSearch 2026-10-12)
+- [x] WaveTrend (LazyBear) cross out of +/-53 (momentum-analyst, WebSearch 2026-10-12)
+- [x] Gann HiLo Activator flip with VWAP (trend-moving-average-analyst, WebSearch 2026-10-12)
+- [x] Coppock curve turn against zero (momentum-analyst, WebSearch 2026-10-12)
+- [x] Pretty Good Oscillator +/-3 breakout (momentum-analyst, WebSearch 2026-10-12)
+- [x] Chandelier Exit (22/22/3.0) flip (trend-moving-average-analyst, WebSearch 2026-10-12)
+- [x] Flat regression-channel band fade (trend-moving-average-analyst, WebSearch 2026-10-12)
+- [x] Laguerre RSI re-entry from 0.15/0.85 (momentum-analyst, WebSearch 2026-10-12)
+- [x] STARC band tag closing back inside (volatility-analyst, WebSearch 2026-10-12)
+- [x] Ehlers Cyber Cycle trigger cross from the wrong side of zero (trend-moving-average-analyst, WebSearch 2026-10-12: rejected)
+- [x] VSA no-demand / no-supply bar with confirming bar (wyckoff-phase-analyst, WebSearch 2026-10-12: promising only, held-out +0.024R, t 0.10)
+- [x] Donchian 20-bar breakout gated by Hurst exponent > 0.5 (trend-moving-average-analyst, WebSearch 2026-10-12: promising, held-out t 1.36)
+- [x] McGinley Dynamic (10) close-cross with VWAP (trend-moving-average-analyst, WebSearch 2026-10-12: rejected, in-sample 0.00R, held-out +0.071R, t 1.40)
+- [x] Trend Intensity Index 80/20 cross with VWAP (trend-moving-average-analyst, WebSearch 2026-10-12: rejected, held-out -0.035R, t -0.2)
+- [x] Arnaud Legoux MA (9, 0.85, 6) close-cross with VWAP (trend-moving-average-analyst, WebSearch 2026-10-12: rejected, held-out -0.062R, t -0.67)
+- [x] Chande VIDYA (9/12) break away from a flat line with VWAP (trend-moving-average-analyst, WebSearch 2026-10-12: rejected, held-out -0.03R, t -0.42)
+- [x] DeMark Range Expansion Index re-entry from +/-45 (momentum-analyst, WebSearch 2026-10-12: rejected, held-out -0.20R, t -3.93)
+- [x] SSL Channel (10) flip with VWAP (trend-moving-average-analyst, WebSearch 2026-10-12: rejected, held-out -0.13R, t -0.65)
+- [x] Darvas box breakout with VWAP agreement (pattern-specialist, WebSearch 2026-10-13: rejected, held-out -0.014R, t -0.09)
+- [x] Chande Intraday Momentum Index (14) re-entry from 30/70 (momentum-analyst, WebSearch 2026-10-13: insufficient, held-out n 21, -0.60R, t -3.13)
+- [x] Ehlers Center of Gravity trigger cross at envelope edge (trend-moving-average-analyst, WebSearch 2026-10-13: rejected, held-out -0.128R, t -0.71)
+- [x] Williams Market Facilitation Index green bar breaking the 6-bar range (volatility-analyst, WebSearch 2026-10-13: rejected, held-out -0.329R, t -2.28)
+- [x] Ehlers Roofing Filter (48/10) zero cross with VWAP (trend-moving-average-analyst, WebSearch 2026-10-13: validated as a fade by the lab's rule, held-out +0.184R, n 184, t 1.63, 8/12 symbols; 126 variants tried, 37,488 across the lab; forward test starts now)
+- [x] Ehlers Decycler Oscillator (30/37.5) zero cross with VWAP (trend-moving-average-analyst, WebSearch 2026-10-13: validated as a fade by the lab's rule, held-out +0.119R, n 284, t 1.56, 9/12 symbols; 126 variants tried, 37,614 across the lab; same cycle-filter family as the Roofing Filter, so not independent evidence; forward test starts now)
+- [x] Polarized Fractal Efficiency (10/5) zero cross with VWAP (momentum-analyst, WebSearch 2026-10-13: rejected, held-out -0.194R, t -1.31)
+- [x] Ehlers band-pass filter (20, 0.3) cross of its RMS line (trend-moving-average-analyst, WebSearch 2026-10-13: rejected, held-out -0.183R, t -1.73)
+- [x] Ehlers FRAMA (16) close-cross with VWAP agreement (trend-moving-average-analyst, WebSearch 2026-10-13: rejected, held-out -0.16R, n 112, t -0.77)
+- [x] Accumulation/Distribution line breaking its 20-bar range before price (volume-vwap-analyst, WebSearch 2026-10-13: rejected, held-out -0.343R, n 119, t -3.03)
+- [x] Price Momentum Oscillator (35/20/10) signal cross with VWAP (momentum-analyst, WebSearch 2026-10-13: insufficient, held-out n 25, -0.57R, t -2.82)
+- [x] Wilder DMI (14) +DI/-DI cross gated by ADX >= 25 and rising, with VWAP (trend-moving-average-analyst, WebSearch 2026-10-13: insufficient, 5 signals across all symbols and sessions, no variant reached 30 in-sample; not loosened)
+- [x] Woodies CCI zero-line reject with VWAP (momentum-analyst, WebSearch 2026-10-13: rejected, held-out -0.405R, n 42, t -2.30, 6/12 symbols; 126 variants tried, 38,496 across the lab)
+- [x] Naked POC first touch, most recent untouched prior-session POC (volume-vwap-analyst, WebSearch 2026-10-13: insufficient, held-out n 23, -0.099R, t -0.34, 6/12 symbols; 126 variants tried, 38,622 across the lab)
+- [x] Wilder Accumulation Swing Index leading a price breakout (trend-moving-average-analyst, WebSearch 2026-10-13: rejected, held-out -0.333R, t -1.87)
+- [x] Ichimoku Kijun (26) pullback bounce in a trend with VWAP (trend-moving-average-analyst, WebSearch 2026-10-13: rejected, held-out -0.02R, n 56, t -0.11, 5/12 symbols; 126 variants tried)
+- [x] Tillson T3 (14, 0.7) close-cross after 5+ bars with VWAP (trend-moving-average-analyst, WebSearch 2026-10-13: rejected, held-out -0.082R, t -0.42)
+- [x] Ehlers MESA Adaptive MA (MAMA/FAMA, 0.5/0.05) cross with VWAP (trend-moving-average-analyst, WebSearch 2026-10-13: promising only, held-out +0.116R, n 65, t 0.72, 7/12 symbols; 126 variants tried, 39,126 across the lab; frozen as a fade, forward test starts now)
+- [x] VWAP Pulse Breakout: VWAP cross + ADX(14) >= 20 rising + 6-bar range break (trend-moving-average-analyst, WebSearch 2026-10-13: insufficient, 60 signals, held-out n 15, -0.491R, t -2.19, 6/12 symbols; 126 variants tried, 39,252 across the lab; not loosened)
+- [x] Ehlers Reflex (20) re-entry from +/-2 (trend-moving-average-analyst, WebSearch 2026-10-13: rejected, in-sample +0.54R but held-out -0.31R, n 53, t -1.18, 7/12 symbols; 126 variants tried, 39,378 across the lab)
+- [x] Ehlers Trendflex (20) zero cross with VWAP agreement (trend-moving-average-analyst, WebSearch 2026-10-13: rejected, in-sample +0.204R but held-out -0.223R, n 110, t -1.09, 4/12 symbols; 126 variants tried, 39,504 across the lab)
+- [x] SMT divergence between SPY/QQQ and IWM/DIA at a session extreme (smart-money-analyst, WebSearch 2026-10-13: insufficient, held-out n 28, -0.113R, t -0.51, 2/4 symbols; in-sample +0.367R did not carry over; 126 variants tried, 39,630 across the lab)
+- [x] Zero-Lag MACD (ZLEMA 12/26, signal 9) signal cross with VWAP (macd-divergence-analyst, WebSearch 2026-10-14: rejected, in-sample +0.007R, held-out -0.06R, n 491, t -1.25, 7/12 symbols; 126 variants tried, 39,756 across the lab)
+- [x] Ehlers Super Smoother (10) slope turn with VWAP side (trend-moving-average-analyst, WebSearch 2026-10-14: promising only, held-out +0.026R, n 109, t 0.22, 6/12 symbols; 126 variants tried, 39,882 across the lab; frozen as a with-signal, forward test starts now)
+- [x] RSI(14) of the session VWAP re-entry from 30/70 (momentum-analyst, WebSearch 2026-10-14: rejected, in-sample -0.016R (needs +0.05R); held-out +0.471R, n 67, t 2.84, 5/12 symbols does not rescue it; 126 variants tried, 40,008 across the lab; not loosened)
+- [x] Chaikin Volatility (10,10) spike through +40 beyond 1 VWAP stdev, read as panic low / blow-off high (volatility-analyst, WebSearch 2026-10-14: rejected, in-sample +0.188R but held-out -0.319R, n 32, t -1.66, 5/12 symbols; 126 variants tried, 40,134 across the lab; not loosened)
+- [x] Tweezer bottom/top at the session extreme (candlestick-specialist, WebSearch 2026-10-14: insufficient, held-out n 23, +0.152R, t 0.6, 7/12 symbols; in-sample +0.247R, n 55; 126 variants tried, 40,260 across the lab; not loosened)
+- [x] Weis-wave volume: low-volume pullback after a 2 ATR high-volume thrust, on the VWAP side (volume-vwap-analyst, WebSearch 2026-10-14: rejected, in-sample +0.082R, held-out -0.149R, n 86, PF 0.78, t -1.07, 6/12 symbols; 126 variants tried, 40,386 across the lab; not loosened)
+- [x] Detrended Price Oscillator (10) trough/peak turn with a confirming candle (momentum-analyst, WebSearch 2026-10-14: promising only, in-sample +0.332R, held-out +0.061R, n 45, PF 1.10, t 0.33, 8/12 symbols; 126 variants tried, 40,512 across the lab; frozen as a fade, forward test starts now)
+- [x] Wilder RSI(14) failure swing (macd-divergence-analyst, WebSearch 2026-10-14: insufficient, 537 signals, held-out n 16, +0.396R, PF 2.05, t 1.26, 9/12 symbols; under the 30-trade minimum so not frozen and not loosened; 126 variants tried, 40,638 across the lab)
+- [x] TD Sequential countdown 13 with bar-8 qualifier after a completed setup 9 (trend-moving-average-analyst, WebSearch 2026-10-14: rejected, in-sample +0.148R, held-out -0.012R, n 46, PF 0.98, t -0.06, 7/12 symbols; 126 variants tried, 40,764 across the lab; not loosened)
+- [x] Ehlers Even Better Sinewave (40/10) cross of -0.9/+0.9 (trend-moving-average-analyst, WebSearch 2026-10-14: validated as a fade by the lab's rule, in-sample +0.202R n 51, held-out +0.423R, n 41, PF 2.04, t 2.08, 8/12 symbols; longs carry it (+0.53R) while shorts are +0.08R, t 0.43; 126 variants tried, 40,890 across the lab; same Ehlers cycle-filter family as Roofing/Decycler so not independent evidence; forward test starts now)
+- [x] Kalman-filtered typical price crossing session VWAP (volume-vwap-analyst, WebSearch 2026-10-14: promising only, in-sample +0.063R n 73, held-out +0.258R, n 71, PF 1.51, t 1.41, 8/12 symbols; 126 variants tried, 41,016 across the lab; frozen as a fade, forward test starts now)
+- [x] Ulf Jensen 123 reversal (two lower closes then a higher close) with a 9-bar stochastic filter (pattern-specialist, WebSearch 2026-10-14: insufficient, held-out n 24, +0.039R, t 0.14, 8/12 symbols; 126 variants tried, 41,142 across the lab; not loosened, not frozen)
+- [x] Detrended Price Oscillator (20) zero cross with VWAP (trend-moving-average-analyst, WebSearch 2026-10-14: promising only, held-out +0.15R, n 108, t 1.34, 7/12 symbols; 126 variants tried, 41,268 across the lab; same indicator as dpo_trough_turn, so not independent evidence; frozen as a fade, forward test starts now)
+- [x] Volume Price Confirmation Indicator (5/20) turns positive, side from the 20-bar average with VWAP agreement (volume-vwap-analyst, WebSearch 2026-10-14: promising only, in-sample +0.039R n 742, held-out +0.05R, n 339, PF 1.12, t 0.75, 8/12 symbols; 126 variants tried, 41,394 across the lab; frozen as a fade, forward test starts now)
+- [x] ATR-Renko reversal confirmed by a second brick, with VWAP agreement (volatility-analyst, WebSearch 2026-10-14: promising only, in-sample +0.255R n 113, held-out +0.317R, n 86, PF 1.43, t 1.25, 7/12 symbols; fade carried by shorts (+0.44R) while longs are +0.12R; 126 variants tried, 41,520 across the lab; frozen as a fade, forward test starts now)
+- [x] Swing trendline break and first retest (pattern-specialist, WebSearch 2026-10-14: rejected, in-sample +0.254R n 44 but held-out -0.582R, n 36, PF 0.40, t -2.45, 4/12 symbols; 126 variants tried, 41,646 across the lab; not loosened)
+- [x] Andrews pitchfork median-line pullback (pattern-specialist, WebSearch 2026-10-14: insufficient, 88 signals, held-out n 23, -0.485R, t -1.16, 4/12 symbols; 126 variants tried, 41,772 across the lab; not loosened)
+- [x] Gartley 222 completion at 0.786 of XA (fibonacci-harmonics-analyst, WebSearch 2026-10-14: insufficient, in-sample n 34 +0.275R, held-out n 14, -0.150R, t -0.25, 5/12 symbols; 126 variants tried, 41,898 across the lab; not loosened)
+- [x] Stochastic Pop: slow stochastic (14,3,3) %D through 80/20 with VWAP side, continuation reading (momentum-analyst, WebSearch 2026-10-14: rejected, held-out -0.131R, n 133, t -1.08, 7/12 symbols; 126 variants tried, 42,024 across the lab; not loosened)
+- [x] Ehlers Inverse Fisher Transform of RSI(5) crossing back through -0.5/+0.5 (momentum-analyst, WebSearch 2026-10-14: rejected, in-sample +0.239R n 72, held-out -0.418R, n 51, PF 0.55, t -1.7, 5/12 symbols; 126 variants tried, 42,150 across the lab; not loosened)
+- [x] Raff regression channel band touch in a high-R2 trend, 24-bar OLS (trend-moving-average-analyst, WebSearch 2026-10-15: promising only, in-sample +0.024R n 91 (needs +0.05R), held-out +0.105R, n 48, PF 1.22, t 0.60, 3/12 symbols (SPY/QQQ carry it); 126 variants tried, 42,276 across the lab; frozen as a with-signal, forward test starts now)
+- [x] Breaker block: failed order block retested from the other side (smart-money-analyst, WebSearch-free idea 2026-10-15: insufficient, in-sample +0.179R n 40, held-out n 25, -0.271R, PF 0.38, t -1.98, 6/12 symbols; 126 variants tried, 42,780 across the lab; under the 30-trade minimum so not frozen, not loosened)
+- [x] VWAP 2-sigma stretch in a choppy tape, Kaufman Efficiency Ratio (20) below 0.25, snap-back reading (volume-vwap-analyst, WebSearch 2026-10-15: insufficient, in-sample +0.377R n 42, held-out n 28, -0.363R, PF 0.61, t -1.01, 5/12 symbols; 126 variants tried, 42,906 across the lab; under the 30-trade minimum so not frozen, not loosened)
+- [x] Amihud price-impact spike: bar body >= 3x the 20-bar move-per-share and >= 0.8 ATR (volume-vwap-analyst, WebSearch-free microstructure idea 2026-10-15: rejected, in-sample +0.131R n 61 but held-out -0.574R, n 35, PF 0.36, t -2.99, 4/12 symbols; 126 variants tried, 43,032 across the lab; not loosened)
+- [x] Opening-range (first 30 min) volume-profile POC retest after a breakout (volume-vwap-analyst, WebSearch 2026-10-15: rejected, in-sample +0.41R n 42 but held-out -0.30R, n 33, PF 0.66, t -0.98, 5/12 symbols; 126 variants tried, 43,158 across the lab; not loosened)
+- [x] Anchored VWAP from the session low/high (8+ bars old), first close back through it (volume-vwap-analyst, WebSearch 2026-10-15: rejected, in-sample +0.032R n 48, held-out -0.543R, n 37, PF 0.38, t -3.02, 4/12 symbols; 126 variants tried, 43,284 across the lab; not loosened)
+- [x] Elder SafeZone stop flip (10 bars, 2.0x average penetration, ratcheted) (volatility-analyst, WebSearch 2026-10-15: rejected, in-sample +0.006R n 102, held-out -0.593R, n 72, PF 0.36, t -4.09, 3/12 symbols; 126 variants tried, 43,410 across the lab; not loosened)
+- [x] Head and shoulders / inverse head and shoulders neckline break on 5-minute pivots (pattern-specialist, classic chart-pattern literature 2026-10-15: insufficient, 59 signals, held-out n 13, -0.667R, PF 0.40, t -1.29, 8/12 symbols; in-sample +0.518R n 36; 126 variants tried, 42,402 across the lab; not loosened, not frozen)
+- [x] Prior-day VWAP +/-1 stdev band break on >=1.2x relative volume (volume-vwap-analyst, WebSearch 2026-10-15: insufficient, 211 signals, in-sample +0.208R n 81, held-out n 27, -0.26R, PF 0.68, t -0.98, 8/12 symbols; 126 variants tried, 43,662 across the lab; not loosened, not frozen)
+- [x] Beta-adjusted residual of a stock vs SPY, z-score stretch of 2.5 (smart-money-analyst, WebSearch 2026-10-15: insufficient, 71 signals, in-sample +0.785R n 32, held-out n 13, -0.272R, PF 0.64, t -0.77, 8/11 symbols; 126 variants tried, 43,788 across the lab; not loosened, not frozen)
+- [x] High-volume range-break trap: close outside the prior 12-bar range on >=1.5x volume, back inside within 3 bars, lean against it (wyckoff-phase-analyst, WebSearch 2026-10-15: rejected, in-sample +0.407R n 31 but held-out -0.174R, n 34, PF 0.71, t -0.89, 8/12 symbols; 126 variants tried, 43,914 across the lab; not loosened)
+- [x] Wolfe wave: point 5 through the 1-3 line, first close back inside (pattern-specialist, WebSearch 2026-10-15: insufficient, 83 signals, in-sample +0.105R n 54, held-out n 29, -0.315R, PF 0.64, t -1.21, 5/12 symbols; 126 variants tried, 44,040 across the lab; not loosened, not frozen)
+- [x] Initial-balance break gated by cumulative session volume vs the same bar over the prior 10 sessions (volume-vwap-analyst, WebSearch 2026-10-14: insufficient, 39 signals across all symbols and sessions, no variant reached 30 in-sample; 126 variants tried, 42,276 across the lab; not loosened)
+- [x] Larry Williams smash-bar reversal: 1-ATR bar closing beyond the prior bar's extreme and the close 12 bars earlier, reversal confirmed within 3 bars (pattern-specialist, WebSearch 2026-10-14: rejected, in-sample +0.141R n 44 but held-out -0.18R, n 30, PF 0.73, t -0.79, 6/12 symbols; 126 variants tried, 42,402 across the lab; not loosened)
+- [x] Hoffman inventory retracement bar (45% wick, 0.5 ATR bar) in an 8/20 EMA trend (candlestick-specialist, queue 2026-10-14; a variant of the earlier inventory_retracement_bar test (bar-close trigger, 8/20 EMA, 0.5 ATR bar), so not independent evidence: promising only, in-sample +0.013R n 487 (under the +0.05R bar), held-out +0.064R, n 234, PF 1.12, t 0.78, 7/12 symbols; 126 variants tried, 42,276 across the lab; frozen as a fade, forward test starts now)
+- [ ] Waiting for tape: footprint delta divergence at a level (volume-vwap-analyst)
+- [ ] Waiting for tape: absorption, big sell prints at a level while price holds (volume-vwap-analyst)
+- [ ] Waiting for tape: stacked imbalances continuation (volume-vwap-analyst)
+- [ ] Waiting for tape: level 2 wall pulled vs wall held (liquidity heatmap) (smart-money-analyst)
+- [ ] Waiting for tape: large-order money flow confirming the daily trend (strategy-playbook-analyst)
+- [ ] Waiting for tape: SPY daily vote >= 2 (studies/combo_spy, D2) confirmed by real tick delta and level 2 book imbalance at the next open (strategy-playbook-analyst)
+
+## Who does what
+
+| Agent (`agents/` id) | Lab job |
+|---|---|
+| chart-reader | Data steward: pulls and ingests Webull bars, checks gaps and half days |
+| price-structure-analyst | Structure setups: BOS, change of character, protected levels |
+| trend-moving-average-analyst | Moving-average and trend setups |
+| support-resistance-mapper | Session levels: prior-day high/low/close, pivots, round numbers |
+| smart-money-analyst | Liquidity sweeps, fair value gaps, order blocks, level 2 walls |
+| pattern-specialist | Classic patterns: flags, double tops/bottoms, triangles |
+| candlestick-specialist | Candle patterns at levels that matter |
+| momentum-analyst | RSI / Stochastic setups |
+| macd-divergence-analyst | MACD and divergences |
+| volume-vwap-analyst | VWAP, volume profile, POC, value area, IB/IVB, footprint and tape |
+| fibonacci-harmonics-analyst | Retracement and extension setups |
+| elliott-wave-analyst | Impulse / correction swing setups |
+| volatility-analyst | Squeezes, NR bars, ATR expansion; daily volatility setups |
+| session-gap-specialist | Opening range, IB, gaps, open types, time of day |
+| wyckoff-phase-analyst | Springs, upthrusts, effort vs result |
+| strategy-playbook-analyst | Runs lab.py and publish.py, keeps the playbook and the queue |
+| risk-manager | Exits, stops, costs, time-of-day filters |
+| options-strategist | Checks validated setups' typical move size and speed against 0DTE decay (analysis only) |
+| devil-s-advocate | Overfitting checks: variants tried, random baseline, forward-test verdicts, retirements |
+| head-of-desk | Signs off each run's summary and what enters the playbook |
