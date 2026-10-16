@@ -69,7 +69,7 @@ doesn't suit one (say why in the `pod_listings` doc):
 | Unisex tee | Bella+Canvas 3001, 12 / Monster Digital 29 | $11.77 (2XL $14.38) | $24.99 (2XL $26.99) |
 | Crewneck sweatshirt | Gildan 18000, 49 / Monster Digital 29 | $19.45 (2XL $22.35) | $35.99 (2XL $38.99) |
 | 11 oz mug (art on both sides) | 68 / SPOKE 1 | $6.44 | $16.99 |
-| Art print (the painting on cream paper) | Matte poster 282 / Sensaria 2 | $6.60 / $11.84 / $12.00 | $19.99 / $29.99 / $34.99 (11x14 / 16x20 / 18x24) |
+| Art print (the painting on cream paper) | Matte poster 282 / Sensaria 2 | $6.60 / $12.00 / $11.84 | $19.99 / $29.99 / $34.99 (11x14 / 16x20 / 18x24) |
 | Kiss-cut sticker | 400 / SPOKE 1 | $1.66 (3x3) / $2.08 (4x4) | $6.75 (3x3) / $7.40 (4x4) |
 | Full-wrap white mug (pattern designs) | 68 / SPOKE 1, wrap 2700 x 1120 | $6.44 | $16.99 |
 | Accent mug, colored handle/rim/inside (pattern designs) | 635 / Printify Choice 99, wrap 2475 x 1155 (11 oz), 2475 x 1275 (15 oz) | $6.40 / $8.44 | $19.99 / $22.99 |
