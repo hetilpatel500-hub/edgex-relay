@@ -169,7 +169,7 @@ function coverHtml(pages, frontOnly) {
     li:before{content:'★ ';color:#f5b400}
     .hero{position:absolute;right:25px;top:150px;width:300px;height:300px}.hero svg{width:100%;height:100%}`;
   const aplus = [
-    ['aplus-look-inside.png', `<div class="a"><h1>Look inside: ${esc(c.word.toLowerCase())} to color!</h1><div class="row">${picks.map(id => `<div class="pg"><div class="t">${esc(ART.subjects[id].label)}</div>SVG_${id}</div>`).join('')}</div><div class="foot"><span>Big pictures</span><span>Thick lines</span><span>Ages ${esc(c.ages)}</span></div></div>`],
+    ['aplus-look-inside.png', `<div class="a"><h1>${esc(c.aplus_title || `Look inside: ${c.word.toLowerCase()} to color!`)}</h1><div class="row">${picks.map(id => `<div class="pg"><div class="t">${esc(ART.subjects[id].label)}</div>SVG_${id}</div>`).join('')}</div><div class="foot"><span>Big pictures</span><span>Thick lines</span><span>Ages ${esc(c.ages)}</span></div></div>`],
     ['aplus-whats-inside.png', `<div class="a"><h1>${esc(c.kicker)} ${esc(c.word)} Coloring Book</h1><ul>${(c.aplus_points || c.back_points.slice(0, 4)).map(t => `<li>${esc(t)}</li>`).join('')}</ul><div class="hero">HERO_${c.hero[1]}</div></div>`],
   ];
   for (const [name, body] of aplus) {
