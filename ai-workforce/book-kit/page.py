@@ -21,6 +21,21 @@ if abs(src[0].rect.width - W) > 0.01 or abs(src[0].rect.height - H) > 0.01:
     src.close(); os.replace(cp + '.tmp', cp)
 chk = pymupdf.open(cp)[0].rect
 print(f'cover {chk.width / 72:.4f} x {chk.height / 72:.4f} in (KDP formula {W / 72:.4f} x {H / 72:.4f})')
+# KDP's bleed check: the background has to run 0.125 in past the trim on all
+# four sides. Render the cover and refuse it if any bleed strip shows white.
+pix = pymupdf.open(cp)[0].get_pixmap(dpi=150)
+cov = Image.frombytes('RGB', (pix.width, pix.height), pix.samples)
+b = round(0.125 * 150)
+bad = []
+for side, box in [('top', (0, 0, cov.width, b)), ('bottom', (0, cov.height - b, cov.width, cov.height)),
+                  ('left', (0, 0, b, cov.height)), ('right', (cov.width - b, 0, cov.width, cov.height))]:
+    strip = cov.crop(box).convert('L')
+    white = sum(strip.histogram()[245:]) / (strip.width * strip.height)
+    if white > 0.001:
+        bad.append(f'{side} {white:.1%}')
+if bad:
+    sys.exit('COVER BLEED: white in the bleed area (' + ', '.join(bad) + '). The background must reach the page edge.')
+print('cover bleed: background reaches every page edge')
 shots = json.load(open(os.path.join(out, '_shots.json')))
 # preview strip of the first interior pages
 ims = [Image.open(f).convert('RGB') for f in shots]

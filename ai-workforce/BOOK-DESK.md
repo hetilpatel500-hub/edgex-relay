@@ -20,7 +20,7 @@ and never set a price.
 - "My First <Topic> Coloring Book: 30 Big & Easy <Things> – A, B, C & More for Kids Ages 2-5", by JONNY COLOR, series "my first step".
 - 30 subjects, one big picture per page, extra-thick outlines, the subject's name in outlined letters on the page.
 - Pictures print on one side only (blank back), then a "Great job!" certificate. 64 pages.
-- Paperback: 8.5 x 11 in, no bleed, white paper. The cover is a full wrap with bleed. There's no spine text, because KDP only allows spine text on books over 79 pages.
+- Paperback: 8.5 x 11 in, no bleed, white paper. The cover is a full wrap with bleed: the sky and grass run 0.125 in past the trim on every side. KDP rejected covers whose background stopped at the trim (owner, 2026-10-20), so `page.py` renders the cover and stops if any bleed strip shows white. There's no spine text, because KDP only allows spine text on books over 79 pages.
 - Cover: sky, smiling sun, rainbow, rounded title box with the topic word in rainbow letters, an "AGES 2-5" badge, and three subjects in color on the grass.
 
 ## How a book gets made (`book-kit/`)
@@ -31,7 +31,7 @@ and never set a price.
 | 2 | Brand & Graphic Design Agent | Draw 30 subjects in `book-kit/art/<topic>.js` with the helpers in `art/core.js`: big simple shapes, cute faces, closed outlines, and a colour palette for the cover. |
 | 3 | Quality Bar Agent | `node sheet.js art/<topic>.js sheet.png` and look at every drawing. Fix anything broken, overlapping, too detailed for a 2-year-old, or hard to recognize. |
 | 4 | Copywriter + SEO Agent + Paid Ads Agent | Write `books/<id>.json`: title, subtitle, description, 7 keywords (50 characters max each), 3 categories, and the `ads` section (bids, 15 exact + 8 phrase ad keywords, negatives, targeting categories, 3 custom ad texts of 150 characters max, 3 Sponsored Brands headlines of 50 max). Keywords are real phrases parents search for. Never use other authors, brands or trademarked characters. Ad text never says best seller, sale, free, a price or reviews: Amazon's book ad policy rejects those, and build.js refuses them. |
-| 5 | Grammar & Copy Editor, Deliverable QA Reviewer | `node build.js books/<id>.json OUT`, then `python3 page.py OUT`. Check the page previews, the cover, and that the cover size printed by page.py matches KDP's formula. |
+| 5 | Grammar & Copy Editor, Deliverable QA Reviewer | `node build.js books/<id>.json OUT`, then `python3 page.py OUT`. Check the page previews, the cover, that the cover size printed by page.py matches KDP's formula, and that page.py prints "cover bleed: background reaches every page edge". |
 | 6 | Legal Desk (all ten counsel) | Review the book and listing per `LEGAL-DESK.md`: trademark (title, keywords), copyright (original art, font license, AI-art copyright note), platform (KDP AI disclosure, metadata rules), kids/COPPA, advertising (description claims). Write one `legal_reviews` doc. |
 | 7 | Chief of Staff | Approve or deny, only with a `cleared` legal review, and log it in `decisions`. |
 | 8 | Publish Coordinator | Publish `OUT/index.html` as a new private artifact (`capabilities {"downloads": true}`, files: interior.pdf, cover-paperback.pdf, cover-kindle.jpg, preview-cover.jpg, preview-pages.png). Email the owner the link, title, subtitle, description, keywords and categories. Add a `books` doc. |

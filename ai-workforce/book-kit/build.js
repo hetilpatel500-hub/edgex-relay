@@ -94,9 +94,12 @@ function coverHtml(pages, frontOnly) {
     <div class="tbox"><div class="k">${esc(c.kicker)}</div>
       <svg class="w" viewBox="0 0 1000 190"><text x="500" y="160" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="${Math.min(190, 1500 / Math.max(6, c.word.length))}" stroke="#fff" stroke-width="10" paint-order="stroke" stroke-linejoin="round">${word}</text></svg>
       <div class="cb">Coloring Book</div><div class="tag">${esc(c.tagline)}</div></div>
-    <div class="ground"></div>${hero}
+    ${hero}
     <div class="series">${esc(book.listing.series)}</div>
   </div>`;
+  // The sky (on .wrap) and the grass run edge to edge through the bleed, so no
+  // white shows after trimming. KDP rejects covers whose background stops at the trim.
+  const ground = `<div class="ground"></div>`;
   const back = frontOnly ? '' : `<div class="back" style="left:${bx}in"><div class="bbox">
       <div class="bt">${esc(c.back_title)}</div>
       <ul>${c.back_points.map(p => `<li>${esc(p)}</li>`).join('')}</ul>
@@ -104,11 +107,14 @@ function coverHtml(pages, frontOnly) {
       <div class="minis">${c.back_minis.map(id => `<div class="mini">MINI_${id}</div>`).join('')}</div>
       <div class="barcode"></div></div>
       <div class="spine" style="left:${BLEED + TRIM_W}in;width:${spine}in"></div>`;
+  // grass top sits 2.5 in above the bottom trim; the band reaches the page edge
+  const groundH = 2.5 + (frontOnly ? 0 : BLEED);
   return { spine, W, H, html: `<html><head><style>${FONTS}
-  @page{size:${W}in ${H}in;margin:0} body{margin:0}
-  .wrap{position:relative;width:${W}in;height:${H}in;overflow:hidden;background:linear-gradient(#bfe6ff,#e6f6ff 60%,#fff);font-family:Fredoka}
+  @page{size:${W}in ${H}in;margin:0} html,body{margin:0;width:${W}in;height:${H}in;overflow:hidden;background:#8fd694}
+  .wrap{position:relative;width:${W + 0.1}in;height:${H + 0.1}in;margin:0 -0.1in -0.1in 0;overflow:hidden;background:linear-gradient(#bfe6ff,#dcf1ff ${(H - groundH) / H * 100}%);font-family:Fredoka}
   .front,.back{position:absolute;top:${frontOnly ? 0 : BLEED}in;width:${TRIM_W}in;height:${TRIM_H}in}
-  .spine{position:absolute;top:0;bottom:0;background:#6ec6ff}
+  .spine{position:absolute;top:0;height:${H - groundH}in;background:#6ec6ff}
+  .ground{position:absolute;left:0;right:0;top:${H - groundH}in;bottom:0;background:#8fd694;border-top:.08in solid #5fb865}
   .sun{position:absolute;left:.35in;top:.35in;width:1.9in;height:1.9in}
   .rainbow{position:absolute;left:.9in;right:.9in;top:1.1in;height:3.35in}.rainbow svg{width:100%;height:100%}
   .cloud{position:absolute;background:#fff;border-radius:1in;box-shadow:0 0 0 .02in #d6ecfa}
@@ -117,15 +123,14 @@ function coverHtml(pages, frontOnly) {
   .tbox{position:absolute;left:1in;right:1in;top:3.1in;background:#fff;border:.07in solid #555;border-radius:.35in;text-align:center;padding:.2in .2in .25in;box-shadow:0 .05in 0 #0002}
   .tbox .k{font:600 30pt Fredoka;color:#444}.tbox .w{width:100%;height:1.35in;display:block}
   .tbox .cb{font:600 30pt Fredoka;color:#444}.tbox .tag{font:600 15pt Fredoka;color:#666;margin-top:.08in}
-  .ground{position:absolute;left:0;right:0;bottom:0;height:2.5in;background:#8fd694;border-top:.08in solid #5fb865}
-  .hero{position:absolute;bottom:.55in;width:2.95in;height:2.95in}.hero svg{width:100%;height:100%}
-  .h0{left:.1in}.h1{left:2.78in;bottom:.9in}.h2{left:5.45in}
+  .hero{position:absolute;bottom:.55in;width:2.8in;height:2.8in}.hero svg{width:100%;height:100%}
+  .h0{left:.25in}.h1{left:2.85in;bottom:.9in}.h2{left:5.45in}
   .series{position:absolute;left:0;right:0;bottom:.3in;text-align:center;font:600 13pt Fredoka;color:#2e6b33}
   .bbox{position:absolute;left:.75in;right:.75in;top:1in;background:#fffe;border-radius:.3in;border:.05in solid #555;padding:.35in .45in;font:400 15pt Fredoka;color:#333}
   .bt{font:700 24pt Fredoka;margin-bottom:.15in}.bbox ul{margin:0;padding-left:.3in}.bbox li{margin:.08in 0}.bs{margin-top:.2in;font:600 12pt Fredoka;color:#666}
   .minis{position:absolute;left:.75in;right:.75in;top:5.6in;display:flex;justify-content:space-between}.mini{width:1.6in;height:1.6in;background:#fff;border-radius:.2in;border:.04in solid #555}.mini svg{width:100%;height:100%}
   .barcode{position:absolute;right:.35in;bottom:.35in;width:2.1in;height:1.3in}
-  </style></head><body><div class="wrap">${back}${front}</div><script>${artJs}</script><script>
+  </style></head><body><div class="wrap">${ground}${back}${front}</div><script>${artJs}</script><script>
   document.querySelectorAll('.hero,.mini').forEach(el=>{const id=el.textContent.replace(/^(HERO|MINI)_/,'');el.innerHTML=ART.svg(id,el.classList.contains('hero')?'color':'line')});
   </script></body></html>` };
 }
