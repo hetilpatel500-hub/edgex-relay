@@ -2276,5 +2276,22 @@
    "t_stat": 0.18,
    "max_drawdown_r": 11.4
   }
+ },
+ "three_drives": {
+  "side": "fade",
+  "filter": "rvol",
+  "exit": "1atr/1.5atr",
+  "tf": "M5",
+  "frozen_at": "2026-10-21",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 75,
+   "win_rate": 0.493,
+   "avg_r": 0.061,
+   "total_r": 4.57,
+   "profit_factor": 1.1,
+   "t_stat": 0.42,
+   "max_drawdown_r": 11.72
+  }
  }
 }
