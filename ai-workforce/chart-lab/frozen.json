@@ -2361,5 +2361,22 @@
    "t_stat": 0.27,
    "max_drawdown_r": 12.7
   }
+ },
+ "wide_cpr_r1s1_fade": {
+  "side": "with",
+  "filter": "rvol",
+  "exit": "2atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-10-23",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 30,
+   "win_rate": 0.567,
+   "avg_r": 0.29,
+   "total_r": 8.69,
+   "profit_factor": 1.77,
+   "t_stat": 1.32,
+   "max_drawdown_r": 3.48
+  }
  }
 }
