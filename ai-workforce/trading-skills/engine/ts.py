@@ -93,6 +93,7 @@ def main(argv=None):
 
     p = sp.add_parser('context', help='market regime from the index ETFs, breadth and sectors')
     p.add_argument('--sectors'); p.add_argument('--date')
+    p.add_argument('--time', help="ET 'HH:MM': only bars completed by then")
 
     p = sp.add_parser('events', help='earnings and economic releases that can move a stock')
     p.add_argument('--earnings', nargs='*', default=[], help='SYMBOL=FILE pairs')
@@ -217,7 +218,7 @@ def run(a):
                         a.flow, a.events, a.min_rvol, date=a.date, time=a.time)
         emit(a, r, entry.render(r))
     elif c == 'context':
-        r = context.context(a.data, a.sectors, a.date)
+        r = context.context(a.data, a.sectors, a.date, a.time)
         emit(a, r, context.render(r))
     elif c == 'events':
         ern = dict(x.split('=', 1) for x in a.earnings)

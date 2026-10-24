@@ -1,6 +1,7 @@
 import gzip, json, os, subprocess, sys, tempfile, unittest
 from helpers import make_store, HERE
-from tskit import data, session, sim, stats, timemachine as tm, exits, backtest, scanner, risk, journal, news, events, entry
+from tskit import (data, session, sim, stats, timemachine as tm, exits, backtest, scanner, risk, journal, news, events,
+                   entry, context)
 
 ENGINE = os.path.dirname(HERE)
 PLUGIN = os.path.dirname(ENGINE)
@@ -80,6 +81,22 @@ class TestTimeMachine(unittest.TestCase):
                             paths=2000, boot=5)
         self.assertIn('what_actually_happened', r)
         self.assertEqual(r['memory']['days_in_memory'], 60 * 3)   # only days strictly before
+
+    def test_context_time_cutoff(self):
+        store = make_store(('SPY', 'QQQ'), days=40, seed=4)
+        day = str(session.sessions(data.read(store, 'SPY', 'M5'), 'SPY')[-1].day)
+        before = context.context(store, date=day, time='10:20')
+        self.assertEqual(before['as_of_et'], '10:20')
+        rows = data.read(store, 'SPY', 'M5')
+        cut = [i for i, r in enumerate(rows) if data.et(r[0]).strftime('%Y-%m-%d %H:%M') >= day + ' 10:20']
+        for i in cut:                                            # rewrite every later bar: nothing may change
+            t, o, h, l, c, v = rows[i]
+            rows[i] = (t, o * 1.1, h * 1.1, l * 1.1, c * 1.1, v * 3)
+        data.write(store, 'SPY', 'M5', rows)
+        after = context.context(store, date=day, time='10:20')
+        self.assertEqual([x for x in before['indexes'] if x['symbol'] == 'SPY'],
+                         [x for x in after['indexes'] if x['symbol'] == 'SPY'])
+        self.assertNotEqual(context.context(store, date=day)['as_of_et'], '10:20')
 
     def test_bad_levels(self):
         with self.assertRaises(ValueError):

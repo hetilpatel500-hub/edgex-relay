@@ -16,7 +16,7 @@ python3 ${CLAUDE_PLUGIN_ROOT}/engine/ts.py --data STORE context --sectors sector
 ```
 
 - `--sectors` is optional: a saved `get_market_sectors` response (category `US_STOCK`, period `D1`).
-- `--date YYYY-MM-DD` reviews a past session.
+- `--date YYYY-MM-DD` reviews a past session; add `--time HH:MM` (ET) to see it as it stood then, using only bars completed by that time.
 
 ## How to present
 

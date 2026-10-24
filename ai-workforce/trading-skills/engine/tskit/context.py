@@ -24,7 +24,7 @@ def _realised_vol(c, n=20):
     return out
 
 
-def one(store, sym, date=None):
+def one(store, sym, date=None, time=None):
     rows = data.read(store, sym, 'M5')
     if not rows:
         return None
@@ -35,13 +35,19 @@ def one(store, sym, date=None):
     if s is None:
         return None
     i = len(s.bars) - 1
+    if time:
+        at = data.parse_et_clock(s.day, time)
+        ks = [j for j, x in enumerate(s.bars) if x.m + 5 <= at]
+        if not ks:
+            return None
+        i = ks[-1]
     c = s.bars[i].c
     out = {'symbol': sym, 'session': str(s.day), 'as_of_et': session.clock(s.bars[i].m + 5), 'last': c,
            'vs_vwap': 'above' if c > s.vwap[i] else 'below', 'vwap': round(s.vwap[i], 4),
            'trend_intraday': {1: 'up', -1: 'down', 0: 'none'}[s.trend[i]]}
     if s.prior is not None:
         out['change_pct'] = round((c / s.prior.close - 1) * 100, 2)
-    rng = max(x.h for x in s.bars) - min(x.l for x in s.bars)
+    rng = max(x.h for x in s.bars[:i + 1]) - min(x.l for x in s.bars[:i + 1])
     drows = data.read(store, sym, 'D')
     if drows:
         ser = session.Daily([r for r in drows if data.et(r[0]).date() < s.day], sym)
@@ -62,11 +68,11 @@ def one(store, sym, date=None):
     return out
 
 
-def context(store, sectors=None, date=None):
-    idx = [x for x in (one(store, s, date) for s in INDEXES) if x]
+def context(store, sectors=None, date=None, time=None):
+    idx = [x for x in (one(store, s, date, time) for s in INDEXES) if x]
     breadth = {'symbols': 0, 'above_vwap': 0, 'up_on_day': 0}
     for sym in data.symbols(store, 'M5'):
-        x = one(store, sym, date) if sym not in INDEXES else next((y for y in idx if y['symbol'] == sym), None)
+        x = one(store, sym, date, time) if sym not in INDEXES else next((y for y in idx if y['symbol'] == sym), None)
         if not x:
             continue
         breadth['symbols'] += 1
@@ -104,12 +110,14 @@ def context(store, sectors=None, date=None):
                      f"{breadth['up_on_day']} are up on the day")
     if sec:
         facts.append(f"sectors: {sec['advancers']} advancing vs {sec['decliners']} declining stocks")
-    return {'tool': 'market-context', 'generated_at': data.now_utc(), 'regime': label, 'volatility': vol,
+    as_of = next((x['as_of_et'] for x in idx), None)
+    return {'tool': 'market-context', 'generated_at': data.now_utc(), 'regime': label, 'volatility': vol, 'as_of_et': as_of,
             'indexes': idx, 'breadth': breadth, 'sectors': sec, 'facts': facts, 'disclaimer': DISCLAIMER}
 
 
 def render(r):
-    L = [f"MARKET CONTEXT  regime: {r['regime']}" + (f", volatility {r['volatility']}" if r['volatility'] else ''), '']
+    L = [f"MARKET CONTEXT  regime: {r['regime']}" + (f", volatility {r['volatility']}" if r['volatility'] else '') +
+         (f"  (as of {r['as_of_et']} ET)" if r.get('as_of_et') else ''), '']
     L += [f'- {f}' for f in r['facts']]
     for x in r['indexes']:
         if x.get('realised_vol_20d') is not None:

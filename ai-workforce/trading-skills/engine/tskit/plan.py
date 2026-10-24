@@ -15,7 +15,7 @@ def trade_plan(store, symbol, side, entry=None, stop=None, target=None, stop_atr
                flow=None, date=None, time=None, journal=None, setup_dirs=None, paths=10000, target_atr=None):
     symbol = symbol.upper()
     out = {'tool': 'trade-plan', 'generated_at': data.now_utc(), 'symbol': symbol, 'side': side}
-    out['market'] = context.context(store, date=date)
+    out['market'] = context.context(store, date=date, time=time)
     ev = json.load(open(events)) if isinstance(events, str) else events
     out['event_flags'] = [f for f in (ev or {}).get('flags', []) if f.get('symbol') in (symbol, '*')]
     days = tm.time_machine(store, symbol, side, entry, stop, target, stop_atr, target_r, target_atr, date, time, paths=paths)
