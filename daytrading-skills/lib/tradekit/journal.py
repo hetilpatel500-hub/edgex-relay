@@ -11,6 +11,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from .data import DEFAULT_TZ, parse_times
+
 FIELDS = [
     "id", "status", "symbol", "side", "entry_time", "entry", "shares", "stop", "target", "exit_time", "exit",
     "fees", "point_value", "setup", "tags", "notes", "predicted_win", "predicted_r",
@@ -51,9 +53,22 @@ def _clean(v):
     return v
 
 
-def add(path: Path, **trade) -> str:
+def _local_time(v, tz: str) -> str:
+    """Any timestamp string to naive exchange-local 'YYYY-MM-DD HH:MM' (what the journal stores)."""
+    if v in (None, ""):
+        return ""
+    ts = parse_times([str(v)], tz).iloc[0]
+    if pd.isna(ts):
+        raise ValueError(f"cannot read time {v!r}; use YYYY-MM-DD HH:MM")
+    return ts.tz_localize(None).strftime("%Y-%m-%d %H:%M")
+
+
+def add(path: Path, tz: str = DEFAULT_TZ, **trade) -> str:
     rows = _read_rows(path)
     trade = {k: _clean(v) for k, v in trade.items()}
+    for k in ("entry_time", "exit_time"):
+        if k in trade:
+            trade[k] = _local_time(trade[k], tz)
     trade.setdefault("id", uuid.uuid4().hex[:8])
     trade.setdefault("status", "closed" if trade.get("exit") not in (None, "") else "open")
     trade.setdefault("point_value", 1)
@@ -65,7 +80,8 @@ def add(path: Path, **trade) -> str:
 
 
 def close(path: Path, trade_id: str, exit_price: float, exit_time: str, fees: float | None = None,
-          notes: str | None = None) -> dict:
+          notes: str | None = None, tz: str = DEFAULT_TZ) -> dict:
+    exit_time = _local_time(exit_time, tz)
     rows = _read_rows(path)
     for r in rows:
         if r["id"] == trade_id:
@@ -87,7 +103,8 @@ def load(path: Path) -> pd.DataFrame:
     for c in ("entry", "shares", "stop", "target", "exit", "fees", "point_value", "predicted_win", "predicted_r"):
         df[c] = pd.to_numeric(df[c], errors="coerce")
     for c in ("entry_time", "exit_time"):
-        df[c] = pd.to_datetime(df[c], errors="coerce", format="mixed")
+        # older rows may carry offsets; everything becomes naive exchange-local time
+        df[c] = parse_times(df[c].replace("", None), DEFAULT_TZ).dt.tz_localize(None).to_numpy()
     df["fees"] = df["fees"].fillna(0.0)
     df["point_value"] = df["point_value"].fillna(1.0)
     sign = np.where(df["side"] == "short", -1.0, 1.0)

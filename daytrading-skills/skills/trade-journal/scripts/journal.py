@@ -80,7 +80,7 @@ def main():
                       predicted_win=args.predicted_win, predicted_r=args.predicted_r)
         if args.cmd == "add":
             fields.update(exit=args.exit, exit_time=args.exit_time or now)
-        tid = jr.add(path, **fields)
+        tid = jr.add(path, tz=args.tz, **fields)
         row = jr.load(path).set_index("id").loc[tid]
         msg = f"logged {tid}: {row['symbol']} {row['side']} {row['shares']:g} @ {row['entry']:g}"
         if args.cmd == "add":
@@ -94,7 +94,7 @@ def main():
         return 0
 
     if args.cmd == "close":
-        jr.close(path, args.id, args.exit, args.exit_time or now, args.fees, args.notes)
+        jr.close(path, args.id, args.exit, args.exit_time or now, args.fees, args.notes, tz=args.tz)
         row = jr.load(path).set_index("id").loc[args.id]
         print(f"closed {args.id}: {row['symbol']} {money(row['pnl'])}"
               + (f" ({row['r']:+.2f}R)" if pd.notna(row["r"]) else ""))

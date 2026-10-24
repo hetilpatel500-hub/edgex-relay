@@ -168,8 +168,11 @@ def check(cfg: dict, st: DayState, now: datetime, entry: float | None = None, st
         if risk_unit == 0:
             blocks.append("stop equals entry")
         else:
+            if side is not None and (1 if side == "long" else -1) * (entry - stop) <= 0:
+                blocks.append(f"a {side} needs its stop {'below' if side == 'long' else 'above'} the entry")
             max_risk = acct * cfg["max_risk_per_trade_pct"] / 100
-            allowed = min(max_risk, max(0.0, remaining))
+            cap = acct * cfg["max_total_open_risk_pct"] / 100
+            allowed = max(0.0, min(max_risk, remaining, cap - st.open_risk))
             trade["max_units_allowed"] = int(allowed // risk_unit)
             if shares is not None:
                 risk = risk_unit * shares
@@ -183,7 +186,6 @@ def check(cfg: dict, st: DayState, now: datetime, entry: float | None = None, st
                 else:
                     ok.append(f"risk {risk:,.2f} is within the {max_risk:,.2f} per-trade limit")
                 total = st.open_risk + risk
-                cap = acct * cfg["max_total_open_risk_pct"] / 100
                 if total > cap:
                     blocks.append(f"total open risk would be {total:,.2f}, over the {cap:,.2f} cap")
         if target is not None and risk_unit:

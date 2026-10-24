@@ -95,7 +95,7 @@ def main():
     bars = bars_from_args(args, symbol, demo_today_until=demo_until)
     native = infer_interval_minutes(bars)
     if native < interval:
-        bars = resample(bars, interval)
+        bars = resample(bars, interval, session.start_min)
     elif native > interval:
         interval = native
 
@@ -117,7 +117,8 @@ def main():
     if not 0 <= minute < session.minutes:
         raise ValueError(f"entry time {entry_t:%H:%M} is outside the {session.label()} session")
 
-    before = day_bars[day_bars.index < entry_ts]
+    # only bars that had finished by the entry time: a 10:02 entry cannot know the 10:00 bar's close
+    before = day_bars[day_bars.index + pd.Timedelta(minutes=interval) <= entry_ts]
     entry = args.entry or plan_file.get("entry")
     if entry is None:
         if len(before) == 0:
@@ -173,7 +174,7 @@ def main():
 
     notes = []
     if args.vol_scale == "auto":
-        vol_scale, vol_note = mc.auto_vol_scale(hist, today, start_slot)
+        vol_scale, vol_note = mc.auto_vol_scale(hist, today, minute // interval)
     elif args.vol_scale == "none":
         vol_scale, vol_note = 1.0, "volatility left at its historical level (--vol-scale none)"
     else:

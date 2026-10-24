@@ -72,6 +72,33 @@ def _epoch_to_datetime(values: pd.Series) -> pd.DatetimeIndex:
     return pd.DatetimeIndex(pd.to_datetime(v, unit=unit, utc=True))
 
 
+_OFFSET = r"(?:Z|[+-]\d{2}:?\d{2})$"
+
+
+def parse_times(values, tz: str = DEFAULT_TZ) -> pd.Series:
+    """Timestamps of any common shape to tz-aware market time.
+
+    Strings with an offset (``Z``, ``-04:00``) are converted, so a file that
+    spans a daylight-saving change still parses; naive strings are read as
+    exchange-local time.
+    """
+    raw = pd.Series(values).reset_index(drop=True)
+    if pd.api.types.is_datetime64_any_dtype(raw):
+        ts = pd.to_datetime(raw)
+        if ts.dt.tz is None:
+            return ts.dt.tz_localize(tz, ambiguous="NaT", nonexistent="shift_forward")
+        return ts.dt.tz_convert(tz)
+    text = raw.astype("string").str.strip()
+    aware = text.str.contains(_OFFSET, regex=True, na=False).to_numpy(dtype=bool)
+    out = pd.Series(pd.NaT, index=raw.index, dtype=f"datetime64[ns, {tz}]")
+    if aware.any():
+        out[aware] = pd.to_datetime(text[aware], utc=True, format="mixed", errors="coerce").dt.tz_convert(tz)
+    if (~aware).any():
+        naive = pd.to_datetime(text[~aware], format="mixed", errors="coerce")
+        out[~aware] = naive.dt.tz_localize(tz, ambiguous="NaT", nonexistent="shift_forward")
+    return out
+
+
 def normalize(df: pd.DataFrame, tz: str = DEFAULT_TZ) -> pd.DataFrame:
     """Coerce any reasonable OHLCV table into the tradekit shape.
 
@@ -90,17 +117,16 @@ def normalize(df: pd.DataFrame, tz: str = DEFAULT_TZ) -> pd.DataFrame:
                 picked[want] = opt
                 break
 
-    if "timestamp" in picked:
+    if picked.get("timestamp") == "date" and "time" in df.columns:
+        raw = df["date"].astype(str) + " " + df["time"].astype(str)  # separate Date and Time columns
+    elif "timestamp" in picked:
         raw = df[picked["timestamp"]]
     else:
         raw = pd.Series(df.index, index=df.index)
     if pd.api.types.is_numeric_dtype(raw):
-        idx = _epoch_to_datetime(raw)
+        idx = _epoch_to_datetime(raw).tz_convert(tz)
     else:
-        idx = pd.DatetimeIndex(pd.to_datetime(raw, utc=False, format="mixed"))
-        if idx.tz is None:
-            idx = idx.tz_localize(tz, ambiguous="NaT", nonexistent="shift_forward")
-    idx = idx.tz_convert(tz)
+        idx = pd.DatetimeIndex(parse_times(raw, tz))
 
     missing = [c for c in ("open", "high", "low", "close") if c not in picked]
     if missing == ["open", "high", "low"] and "close" in picked:
@@ -128,10 +154,11 @@ def normalize(df: pd.DataFrame, tz: str = DEFAULT_TZ) -> pd.DataFrame:
     return out.astype("float64")
 
 
-def resample(df: pd.DataFrame, minutes: int) -> pd.DataFrame:
-    """Aggregate to a coarser bar size, anchored to the hour."""
+def resample(df: pd.DataFrame, minutes: int, session_start_min: int = 9 * 60 + 30) -> pd.DataFrame:
+    """Aggregate to a coarser bar size with bins lined up on the session open (09:30 by default)."""
     rule = f"{minutes}min" if minutes < 1440 else "1D"
-    agg = df.resample(rule, label="left", closed="left").agg(
+    offset = pd.Timedelta(minutes=session_start_min % minutes) if minutes < 1440 else pd.Timedelta(0)
+    agg = df.resample(rule, label="left", closed="left", origin="start_day", offset=offset).agg(
         {"open": "first", "high": "max", "low": "min", "close": "last", "volume": "sum"}
     )
     return agg.dropna(subset=["close"])

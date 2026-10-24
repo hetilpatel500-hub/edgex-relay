@@ -56,6 +56,8 @@ class TradePlan:
 
     def __post_init__(self) -> None:
         self.side = self.side.lower()
+        self.entry, self.stop = float(self.entry), float(self.stop)
+        self.targets = [Target(float(t.price), float(t.fraction)) for t in self.targets]
         if self.side not in ("long", "short"):
             raise ValueError("side must be long or short")
         if self.risk <= 0:
@@ -260,7 +262,7 @@ def simulate(bank: ReturnBank, plan: TradePlan, start_slot: int, end_slot: int, 
     price = np.full(n, entry)
     remaining = np.ones(n)
     realized = np.zeros(n)
-    stop = np.full(n, plan.stop)
+    stop = np.full(n, float(plan.stop))
     k_next = np.zeros(n, dtype=int)
     active = np.ones(n, dtype=bool)
     outcome = np.full(n, TIME)
@@ -284,9 +286,13 @@ def simulate(bank: ReturnBank, plan: TradePlan, start_slot: int, end_slot: int, 
         outcome[mask] = code
         t_exit[mask] = t
 
-    def stop_check(mask, level, fill, t):
+    def stop_check(mask, level, fill, t, fav_known=None):
         m = mask & active & (s * (level - stop) <= 0)
         if m.any():
+            # excursions stop counting at the exit: the stop fill is the worst price lived through,
+            # and only what came before it (the open, or the whole favourable leg) counts as best
+            adv_seen[m] = fill[m]
+            fav_seen[m] = (fav_known if fav_known is not None else o)[m]
             code = np.where(k_next > 0, PARTIAL_STOP, STOP)
             realized[m] += remaining[m] * s * (fill[m] - s * slip - entry)
             remaining[m] = 0.0
@@ -294,7 +300,7 @@ def simulate(bank: ReturnBank, plan: TradePlan, start_slot: int, end_slot: int, 
             outcome[m] = code[m]
             t_exit[m] = t
 
-    def fill_targets(mask, level, o, t):
+    def fill_targets(mask, level, o, t, adv_known=None):
         for k in range(K):
             m = mask & active & (k_next == k) & (s * (level - tp[k]) >= 0)
             if not m.any():
@@ -315,6 +321,8 @@ def simulate(bank: ReturnBank, plan: TradePlan, start_slot: int, end_slot: int, 
             active[done] = False
             outcome[done] = TARGET
             t_exit[done] = t
+            fav_seen[done] = fill[done]
+            adv_seen[done] = (adv_known if adv_known is not None else o)[done]
 
     for t in range(T):
         if t > 0 and p_switch > 0:
@@ -326,6 +334,7 @@ def simulate(bank: ReturnBank, plan: TradePlan, start_slot: int, end_slot: int, 
         c = price * np.exp(RC[day, t])
         fav, adv = (h, lo) if s > 0 else (lo, h)
         was_active = active.copy()
+        fav_seen, adv_seen = fav.copy(), adv.copy()
 
         if K:
             ambiguous_bars += int(np.sum(active & (s * (adv - stop) <= 0)
@@ -342,13 +351,13 @@ def simulate(bank: ReturnBank, plan: TradePlan, start_slot: int, end_slot: int, 
             adverse_first = s * (c - o) >= 0  # O->L->H->C for an up bar, O->H->L->C for a down bar
             pre, post = active & adverse_first, active & ~adverse_first
         stop_check(pre, adv, stop.copy(), t)
-        fill_targets(active, fav, o, t)
-        stop_check(post, adv, stop.copy(), t)
-        stop_check(active, c, stop.copy(), t)  # a close beyond the stop crossed it whatever the order
+        fill_targets(active, fav, o, t, adv_known=np.where(pre, adv, o))
+        stop_check(post, adv, stop.copy(), t, fav_known=fav)
+        stop_check(active, c, stop.copy(), t, fav_known=fav)  # a close beyond the stop crossed it either way
 
         # 3. excursions, trailing stop, time exit
-        mfe[was_active] = np.maximum(mfe[was_active], s * (fav[was_active] - entry))
-        mae[was_active] = np.minimum(mae[was_active], s * (adv[was_active] - entry))
+        mfe[was_active] = np.maximum(mfe[was_active], s * (fav_seen[was_active] - entry))
+        mae[was_active] = np.minimum(mae[was_active], s * (adv_seen[was_active] - entry))
         if trail_dist is not None:
             on = active & ((k_next > 0) if K else True)
             stop[on] = tighter(stop[on], entry + s * (mfe[on] - trail_dist))

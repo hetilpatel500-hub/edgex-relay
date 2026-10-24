@@ -263,8 +263,9 @@ def red_to_green(ctx: Context) -> list[Signal]:
         name = "Red-to-green" if d > 0 else "Green-to-red"
         if d * (opened - pc) >= 0:
             continue  # need to open on the other side of yesterday's close
-        i = _first_cross(b["close"], pc, d)
-        seg = b.iloc[-6:]
+        # the first bar counts too: open below yesterday's close, close above it
+        i = 0 if d * (float(b["close"].iloc[0]) - pc) > 0 else _first_cross(b["close"], pc, d)
+        seg = b.iloc[-6:] if i is None else b.iloc[max(0, i - 5) : i + 1]
         stop = float(seg["low"].min()) if d > 0 else float(seg["high"].max())
         if i is None:
             out.append(Signal(name, side, "armed", pc + d * _tick(pc), stop, None,
