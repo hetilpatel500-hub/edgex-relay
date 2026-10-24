@@ -1,0 +1,19 @@
+{
+  "name": "edgex",
+  "owner": {
+    "name": "hetilpatel500-hub",
+    "url": "https://github.com/hetilpatel500-hub"
+  },
+  "metadata": {
+    "description": "Free, open-source day-trading skills for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "daytrading-skills",
+      "source": "./daytrading-skills",
+      "description": "11 day-trading skills: scanner, news, premarket plan, levels, regime, entries, sizing, exits, Time Machine Monte Carlo, risk guard, journal",
+      "version": "0.1.0",
+      "category": "finance"
+    }
+  ]
+}

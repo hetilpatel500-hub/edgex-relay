@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "daytrading-skills",
+  "version": "0.1.0",
+  "description": "11 free day-trading skills for Claude: chart scanner, news catalysts, premarket plan, key levels, market regime, entry signals, position sizing, exit planning, a 10,000-path Time Machine simulator, risk guard and trade journal. Analysis only, never places orders.",
+  "author": {
+    "name": "hetilpatel500-hub",
+    "url": "https://github.com/hetilpatel500-hub"
+  },
+  "homepage": "https://github.com/hetilpatel500-hub/edgex-relay/tree/main/daytrading-skills",
+  "repository": "https://github.com/hetilpatel500-hub/edgex-relay",
+  "license": "MIT",
+  "keywords": ["trading", "day-trading", "stocks", "futures", "monte-carlo", "backtesting", "risk-management"]
+}
