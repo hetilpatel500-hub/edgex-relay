@@ -1,0 +1,136 @@
+{
+ "id": "soup-season",
+ "name": "Soup Season",
+ "template": "arch",
+ "top": "Soup Season",
+ "bottom": "warm bowls for cold days",
+ "top_font": "Pacifico",
+ "bottom_font": "DancingScript",
+ "art": [
+  {
+   "motif": "maple_leaf",
+   "x": -0.35,
+   "y": 0.02,
+   "s": 0.065,
+   "angle": -0.7,
+   "color": "#d8612e",
+   "color2": "#f0a24a"
+  },
+  {
+   "motif": "maple_leaf",
+   "x": 0.36,
+   "y": -0.01,
+   "s": 0.06,
+   "angle": 0.6,
+   "color": "#c9452f",
+   "color2": "#e8894a"
+  },
+  {
+   "motif": "sprig",
+   "x": -0.2,
+   "y": -0.03,
+   "s": 0.075,
+   "angle": -2.45
+  },
+  {
+   "motif": "sprig",
+   "x": 0.2,
+   "y": -0.03,
+   "s": 0.075,
+   "angle": -0.7
+  },
+  {
+   "motif": "bay_leaf",
+   "x": -0.22,
+   "y": 0.09,
+   "s": 0.13,
+   "angle": 2.85
+  },
+  {
+   "motif": "bay_leaf",
+   "x": 0.22,
+   "y": 0.07,
+   "s": 0.12,
+   "angle": 0.25
+  },
+  {
+   "motif": "soup_bowl",
+   "x": 0.0,
+   "y": 0.01,
+   "s": 0.25
+  },
+  {
+   "motif": "carrot",
+   "x": -0.33,
+   "y": 0.22,
+   "s": 0.24,
+   "angle": -0.3
+  },
+  {
+   "motif": "peppercorns",
+   "x": -0.05,
+   "y": 0.245,
+   "s": 0.03
+  },
+  {
+   "motif": "mushroom",
+   "x": 0.13,
+   "y": 0.22,
+   "s": 0.075,
+   "angle": -0.15
+  },
+  {
+   "motif": "mushroom",
+   "x": 0.205,
+   "y": 0.255,
+   "s": 0.055,
+   "angle": 0.25
+  },
+  {
+   "motif": "garlic",
+   "x": 0.31,
+   "y": 0.2,
+   "s": 0.075
+  }
+ ],
+ "florals": null,
+ "palette": "autumn",
+ "colors": {
+  "object": "#7fa3ad",
+  "object2": "#c3d8dc"
+ },
+ "seed": 11,
+ "shirt_colors": [
+  "natural",
+  "white",
+  "sand"
+ ],
+ "listing": {
+  "title": "Soup Season Shirt, Watercolor Soup Bowl Tee, Cozy Fall Shirt, Foodie Gift, Home Cook Kitchen Top, Autumn Vegetable Soup Lover",
+  "tags": [
+   "soup season",
+   "soup season shirt",
+   "soup lover gift",
+   "cozy fall shirt",
+   "foodie gift",
+   "home cook gift",
+   "watercolor food",
+   "cold weather shirt",
+   "soup weather",
+   "autumn tee",
+   "kitchen shirt",
+   "vegetable soup",
+   "cozy season"
+  ],
+  "description": "A steaming watercolor bowl of vegetable soup, with carrots, garlic, mushrooms, bay leaves and autumn leaves around it, under \"Soup Season\" in warm script and \"warm bowls for cold days\" below. Made for fall and winter kitchens, soup nights and anyone who counts the days until it's cold enough for soup.",
+  "products": [
+   "Unisex tee (Bella+Canvas 3001)",
+   "Crewneck sweatshirt (Gildan 18000)",
+   "11 oz mug",
+   "Art print (matte poster)",
+   "Kiss-cut sticker"
+  ],
+  "price_note": "Prices from the POD-DESK.md product table (Printify catalog costs read through the API on 2026-09-28): tee $26, sweatshirt $42, mug $18, art print $22/$30/$36, sticker $5.99/$6.99. Soup apparel on Etsy shows from $19.99 in search results (2026-09-28). The owner can change any price.",
+  "trademark_check": "Legal Desk screen 2026-09-28 (before any art): web searches '\"soup season\" trademark clothing', '\"soup season\" trademark justia OR uspto.report', 'SOUP SEASON trademark trademarkia class 25', '\"soup season\" apparel brand' and '\"warm bowls for cold days\" shirt OR trademark' found no SOUP SEASON or WARM BOWLS FOR COLD DAYS clothing registration or filing; results show 'soup season' used as a common descriptive phrase by many independent sellers. Unrelated soup marks seen: SOUP WEAR (1993 clothing filing), CHICKEN SOUP FOR THE SOUL, a Berlin label named Soup. tmsearch.uspto.gov, Justia, uspto.report and Trademarkia pages are blocked from our sessions, so the official database was not searched directly. Kept out entirely: any soup brand name or can art, and sitcom catchphrases."
+ }
+}

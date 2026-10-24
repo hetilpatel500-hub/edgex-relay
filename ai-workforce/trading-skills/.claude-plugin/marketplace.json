@@ -1,0 +1,16 @@
+{
+  "name": "edgex-skills",
+  "owner": {
+    "name": "Edgex"
+  },
+  "description": "Edgex's open research skills for Claude Code.",
+  "plugins": [
+    {
+      "name": "edgex-trading-skills",
+      "source": "./",
+      "description": "Read-only day-trading research skills with a calibrated time machine. Analysis only; order tools are blocked.",
+      "category": "finance",
+      "tags": ["trading", "backtesting", "risk"]
+    }
+  ]
+}
