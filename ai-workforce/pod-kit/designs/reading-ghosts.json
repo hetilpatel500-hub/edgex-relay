@@ -1,0 +1,140 @@
+{
+ "id": "reading-ghosts",
+ "kind": "pattern",
+ "name": "Reading Ghosts",
+ "seed": 11,
+ "background": "#f6ecdc",
+ "palette": {
+  "main": "#c8643b",
+  "main2": "#e8a05d",
+  "accent": "#d9a441",
+  "accent2": "#efcf86",
+  "leaf": "#8a8a4a",
+  "leaf2": "#c2b86e",
+  "object": "#5f7f96",
+  "object2": "#9bb5c4",
+  "ghost": "#c9c3da"
+ },
+ "elements": [
+  {
+   "motif": "books",
+   "size": 0.085,
+   "count": 6,
+   "y_range": [
+    0.1,
+    0.9
+   ],
+   "spacing": 1.1
+  },
+  {
+   "motif": "ghost",
+   "size": 0.16,
+   "count": 5,
+   "args": {
+    "book": true
+   },
+   "tilt": 0.22,
+   "spacing": 1.15
+  },
+  {
+   "motif": "ghost",
+   "size": 0.12,
+   "count": 4,
+   "tilt": 0.3,
+   "spacing": 1.15
+  },
+  {
+   "motif": "pumpkin",
+   "size": 0.07,
+   "count": 6,
+   "spacing": 1.25
+  },
+  {
+   "motif": "maple_leaf",
+   "size": 0.055,
+   "count": 22,
+   "tilt": 1.2,
+   "colors": [
+    [
+     "#c8643b",
+     "#e8a05d"
+    ],
+    [
+     "#b4462f",
+     "#d9774a"
+    ],
+    [
+     "#d9a441",
+     "#efcf86"
+    ],
+    [
+     "#8a8a4a",
+     "#c2b86e"
+    ]
+   ]
+  },
+  {
+   "motif": "acorn",
+   "size": 0.038,
+   "count": 10,
+   "tilt": 0.6
+  },
+  {
+   "motif": "sparkle",
+   "size": 0.02,
+   "fill": true,
+   "spacing": 1.8
+  },
+  {
+   "motif": "maple_leaf",
+   "size": 0.035,
+   "fill": true,
+   "tilt": 1.4,
+   "spacing": 1.25,
+   "colors": [
+    [
+     "#d9a441",
+     "#efcf86"
+    ],
+    [
+     "#c8643b",
+     "#e8a05d"
+    ],
+    [
+     "#8a8a4a",
+     "#c2b86e"
+    ]
+   ]
+  }
+ ],
+ "mug_colors": [
+  "Orange",
+  "Black",
+  "White"
+ ],
+ "listing": {
+  "title": "Watercolor Ghost Mug, Cute Ghosts Reading Books Coffee Mug, Book Lover Halloween Mug, Fall Pumpkin Mug, Cozy Autumn Gift for Readers",
+  "tags": [
+   "ghost mug",
+   "cute ghost mug",
+   "halloween mug",
+   "book lover mug",
+   "ghost reading book",
+   "fall coffee mug",
+   "pumpkin mug",
+   "gift for readers",
+   "cozy autumn mug",
+   "watercolor mug",
+   "spooky cute mug",
+   "librarian gift",
+   "book club gift"
+  ],
+  "description": "Little watercolor ghosts curl up with their books among pumpkins, maple leaves and acorns, painted all the way around the mug on a warm cream background. A cozy, not-too-spooky mug for readers from the first cool morning through Halloween.",
+  "products": [
+   "11 oz white mug, full wrap (68 / SPOKE)",
+   "Accent mug 11 or 15 oz, orange or black handle and inside (635 / Printify Choice)"
+  ],
+  "price_note": "$18 white wrap mug, $22 (11 oz) / $25 (15 oz) accent mug. Printed ghost, fall and bookish mugs in the owner's Etsy screenshots of 2026-09-28 sold at $6.00-$23.99 (most $13-22); an accent-mug ghost reading listing and a 15 oz gothic ghost reading mug exist (etsy.com/listing/4344527340, /4330224182).",
+  "trademark_check": "2026-09-28, IP & Trademark Counsel: WebSearch '\"bookish ghost\" trademark' found no BOOKISH GHOST mark; BOOKISH is registered (NetGalley, reg. 4372918, Justia) and THE BOOKISH GOODS (reg. 2024), so 'bookish' is kept out of the name, title and tags. No brand, character or franchise words. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen, not a clearance."
+ }
+}

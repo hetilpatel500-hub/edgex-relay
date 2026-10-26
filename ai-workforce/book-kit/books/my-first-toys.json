@@ -1,0 +1,164 @@
+{
+ "id": "my-first-toys",
+ "count": 30,
+ "art": [
+  "art/toys.js"
+ ],
+ "subjects": [
+  "teddy-bear",
+  "ball",
+  "blocks",
+  "toy-car",
+  "rocking-horse",
+  "kite",
+  "yo-yo",
+  "rubber-duck",
+  "doll",
+  "drum",
+  "train",
+  "robot",
+  "spinning-top",
+  "balloon",
+  "jack-in-the-box",
+  "rocket",
+  "xylophone",
+  "puzzle",
+  "pail-shovel",
+  "toy-boat",
+  "toy-plane",
+  "stacking-rings",
+  "pinwheel",
+  "rattle",
+  "toy-box",
+  "jump-rope",
+  "scooter",
+  "tricycle",
+  "crayons",
+  "bubbles"
+ ],
+ "cover": {
+  "kicker": "My First",
+  "word": "Toys",
+  "tagline": "30 big & easy toy pages to color!",
+  "ages": "2-5",
+  "hero": [
+   "toy-car",
+   "teddy-bear",
+   "ball"
+  ],
+  "back_title": "Big pictures for little hands",
+  "back_points": [
+   "30 friendly toys: a teddy bear, blocks, a toy train, a robot and more",
+   "Things to ride, things to play and things to make music with",
+   "One big picture per page with extra-thick lines",
+   "Every picture has a blank back, so markers won't spoil the next one",
+   "A \"Great job!\" certificate at the end"
+  ],
+  "aplus_points": [
+   "30 big toy pages, one picture per page",
+   "Extra-thick lines for little hands",
+   "Each name in big letters to color",
+   "Blank backs, so markers won't spoil the next picture"
+  ],
+  "back_minis": [
+   "rocket",
+   "robot",
+   "blocks",
+   "kite"
+  ]
+ },
+ "listing": {
+  "title": "My First Toys Coloring Book",
+  "subtitle": "30 Big & Easy Toy Pages – Teddy Bear, Blocks, Toy Train, Robot & More for Kids Ages 2-5",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "description_html": "<p><b>Big, bold and easy to color: a first coloring book full of favorite toys!</b></p><p>Little hands color 30 friendly toys, from a cuddly teddy bear and a bouncy ball to a toy train, a robot and a jack-in-the-box. Every page has one big, simple picture with extra-thick lines, so small hands can color inside the lines.</p><p><b>Inside you'll find:</b></p><ul><li>Toys to cuddle and play with: Teddy Bear, Doll, Rubber Duck, Ball, Blocks, Puzzle, Yo-Yo, Spinning Top, Jack-in-the-Box, Stacking Rings, Rattle, Balloon, Bubbles, Pinwheel, Kite, a Robot and a Toy Box</li><li>Toys that go: Toy Car, Toy Train, Toy Boat, Toy Plane, Toy Rocket, Rocking Horse, Scooter and Tricycle</li><li>Toys for music, art and outdoors: Drum, Xylophone, Crayons, Jump Rope and Pail &amp; Shovel</li><li>One large picture per page with thick outlines, and each name in big letters to color</li><li>Single-sided pages with a blank back, so markers won't bleed onto the next picture</li><li>Big 8.5 x 11 inch pages and a \"Great job!\" certificate at the end</li></ul><p>A fun, screen-free activity for toddlers and preschoolers ages 2 to 5.</p><p>Part of the <b>my first step</b> series. Also try <i>My First Dinosaurs Coloring Book</i> and <i>My First Animals Coloring Book</i>.</p>",
+  "keywords": [
+   "toys coloring book for toddlers",
+   "coloring book for kids ages 2-5",
+   "big easy coloring pages for preschoolers",
+   "my first coloring book for toddlers",
+   "teddy bear and toy train coloring pages",
+   "simple coloring book thick lines",
+   "toddler activity book for boys and girls"
+  ],
+  "categories": [
+   "Children's Books > Activities, Crafts & Games > Coloring Books",
+   "Children's Books > Early Learning > Basic Concepts > Words",
+   "Children's Books > Early Learning > Basic Concepts > Colors"
+  ],
+  "reading_age": "2 - 5 years",
+  "price_note": "Similar toddler coloring books are commonly priced around $5.99-$6.99 (kdpeasy.com age-group guide). Use the calculator below with KDP's printing cost before you choose. Your call.",
+  "ai_disclosure": "KDP asks if the book has AI-generated content. The pictures and the text were made by Edgex's AI agents, so answer Yes for images and text."
+ },
+ "ads": {
+  "bids": {
+   "auto": "0.35",
+   "exact": "0.45",
+   "phrase": "0.40"
+  },
+  "keywords": {
+   "exact": [
+    "toy coloring book",
+    "toys coloring book for toddlers",
+    "coloring books for toddlers",
+    "toddler coloring book",
+    "coloring book for 2 year old",
+    "coloring book for 3 year old",
+    "coloring book for kids ages 2-4",
+    "my first coloring book",
+    "big and easy coloring book",
+    "simple coloring book for toddlers",
+    "preschool coloring book",
+    "teddy bear coloring book",
+    "toddler coloring book ages 1-3",
+    "jumbo coloring book for toddlers",
+    "coloring books for kids ages 2-4"
+   ],
+   "phrase": [
+    "toy coloring",
+    "toddler coloring",
+    "coloring books for kids",
+    "coloring book for 2 year olds",
+    "preschool activity book",
+    "jumbo coloring book",
+    "first coloring book",
+    "easy coloring book"
+   ]
+  },
+  "negatives": [
+   "adult",
+   "adults",
+   "for adults",
+   "mandala",
+   "grayscale",
+   "free",
+   "printable",
+   "pdf",
+   "sticker",
+   "stickers",
+   "dot markers",
+   "paint by number",
+   "teen",
+   "sketchbook",
+   "realistic",
+   "toy story",
+   "lego"
+  ],
+  "categories": [
+   "Children's Coloring Books",
+   "Children's Activity Books",
+   "Children's Early Learning Books"
+  ],
+  "custom_text": [
+   "30 big toy pages with extra-thick lines, made for little hands. A screen-free first coloring book for ages 2 to 5.",
+   "A teddy bear, blocks, a toy train and more: one big picture per page, each name to color, and a Great job! certificate at the end.",
+   "Your toddler's first toy coloring book: friendly toys, thick lines and blank backs so markers won't spoil the next page."
+  ],
+  "headlines": [
+   "Big, easy coloring books for little hands",
+   "My First coloring books for ages 2 to 5",
+   "Friendly toys, thick lines, ages 2 to 5"
+  ]
+ }
+}

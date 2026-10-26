@@ -1,0 +1,166 @@
+{
+  "id": "grandmas-garden",
+  "name": "Grandma's Garden",
+  "template": "arch",
+  "top": "Grandma's Garden",
+  "bottom": "picked with love",
+  "top_font": "Pacifico",
+  "bottom_font": "DancingScript",
+  "art": [
+    {
+      "motif": "heart",
+      "x": -0.3,
+      "y": -0.13,
+      "s": 0.028
+    },
+    {
+      "motif": "heart",
+      "x": 0.31,
+      "y": -0.11,
+      "s": 0.022
+    },
+    {
+      "motif": "sparkle",
+      "x": 0.22,
+      "y": -0.22,
+      "s": 0.016
+    },
+    {
+      "motif": "sparkle",
+      "x": -0.2,
+      "y": -0.23,
+      "s": 0.014
+    },
+    {
+      "motif": "sparkle",
+      "x": 0.37,
+      "y": 0.09,
+      "s": 0.014
+    },
+    {
+      "motif": "sparkle",
+      "x": -0.38,
+      "y": 0.12,
+      "s": 0.016
+    }
+  ],
+  "florals": "bouquet",
+  "florals_s": 0.27,
+  "florals_dy": 0.1,
+  "flowers": [
+    "rose",
+    "daisy",
+    "rose",
+    "wildflower"
+  ],
+  "palette": "blush",
+  "ink": "#3d3236",
+  "seed": 12,
+  "shirt_colors": [
+    "white",
+    "heather_pink",
+    "natural"
+  ],
+  "listing": {
+    "title": "Grandma's Garden Shirt, Watercolor Floral Grandma Tee, Gift for Grandma from Grandkids, Rose Bouquet Nana Shirt, Grandmother Birthday Gift",
+    "tags": [
+      "grandmas garden",
+      "grandma shirt",
+      "gift for grandma",
+      "floral grandma tee",
+      "nana shirt",
+      "grandmother gift",
+      "watercolor floral",
+      "grandma birthday",
+      "rose bouquet shirt",
+      "gardening grandma",
+      "grandma christmas",
+      "mothers day grandma",
+      "new grandma gift"
+    ],
+    "description": "A loose watercolor bouquet of pink roses, golden blooms, eucalyptus and berries, with little hearts and sparkles, painted in layered watercolor under \"Grandma's Garden\" in round script and \"picked with love\" below. A gift for the grandma who grows the best flowers, and the best grandkids.",
+    "per_product": {
+      "sweatshirt": {
+        "title": "Grandma's Garden Sweatshirt, Watercolor Floral Grandma Crewneck, Gift for Grandma from Grandkids, Rose Nana Pullover, Grandmother Gift",
+        "tags": [
+          "grandmas garden",
+          "grandma sweatshirt",
+          "gift for grandma",
+          "floral crewneck",
+          "nana sweatshirt",
+          "grandmother gift",
+          "watercolor floral",
+          "grandma birthday",
+          "rose sweatshirt",
+          "gardening grandma",
+          "grandma christmas",
+          "cozy grandma gift",
+          "new grandma gift"
+        ]
+      },
+      "mug": {
+        "title": "Grandma's Garden Mug, Watercolor Floral Grandma Coffee Mug, Gift for Grandma from Grandkids, Rose Bouquet Nana Mug, Grandmother Tea Cup",
+        "tags": [
+          "grandmas garden",
+          "grandma mug",
+          "gift for grandma",
+          "floral coffee mug",
+          "nana mug",
+          "grandmother gift",
+          "watercolor mug",
+          "grandma birthday",
+          "rose bouquet mug",
+          "gardening grandma",
+          "grandma christmas",
+          "tea cup for grandma",
+          "new grandma gift"
+        ]
+      },
+      "poster": {
+        "title": "Grandma's Garden Art Print, Watercolor Floral Wall Art, Gift for Grandma from Grandkids, Rose Bouquet Print, Grandmother Kitchen Decor",
+        "tags": [
+          "grandmas garden",
+          "grandma wall art",
+          "gift for grandma",
+          "floral art print",
+          "nana gift",
+          "grandmother gift",
+          "watercolor flowers",
+          "grandma birthday",
+          "rose bouquet print",
+          "gardening grandma",
+          "grandma christmas",
+          "kitchen wall art",
+          "floral poster"
+        ]
+      },
+      "sticker": {
+        "title": "Grandma's Garden Sticker, Watercolor Floral Grandma Vinyl Sticker, Rose Bouquet Laptop Sticker, Nana Water Bottle Decal, Gift for Grandma",
+        "tags": [
+          "grandmas garden",
+          "grandma sticker",
+          "gift for grandma",
+          "floral sticker",
+          "nana sticker",
+          "rose sticker",
+          "watercolor sticker",
+          "laptop sticker",
+          "planner sticker",
+          "journal sticker",
+          "gardening sticker",
+          "flower sticker",
+          "grandmother gift"
+        ]
+      }
+    },
+    "products": [
+      "Unisex tee (Bella+Canvas 3001)",
+      "Crewneck sweatshirt (Gildan 18000)",
+      "11 oz mug",
+      "Art print (matte poster)",
+      "Kiss-cut sticker"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table after the 2026-10-05 pricing review (decisions/pricing-2026-10-05): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. 'Grandma gifts' items sell around $26 on average with most between $1.50 and $160 (rankhero.com keyword page, Mar 2026). The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-10-05 (before any art): web searches '\"Grandma's Garden\" trademark clothing apparel registration', '\"grandma's garden\" shirt etsy watercolor floral grandma gift' and '\"where love grows\" trademark clothing USPTO'. Found GRANDMA'S GARDEN & DESIGN registered in Canada for laundry products only (class 3, Grandma's Garden Ltd.), and other GRANDMA'S marks with different wording (GRANDMA'S GANG, cancelled; GRANDMA'S TOUCH; GRANDMA'S BRAT; GRAMPA'S GARDEN APRON, a 2024 filing for aprons). No GRANDMA'S GARDEN apparel, mug or print mark found. First choice 'Cookies at Grandma's' was dropped: GRANDMA'S cookies is a Frito-Lay brand that has sued over 'Grandma' cookie names. Subline 'where love grows' was dropped for LOVE + GROW CLOTHING CO (registered); 'picked with love' is used instead. tmsearch.uspto.gov, Justia and uspto.report pages are blocked from our sessions, so the official database was not searched directly; this is a search-engine screen, not a clearance."
+  }
+}

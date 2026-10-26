@@ -1,0 +1,226 @@
+{
+  "id": "dachshund-florals",
+  "kind": "pattern",
+  "name": "Dachshund Florals",
+  "seed": 37,
+  "background": "#f7f0e4",
+  "palette": {
+    "main": "#e58a9b",
+    "main2": "#f5c3b8",
+    "accent": "#f2b25c",
+    "accent2": "#f8dca0",
+    "leaf": "#6f9a72",
+    "leaf2": "#b4cf9f",
+    "object": "#9cc0cf",
+    "object2": "#c9e0e6",
+    "collar": "#c94f5e"
+  },
+  "elements": [
+    {
+      "motif": "dachshund",
+      "size": 0.19,
+      "count": 2,
+      "args": {
+        "coat": "red",
+        "facing": 1
+      },
+      "tilt": 0.06,
+      "spacing": 0.95,
+      "y_range": [
+        0.18,
+        0.82
+      ]
+    },
+    {
+      "motif": "dachshund",
+      "size": 0.19,
+      "count": 2,
+      "args": {
+        "coat": "black_tan",
+        "facing": -1
+      },
+      "tilt": 0.06,
+      "spacing": 0.95,
+      "y_range": [
+        0.18,
+        0.82
+      ]
+    },
+    {
+      "motif": "dachshund",
+      "size": 0.19,
+      "count": 1,
+      "args": {
+        "coat": "chocolate",
+        "facing": 1,
+        "collar": "#5b8fc9"
+      },
+      "tilt": 0.06,
+      "spacing": 0.95,
+      "y_range": [
+        0.18,
+        0.82
+      ]
+    },
+    {
+      "motif": "dachshund",
+      "size": 0.19,
+      "count": 1,
+      "args": {
+        "coat": "cream",
+        "facing": -1,
+        "collar": "#6f9a72"
+      },
+      "tilt": 0.06,
+      "spacing": 0.95,
+      "y_range": [
+        0.18,
+        0.82
+      ]
+    },
+    {
+      "motif": "rose",
+      "size": 0.085,
+      "count": 12,
+      "spacing": 0.85,
+      "colors": [
+        [
+          "#e58a9b",
+          "#f5c3b8"
+        ],
+        [
+          "#d9667e",
+          "#f2a7b8"
+        ],
+        [
+          "#e58a9b",
+          "#f5c3b8"
+        ],
+        [
+          "#f2b25c",
+          "#f8dca0"
+        ]
+      ]
+    },
+    {
+      "motif": "eucalyptus",
+      "size": 0.085,
+      "count": 8,
+      "tilt": 3.1,
+      "spacing": 0.8
+    },
+    {
+      "motif": "sprig",
+      "size": 0.075,
+      "count": 14,
+      "tilt": 3.1,
+      "spacing": 0.75
+    },
+    {
+      "motif": "daisy",
+      "size": 0.05,
+      "count": 14,
+      "spacing": 0.85
+    },
+    {
+      "motif": "wildflower",
+      "size": 0.045,
+      "count": 14,
+      "spacing": 0.85,
+      "colors": [
+        [
+          "#9a86c9"
+        ],
+        [
+          "#7fa8d6"
+        ],
+        [
+          "#e58a9b"
+        ]
+      ]
+    },
+    {
+      "motif": "berries",
+      "size": 0.03,
+      "count": 12,
+      "args": {
+        "color": "#c94f5e",
+        "n": 4
+      },
+      "spacing": 0.85
+    },
+    {
+      "motif": "daisy",
+      "size": 0.03,
+      "fill": true,
+      "spacing": 1.1
+    },
+    {
+      "motif": "heart",
+      "size": 0.022,
+      "count": 10,
+      "spacing": 1.4,
+      "gaps": true,
+      "clear": 1.6
+    },
+    {
+      "motif": "sparkle",
+      "size": 0.016,
+      "count": 24,
+      "spacing": 2.2,
+      "gaps": true,
+      "clear": 2.4
+    }
+  ],
+  "mug_colors": [
+    "Pink",
+    "Maroon",
+    "Black",
+    "White"
+  ],
+  "listing": {
+    "title": "Dachshund Mug, Watercolor Wiener Dog Coffee Mug, Floral All Over Print, Dachshund Mom Gift, Doxie Lover Mug, Cute Dog Mug",
+    "tags": [
+      "dachshund mug",
+      "wiener dog mug",
+      "doxie mug",
+      "dachshund gift",
+      "dachshund mom",
+      "dog lover gift",
+      "floral dog mug",
+      "watercolor mug",
+      "dog mom mug",
+      "sausage dog mug",
+      "dog breed mug",
+      "floral coffee mug",
+      "dachshund lover"
+    ],
+    "description": "Little dachshunds in red, black and tan, chocolate and cream trot all the way around the mug among watercolor roses, daisies, wildflowers, eucalyptus and tiny hearts, on a warm cream background. A sweet gift for a dachshund mom, a doxie dad or anyone who loves a long little dog.",
+    "per_product": {
+      "accent_mug": {
+        "title": "Dachshund Accent Mug, Watercolor Wiener Dog and Flowers Coffee Cup, Pink, Maroon or Black Handle, 11 or 15 oz, Dachshund Mom Gift",
+        "tags": [
+          "dachshund cup",
+          "pink handle mug",
+          "wiener dog cup",
+          "doxie coffee cup",
+          "dachshund mom gift",
+          "dog lover mug",
+          "15 oz dog mug",
+          "floral accent mug",
+          "dog mom gift",
+          "sausage dog gift",
+          "dachshund owner",
+          "cute dog cup",
+          "rose coffee mug"
+        ]
+      }
+    },
+    "products": [
+      "11 oz white mug, full wrap (68 / SPOKE)",
+      "Accent mug 11 or 15 oz, pink, maroon or black handle, rim and inside (635 / Printify Choice)"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table after the 2026-10-05 pricing review (decisions/pricing-2026-10-05): wrap mug $16.99, accent mug $19.99 (11 oz) / $22.99 (15 oz). Search results on 2026-10-06 showed a dachshund peeking portrait mug on Etsy at $23.49; the owner's 2026-09-28 Etsy mug scan put printed mugs at about $9-24. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-10-06 (before any art): web searches '\"dachshund\" trademark mugs drinkware class 21 registered' and '\"dachshund\" OR \"doxie\" trademark registered clothing mugs brand USPTO'. Found DACHSHUND CENTRAL.COM (a stylized dog design with that text, reg. 5916701, clothing), MINIDOXIE CO. (pending, pet accessories) and AMERICAN DOXIE (abandoned 2017); none is used. 'Dachshund', 'wiener dog', 'doxie' and 'sausage dog' are common names of the breed, used descriptively. The art has no lettering. tmsearch.uspto.gov and Justia are blocked from our sessions, so this is a search-engine screen, not a clearance."
+  }
+}

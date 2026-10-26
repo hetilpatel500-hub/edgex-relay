@@ -1,0 +1,57 @@
+{
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-pets",
+  "kind": "book"
+ },
+ "title": "My First Pets Coloring Book (book, cover, KDP listing, Amazon Ads kit)",
+ "reviewed_at": "2026-10-26T13:55:24Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, A+ points and ad texts checked against the built book: 30 subjects, 64 pages, blank backs and certificate are all true. Headline 3 said 'bunnies' (one bunny inside); fixed to 'A puppy, a kitten, a bunny and more, ages 2-5'."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/pets.js; contact sheet reviewed, no copied or licensed characters. Fredoka font is SIL OFL 1.1, which allows embedding. AI-drawn pages can't be registered for US copyright (Thaler v. Perlmutter), so others may copy them."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search, no USPTO search run (unreachable). DK sells a 'My First Pets' board book in its 'My First' series and Lulu has 'Paris: My First Pet'; no exact 'My First Pets Coloring Book' found. The title is descriptive, matches the series pattern, and uses none of DK's trade dress. Owner may run a USPTO search before publishing. Keywords and ad keywords name no brands or authors."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP AI disclosure: answer Yes for images and text, as the listing says. Keywords are 7 phrases of 50 characters or fewer, with no brands or misleading terms. Ad texts and headlines avoid best-seller, sale, price, free and review claims, as Amazon's book ad policy requires; build.js checks passed."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "Ages 2-5 content is friendly and safe: no scary or violent images, and nothing pushes purchases on kids. The 'This book belongs to' line collects no data. Fits KDP's children's content guidelines."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms. The owner publishes and prices on KDP."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [
+  "Done: ads headline 3 changed from 'Puppies, kittens and bunnies to color, ages 2-5' to 'A puppy, a kitten, a bunny and more, ages 2-5'."
+ ],
+ "last_touch_ref": "book desk step 5 (Grammar & Copy Editor, Deliverable QA Reviewer), 2026-10-26",
+ "decision_ref": "decisions/2026-10-26-book-my-first-pets"
+}
