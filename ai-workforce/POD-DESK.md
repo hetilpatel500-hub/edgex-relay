@@ -324,3 +324,11 @@ Studio Floor at any time.
   screen (SAGITTARIUS ATHLETIC application, 97660475). No Printify products
   were made and the 10 waiting drafts weren't published: the session's
   permission check blocked Printify writes.
+- 2026-10-26 (15:24 UTC run, Monday): blocked again. Printify reads work: 48 of 58
+  products have Etsy listing IDs, and the 10 Scorpio Constellation and Campfire
+  Season drafts (Legal-cleared and approved Oct 5) are still unpublished. The
+  first publish call (Scorpio tee) was refused by the session's permission check,
+  so nothing was published or created and $0 was spent. No new designs were made:
+  the office DB is at its 100 MB limit, so research, Legal and decision records
+  can't be filed. Weekly sales review: Printify shows 0 orders since the shop
+  opened.
