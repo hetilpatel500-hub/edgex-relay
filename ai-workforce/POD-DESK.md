@@ -332,3 +332,10 @@ Studio Floor at any time.
   the office DB is at its 100 MB limit, so research, Legal and decision records
   can't be filed. Weekly sales review: Printify shows 0 orders since the shop
   opened.
+- 2026-11-02 (17:18 UTC run, Monday): blocked all week (Oct 27 - Nov 2), same as
+  Oct 26. Printify reads work: still 48 of 58 products with Etsy listing IDs and
+  the same 10 Scorpio Constellation and Campfire Season drafts unpublished. No
+  publish was retried (the permission check still refuses Printify writes) and
+  no new designs were made (the office DB is still full). $0 spent. Weekly sales
+  review: Printify shows 0 orders since the shop opened. Scorpio season ends
+  Nov 21, so those 5 drafts lose their timing soon.
