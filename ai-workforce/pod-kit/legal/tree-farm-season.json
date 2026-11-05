@@ -1,0 +1,60 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "tree-farm-season",
+  "kind": "pod_design"
+ },
+ "title": "Tree Farm Season (tee, sweatshirt, mug, art print, sticker, ceramic ornament)",
+ "reviewed_at": "2026-11-05T03:50:42Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions. The owner stays anonymous (no names in the art or copy)."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Descriptions checked against the full-size art: red pickup, one fir standing in the bed with a red bow, snowy pines on both sides, snow on the ground, snowflakes, 'Tree Farm Season' on top and 'fresh cut & headed home' below, all true. Ornament copy says the title is lettered along the bottom rim and the painting is printed on both sides, true of the ornament file and Printify's 2-side blueprint. Size 'about 3 in' comes from the 886 px print area at 300 dpi (2.95 in). No 'best seller', sale, free, review or handmade claims; no fake discounts."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the art or listings."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original: painted by the studio's own code (watercolor.py, motifs.py), no stock art, no traced or copied designs, no AI image generator. Fonts Pacifico and Dancing Script are SIL OFL 1.1 (license files in pod-kit/fonts), which allows use in printed products. Machine-drawn art may not be registrable for US copyright (Thaler v. Perlmutter), so others could copy it."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Phrase screened before art (listing.trademark_check): no TREE FARM SEASON mark found. CHRISTMAS TREE FARM (serial 90980204, Class 25) is not used in the title, tags or art; 'tree farm shirt' and 'tree farm season' tags don't contain it. Competitor phrases ('Farm Fresh Christmas Trees') and movie tree-farm references (Griswold) avoided. The truck is a generic stylized pickup: no maker badge, model name or a specific model's grille, and no vehicle brand in the copy, which keeps clear of automaker trade dress. Search-engine screen only; tmsearch.uspto.gov is blocked from our sessions."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description says the art is digitally painted by the studio and printed and shipped by a production partner, which is Etsy's production-partner disclosure; the owner adds Printify as the production partner in Shop Manager if it isn't there yet. Titles are 140 characters or fewer and every listing has 13 unique tags of 20 characters or fewer (build.py checked). No brand names in titles or tags. Printify: blueprints used are in the studio's product table, plus the new ceramic ornament (1599 / 99), whose catalog says 2-side print and a gold hanging string, matching the description."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "Not made or marketed for children (adult unisex sizes, no kids' tags). The ceramic ornament is holiday decor, not a toy; its care text says it is fragile and to hang it out of reach of little hands and pets."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms. Printify and Etsy terms are the owner's existing accounts."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [
+  "Quality Bar: outer pines were clipped about 50 px at both print edges; moved to x -0.39 / 0.385 and scaled 0.31 to 0.295 (art now ends 26 px and 49 px inside the edges).",
+  "Ornament description said the ornament shows the painting without lettering; changed to say the title is lettered along the bottom rim."
+ ],
+ "last_touch_ref": "POD desk steps 4-6 (Quality Bar, Copywriter + SEO, Grammar & Copy Editor, Deliverable QA Reviewer), 2026-11-05",
+ "research_ref": "pod-kit/research/2026-11-05-christmas-batch.json",
+ "decision_ref": "pod-kit/decisions/2026-11-05-pod-christmas-batch.json"
+}

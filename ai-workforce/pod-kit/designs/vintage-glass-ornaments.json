@@ -1,0 +1,240 @@
+{
+  "id": "vintage-glass-ornaments",
+  "kind": "pattern",
+  "name": "Vintage Glass Ornaments",
+  "seed": 12,
+  "background": "#f6efe3",
+  "palette": {
+    "main": "#8e2b3a",
+    "main2": "#c45a64",
+    "accent": "#d9ad55",
+    "accent2": "#f3d58f",
+    "leaf": "#2f5e45",
+    "leaf2": "#6f9a6a",
+    "leaf_dark": "#1f3f2d",
+    "holly": "#2f6b4f",
+    "holly2": "#6fa27e",
+    "berry": "#b8333a",
+    "cap": "#d9ad55",
+    "star": "#d9ad55",
+    "star2": "#f3d58f",
+    "bow": "#b8333a",
+    "snow": "#9fb4c6"
+  },
+  "elements": [
+    {
+      "motif": "bauble",
+      "size": 0.15,
+      "count": 2,
+      "colors": [
+        [
+          "#8e2b3a",
+          "#c45a64"
+        ]
+      ],
+      "tilt": 0.22,
+      "spacing": 1.0,
+      "edge": 1.2
+    },
+    {
+      "motif": "bauble",
+      "size": 0.15,
+      "count": 2,
+      "colors": [
+        [
+          "#2f5e45",
+          "#6f9a6a"
+        ]
+      ],
+      "tilt": 0.22,
+      "spacing": 1.0,
+      "edge": 1.2
+    },
+    {
+      "motif": "bauble",
+      "size": 0.15,
+      "count": 2,
+      "colors": [
+        [
+          "#c9963a",
+          "#f0d08a"
+        ]
+      ],
+      "tilt": 0.22,
+      "spacing": 1.0,
+      "edge": 1.2
+    },
+    {
+      "motif": "bauble",
+      "size": 0.15,
+      "count": 1,
+      "colors": [
+        [
+          "#2f4a6b",
+          "#6f8fb5"
+        ]
+      ],
+      "tilt": 0.22,
+      "spacing": 1.0,
+      "edge": 1.2
+    },
+    {
+      "motif": "bauble",
+      "size": 0.15,
+      "count": 1,
+      "colors": [
+        [
+          "#b8333a",
+          "#e0786a"
+        ]
+      ],
+      "tilt": 0.22,
+      "spacing": 1.0,
+      "edge": 1.2
+    },
+    {
+      "motif": "bauble",
+      "size": 0.12,
+      "count": 1,
+      "args": {
+        "kind": "finial"
+      },
+      "colors": [
+        [
+          "#c9963a",
+          "#f0d08a"
+        ]
+      ],
+      "tilt": 0.2,
+      "spacing": 1.0,
+      "edge": 1.4
+    },
+    {
+      "motif": "bauble",
+      "size": 0.12,
+      "count": 1,
+      "args": {
+        "kind": "finial"
+      },
+      "colors": [
+        [
+          "#2f5e45",
+          "#6f9a6a"
+        ]
+      ],
+      "tilt": 0.2,
+      "spacing": 1.0,
+      "edge": 1.4
+    },
+    {
+      "motif": "bauble",
+      "size": 0.12,
+      "count": 1,
+      "args": {
+        "kind": "finial"
+      },
+      "colors": [
+        [
+          "#b8333a",
+          "#e0786a"
+        ]
+      ],
+      "tilt": 0.2,
+      "spacing": 1.0,
+      "edge": 1.4
+    },
+    {
+      "motif": "pine_bough",
+      "size": 0.14,
+      "count": 6,
+      "args": {
+        "snow": false,
+        "twigs": 3
+      },
+      "tilt": 3.1,
+      "spacing": 0.7
+    },
+    {
+      "motif": "holly",
+      "size": 0.06,
+      "count": 7,
+      "tilt": 3.1,
+      "spacing": 0.85
+    },
+    {
+      "motif": "bow",
+      "size": 0.05,
+      "count": 5,
+      "tilt": 0.4,
+      "spacing": 0.9
+    },
+    {
+      "motif": "gold_star",
+      "size": 0.024,
+      "fill": true,
+      "spacing": 3.6,
+      "gaps": true,
+      "clear": 1.5,
+      "tilt": 0.6
+    },
+    {
+      "motif": "snow_dot",
+      "size": 0.008,
+      "fill": true,
+      "spacing": 5.0,
+      "gaps": true,
+      "clear": 2.2
+    }
+  ],
+  "mug_colors": [
+    "Maroon",
+    "Red",
+    "Black",
+    "White"
+  ],
+  "listing": {
+    "title": "Vintage Christmas Ornament Mug, Watercolor Glass Baubles All Over Print Coffee Mug, Burgundy Green Gold Holiday Mug, Christmas Gift",
+    "tags": [
+      "ornament coffee mug",
+      "vintage xmas mug",
+      "christmas mug",
+      "watercolor mug",
+      "holiday coffee mug",
+      "ornament mug",
+      "burgundy christmas",
+      "retro christmas mug",
+      "christmas gift mom",
+      "cozy christmas mug",
+      "xmas coffee mug",
+      "festive mug",
+      "holiday gift for her"
+    ],
+    "description": "Vintage-style glass Christmas ornaments in burgundy, forest green, gold, navy and red (round baubles with painted bands and dots, and tall finials), with fir sprigs, holly, little red bows and gold stars, painted in layered watercolor all the way around the mug on a warm cream background. For the friend who still hangs the old family glass ornaments every year.",
+    "per_product": {
+      "accent_mug": {
+        "title": "Vintage Ornament Accent Mug, Watercolor Christmas Baubles Coffee Cup, Maroon, Red or Black Handle, 11 or 15 oz, Holiday Gift",
+        "tags": [
+          "christmas accent mug",
+          "maroon handle mug",
+          "vintage ornament cup",
+          "christmas coffee cup",
+          "15 oz christmas mug",
+          "red handle mug",
+          "black handle mug",
+          "holiday tea mug",
+          "glass bauble mug",
+          "burgundy christmas",
+          "retro holiday mug",
+          "christmas gift her",
+          "festive accent mug"
+        ]
+      }
+    },
+    "products": [
+      "11 oz white mug, full wrap (68 / SPOKE)",
+      "Accent mug 11 or 15 oz, maroon, red or black handle, rim and inside (635 / Printify Choice)"
+    ],
+    "price_note": "$16.99 white wrap mug, $19.99 (11 oz) / $22.99 (15 oz) accent mug, the studio's standard mug prices (POD-DESK.md product table). eRank's 2026 holiday notes list 'burgundy christmas ornament' and 'gold christmas decor' among trend searches, and the owner's Etsy mug scan (2026-09-28) shows all-over wraps leading printed mugs at about $9-24. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-11-05: web search '\"vintage ornaments\" OR \"glass ornaments\" trademark mug drinkware class 21' found 'glass ornaments' only as a goods description inside Class 21 filings, never as a mark; no VINTAGE ORNAMENTS mark found. The art has no lettering. Ornament brand names (for example Shiny Brite) are not used anywhere; 'vintage', 'glass ornament' and 'bauble' describe the art only. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen, not a clearance."
+  }
+}

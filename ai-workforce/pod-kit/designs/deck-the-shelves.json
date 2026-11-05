@@ -1,0 +1,225 @@
+{
+  "id": "deck-the-shelves",
+  "name": "Deck the Shelves",
+  "template": "arch",
+  "top": "Deck the Shelves",
+  "bottom": "bookish & bright",
+  "top_font": "PlayfairDisplay",
+  "bottom_font": "DancingScript",
+  "art": [
+    {
+      "motif": "book_tree",
+      "x": 0.0,
+      "y": 0.27,
+      "s": 0.53,
+      "front": true
+    },
+    {
+      "motif": "gift",
+      "x": -0.29,
+      "y": 0.27,
+      "s": 0.072,
+      "front": true
+    },
+    {
+      "motif": "gift",
+      "x": -0.41,
+      "y": 0.27,
+      "s": 0.042,
+      "color": "#b8473d",
+      "ribbon": "#f1e6cf",
+      "front": true
+    },
+    {
+      "motif": "cat",
+      "x": 0.3,
+      "y": 0.145,
+      "s": 0.108,
+      "tail": -1
+    },
+    {
+      "motif": "sparkle",
+      "x": -0.27,
+      "y": -0.13,
+      "s": 0.024
+    },
+    {
+      "motif": "sparkle",
+      "x": 0.25,
+      "y": -0.17,
+      "s": 0.02
+    },
+    {
+      "motif": "sparkle",
+      "x": -0.14,
+      "y": -0.22,
+      "s": 0.016
+    },
+    {
+      "motif": "sparkle",
+      "x": 0.34,
+      "y": -0.02,
+      "s": 0.016
+    },
+    {
+      "motif": "snowflake",
+      "x": -0.36,
+      "y": 0.0,
+      "s": 0.02
+    },
+    {
+      "motif": "snowflake",
+      "x": 0.37,
+      "y": -0.11,
+      "s": 0.016
+    }
+  ],
+  "florals": null,
+  "palette": "autumn",
+  "colors": {
+    "book1": "#8e2b3a",
+    "book2": "#2f5e45",
+    "book3": "#d9a84a",
+    "book4": "#2f4a6b",
+    "book5": "#b8473d",
+    "book6": "#7a9a72",
+    "book7": "#e8dcc2",
+    "star": "#d9ad55",
+    "star2": "#f3d58f",
+    "accent": "#d9ad55",
+    "accent2": "#f3d58f",
+    "gift": "#2f5e45",
+    "ribbon": "#d9ad55",
+    "bow": "#b8333a"
+  },
+  "ink": "#3a2f2d",
+  "seed": 17,
+  "shirt_colors": [
+    "white",
+    "natural",
+    "heather_pink"
+  ],
+  "ornament": true,
+  "listing": {
+    "title": "Deck the Shelves Shirt, Bookish Christmas Tee, Book Christmas Tree Shirt, Book Lover Gift, Black Cat Book Shirt, Librarian Gift",
+    "tags": [
+      "deck the shelves",
+      "bookish christmas",
+      "book lover gift",
+      "christmas book shirt",
+      "book tree shirt",
+      "reading shirt",
+      "bookworm gift",
+      "librarian gift",
+      "christmas shirt",
+      "black cat shirt",
+      "book club gift",
+      "teacher christmas",
+      "watercolor christmas"
+    ],
+    "description": "A Christmas tree made of stacked books in deep red, forest green, gold and navy, wrapped in a string of warm lights with a gold star on top, presents at its foot and a black cat keeping watch, painted in layered watercolor. \"Deck the Shelves\" in serif lettering on top and \"bookish & bright\" in script below. For the reader, librarian or book-club friend who would rather decorate a shelf than a tree.",
+    "per_product": {
+      "sweatshirt": {
+        "title": "Deck the Shelves Sweatshirt, Bookish Christmas Crewneck, Book Christmas Tree Sweater, Book Lover Gift, Black Cat Reader Pullover",
+        "tags": [
+          "deck the shelves",
+          "bookish christmas",
+          "book lover gift",
+          "christmas sweatshirt",
+          "book tree crewneck",
+          "reading sweatshirt",
+          "bookworm gift",
+          "librarian gift",
+          "cozy reader gift",
+          "black cat sweater",
+          "book club gift",
+          "teacher christmas",
+          "bookish sweatshirt"
+        ]
+      },
+      "mug": {
+        "title": "Deck the Shelves Mug, Bookish Christmas Coffee Mug, Book Christmas Tree Mug, Book Lover Gift, Black Cat Book Mug, Librarian Gift",
+        "tags": [
+          "deck the shelves",
+          "bookish mug",
+          "book lover gift",
+          "christmas book mug",
+          "book tree mug",
+          "reading mug",
+          "bookworm gift",
+          "librarian gift",
+          "christmas mug",
+          "black cat mug",
+          "book club gift",
+          "teacher gift mug",
+          "cozy reading mug"
+        ]
+      },
+      "poster": {
+        "title": "Deck the Shelves Art Print, Bookish Christmas Wall Art, Book Christmas Tree Print, Reading Nook Decor, Library Print, Book Lover Gift",
+        "tags": [
+          "deck the shelves",
+          "bookish wall art",
+          "book lover gift",
+          "christmas book print",
+          "book tree print",
+          "reading nook decor",
+          "library wall art",
+          "bookworm gift",
+          "librarian gift",
+          "christmas wall art",
+          "black cat print",
+          "book club gift",
+          "bookish decor"
+        ]
+      },
+      "sticker": {
+        "title": "Deck the Shelves Sticker, Bookish Christmas Vinyl Sticker, Book Christmas Tree Laptop Sticker, Book Lover Stocking Stuffer",
+        "tags": [
+          "deck the shelves",
+          "bookish sticker",
+          "book lover gift",
+          "christmas sticker",
+          "book tree sticker",
+          "reading sticker",
+          "bookworm sticker",
+          "librarian gift",
+          "stocking stuffer",
+          "black cat sticker",
+          "laptop sticker",
+          "book club gift",
+          "journal sticker"
+        ]
+      },
+      "ornament": {
+        "title": "Book Christmas Tree Ornament, Watercolor Bookish Ceramic Ornament, Deck the Shelves Keepsake, Book Lover Gift, Black Cat Ornament",
+        "tags": [
+          "book ornament",
+          "bookish ornament",
+          "christmas ornament",
+          "ceramic ornament",
+          "deck the shelves",
+          "book lover gift",
+          "librarian gift",
+          "bookworm gift",
+          "reading ornament",
+          "black cat ornament",
+          "book club gift",
+          "stocking stuffer",
+          "watercolor ornament"
+        ],
+        "description": "The watercolor Christmas tree of stacked books, its warm lights and gold star, the presents and the black cat, printed on both sides of a round ceramic ornament. \"Deck the Shelves\" is lettered along the bottom rim, on both sides. A small gift for a reader, a librarian or a book club swap."
+      }
+    },
+    "products": [
+      "Unisex tee (Bella+Canvas 3001)",
+      "Crewneck sweatshirt (Gildan 18000)",
+      "11 oz mug",
+      "Art print (matte poster)",
+      "Kiss-cut sticker",
+      "Round ceramic ornament, printed both sides (1599 / Printify Choice)"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table (2026-10-05 pricing review): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. New: round ceramic ornament $16.99 (web search 2026-11-05: watercolor ceramic ornaments on Etsy-style shops list about $10-35, one Etsy listing at $13.79 sale / $22.99; Printify US shipping $5.89, 10 days' handling; printify.py raises the price if it is under Printify's cost + $4). The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-11-05 (before any art): web searches '\"deck the shelves\" trademark apparel USPTO' and '\"deck the shelves\" sweatshirt book christmas tree'. No DECK THE SHELVES mark found in any class. Related marks seen: STACK THE DECK (reg. 6521898, athletic apparel), DECK CLUB (pending, apparel retail services), DECK SHIRT and DECK SHOE (dead): different phrases, not used. Competitor phrases on book-tree sweatshirts ('All Booked for Christmas', 'Seasons Readings', 'Readin' Around the Christmas Tree') are not used, and no book titles, authors or publisher names appear in the art or the listing. 'Kindle' (a brand) was kept out of the sticker title. tmsearch.uspto.gov and Justia pages are blocked from our sessions, so this is a search-engine screen, not a clearance."
+  }
+}

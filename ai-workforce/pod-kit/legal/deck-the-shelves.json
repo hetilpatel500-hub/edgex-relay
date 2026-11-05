@@ -1,0 +1,60 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "deck-the-shelves",
+  "kind": "pod_design"
+ },
+ "title": "Deck the Shelves (tee, sweatshirt, mug, art print, sticker, ceramic ornament)",
+ "reviewed_at": "2026-11-05T03:50:42Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Descriptions checked against the full-size art: tree of stacked books in deep red, forest green, gold and navy, a string of warm lights, gold star, two presents at its foot and a black cat, serif 'Deck the Shelves' and script 'bookish & bright', all true. Titles said 'Black Cat Reading Shirt/Mug', but the cat isn't reading; changed to 'Black Cat Book Shirt/Mug'. Ornament copy true (title on the bottom rim, 2-side print). No best-seller, sale, free or review claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the art or listings."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original: painted by the studio's own code (watercolor.py, motifs.py), no stock art, no traced or copied designs, no AI image generator. Fonts Playfair Display and Dancing Script are SIL OFL 1.1 (license files in pod-kit/fonts), which allows use in printed products. Machine-drawn art may not be registrable for US copyright (Thaler v. Perlmutter), so others could copy it. The books have blank spines: no real titles, authors or publisher marks. 'Deck the Shelves' plays on 'Deck the Halls', a traditional carol whose words are in the public domain; no lyric lines are used."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Phrase screened before art (listing.trademark_check): no DECK THE SHELVES mark found in any class. STACK THE DECK (reg. 6521898), DECK CLUB (pending) and dead DECK SHIRT/DECK SHOE marks are different phrases and not used. Competitor phrases ('All Booked for Christmas', 'Seasons Readings') avoided. 'Kindle' kept out of the sticker copy. Search-engine screen only; tmsearch.uspto.gov is blocked from our sessions."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description says the art is digitally painted by the studio and printed and shipped by a production partner, which is Etsy's production-partner disclosure; the owner adds Printify as the production partner in Shop Manager if it isn't there yet. Titles are 140 characters or fewer and every listing has 13 unique tags of 20 characters or fewer (build.py checked). No brand names in titles or tags. Printify: blueprints used are in the studio's product table, plus the new ceramic ornament (1599 / 99), whose catalog says 2-side print and a gold hanging string, matching the description. 'teacher christmas' and 'librarian gift' tags describe gift recipients, not institutions."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "Not made or marketed for children. Ornament care text warns it is fragile and to hang it out of reach of little hands and pets."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [
+  "Titles: 'Black Cat Reading Shirt' and 'Black Cat Reading Mug' changed to 'Black Cat Book Shirt' and 'Black Cat Book Mug' (the cat isn't reading).",
+  "Ornament description said the ornament shows the painting without lettering; changed to say the title is lettered along the bottom rim."
+ ],
+ "last_touch_ref": "POD desk steps 4-6 (Quality Bar, Copywriter + SEO, Grammar & Copy Editor, Deliverable QA Reviewer), 2026-11-05",
+ "research_ref": "pod-kit/research/2026-11-05-christmas-batch.json",
+ "decision_ref": "pod-kit/decisions/2026-11-05-pod-christmas-batch.json"
+}

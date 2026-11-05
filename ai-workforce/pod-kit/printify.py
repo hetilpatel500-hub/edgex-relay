@@ -2,7 +2,7 @@
 """Create Printify products from a built design and (optionally) publish them
 to the owner's connected Etsy shop.
 
-usage: printify.py designs/<id>.json BUILD_DIR [--products tee,sweatshirt,mug,poster,sticker]
+usage: printify.py designs/<id>.json BUILD_DIR [--products tee,sweatshirt,mug,poster,sticker,ornament]
                    (pattern designs: --products mug_wrap,accent_mug)
                    [--publish]
 
@@ -63,6 +63,13 @@ PRODUCTS = {
                 price={'11″ x 14″': 1999, '16″ x 20″': 2999, '18″ x 24″': 3499},
                 details="- Museum-quality matte poster paper\n- The watercolor painting printed edge to edge\n- Frame not included",
                 care="Keep out of direct sunlight to protect the colors."),
+    # Round ceramic ornament, printed both sides (dye-sublimation, 886 x 886 print area each side).
+    # Printify catalog 2026-11-05: US shipping $5.89 first item, 10 days' handling, gold hanging cord included.
+    # Cost isn't in the catalog; the cost + $4 guard below raises the price if $16.99 is too low.
+    'ornament': dict(blueprint=1599, provider=99, noun='Ornament', alt='Christmas Ornament', art='ornament', fit=('cover', 1.0, 0.5),
+                shapes=['Circle'], positions=['front', 'back'], price={'default': 1699},
+                details="- Round ceramic ornament, about 3 in across\n- The watercolor painting is printed on both sides\n- Comes with a gold cord for hanging",
+                care="Wipe clean with a soft dry cloth. Ceramic is fragile: hang it out of reach of little hands and pets."),
     'sticker': dict(blueprint=400, provider=1, noun='Sticker', alt='Vinyl Sticker', art='clear', fit=('contain', 0.92, 0.5),
                 surfaces=['White'], sizes=['3" × 3"', '4" × 4"'], price={'3" × 3"': 675, '4" × 4"': 740},
                 details="- Kiss-cut vinyl sticker with a white backing\n- Durable and easy to peel\n- Great for laptops, notebooks and journals\n- Best indoors: the vinyl isn't waterproof",
@@ -97,8 +104,9 @@ def shop_id():
 
 def artwork(build_dir, sid, kind, max_px=4500):
     """PNG bytes and aspect (w/h) of the art to upload."""
-    if kind == 'paper':
-        im = Image.open(os.path.join(build_dir, f'{sid}-paper.jpg')).convert('RGB')
+    if kind in ('paper', 'ornament'):
+        name = f'{sid}-paper.jpg' if kind == 'paper' else f'{sid}-ornament.png'
+        im = Image.open(os.path.join(build_dir, name)).convert('RGB')
         buf = io.BytesIO(); im.save(buf, 'JPEG', quality=93)
         return buf.getvalue(), im.width / im.height, 'jpg'
     im = Image.open(os.path.join(build_dir, f'{sid}.png')).convert('RGBA')
@@ -179,6 +187,8 @@ def pick_variants(vs, spec, P):
             continue
         if P.get('surfaces') and o.get('surface') not in P['surfaces']:
             continue
+        if P.get('shapes') and o.get('shape') not in P['shapes']:
+            continue
         if o.get('paper') and o.get('paper') != 'Matte':
             continue
         out.append(v)
@@ -219,7 +229,8 @@ def make(spec, build_dir, key, shop, publish):
     else:
         data, aspect, ext = artwork(build_dir, sid, P['art'])
         up = call('POST', '/uploads/images.json', {'file_name': f'{sid}-{key}.{ext}', 'contents': base64.b64encode(data).decode()})
-        print_areas = [{'variant_ids': ids, 'placeholders': [{'position': 'front', 'images': placements(P['fit'], aspect, W, H, up['id'])}]}
+        print_areas = [{'variant_ids': ids, 'placeholders': [{'position': pos, 'images': placements(P['fit'], aspect, W, H, up['id'])}
+                                                             for pos in P.get('positions', ['front'])]}
                        for (W, H), ids in groups.items()]
     def price_of(v):
         p = P['price']

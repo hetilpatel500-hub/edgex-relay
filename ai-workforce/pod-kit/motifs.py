@@ -1866,6 +1866,337 @@ def dachshund(c, x, y, s, P, facing=1, coat='red', collar=None, angle=0.0):
     c.ink_line(poly([(0.86, -0.22), (0.93, -0.205)]), width=w * 0.9, closed=False, alpha=170, passes=1, jitter=0, color=inkc)
 
 
+# ---------------------------------------------------------------- Christmas: tree farm, book tree, glass ornaments
+def fir_tree(c, x, y, s, P, color=None, color2=None, snow=True, angle=0.0, tiers=5, trunk=True, slim=1.0):
+    """A full Christmas fir: drooping scalloped tiers (light wash, darker
+    wet-in-wet underneath), dark needle accents along each skirt and snow on
+    the shoulders. (x, y) is the foot of the trunk, s the height; angle tips the
+    tree over (-pi/2 lays it down with the tip to the left); slim < 1 narrows it."""
+    rnd = c.rnd
+    col = color or P.get('pine', '#2f5e45'); col2 = color2 or P.get('pine2', '#6f9a6a')
+    dark = P.get('pine_dark', '#1f3f2d')
+    def T(pts):
+        return _rot(pts, x, y, angle)
+    if trunk:
+        c.wash(T(rect(x - s * 0.035, y - s * 0.16, x + s * 0.035, y)), '#7a5136', '#9a6a46', strength=0.85, layers=12)
+    tiers_out = []
+    for i in range(tiers):
+        t = i / max(1, tiers - 1)
+        yb = y - s * (0.1 + 0.66 * t)
+        yt = y - s * 1.0 if i == tiers - 1 else yb - s * (0.36 - 0.1 * t)
+        w = s * (0.37 - 0.27 * t) * slim
+        n = 4 if w > s * 0.2 * slim else 3
+        pts = [(x, yt), (x + w * 0.5, yb - (yb - yt) * 0.4)]
+        for k in range(n + 1):
+            u = 1 - 2 * k / n
+            pts.append((x + w * u, yb + s * 0.025))
+            if k < n:
+                pts.append((x + w * (u - 1 / n), yb - s * 0.03))
+        pts.append((x - w * 0.5, yb - (yb - yt) * 0.4))
+        c.wash(T(smooth(pts, 1)), col2, col, strength=0.82, spread=0.02, layers=24, edge=0.9, granulate=0.45)
+        tiers_out.append((yt, yb, w))
+    # needle accents: short dark strokes hanging from each skirt
+    for (yt, yb, w) in tiers_out:
+        for _ in range(int(5 + 16 * w / s)):
+            px = x + rnd.uniform(-w * 0.92, w * 0.92)
+            py = yb - rnd.uniform(-s * 0.01, s * 0.07)
+            a = math.pi / 2 + (0.45 if px > x else -0.45) + rnd.uniform(-0.35, 0.35)
+            L = s * rnd.uniform(0.04, 0.08)
+            (cx, cy), = T([(px, py)])
+            c.wash(leaf(cx, cy, L, L * 0.13, a + angle), rnd.choice((dark, col, dark)), None,
+                   strength=rnd.uniform(0.5, 0.8), spread=0.03, layers=6, edge=0.7, granulate=0.2)
+    if snow:
+        for (yt, yb, w) in tiers_out[:-1]:
+            for side in (-1, 1):
+                if rnd.random() < 0.2:
+                    continue
+                cx, cy = x + side * w * rnd.uniform(0.35, 0.6), yb - s * 0.075
+                ww, hh = s * rnd.uniform(0.07, 0.11), s * 0.028
+                blob = smooth([(cx - ww, cy + hh * 0.6), (cx - ww * 0.4, cy - hh), (cx + ww * 0.5, cy - hh * 0.7),
+                               (cx + ww, cy + hh * 0.5), (cx, cy + hh)], rounds=2)
+                gouache(c, T(blob), alpha=236, soft=0.03)
+        (cx, cy), = T([(x, y - s * 0.97)])
+        gouache(c, T(ellipse(x, y - s * 0.95, s * 0.035, s * 0.02, 8)), alpha=230, soft=0.05)
+
+
+def _arch(cx, r, n=8, y=-0.22):
+    """Points of a wheel arch (left to right over the top), in truck units."""
+    return [(cx - r * math.cos(math.pi * k / n), y - r * math.sin(math.pi * k / n)) for k in range(n + 1)]
+
+
+def pickup_truck(c, x, y, s, P, color=None, color2=None, facing=1, tree=True, snow=True):
+    """A rounded vintage pickup in profile with a fresh-cut fir tied in its bed.
+    (x, y) is the middle of the ground line, s half the truck's length; facing 1
+    = nose to the right. The truck is painted first, then the tree goes behind
+    the bed wall and the cab (the way a painter leaves the truck in front)."""
+    col = color or P.get('truck', '#c23a33'); col2 = color2 or P.get('truck2', '#e26a5c')
+    f = facing
+    def T(px, py):
+        return (x + f * s * px, y + s * py)
+    def poly(pts):
+        return [T(px, py) for px, py in pts]
+    occ0 = None if c.occl is None else c.occl.copy()
+    start = c.snapshot()
+    # the side window first, pale, so the red body goes around it
+    win = smooth(poly([(-0.1, -0.88), (0.17, -0.88), (0.25, -0.66), (-0.1, -0.66)]), rounds=1)
+    w0 = c.snapshot()
+    c.wash(win, '#e4eef0', '#b9d0d8', strength=0.55, spread=0.01, layers=16, edge=0.8)
+    c.paint_around(w0)
+    # body: bed, cab, hood and rounded fenders in one wash, wheel arches cut out
+    # near-corner points keep the tailgate square and the cab's back a straight step after smoothing
+    outline = [(-1.0, -0.22), (-1.0, -0.55), (-0.99, -0.57), (-0.96, -0.57), (-0.19, -0.57), (-0.16, -0.58), (-0.16, -0.6),
+               (-0.16, -0.88), (-0.15, -0.93), (-0.11, -0.96), (0.19, -0.96),
+               (0.25, -0.92), (0.36, -0.63), (0.78, -0.59), (0.9, -0.54), (0.97, -0.44), (0.98, -0.27), (0.92, -0.22)]
+    outline += _arch(0.6, 0.235)[::-1] + [(0.34, -0.22), (-0.31, -0.22)] + _arch(-0.55, 0.235)[::-1] + [(-0.8, -0.22)]
+    body = smooth(poly(outline), rounds=1)
+    c.wash(body, col2, col, strength=0.85, spread=0.012, layers=30, edge=0.95, granulate=0.4)
+    # shading wet on dry: the lower body and the fender curves
+    c.wash(smooth(poly([(-0.99, -0.34), (0.95, -0.34), (0.95, -0.24), (-0.99, -0.24)]), rounds=1), col, None, strength=0.32, spread=0.03, layers=12, edge=0.3)
+    for cx in (-0.55, 0.6):
+        c.wash(smooth(poly([(cx - 0.3, -0.24)] + [(px, py - 0.04) for px, py in _arch(cx, 0.3, 6)] + [(cx + 0.3, -0.24)]), rounds=1),
+               col, None, strength=0.28, spread=0.03, layers=10, edge=0.4)
+    c.occl = occ0
+    # wheels: charcoal tyres, a white wall and a silver hubcap
+    for cx in (-0.55, 0.6):
+        wx, wy = T(cx, -0.2)
+        c.wash(ellipse(wx, wy, s * 0.2, s * 0.2, 18), '#3a3638', '#56504f', strength=1.1, spread=0.01, layers=22, edge=0.6)
+        gouache(c, ellipse(wx, wy, s * 0.12, s * 0.12, 16), color=(240, 238, 232), alpha=235, soft=0.03)
+        gouache(c, ellipse(wx, wy, s * 0.08, s * 0.08, 14), color=(176, 182, 188), alpha=240, soft=0.03)
+        gouache(c, ellipse(wx - s * 0.02, wy - s * 0.025, s * 0.025, s * 0.02, 8), color=(250, 250, 250), alpha=230, soft=0.1)
+    # chrome: front and rear bumpers, grille bars, door handle
+    fb = smooth(poly([(0.9, -0.29), (1.04, -0.29), (1.05, -0.235), (0.9, -0.235)]), rounds=1)
+    rb = smooth(poly([(-1.04, -0.29), (-0.97, -0.29), (-0.97, -0.235), (-1.04, -0.235)]), rounds=1)
+    for bb in (fb, rb):
+        gouache(c, bb, color=(196, 200, 204), alpha=240, soft=0.02)
+    for gy in (-0.42, -0.37):
+        gouache(c, poly([(0.93, gy), (0.985, gy), (0.985, gy + 0.022), (0.93, gy + 0.022)]), color=(205, 208, 212), alpha=235, soft=0.02)
+    gouache(c, poly([(0.15, -0.6), (0.22, -0.6), (0.22, -0.58), (0.15, -0.58)]), color=(205, 208, 212), alpha=240, soft=0.02)
+    # headlight on the front fender, with a warm glow
+    hx, hy = T(0.88, -0.5)
+    gouache(c, ellipse(hx, hy, s * 0.055, s * 0.06, 12), color=(250, 238, 196), alpha=245, soft=0.03)
+    # pen: body, window, door and hood seams, bed rail
+    wd = max(2, s * 0.014)
+    inkc = P.get('truck_ink', (70, 34, 32))
+    c.ink_line(body, width=wd, alpha=200, passes=1, jitter=0, color=inkc)
+    for bb in (fb, rb):
+        c.ink_line(bb, width=wd * 0.6, alpha=150, passes=1, jitter=0, color=(90, 92, 96))
+    c.ink_line(win, width=wd * 0.9, alpha=190, passes=1, jitter=0, color=inkc)
+    c.ink_line(poly([(-0.12, -0.62), (-0.12, -0.26)]), width=wd * 0.8, closed=False, alpha=170, passes=1, jitter=0, color=inkc)
+    c.ink_line(poly([(0.33, -0.62), (0.31, -0.26)]), width=wd * 0.8, closed=False, alpha=170, passes=1, jitter=0, color=inkc)
+    c.ink_line(poly([(0.37, -0.6), (0.8, -0.56)]), width=wd * 0.7, closed=False, alpha=150, passes=1, jitter=0, color=inkc)
+    c.ink_line(poly([(-0.96, -0.53), (-0.19, -0.53)]), width=wd * 0.7, closed=False, alpha=150, passes=1, jitter=0, color=inkc)
+    hx2, hy2 = T(0.88, -0.5)
+    c.ink_line(ellipse(hx2, hy2, s * 0.055, s * 0.06, 14), width=wd * 0.7, alpha=170, passes=1, jitter=0, color=inkc)
+    for cx in (-0.55, 0.6):
+        wx, wy = T(cx, -0.2)
+        c.ink_line(ellipse(wx, wy, s * 0.2, s * 0.2, 22), width=wd * 0.8, alpha=150, passes=1, jitter=0, color=(40, 36, 38))
+    if snow:
+        for pts in ([(-0.11, -0.96), (0.0, -1.0), (0.12, -0.99), (0.19, -0.96), (0.05, -0.95)],
+                    [(0.42, -0.62), (0.55, -0.645), (0.7, -0.62), (0.76, -0.6), (0.55, -0.6)]):
+            gouache(c, smooth(poly(pts), rounds=2), alpha=236, soft=0.03)
+    # the truck is now in front: the tree goes behind the bed wall and the cab
+    c.paint_around(start)
+    if tree == 'lying':
+        lying_fir(c, T(-0.08, -0.64), T(-1.34, -0.76), s * 0.27, P)
+        # twine holding it down, over the top of the tree
+        for u in (-0.5, -0.82):
+            c.ink_line(poly([(u, -0.56), (u + 0.02, -0.7), (u + 0.04, -0.84)]), width=max(2, s * 0.012), closed=False,
+                       alpha=200, passes=1, jitter=0, color=(150, 110, 70))
+    elif tree:
+        # a fresh-cut fir standing in the bed, its foot hidden behind the bed wall
+        tx, ty = T(-0.58, -0.42)
+        fir_tree(c, tx, ty, s * 1.0, P, snow=True, tiers=5, trunk=False, slim=0.95)
+        bx, by = T(-0.58, -0.55)
+        bow(c, bx + f * s * 0.2, by - s * 0.22, s * 0.07, P, color=P.get('bow', '#b8333a'))
+    c.occl = occ0
+
+
+def lying_fir(c, base, tip, w, P):
+    """A cut fir lying on its side, from its trunk end `base` to its `tip`:
+    a pale first wash for the whole tree, side branches swept back toward the
+    tip above and below the trunk, needles in three greens. w = half thickness."""
+    rnd = c.rnd
+    P2 = dict(P, leaf=P.get('pine', '#2f5e45'), leaf2=P.get('pine2', '#6f9a6a'), leaf_dark=P.get('pine_dark', '#1f3f2d'))
+    (bx, by), (ex, ey) = base, tip
+    L = math.hypot(ex - bx, ey - by); a0 = math.atan2(ey - by, ex - bx)
+    ux, uy = (ex - bx) / L, (ey - by) / L
+    nx, ny = -uy, ux
+    def at(t, off=0.0):
+        return (bx + ux * L * t + nx * off, by + uy * L * t + ny * off)
+    top = [at(t, -w * (1 - t) ** 0.7 * (0.6 + 0.4 * math.sin(math.pi * min(1, t * 3)))) for t in [k / 14 for k in range(15)]]
+    bot = [at(t, w * (1 - t) ** 0.7 * (0.6 + 0.4 * math.sin(math.pi * min(1, t * 3)))) for t in [k / 14 for k in range(15)]]
+    c.wash(top + bot[::-1], P2['leaf2'], P2['leaf'], strength=0.55, spread=0.06, layers=20, edge=0.5)
+    # the cut trunk end, a little pale wood showing
+    c.wash(ellipse(*at(-0.01), w * 0.12, w * 0.16, 10, a0), '#c9a072', '#8a5a3b', strength=0.85, layers=12)
+    for k in range(9):
+        t = 0.08 + 0.8 * k / 8
+        for side in (-1, 1):
+            px, py = at(t)
+            ln = w * (1.25 - 0.95 * t) * rnd.uniform(0.85, 1.1)
+            a = a0 + side * rnd.uniform(0.55, 0.85)
+            twig = [(px + ln * u * math.cos(a - side * 0.12 * u), py + ln * u * math.sin(a - side * 0.12 * u)) for u in (0, 0.33, 0.66, 1.0)]
+            _needles(c, twig, w * (0.42 - 0.22 * t), w * 0.16, P2, dense=2)
+    _needles(c, [at(t) for t in [k / 12 for k in range(13)]], w * 0.5, w * 0.14, P2, dense=3)
+
+
+def snow_ground(c, x, y, s, P, color=None):
+    """Soft snowy ground: a pale blue-grey drift with a wavy top edge, darker
+    in the hollows. (x, y) is the middle of the ground line, s half the width."""
+    col = color or P.get('shadow', '#a9bccb')
+    rnd = c.rnd
+    top = [(x - s + 2 * s * k / 16, y - s * (0.03 + 0.03 * math.sin(k * 1.3 + rnd.uniform(-0.3, 0.3)))) for k in range(17)]
+    bot = [(x + s * 0.85, y + s * 0.09), (x, y + s * 0.12), (x - s * 0.85, y + s * 0.09)]
+    c.wash(smooth(top + bot, 2), col, '#d6e2ea', strength=0.35, spread=0.05, layers=18, edge=0.6)
+    for k in range(3):
+        px = x + s * rnd.uniform(-0.7, 0.7)
+        c.wash(ellipse(px, y + s * 0.03, s * rnd.uniform(0.1, 0.18), s * 0.014, 10), col, None, strength=0.16, spread=0.08, layers=8, edge=0.2)
+
+
+def gift(c, x, y, s, P, color=None, ribbon=None, angle=0.0):
+    """A wrapped present: box, lid band, ribbon both ways and a two-loop bow.
+    (x, y) is the middle of the bottom edge, s half the width."""
+    col = color or P.get('gift', '#3f7a58'); rib = ribbon or P.get('ribbon', '#d8b04a')
+    def R(pts):
+        return _rot(pts, x, y, angle)
+    box = R(rect(x - s, y - s * 1.3, x + s, y))
+    c.wash(box, col, None, strength=0.8, spread=0.012, layers=24, edge=0.9)
+    c.wash(R(rect(x - s * 1.06, y - s * 1.45, x + s * 1.06, y - s * 1.22)), col, None, strength=0.95, spread=0.012, layers=18, edge=0.9)
+    rr = _rgb(rib) if isinstance(rib, str) else rib
+    gouache(c, R(rect(x - s * 0.13, y - s * 1.45, x + s * 0.13, y)), color=rr, alpha=235, soft=0.02)
+    for side in (-1, 1):
+        loop = [(x, y - s * 1.45), (x + side * s * 0.55, y - s * 1.95), (x + side * s * 0.75, y - s * 1.7), (x + side * s * 0.3, y - s * 1.47)]
+        gouache(c, R(smooth(loop, 2)), color=rr, alpha=230, soft=0.03)
+    gouache(c, R(ellipse(x, y - s * 1.48, s * 0.14, s * 0.11, 10)), color=rr, alpha=245, soft=0.03)
+    c.ink_line(box, width=max(2, s * 0.03), alpha=150, passes=1, jitter=0)
+
+
+def book_tree(c, x, y, s, P, colors=None, lights=True, star=True, rows=8):
+    """A Christmas tree made of books stacked flat, each spine facing out,
+    narrower toward the top, with a gold star and a string of warm lights.
+    (x, y) is the middle of the bottom edge, s the height."""
+    rnd = c.rnd
+    cols = colors or [P.get('book1', '#8e2b3a'), P.get('book2', '#2f5e45'), P.get('book3', '#d9a84a'),
+                      P.get('book4', '#2f4a6b'), P.get('book5', '#b8473d'), P.get('book6', '#7a9a72'), P.get('book7', '#e8dcc2')]
+    h = s * 0.86 / rows
+    spines = []
+    order = list(range(len(cols)))
+    for i in range(rows):
+        t = i / max(1, rows - 1)
+        w = s * (0.36 - 0.29 * t) * rnd.uniform(0.93, 1.05)
+        off = s * rnd.uniform(-0.025, 0.025)
+        y1 = y - i * h; y0 = y1 - h * rnd.uniform(0.84, 0.96)
+        col = cols[order[(i * 3) % len(order)]]
+        a = rnd.uniform(-0.025, 0.025)
+        box = _rot(rect(x - w + off, y0, x + w + off, y1), x + off, (y0 + y1) / 2, a)
+        c.wash(box, col, None, strength=0.82, spread=0.01, layers=22, edge=0.95, granulate=0.35)
+        spines.append((x - w + off, y0, x + w + off, y1, a, col))
+    # spine details: bands near each end and a small title block, then the pen line
+    for (x0, y0, x1, y1, a, col) in spines:
+        cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+        hh = y1 - y0
+        for bx in (x0 + (x1 - x0) * 0.1, x1 - (x1 - x0) * 0.1):
+            gouache(c, _rot(rect(bx - hh * 0.06, y0 + hh * 0.12, bx + hh * 0.06, y1 - hh * 0.12), cx, cy, a),
+                    color=(226, 196, 120), alpha=210, soft=0.02)
+        if x1 - x0 > s * 0.22:
+            tw = (x1 - x0) * rnd.uniform(0.22, 0.32)
+            gouache(c, _rot(rect(cx - tw / 2, y0 + hh * 0.32, cx + tw / 2, y1 - hh * 0.32), cx, cy, a), color=(244, 234, 210), alpha=200, soft=0.02)
+        c.ink_line(_rot(rect(x0, y0, x1, y1), cx, cy, a), width=max(2, s * 0.006), alpha=170, passes=1, jitter=0, color=(48, 36, 38))
+    top_y = y - rows * h
+    if lights:
+        bulbs = [(242, 196, 92), (232, 108, 84), (122, 178, 140), (240, 220, 150), (130, 170, 210)]
+        k = 0
+        for j, (ya, yb) in enumerate(((0.12, 0.3), (0.34, 0.5), (0.55, 0.7), (0.74, 0.86))):
+            sgn = 1 if j % 2 == 0 else -1
+            pts = []
+            for q in range(15):
+                u = q / 14
+                yy = y - s * (ya + (yb - ya) * u) * 0.86 / 0.9
+                tt = (y - yy) / (s * 0.86)
+                ww = s * (0.36 - 0.29 * tt)
+                xx = x + sgn * ww * (1 - 2 * u) * 1.02
+                pts.append((xx, yy + s * 0.02 * math.sin(math.pi * u * 2)))
+            c.ink_line(pts, width=max(2, s * 0.005), closed=False, alpha=170, passes=1, jitter=0, color=(44, 70, 52))
+            for q in range(1, 14, 2):
+                bx, by = pts[q]
+                col = bulbs[k % len(bulbs)]; k += 1
+                c.wash(ellipse(bx, by + s * 0.012, s * 0.03, s * 0.03, 10), '#f6d98a', None, strength=0.25, spread=0.05, layers=8, edge=0.2)
+                gouache(c, ellipse(bx, by + s * 0.012, s * 0.011, s * 0.015, 8), color=col, alpha=245, soft=0.05)
+    if star:
+        st = _star_pts(x, top_y - s * 0.06, s * 0.08, s * 0.034)
+        c.wash(st, P.get('star', '#e2b04a'), P.get('star2', '#f3d58f'), strength=0.95, spread=0.01, layers=18, edge=0.8)
+        c.wash(ellipse(x, top_y - s * 0.06, s * 0.13, s * 0.13, 14), '#f6e3a4', None, strength=0.18, spread=0.06, layers=10, edge=0.1)
+        c.ink_line(st, width=max(2, s * 0.006), alpha=150, passes=1, jitter=0, color=(120, 86, 30))
+
+
+def bauble(c, x, y, s, P, color=None, color2=None, kind=None, angle=0.0, cap=None):
+    """A glass Christmas ornament: a round (or tall vintage finial) ball, light
+    side wet-in-wet into the deep color, a gold cap with its loop, a painted
+    band of dots or stripes, and a white gouache shine. s = the ball's radius."""
+    rnd = c.rnd
+    pair = color or P.get('main', '#8e2b3a')
+    col = pair; col2 = color2 or P.get('main2', '#c45a64')
+    kind = kind or rnd.choice(('round', 'round', 'stripe', 'dots', 'finial', 'star'))
+    def R(pts):
+        return _rot(pts, x, y, angle)
+    if kind == 'finial':
+        half = [(0.0, -0.95), (0.22, -0.86), (0.46, -0.55), (0.68, -0.12), (0.7, 0.16), (0.54, 0.46), (0.3, 0.72),
+                (0.12, 0.95), (0.04, 1.18), (0.0, 1.3)]
+        ball = [(x + s * px, y + s * py) for px, py in half] + [(x - s * px, y + s * py) for px, py in reversed(half[1:-1])]
+        ball = smooth(ball, 2)
+    else:
+        ball = ellipse(x, y, s, s, 24)
+    c.wash(R(ball), col2, col, strength=0.85, spread=0.012, layers=30, edge=1.1, granulate=0.3)
+    # deeper shade on the far side
+    if kind == 'finial':
+        c.wash(R(smooth([(x + s * 0.05, y - s * 0.6), (x + s * 0.5, y - s * 0.1), (x + s * 0.5, y + s * 0.3), (x + s * 0.1, y + s * 0.8)], 1)),
+               col, None, strength=0.3, spread=0.03, layers=10, edge=0.3)
+    else:
+        c.wash(R(crescent(x, y, s * 0.96, 0.1, 2.4, s * 0.42, n=14)), col, None, strength=0.32, spread=0.03, layers=12, edge=0.3)
+    gold = P.get('cap', '#d9ad55')
+    deco = (243, 226, 178)
+    if kind == 'stripe':
+        for dy, th in ((-0.12, 0.13), (0.2, 0.06)):
+            band = [(x + s * 0.98 * math.cos(a), y + s * dy + s * 0.12 * math.sin(a)) for a in [math.pi - math.pi * k / 12 for k in range(13)]]
+            band2 = [(px, py + s * th) for px, py in band[::-1]]
+            gouache(c, R(band + band2), color=deco, alpha=215, soft=0.02)
+    elif kind == 'dots':
+        for k in range(7):
+            a = math.pi * (0.12 + 0.76 * k / 6)
+            px, py = x - s * 0.82 * math.cos(a), y + s * 0.05 + s * 0.12 * math.sin(a)
+            gouache(c, R(ellipse(px, py, s * 0.07, s * 0.07, 8)), color=deco, alpha=225, soft=0.04)
+    elif kind == 'star':
+        c.wash(R(_star_pts(x, y + s * 0.05, s * 0.36, s * 0.15)), gold, '#f3d58f', strength=0.95, spread=0.01, layers=16, edge=0.8)
+    # gold cap and loop
+    ytop = y - s * (0.98 if kind == 'finial' else 0.97)
+    capw = s * 0.2
+    c.wash(R(rect(x - capw, ytop - s * 0.2, x + capw, ytop + s * 0.04)), gold, '#f0d48c', strength=0.95, spread=0.01, layers=14, edge=0.9)
+    c.ink_line(R(ellipse(x, ytop - s * 0.3, s * 0.08, s * 0.1, 10)), width=max(2, s * 0.025), alpha=190, passes=1, jitter=0, color=(150, 112, 40))
+    # shine: a soft white crescent and a bright dot
+    gouache(c, R(crescent(x, y, s * 0.8, math.pi * 1.05, math.pi * 1.45, s * 0.14, n=10)), color=(255, 255, 255), alpha=200, soft=0.05)
+    gouache(c, R(ellipse(x - s * 0.38, y - s * 0.48, s * 0.07, s * 0.05, 8)), color=(255, 255, 255), alpha=235, soft=0.08)
+    c.ink_line(R(ball), width=max(2, s * 0.02), alpha=120, passes=1, jitter=0, color=(60, 40, 44))
+
+
+def bow(c, x, y, s, P, color=None, angle=0.0):
+    """A ribbon bow: two loops, a knot and two notched tails. s = half the width."""
+    col = color or P.get('bow', '#b8333a')
+    def R(pts):
+        return _rot(pts, x, y, angle)
+    for side in (-1, 1):
+        loop = [(x, y), (x + side * s * 0.45, y - s * 0.55), (x + side * s * 1.0, y - s * 0.5), (x + side * s * 0.95, y - s * 0.05),
+                (x + side * s * 0.5, y + s * 0.1)]
+        c.wash(R(smooth(loop, 2)), col, None, strength=0.85, spread=0.015, layers=18, edge=1.0)
+        tail = [(x, y), (x + side * s * 0.3, y + s * 0.5), (x + side * s * 0.5, y + s * 1.0), (x + side * s * 0.35, y + s * 0.92),
+                (x + side * s * 0.22, y + s * 1.05), (x + side * s * 0.05, y + s * 0.4)]
+        c.wash(R(tail), col, None, strength=0.75, spread=0.015, layers=14, edge=0.9)
+    c.wash(R(ellipse(x, y, s * 0.2, s * 0.18, 10)), col, None, strength=1.1, layers=14, edge=0.9)
+
+
+def gold_star(c, x, y, s, P, color=None, angle=0.0):
+    col = color or P.get('star', '#d9ad55')
+    c.wash(_star_pts(x, y, s, s * 0.42, angle=angle), col, P.get('star2', '#f3d58f'), strength=0.9, spread=0.015, layers=14, edge=0.7)
+
+
 MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip, 'sprig': sprig, 'eucalyptus': eucalyptus,
           'berries': berries, 'bouquet': bouquet, 'mug': mug, 'books': books, 'heart': heart, 'paw': paw, 'dog': dog,
           'lemon': lemon, 'strawberry': strawberry, 'sun': sun, 'succulent': succulent, 'pumpkin': pumpkin,
@@ -1881,4 +2212,6 @@ MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip
           'gelt': gelt, 'olive_sprig': olive_sprig, 'cat': cat,
           'night_sky': night_sky, 'constellation': constellation, 'chrysanthemum': chrysanthemum, 'marigold': marigold, 'libra_scales': libra_scales,
           'mountains': mountains, 'pine_tree': pine_tree, 'tent': tent, 'campfire': campfire,
-          'pie': pie, 'pie_slice': pie_slice, 'wheat': wheat, 'dachshund': dachshund}
+          'pie': pie, 'pie_slice': pie_slice, 'wheat': wheat, 'dachshund': dachshund,
+          'fir_tree': fir_tree, 'pickup_truck': pickup_truck, 'lying_fir': lying_fir, 'snow_ground': snow_ground, 'gift': gift, 'book_tree': book_tree,
+          'bauble': bauble, 'bow': bow, 'gold_star': gold_star}

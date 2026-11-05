@@ -1,0 +1,60 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "vintage-glass-ornaments",
+  "kind": "pod_design"
+ },
+ "title": "Vintage Glass Ornaments (all-over white mug, accent mug 11/15 oz)",
+ "reviewed_at": "2026-11-05T03:50:42Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against the full-size wraps: round baubles with bands and dots and tall finials in burgundy, forest green, gold, navy and red, fir sprigs, holly, red bows, gold stars, cream background, all the way around the mug (the wrap joins invisibly at the handle, checked). 'Vintage-style' describes the look; nothing claims the mug or ornaments are antique. Accent colors named in the title (maroon, red, black) match mug_colors. No best-seller, sale, free or review claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original: painted by the studio's own code (pattern.py, motifs.py), no stock art, no traced or copied designs, no AI image generator. No lettering, so no fonts. Machine-drawn art may not be registrable for US copyright (Thaler v. Perlmutter)."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "No lettering in the art. Screened 'vintage ornaments' and 'glass ornaments' for Class 21: found only as goods descriptions, never as marks. Ornament brands (e.g. Shiny Brite) are not used anywhere. Tags are generic descriptions. Search-engine screen only; tmsearch.uspto.gov is blocked from our sessions."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description carries the production-partner disclosure. Titles 140 characters or fewer; 13 unique tags of 20 or fewer (build.py checked; 2 long tags were renamed to 'ornament coffee mug' and 'vintage xmas mug'). Printify: wrap mug 68 / SPOKE 1 and accent mug 635 / 99 are in the studio's product table."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Not made or marketed for children."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [
+  "Two tags over 20 characters renamed (build.py refused the first build).",
+  "Pattern had come out nearly all red (random color pick); fixed with explicit per-color elements and color2 support for baubles in pattern.py."
+ ],
+ "last_touch_ref": "POD desk steps 4-6 (Quality Bar, Copywriter + SEO, Grammar & Copy Editor, Deliverable QA Reviewer), 2026-11-05",
+ "research_ref": "pod-kit/research/2026-11-05-christmas-batch.json",
+ "decision_ref": "pod-kit/decisions/2026-11-05-pod-christmas-batch.json"
+}

@@ -73,6 +73,7 @@ doesn't suit one (say why in the `pod_listings` doc):
 | Kiss-cut sticker | 400 / SPOKE 1 | $1.66 (3x3) / $2.08 (4x4) | $6.75 (3x3) / $7.40 (4x4) |
 | Full-wrap white mug (pattern designs) | 68 / SPOKE 1, wrap 2700 x 1120 | $6.44 | $16.99 |
 | Accent mug, colored handle/rim/inside (pattern designs) | 635 / Printify Choice 99, wrap 2475 x 1155 (11 oz), 2475 x 1275 (15 oz) | $6.40 / $8.44 | $19.99 / $22.99 |
+| Round ceramic ornament, printed both sides (motif designs with `"ornament": true`, added 2026-11-05) | 1599 / Printify Choice 99, Circle variant, front and back 886 x 886 | not in the catalog API; checked at draft creation | $16.99 (suggested; US shipping $5.89, 10 days' handling) |
 
 **Pricing review (owner, 2026-10-05: "competitive pricing while also making profits").** Prices were checked against Etsy search results for the same product types: tees $23-59 (often on sale at $15-28), watercolor crewnecks $25-40, 11 oz mugs $12-28 (mostly $14-21), accent mugs about $15-21, prints $18+ (11x14) and $30-50 (16x20), 3" stickers $3-5.50 with free shipping. The buyer also pays Printify's US shipping (tee $4.95, sweatshirt $8.79, mug $7.29, print $7.49-7.69, sticker $4.79; the highest US rate is used to be safe). Net profit per sale after cost and Etsy's 6.5% transaction, 3% + $0.25 processing and $0.20 listing fees: tee $9.93, sweatshirt $11.84, mug $7.79, accent mug $10.55-11.02, prints $10.33 / $13.96 / $18.65, stickers $3.54 / $3.71. A sale that comes through Etsy Offsite Ads loses another 15% of the order (the tee still nets $5.43). The sweatshirt was the outlier: $42 plus shipping was about $51 to the buyer. Stickers stay at $6.75/$7.40 (decisions/2026-09-28-sticker-pricing-update): Printify's $4.79 sticker shipping means no POD sticker can match the $3-5 free-shipping sellers, so they earn their place as add-ons. Price floor: never below the lower of these prices without a new margin check; `printify.py` still refuses cost + $4.
 
@@ -151,7 +152,7 @@ open rows, in order) instead of 1, and marks each row done with the date.
 | Gifts for Grandparents | Grandma's Garden (Oct 5) | 5. a grandpa design (garden, fishing or coffee) |
 | Top 100 Gifts for Libras (zodiac) | Scorpio Constellation (drafted Oct 5) | 1. zodiac series, one design per sign (constellation + birth-month flower): **Scorpio done 2026-10-05** (drafts). **Libra held 2026-10-05**: a pending LIBRA application covers t-shirts and sweatshirts (Astryx LLC, serial 99209588), so the owner decides; the art is ready in `designs/libra-constellation.json`. **Sagittarius held 2026-10-06**: a pending SAGITTARIUS ATHLETIC application covers tees and sweatshirts (Sagittarius Athletic, LLC, serial 97660475), so the owner decides with Libra; no art made. Next: Capricorn (Dec 22-Jan 19), then one sign a day; screen each sign name for clothing marks first |
 | Gifts for Him | Campfire Season (drafted Oct 5) | 2. outdoors: **Campfire Season done 2026-10-05** (drafts) |
-| Top 100 Holiday Gifts | Cocoa Season, Christmas Cookies, Snowy Pine Cardinals, Sufganiyot Season (live Oct 5) | 3. Thanksgiving (Nov 26): **Pie Season done 2026-10-06** (built and Legal-cleared, not on Printify yet, see below); then more Christmas |
+| Top 100 Holiday Gifts | Cocoa Season, Christmas Cookies, Snowy Pine Cardinals, Sufganiyot Season (live Oct 5) | 3. Thanksgiving (Nov 26): **Pie Season done 2026-10-06** (built and Legal-cleared, not on Printify yet, see below); then more Christmas: **Tree Farm Season, Deck the Shelves and Vintage Glass Ornaments done 2026-11-05** (built and Legal-cleared, not on Printify yet) |
 | Housewarming Gifts | Soup Season and Cocoa Season art prints and mugs | 6. a kitchen or home art print design |
 | Gifts for Couples, Anniversary, Engagement, Special Wedding Gifts | none | 7. a couples design that works on matching mugs (no names, no dates) |
 | Birthday Gifts | every design (tags) | 8. a birthday design (cake and candles) |
@@ -339,3 +340,19 @@ Studio Floor at any time.
   no new designs were made (the office DB is still full). $0 spent. Weekly sales
   review: Printify shows 0 orders since the shop opened. Scorpio season ends
   Nov 21, so those 5 drafts lose their timing soon.
+- 2026-11-05 (owner request: "Printify we should improvise on new designs and find the most selling ones"):
+  our own sales give no signal yet (0 Printify orders), so the batch follows Etsy search trends: "christmas" is
+  Etsy's top keyword (eRank: 76,880 searches in Oct 2026, peaking in November), "christmas ornament" is a fast
+  climber, and ornaments are named the top POD Christmas product. Three designs: **Tree Farm Season** (a vintage
+  red pickup with a fresh-cut fir in the bed, snowy pines; subline "fresh cut & headed home"; 20/25),
+  **Deck the Shelves** (a Christmas tree of stacked books with lights, a gold star, presents and a black cat;
+  subline "bookish & bright"; 22/25) and **Vintage Glass Ornaments** (an all-over mug wrap of watercolor glass
+  baubles and finials in burgundy, forest green, gold, navy and red; 23/25). New product: a round ceramic
+  ornament printed on both sides (blueprint 1599 / provider 99), with the painting and the title curved along
+  the bottom rim, for both motif designs. New motifs `fir_tree`, `pickup_truck`, `lying_fir`, `snow_ground`,
+  `gift`, `book_tree`, `bauble`, `bow`, `gold_star`; `watercolor.py` text on the bottom of a circle now reads
+  left to right. 14 products in all (6 + 6 + 2). The office DB is still full, so research, Legal (all ten
+  counsel: cleared) and the Chief of Staff decision are filed in `pod-kit/research/`, `pod-kit/legal/` and
+  `pod-kit/decisions/`. Delivery page (private): https://claude.ai/artifact/AjFYjJogwPtBrC44uuMfeW. Nothing
+  created on Printify and $0 spent: Printify writes wait for the owner to allow them (refused by the session's
+  permission check since Oct 6).

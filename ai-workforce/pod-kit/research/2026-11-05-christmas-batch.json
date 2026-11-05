@@ -1,0 +1,86 @@
+{
+  "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a pod_research doc.",
+  "created": "2026-11-05T03:49:17Z",
+  "request": "Owner, 2026-11-05: \"Printify we should improvise on new designs and find the most selling ones\"",
+  "our_sales_signal": "None yet. Printify shows 0 orders since the shop opened (weekly reviews Oct 26 and Nov 2), so there is no in-shop data on what sells. Etsy views and favorites are only in the owner's Etsy Shop Manager, which is blocked from our sessions.",
+  "market_signal": [
+    "eRank Trend Buzz: 'christmas' is the top keyword on Etsy, monthly searches rising from 4,730 (Feb 2026) to 76,880 (Oct 2026); about 119K in Nov 2025. eRank's summer report says it peaks in November.",
+    "eRank Q3 2026: 'christmas' climbed to #9 from #41 a year earlier; 'christmas ornament' was among the fastest climbers in the September snapshot (from #114).",
+    "eRank 2026 holiday trends: heritage tartan, velvet, dark wood; trend searches include 'burgundy christmas ornament', 'gold christmas decor', 'farmhouse christmas decor'.",
+    "Teeinblue's 2026 guide (vendor blog, not Etsy data): ornaments are the top-selling POD Christmas product, then wall art, mugs, plaques, stockings, apparel. Personalized ornaments lead, which we can't do yet (per-order art).",
+    "Bookish holiday sweatshirts are a steady category (Book Riot roundups 2023-2024; Kohl's and Walmart book-tree sweatshirts).",
+    "The red truck with a Christmas tree is one of the most-listed Christmas designs (Walmart, Faire, eBay), mostly with the 'Farm Fresh Christmas Trees' sign phrase."
+  ],
+  "sources": [
+    "https://members.erank.com/trend-buzz/etsy/us/thirty",
+    "https://help.erank.com/blog/top-etsy-searches-q3-2026/",
+    "https://help.erank.com/blog/holiday-2026-trends-etsy-sellers/",
+    "https://help.erank.com/blog/top-keywords-on-etsy-august-2026/",
+    "https://printify.com/blog/top-etsy-searches/",
+    "https://bookriot.com/best-bookish-holiday-sweaters/",
+    "https://bookriot.com/?p=583280",
+    "https://www.kohls.com/product/prd-7975583/womens-book-christmas-tree-oversized-fleece-crew-sweatshirt.jsp",
+    "https://www.walmart.com/ip/3dRose-Watercolor-Red-Christmas-Truck-Full-Of-Presents-Illustration-15oz-Mug/966770932",
+    "https://www.walmart.com/ip/3dRose-May-Your-Days-Be-Merry-and-Bright-Watercolor-Christmas-Truck-11oz-Two-Tone-Green-Mug/593567551",
+    "https://www.etsy.com/listing/4499499705/watercolor-ringed-python-ceramic",
+    "https://rocknartshop.patternbyetsy.com/listing/4403088812/handmade-ceramic-gingerbread-family"
+  ],
+  "limits": "WebFetch is blocked from our sessions, so these come from search-result summaries, not full pages. None of them is Etsy's own sales data.",
+  "ideas": [
+    {
+      "id": "tree-farm-season",
+      "phrase": "Tree Farm Season",
+      "niche": "Christmas, farmhouse, family traditions",
+      "competitors": [
+        {"what": "Retro 'Farm Fresh Christmas Trees' red truck women's sweatshirt (Walmart)", "price": "$8-17", "style": "retro, sign phrase"},
+        {"what": "Women's red truck sweatshirt with a Christmas tree (Walmart)", "price": "$10.99", "style": "not checked (search summary only)"},
+        {"what": "3dRose watercolor red Christmas truck full of presents, 15 oz mug (Walmart)", "price": "$15.97", "style": "watercolor clip art on a plain white mug"},
+        {"what": "Farm Fresh Christmas Trees sweatshirt, wholesale (Faire)", "price": "$200 minimum order", "style": "vintage sign"}
+      ],
+      "gap": "The design is in demand but crowded, and the listings found mostly reuse the retro 'Farm Fresh Christmas Trees' sign phrase. Ours is real painted-paper watercolor with its own phrase and a single fresh-cut fir standing in the bed with a bow, plus a matching ceramic ornament. The one watercolor truck found (3dRose) carries presents, not a tree, and has no lettering.",
+      "scores": {"demand": 5, "competition": 2, "timing": 5, "fit": 4, "trademark_risk": 4},
+      "total": 20,
+      "decision": "go (20/25)"
+    },
+    {
+      "id": "deck-the-shelves",
+      "phrase": "Deck the Shelves",
+      "niche": "Book lovers at Christmas (evergreen bookish niche + seasonal peak)",
+      "competitors": [
+        {"what": "Book Christmas Tree oversized fleece crew (Kohl's)", "price": "not shown in the results", "style": "not checked (search summary only)"},
+        {"what": "'All Booked for Christmas' and book-stack tree sweatshirts (Walmart)", "price": "not shown in the results", "style": "not checked (search summary only)"},
+        {"what": "Booked Christmas Tree DTF transfer (Twisted Image Transfers)", "price": "transfer only", "style": "not checked (search summary only)"},
+        {"what": "Book Elf Sweatshirt (Book Riot roundup)", "price": "$47", "style": "illustrated"}
+      ],
+      "gap": "Book-stack trees exist and reuse the same few phrases ('All Booked for Christmas', 'Seasons Readings'); none found was watercolor. Ours is watercolor, adds warm lights, presents and a black cat (our Pumpkins & Purrs and Reading Ghosts buyers), and uses a phrase not found in any listing or trademark search.",
+      "scores": {"demand": 4, "competition": 3, "timing": 5, "fit": 5, "trademark_risk": 5},
+      "total": 22,
+      "decision": "go (22/25)"
+    },
+    {
+      "id": "vintage-glass-ornaments",
+      "phrase": "(no lettering) vintage glass ornament all-over mug",
+      "niche": "Christmas mugs, burgundy/gold/forest trend palette",
+      "competitors": [
+        {"what": "Etsy trending Christmas mug wraps: snowman, Nordic knit, ugly sweater (mostly PNG sublimation files)", "price": "digital", "style": "clip art"},
+        {"what": "Hand-painted mercury glass baubles (Chairish)", "price": "decor", "style": "real glass, not printed"},
+        {"what": "Retro ornament shop Twinkltoast (Etsy, via Tinybeans)", "price": "n/a", "style": "Pyrex-themed, not watercolor"}
+      ],
+      "gap": "No watercolor glass-bauble mug wraps found. All-over wraps lead printed mugs (owner's Etsy scan 2026-09-28) and burgundy/gold ornaments are a named 2026 trend search.",
+      "scores": {"demand": 4, "competition": 4, "timing": 5, "fit": 5, "trademark_risk": 5},
+      "total": 23,
+      "decision": "go (23/25)"
+    }
+  ],
+  "new_product": {
+    "what": "Round ceramic ornament, printed both sides (Printify blueprint 1599 'Ceramic Ornaments, 2-Side Print', provider 99, Circle variant 111546)",
+    "why": "Ornaments are named the top POD Christmas product and 'christmas ornament' is a fast-climbing Etsy search. It reuses each motif design's painting.",
+    "catalog_read_2026_11_05": "Print areas front and back 886 x 886 px (about 2.95 in at 300 dpi); 100% ceramic; gold hanging string included; US shipping $5.89 first item, $0.69 each extra; 10 days' handling. Cost isn't in the catalog API: printify.py checks cost + $4 after creating the draft and raises the price if needed.",
+    "price_suggestion": "$16.99 (handmade watercolor ceramic ornaments list about $10-35; one Etsy listing $13.79 sale / $22.99). The owner decides."
+  },
+  "not_chosen": [
+    "Coquette bow Christmas: sources say the trend has peaked and turned into parody.",
+    "Personalized family-name ornaments: the top seller, but needs per-order artwork; waits for the owner (as in the gift-category plan).",
+    "Meme '67' mugs and ugly-sweater wraps: off-brand for watercolor."
+  ]
+}

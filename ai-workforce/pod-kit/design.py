@@ -150,6 +150,50 @@ def shirt_mockup(design, color, size=1400):
     return im
 
 
+def ornament_art(spec, scale=1.0, size=2400):
+    """The art without lettering, centred on painted paper in a square: the
+    print file for a round ceramic ornament (the printer trims it to a circle,
+    so the art's corners stay inside the disc). The top line of lettering, if
+    any, curves along the lower rim."""
+    bare = dict(spec, top=None, bottom=None, small=None)
+    c = render(bare, scale)
+    box = crop_to_content(c.rgba())
+    paper = c.on_paper()
+    art = paper.crop(box) if box else paper
+    size = int(size * scale)
+    text = spec.get('top')
+    cy = size * (0.43 if text else 0.5)
+    r = size * (0.86 if text else 0.9) / math.hypot(art.width, art.height)
+    art = art.resize((max(1, int(art.width * r)), max(1, int(art.height * r))), Image.LANCZOS)
+    sq = Image.new('RGB', (size, size), hex3('#fbf8f2'))
+    sq.paste(art, ((size - art.width) // 2, int(cy - art.height / 2)))
+    if text:
+        t = wc.Canvas(size, size, seed=spec.get('seed', 1))
+        font = FONTS[spec.get('top_font', 'DancingScript')]
+        R = size * 0.37
+        t.text(text, font, fit_size(text, font, size * 0.62, int(size * 0.085)), size / 2, size / 2 + R,
+               fill=hex3(spec.get('ink', '#343034')), arc=-R)
+        sq = sq.convert('RGBA'); sq.alpha_composite(t.ink); sq = sq.convert('RGB')
+    return sq
+
+
+def ornament_mockup(art, size=1200):
+    """A round ceramic ornament on a soft background, gold cap and a red ribbon."""
+    im = Image.new('RGB', (size, size), (236, 230, 222))
+    d = ImageDraw.Draw(im)
+    R = int(size * 0.36); cx, cy = size // 2, int(size * 0.56)
+    d.line([(cx, int(size * 0.04)), (cx, cy - R - int(size * 0.04))], fill=(176, 52, 58), width=max(3, size // 120))
+    d.ellipse([cx - R + 10, cy - R + 16, cx + R + 10, cy + R + 16], fill=(214, 206, 196))
+    disc = art.resize((2 * R, 2 * R), Image.LANCZOS)
+    mask = Image.new('L', (2 * R, 2 * R), 0)
+    ImageDraw.Draw(mask).ellipse([0, 0, 2 * R - 1, 2 * R - 1], fill=255)
+    im.paste(disc, (cx - R, cy - R), mask)
+    d.ellipse([cx - R, cy - R, cx + R, cy + R], outline=(205, 198, 188), width=max(2, size // 300))
+    cw = int(size * 0.035)
+    d.rounded_rectangle([cx - cw, cy - R - int(size * 0.05), cx + cw, cy - R + int(size * 0.008)], radius=cw // 3, fill=(214, 176, 92))
+    return im
+
+
 def main():
     spec = json.load(open(sys.argv[1]))
     out = sys.argv[2]
@@ -166,6 +210,10 @@ def main():
         m = shirt_mockup(design, col)
         m.save(os.path.join(out, f'{sid}-mockup-{col}.jpg'), quality=88)
         mocks.append(m)
+    if spec.get('ornament'):
+        orn = ornament_art(spec, 1 / 3 if prev else 1.0)
+        orn.save(os.path.join(out, f'{sid}-ornament.png'), dpi=(300, 300), optimize=True)
+        ornament_mockup(orn).save(os.path.join(out, f'{sid}-ornament-mockup.jpg'), quality=88)
     # contact preview
     tiles = [paper.resize((600, 720))] + [m.resize((720, 720)) for m in mocks]
     Wp = sum(t.width for t in tiles) + 20 * (len(tiles) + 1)

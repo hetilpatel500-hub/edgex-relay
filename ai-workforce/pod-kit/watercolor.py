@@ -258,9 +258,8 @@ class Canvas:
             mid = ang + w / R / 2
             if arc > 0:   # text on the top of a circle whose center is below
                 x = cx + R * math.sin(mid); y = cy + R - R * math.cos(mid); rot = -math.degrees(mid)
-            else:         # text on the bottom of a circle whose center is above
-                x = cx + R * math.sin(-mid); y = cy - R + R * math.cos(mid); rot = math.degrees(mid)
-                x = cx - R * math.sin(mid)
+            else:         # text on the bottom of a circle whose center is above (reads left to right, a smile)
+                x = cx + R * math.sin(mid); y = cy - R + R * math.cos(mid); rot = math.degrees(mid)
             tile = Image.new('RGBA', (int(size * 2), int(size * 2)), (0, 0, 0, 0))
             td = ImageDraw.Draw(tile)
             b = td.textbbox((0, 0), ch, font=font)

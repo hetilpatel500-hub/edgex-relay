@@ -1,0 +1,29 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a decisions doc.",
+ "id": "2026-11-05-pod-christmas-batch",
+ "by": "chief-of-staff",
+ "created": "2026-11-05T03:50:42Z",
+ "request": "Owner, 2026-11-05: \"Printify we should improvise on new designs and find the most selling ones\"",
+ "items": [
+  "tree-farm-season",
+  "deck-the-shelves",
+  "vintage-glass-ornaments"
+ ],
+ "legal_refs": [
+  "pod-kit/legal/tree-farm-season.json",
+  "pod-kit/legal/deck-the-shelves.json",
+  "pod-kit/legal/vintage-glass-ornaments.json"
+ ],
+ "legal_verdicts": {
+  "tree-farm-season": "cleared",
+  "deck-the-shelves": "cleared",
+  "vintage-glass-ornaments": "cleared"
+ },
+ "decision": "approved for delivery to the owner",
+ "conditions": [
+  "Printify drafts or Etsy publishing only after the owner allows Printify writes from this session (the permission check refused them on Oct 6 and Oct 26). Then: 6 + 6 + 2 = 14 products; publishing all 14 uses 14 listings ($2.80 if paid, or Etsy Plus credits if any are left this month), inside the $3/day cap.",
+  "The new ceramic ornament joins the product lineup at a suggested $16.99; printify.py raises it if Printify's cost + $4 is higher. The owner sets final prices.",
+  "Etsy Ads, coupons and sales stay with the owner."
+ ],
+ "reason": "Three designs aimed at the November Christmas peak, each with a researched gap (pod-kit/research/2026-11-05-christmas-batch.json), all ten Legal counsel passed or n/a, full-size print files checked."
+}
