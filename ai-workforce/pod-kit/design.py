@@ -27,6 +27,7 @@ Spec (see designs/*.json):
 }
 """
 import json, math, os, sys
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import watercolor as wc
 import motifs as M
@@ -65,13 +66,14 @@ def render(spec, scale=1.0):
     w, h = int(W * scale), int(H * scale)
     P = dict(PALETTES[spec.get('palette', 'blush')]); P.update(spec.get('colors', {}))
     c = wc.Canvas(w, h, seed=spec.get('seed', 1))
+    c.v2 = spec.get('engine', 1) >= 2
     cx, cy = w / 2, h / 2
     ink = hex3(spec.get('ink', '#343034'))
     t = spec.get('template', 'arch')
     f_top = FONTS[spec.get('top_font', 'DancingScript')]
     f_bot = FONTS[spec.get('bottom_font', 'PlayfairDisplay')]
     f_small = FONTS[spec.get('small_font', 'JosefinSans')]
-    art_y = {'arch': 0.47, 'stack': 0.4, 'badge': 0.5, 'wreath': 0.5}[t] * h
+    art_y = {'arch': 0.47, 'stack': 0.4, 'badge': 0.5, 'wreath': 0.5, 'free': 0.5}[t] * h
     # florals first (they sit behind objects)
     fl = spec.get('florals')
     if fl == 'bouquet':
@@ -83,12 +85,27 @@ def render(spec, scale=1.0):
     art = spec.get('art', [])
     for a in [a for a in art if a.get('front')] + [a for a in art if not a.get('front')]:
         fn = M.MOTIFS[a['motif']]
-        kw = {k: v for k, v in a.items() if k not in ('motif', 'x', 'y', 's', 'front')}
+        kw = {k: v for k, v in a.items() if k not in ('motif', 'x', 'y', 's', 'front', 'no_ornament')}
         before = c.snapshot() if a.get('front') else None
         fn(c, cx + a.get('x', 0) * w, art_y + a.get('y', 0) * w, a.get('s', 0.2) * w, P, **kw)
         if before:
             c.paint_around(before)
-    # lettering
+    # lettering: an explicit list (free layouts), painted in watercolor or inked
+    for L in spec.get('lettering') or []:
+        font = FONTS[L.get('font', 'DancingScript')]
+        text = L['text'].upper() if L.get('caps') else L['text']
+        size = fit_size(text, font, w * L.get('max_w', 0.8) / (1 + L.get('tracking', 0.0)), int(w * L.get('size', 0.1)))
+        ly = art_y + L.get('y', 0) * w
+        lx = cx + L.get('x', 0) * w
+        arc = L.get('arc'); arc = arc * w if arc else None
+        if L.get('style', 'paint') == 'paint':
+            out = L.get('outline')
+            c.paint_text(text, font, size, lx, ly, L.get('color', spec.get('ink', '#343034')), L.get('color2'), L.get('vary'),
+                         L.get('vary_amt', 0.55), arc=arc, tracking=L.get('tracking', 0.0), strength=L.get('strength', 1.05),
+                         outline=(hex3(out[0]), out[1] * w, out[2]) if out else None, angle=L.get('angle', 0.0))
+        else:
+            c.text(text, font, size, lx, ly, fill=hex3(L.get('color', spec.get('ink', '#343034'))), arc=arc,
+                   tracking=L.get('tracking', 0.0))
     top, bot, small = spec.get('top'), spec.get('bottom'), spec.get('small')
     if t in ('arch', 'badge'):
         if top:
@@ -118,6 +135,19 @@ def render(spec, scale=1.0):
             size = fit_size(bot, f_bot, w * 0.46, int(w * 0.07))
             c.text(bot, f_bot, size, cx, art_y + w * 0.09, fill=ink)
     return c
+
+
+def compact(im):
+    """Shrink a v2 print PNG without visible change: clear the color under fully
+    transparent pixels and round color by one level (of 255) where the paint is
+    translucent. Richly textured v2 art otherwise runs past 15 MB."""
+    a = np.array(im)
+    al = a[..., 3]
+    a[al == 0] = 0
+    sel = al < 160
+    rgb = a[..., :3]
+    rgb[sel] &= 0xFE
+    return Image.fromarray(a, 'RGBA')
 
 
 def crop_to_content(im, pad=0.03):
@@ -155,24 +185,34 @@ def ornament_art(spec, scale=1.0, size=2400):
     print file for a round ceramic ornament (the printer trims it to a circle,
     so the art's corners stay inside the disc). The top line of lettering, if
     any, curves along the lower rim."""
-    bare = dict(spec, top=None, bottom=None, small=None)
+    bare = dict(spec, top=None, bottom=None, small=None, lettering=None,
+                art=[a for a in spec.get('art', []) if not a.get('no_ornament')])
     c = render(bare, scale)
     box = crop_to_content(c.rgba())
     paper = c.on_paper()
     art = paper.crop(box) if box else paper
     size = int(size * scale)
-    text = spec.get('top')
+    text = spec.get('ornament_text', spec.get('top'))
     cy = size * (0.43 if text else 0.5)
-    r = size * (0.86 if text else 0.9) / math.hypot(art.width, art.height)
+    if spec.get('ornament_fit') == 'round':     # a round vignette: its corners are empty paper anyway
+        r = size * (0.74 if text else 0.84) / max(art.width, art.height)
+    else:
+        r = size * (0.86 if text else 0.9) / math.hypot(art.width, art.height)
     art = art.resize((max(1, int(art.width * r)), max(1, int(art.height * r))), Image.LANCZOS)
     sq = Image.new('RGB', (size, size), hex3('#fbf8f2'))
     sq.paste(art, ((size - art.width) // 2, int(cy - art.height / 2)))
     if text:
         t = wc.Canvas(size, size, seed=spec.get('seed', 1))
-        font = FONTS[spec.get('top_font', 'DancingScript')]
+        font = FONTS[spec.get('ornament_font', spec.get('top_font', 'DancingScript'))]
         R = size * 0.37
-        t.text(text, font, fit_size(text, font, size * 0.62, int(size * 0.085)), size / 2, size / 2 + R,
-               fill=hex3(spec.get('ink', '#343034')), arc=-R)
+        fs = fit_size(text, font, size * 0.62, int(size * 0.085))
+        if spec.get('ornament_color'):
+            t.v2 = True
+            t.paint_text(text, font, fs, size / 2, size / 2 + R, spec['ornament_color'], None, spec.get('ornament_vary'), arc=-R,
+                         strength=1.15)
+            sq = Image.fromarray((np.asarray(sq, dtype=np.float32) * np.exp(-t.absorb)).astype(np.uint8))
+        else:
+            t.text(text, font, fs, size / 2, size / 2 + R, fill=hex3(spec.get('ink', '#343034')), arc=-R)
         sq = sq.convert('RGBA'); sq.alpha_composite(t.ink); sq = sq.convert('RGB')
     return sq
 
@@ -202,6 +242,8 @@ def main():
     c = render(spec, 1 / 3 if prev else 1.0)
     design = c.rgba()
     sid = spec['id']
+    if spec.get('engine', 1) >= 2:
+        design = compact(design)
     design.save(os.path.join(out, f'{sid}.png'), dpi=(300, 300), optimize=True)
     paper = c.on_paper()
     paper.convert('RGB').save(os.path.join(out, f'{sid}-paper.jpg'), quality=90)

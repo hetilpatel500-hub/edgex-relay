@@ -1,98 +1,40 @@
 {
   "id": "deck-the-shelves",
   "name": "Deck the Shelves",
-  "template": "arch",
+  "engine": 2,
+  "template": "free",
   "top": "Deck the Shelves",
   "bottom": "bookish & bright",
   "top_font": "PlayfairDisplay",
   "bottom_font": "DancingScript",
-  "art": [
-    {
-      "motif": "book_tree",
-      "x": 0.0,
-      "y": 0.27,
-      "s": 0.53,
-      "front": true
-    },
-    {
-      "motif": "gift",
-      "x": -0.29,
-      "y": 0.27,
-      "s": 0.072,
-      "front": true
-    },
-    {
-      "motif": "gift",
-      "x": -0.41,
-      "y": 0.27,
-      "s": 0.042,
-      "color": "#b8473d",
-      "ribbon": "#f1e6cf",
-      "front": true
-    },
-    {
-      "motif": "cat",
-      "x": 0.3,
-      "y": 0.145,
-      "s": 0.108,
-      "tail": -1
-    },
-    {
-      "motif": "sparkle",
-      "x": -0.27,
-      "y": -0.13,
-      "s": 0.024
-    },
-    {
-      "motif": "sparkle",
-      "x": 0.25,
-      "y": -0.17,
-      "s": 0.02
-    },
-    {
-      "motif": "sparkle",
-      "x": -0.14,
-      "y": -0.22,
-      "s": 0.016
-    },
-    {
-      "motif": "sparkle",
-      "x": 0.34,
-      "y": -0.02,
-      "s": 0.016
-    },
-    {
-      "motif": "snowflake",
-      "x": -0.36,
-      "y": 0.0,
-      "s": 0.02
-    },
-    {
-      "motif": "snowflake",
-      "x": 0.37,
-      "y": -0.11,
-      "s": 0.016
-    }
-  ],
   "florals": null,
   "palette": "autumn",
   "colors": {
-    "book1": "#8e2b3a",
-    "book2": "#2f5e45",
-    "book3": "#d9a84a",
-    "book4": "#2f4a6b",
-    "book5": "#b8473d",
-    "book6": "#7a9a72",
-    "book7": "#e8dcc2",
-    "star": "#d9ad55",
-    "star2": "#f3d58f",
-    "accent": "#d9ad55",
-    "accent2": "#f3d58f",
-    "gift": "#2f5e45",
-    "ribbon": "#d9ad55",
-    "bow": "#b8333a"
+    "book1": "#8b2333",
+    "book2": "#2c5b43",
+    "book3": "#c99a3c",
+    "book4": "#2a4466",
+    "book5": "#a8433a",
+    "book6": "#6f8f6a",
+    "book7": "#5b3352",
+    "book_shadow": "#3a2a2e",
+    "gold": "#d8b25a",
+    "gold_dk": "#9c7a2e",
+    "star": "#d39e35",
+    "star2": "#f3d679",
+    "pine": "#2c5b43",
+    "pine2": "#7aa36c",
+    "pine_dark": "#163829",
+    "leaf": "#2c5b43",
+    "leaf2": "#7aa36c",
+    "leaf_dark": "#163829",
+    "scarf": "#b8303a",
+    "glow": "#f2d7a4",
+    "glow2": "#efc9bf",
+    "cat": "#38323f",
+    "cat2": "#645a74"
   },
-  "ink": "#3a2f2d",
+  "ink": "#2f2a2c",
   "seed": 17,
   "shirt_colors": [
     "white",
@@ -100,6 +42,155 @@
     "heather_pink"
   ],
   "ornament": true,
+  "ornament_text": "Deck the Shelves",
+  "ornament_font": "PlayfairDisplay",
+  "ornament_color": "#2c5b43",
+  "ornament_vary": "#163829",
+  "art": [
+    {
+      "motif": "base_garland",
+      "x": 0.0,
+      "y": 0.296,
+      "s": 0.4,
+      "front": true
+    },
+    {
+      "motif": "gift2",
+      "x": -0.29,
+      "y": 0.285,
+      "s": 0.078,
+      "color": "#a8343a",
+      "ribbon": "#d8b25a",
+      "pattern": "stripes",
+      "front": true
+    },
+    {
+      "motif": "gift2",
+      "x": -0.415,
+      "y": 0.285,
+      "s": 0.05,
+      "color": "#2c5b43",
+      "ribbon": "#d8b25a",
+      "pattern": "dots",
+      "tall": 1.15,
+      "front": true
+    },
+    {
+      "motif": "gift2",
+      "x": 0.215,
+      "y": 0.287,
+      "s": 0.045,
+      "color": "#2a4466",
+      "ribbon": "#d8b25a",
+      "pattern": "stars",
+      "tall": 0.9,
+      "front": true
+    },
+    {
+      "motif": "cozy_cat",
+      "x": 0.33,
+      "y": 0.162,
+      "s": 0.105,
+      "tail": 1,
+      "front": true
+    },
+    {
+      "motif": "book_tree2",
+      "x": 0.0,
+      "y": 0.285,
+      "s": 0.56,
+      "front": true
+    },
+    {
+      "motif": "cozy_glow",
+      "x": 0.0,
+      "y": 0.0,
+      "s": 0.46,
+      "aspect": 0.92
+    },
+    {
+      "motif": "twinkle",
+      "x": -0.3,
+      "y": -0.17,
+      "s": 0.03
+    },
+    {
+      "motif": "twinkle",
+      "x": 0.28,
+      "y": -0.2,
+      "s": 0.024
+    },
+    {
+      "motif": "twinkle",
+      "x": -0.4,
+      "y": 0.0,
+      "s": 0.018
+    },
+    {
+      "motif": "twinkle",
+      "x": 0.42,
+      "y": -0.04,
+      "s": 0.02
+    },
+    {
+      "motif": "twinkle",
+      "x": 0.17,
+      "y": -0.24,
+      "s": 0.016
+    },
+    {
+      "motif": "twinkle",
+      "x": -0.17,
+      "y": -0.24,
+      "s": 0.014
+    }
+  ],
+  "lettering": [
+    {
+      "text": "Deck the",
+      "font": "DancingScript",
+      "size": 0.12,
+      "max_w": 0.5,
+      "y": -0.505,
+      "color": "#8b2333",
+      "vary": "#5a1420",
+      "outline": [
+        "#4c1019",
+        0.0012,
+        150
+      ]
+    },
+    {
+      "text": "Shelves",
+      "caps": true,
+      "font": "PlayfairDisplay",
+      "size": 0.15,
+      "max_w": 0.82,
+      "tracking": 0.1,
+      "y": -0.39,
+      "color": "#2c5b43",
+      "vary": "#163829",
+      "outline": [
+        "#163829",
+        0.0013,
+        160
+      ]
+    },
+    {
+      "text": "bookish & bright",
+      "font": "DancingScript",
+      "size": 0.1,
+      "max_w": 0.66,
+      "y": 0.4,
+      "color": "#a2741f",
+      "vary": "#6e4c12",
+      "outline": [
+        "#5c3f0f",
+        0.0012,
+        140
+      ]
+    }
+  ],
   "listing": {
     "title": "Deck the Shelves Shirt, Bookish Christmas Tee, Book Christmas Tree Shirt, Book Lover Gift, Black Cat Book Shirt, Librarian Gift",
     "tags": [
@@ -117,7 +208,7 @@
       "teacher christmas",
       "watercolor christmas"
     ],
-    "description": "A Christmas tree made of stacked books in deep red, forest green, gold and navy, wrapped in a string of warm lights with a gold star on top, presents at its foot and a black cat keeping watch, painted in layered watercolor. \"Deck the Shelves\" in serif lettering on top and \"bookish & bright\" in script below. For the reader, librarian or book-club friend who would rather decorate a shelf than a tree.",
+    "description": "A Christmas tree built from stacked books, painted book by book in watercolor: deep red, forest green, navy, gold and plum spines with gold bands and labels, a few turned to show their cream page edges, a string of colorful lights wound round it and a glowing gold star on top. Wrapped presents, a pine garland with pinecones and little glass baubles sit at its foot, and a black cat in a red striped scarf keeps watch, all in a warm golden glow. \"Deck the\" in burgundy script, \"SHELVES\" in green serif capitals and \"bookish & bright\" in gold script. For the reader, librarian or book-club friend who would rather decorate a shelf than a tree.",
     "per_product": {
       "sweatshirt": {
         "title": "Deck the Shelves Sweatshirt, Bookish Christmas Crewneck, Book Christmas Tree Sweater, Book Lover Gift, Black Cat Reader Pullover",
@@ -208,7 +299,7 @@
           "stocking stuffer",
           "watercolor ornament"
         ],
-        "description": "The watercolor Christmas tree of stacked books, its warm lights and gold star, the presents and the black cat, printed on both sides of a round ceramic ornament. \"Deck the Shelves\" is lettered along the bottom rim, on both sides. A small gift for a reader, a librarian or a book club swap."
+        "description": "The watercolor book tree (stacked books, string lights and a gold star, with presents, a pine garland and a black cat in a red scarf) printed on both sides of a round ceramic ornament, with \"Deck the Shelves\" painted in green along the bottom rim. A small gift for a reader, a librarian or a book club swap."
       }
     },
     "products": [
@@ -221,5 +312,6 @@
     ],
     "price_note": "Prices from the POD-DESK.md product table (2026-10-05 pricing review): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. New: round ceramic ornament $16.99 (web search 2026-11-05: watercolor ceramic ornaments on Etsy-style shops list about $10-35, one Etsy listing at $13.79 sale / $22.99; Printify US shipping $5.89, 10 days' handling; printify.py raises the price if it is under Printify's cost + $4). The owner can change any price.",
     "trademark_check": "Legal Desk screen 2026-11-05 (before any art): web searches '\"deck the shelves\" trademark apparel USPTO' and '\"deck the shelves\" sweatshirt book christmas tree'. No DECK THE SHELVES mark found in any class. Related marks seen: STACK THE DECK (reg. 6521898, athletic apparel), DECK CLUB (pending, apparel retail services), DECK SHIRT and DECK SHOE (dead): different phrases, not used. Competitor phrases on book-tree sweatshirts ('All Booked for Christmas', 'Seasons Readings', 'Readin' Around the Christmas Tree') are not used, and no book titles, authors or publisher names appear in the art or the listing. 'Kindle' (a brand) was kept out of the sticker title. tmsearch.uspto.gov and Justia pages are blocked from our sessions, so this is a search-engine screen, not a clearance."
-  }
+  },
+  "ornament_fit": "round"
 }

@@ -2215,3 +2215,7 @@ MOTIFS = {'rose': rose, 'daisy': daisy, 'wildflower': wildflower, 'tulip': tulip
           'pie': pie, 'pie_slice': pie_slice, 'wheat': wheat, 'dachshund': dachshund,
           'fir_tree': fir_tree, 'pickup_truck': pickup_truck, 'lying_fir': lying_fir, 'snow_ground': snow_ground, 'gift': gift, 'book_tree': book_tree,
           'bauble': bauble, 'bow': bow, 'gold_star': gold_star}
+
+# second-generation detailed motifs (motifs2.py) join the same registry
+from motifs2 import MOTIFS2  # noqa: E402
+MOTIFS.update(MOTIFS2)

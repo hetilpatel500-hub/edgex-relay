@@ -221,7 +221,10 @@ Legal Desk still notes this on every delivery.
 | 9b | Brand & Graphic Design Agent + Etsy Publish Coordinator | **9+ photos per listing (owner directive 2026-10-04: "more than 8 pictures for each product").** Printify only gives our mugs 1 photo, tees 3, sweatshirts 2-3 and stickers 6 (prints and accent mugs get 20), and its API ignores custom images. Run `python3 photos.py OUT_PHOTOS --only <product ids>` for the new products: it draws 9 more from the real print file (hero, art, close-ups, second view, colors or sizes to scale, size chart or specs, details and care, the collection, made to order). Open every `00-sheet.png` and fix anything clipped or mirrored. Deliver the photo folders to the owner (private artifact, `downloads`), who adds them to each Etsy listing (Edit > Photos, after Printify's own; Etsy allows 20). **After that, never re-publish those listings from Printify with `images: true`:** it would replace the owner's photos. Send text fixes with `images: false`. |
 | 10 | Sales Analyst (TikTok Analytics Agent), weekly on Mondays | **Learn from sales.** Pull orders from Printify (`GET /v1/shops/29114200/orders.json`) and count sales per design and niche. Write a `pod_review` doc: what sold, what didn't, and the rule for next week (more of the winning niche and style, retire what isn't working after 60 days). Trend Scout reads the latest review before step 1a. |
 
-Run with plain `python3` (numpy and Pillow are enough). Output goes in the
+Run with `python3` that has numpy and Pillow (in cloud sessions the system python may lack numpy: use a venv).
+Quality bar for new work (owner, 2026-11-05: "too simple and low quality"): use `"engine": 2` and the detailed
+motifs, paint the lettering (`lettering` list), give the scene a background (splash or glow), depth (far and near
+layers) and finishing details (highlights, glints, texture), and check a full-size crop, not just the preview. Output goes in the
 scratchpad, never the repo. Only the design JSON files are committed.
 
 ## Rules
@@ -356,3 +359,11 @@ Studio Floor at any time.
   `pod-kit/decisions/`. Delivery page (private): https://claude.ai/artifact/AjFYjJogwPtBrC44uuMfeW. Nothing
   created on Printify and $0 spent: Printify writes wait for the owner to allow them (refused by the session's
   permission check since Oct 6).
+  **Repainted the same day (v2)** after the owner said "These are too simple and low quality put more effort":
+  the engine got patchy pigment variation, backrun blooms, lifted highlights, glows, dry-brush texture, clipping
+  and lettering painted as a wash (`"engine": 2`; older designs render exactly as before), plus a new `free`
+  layout with a `lettering` list. New detailed motifs in `motifs2.py`: a 1950s stepside truck with a lit-up
+  tree, branch-by-branch snowy spruces, a misty far forest, falling snow, a book tree built book by book
+  (gold-banded spines, page edges, string lights, glowing star), patterned gifts, a cat in a knit scarf, and
+  glass ornaments with real shine (round, finial, teardrop; gold bands, frost, stars, glitter, stripes).
+  Descriptions were rewritten to match and Legal re-checked all three (still cleared).

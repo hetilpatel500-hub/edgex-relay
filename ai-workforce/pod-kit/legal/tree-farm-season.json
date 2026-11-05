@@ -6,7 +6,7 @@
   "kind": "pod_design"
  },
  "title": "Tree Farm Season (tee, sweatshirt, mug, art print, sticker, ceramic ornament)",
- "reviewed_at": "2026-11-05T03:50:42Z",
+ "reviewed_at": "2026-11-05T04:22:10Z",
  "checks": {
   "general-counsel-agent": {
    "verdict": "pass",
@@ -14,7 +14,7 @@
   },
   "advertising-consumer-protection-counsel": {
    "verdict": "pass",
-   "note": "Descriptions checked against the full-size art: red pickup, one fir standing in the bed with a red bow, snowy pines on both sides, snow on the ground, snowflakes, 'Tree Farm Season' on top and 'fresh cut & headed home' below, all true. Ornament copy says the title is lettered along the bottom rim and the painting is printed on both sides, true of the ornament file and Printify's 2-side blueprint. Size 'about 3 in' comes from the 886 px print area at 300 dpi (2.95 in). No 'best seller', sale, free, review or handmade claims; no fake discounts."
+   "note": "Re-checked against the repainted art (v2, after the owner said the first version was too simple): red stepside pickup carrying a tree with string lights and a red bow, wreath on the door, snow on the cab, hood and spruces, misty forest, falling snow; 'Tree Farm' red script, 'SEASON' green with two holly sprigs, 'fresh cut & headed home' green script. Every claim in the description and the ornament copy matches. 'About 3 in' comes from the 886 px print area at 300 dpi (2.95 in). No best-seller, sale, free, review or handmade claims; no fake discounts."
   },
   "email-anti-spam-compliance-counsel": {
    "verdict": "n/a",
@@ -26,11 +26,11 @@
   },
   "copyright-fair-use-counsel": {
    "verdict": "pass",
-   "note": "Art is original: painted by the studio's own code (watercolor.py, motifs.py), no stock art, no traced or copied designs, no AI image generator. Fonts Pacifico and Dancing Script are SIL OFL 1.1 (license files in pod-kit/fonts), which allows use in printed products. Machine-drawn art may not be registrable for US copyright (Thaler v. Perlmutter), so others could copy it."
+   "note": "Art is original: painted by the studio's own code (watercolor.py, motifs.py, motifs2.py), with no stock art, no traced or copied designs and no AI image generator. Fonts Pacifico, Playfair Display and Dancing Script are SIL OFL 1.1 (license files in pod-kit/fonts), which allows use in printed products. Machine-drawn art may not be registrable for US copyright (Thaler v. Perlmutter), so others could copy it."
   },
   "trademark-brand-clearance-counsel": {
    "verdict": "pass",
-   "note": "Phrase screened before art (listing.trademark_check): no TREE FARM SEASON mark found. CHRISTMAS TREE FARM (serial 90980204, Class 25) is not used in the title, tags or art; 'tree farm shirt' and 'tree farm season' tags don't contain it. Competitor phrases ('Farm Fresh Christmas Trees') and movie tree-farm references (Griswold) avoided. The truck is a generic stylized pickup: no maker badge, model name or a specific model's grille, and no vehicle brand in the copy, which keeps clear of automaker trade dress. Search-engine screen only; tmsearch.uspto.gov is blocked from our sessions."
+   "note": "Phrase screened before art (listing.trademark_check): no TREE FARM SEASON mark found. CHRISTMAS TREE FARM (serial 90980204, Class 25) is not used in the title, tags or art. Competitor phrases ('Farm Fresh Christmas Trees') and movie tree-farm references (Griswold) avoided. The repainted truck is a generic 1950s-style stepside: no maker badge, emblem, script or model name, and the grille is plain horizontal bars; no vehicle brand in the copy, which keeps clear of automaker trade dress. Search-engine screen only; tmsearch.uspto.gov is blocked from our sessions."
   },
   "financial-content-compliance-counsel": {
    "verdict": "n/a",
@@ -52,9 +52,10 @@
  "verdict": "cleared",
  "fixes": [
   "Quality Bar: outer pines were clipped about 50 px at both print edges; moved to x -0.39 / 0.385 and scaled 0.31 to 0.295 (art now ends 26 px and 49 px inside the edges).",
-  "Ornament description said the ornament shows the painting without lettering; changed to say the title is lettered along the bottom rim."
+  "Ornament description said the ornament shows the painting without lettering; changed to say the title is lettered along the bottom rim.",
+  "v2 repaint (owner, 2026-11-05: 'These are too simple and low quality put more effort'): new detailed art; descriptions rewritten to match it and re-checked."
  ],
- "last_touch_ref": "POD desk steps 4-6 (Quality Bar, Copywriter + SEO, Grammar & Copy Editor, Deliverable QA Reviewer), 2026-11-05",
+ "last_touch_ref": "POD desk steps 4-6 on the v2 repaint, 2026-11-05",
  "research_ref": "pod-kit/research/2026-11-05-christmas-batch.json",
  "decision_ref": "pod-kit/decisions/2026-11-05-pod-christmas-batch.json"
 }

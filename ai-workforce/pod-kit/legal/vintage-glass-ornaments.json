@@ -6,7 +6,7 @@
   "kind": "pod_design"
  },
  "title": "Vintage Glass Ornaments (all-over white mug, accent mug 11/15 oz)",
- "reviewed_at": "2026-11-05T03:50:42Z",
+ "reviewed_at": "2026-11-05T04:22:10Z",
  "checks": {
   "general-counsel-agent": {
    "verdict": "pass",
@@ -14,7 +14,7 @@
   },
   "advertising-consumer-protection-counsel": {
    "verdict": "pass",
-   "note": "Description checked against the full-size wraps: round baubles with bands and dots and tall finials in burgundy, forest green, gold, navy and red, fir sprigs, holly, red bows, gold stars, cream background, all the way around the mug (the wrap joins invisibly at the handle, checked). 'Vintage-style' describes the look; nothing claims the mug or ornaments are antique. Accent colors named in the title (maroon, red, black) match mug_colors. No best-seller, sale, free or review claims."
+   "note": "Re-checked against the repainted wrap (v2): round baubles, finials and teardrops in burgundy, forest green, gold, navy and red with gold bands and zigzags, frosted snowflakes, gold stars, glitter and cream stripes, ridged gold caps; fir sprigs, pinecones, holly, red bows, gold stars and snow dots on cream, all the way around (seam checked at the handle). 'Vintage-style' describes the look; nothing claims the mug is antique. Accent colors in the title (maroon, red, black) match mug_colors. No best-seller, sale, free or review claims."
   },
   "email-anti-spam-compliance-counsel": {
    "verdict": "n/a",
@@ -26,7 +26,7 @@
   },
   "copyright-fair-use-counsel": {
    "verdict": "pass",
-   "note": "Art is original: painted by the studio's own code (pattern.py, motifs.py), no stock art, no traced or copied designs, no AI image generator. No lettering, so no fonts. Machine-drawn art may not be registrable for US copyright (Thaler v. Perlmutter)."
+   "note": "Art is original: painted by the studio's own code (pattern.py, motifs.py, motifs2.py), no stock art, no traced or copied designs, no AI image generator. No lettering, so no fonts. Ornament shapes and decorations are generic period styles, not copies of any maker's designs. Machine-drawn art may not be registrable for US copyright (Thaler v. Perlmutter)."
   },
   "trademark-brand-clearance-counsel": {
    "verdict": "pass",
@@ -52,9 +52,10 @@
  "verdict": "cleared",
  "fixes": [
   "Two tags over 20 characters renamed (build.py refused the first build).",
-  "Pattern had come out nearly all red (random color pick); fixed with explicit per-color elements and color2 support for baubles in pattern.py."
+  "Pattern had come out nearly all red (random color pick); fixed with explicit per-color elements and color2 support for baubles in pattern.py.",
+  "v2 repaint (owner, 2026-11-05: 'These are too simple and low quality put more effort'): new detailed art; descriptions rewritten to match it and re-checked."
  ],
- "last_touch_ref": "POD desk steps 4-6 (Quality Bar, Copywriter + SEO, Grammar & Copy Editor, Deliverable QA Reviewer), 2026-11-05",
+ "last_touch_ref": "POD desk steps 4-6 on the v2 repaint, 2026-11-05",
  "research_ref": "pod-kit/research/2026-11-05-christmas-batch.json",
  "decision_ref": "pod-kit/decisions/2026-11-05-pod-christmas-batch.json"
 }

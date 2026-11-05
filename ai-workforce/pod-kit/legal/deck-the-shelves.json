@@ -6,7 +6,7 @@
   "kind": "pod_design"
  },
  "title": "Deck the Shelves (tee, sweatshirt, mug, art print, sticker, ceramic ornament)",
- "reviewed_at": "2026-11-05T03:50:42Z",
+ "reviewed_at": "2026-11-05T04:22:10Z",
  "checks": {
   "general-counsel-agent": {
    "verdict": "pass",
@@ -14,7 +14,7 @@
   },
   "advertising-consumer-protection-counsel": {
    "verdict": "pass",
-   "note": "Descriptions checked against the full-size art: tree of stacked books in deep red, forest green, gold and navy, a string of warm lights, gold star, two presents at its foot and a black cat, serif 'Deck the Shelves' and script 'bookish & bright', all true. Titles said 'Black Cat Reading Shirt/Mug', but the cat isn't reading; changed to 'Black Cat Book Shirt/Mug'. Ornament copy true (title on the bottom rim, 2-side print). No best-seller, sale, free or review claims."
+   "note": "Re-checked against the repainted art (v2): books in deep red, forest green, navy, gold and plum with gold bands and labels, some showing cream page edges, string lights, gold star, three wrapped presents, pine garland with pinecones and small baubles, black cat in a red striped scarf, warm glow; 'Deck the' burgundy script, 'SHELVES' green serif capitals, 'bookish & bright' gold script. Description and ornament copy match. Titles say 'Black Cat Book Shirt/Mug' (the cat isn't reading). No best-seller, sale, free or review claims."
   },
   "email-anti-spam-compliance-counsel": {
    "verdict": "n/a",
@@ -26,7 +26,7 @@
   },
   "copyright-fair-use-counsel": {
    "verdict": "pass",
-   "note": "Art is original: painted by the studio's own code (watercolor.py, motifs.py), no stock art, no traced or copied designs, no AI image generator. Fonts Playfair Display and Dancing Script are SIL OFL 1.1 (license files in pod-kit/fonts), which allows use in printed products. Machine-drawn art may not be registrable for US copyright (Thaler v. Perlmutter), so others could copy it. The books have blank spines: no real titles, authors or publisher marks. 'Deck the Shelves' plays on 'Deck the Halls', a traditional carol whose words are in the public domain; no lyric lines are used."
+   "note": "Art is original: painted by the studio's own code (watercolor.py, motifs.py, motifs2.py), no stock art, no traced or copied designs, no AI image generator. Fonts Playfair Display and Dancing Script are SIL OFL 1.1 (license files in pod-kit/fonts). Book labels carry only abstract gold lines: no real titles, authors or publisher marks. 'Deck the Shelves' plays on 'Deck the Halls', a traditional carol whose words are in the public domain; no lyric lines are used. Machine-drawn art may not be registrable for US copyright (Thaler v. Perlmutter)."
   },
   "trademark-brand-clearance-counsel": {
    "verdict": "pass",
@@ -52,9 +52,10 @@
  "verdict": "cleared",
  "fixes": [
   "Titles: 'Black Cat Reading Shirt' and 'Black Cat Reading Mug' changed to 'Black Cat Book Shirt' and 'Black Cat Book Mug' (the cat isn't reading).",
-  "Ornament description said the ornament shows the painting without lettering; changed to say the title is lettered along the bottom rim."
+  "Ornament description said the ornament shows the painting without lettering; changed to say the title is lettered along the bottom rim.",
+  "v2 repaint (owner, 2026-11-05: 'These are too simple and low quality put more effort'): new detailed art; descriptions rewritten to match it and re-checked."
  ],
- "last_touch_ref": "POD desk steps 4-6 (Quality Bar, Copywriter + SEO, Grammar & Copy Editor, Deliverable QA Reviewer), 2026-11-05",
+ "last_touch_ref": "POD desk steps 4-6 on the v2 repaint, 2026-11-05",
  "research_ref": "pod-kit/research/2026-11-05-christmas-batch.json",
  "decision_ref": "pod-kit/decisions/2026-11-05-pod-christmas-batch.json"
 }

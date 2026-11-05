@@ -1,89 +1,35 @@
 {
   "id": "tree-farm-season",
   "name": "Tree Farm Season",
-  "template": "arch",
+  "engine": 2,
+  "template": "free",
   "top": "Tree Farm Season",
   "bottom": "fresh cut & headed home",
   "top_font": "Pacifico",
   "bottom_font": "DancingScript",
-  "art": [
-    {
-      "motif": "pickup_truck",
-      "x": 0.0,
-      "y": 0.27,
-      "s": 0.31,
-      "front": true
-    },
-    {
-      "motif": "fir_tree",
-      "x": -0.39,
-      "y": 0.2,
-      "s": 0.295
-    },
-    {
-      "motif": "fir_tree",
-      "x": 0.385,
-      "y": 0.2,
-      "s": 0.295
-    },
-    {
-      "motif": "fir_tree",
-      "x": 0.23,
-      "y": 0.11,
-      "s": 0.17,
-      "color": "#4f7d62",
-      "color2": "#94b59a"
-    },
-    {
-      "motif": "snow_ground",
-      "x": 0.0,
-      "y": 0.27,
-      "s": 0.4
-    },
-    {
-      "motif": "snowflake",
-      "x": -0.3,
-      "y": -0.17,
-      "s": 0.025
-    },
-    {
-      "motif": "snowflake",
-      "x": 0.06,
-      "y": -0.21,
-      "s": 0.02
-    },
-    {
-      "motif": "snowflake",
-      "x": 0.31,
-      "y": -0.13,
-      "s": 0.024
-    },
-    {
-      "motif": "snowflake",
-      "x": -0.08,
-      "y": -0.09,
-      "s": 0.016
-    },
-    {
-      "motif": "snowflake",
-      "x": 0.18,
-      "y": -0.06,
-      "s": 0.015
-    }
-  ],
   "florals": null,
   "palette": "autumn",
   "colors": {
-    "pine": "#2f5e45",
-    "pine2": "#6f9a6a",
-    "pine_dark": "#1f3f2d",
-    "truck": "#c23a33",
-    "truck2": "#e26a5c",
+    "pine": "#2c5f46",
+    "pine2": "#7aa36c",
+    "pine_dark": "#163829",
+    "pine_blue": "#3d6878",
+    "pine_warm": "#a7b562",
+    "truck": "#bf2f2c",
+    "truck2": "#e0604a",
+    "truck_dark": "#7a1a1f",
+    "bow": "#b3262f",
+    "sky": "#9fbfd8",
+    "sky2": "#f3e9dd",
+    "sky3": "#c2d5ea",
+    "far": "#86a6aa",
+    "far2": "#bfd2d4",
+    "shadow": "#9cb3c8",
+    "snow_shadow": "#9cb3c8",
     "accent": "#d9ad55",
-    "accent2": "#f3d58f",
-    "shadow": "#a9bccb"
+    "accent2": "#f3d58f"
   },
-  "ink": "#3a2f2d",
+  "ink": "#2f3a33",
   "seed": 23,
   "shirt_colors": [
     "white",
@@ -91,6 +37,144 @@
     "sand"
   ],
   "ornament": true,
+  "ornament_text": "Tree Farm Season",
+  "ornament_font": "Pacifico",
+  "ornament_color": "#b02a2a",
+  "ornament_vary": "#7a1a1f",
+  "art": [
+    {
+      "motif": "vintage_truck",
+      "x": 0.0,
+      "y": 0.19,
+      "s": 0.29,
+      "front": true,
+      "lights": 3
+    },
+    {
+      "motif": "splash",
+      "x": 0.0,
+      "y": -0.01,
+      "s": 0.47,
+      "aspect": 0.66
+    },
+    {
+      "motif": "far_forest",
+      "x": 0.0,
+      "y": 0.04,
+      "s": 0.43,
+      "height": 0.32,
+      "n": 26
+    },
+    {
+      "motif": "snow_drift",
+      "x": 0.0,
+      "y": 0.19,
+      "s": 0.47
+    },
+    {
+      "motif": "spruce",
+      "x": -0.355,
+      "y": 0.205,
+      "s": 0.37,
+      "light": -1
+    },
+    {
+      "motif": "spruce",
+      "x": -0.235,
+      "y": 0.15,
+      "s": 0.17,
+      "light": -1,
+      "levels": 11,
+      "snow": 0.6
+    },
+    {
+      "motif": "spruce",
+      "x": 0.375,
+      "y": 0.21,
+      "s": 0.33,
+      "light": -1
+    },
+    {
+      "motif": "spruce",
+      "x": 0.26,
+      "y": 0.14,
+      "s": 0.15,
+      "light": -1,
+      "levels": 10,
+      "snow": 0.6
+    },
+    {
+      "motif": "holly",
+      "x": -0.265,
+      "y": -0.312,
+      "s": 0.034,
+      "angle": 0.25,
+      "no_ornament": true
+    },
+    {
+      "motif": "holly",
+      "x": 0.265,
+      "y": -0.312,
+      "s": 0.034,
+      "angle": -0.25,
+      "no_ornament": true
+    },
+    {
+      "motif": "snowfall",
+      "x": 0.0,
+      "y": -0.01,
+      "s": 0.47,
+      "aspect": 0.66,
+      "n": 170
+    }
+  ],
+  "lettering": [
+    {
+      "text": "Tree Farm",
+      "font": "Pacifico",
+      "size": 0.19,
+      "max_w": 0.8,
+      "y": -0.44,
+      "color": "#b62c2b",
+      "vary": "#7c1a1e",
+      "vary_amt": 0.5,
+      "outline": [
+        "#5c1518",
+        0.0016,
+        170
+      ]
+    },
+    {
+      "text": "Season",
+      "caps": true,
+      "font": "PlayfairDisplay",
+      "size": 0.075,
+      "max_w": 0.42,
+      "tracking": 0.32,
+      "y": -0.305,
+      "color": "#245a40",
+      "vary": "#163829",
+      "outline": [
+        "#163829",
+        0.0012,
+        150
+      ]
+    },
+    {
+      "text": "fresh cut & headed home",
+      "font": "DancingScript",
+      "size": 0.095,
+      "max_w": 0.78,
+      "y": 0.355,
+      "color": "#2b5a43",
+      "vary": "#163829",
+      "outline": [
+        "#163829",
+        0.0012,
+        140
+      ]
+    }
+  ],
   "listing": {
     "title": "Tree Farm Season Shirt, Watercolor Red Truck Christmas Tree Tee, Vintage Truck Holiday Shirt, Farmhouse Christmas Gift for Her",
     "tags": [
@@ -108,7 +192,7 @@
       "cozy christmas",
       "winter shirt"
     ],
-    "description": "A watercolor vintage red pickup headed home with a fresh-cut fir standing in the bed (a red bow tied on), snowy pines on both sides and soft snow on the ground. \"Tree Farm Season\" in brush script on top and \"fresh cut & headed home\" below. For anyone whose holidays start with picking out the tree.",
+    "description": "A vintage red stepside pickup, painted in layered watercolor, carries a fresh-cut tree wrapped in tiny string lights and a red bow. Snow rests on the cab, the hood and the branches of the spruces on either side, a misty pine forest fades into the distance and snow is falling, with a little wreath on the truck door. \"Tree Farm\" is painted in red brush script with \"SEASON\" in green between two holly sprigs, and \"fresh cut & headed home\" in green script below. For anyone whose holidays start with picking out the tree.",
     "per_product": {
       "sweatshirt": {
         "title": "Tree Farm Season Sweatshirt, Watercolor Red Truck Christmas Crewneck, Vintage Truck Holiday Sweater, Cozy Farmhouse Christmas Gift",
@@ -199,7 +283,7 @@
           "christmas gift",
           "rustic ornament"
         ],
-        "description": "The watercolor vintage red pickup with a fresh-cut fir in the bed, snowy pines and soft snow, printed on both sides of a round ceramic ornament. \"Tree Farm Season\" is lettered along the bottom rim, on both sides. A keepsake for the family that goes to the tree farm every year."
+        "description": "The watercolor winter scene (the vintage red pickup with its lit-up tree in the bed, snowy spruces, a misty forest and falling snow) printed on both sides of a round ceramic ornament, with \"Tree Farm Season\" painted in red along the bottom rim. A keepsake for the family that goes to the tree farm every year."
       }
     },
     "products": [
@@ -212,5 +296,6 @@
     ],
     "price_note": "Prices from the POD-DESK.md product table (2026-10-05 pricing review): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. New: round ceramic ornament $16.99 (web search 2026-11-05: watercolor ceramic ornaments on Etsy-style shops list about $10-35, one Etsy listing at $13.79 sale / $22.99; Printify US shipping $5.89, 10 days' handling; printify.py raises the price if it is under Printify's cost + $4). The owner can change any price.",
     "trademark_check": "Legal Desk screen 2026-11-05 (before any art): web searches '\"tree farm season\" trademark clothing', '\"christmas tree farm\" trademark registered clothing' and '\"fresh cut trees\" christmas trademark shirt'. No TREE FARM SEASON mark found. Found: CHRISTMAS TREE FARM (serial 90980204, Class 25 shirts and sweatshirts, statement of use filed 2023): that phrase is not used in our title, tags or art. URBAN TREE FARM (serial 85399505, Class 25), TRIPPIE TREE FARMS (abandoned), Robin Farms (1991 clothing filing with its tree mark), HILLTOP CHRISTMAS TREE FARMS and PERFECT CHRISTMAS TREE FARM (tree-farm services): different full names, not used. Competitor phrases 'Farm Fresh Christmas Trees', 'Cut and Carry' and movie tree-farm references are avoided. tmsearch.uspto.gov and Justia pages are blocked from our sessions, so this is a search-engine screen, not a clearance."
-  }
+  },
+  "ornament_fit": "round"
 }

@@ -112,22 +112,37 @@ class Canvas:
         self.reserves = []
         # 0..1 per pixel: an object in front that later paint goes around
         self.occl = None
+        # smooth noise fields for pigment variation, made on first use
+        self._fields = {}
+        # v2 designs: every deposit is also summed here, so an object painted
+        # over an earlier wash still counts as "in front" (see paint_around)
+        self.v2 = False
+        self.paint = np.zeros((h, w), dtype=np.float32)
 
     def reserve(self, shape):
         self.reserves.append(shape)
 
     def snapshot(self):
-        return self.cover.copy(), np.asarray(self.ink.getchannel('A'), dtype=np.float32)
+        snap = (self.cover.copy(), np.asarray(self.ink.getchannel('A'), dtype=np.float32))
+        return snap + (self.paint.copy(),) if self.v2 else snap
 
     def paint_around(self, before):
         """Everything painted since `before` (a snapshot) becomes an object in
         front: later washes, gouache and pen lines go around it, the way a
         watercolorist paints a bough behind a mug instead of over it."""
-        cov0, ink0 = before
+        cov0, ink0 = before[:2]
         ink1 = np.asarray(self.ink.getchannel('A'), dtype=np.float32)
         m = np.clip(np.maximum((self.cover - cov0) * 4, (ink1 - ink0) / 64), 0, 1)
-        im = Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(5))
-        m = np.asarray(im.filter(ImageFilter.GaussianBlur(max(1.0, self.w / 1500))), dtype=np.float32) / 255
+        if len(before) > 2:
+            m = np.maximum(m, np.clip((self.paint - before[2]) * 3, 0, 1))
+        if self.v2:
+            # v2: no dilation, so later washes meet the object's edge instead of
+            # leaving a white cut-out halo round it
+            im = Image.fromarray((m * 255).astype(np.uint8))
+            m = np.asarray(im.filter(ImageFilter.GaussianBlur(max(0.8, self.w / 3500))), dtype=np.float32) / 255
+        else:
+            im = Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(5))
+            m = np.asarray(im.filter(ImageFilter.GaussianBlur(max(1.0, self.w / 1500))), dtype=np.float32) / 255
         self.occl = m if self.occl is None else np.maximum(self.occl, m)
 
     def _around(self, x0, y0, x1, y1):
@@ -146,9 +161,191 @@ class Canvas:
             out += amp * (np.asarray(im, dtype=np.float32)[:h, :w] / 255)
         return out  # ~0..1, mean ~0.5
 
+    def field(self, which):
+        """A smooth 0..1 noise field the size of the canvas: 'fine', 'mid' or
+        'broad' blotches. Pigment never lies evenly in a real wash: it pools
+        and thins in soft patches, and these fields say where."""
+        f = self._fields.get(which)
+        if f is None:
+            cell = max(6, self.w // {'fine': 70, 'mid': 24, 'broad': 9}[which])
+            acc = np.zeros((self.h, self.w), dtype=np.float32)
+            for c2, amp in ((cell, 0.65), (max(3, cell // 3), 0.35)):
+                small = self.np_rng.random((self.h // c2 + 3, self.w // c2 + 3)).astype(np.float32)
+                im = Image.fromarray((small * 255).astype(np.uint8)).resize(
+                    ((self.w // c2 + 3) * c2, (self.h // c2 + 3) * c2), Image.BICUBIC)
+                acc += amp * np.asarray(im, dtype=np.float32)[:self.h, :self.w] / 255
+            lo, hi = np.percentile(acc[::7, ::7], (2, 98))
+            f = np.clip((acc - lo) / max(1e-6, hi - lo), 0, 1)
+            self._fields[which] = f
+        return f
+
+    def _field_for(self, size):
+        return 'fine' if size < self.w / 14 else ('mid' if size < self.w / 4 else 'broad')
+
+    def _deposit(self, d, x0, y0, color, color2=None, vary=None, vary_amt=0.5, size=None, ang=None):
+        """Lay density d (array at x0, y0) down as transparent pigment, with an
+        optional wet-in-wet gradient (color2) and patchy variation (vary)."""
+        bh, bw = d.shape
+        keep = self._around(x0, y0, x0 + bw, y0 + bh)
+        if keep is not None:
+            d = d * keep
+        c1 = hexrgb(color)
+        if color2:
+            c2 = hexrgb(color2)
+            ang = self.rnd.uniform(0, 2 * math.pi) if ang is None else ang
+            yy, xx = np.mgrid[0:bh, 0:bw].astype(np.float32)
+            t = ((xx - bw / 2) * math.cos(ang) + (yy - bh / 2) * math.sin(ang)) / (max(bw, bh) / 2)
+            t = np.clip((t + 1) / 2, 0, 1)[..., None]
+            col = c1 * (1 - t) + c2 * t
+        else:
+            col = np.broadcast_to(c1[None, None, :], (bh, bw, 3))
+        if vary:
+            f = self.field(self._field_for(size or max(bw, bh)))[y0:y0 + bh, x0:x0 + bw]
+            t = (np.clip(f, 0, 1) ** 1.3 * vary_amt)[..., None]
+            col = col * (1 - t) + hexrgb(vary)[None, None, :] * t
+        k = -np.log(np.clip(col, 0.03, 1.0))
+        self.absorb[y0:y0 + bh, x0:x0 + bw] += d[..., None] * k
+        self.cover[y0:y0 + bh, x0:x0 + bw] = np.maximum(self.cover[y0:y0 + bh, x0:x0 + bw], np.clip(d, 0, 1))
+        self.paint[y0:y0 + bh, x0:x0 + bw] += np.clip(d, 0, 1)
+
+    def _box(self, pts, pad_frac=0.25, pad_min=8):
+        xs = [p[0] for p in pts]; ys = [p[1] for p in pts]
+        size = max(max(xs) - min(xs), max(ys) - min(ys), 1)
+        pad = int(size * pad_frac) + pad_min
+        x0 = max(0, int(min(xs)) - pad); y0 = max(0, int(min(ys)) - pad)
+        x1 = min(self.w, int(max(xs)) + pad); y1 = min(self.h, int(max(ys)) + pad)
+        return x0, y0, x1, y1, size
+
+    def _mask(self, pts, x0, y0, x1, y1, blur=0.0):
+        m = Image.new('L', (x1 - x0, y1 - y0), 0)
+        ImageDraw.Draw(m).polygon([(p[0] - x0, p[1] - y0) for p in pts], fill=255)
+        if blur > 0:
+            m = m.filter(ImageFilter.GaussianBlur(blur))
+        return np.asarray(m, dtype=np.float32) / 255
+
+    def lift(self, shape, amount=0.6, soft=0.06, clip=None):
+        """Lift pigment with a damp brush: the paper shows through again. Used
+        for the soft highlight on glossy paint, glass and the top of a form."""
+        x0, y0, x1, y1, size = self._box(shape, 0.2)
+        if x1 <= x0 or y1 <= y0:
+            return
+        m = self._mask(deform(shape, 2, 0.02, rnd=self.rnd), x0, y0, x1, y1, max(1.0, size * soft))
+        if clip is not None:
+            m = m * self._mask(clip, x0, y0, x1, y1, 1.0)
+        keep = self._around(x0, y0, x1, y1)
+        if keep is not None:
+            m = m * keep
+        self.absorb[y0:y1, x0:x1] *= (1 - amount * m)[..., None]
+
+    def glow(self, cx, cy, r, color, strength=0.35):
+        """A soft round bloom of color with no edge (light around a bulb or a star)."""
+        x0, y0 = max(0, int(cx - r * 1.6)), max(0, int(cy - r * 1.6))
+        x1, y1 = min(self.w, int(cx + r * 1.6)), min(self.h, int(cy + r * 1.6))
+        if x1 <= x0 or y1 <= y0:
+            return
+        yy, xx = np.mgrid[y0:y1, x0:x1].astype(np.float32)
+        d = strength * np.exp(-((xx - cx) ** 2 + (yy - cy) ** 2) / (r * r) * 2.2)
+        self._deposit(d.astype(np.float32), x0, y0, color)
+
+    def dry_brush(self, path, width, color, strength=0.8, bristles=7, gap=0.45, taper=True, color2=None, alpha_jitter=0.35):
+        """A dry-brush stroke along `path`: separate bristle marks that skip
+        over the paper's tooth (bark, wood grain, fur, a scratchy twig)."""
+        rnd = self.rnd
+        x0, y0, x1, y1, size = self._box(path, 0.0, int(width * 2) + 6)
+        if x1 <= x0 or y1 <= y0:
+            return
+        acc = Image.new('L', (x1 - x0, y1 - y0), 0)
+        dr = ImageDraw.Draw(acc)
+        n = len(path)
+        for b in range(bristles):
+            o = (b / max(1, bristles - 1) - 0.5) * width
+            pts = []
+            for i, (px, py) in enumerate(path):
+                qx, qy = path[min(i + 1, n - 1)]; rx, ry = path[max(i - 1, 0)]
+                dx, dy = qx - rx, qy - ry; L = math.hypot(dx, dy) or 1
+                tf = math.sin(math.pi * (0.08 + 0.84 * i / max(1, n - 1))) ** 0.6 if taper else 1.0
+                pts.append((px - dy / L * o * tf - x0 + rnd.gauss(0, width * 0.03), py + dx / L * o * tf - y0 + rnd.gauss(0, width * 0.03)))
+            a = int(255 * rnd.uniform(1 - alpha_jitter, 1.0))
+            dr.line(pts, fill=a, width=max(1, int(width / bristles * 1.5)), joint='curve')
+        d = np.asarray(acc, dtype=np.float32) / 255
+        tooth = self._grain[y0:y1, x0:x1]
+        d = d * np.clip((tooth - gap * 0.9) * 3.0, 0, 1)
+        self._deposit(np.clip(d * strength, 0, 1.3), x0, y0, color, color2)
+
+    def paint_text(self, s, font_path, size, cx, cy, color, color2=None, vary=None, vary_amt=0.55, arc=None,
+                   tracking=0.0, strength=1.05, edge=0.9, outline=None, angle=0.0):
+        """Lettering painted in watercolor: the letter shapes are filled with a
+        wash (patchy pigment, darker where it pooled at the edges), instead of
+        flat ink. outline = (rgb, px, alpha) adds a thin pen edge for crispness.
+        arc > 0 bends the line over a circle below it; arc < 0 along a smile."""
+        font = ImageFont.truetype(font_path, size)
+        pad = int(size * 0.6)
+        if not arc:
+            box = font.getbbox(s)
+            tw = int(font.getlength(s) * (1 + tracking)) + 2 * pad; th = box[3] - box[1] + 2 * pad
+            tile = Image.new('L', (tw, th), 0)
+            dr = ImageDraw.Draw(tile)
+            xx = pad
+            for ch in s:
+                dr.text((xx, pad - box[1]), ch, font=font, fill=255)
+                xx += font.getlength(ch) * (1 + tracking)
+            real = tile.getbbox() or (0, 0, tw, th)
+            if angle:
+                tile = tile.rotate(-math.degrees(angle), resample=Image.BICUBIC, expand=True)
+                real = tile.getbbox() or (0, 0, tile.width, tile.height)
+            ox = int(cx - (real[0] + real[2]) / 2); oy = int(cy - (real[1] + real[3]) / 2)
+        else:
+            R = abs(arc)
+            widths = [font.getlength(ch) * (1 + tracking) for ch in s]
+            span = sum(widths) / R
+            ext = int(R * 2 + size * 2.5)
+            tile = Image.new('L', (ext, ext), 0)
+            ccx = ext / 2; ccy = ext / 2
+            ang = -span / 2
+            for ch, w in zip(s, widths):
+                mid = ang + w / R / 2
+                if arc > 0:
+                    px = ccx + R * math.sin(mid); py = ccy - R * math.cos(mid); rot = -math.degrees(mid)
+                else:
+                    px = ccx + R * math.sin(mid); py = ccy + R * math.cos(mid); rot = math.degrees(mid)
+                g = Image.new('L', (int(size * 2), int(size * 2)), 0)
+                b = ImageDraw.Draw(g).textbbox((0, 0), ch, font=font)
+                ImageDraw.Draw(g).text((size - (b[2] - b[0]) / 2 - b[0], size - (b[3] + b[1]) / 2), ch, font=font, fill=255)
+                g = g.rotate(rot, resample=Image.BICUBIC)
+                tile.paste(255, (int(px - size), int(py - size)), g)
+                ang += w / R
+            # (cx, cy) is the middle of the arc's apex, like Canvas.text
+            ox = int(cx - ccx); oy = int(cy - (ccy - R if arc > 0 else ccy + R))
+        # clip the tile to the canvas
+        x0, y0 = max(0, ox), max(0, oy)
+        x1, y1 = min(self.w, ox + tile.width), min(self.h, oy + tile.height)
+        if x1 <= x0 or y1 <= y0:
+            return
+        tile = tile.crop((x0 - ox, y0 - oy, x1 - ox, y1 - oy))
+        m = np.asarray(tile, dtype=np.float32) / 255
+        soft = np.asarray(tile.filter(ImageFilter.GaussianBlur(max(1.0, size * 0.012))), dtype=np.float32) / 255
+        wide = np.asarray(tile.filter(ImageFilter.GaussianBlur(max(2.0, size * 0.05))), dtype=np.float32) / 255
+        rim = np.clip(soft - wide, 0, 1)
+        d = soft * 0.72 + edge * rim * 1.8
+        f = self.field('fine')[y0:y1, x0:x1]
+        g = self._grain[y0:y1, x0:x1]
+        d = d * (0.78 + 0.32 * f) * (1 + 0.35 * (g - 0.5) * 2)
+        self._deposit(np.clip(d * strength, 0, 1.5), x0, y0, color, color2, vary, vary_amt, size=size * 3, ang=math.pi / 2)
+        if outline:
+            rgb, px, alpha = outline
+            ring = tile.filter(ImageFilter.MaxFilter(max(3, int(px) * 2 + 1)))
+            o = np.clip(np.asarray(ring, dtype=np.float32) - m * 255, 0, 255) * (alpha / 255)
+            layer = Image.new('RGBA', tile.size, tuple(rgb) + (0,))
+            layer.putalpha(Image.fromarray(o.astype(np.uint8)))
+            self.composite_around(layer, (x0, y0))
+
     def wash(self, shape, color, color2=None, strength=1.0, layers=40, spread=0.06, edge=0.55,
-             granulate=0.35, blur=None, base_depth=3, layer_depth=3):
-        """Paint one watercolor wash filling `shape` (list of (x, y))."""
+             granulate=0.35, blur=None, base_depth=3, layer_depth=3, vary=None, vary_amt=0.5, blooms=0,
+             bloom_size=0.2, ang=None, clip=None):
+        """Paint one watercolor wash filling `shape` (list of (x, y)).
+        vary = a third color that the pigment drifts toward in soft patches;
+        blooms = how many backruns (cauliflower blooms: a pale patch with a
+        dark rim where wet paint crept back into a drying wash)."""
         rnd = self.rnd
         base = deform(shape, base_depth, spread, rnd=rnd)
         xs = [p[0] for p in base]; ys = [p[1] for p in base]
@@ -174,28 +371,28 @@ class Canvas:
         wide = np.asarray(dim.filter(ImageFilter.GaussianBlur(max(2.0, size * 0.03))), dtype=np.float32) / 255
         rim = np.clip(d - wide, 0, 1)
         d = d + edge * rim * 2.2
-        # granulation
+        # backruns: a pale patch inside, pigment pushed to a dark ragged rim
+        if blooms:
+            ys_, xs_ = np.nonzero(d[::4, ::4] > 0.45)
+            for _ in range(blooms if len(xs_) else 0):
+                i = rnd.randrange(len(xs_)); bx, by = xs_[i] * 4, ys_[i] * 4
+                r = size * bloom_size * rnd.uniform(0.6, 1.3)
+                bl = deform(ellipse(bx, by, r, r * rnd.uniform(0.6, 1.0), 12, rnd.uniform(0, 3.2)), 4, 0.09, rnd=rnd)
+                m = self._mask(bl, 0, 0, bw, bh, max(1.0, r * 0.03))
+                inner = np.asarray(Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(max(2.0, r * 0.14))),
+                                   dtype=np.float32) / 255
+                d = d * (1 - 0.42 * m + 2.0 * np.clip(m - inner, 0, 1))
+        if clip is not None:   # keep the wash inside another shape (e.g. shadow inside a glass ball)
+            d = d * self._mask(clip, x0, y0, x1, y1, max(1.0, size * 0.004))
+        # pigment settles unevenly in soft patches, then granulation
+        if vary:
+            d = d * (0.82 + 0.36 * self.field(self._field_for(size))[y0:y1, x0:x1])
         g = self._grain[y0:y1, x0:x1]
         d = d * (1 + granulate * (g - 0.5) * 2)
         d = np.clip(d * strength, 0, 1.4)
-        keep = self._around(x0, y0, x1, y1)
-        if keep is not None:
-            d = d * keep
-        # color: optional wet-in-wet gradient along a random direction
-        c1 = hexrgb(color)
-        if color2:
-            c2 = hexrgb(color2)
-            ang = rnd.uniform(0, 2 * math.pi)
-            yy, xx = np.mgrid[0:bh, 0:bw].astype(np.float32)
-            t = ((xx - bw / 2) * math.cos(ang) + (yy - bh / 2) * math.sin(ang)) / (max(bw, bh) / 2)
-            t = np.clip((t + 1) / 2, 0, 1)[..., None]
-            col = c1 * (1 - t) + c2 * t
-        else:
-            col = c1[None, None, :]
-        # absorption of a transparent pigment: -ln(color) per unit density
-        k = -np.log(np.clip(col, 0.03, 1.0))
-        self.absorb[y0:y1, x0:x1] += d[..., None] * k
-        self.cover[y0:y1, x0:x1] = np.maximum(self.cover[y0:y1, x0:x1], np.clip(d, 0, 1))
+        # color: optional wet-in-wet gradient along a random direction (absorption
+        # of a transparent pigment: -ln(color) per unit density)
+        self._deposit(d, x0, y0, color, color2, vary, vary_amt, size, ang)
 
     def splatter(self, cx, cy, radius, color, n=40, size=(2, 9), strength=0.8):
         rnd = self.rnd

@@ -2,6 +2,7 @@
   "id": "vintage-glass-ornaments",
   "kind": "pattern",
   "name": "Vintage Glass Ornaments",
+  "engine": 2,
   "seed": 12,
   "background": "#f6efe3",
   "palette": {
@@ -9,150 +10,267 @@
     "main2": "#c45a64",
     "accent": "#d9ad55",
     "accent2": "#f3d58f",
-    "leaf": "#2f5e45",
-    "leaf2": "#6f9a6a",
-    "leaf_dark": "#1f3f2d",
+    "leaf": "#2c5b43",
+    "leaf2": "#7aa36c",
+    "leaf_dark": "#163829",
     "holly": "#2f6b4f",
     "holly2": "#6fa27e",
     "berry": "#b8333a",
-    "cap": "#d9ad55",
+    "cap": "#d6a84a",
     "star": "#d9ad55",
     "star2": "#f3d58f",
     "bow": "#b8333a",
-    "snow": "#9fb4c6"
+    "snow": "#9fb4c6",
+    "cap2": "#f0d58c"
   },
   "elements": [
     {
-      "motif": "bauble",
-      "size": 0.15,
-      "count": 2,
+      "motif": "glass_bauble",
+      "size": 0.145,
+      "count": 1,
       "colors": [
         [
           "#8e2b3a",
-          "#c45a64"
+          "#d06a72"
         ]
       ],
-      "tilt": 0.22,
-      "spacing": 1.0,
-      "edge": 1.2
+      "args": {
+        "deco": "gold_bands"
+      },
+      "tilt": 0.18,
+      "spacing": 1.14,
+      "edge": 1.25
     },
     {
-      "motif": "bauble",
-      "size": 0.15,
-      "count": 2,
-      "colors": [
-        [
-          "#2f5e45",
-          "#6f9a6a"
-        ]
-      ],
-      "tilt": 0.22,
-      "spacing": 1.0,
-      "edge": 1.2
-    },
-    {
-      "motif": "bauble",
-      "size": 0.15,
-      "count": 2,
-      "colors": [
-        [
-          "#c9963a",
-          "#f0d08a"
-        ]
-      ],
-      "tilt": 0.22,
-      "spacing": 1.0,
-      "edge": 1.2
-    },
-    {
-      "motif": "bauble",
-      "size": 0.15,
+      "motif": "glass_bauble",
+      "size": 0.145,
       "count": 1,
       "colors": [
         [
-          "#2f4a6b",
-          "#6f8fb5"
+          "#2c5b43",
+          "#7fb08a"
         ]
       ],
-      "tilt": 0.22,
-      "spacing": 1.0,
-      "edge": 1.2
+      "args": {
+        "deco": "frost"
+      },
+      "tilt": 0.18,
+      "spacing": 1.14,
+      "edge": 1.25
     },
     {
-      "motif": "bauble",
-      "size": 0.15,
+      "motif": "glass_bauble",
+      "size": 0.145,
+      "count": 1,
+      "colors": [
+        [
+          "#2a4466",
+          "#7f9fc8"
+        ]
+      ],
+      "args": {
+        "deco": "stars"
+      },
+      "tilt": 0.18,
+      "spacing": 1.14,
+      "edge": 1.25
+    },
+    {
+      "motif": "glass_bauble",
+      "size": 0.145,
       "count": 1,
       "colors": [
         [
           "#b8333a",
-          "#e0786a"
+          "#ee8a78"
         ]
       ],
-      "tilt": 0.22,
-      "spacing": 1.0,
-      "edge": 1.2
+      "args": {
+        "deco": "glitter",
+        "hang": 0.45
+      },
+      "tilt": 0.18,
+      "spacing": 1.15,
+      "edge": 1.25
     },
     {
-      "motif": "bauble",
-      "size": 0.12,
+      "motif": "glass_bauble",
+      "size": 0.145,
       "count": 1,
-      "args": {
-        "kind": "finial"
-      },
       "colors": [
         [
           "#c9963a",
-          "#f0d08a"
+          "#f2d68e"
         ]
       ],
-      "tilt": 0.2,
-      "spacing": 1.0,
-      "edge": 1.4
+      "args": {
+        "deco": "stripes",
+        "deco_color": "#f6ead0"
+      },
+      "tilt": 0.18,
+      "spacing": 1.14,
+      "edge": 1.25
     },
     {
-      "motif": "bauble",
-      "size": 0.12,
+      "motif": "glass_bauble",
+      "size": 0.145,
       "count": 1,
-      "args": {
-        "kind": "finial"
-      },
       "colors": [
         [
-          "#2f5e45",
-          "#6f9a6a"
+          "#2c5b43",
+          "#7fb08a"
         ]
       ],
-      "tilt": 0.2,
-      "spacing": 1.0,
-      "edge": 1.4
+      "args": {
+        "deco": "gold_bands"
+      },
+      "tilt": 0.18,
+      "spacing": 1.14,
+      "edge": 1.25
     },
     {
-      "motif": "bauble",
-      "size": 0.12,
+      "motif": "glass_bauble",
+      "size": 0.145,
       "count": 1,
+      "colors": [
+        [
+          "#8e2b3a",
+          "#d06a72"
+        ]
+      ],
       "args": {
-        "kind": "finial"
+        "deco": "frost",
+        "hang": 0.45
       },
+      "tilt": 0.18,
+      "spacing": 1.15,
+      "edge": 1.25
+    },
+    {
+      "motif": "glass_bauble",
+      "size": 0.145,
+      "count": 1,
+      "colors": [
+        [
+          "#2a4466",
+          "#7f9fc8"
+        ]
+      ],
+      "args": {
+        "deco": "glitter"
+      },
+      "tilt": 0.18,
+      "spacing": 1.14,
+      "edge": 1.25
+    },
+    {
+      "motif": "glass_bauble",
+      "size": 0.115,
+      "count": 1,
+      "colors": [
+        [
+          "#c9963a",
+          "#f2d68e"
+        ]
+      ],
+      "args": {
+        "kind": "finial",
+        "deco": "gold_bands",
+        "deco_color": "#8e2b3a"
+      },
+      "tilt": 0.18,
+      "spacing": 1.14,
+      "edge": 1.45
+    },
+    {
+      "motif": "glass_bauble",
+      "size": 0.115,
+      "count": 1,
+      "colors": [
+        [
+          "#2c5b43",
+          "#7fb08a"
+        ]
+      ],
+      "args": {
+        "kind": "finial",
+        "deco": "gold_bands"
+      },
+      "tilt": 0.18,
+      "spacing": 1.14,
+      "edge": 1.45
+    },
+    {
+      "motif": "glass_bauble",
+      "size": 0.115,
+      "count": 1,
       "colors": [
         [
           "#b8333a",
-          "#e0786a"
+          "#ee8a78"
         ]
       ],
-      "tilt": 0.2,
-      "spacing": 1.0,
-      "edge": 1.4
+      "args": {
+        "kind": "finial",
+        "deco": "stars"
+      },
+      "tilt": 0.18,
+      "spacing": 1.14,
+      "edge": 1.45
+    },
+    {
+      "motif": "glass_bauble",
+      "size": 0.1,
+      "count": 1,
+      "colors": [
+        [
+          "#2a4466",
+          "#7f9fc8"
+        ]
+      ],
+      "args": {
+        "kind": "teardrop",
+        "deco": "stars"
+      },
+      "tilt": 0.18,
+      "spacing": 1.14,
+      "edge": 1.3
+    },
+    {
+      "motif": "glass_bauble",
+      "size": 0.1,
+      "count": 1,
+      "colors": [
+        [
+          "#8e2b3a",
+          "#d06a72"
+        ]
+      ],
+      "args": {
+        "kind": "teardrop",
+        "deco": "gold_bands"
+      },
+      "tilt": 0.18,
+      "spacing": 1.14,
+      "edge": 1.3
     },
     {
       "motif": "pine_bough",
       "size": 0.14,
-      "count": 6,
+      "count": 7,
       "args": {
         "snow": false,
         "twigs": 3
       },
       "tilt": 3.1,
       "spacing": 0.7
+    },
+    {
+      "motif": "pinecone",
+      "size": 0.045,
+      "count": 4,
+      "tilt": 3.1,
+      "spacing": 0.9
     },
     {
       "motif": "holly",
@@ -163,14 +281,14 @@
     },
     {
       "motif": "bow",
-      "size": 0.05,
-      "count": 5,
+      "size": 0.045,
+      "count": 4,
       "tilt": 0.4,
       "spacing": 0.9
     },
     {
       "motif": "gold_star",
-      "size": 0.024,
+      "size": 0.022,
       "fill": true,
       "spacing": 3.6,
       "gaps": true,
@@ -179,7 +297,7 @@
     },
     {
       "motif": "snow_dot",
-      "size": 0.008,
+      "size": 0.007,
       "fill": true,
       "spacing": 5.0,
       "gaps": true,
@@ -209,7 +327,7 @@
       "festive mug",
       "holiday gift for her"
     ],
-    "description": "Vintage-style glass Christmas ornaments in burgundy, forest green, gold, navy and red (round baubles with painted bands and dots, and tall finials), with fir sprigs, holly, little red bows and gold stars, painted in layered watercolor all the way around the mug on a warm cream background. For the friend who still hangs the old family glass ornaments every year.",
+    "description": "Vintage-style glass Christmas ornaments in burgundy, forest green, gold, navy and red, painted in layered watercolor with the shine of real glass: round baubles, tall finials and teardrops decorated with gold bands and zigzags, frosted snowflakes, gold stars, glitter and cream stripes, with ridged gold caps. Fir sprigs, pinecones, holly, little red bows, gold stars and soft snow fill the spaces between, all the way around the mug on a warm cream background. For the friend who still hangs the old family glass ornaments every year.",
     "per_product": {
       "accent_mug": {
         "title": "Vintage Ornament Accent Mug, Watercolor Christmas Baubles Coffee Cup, Maroon, Red or Black Handle, 11 or 15 oz, Holiday Gift",

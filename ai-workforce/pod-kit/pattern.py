@@ -75,13 +75,14 @@ def paint(spec, W, H, seed_offset=0):
     items = place(spec, W, H, rnd)
     m = int(max(r for _, _, r, _ in items) * 1.6) + 8
     c = Canvas(W + 2 * m, H, seed=seed)
+    c.v2 = spec.get('engine', 1) >= 2
     for x, y, r, e in items:
         fn = M.MOTIFS[e['motif']]
         kw = dict(e.get('args', {}))
         if e.get('colors'):
             pair = rnd.choice(e['colors'])
             kw['color'] = pair[0]
-            if len(pair) > 1 and e['motif'] in ('maple_leaf', 'rose', 'bauble'):
+            if len(pair) > 1 and e['motif'] in ('maple_leaf', 'rose', 'bauble', 'glass_bauble'):
                 kw['color2'] = pair[1]
         if e.get('tilt'):
             key = 'lean' if e['motif'] == 'ghost' else 'angle'
