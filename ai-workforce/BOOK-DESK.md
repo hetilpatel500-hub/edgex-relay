@@ -45,8 +45,10 @@ Done: Trucks (owner's), Animals, Fruits & Veggies, Dinosaurs (all 2026-09-26),
 Toys (2026-09-28), Bugs & Butterflies (2026-09-29), Ocean (2026-09-30),
 Space (2026-10-01), Yummy Food (2026-10-02), Birds (2026-10-05), Shapes & Colors (2026-10-06),
 At Home (2026-10-19), Weather & Nature (2026-10-20). All twelve were rebuilt on
-2026-10-20 with the bleed-correct cover.
-Next, in order, unless the owner asks for something else: Pets, Music, Sports.
+2026-10-20 with the bleed-correct cover. Pets (2026-10-26), Music (2026-11-05).
+While the office DB is full (100 MB), the Legal review goes in `book-kit/legal/<id>.json`
+and the books, decisions and collabs docs in `book-kit/records/<date>-<id>.json`.
+Next, in order, unless the owner asks for something else: Sports, then the owner picks.
 
 Cadence: one book every weekday (the "Edgex book desk" Routine, 9:46 am ET).
 
