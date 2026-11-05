@@ -8,7 +8,14 @@ Coordinates: (x, y) in canvas px, y down; s = the motif's size in px.
 """
 import math
 from watercolor import ellipse, leaf, rect, deform
-from motifs import _rot, smooth, gouache, _rgb, _band, _star_pts
+from motifs import _rot, smooth, gouache, _rgb, _band, _star_pts, CONSTELLATIONS
+
+# Capricornus, simplified to its familiar arrowhead outline (alpha-beta at the top right, delta at the left tip)
+CONSTELLATIONS.setdefault('capricornus', {
+    'stars': [(0.74, -0.62), (0.66, -0.44), (0.22, -0.22), (-0.12, -0.18), (-0.52, -0.2), (-0.7, -0.26), (-0.3, 0.3), (0.18, 0.5),
+              (0.38, 0.32)],
+    'lines': [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 8), (8, 1)],
+    'bright': [0, 1, 5]})
 
 
 def _lerp(a, b, t):
@@ -885,7 +892,88 @@ def glass_bauble(c, x, y, s, P, color=None, color2=None, kind='round', deco=None
         bow(c, tx, ty, s * 0.2, P, color=rib, angle=angle)
 
 
+# ---------------------------------------------------------------- winter birth flowers
+def narcissus(c, x, y, s, P, angle=0.0, stem=1.0):
+    """A paperwhite narcissus (December's birth flower): six pale petals shaded
+    blue-grey at the base so white reads on white, a small golden cup with a
+    darker rim, on a green stem with a strap leaf. (x, y) = flower centre, s = petal length."""
+    rnd = c.rnd
+    g1, g2 = P.get('leaf', '#5f8f62'), P.get('leaf2', '#a9c79a')
+    if stem:
+        st = [(x, y), (x + s * 0.15, y + s * 1.2 * stem), (x + s * 0.1, y + s * 2.6 * stem)]
+        c.wash(_band(st, s * 0.07, s * 0.06), g2, g1, strength=0.7, layers=10, edge=0.8)
+        lf = [(x + s * 0.2, y + s * 2.5 * stem), (x + s * 0.55, y + s * 1.5 * stem), (x + s * 0.75, y + s * 0.6 * stem)]
+        c.wash(_band(lf, s * 0.12, s * 0.02), g2, g1, strength=0.65, layers=10, edge=0.8, vary=g1)
+    for k in range(6):
+        a = angle + k * math.pi / 3 + rnd.uniform(-0.08, 0.08)
+        pt = petal_pts(x, y, s, s * 0.42, a)
+        c.wash(pt, '#f4f1e8', '#c9d3dc', strength=0.55, spread=0.02, layers=14, edge=1.3, ang=a + math.pi)
+        c.wash(petal_pts(x, y, s * 0.45, s * 0.22, a), '#b8c4cf', None, strength=0.25, spread=0.03, layers=8, edge=0.4)
+    c.wash(ellipse(x, y, s * 0.28, s * 0.28, 16), P.get('cup', '#f0b93a'), P.get('cup2', '#f7dc85'), strength=0.9, layers=16, edge=1.2,
+           vary='#d98f2b', vary_amt=0.4)
+    c.wash(ellipse(x, y, s * 0.12, s * 0.12, 10), '#d98f2b', None, strength=0.7, layers=10, edge=1.0)
+    gouache(c, ellipse(x - s * 0.07, y - s * 0.07, s * 0.04, s * 0.03, 8), color=(255, 248, 220), alpha=220, soft=0.1)
+
+
+def petal_pts(cx, cy, length, width, angle, n=14):
+    from watercolor import petal
+    return petal(cx, cy, length, width, angle, n)
+
+
+def snowdrop(c, x, y, s, P, facing=1):
+    """A snowdrop (January's flower): an arching stem with a drooping bell of
+    three pale outer petals, a green-tipped inner cup, and two grey-green leaves.
+    (x, y) = the base of the stem, s = its height."""
+    g1, g2 = P.get('leaf', '#5f8f62'), P.get('leaf2', '#a9c79a')
+    f = facing
+    st = [(x, y), (x + f * s * 0.05, y - s * 0.5), (x + f * s * 0.2, y - s * 0.92), (x + f * s * 0.36, y - s * 0.86)]
+    c.wash(_band(st, s * 0.022, s * 0.016), g2, g1, strength=0.75, layers=10, edge=0.8)
+    for side in (-1, 1):
+        lf = [(x, y), (x + side * s * 0.1, y - s * 0.35), (x + side * s * 0.16, y - s * 0.6)]
+        c.wash(_band(lf, s * 0.05, s * 0.01), '#9fb8a0', g1, strength=0.6, layers=10, edge=0.8)
+    bx, by = x + f * s * 0.38, y - s * 0.72      # bell hangs from the stem tip
+    c.wash(ellipse(bx, by - s * 0.1, s * 0.035, s * 0.05, 8), g1, None, strength=0.8, layers=8)
+    for a, L in ((-0.35, 0.3), (0.35, 0.3), (0.0, 0.32)):
+        pt = petal_pts(bx, by - s * 0.07, s * L, s * 0.11, math.pi / 2 + a)
+        c.wash(pt, '#f4f1e8', '#c4cfda', strength=0.5, spread=0.02, layers=12, edge=1.4, ang=-math.pi / 2)
+    c.wash(ellipse(bx, by + s * 0.1, s * 0.05, s * 0.035, 10), '#8fbf7a', None, strength=0.7, layers=10, edge=1.0)
+
+
+
+def night_sky2(c, x, y, s, P, stars=70):
+    """A round watercolor night sky painted richly: deep blue wet-in-wet with
+    patches drifting to violet, a lifted Milky Way band across it, soft nebula
+    tints, and white gouache stars of many sizes with a few four-point ones."""
+    rnd = c.rnd
+    col = P.get('sky', '#1f2a57'); col2 = P.get('sky2', '#4a5fa8')
+    disc = ellipse(x, y, s, s, 48)
+    c.wash(disc, col2, col, strength=1.0, spread=0.02, layers=40, edge=1.0, granulate=0.5, vary=P.get('sky3', '#3a2c6e'), vary_amt=0.4,
+           ang=math.pi / 4)
+    for (dx, dy, r, colr) in ((-0.35, 0.25, 0.4, '#6a4fa8'), (0.3, -0.3, 0.35, '#2f6fa8'), (0.1, 0.45, 0.3, '#4b3a8a')):
+        c.wash(ellipse(x + s * dx, y + s * dy, s * r, s * r * 0.7, 18, rnd.uniform(0, 3)), colr, None, strength=0.22, spread=0.08, layers=14,
+               edge=0.2, clip=disc)
+    band = [(x - s * 1.1, y + s * 0.55), (x + s * 0.55, y - s * 1.1), (x + s * 0.9, y - s * 0.75), (x - s * 0.75, y + s * 0.9)]
+    c.lift(band, amount=0.32, soft=0.18, clip=disc)
+    for _ in range(int(stars * 0.6)):
+        t = rnd.uniform(-0.9, 0.9); off = rnd.gauss(0, 0.12)
+        px, py = x + s * (t * 0.7 + off * 0.7), y + s * (-t * 0.7 + off * 0.7)
+        if math.hypot(px - x, py - y) < s * 0.93:
+            rr = s * rnd.uniform(0.003, 0.007)
+            gouache(c, ellipse(px, py, rr, rr, 6), color=(250, 248, 238), alpha=rnd.randint(140, 220), soft=0.1)
+    for _ in range(stars):
+        a, r = rnd.uniform(0, 2 * math.pi), s * 0.9 * math.sqrt(rnd.random())
+        rr = s * rnd.choice((0.004, 0.006, 0.008, 0.011, 0.015))
+        gouache(c, ellipse(x + r * math.cos(a), y + r * math.sin(a), rr, rr, 8), color=(252, 249, 236), alpha=rnd.randint(170, 245), soft=0.08)
+    for _ in range(6):
+        a, r = rnd.uniform(0, 2 * math.pi), s * 0.85 * math.sqrt(rnd.random())
+        px, py, R = x + r * math.cos(a), y + r * math.sin(a), s * rnd.uniform(0.02, 0.035)
+        pts = [(px + (R if k % 2 == 0 else R * 0.25) * math.cos(k * math.pi / 4 - math.pi / 2),
+                py + (R if k % 2 == 0 else R * 0.25) * math.sin(k * math.pi / 4 - math.pi / 2)) for k in range(8)]
+        gouache(c, pts, color=(255, 250, 232), alpha=230, soft=0.04)
+
+
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
-           'glass_bauble': glass_bauble}
+           'glass_bauble': glass_bauble, 'narcissus': narcissus, 'snowdrop': snowdrop, 'night_sky2': night_sky2}

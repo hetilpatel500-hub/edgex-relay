@@ -244,7 +244,11 @@ class Canvas:
         if x1 <= x0 or y1 <= y0:
             return
         yy, xx = np.mgrid[y0:y1, x0:x1].astype(np.float32)
-        d = strength * np.exp(-((xx - cx) ** 2 + (yy - cy) ** 2) / (r * r) * 2.2)
+        # Gaussian falloff shifted to reach exactly zero at 1.6 r, so the glow
+        # never ends in a faint square at the edge of its box
+        e = np.exp(-((xx - cx) ** 2 + (yy - cy) ** 2) / (r * r) * 2.2)
+        e0 = math.exp(-2.2 * 1.6 ** 2)
+        d = strength * np.clip((e - e0) / (1 - e0), 0, 1)
         self._deposit(d.astype(np.float32), x0, y0, color)
 
     def dry_brush(self, path, width, color, strength=0.8, bristles=7, gap=0.45, taper=True, color2=None, alpha_jitter=0.35):
