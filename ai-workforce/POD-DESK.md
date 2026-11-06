@@ -150,7 +150,7 @@ open rows, in order) instead of 1, and marks each row done with the date.
 | Top 100 Halloween Finds | Reading Ghosts, Autumn Leaves, Pumpkins & Purrs (Oct 5) | done for 2026 |
 | Gifts for Pets & Owners | Morning Walks & Good Dogs, Pumpkins & Purrs | 4. dog-breed florals: **Dachshund Florals done 2026-10-06** (all-over mugs; built and Legal-cleared, not on Printify yet, see below) |
 | Gifts for Grandparents | Grandma's Garden (Oct 5) | 5. a grandpa design (garden, fishing or coffee) |
-| Top 100 Gifts for Libras (zodiac) | Scorpio Constellation (drafted Oct 5) | 1. zodiac series, one design per sign (constellation + birth-month flower): **Scorpio done 2026-10-05** (drafts). **Libra held 2026-10-05**: a pending LIBRA application covers t-shirts and sweatshirts (Astryx LLC, serial 99209588), so the owner decides; the art is ready in `designs/libra-constellation.json`. **Sagittarius held 2026-10-06**: a pending SAGITTARIUS ATHLETIC application covers tees and sweatshirts (Sagittarius Athletic, LLC, serial 97660475), so the owner decides with Libra; no art made. **Capricorn done 2026-11-05** (built and Legal-cleared, not on Printify yet). Next: Aquarius (Jan 20-Feb 18), then one sign a day; screen each sign name for clothing marks first |
+| Top 100 Gifts for Libras (zodiac) | Scorpio Constellation (drafted Oct 5) | 1. zodiac series, one design per sign (constellation + birth-month flower): **Scorpio done 2026-10-05** (drafts). **Libra held 2026-10-05**: a pending LIBRA application covers t-shirts and sweatshirts (Astryx LLC, serial 99209588), so the owner decides; the art is ready in `designs/libra-constellation.json`. **Sagittarius held 2026-10-06**: a pending SAGITTARIUS ATHLETIC application covers tees and sweatshirts (Sagittarius Athletic, LLC, serial 97660475), so the owner decides with Libra; no art made. **Capricorn done 2026-11-05** and **Aquarius done 2026-11-06** (both built and Legal-cleared, not on Printify yet). Next: Pisces (Feb 19-Mar 20), then one sign a day; screen each sign name for clothing marks first |
 | Gifts for Him | Campfire Season (drafted Oct 5) | 2. outdoors: **Campfire Season done 2026-10-05** (drafts) |
 | Top 100 Holiday Gifts | Cocoa Season, Christmas Cookies, Snowy Pine Cardinals, Sufganiyot Season (live Oct 5) | 3. Thanksgiving (Nov 26): **Pie Season done 2026-10-06** (built and Legal-cleared, not on Printify yet, see below); then more Christmas: **Tree Farm Season, Deck the Shelves and Vintage Glass Ornaments done 2026-11-05** (built and Legal-cleared, not on Printify yet) |
 | Housewarming Gifts | Soup Season and Cocoa Season art prints and mugs | 6. a kitchen or home art print design |
@@ -374,3 +374,11 @@ Studio Floor at any time.
   square halo). Research 22/25, Legal cleared; records in `pod-kit/research`, `legal` and `decisions`.
   Delivery page (private): https://claude.ai/artifact/E8oDf6mHqRvsW29Bed5mJf. No Printify products: writes
   still wait for the owner. $0 spent.
+- 2026-11-06 (16:17 UTC run, gift-category queue row 1): **Aquarius Constellation** (the Aquarius star chart in gold
+  on a blue-teal night sky, framed by January's carnations and snowdrops and February's violets; "January 20 -
+  February 18"). Engine v2; new motifs `carnation` (a ruffled dome over a calyx) and `violet` (five petals, heart
+  leaves) and the `aquarius` star chart from the stars' RA/Dec. Two repaints after the preview review (spiky carnations,
+  hidden snowdrops, twiggy eucalyptus) and a full-size fix (stems showing through petals). Research 20/25, Legal
+  cleared with a note to check US serial 99282924; records in `pod-kit/research`, `legal` and `decisions`. Delivery
+  page (private): https://claude.ai/artifact/3Vr6YTMvgittq8wadHfa28. One design this run (quality first). No Printify
+  products: writes still wait for the owner. $0 spent.

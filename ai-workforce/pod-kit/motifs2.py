@@ -973,7 +973,110 @@ def night_sky2(c, x, y, s, P, stars=70):
 
 
 
+# Aquarius, simplified: the Water Jar (gamma, zeta, eta, pi) at the top left, alpha and beta across to epsilon,
+# and the stream falling from theta and lambda down to delta and 88 Aqr (positions from the stars' RA/Dec)
+CONSTELLATIONS.setdefault('aquarius', {
+    'stars': [(0.97, -0.02), (0.4, -0.23), (-0.06, -0.5), (-0.26, -0.45), (-0.36, -0.52), (-0.45, -0.52), (-0.31, -0.6),
+              (-0.2, -0.11), (-0.67, -0.12), (-0.63, 0.2), (-0.7, 0.31), (-0.96, -0.2), (-0.98, 0.04), (-0.89, 0.6)],
+    'lines': [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (4, 6), (2, 7), (7, 8), (8, 9), (9, 10), (10, 13), (8, 11), (11, 12)],
+    'bright': [1, 2, 10]})
+
+
+def carnation(c, x, y, s, P, angle=0.0, stem=1.0, color=None, color2=None):
+    """A carnation (January's birth flower), seen from the side: a rounded dome of
+    ruffled petals with frilled edges, pale on top and deeper in the folds, over a
+    tapered green calyx with pointed sepals, on a stem with narrow blue-green
+    leaves. (x, y) = the middle of the bloom, s = its width."""
+    rnd = c.rnd
+    col = color or P.get('carn', '#e0668e'); col2 = color2 or P.get('carn2', '#f7c1d2'); col3 = P.get('carn3', '#b8406a')
+    g1, g2 = P.get('leaf', '#5f8f62'), P.get('carn_leaf', '#8fb5a6')
+    ca, sa = math.cos(angle), math.sin(angle)
+    R = lambda px, py: (x + px * ca - py * sa, y + px * sa + py * ca)
+    if stem:
+        st = [R(0, s * 0.44), R(s * 0.05, s * (0.44 + 0.9 * stem)), R(s * 0.02, s * (0.44 + 1.9 * stem))]
+        c.wash(_band(st, s * 0.04, s * 0.034), g2, g1, strength=0.7, layers=10, edge=0.8)
+        for t, side in ((0.55, -1), (1.15, 1)):
+            if t > 1.7 * stem:
+                continue
+            bx, by = R(s * 0.035, s * (0.4 + t * stem))
+            lf = [(bx, by), R(side * s * 0.3, s * (0.3 + t * stem)), R(side * s * 0.55, s * (0.08 + t * stem))]
+            c.wash(_band(lf, s * 0.045, s * 0.006), g2, g1, strength=0.6, layers=10, edge=0.8, vary=g1)
+    # calyx: a tapered cup with pointed sepals at its rim
+    cal = [R(-s * 0.15, s * 0.2), R(-s * 0.11, s * 0.32), R(-s * 0.065, s * 0.44), R(s * 0.065, s * 0.44), R(s * 0.11, s * 0.32), R(s * 0.15, s * 0.2)]
+    c.wash(cal, g2, g1, strength=0.8, layers=12, edge=0.9, ang=angle + math.pi / 2)
+
+    def ruffle(px, py, rx, ry, rot, freq):
+        pts = []
+        n = 40
+        ph = rnd.uniform(0, 6.3)
+        for i in range(n):
+            t = 2 * math.pi * i / n
+            k = 1 + 0.09 * math.sin(freq * t + ph) + 0.04 * math.sin(2.3 * freq * t + ph * 2)
+            ex, ey = rx * k * math.cos(t), ry * k * math.sin(t)
+            pts.append(R(px + ex * math.cos(rot) - ey * math.sin(rot), py + ex * math.sin(rot) + ey * math.cos(rot)))
+        return pts
+    # back row high and pale, then middle, then a front skirt that sits on the calyx
+    rows = [(-0.2, 0.24, 5, col2, 0.5), (-0.08, 0.3, 5, col, 0.62), (0.06, 0.34, 4, col, 0.68)]
+    for ry_off, w, n, k, stg in rows:
+        for i in range(n):
+            u = (i / (n - 1) - 0.5) if n > 1 else 0
+            px = u * 2 * w * s * 0.95
+            py = s * ry_off + abs(u) * s * 0.12 + rnd.uniform(-0.02, 0.02) * s
+            c.wash(ruffle(px, py, s * 0.16, s * 0.12, u * 0.9, rnd.choice((9, 10, 11))), k, col3, strength=stg, spread=0.03,
+                   layers=14, edge=1.15, ang=angle + math.pi / 2, vary=col3, vary_amt=0.25)
+    # fringe: short darker strokes along the frilled tops
+    for i in range(9):
+        u = i / 8 - 0.5
+        p0 = R(u * s * 0.55, -s * 0.08 + abs(u) * s * 0.1)
+        p1 = R(u * s * 0.62, -s * 0.2 + abs(u) * s * 0.14)
+        c.wash(_band([p0, p1], s * 0.008, s * 0.002), col3, None, strength=0.35, layers=6, edge=0.3)
+    c.lift(ellipse(*R(-s * 0.1, -s * 0.2), s * 0.13, s * 0.06, 12, angle - 0.2), amount=0.28, soft=0.3)
+
+
+def _heart_leaf(x, y, s, angle, n=28):
+    pts = []
+    for i in range(n):
+        t = 2 * math.pi * i / n
+        hx = 16 * math.sin(t) ** 3
+        hy = -(13 * math.cos(t) - 5 * math.cos(2 * t) - 2 * math.cos(3 * t) - math.cos(4 * t))
+        pts.append((hx / 17 * s, (hy + 4) / 17 * s))
+    ca, sa = math.cos(angle), math.sin(angle)
+    return [(x + px * ca - py * sa, y + px * sa + py * ca) for px, py in pts]
+
+
+def violet(c, x, y, s, P, angle=0.0, stem=1.0, leaves=2, color=None, color2=None):
+    """A sweet violet (February's birth flower): two upright back petals, two side
+    petals and a wide lower petal with dark veins and a white-and-gold throat, on
+    a nodding stem with heart-shaped leaves. (x, y) = flower centre, s = its width."""
+    rnd = c.rnd
+    col = color or P.get('viol', '#6a4fb0'); col2 = color2 or P.get('viol2', '#b9a2e6')
+    g1, g2 = P.get('leaf', '#5f8f62'), P.get('leaf2', '#a9c79a')
+    if stem:
+        st = [(x + s * 0.03, y + s * 0.5), (x + s * 0.18, y + s * (0.5 + 0.55 * stem)), (x + s * 0.1, y + s * (0.5 + 1.4 * stem))]
+        c.wash(_band(st, s * 0.035, s * 0.03), g2, g1, strength=0.7, layers=10, edge=0.8)
+        for k in range(leaves):
+            side = -1 if k % 2 == 0 else 1
+            lx, ly = x + s * (0.1 + side * 0.42), y + s * (1.35 + 0.25 * k) * stem
+            c.wash(_band([(x + s * 0.12, y + s * 1.85 * stem), (lx, ly + s * 0.2)], s * 0.02, s * 0.015), g2, g1, strength=0.6, layers=8)
+            hl = _heart_leaf(lx, ly, s * 0.36, side * 0.5 + math.pi)
+            c.wash(hl, g2, g1, strength=0.7, layers=14, edge=1.0, vary=P.get('leaf_dark', '#2e5a3c'), vary_amt=0.35)
+            c.wash(_band([(lx, ly + s * 0.14), (lx - side * s * 0.02, ly - s * 0.2)], s * 0.008, s * 0.003), P.get('leaf_dark', '#2e5a3c'),
+                   None, strength=0.45, layers=6, edge=0.3)
+    for a, L, W, k in ((-math.pi / 2 - 0.42, 0.55, 0.36, col), (-math.pi / 2 + 0.42, 0.55, 0.36, col),
+                       (math.pi - 0.25, 0.48, 0.3, col2), (0.25, 0.48, 0.3, col2), (math.pi / 2, 0.58, 0.42, col2)):
+        aa = angle + a + rnd.uniform(-0.05, 0.05)
+        c.wash(petal_pts(x, y, s * L, s * W, aa), k, col, strength=0.75, spread=0.02, layers=14, edge=1.3, ang=aa + math.pi,
+               vary=P.get('viol3', '#4a338a'), vary_amt=0.35)
+    for dv in (-0.35, 0.0, 0.35):
+        aa = angle + math.pi / 2 + dv
+        c.wash(_band([(x, y + s * 0.04), (x + s * 0.3 * math.cos(aa), y + s * 0.3 * math.sin(aa))], s * 0.01, s * 0.003),
+               P.get('viol3', '#3d2a75'), None, strength=0.6, layers=6, edge=0.4)
+    gouache(c, ellipse(x, y + s * 0.02, s * 0.09, s * 0.08, 10), color=(252, 250, 244), alpha=235, soft=0.06)
+    gouache(c, ellipse(x, y + s * 0.03, s * 0.045, s * 0.04, 8), color=_rgb(P.get('accent', '#e2b04a')), alpha=240, soft=0.06)
+
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
-           'glass_bauble': glass_bauble, 'narcissus': narcissus, 'snowdrop': snowdrop, 'night_sky2': night_sky2}
+           'glass_bauble': glass_bauble, 'narcissus': narcissus, 'snowdrop': snowdrop, 'night_sky2': night_sky2,
+           'carnation': carnation, 'violet': violet}
