@@ -1,0 +1,170 @@
+{
+ "id": "my-first-shapes-colors",
+ "count": 30,
+ "art": [
+  "art/shapes.js"
+ ],
+ "subjects": [
+  "circle",
+  "square",
+  "triangle",
+  "rectangle",
+  "oval",
+  "star",
+  "heart",
+  "diamond",
+  "pentagon",
+  "hexagon",
+  "octagon",
+  "crescent",
+  "half-circle",
+  "trapezoid",
+  "plus",
+  "arrow",
+  "cube",
+  "ball",
+  "cone",
+  "cylinder",
+  "pyramid",
+  "rainbow",
+  "crayon",
+  "paintbrush",
+  "paint-palette",
+  "paint-can",
+  "traffic-light",
+  "balloon",
+  "kite",
+  "umbrella"
+ ],
+ "cover": {
+  "kicker": "My First",
+  "word": "Shapes & Colors",
+  "tagline": "30 big & easy shapes & colors to color!",
+  "ages": "2-5",
+  "hero": [
+   "star",
+   "heart",
+   "circle"
+  ],
+  "back_title": "Big pictures for little hands",
+  "back_points": [
+   "30 friendly pages: a red circle, a blue square, a yellow star and more",
+   "16 flat shapes, each named with a color, 5 solid shapes, and a rainbow, crayons, balloons and more",
+   "One big picture per page with extra-thick lines",
+   "Every picture has a blank back, so markers won't spoil the next one",
+   "A \"Great job!\" certificate at the end"
+  ],
+  "aplus_points": [
+   "30 big shape pages, one picture per page",
+   "Each shape's name says which color to use",
+   "Extra-thick lines for little hands",
+   "Blank backs, so markers won't spoil the next picture"
+  ],
+  "back_minis": [
+   "triangle",
+   "square",
+   "rainbow",
+   "balloon"
+  ],
+  "cert_word": "shapes and colors"
+ },
+ "listing": {
+  "title": "My First Shapes & Colors Coloring Book",
+  "subtitle": "30 Big & Easy Shape Pages – Circle, Square, Star, Heart & More for Kids Ages 2-5",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "description_html": "<p><b>Big, bold and easy to color: a first coloring book full of friendly shapes and colors!</b></p><p>Little hands color 30 cute pages, from a red circle and a blue square to a yellow star and a pink heart. Each flat shape is named with a color, so children can color it in that color as they say the word. Every page has one big, simple picture with extra-thick lines, so small hands can color inside the lines.</p><p><b>Inside you'll find:</b></p><ul><li>Shapes named with colors: Red Circle, Blue Square, Yellow Triangle, Green Rectangle, Orange Oval, Yellow Star, Pink Heart and Purple Diamond</li><li>More shapes: Blue Pentagon, Green Hexagon, Red Octagon, Yellow Crescent, Orange Half Circle, Purple Trapezoid, Pink Plus Sign and Orange Arrow</li><li>Solid shapes: Cube, Ball, Cone, Cylinder and Pyramid</li><li>Colorful things: Rainbow, Crayon, Paintbrush, Paint Palette, Paint Can, Traffic Light, Balloon, Kite and Umbrella</li><li>One large picture per page with thick outlines, and each name in big letters to color</li><li>Single-sided pages with a blank back, so markers won't bleed onto the next picture</li><li>Big 8.5 x 11 inch pages and a \"Great job!\" certificate at the end</li></ul><p>A fun, screen-free activity for toddlers and preschoolers ages 2 to 5.</p><p>Part of the <b>my first step</b> series.</p>",
+  "keywords": [
+   "shapes coloring book for toddlers",
+   "shapes and colors coloring book for kids 2-5",
+   "shapes and colors book for preschoolers",
+   "my first coloring book for toddlers",
+   "circle square triangle coloring pages",
+   "simple coloring book thick lines",
+   "toddler activity book for boys and girls"
+  ],
+  "categories": [
+   "Children's Books > Activities, Crafts & Games > Coloring Books",
+   "Children's Books > Early Learning > Basic Concepts > Shapes",
+   "Children's Books > Early Learning > Basic Concepts > Colors"
+  ],
+  "reading_age": "2 - 5 years",
+  "price_note": "Similar toddler coloring books are commonly priced around $5.99-$6.99 (kdpeasy.com age-group guide). Use the calculator below with KDP's printing cost before you choose. Your call.",
+  "ai_disclosure": "KDP asks if the book has AI-generated content. The pictures and the text were made by Edgex's AI agents, so answer Yes for images and text."
+ },
+ "ads": {
+  "bids": {
+   "auto": "0.35",
+   "exact": "0.45",
+   "phrase": "0.40"
+  },
+  "keywords": {
+   "exact": [
+    "shapes coloring book",
+    "shapes coloring book for toddlers",
+    "colors coloring book",
+    "shapes and colors coloring book",
+    "shapes and colors book for toddlers",
+    "coloring books for toddlers",
+    "toddler coloring book",
+    "coloring book for 2 year old",
+    "coloring book for 3 year old",
+    "coloring book for kids ages 2-4",
+    "my first coloring book",
+    "big and easy coloring book",
+    "simple coloring book for toddlers",
+    "preschool coloring book",
+    "coloring books for kids ages 2-4"
+   ],
+   "phrase": [
+    "shapes coloring pages",
+    "shapes coloring",
+    "colors coloring",
+    "toddler coloring",
+    "coloring book for 2 year olds",
+    "preschool activity book",
+    "first coloring book",
+    "easy coloring book"
+   ]
+  },
+  "negatives": [
+   "adult",
+   "adults",
+   "for adults",
+   "mandala",
+   "grayscale",
+   "free",
+   "printable",
+   "pdf",
+   "sticker",
+   "stickers",
+   "dot markers",
+   "paint by number",
+   "color by number",
+   "teen",
+   "sketchbook",
+   "geometry",
+   "math",
+   "workbook",
+   "tracing",
+   "flash cards",
+   "puzzle",
+   "game"
+  ],
+  "categories": [
+   "Children's Coloring Books",
+   "Children's Activity Books",
+   "Children's Early Learning Books"
+  ],
+  "custom_text": [
+   "30 big shape pages with extra-thick lines, made for little hands. A screen-free first coloring book for ages 2 to 5.",
+   "A red circle, a blue square, a pink heart and more: each shape's name says which color to use, plus a Great job! certificate.",
+   "A first shapes and colors coloring book: friendly shapes, a rainbow, crayons and balloons, with blank backs so markers won't spoil a page."
+  ],
+  "headlines": [
+   "Big, easy coloring books for little hands",
+   "My First coloring books for ages 2 to 5",
+   "Shapes, colors and rainbows for ages 2-5"
+  ]
+ }
+}

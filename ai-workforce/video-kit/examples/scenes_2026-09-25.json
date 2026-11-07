@@ -1,0 +1,298 @@
+{
+ "date": "2026-09-25",
+ "videos": {
+  "nvda-q2": {
+   "format": "earnings-breakdown",
+   "label": "EARNINGS",
+   "caption": {
+    "title": "Nvidia made $96.2B in one quarter. Here's where every $100 went.",
+    "text": "Nvidia's quarter ended Jul 26, 2026: revenue $96.2B (up 106% from a year earlier), profit $59.7B, about 62 cents of profit per dollar of sales. R&D: $7.05B.\n\nEducational only, not financial advice.\n#NVDA #Nvidia #earnings #stocks #investing #AI"
+   },
+   "sources": [
+    "Webull: NVDA quarterly income statement, fiscal 2027 Q2 (quarter ended Jul 26, 2026; published Aug 26, 2026)"
+   ],
+   "scenes": [
+    {
+     "type": "hook",
+     "kicker": "NVIDIA · LAST QUARTER",
+     "lines": [
+      "Nvidia made $96.2 billion",
+      "in one quarter."
+     ],
+     "hl": [
+      "$96.2"
+     ],
+     "vo": "Nvidia just reported 96.2 billion dollars in revenue. In one quarter."
+    },
+    {
+     "type": "line",
+     "kicker": "REVENUE, LAST 5 QUARTERS",
+     "title": "A year ago: $46.7B",
+     "points": [
+      [
+       "Jul '25",
+       46.743,
+       "$46.7B"
+      ],
+      [
+       "Oct '25",
+       57.006,
+       "$57.0B"
+      ],
+      [
+       "Jan '26",
+       68.127,
+       "$68.1B"
+      ],
+      [
+       "Apr '26",
+       81.615,
+       "$81.6B"
+      ],
+      [
+       "Jul '26",
+       96.221,
+       "$96.2B"
+      ]
+     ],
+     "prefix": "$",
+     "unit": "B",
+     "dec": 1,
+     "vo": "A year ago that number was 46.7 billion. It's up 106 percent."
+    },
+    {
+     "type": "bignum",
+     "kicker": "PROFIT",
+     "value": "$59.7B",
+     "sub": "About 62 cents of profit on every dollar of sales.",
+     "vo": "Profit was 59.7 billion dollars. That's about 62 cents on every dollar of sales."
+    },
+    {
+     "type": "bars",
+     "kicker": "PER $100 OF SALES",
+     "title": "Where the money went",
+     "items": [
+      [
+       "Making the chips",
+       25.02,
+       "red",
+       "$25.02"
+      ],
+      [
+       "Research",
+       7.33,
+       "red",
+       "$7.33"
+      ],
+      [
+       "Sales & admin",
+       1.41,
+       "red",
+       "$1.41"
+      ],
+      [
+       "Taxes",
+       12.28,
+       "red",
+       "$12.28"
+      ],
+      [
+       "Kept as profit",
+       62.03,
+       "green",
+       "$62.03"
+      ]
+     ],
+     "note": "Also +$8.20 net from investment and other income, and $0.13 of one-off costs. Source: Webull, NVDA income statement, quarter ended Jul 26, 2026.",
+     "vo": "Out of every 100 dollars, about 25 went to making the chips, 7 to research and 12 to taxes. 62 was profit."
+    },
+    {
+     "type": "reveal",
+     "kicker": "QUICK QUIZ",
+     "question": "How much did Nvidia spend on research in that one quarter?",
+     "answer": "$7.05B",
+     "sub": "That's $7.33 of every $100 in sales.",
+     "vo": "Quick quiz. How much did Nvidia spend on research in that one quarter?",
+     "vo2": "7.05 billion dollars."
+    },
+    {
+     "type": "sources",
+     "lines": [
+      "Follow for the numbers",
+      "behind the headlines."
+     ],
+     "hl": [
+      "numbers"
+     ],
+     "list": [
+      "Webull: NVDA income statement, FY2027 Q2 (published Aug 26, 2026)"
+     ],
+     "disclaimer": "Educational only. Not financial advice.",
+     "vo": "Follow for the numbers behind the headlines."
+    }
+   ]
+  },
+  "ai-week": {
+   "format": "ai-this-week",
+   "label": "AI THIS WEEK",
+   "caption": {
+    "title": "Google is putting AI chips in space on Oct 1",
+    "text": "Google's Project Suncatcher sends four Trillium TPUs to orbit on a test satellite built with Planet, riding SpaceX's Transporter-18 on Oct 1. And Meta's Muse agent, launched Sep 8, books, fills forms and pays for you inside WhatsApp (US adults for now). Would you let an AI agent spend your money?\n#AI #Google #Meta #WhatsApp #tech #space"
+   },
+   "sources": [
+    "Android Headlines, Hardware Busters, Tech Startups (Sep 2026) on Project Suncatcher",
+    "TechCrunch (Sep 8, 2026) and CNN (Sep 23, 2026) on Meta Muse"
+   ],
+   "scenes": [
+    {
+     "type": "hook",
+     "kicker": "AI · THIS WEEK",
+     "lines": [
+      "Google is putting",
+      "AI chips in space."
+     ],
+     "hl": [
+      "space."
+     ],
+     "sub": "And Meta's agent runs your errands.",
+     "vo": "Google is about to put AI chips in space. And Meta's new agent runs your errands."
+    },
+    {
+     "type": "bullets",
+     "kicker": "PROJECT SUNCATCHER · OCT 1",
+     "title": "Google TPUs, in orbit",
+     "items": [
+      "Four Google Trillium TPUs on a test satellite built with Planet",
+      "It rides SpaceX's Transporter-18 on a Falcon 9",
+      "The test: do the chips survive launch, radiation and heat swings?"
+     ],
+     "note": "Sources: Android Headlines, Hardware Busters, Tech Startups (Sep 2026)",
+     "vo": "On October 1st, four Google TPU chips ride a SpaceX Falcon 9 to orbit, on a test satellite built with Planet. The question: can AI chips survive launch, radiation and the heat swings of space?"
+    },
+    {
+     "type": "bullets",
+     "kicker": "META MUSE · LAUNCHED SEP 8",
+     "title": "An agent that does the task",
+     "items": [
+      "Lives inside WhatsApp, plus an app and the web",
+      "Books, fills in forms and pays for you",
+      "US adults only, for now"
+     ],
+     "note": "Sources: TechCrunch (Sep 8, 2026), CNN (Sep 23, 2026)",
+     "vo": "Meta launched Muse on September 8th. It lives inside WhatsApp, and it doesn't just answer. It books, fills in forms and pays for you. For now, it's US adults only."
+    },
+    {
+     "type": "reveal",
+     "kicker": "YOUR CALL",
+     "question": "Would you let an AI agent pay for things with your card?",
+     "answer": "Yes or no?",
+     "sub": "Tell me in the comments.",
+     "vo": "So, would you let an AI agent spend your money?",
+     "vo2": "Tell me in the comments."
+    },
+    {
+     "type": "sources",
+     "lines": [
+      "Follow for AI news",
+      "that matters."
+     ],
+     "hl": [
+      "matters."
+     ],
+     "list": [
+      "Suncatcher: Android Headlines, Hardware Busters, Tech Startups",
+      "Muse: TechCrunch (Sep 8), CNN (Sep 23)"
+     ],
+     "vo": "Follow for the AI news that actually matters."
+    }
+   ]
+  },
+  "vwap": {
+   "format": "explainer",
+   "label": "EXPLAINED",
+   "caption": {
+    "title": "VWAP: the one line day traders watch",
+    "text": "VWAP is the volume-weighted average price for the day: each bar's typical price (high + low + close) ÷ 3, weighted by volume. Real example: SPY on Sep 24, 2026 had a VWAP of 766.54 at the close and closed at 767.18, above it.\n\nData: Webull SPY 5-min bars. Educational only, not financial advice.\n#VWAP #daytrading #trading #stockmarket #SPY"
+   },
+   "sources": [
+    "VWAP: standard volume-weighted average price formula",
+    "Example: Webull SPY 5-minute bars, Sep 24, 2026"
+   ],
+   "scenes": [
+    {
+     "type": "hook",
+     "kicker": "TRADING, EXPLAINED",
+     "lines": [
+      "The one line",
+      "day traders watch."
+     ],
+     "hl": [
+      "one",
+      "line"
+     ],
+     "vo": "There's one line almost every day trader watches. It's called VWAP."
+    },
+    {
+     "type": "steps",
+     "kicker": "HOW IT'S CALCULATED",
+     "title": "VWAP in 3 steps",
+     "items": [
+      [
+       "Typical price",
+       "(high + low + close) ÷ 3 for each bar"
+      ],
+      [
+       "Weight it",
+       "multiply by that bar's volume"
+      ],
+      [
+       "Average it",
+       "running total ÷ running volume"
+      ]
+     ],
+     "vo": "Take each bar's typical price: high, plus low, plus close, divided by three. Multiply it by that bar's volume. Then divide the running total by the running volume."
+    },
+    {
+     "type": "compare",
+     "kicker": "WHAT IT TELLS YOU",
+     "title": "Above or below?",
+     "left": "Price above VWAP",
+     "right": "Price below VWAP",
+     "rows": [
+      [
+       "Meaning",
+       "Higher than today's volume-weighted average price",
+       "Lower than today's volume-weighted average price"
+      ]
+     ],
+     "vo": "If price is above VWAP, it's higher than the average price paid today, weighted by volume. Below it, it's lower."
+    },
+    {
+     "type": "bignum",
+     "kicker": "REAL EXAMPLE · SPY, SEP 24",
+     "value": "766.54",
+     "color": "amber",
+     "sub": "SPY's VWAP at the close. It closed at 767.18, above it.",
+     "note": "Source: Webull SPY 5-minute bars, Sep 24, 2026",
+     "vo": "Real example. On September 24th, SPY's VWAP at the close was 766.54. It closed at 767.18, just above it."
+    },
+    {
+     "type": "sources",
+     "lines": [
+      "Save this for",
+      "your next trade."
+     ],
+     "hl": [
+      "Save"
+     ],
+     "list": [
+      "VWAP: standard volume-weighted average price formula",
+      "Example: Webull SPY 5-minute bars, Sep 24, 2026"
+     ],
+     "disclaimer": "Educational only. Not financial advice.",
+     "vo": "Save this, and follow for more trading basics."
+    }
+   ]
+  }
+ }
+}

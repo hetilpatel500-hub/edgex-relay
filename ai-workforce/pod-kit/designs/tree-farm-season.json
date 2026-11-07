@@ -1,0 +1,301 @@
+{
+  "id": "tree-farm-season",
+  "name": "Tree Farm Season",
+  "engine": 2,
+  "template": "free",
+  "top": "Tree Farm Season",
+  "bottom": "fresh cut & headed home",
+  "top_font": "Pacifico",
+  "bottom_font": "DancingScript",
+  "florals": null,
+  "palette": "autumn",
+  "colors": {
+    "pine": "#2c5f46",
+    "pine2": "#7aa36c",
+    "pine_dark": "#163829",
+    "pine_blue": "#3d6878",
+    "pine_warm": "#a7b562",
+    "truck": "#bf2f2c",
+    "truck2": "#e0604a",
+    "truck_dark": "#7a1a1f",
+    "bow": "#b3262f",
+    "sky": "#9fbfd8",
+    "sky2": "#f3e9dd",
+    "sky3": "#c2d5ea",
+    "far": "#86a6aa",
+    "far2": "#bfd2d4",
+    "shadow": "#9cb3c8",
+    "snow_shadow": "#9cb3c8",
+    "accent": "#d9ad55",
+    "accent2": "#f3d58f"
+  },
+  "ink": "#2f3a33",
+  "seed": 23,
+  "shirt_colors": [
+    "white",
+    "natural",
+    "sand"
+  ],
+  "ornament": true,
+  "ornament_text": "Tree Farm Season",
+  "ornament_font": "Pacifico",
+  "ornament_color": "#b02a2a",
+  "ornament_vary": "#7a1a1f",
+  "art": [
+    {
+      "motif": "vintage_truck",
+      "x": 0.0,
+      "y": 0.19,
+      "s": 0.29,
+      "front": true,
+      "lights": 3
+    },
+    {
+      "motif": "splash",
+      "x": 0.0,
+      "y": -0.01,
+      "s": 0.47,
+      "aspect": 0.66
+    },
+    {
+      "motif": "far_forest",
+      "x": 0.0,
+      "y": 0.04,
+      "s": 0.43,
+      "height": 0.32,
+      "n": 26
+    },
+    {
+      "motif": "snow_drift",
+      "x": 0.0,
+      "y": 0.19,
+      "s": 0.47
+    },
+    {
+      "motif": "spruce",
+      "x": -0.355,
+      "y": 0.205,
+      "s": 0.37,
+      "light": -1
+    },
+    {
+      "motif": "spruce",
+      "x": -0.235,
+      "y": 0.15,
+      "s": 0.17,
+      "light": -1,
+      "levels": 11,
+      "snow": 0.6
+    },
+    {
+      "motif": "spruce",
+      "x": 0.375,
+      "y": 0.21,
+      "s": 0.33,
+      "light": -1
+    },
+    {
+      "motif": "spruce",
+      "x": 0.26,
+      "y": 0.14,
+      "s": 0.15,
+      "light": -1,
+      "levels": 10,
+      "snow": 0.6
+    },
+    {
+      "motif": "holly",
+      "x": -0.265,
+      "y": -0.312,
+      "s": 0.034,
+      "angle": 0.25,
+      "no_ornament": true
+    },
+    {
+      "motif": "holly",
+      "x": 0.265,
+      "y": -0.312,
+      "s": 0.034,
+      "angle": -0.25,
+      "no_ornament": true
+    },
+    {
+      "motif": "snowfall",
+      "x": 0.0,
+      "y": -0.01,
+      "s": 0.47,
+      "aspect": 0.66,
+      "n": 170
+    }
+  ],
+  "lettering": [
+    {
+      "text": "Tree Farm",
+      "font": "Pacifico",
+      "size": 0.19,
+      "max_w": 0.8,
+      "y": -0.44,
+      "color": "#b62c2b",
+      "vary": "#7c1a1e",
+      "vary_amt": 0.5,
+      "outline": [
+        "#5c1518",
+        0.0016,
+        170
+      ]
+    },
+    {
+      "text": "Season",
+      "caps": true,
+      "font": "PlayfairDisplay",
+      "size": 0.075,
+      "max_w": 0.42,
+      "tracking": 0.32,
+      "y": -0.305,
+      "color": "#245a40",
+      "vary": "#163829",
+      "outline": [
+        "#163829",
+        0.0012,
+        150
+      ]
+    },
+    {
+      "text": "fresh cut & headed home",
+      "font": "DancingScript",
+      "size": 0.095,
+      "max_w": 0.78,
+      "y": 0.355,
+      "color": "#2b5a43",
+      "vary": "#163829",
+      "outline": [
+        "#163829",
+        0.0012,
+        140
+      ]
+    }
+  ],
+  "listing": {
+    "title": "Tree Farm Season Shirt, Watercolor Red Truck Christmas Tree Tee, Vintage Truck Holiday Shirt, Farmhouse Christmas Gift for Her",
+    "tags": [
+      "tree farm season",
+      "red truck christmas",
+      "christmas tree shirt",
+      "vintage truck shirt",
+      "christmas shirt",
+      "holiday shirt women",
+      "watercolor christmas",
+      "red truck shirt",
+      "tree farm shirt",
+      "farmhouse christmas",
+      "christmas gift",
+      "cozy christmas",
+      "winter shirt"
+    ],
+    "description": "A vintage red stepside pickup, painted in layered watercolor, carries a fresh-cut tree wrapped in tiny string lights and a red bow. Snow rests on the cab, the hood and the branches of the spruces on either side, a misty pine forest fades into the distance and snow is falling, with a little wreath on the truck door. \"Tree Farm\" is painted in red brush script with \"SEASON\" in green between two holly sprigs, and \"fresh cut & headed home\" in green script below. For anyone whose holidays start with picking out the tree.",
+    "per_product": {
+      "sweatshirt": {
+        "title": "Tree Farm Season Sweatshirt, Watercolor Red Truck Christmas Crewneck, Vintage Truck Holiday Sweater, Cozy Farmhouse Christmas Gift",
+        "tags": [
+          "tree farm season",
+          "red truck christmas",
+          "christmas sweatshirt",
+          "vintage truck crew",
+          "christmas crewneck",
+          "holiday sweatshirt",
+          "watercolor christmas",
+          "red truck sweater",
+          "cozy christmas",
+          "farmhouse christmas",
+          "christmas gift her",
+          "winter sweatshirt",
+          "tree farm crewneck"
+        ]
+      },
+      "mug": {
+        "title": "Tree Farm Season Mug, Watercolor Red Truck Christmas Tree Coffee Mug, Vintage Truck Holiday Mug, Farmhouse Christmas Gift",
+        "tags": [
+          "tree farm season",
+          "red truck mug",
+          "christmas mug",
+          "christmas tree mug",
+          "vintage truck mug",
+          "holiday coffee mug",
+          "watercolor mug",
+          "farmhouse christmas",
+          "christmas gift",
+          "cozy christmas mug",
+          "hot cocoa mug",
+          "winter mug",
+          "red truck christmas"
+        ]
+      },
+      "poster": {
+        "title": "Tree Farm Season Art Print, Watercolor Red Truck Christmas Wall Art, Vintage Truck Holiday Print, Farmhouse Christmas Decor",
+        "tags": [
+          "tree farm season",
+          "christmas wall art",
+          "red truck print",
+          "christmas print",
+          "vintage truck art",
+          "holiday wall decor",
+          "watercolor print",
+          "farmhouse christmas",
+          "christmas decor",
+          "winter wall art",
+          "red truck christmas",
+          "holiday art print",
+          "cozy christmas"
+        ]
+      },
+      "sticker": {
+        "title": "Tree Farm Season Sticker, Watercolor Red Truck Christmas Tree Vinyl Sticker, Vintage Truck Laptop Sticker, Holiday Stocking Stuffer",
+        "tags": [
+          "tree farm season",
+          "red truck sticker",
+          "christmas sticker",
+          "vintage truck decal",
+          "holiday sticker",
+          "watercolor sticker",
+          "laptop sticker",
+          "stocking stuffer",
+          "christmas tree decal",
+          "water bottle decal",
+          "red truck christmas",
+          "winter sticker",
+          "cozy christmas"
+        ]
+      },
+      "ornament": {
+        "title": "Red Truck Christmas Ornament, Watercolor Vintage Truck with Christmas Tree Ceramic Ornament, Tree Farm Season Keepsake, Farmhouse Decor",
+        "tags": [
+          "red truck ornament",
+          "christmas ornament",
+          "ceramic ornament",
+          "vintage truck decor",
+          "tree farm season",
+          "farmhouse christmas",
+          "watercolor ornament",
+          "christmas tree decor",
+          "holiday keepsake",
+          "red truck christmas",
+          "stocking stuffer",
+          "christmas gift",
+          "rustic ornament"
+        ],
+        "description": "The watercolor winter scene (the vintage red pickup with its lit-up tree in the bed, snowy spruces, a misty forest and falling snow) printed on both sides of a round ceramic ornament, with \"Tree Farm Season\" painted in red along the bottom rim. A keepsake for the family that goes to the tree farm every year."
+      }
+    },
+    "products": [
+      "Unisex tee (Bella+Canvas 3001)",
+      "Crewneck sweatshirt (Gildan 18000)",
+      "11 oz mug",
+      "Art print (matte poster)",
+      "Kiss-cut sticker",
+      "Round ceramic ornament, printed both sides (1599 / Printify Choice)"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table (2026-10-05 pricing review): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. New: round ceramic ornament $16.99 (web search 2026-11-05: watercolor ceramic ornaments on Etsy-style shops list about $10-35, one Etsy listing at $13.79 sale / $22.99; Printify US shipping $5.89, 10 days' handling; printify.py raises the price if it is under Printify's cost + $4). The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-11-05 (before any art): web searches '\"tree farm season\" trademark clothing', '\"christmas tree farm\" trademark registered clothing' and '\"fresh cut trees\" christmas trademark shirt'. No TREE FARM SEASON mark found. Found: CHRISTMAS TREE FARM (serial 90980204, Class 25 shirts and sweatshirts, statement of use filed 2023): that phrase is not used in our title, tags or art. URBAN TREE FARM (serial 85399505, Class 25), TRIPPIE TREE FARMS (abandoned), Robin Farms (1991 clothing filing with its tree mark), HILLTOP CHRISTMAS TREE FARMS and PERFECT CHRISTMAS TREE FARM (tree-farm services): different full names, not used. Competitor phrases 'Farm Fresh Christmas Trees', 'Cut and Carry' and movie tree-farm references are avoided. tmsearch.uspto.gov and Justia pages are blocked from our sessions, so this is a search-engine screen, not a clearance."
+  },
+  "ornament_fit": "round"
+}

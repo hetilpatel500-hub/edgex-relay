@@ -1,0 +1,209 @@
+{
+  "id": "libra-constellation",
+  "name": "Libra",
+  "template": "stack",
+  "top": "Libra",
+  "bottom": "September 23 - October 22",
+  "top_font": "Pacifico",
+  "bottom_font": "PlayfairDisplay",
+  "art": [
+    {
+      "motif": "marigold",
+      "x": -0.22,
+      "y": 0.15,
+      "s": 0.085,
+      "front": true
+    },
+    {
+      "motif": "marigold",
+      "x": 0.23,
+      "y": 0.14,
+      "s": 0.078,
+      "color": "#e8654a",
+      "color2": "#f7a37f",
+      "front": true
+    },
+    {
+      "motif": "marigold",
+      "x": -0.07,
+      "y": 0.215,
+      "s": 0.062,
+      "color": "#f2b33d",
+      "color2": "#f9dc8a",
+      "front": true
+    },
+    {
+      "motif": "marigold",
+      "x": 0.09,
+      "y": 0.215,
+      "s": 0.056,
+      "front": true
+    },
+    {
+      "motif": "sprig",
+      "x": -0.29,
+      "y": 0.1,
+      "s": 0.09,
+      "angle": -2.6,
+      "front": true
+    },
+    {
+      "motif": "sprig",
+      "x": 0.3,
+      "y": 0.09,
+      "s": 0.09,
+      "angle": -0.55,
+      "front": true
+    },
+    {
+      "motif": "night_sky",
+      "x": 0.0,
+      "y": -0.05,
+      "s": 0.25
+    },
+    {
+      "motif": "constellation",
+      "x": 0.0,
+      "y": -0.06,
+      "s": 0.17,
+      "name": "libra"
+    },
+    {
+      "motif": "sparkle",
+      "x": -0.31,
+      "y": -0.22,
+      "s": 0.025
+    },
+    {
+      "motif": "sparkle",
+      "x": 0.32,
+      "y": -0.24,
+      "s": 0.02
+    },
+    {
+      "motif": "moon",
+      "x": -0.3,
+      "y": -0.1,
+      "s": 0.038
+    }
+  ],
+  "florals": null,
+  "palette": "autumn",
+  "colors": {
+    "sky": "#2b2f5e",
+    "sky2": "#5d5ea8",
+    "star": "#f6dc8c",
+    "accent": "#e2b04a",
+    "accent2": "#f3d58f"
+  },
+  "ink": "#2c2f4a",
+  "seed": 31,
+  "shirt_colors": [
+    "white",
+    "natural",
+    "sand"
+  ],
+  "listing": {
+    "title": "Libra Constellation Shirt, Watercolor Libra Zodiac Tee, October Birth Flower Astrology Shirt, Libra Birthday Gift, Star Sign Tee",
+    "tags": [
+      "libra shirt",
+      "libra gift",
+      "libra constellation",
+      "libra zodiac",
+      "libra birthday",
+      "astrology shirt",
+      "zodiac gift",
+      "celestial shirt",
+      "star sign shirt",
+      "october birthday",
+      "marigold shirt",
+      "watercolor floral",
+      "horoscope gift"
+    ],
+    "description": "The Libra constellation drawn in gold stars on a watercolor night sky, framed by marigolds, the October birth-month flower, with a crescent moon and sparkles. \"Libra\" in round script on top and \"September 23 - October 22\" below. A birthday gift for the Libra in your life (September 23 - October 22).",
+    "per_product": {
+      "sweatshirt": {
+        "title": "Libra Constellation Sweatshirt, Watercolor Libra Zodiac Crewneck, October Birth Flower Astrology Pullover, Libra Birthday Gift",
+        "tags": [
+          "libra sweatshirt",
+          "libra gift",
+          "libra constellation",
+          "libra zodiac",
+          "libra birthday",
+          "astrology crewneck",
+          "zodiac gift",
+          "celestial sweater",
+          "star sign gift",
+          "october birthday",
+          "marigold gift",
+          "cozy sweatshirt",
+          "horoscope gift"
+        ]
+      },
+      "mug": {
+        "title": "Libra Constellation Mug, Watercolor Libra Zodiac Coffee Mug, October Birth Flower Astrology Mug, Libra Birthday Gift, Star Sign Cup",
+        "tags": [
+          "libra mug",
+          "libra gift",
+          "libra constellation",
+          "libra zodiac",
+          "libra birthday",
+          "astrology mug",
+          "zodiac gift",
+          "celestial mug",
+          "star sign mug",
+          "october birthday",
+          "marigold mug",
+          "zodiac coffee mug",
+          "horoscope gift"
+        ]
+      },
+      "poster": {
+        "title": "Libra Constellation Art Print, Watercolor Libra Zodiac Wall Art, October Birth Flower Astrology Print, Libra Birthday Gift",
+        "tags": [
+          "libra wall art",
+          "libra gift",
+          "libra constellation",
+          "libra zodiac",
+          "libra print",
+          "astrology print",
+          "zodiac wall art",
+          "celestial decor",
+          "star sign print",
+          "october birthday",
+          "marigold print",
+          "nursery zodiac art",
+          "horoscope gift"
+        ]
+      },
+      "sticker": {
+        "title": "Libra Constellation Sticker, Watercolor Libra Zodiac Vinyl Sticker, October Birth Flower Astrology Sticker, Libra Gift",
+        "tags": [
+          "libra sticker",
+          "libra gift",
+          "libra constellation",
+          "libra zodiac",
+          "astrology sticker",
+          "zodiac sticker",
+          "celestial sticker",
+          "star sign sticker",
+          "laptop sticker",
+          "water bottle decal",
+          "marigold decal",
+          "journal sticker",
+          "horoscope gift"
+        ]
+      }
+    },
+    "products": [
+      "Unisex tee (Bella+Canvas 3001)",
+      "Crewneck sweatshirt (Gildan 18000)",
+      "11 oz mug",
+      "Art print (matte poster)",
+      "Kiss-cut sticker"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table after the 2026-10-05 pricing review (decisions/pricing-2026-10-05): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. Etsy zodiac sweatshirt and libra shirt market pages (etsy.com/market/zodiac_sweatshirts, etsy.com/market/libra_shirt, checked 2026-10-05) show floral and constellation zodiac tops as a busy niche; our prices sit in the middle of those pages. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-10-05: HOLD. Web search '\"Scorpio Constellation\" OR \"Libra Constellation\" trademark clothing USPTO' found a pending LIBRA application by Astryx LLC for t-shirts and sweatshirts (serial 99209588, filed 2025-05-30, uspto.report). POD-DESK step 2 rejects phrases that are a registered or pending clothing mark, so this design is not listed until the owner, or an attorney, decides whether descriptive star-sign use is fine. tmsearch.uspto.gov is blocked from our sessions, so this is a search-engine screen, not a clearance."
+  },
+  "hold": "Legal Desk 2026-10-05: pending LIBRA clothing application (Astryx LLC, 99209588). Not listed until the owner decides."
+}

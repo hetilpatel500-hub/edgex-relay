@@ -1,0 +1,195 @@
+{
+ "id": "christmas-cookies",
+ "kind": "pattern",
+ "name": "Christmas Cookies",
+ "seed": 31,
+ "background": "#f6efe3",
+ "palette": {
+  "main": "#c62b33",
+  "main2": "#e0525a",
+  "accent": "#3f8a5a",
+  "accent2": "#6fae7f",
+  "leaf": "#3f6e55",
+  "leaf2": "#8db39a",
+  "leaf_dark": "#274a3b",
+  "object": "#c98a4e",
+  "object2": "#e0a868",
+  "holly": "#2f6b4f",
+  "holly2": "#6fa27e",
+  "berry": "#c1272d"
+ },
+ "elements": [
+  {
+   "motif": "gingerbread_man",
+   "size": 0.17,
+   "count": 5,
+   "tilt": 0.35,
+   "spacing": 1.0,
+   "edge": 1.1
+  },
+  {
+   "motif": "sugar_cookie",
+   "size": 0.118,
+   "count": 3,
+   "args": {
+    "kind": "tree"
+   },
+   "tilt": 0.45,
+   "spacing": 0.9,
+   "edge": 1.05
+  },
+  {
+   "motif": "sugar_cookie",
+   "size": 0.118,
+   "count": 3,
+   "args": {
+    "kind": "star"
+   },
+   "tilt": 0.45,
+   "spacing": 0.9,
+   "edge": 1.05
+  },
+  {
+   "motif": "sugar_cookie",
+   "size": 0.118,
+   "count": 2,
+   "args": {
+    "kind": "heart"
+   },
+   "tilt": 0.45,
+   "spacing": 0.9,
+   "edge": 1.05
+  },
+  {
+   "motif": "sugar_cookie",
+   "size": 0.118,
+   "count": 3,
+   "args": {
+    "kind": "round"
+   },
+   "tilt": 0.45,
+   "spacing": 0.9,
+   "edge": 1.05
+  },
+  {
+   "motif": "sugar_cookie",
+   "size": 0.118,
+   "count": 2,
+   "args": {
+    "kind": "mitten"
+   },
+   "tilt": 0.45,
+   "spacing": 0.9,
+   "edge": 1.05
+  },
+  {
+   "motif": "candy_cane",
+   "size": 0.13,
+   "count": 2,
+   "tilt": 0.5,
+   "spacing": 0.62,
+   "edge": 1.1
+  },
+  {
+   "motif": "candy_cane",
+   "size": 0.13,
+   "count": 2,
+   "args": {
+    "flip": true
+   },
+   "tilt": 0.5,
+   "spacing": 0.62,
+   "edge": 1.1
+  },
+  {
+   "motif": "holly",
+   "size": 0.07,
+   "count": 10,
+   "tilt": 3.1,
+   "spacing": 0.85
+  },
+  {
+   "motif": "peppermint",
+   "size": 0.042,
+   "count": 10,
+   "tilt": 3.1,
+   "spacing": 0.95
+  },
+  {
+   "motif": "star_anise",
+   "size": 0.036,
+   "count": 5,
+   "tilt": 3.1,
+   "spacing": 0.95
+  },
+  {
+   "motif": "berries",
+   "size": 0.032,
+   "count": 6,
+   "args": {
+    "color": "#b3283a",
+    "n": 4
+   },
+   "spacing": 0.9
+  },
+  {
+   "motif": "sprinkles",
+   "size": 0.03,
+   "fill": true,
+   "spacing": 3.4,
+   "gaps": true,
+   "clear": 1.5
+  }
+ ],
+ "mug_colors": [
+  "Red",
+  "Light Green",
+  "Maroon",
+  "White"
+ ],
+ "listing": {
+  "title": "Christmas Cookie Mug, Watercolor Gingerbread Man and Iced Sugar Cookies All Over Print Coffee Mug, Holiday Baking Gift for Bakers",
+  "tags": [
+   "christmas cookie mug",
+   "gingerbread mug",
+   "holiday baking mug",
+   "gift for baker",
+   "christmas mug",
+   "watercolor mug",
+   "sugar cookie mug",
+   "candy cane mug",
+   "cookie lover gift",
+   "christmas gift mom",
+   "cozy christmas mug",
+   "gingerbread man mug",
+   "xmas coffee mug"
+  ],
+  "description": "Gingerbread men, iced sugar cookies (trees, stars, hearts, mittens and snowflake rounds), candy canes, peppermints and holly, painted in layered watercolor all the way around the mug on a warm cream background. A cheerful mug for the family baker, the cookie-swap host and anyone who starts the holidays in the kitchen.",
+  "per_product": {
+   "accent_mug": {
+    "title": "Gingerbread Accent Mug, Watercolor Christmas Cookies Coffee Cup, Red, Green or Maroon Handle, 11 or 15 oz, Cookie Exchange Gift",
+    "tags": [
+     "gingerbread cup",
+     "red handle mug",
+     "cookie exchange gift",
+     "christmas baking cup",
+     "holiday coffee cup",
+     "15 oz christmas mug",
+     "green accent mug",
+     "baker coffee mug",
+     "iced cookie mug",
+     "peppermint mug",
+     "holly mug",
+     "christmas tea mug",
+     "festive accent mug"
+    ]
+   }
+  },
+  "products": [
+   "11 oz white mug, full wrap (68 / SPOKE)",
+   "Accent mug 11 or 15 oz, red, light green or maroon handle, rim and inside (635 / Printify Choice)"
+  ],
+  "price_note": "$18 white wrap mug, $22 (11 oz) / $25 (15 oz) accent mug, the studio's standard mug prices (POD-DESK.md product table). Search results on 2026-10-01 showed Christmas cookie and gingerbread mug listings for bakers between about $11.99 and $35.00 (etsy.com/market/christmas_cookie_mug result summary); printed mugs in the owner's Etsy screenshots of 2026-09-28 sold at about $9-24.",
+  "trademark_check": "2026-10-01, IP & Trademark Counsel: WebSearch '\"christmas cookies\" trademark registered mugs drinkware uspto' found no CHRISTMAS COOKIES mark for mugs (results: CHRISTMAS CAMP, Reg. 5601319, Class 21, a different phrase, not used); '\"cookie season\" OR \"christmas cookie\" trademark justia clothing mugs' found no CHRISTMAS COOKIE mark; it surfaced COOKIEWARE (Class 21), THE COOKIE MUG (1992, cookie delivery), TOUGH COOKIE (clothing), COOKIES (Cookies SF), THE COOKIE JAR and Pepperidge Farm's IF YOU'RE GOING TO HAVE A COOKIE slogan: none is used in our title, tags or art. Competitor product names seen ('Cookie Crew', 'Official Cookie Tester', 'Sugar N Spice Cookie Co.', 'Cookie Queen', 'Have a Sweet Christmas') are not used. The art has no lettering. 'Christmas cookie' and 'gingerbread' are used only as plain descriptions of the art. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen, not a clearance."
+ }
+}

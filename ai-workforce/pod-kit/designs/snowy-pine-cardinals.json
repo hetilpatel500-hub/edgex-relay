@@ -1,0 +1,187 @@
+{
+ "id": "snowy-pine-cardinals",
+ "kind": "pattern",
+ "name": "Snowy Pine Cardinals",
+ "seed": 23,
+ "background": "#f6efe3",
+ "palette": {
+  "main": "#c62b33",
+  "main2": "#e8604e",
+  "accent": "#9fb8cc",
+  "accent2": "#cfdce6",
+  "leaf": "#3f6e55",
+  "leaf2": "#8db39a",
+  "leaf_dark": "#274a3b",
+  "object": "#b4835a",
+  "object2": "#d7ae7d",
+  "bird": "#c62b33",
+  "bird2": "#e8604e",
+  "bird_dark": "#8e1f2b",
+  "holly": "#2f6b4f",
+  "holly2": "#6fa27e",
+  "berry": "#c1272d",
+  "shadow": "#a9bccb",
+  "snow": "#8fb0c8"
+ },
+ "elements": [
+  {
+   "motif": "cardinal",
+   "size": 0.22,
+   "count": 3,
+   "args": {
+    "facing": 1,
+    "snow": true
+   },
+   "tilt": 0.08,
+   "spacing": 1.0,
+   "y_range": [
+    0.1,
+    0.9
+   ]
+  },
+  {
+   "motif": "cardinal",
+   "size": 0.22,
+   "count": 2,
+   "args": {
+    "facing": -1,
+    "snow": true
+   },
+   "tilt": 0.08,
+   "spacing": 1.0,
+   "y_range": [
+    0.1,
+    0.9
+   ]
+  },
+  {
+   "motif": "cardinal",
+   "size": 0.2,
+   "count": 2,
+   "args": {
+    "facing": -1,
+    "female": true,
+    "snow": true
+   },
+   "tilt": 0.08,
+   "spacing": 1.0,
+   "y_range": [
+    0.1,
+    0.9
+   ]
+  },
+  {
+   "motif": "pine_bough",
+   "size": 0.17,
+   "count": 6,
+   "args": {
+    "snow": true
+   },
+   "tilt": 0.7,
+   "spacing": 0.8
+  },
+  {
+   "motif": "holly",
+   "size": 0.075,
+   "count": 10,
+   "tilt": 3.1,
+   "spacing": 0.85
+  },
+  {
+   "motif": "pine_bough",
+   "size": 0.1,
+   "count": 5,
+   "args": {
+    "snow": false,
+    "twigs": 1
+   },
+   "tilt": 3.1,
+   "spacing": 0.85
+  },
+  {
+   "motif": "pinecone",
+   "size": 0.058,
+   "count": 8,
+   "tilt": 0.7,
+   "spacing": 0.9
+  },
+  {
+   "motif": "berries",
+   "size": 0.038,
+   "count": 10,
+   "args": {
+    "color": "#b3283a",
+    "n": 4
+   },
+   "spacing": 0.9
+  },
+  {
+   "motif": "snowflake",
+   "size": 0.034,
+   "count": 18,
+   "tilt": 0.5,
+   "spacing": 2.0,
+   "gaps": true,
+   "clear": 1.5
+  },
+  {
+   "motif": "snow_dot",
+   "size": 0.009,
+   "fill": true,
+   "spacing": 3.4,
+   "gaps": true,
+   "clear": 2.6
+  }
+ ],
+ "mug_colors": [
+  "Red",
+  "Navy",
+  "Black",
+  "White"
+ ],
+ "listing": {
+  "title": "Cardinal Mug, Watercolor Winter Bird Coffee Mug, Snowy Pine and Holly All Over Print, Christmas Gift for Bird Lovers, Cozy Winter Mug",
+  "tags": [
+   "cardinal mug",
+   "winter bird mug",
+   "red cardinal mug",
+   "christmas mug",
+   "bird lover gift",
+   "watercolor mug",
+   "pine tree mug",
+   "holly mug",
+   "cozy winter mug",
+   "bird watcher gift",
+   "christmas gift mom",
+   "nature lover gift",
+   "snowy pine mug"
+  ],
+  "description": "Red cardinals perch on snow-dusted pine boughs among holly, pinecones and falling snow, painted in layered watercolor all the way around the mug on a warm cream background. A quiet, cozy winter mug for bird lovers, from the first snowfall through Christmas and the long winter after.",
+  "per_product": {
+   "accent_mug": {
+    "title": "Red Cardinal Accent Mug, Watercolor Winter Birds and Snowy Pine Coffee Cup, Red or Navy Handle, 11 or 15 oz, Christmas Gift for Bird Lovers",
+    "tags": [
+     "cardinal accent mug",
+     "red handle mug",
+     "winter birds mug",
+     "cardinal coffee cup",
+     "christmas coffee mug",
+     "bird lover mug",
+     "15 oz winter mug",
+     "navy accent mug",
+     "holiday bird mug",
+     "gift for birder",
+     "pinecone mug",
+     "snowflake mug",
+     "farmhouse winter mug"
+    ]
+   }
+  },
+  "products": [
+   "11 oz white mug, full wrap (68 / SPOKE)",
+   "Accent mug 11 or 15 oz, red, navy or black handle, rim and inside (635 / Printify Choice)"
+  ],
+  "price_note": "$18 white wrap mug, $22 (11 oz) / $25 (15 oz) accent mug, the studio's standard mug prices (POD-DESK.md product table). Search results on 2026-09-29 showed a vintage cardinal-on-pine mug on Etsy at $12.92-$19.95; printed mugs in the owner's Etsy screenshots of 2026-09-28 sold at about $9-24.",
+  "trademark_check": "2026-09-29, IP & Trademark Counsel: WebSearch '\"snowy pine cardinals\" trademark' found no such mark (results were stock photos and the Arizona/St. Louis Cardinals sports marks); '\"winter cardinals\" trademark uspto drinkware mugs' found no WINTER CARDINALS mark (Swig Life sells a 'Winter Cardinals' travel mug as a product name, so it is kept out of our title's lead); 'Cardinals Appear When Angels Are Near' is sold as licensed/trademarked by CDI and is not used; Lenox's 'Winter Greetings' line name is not used. The art has no lettering; no team words, bats or balls. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen, not a clearance."
+ }
+}
