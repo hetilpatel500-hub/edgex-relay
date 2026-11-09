@@ -38,6 +38,9 @@ Voice: Kokoro-82M (Apache-2.0), an offline neural voice installed from npm by
 Work in a scratch folder, not in the repo. `KIT=ai-workforce/video-kit`.
 
 0. **Setup.** Run `bash $KIT/setup.sh` once per machine. It takes about 10 s when cached.
+   It installs into `python3`; if you'll run the kit with another interpreter
+   (a venv, say), pass it as `PYTHON=/path/to/python bash $KIT/setup.sh` and use
+   that same interpreter for `prep.py`, `make.py` and `make_scenes.py`.
 1. **Video Trend Scout** chooses today's set: always `spy`, and `mag` on
    Fridays (or when the week already has 3+ sessions and something moved
    more than 5%). No other topics until the owner asks.

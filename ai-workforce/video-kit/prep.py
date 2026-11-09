@@ -21,6 +21,12 @@ LONG = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sun
 MON3 = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 
+
+def vmult(x):
+    """Volume multiple as spoken and shown: one decimal under 10 (2.47 -> 2.5), whole above."""
+    r = round(x, 1) if x < 10 else round(x)
+    return int(r) if r == int(r) else r
+
 def die(msg):
     print('PREP FAILED:', msg, file=sys.stderr)
     sys.exit(2)
@@ -144,7 +150,7 @@ def main():
     marks.append(dict(i=bigI, p=big['h'] if bigmv >= 0 else big['l'], label='FILL' if fills else 'BIG', color='amber',
                       title=f'The {big["t"]} candle',
                       body=f'{"+" if bigmv >= 0 else "−"}${abs(bigmv):.2f} in five minutes on {big["v"]/1e6:.2f}M shares '
-                           f'(~{round(big["v"]/medv)}× a typical bar).' + (' Its move filled the gap.' if fills else '')))
+                           f'(~{vmult(big["v"]/medv)}× a typical bar).' + (' Its move filled the gap.' if fills else '')))
     marks.append(dict(i=hiI, p=R[hiI]['h'], label='HIGH', color='green', title=f'High of day · {R[hiI]["t"]} ET',
                       body=f'{R[hiI]["h"]:.2f}, {sg(pct(R[hiI]["h"], prev))}% vs {pname}\'s close.'))
     marks.append(dict(i=N - 1, p=c, label='CLOSE', color='ink', title='Close',
@@ -185,7 +191,7 @@ def main():
         dict(claim='High of day', value=f'{R[hiI]["h"]:.2f} at {R[hiI]["t"]} ET', source=f'5m bar {R[hiI]["iso"]} high'),
         dict(claim='Biggest candle', value=f'{"+" if bigmv >= 0 else "−"}${abs(bigmv):.2f} on {big["v"]:,} shares at {big["t"]} ET',
              source=f'5m bar {big["iso"]} close - open, volume'),
-        dict(claim='Volume multiple', value=f'~{round(big["v"]/medv)}x', source=f'volume / median 5m volume {medv:,.0f}'),
+        dict(claim='Volume multiple', value=f'~{vmult(big["v"]/medv)}x', source=f'volume / median 5m volume {medv:,.0f}'),
         dict(claim='Close', value=f'{c:.2f}', source=f'5m bar {R[-1]["iso"]} close'),
         dict(claim='Day change', value=sg(day) + '%', source='close / prior close - 1'),
         dict(claim='VWAP at close', value=f'{R[-1]["vw"]:.2f}', source='cumulative typical price x volume over the 5m bars'),
@@ -203,7 +209,7 @@ def main():
             vo_marks.append(f'The low came at {r["t"]}, at {r["l"]:.2f}.')
         elif m['label'] in ('BIG', 'FILL'):
             vo_marks.append(f'Then the {r["t"]} candle {"jumped" if bigmv >= 0 else "dropped"} ${abs(bigmv):.2f} in five minutes, '
-                            f'on {round(big["v"]/medv)} times normal volume' + (', filling the gap.' if m['label'] == 'FILL' else '.'))
+                            f'on about {vmult(big["v"]/medv)} times normal volume' + (', filling the gap.' if m['label'] == 'FILL' else '.'))
         elif m['label'] == 'HIGH':
             vo_marks.append(f'High of day at {r["t"]}: {r["h"]:.2f}.')
         elif m['label'] == 'CLOSE':

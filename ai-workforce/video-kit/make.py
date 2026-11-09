@@ -182,6 +182,7 @@ def serve():
 def node():
     env = dict(os.environ)
     env.setdefault('NODE_PATH', '/opt/node22/lib/node_modules')
+    env.setdefault('FFMPEG', ffmpeg())  # shoot.js would otherwise ask whatever `python3` is on PATH
     return env
 
 
