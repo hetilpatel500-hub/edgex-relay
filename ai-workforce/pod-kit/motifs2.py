@@ -7,7 +7,7 @@ chrome), and a fine pen line where an edge must read.
 Coordinates: (x, y) in canvas px, y down; s = the motif's size in px.
 """
 import math
-from watercolor import ellipse, leaf, rect, deform
+from watercolor import ellipse, leaf, petal, rect, deform
 from motifs import _rot, smooth, gouache, _rgb, _band, _star_pts, CONSTELLATIONS
 
 # Capricornus, simplified to its familiar arrowhead outline (alpha-beta at the top right, delta at the left tip)
@@ -65,7 +65,7 @@ def snowfall(c, x, y, s, P, n=120, aspect=0.82, size=0.006, clear=None):
         gouache(c, ellipse(px, py, rr, rr, 9), color=(255, 255, 255), alpha=rnd.randint(200, 245), soft=0.15)
 
 
-def far_forest(c, x, y, s, P, n=24, height=0.22, color=None, color2=None):
+def far_forest(c, x, y, s, P, n=24, height=0.22, color=None, color2=None, strength=1.0):
     """A misty line of distant firs along the horizon: pale blue-green
     silhouettes, softer and bluer than the trees in front (aerial perspective).
     (x, y) = the middle of the horizon line, s = half its length."""
@@ -84,7 +84,7 @@ def far_forest(c, x, y, s, P, n=24, height=0.22, color=None, color2=None):
         for k in range(5, 0, -1):
             t = k / 5
             pts.append((px - w * t * (1.0 if k % 2 else 0.8), y - h * (1 - t) + h * 0.04 * (k % 2)))
-        c.wash(pts, col2, col, strength=rnd.uniform(0.4, 0.58), spread=0.03, layers=14, edge=0.6, ang=math.pi / 2)
+        c.wash(pts, col2, col, strength=rnd.uniform(0.4, 0.58) * strength, spread=0.03, layers=14, edge=0.6, ang=math.pi / 2)
     # a soft band of mist at the foot of the trees
     band = [(x - s * 1.02, y - s * 0.02), (x + s * 1.02, y - s * 0.02), (x + s * 0.98, y + s * 0.035), (x - s * 0.98, y + s * 0.035)]
     c.wash(band, col2, None, strength=0.22, spread=0.05, layers=12, edge=0.2)
@@ -1075,8 +1075,416 @@ def violet(c, x, y, s, P, angle=0.0, stem=1.0, leaves=2, color=None, color2=None
     gouache(c, ellipse(x, y + s * 0.03, s * 0.045, s * 0.04, 8), color=_rgb(P.get('accent', '#e2b04a')), alpha=240, soft=0.06)
 
 
+# ---------------------------------------------------------------- lake at dawn (Grandpa's Fishing Hole)
+def sunrise(c, x, y, s, P, color=None, glow=None):
+    """A low sun at dawn: a wide warm glow on the sky, then a pale gold disc
+    with a hot centre. (x, y) = centre of the disc, s = its radius."""
+    col = color or P.get('sun', '#f4bd62'); g = glow or P.get('sun_glow', '#f3a27a')
+    c.glow(x, y, s * 3.4, g, strength=0.3)
+    c.glow(x, y, s * 1.9, col, strength=0.34)
+    c.wash(ellipse(x, y, s, s, 30), '#fbe6a8', col, strength=0.6, spread=0.008, layers=16, edge=0.45, ang=math.pi / 2)
+    c.lift(ellipse(x - s * 0.15, y - s * 0.2, s * 0.45, s * 0.4, 16), amount=0.35, soft=0.3)
+
+
+def mountains2(c, x, y, s, P, peaks=None, color=None, color2=None, dark=None, snow=0.3):
+    """A painterly mountain range at dawn: jagged ridgelines (midpoint
+    displacement), a pale wash for the lit faces and a deeper wash for the
+    shadow side of each peak, dry-brush gullies, and snow in white gouache
+    that streaks down the gullies. Back peaks paler (aerial perspective).
+    (x, y) = middle of the base, s = half the width."""
+    rnd = c.rnd
+    col = color or P.get('mtn', '#8e8db2'); col2 = color2 or P.get('mtn2', '#c6c0da'); dk = dark or P.get('mtn_dark', '#5f5c88')
+    peaks = peaks or [(-0.55, 0.62, 0.55, 0), (0.45, 0.78, 0.6, 0), (-0.05, 1.0, 0.62, 1)]
+    for dx, h, w, near in peaks:
+        px = x + s * dx; top = (px, y - s * h)
+
+        def ridge(a, b, n=5, amp=0.06):
+            pts = [a]
+            for k in range(1, n):
+                t = k / n
+                pts.append((a[0] + (b[0] - a[0]) * t + rnd.uniform(-1, 1) * s * amp * 0.3,
+                            a[1] + (b[1] - a[1]) * t + rnd.uniform(-0.4, 1) * s * amp))
+            return pts
+        left = ridge((px - s * w, y), top); right = ridge(top, (px + s * w, y))
+        sil = left + right[:]
+        lit, shade = (col2, col) if not near else (col, dk)
+        c.wash(sil + [(px + s * w, y)], lit, col, strength=0.38 if not near else 0.5, spread=0.012, layers=22, edge=0.6,
+               vary=P.get('sky3', '#f0b8a2'), vary_amt=0.25, ang=math.pi / 2)
+        # the shadow side: from the summit down a jagged central rib to the base
+        rib = ridge(top, (px + s * w * 0.15, y), n=6, amp=0.03)
+        c.wash(rib + list(reversed(right))[:-1][::-1][::-1] + [(px + s * w, y)], shade, None, strength=0.32 if not near else 0.45,
+               spread=0.015, layers=16, edge=0.5)
+        for k in range(4):   # gullies
+            gx = px + s * w * rnd.uniform(-0.6, 0.6); gy = y - s * h * rnd.uniform(0.2, 0.6)
+            c.dry_brush([(gx, gy), (gx + s * 0.02, gy + s * h * 0.12), (gx + s * 0.01, gy + s * h * 0.25)], s * 0.02, dk, strength=0.16,
+                        bristles=4, gap=0.4)
+        # snow: a cap following the ridge, with streaks running down
+        if snow:
+            cap_l = [p for p in left if p[1] < y - s * h * (1 - snow)]
+            cap_r = [p for p in right if p[1] < y - s * h * (1 - snow)]
+            if cap_l and cap_r:
+                base_y = y - s * h * (1 - snow * 0.9)
+                cap = cap_l + cap_r + [(cap_r[-1][0], base_y + s * 0.02), (px + s * w * 0.05, base_y - s * 0.03),
+                                       (px - s * w * 0.1, base_y + s * 0.015), (cap_l[0][0], base_y)]
+                gouache(c, cap, color=(251, 249, 245), alpha=200, soft=0.02)
+                for k in range(5):
+                    sx = px + s * w * rnd.uniform(-0.25, 0.3); sy = base_y + rnd.uniform(-0.01, 0.01) * s
+                    L = s * h * rnd.uniform(0.08, 0.18)
+                    gouache(c, [(sx - s * 0.008, sy), (sx + s * 0.008, sy), (sx + s * 0.003, sy + L), (sx - s * 0.002, sy + L * 0.9)],
+                            color=(251, 249, 245), alpha=170, soft=0.08)
+                c.lift(cap_r + [(px + s * w * 0.1, y - s * h * 0.6)], amount=0.15, soft=0.2)
+
+
+
+def lake(c, x, y, s, P, depth=0.6, sun=None, color=None, color2=None):
+    """Still water at dawn. (x, y) = middle of the far shoreline, s = half its
+    width, depth = how far down the water reaches (fraction of s). A gradient
+    wash (pale sky colour at the horizon, deeper blue in front), dark tree
+    reflections under the far shore, a broken column of light under the sun,
+    and dry-brush ripples that spread out toward the front (perspective)."""
+    rnd = c.rnd
+    deep = color or P.get('water', '#4c82aa'); pale = color2 or P.get('water2', '#cfe1ea')
+    dark = P.get('water_dark', '#2f5f83'); refl = P.get('refl', '#56786f')
+    D = s * depth
+    sun_x = None if sun is None else x + s * sun
+    pts = [(x + s * math.cos(math.pi * k / 30), y + D * math.sin(math.pi * k / 30)) for k in range(31)]
+    c.wash(pts, pale, deep, strength=0.62, spread=0.012, layers=30, edge=0.45, granulate=0.25,
+           vary=P.get('water3', '#7fb0c9'), vary_amt=0.35, ang=math.pi / 2)
+    # a second, deeper glaze over the front half
+    front = [(x + s * 0.97 * math.cos(math.pi * k / 24), y + D * 0.35 + D * 0.62 * math.sin(math.pi * k / 24)) for k in range(25)]
+    c.wash(front, deep, dark, strength=0.24, spread=0.05, layers=18, edge=0.0, blur=s * 0.04, ang=math.pi / 2)
+
+    def half_w(py):
+        t = (py - y) / D
+        return s * math.sqrt(max(0.0, 1 - t * t))
+    # far-shore reflections: soft vertical streaks of the dark trees
+    for k in range(30):
+        px = x - s * 0.96 + 1.92 * s * k / 29 + rnd.uniform(-1, 1) * s * 0.02
+        w = s * rnd.uniform(0.018, 0.04); h = D * rnd.uniform(0.07, 0.17)
+        c.wash([(px - w, y + s * 0.003), (px + w, y + s * 0.003), (px + w * 0.15, y + h), (px - w * 0.15, y + h)], refl, None,
+               strength=rnd.uniform(0.14, 0.24), spread=0.08, layers=10, edge=0.15, blur=s * 0.004)
+    c.wash(rect(x - s * 0.98, y - s * 0.004, x + s * 0.98, y + s * 0.01), dark, None, strength=0.3, spread=0.02, layers=8, edge=0.5)
+    # the sun's path: lifted dashes, wider toward the viewer, a few gold glints
+    if sun_x is not None:
+        for i in range(22):
+            u = i / 21
+            py = y + D * (0.02 + 0.8 * u ** 1.25)
+            if abs(sun_x - x) > half_w(py) * 0.9:
+                continue
+            w = s * (0.02 + 0.07 * u) * rnd.uniform(0.6, 1.3)
+            px = sun_x + rnd.uniform(-1, 1) * s * 0.012 * (1 + 2 * u)
+            c.lift(ellipse(px, py, w, s * (0.004 + 0.004 * u), 12), amount=0.7, soft=0.12)
+            if rnd.random() < 0.55:
+                gw = w * rnd.uniform(0.25, 0.6)
+                gouache(c, ellipse(px + rnd.uniform(-1, 1) * w * 0.4, py, gw, s * 0.0028, 10), color=(252, 226, 160), alpha=rnd.randint(150, 215), soft=0.25)
+    # ripples: short dry-brush strokes, larger and further apart toward the front
+    for i in range(34):
+        u = rnd.random() ** 0.85
+        py = y + D * (0.06 + 0.86 * u)
+        hw = half_w(py) * 0.88
+        px = x + rnd.uniform(-1, 1) * hw
+        L = s * rnd.uniform(0.03, 0.08) * (0.6 + 1.2 * u)
+        path = [(px - L + 2 * L * k / 7, py + s * 0.0025 * math.sin(k * 1.4)) for k in range(8)]
+        c.dry_brush(path, s * (0.004 + 0.006 * u) * rnd.uniform(0.7, 1.2), dark, strength=rnd.uniform(0.22, 0.38), bristles=5, gap=0.4)
+    for i in range(14):
+        u = rnd.random() ** 0.9
+        py = y + D * (0.08 + 0.8 * u); hw = half_w(py) * 0.85
+        px = x + rnd.uniform(-1, 1) * hw
+        L = s * rnd.uniform(0.03, 0.07) * (0.6 + u)
+        c.lift(ellipse(px, py, L, s * 0.0035 * (1 + u), 10), amount=0.45, soft=0.2)
+
+
+def birds(c, x, y, s, P, n=3):
+    """A few distant birds: small loose pen 'v' strokes. s = spread."""
+    rnd = c.rnd
+    inkc = P.get('bird_ink', (74, 70, 86))
+    for k in range(n):
+        px = x + s * rnd.uniform(-1, 1); py = y + s * rnd.uniform(-0.4, 0.4)
+        w = s * rnd.uniform(0.09, 0.14)
+        pts = [(px - w, py - w * 0.25), (px - w * 0.45, py - w * 0.35), (px, py + w * 0.05), (px + w * 0.45, py - w * 0.4), (px + w, py - w * 0.3)]
+        c.ink_line(smooth(pts, 2, closed=False), width=max(2, w * 0.13), closed=False, alpha=190, passes=1, jitter=0.0003)
+
+
+def dock(c, x, y, s, P, rod=True, box=True, bobber=None):
+    """A weathered wooden dock running out over the water from the left, in
+    perspective (near end big, far end small): plank deck with seams and
+    dry-brush grain, a front beam, posts standing in the water with rings,
+    nail heads, a green tackle box, and a fishing rod whose line runs out to a
+    red-and-white bobber. (x, y) = far (right) end of the deck's front edge,
+    s = the dock's length. bobber = (bx, by) in units of s from (x, y)."""
+    rnd = c.rnd
+    wood = P.get('wood', '#c39a6b'); wood2 = P.get('wood2', '#e2c49b'); wood_dk = P.get('wood_dark', '#6e4c32')
+    grey = P.get('wood_grey', '#a8a092'); inkc = P.get('dock_ink', (70, 50, 36))
+    F0, F1 = (x - s, y + s * 0.11), (x, y)
+    B0, B1 = (x - s * 0.93, y - s * 0.085), (x + s * 0.025, y - s * 0.058)
+
+    def L(a, b, t):
+        return (a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
+    thick0, thick1 = s * 0.06, s * 0.026
+    # posts first (behind the beam), each with water rings at its foot
+    for t in (0.06, 0.37, 0.68, 0.97):
+        top = L(F0, F1, t)
+        w = s * (0.042 - 0.024 * t); h = s * (0.25 - 0.15 * t)
+        px, py = top[0], top[1] + thick0 * (1 - t) + thick1 * t
+        c.wash(rect(px - w, py - s * 0.01, px + w, py + h), wood_dk, wood, strength=0.75, spread=0.01, layers=14, edge=0.7, ang=0.0)
+        c.dry_brush([(px - w * 0.3, py), (px - w * 0.25, py + h * 0.5), (px - w * 0.35, py + h * 0.95)], w * 0.6, wood_dk, strength=0.5, bristles=4)
+        c.wash(rect(px - w, py + h * 0.82, px + w, py + h), P.get('water_dark', '#2f5f83'), None, strength=0.35, spread=0.02, layers=8, edge=0.4)
+        for r in (1.6, 2.6):
+            c.ink_line(ellipse(px, py + h, w * r, w * r * 0.22, 20), width=max(2, s * 0.0025), alpha=110, passes=1, jitter=0.0002)
+    # the front beam (its face toward us)
+    beam = [F0, F1, (F1[0], F1[1] + thick1), (F0[0], F0[1] + thick0)]
+    c.wash(beam, wood, wood_dk, strength=0.8, spread=0.006, layers=16, edge=0.7, vary=grey, vary_amt=0.3, ang=math.pi / 2)
+    # the deck: weathered planks, lighter toward the far end
+    deck = [B0, B1, F1, F0]
+    c.wash(deck, wood2, wood, strength=0.72, spread=0.006, layers=22, edge=0.6, vary=grey, vary_amt=0.45, ang=0.0, blooms=2, bloom_size=0.08)
+    n = 15
+    us = [(k / n) ** 1.18 for k in range(1, n)]
+    for i, u in enumerate(us):
+        a, b = L(B0, B1, u), L(F0, F1, u)
+        if i % 3 == 1:   # one plank in three a little darker (weathering)
+            u2 = us[i + 1] if i + 1 < len(us) else 1.0
+            c.wash([a, L(B0, B1, u2), L(F0, F1, u2), b], wood_dk, None, strength=0.16, spread=0.01, layers=8, edge=0.4)
+        c.ink_line([a, b], width=max(2, s * 0.0032 * (1.2 - 0.7 * u)), closed=False, alpha=150, passes=1, jitter=0.0002)
+        for k in (0.2, 0.8):   # nail heads near both ends of the plank
+            q = L(L(B0, B1, u), L(F0, F1, u), k)
+            c.wash(ellipse(q[0] + s * 0.006, q[1], s * 0.0035 * (1.2 - 0.7 * u), s * 0.0028, 8), '#4a3b30', None, strength=0.7, layers=6, edge=0.6)
+    for k in range(10):   # grain
+        u = rnd.uniform(0.02, 0.95); off = rnd.uniform(0.15, 0.85)
+        a, b = L(B0, B1, u), L(F0, F1, u)
+        p0 = L(a, b, off * 0.4); p1 = L(a, b, min(1.0, off * 0.4 + 0.5))
+        c.dry_brush([p0, L(p0, p1, 0.5), p1], s * 0.012 * (1.2 - 0.7 * u), wood_dk, strength=0.4, bristles=4, gap=0.4)
+    c.ink_line([B0, B1], width=max(2, s * 0.003), closed=False, alpha=140, passes=1, jitter=0.0002)
+    c.ink_line([F0, F1, (F1[0], F1[1] + thick1), (F0[0], F0[1] + thick0)], width=max(2, s * 0.0035), closed=False, alpha=170, passes=1, jitter=0.0002)
+    if box:   # a green tackle box sitting on the planks
+        m = L(L(B0, B1, 0.3), L(F0, F1, 0.3), 0.55)
+        bw, bh, bd = s * 0.085, s * 0.06, s * 0.03
+        bx, by = m
+        green = P.get('box', '#4f8460'); green_dk = P.get('box_dark', '#2f5a41')
+        front_face = [(bx - bw, by - bh), (bx + bw, by - bh), (bx + bw, by), (bx - bw, by)]
+        top_face = [(bx - bw, by - bh), (bx - bw + bd, by - bh - bd * 0.7), (bx + bw + bd, by - bh - bd * 0.7), (bx + bw, by - bh)]
+        side = [(bx + bw, by - bh), (bx + bw + bd, by - bh - bd * 0.7), (bx + bw + bd, by - bd * 0.7), (bx + bw, by)]
+        c.wash(front_face, green, green_dk, strength=0.8, spread=0.005, layers=14, edge=0.7, ang=math.pi / 2)
+        c.wash(side, green_dk, None, strength=0.8, spread=0.005, layers=10, edge=0.6)
+        c.wash(top_face, '#7fae8a', green, strength=0.7, spread=0.005, layers=10, edge=0.6)
+        c.wash(rect(bx - bw * 0.15, by - bh * 0.62, bx + bw * 0.15, by - bh * 0.42), '#d9b45a', None, strength=0.85, layers=8, edge=0.6)
+        c.ink_line(smooth([(bx - bw * 0.45, by - bh - bd * 0.35), (bx - bw * 0.3, by - bh - bd * 1.6), (bx + bw * 0.45, by - bh - bd * 1.6),
+                           (bx + bw * 0.6, by - bh - bd * 0.35)], 2, closed=False), width=max(2, s * 0.004), closed=False, alpha=200, passes=1, jitter=0.0002)
+        c.ink_line(front_face, width=max(2, s * 0.003), alpha=170, passes=1, jitter=0.0002)
+        c.lift(rect(bx - bw * 0.9, by - bh * 0.95, bx - bw * 0.5, by - bh * 0.15), amount=0.3, soft=0.2)
+        # a shadow on the planks
+        c.wash(ellipse(bx + bw * 0.3, by + s * 0.004, bw * 1.15, s * 0.008, 14), wood_dk, None, strength=0.3, spread=0.04, layers=8, edge=0.3)
+    if rod:
+        butt = L(L(B0, B1, 0.78), L(F0, F1, 0.78), 0.6)
+        tip = (x + s * 0.34, y - s * 0.56)
+        mid = ((butt[0] + tip[0]) / 2 - s * 0.03, (butt[1] + tip[1]) / 2 - s * 0.03)
+        path = [butt] + smooth([butt, mid, tip], 2, closed=False) + [tip]   # keep both ends (open Chaikin trims them)
+        c.ink_line(path, width=max(3, s * 0.0085), closed=False, color=(48, 40, 34), alpha=235, passes=1, jitter=0.0001)
+        c.wash(_band([butt, L(butt, tip, 0.12)], s * 0.013, s * 0.01), '#7a5236', None, strength=0.9, layers=8, edge=0.6)   # cork grip
+        r0 = L(butt, tip, 0.17)
+        c.wash(ellipse(r0[0], r0[1] + s * 0.016, s * 0.022, s * 0.022, 14), '#9aa3ab', '#5d666e', strength=0.8, layers=10, edge=0.7)
+        bxu, byu = bobber or (0.6, 0.12)
+        bb = (x + s * bxu, y + s * byu)
+        sag = ((tip[0] + bb[0]) / 2 + s * 0.04, (tip[1] + bb[1]) / 2 + s * 0.06)
+        c.ink_line([tip] + smooth([tip, sag, bb], 3, closed=False) + [bb], width=max(1, s * 0.0022), closed=False, color=(90, 96, 104), alpha=170, passes=1, jitter=0.00005)
+        br = s * 0.02
+        for r in (1.8, 3.0, 4.4):
+            c.ink_line(ellipse(bb[0], bb[1] + br * 0.5, br * r, br * r * 0.25, 22), width=max(2, s * 0.0022), alpha=95, passes=1, jitter=0.0002)
+        c.wash(ellipse(bb[0], bb[1] + br * 0.2, br, br * 0.85, 16), '#f4efe6', None, strength=0.35, layers=8, edge=0.8)
+        c.wash([(bb[0] - br, bb[1]), (bb[0] - br * 0.7, bb[1] - br * 0.75), (bb[0], bb[1] - br), (bb[0] + br * 0.7, bb[1] - br * 0.75), (bb[0] + br, bb[1])],
+               '#d8433a', None, strength=0.95, layers=10, edge=0.7)
+        c.ink_line(ellipse(bb[0], bb[1], br, br * 0.95, 18), width=max(2, s * 0.0025), alpha=170, passes=1, jitter=0.0001)
+
+
+def rowboat(c, x, y, s, P, facing=1, color=None):
+    """A wooden rowboat floating side-on: painted hull with a cream rub rail,
+    the wooden inside showing above the near gunwale, two thwarts, an oar
+    resting in the water, a dark waterline and a broken reflection.
+    (x, y) = middle of the waterline, s = half its length; facing 1 = bow right."""
+    rnd = c.rnd
+    red = color or P.get('boat', '#c4553a'); red_hi = P.get('boat2', '#e3815c'); red_dk = P.get('boat_dark', '#7f2f24')
+    inside = P.get('boat_in', '#b48659'); inside_dk = P.get('wood_dark', '#6e4c32')
+    f = facing
+
+    def T(px, py):
+        return (x + f * s * px, y + s * py)
+    near = [(-1.0, -0.38), (-0.6, -0.31), (-0.2, -0.29), (0.2, -0.3), (0.55, -0.35), (0.82, -0.44), (1.0, -0.6)]
+    far = [(-0.97, -0.48), (-0.6, -0.42), (-0.2, -0.4), (0.2, -0.41), (0.55, -0.45), (0.82, -0.51), (1.0, -0.6)]
+    # reflection first (under everything)
+    refl = [T(px, -py * 0.6 + 0.02) for px, py in near] + [T(0.75, 0.02), T(-0.95, 0.02)]
+    c.wash(smooth(refl, 1), P.get('water2', '#cfe1ea'), P.get('water', '#4c82aa'), strength=0.5, spread=0.06, layers=12, edge=0.0,
+           blur=s * 0.03, ang=math.pi / 2)
+    c.wash(smooth(refl, 1), red, None, strength=0.24, spread=0.08, layers=12, edge=0.0, blur=s * 0.04)
+    for k in range(9):   # the surface breaks the reflection into bands
+        py = s * rnd.uniform(0.04, 0.24); px = rnd.uniform(-0.9, 0.7)
+        c.lift(ellipse(T(px, 0)[0], y + py, s * rnd.uniform(0.12, 0.3), s * 0.01, 10), amount=0.55, soft=0.25)
+    # the inside of the hull
+    c.wash(smooth([T(*p) for p in far] + [T(*p) for p in reversed(near)], 1), inside, inside_dk, strength=0.75, spread=0.01, layers=16,
+           edge=0.7, ang=math.pi / 2)
+    for tx in (-0.5, 0.3):   # thwarts (seats)
+        a = T(tx - 0.06, -0.41); b = T(tx + 0.06, -0.41)
+        c.wash([a, b, T(tx + 0.07, -0.3), T(tx - 0.05, -0.3)], P.get('wood2', '#e2c49b'), None, strength=0.75, layers=10, edge=0.7)
+    # the hull side
+    hull = [T(*p) for p in near] + [T(0.93, -0.32), T(0.84, -0.12), T(0.7, 0.0), T(-0.96, 0.0)]
+    c.wash(smooth(hull, 1), red_hi, red, strength=0.85, spread=0.008, layers=24, edge=0.75, vary=red_dk, vary_amt=0.3, ang=math.pi / 2)
+    # planking lines and a shadow along the bottom
+    for k in (0.42, 0.62, 0.82):
+        line = [T(-0.98, -0.38 * (1 - k)), T(-0.3, -0.3 * (1 - k)), T(0.4, -0.31 * (1 - k)), T(0.86 - 0.16 * k, -0.4 * (1 - k))]
+        c.ink_line(smooth(line, 2, closed=False), width=max(1, s * 0.004), closed=False, color=(110, 44, 34), alpha=120, passes=1, jitter=0.0002)
+    c.wash([T(-0.96, -0.08), T(0.74, -0.06), T(0.7, 0.0), T(-0.96, 0.0)], red_dk, None, strength=0.5, spread=0.02, layers=10, edge=0.4)
+    # cream rub rail along the near gunwale
+    rail = [T(px, py) for px, py in near] + [T(px, py + 0.06) for px, py in reversed(near[:-1])] + [T(-1.0, -0.32)]
+    c.wash(smooth(rail, 1), '#f3ead8', '#d9c9a8', strength=0.6, spread=0.004, layers=12, edge=0.7)
+    c.lift(smooth([T(-0.8, -0.24), T(0.3, -0.22), T(0.6, -0.27), T(0.3, -0.18), T(-0.8, -0.2)], 1), amount=0.35, soft=0.2)
+    # the oar: shaft from the oarlock down into the water, blade just under the surface
+    a = T(-0.1, -0.36); b = T(-0.55, 0.1)
+    c.wash(_band([a, b], s * 0.02, s * 0.018), P.get('wood2', '#e2c49b'), None, strength=0.8, layers=10, edge=0.7)
+    c.wash(ellipse(T(-0.62, 0.17)[0], T(-0.62, 0.17)[1], s * 0.12, s * 0.035, 16, f * 0.55), P.get('wood2', '#e2c49b'), P.get('water', '#4c82aa'),
+           strength=0.4, layers=10, edge=0.4)
+    c.ink_line([a, b], width=max(2, s * 0.004), closed=False, alpha=150, passes=1, jitter=0.0002)
+    # waterline and pen edges
+    c.wash([T(-0.98, -0.012), T(0.72, -0.012), T(0.72, 0.016), T(-0.98, 0.016)], '#2f4f63', None, strength=0.55, spread=0.03, layers=8, edge=0.5)
+    c.ink_line(smooth(hull, 1), width=max(2, s * 0.005), alpha=150, passes=1, jitter=0.0002)
+    c.ink_line(smooth([T(*p) for p in far], 1, closed=False), width=max(2, s * 0.004), closed=False, alpha=130, passes=1, jitter=0.0002)
+    for r in (1.08, 1.2):
+        c.ink_line([T(-r, 0.03), T(-r + 0.25, 0.035)], width=max(2, s * 0.003), closed=False, alpha=110, passes=1, jitter=0.0002)
+        c.ink_line([T(r * 0.8, 0.03), T(r * 0.8 - 0.22, 0.035)], width=max(2, s * 0.003), closed=False, alpha=110, passes=1, jitter=0.0002)
+
+
+def trout(c, x, y, s, P, facing=1, arc=0.55, water=None):
+    """A rainbow trout leaping clear of the water: arched body (olive back with
+    dark spots, a rosy band along the side, pale belly), forked tail, fins,
+    eye and gill line; spray droplets and rings where it broke the surface.
+    (x, y) = middle of the body, s = half its length. water = the surface's
+    distance below (x, y) in units of s."""
+    rnd = c.rnd
+    f = facing
+    back = P.get('trout', '#76905a'); belly = P.get('trout2', '#e9e4d0'); rose = P.get('trout_rose', '#e08a92'); dk = P.get('trout_dark', '#3f5233')
+    N = 21
+    cen = [(x + f * s * (2 * u - 1), y - s * arc * 4 * u * (1 - u) + s * arc * 0.5) for u in [k / (N - 1) for k in range(N)]]
+    prof = [0.05, 0.08, 0.1, 0.12, 0.145, 0.17, 0.19, 0.205, 0.215, 0.222, 0.226, 0.226, 0.222, 0.212, 0.198, 0.178, 0.152, 0.12, 0.085, 0.05, 0.02]
+    up, lo = [], []
+    for i, (px, py) in enumerate(cen):
+        nx, ny = _path_normal(cen, i)
+        if ny > 0:
+            nx, ny = -nx, -ny
+        w = s * prof[i]
+        up.append((px + nx * w, py + ny * w)); lo.append((px - nx * w * 0.95, py - ny * w * 0.95))
+    body = up + list(reversed(lo))
+    # tail: a forked fin at the tail end (u = 0)
+    t0, t1 = cen[0], cen[2]
+    dx, dy = t0[0] - t1[0], t0[1] - t1[1]; Ld = math.hypot(dx, dy) or 1; dx, dy = dx / Ld, dy / Ld
+    nx, ny = -dy, dx
+    tail = [(t0[0] + nx * s * 0.04, t0[1] + ny * s * 0.04), (t0[0] + dx * s * 0.3 + nx * s * 0.2, t0[1] + dy * s * 0.3 + ny * s * 0.2),
+            (t0[0] + dx * s * 0.2, t0[1] + dy * s * 0.2), (t0[0] + dx * s * 0.3 - nx * s * 0.2, t0[1] + dy * s * 0.3 - ny * s * 0.2),
+            (t0[0] - nx * s * 0.04, t0[1] - ny * s * 0.04)]
+    c.wash(smooth(tail, 1), back, dk, strength=0.75, spread=0.02, layers=14, edge=0.8)
+    # dorsal and lower fins
+    m = 9
+    c.wash([up[m - 2], (up[m][0] + (up[m][0] - cen[m][0]) * 0.9, up[m][1] + (up[m][1] - cen[m][1]) * 0.9), up[m + 2]], back, dk, strength=0.7, layers=10, edge=0.7)
+    m2 = 14
+    c.wash([lo[m2 - 1], (lo[m2][0] + (lo[m2][0] - cen[m2][0]) * 0.8, lo[m2][1] + (lo[m2][1] - cen[m2][1]) * 0.8), lo[m2 + 1]], '#c9a98a', None,
+           strength=0.6, layers=8, edge=0.7)
+    # the body: olive back over a pale belly, then the rosy band
+    c.wash(smooth(body, 1), back, belly, strength=0.82, spread=0.006, layers=22, edge=0.7, vary='#9fb07a', vary_amt=0.35, ang=-math.pi / 2 if f > 0 else -math.pi / 2)
+    band = [(cen[i][0] + (lo[i][0] - cen[i][0]) * 0.05, cen[i][1] + (lo[i][1] - cen[i][1]) * 0.05) for i in range(3, N - 4)]
+    c.wash(_band(band, s * 0.05, s * 0.035), rose, '#c96b7a', strength=0.65, spread=0.02, layers=12, edge=0.5)
+    c.lift(smooth([lo[i] for i in range(4, N - 4)] + [cen[i] for i in range(N - 5, 3, -1)], 1), amount=0.3, soft=0.25)
+    # spots on the back and tail
+    for _ in range(26):
+        i = rnd.randint(0, N - 5)
+        k = rnd.uniform(0.25, 0.85)
+        px = cen[i][0] + (up[i][0] - cen[i][0]) * k; py = cen[i][1] + (up[i][1] - cen[i][1]) * k
+        rr = s * rnd.uniform(0.008, 0.015)
+        c.wash(ellipse(px, py, rr, rr * 0.85, 8), dk, None, strength=0.85, layers=6, edge=0.6)
+    for _ in range(6):
+        px = t0[0] + dx * s * rnd.uniform(0.05, 0.2) + nx * s * rnd.uniform(-0.12, 0.12)
+        py = t0[1] + dy * s * rnd.uniform(0.05, 0.2) + ny * s * rnd.uniform(-0.12, 0.12)
+        c.wash(ellipse(px, py, s * 0.008, s * 0.007, 8), dk, None, strength=0.8, layers=6, edge=0.6)
+    # head: eye, gill line, mouth
+    h = cen[N - 4]
+    ex, ey = h[0] + (up[N - 4][0] - h[0]) * 0.25, h[1] + (up[N - 4][1] - h[1]) * 0.25
+    c.wash(ellipse(ex, ey, s * 0.03, s * 0.03, 12), '#e8c56a', None, strength=0.8, layers=8, edge=0.7)
+    c.wash(ellipse(ex, ey, s * 0.017, s * 0.017, 10), '#1f1f22', None, strength=1.0, layers=6, edge=0.5)
+    gouache(c, ellipse(ex - s * 0.007, ey - s * 0.008, s * 0.006, s * 0.006, 8), alpha=230, soft=0.1)
+    g = N - 7
+    gill = [(up[g][0] * 0.7 + cen[g][0] * 0.3, up[g][1] * 0.7 + cen[g][1] * 0.3), (cen[g + 1][0], cen[g + 1][1]),
+            (lo[g][0] * 0.75 + cen[g][0] * 0.25, lo[g][1] * 0.75 + cen[g][1] * 0.25)]
+    c.ink_line(smooth(gill, 2, closed=False), width=max(2, s * 0.008), closed=False, alpha=150, passes=1, jitter=0.0002)
+    c.ink_line(smooth(body, 1), width=max(2, s * 0.007), alpha=140, passes=1, jitter=0.0002)
+    # spray and rings where it left the water
+    if water is not None:
+        sx = cen[3][0]
+        water = y + s * water
+        for r in (0.18, 0.32, 0.48):
+            c.ink_line(ellipse(sx, water, s * r, s * r * 0.18, 24), width=max(2, s * 0.006), alpha=110, passes=1, jitter=0.0002)
+        c.lift(ellipse(sx, water, s * 0.3, s * 0.05, 16), amount=0.5, soft=0.3)
+        for _ in range(22):
+            a = rnd.uniform(-math.pi * 0.95, -math.pi * 0.05)
+            r = s * rnd.uniform(0.08, 0.45)
+            px = sx + r * math.cos(a) * 1.2; py = water + r * math.sin(a) * 0.9
+            rr = s * rnd.uniform(0.006, 0.016)
+            c.wash(ellipse(px, py, rr, rr * 1.2, 8), P.get('water', '#4c82aa'), None, strength=0.55, layers=6, edge=0.8)
+            gouache(c, ellipse(px - rr * 0.3, py - rr * 0.3, rr * 0.45, rr * 0.45, 8), alpha=225, soft=0.1)
+
+
+def cattails(c, x, y, s, P, n=4, reeds=9, lean=0.0):
+    """A clump of cattails at the water's edge: long blade leaves, some bent,
+    brown velvety heads on thin stems with a spike above each.
+    (x, y) = foot of the clump, s = its height."""
+    rnd = c.rnd
+    g1 = P.get('reed', '#6f9a58'); g2 = P.get('reed2', '#b6c97f'); gd = P.get('reed_dark', '#3f6a3c')
+    brown = P.get('cattail', '#7a4c2e'); brown2 = P.get('cattail2', '#a7714a')
+    for k in range(reeds):
+        a = -math.pi / 2 + lean + rnd.uniform(-0.45, 0.45)
+        L = s * rnd.uniform(0.55, 1.0)
+        px = x + s * rnd.uniform(-0.12, 0.12)
+        c.wash(leaf(px, y, L, L * 0.035, a), g2 if k % 2 else g1, gd, strength=0.75, spread=0.01, layers=10, edge=0.7)
+        if rnd.random() < 0.35:   # a broken, bent-over blade
+            tip = (px + L * 0.55 * math.cos(a), y + L * 0.55 * math.sin(a))
+            c.wash(leaf(tip[0], tip[1], L * 0.35, L * 0.03, a + rnd.choice((-1, 1)) * rnd.uniform(1.0, 1.6)), g1, gd, strength=0.7, layers=8, edge=0.7)
+    for k in range(n):
+        a = -math.pi / 2 + lean + rnd.uniform(-0.18, 0.18)
+        L = s * rnd.uniform(0.75, 1.05)
+        px = x + s * rnd.uniform(-0.1, 0.1)
+        top = (px + L * math.cos(a), y + L * math.sin(a))
+        c.ink_line([(px, y), top], width=max(2, s * 0.01), closed=False, color=(86, 104, 62), alpha=210, passes=1, jitter=0.0002)
+        hx = px + L * 0.82 * math.cos(a); hy = y + L * 0.82 * math.sin(a)
+        hl = s * rnd.uniform(0.13, 0.17)
+        head = ellipse(hx, hy, hl / 2, s * 0.028, 16, a)
+        c.wash(head, brown2, brown, strength=0.9, spread=0.01, layers=14, edge=0.8, ang=0.0)
+        c.dry_brush([(hx - math.cos(a) * hl * 0.4 - s * 0.012, hy - math.sin(a) * hl * 0.4), (hx + math.cos(a) * hl * 0.4 - s * 0.012, hy + math.sin(a) * hl * 0.4)],
+                    s * 0.01, '#4a2c1a', strength=0.5, bristles=3)
+        c.lift(ellipse(hx + s * 0.01, hy, hl * 0.3, s * 0.008, 10, a), amount=0.3, soft=0.3)
+
+
+def lily_pads(c, x, y, s, P, n=4, flower=True):
+    """Floating lily pads (flat ellipses with a notch) and one white water lily.
+    (x, y) = centre of the group, s = its spread."""
+    rnd = c.rnd
+    g1 = P.get('pad', '#7fa860'); g2 = P.get('pad2', '#c3d48a'); gd = P.get('pad_dark', '#46703f')
+    spots = [(x + s * rnd.uniform(-1, 1), y + s * rnd.uniform(-0.25, 0.25)) for _ in range(n)]
+    for k, (px, py) in enumerate(spots):
+        r = s * rnd.uniform(0.18, 0.3)
+        a0 = rnd.uniform(0, 2 * math.pi)
+        pts = [(px, py)]
+        for j in range(26):
+            a = a0 + 0.35 + (2 * math.pi - 0.7) * j / 25
+            pts.append((px + r * math.cos(a), py + r * 0.32 * math.sin(a)))
+        c.wash(pts, g2, g1, strength=0.8, spread=0.006, layers=14, edge=0.75, vary=gd, vary_amt=0.3)
+        c.ink_line([(px, py), (px + r * 0.8 * math.cos(a0 + 2.2), py + r * 0.26 * math.sin(a0 + 2.2))], width=max(1, s * 0.006), closed=False, alpha=100, passes=1)
+    if flower:
+        fx, fy = spots[0][0] + s * 0.05, spots[0][1] - s * 0.04
+        for k in range(7):
+            ang = -math.pi / 2 + (k - 3) * 0.42
+            c.wash(petal(fx, fy, s * 0.13, s * 0.045, ang), '#fbf6ef', '#f0c6d2', strength=0.45, layers=10, edge=0.9)
+        c.wash(ellipse(fx, fy - s * 0.02, s * 0.03, s * 0.02, 10), '#f2c64b', None, strength=0.85, layers=8, edge=0.7)
+        c.ink_line(smooth([(fx - s * 0.13, fy), (fx, fy + s * 0.02), (fx + s * 0.13, fy)], 1, closed=False), width=max(1, s * 0.006), closed=False, alpha=110, passes=1)
+
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
            'glass_bauble': glass_bauble, 'narcissus': narcissus, 'snowdrop': snowdrop, 'night_sky2': night_sky2,
-           'carnation': carnation, 'violet': violet}
+           'carnation': carnation, 'violet': violet,
+           'sunrise': sunrise, 'mountains2': mountains2, 'lake': lake, 'birds': birds, 'dock': dock, 'rowboat': rowboat, 'trout': trout,
+           'cattails': cattails, 'lily_pads': lily_pads}

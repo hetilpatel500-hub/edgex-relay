@@ -149,8 +149,8 @@ open rows, in order) instead of 1, and marks each row done with the date.
 |---|---|---|
 | Top 100 Halloween Finds | Reading Ghosts, Autumn Leaves, Pumpkins & Purrs (Oct 5) | done for 2026 |
 | Gifts for Pets & Owners | Morning Walks & Good Dogs, Pumpkins & Purrs | 4. dog-breed florals: **Dachshund Florals done 2026-10-06** (all-over mugs; built and Legal-cleared, not on Printify yet, see below) |
-| Gifts for Grandparents | Grandma's Garden (Oct 5) | 5. a grandpa design (garden, fishing or coffee) |
-| Top 100 Gifts for Libras (zodiac) | Scorpio Constellation (drafted Oct 5) | 1. zodiac series, one design per sign (constellation + birth-month flower): **Scorpio done 2026-10-05** (drafts). **Libra held 2026-10-05**: a pending LIBRA application covers t-shirts and sweatshirts (Astryx LLC, serial 99209588), so the owner decides; the art is ready in `designs/libra-constellation.json`. **Sagittarius held 2026-10-06**: a pending SAGITTARIUS ATHLETIC application covers tees and sweatshirts (Sagittarius Athletic, LLC, serial 97660475), so the owner decides with Libra; no art made. **Capricorn done 2026-11-05** and **Aquarius done 2026-11-06** (both built and Legal-cleared, not on Printify yet). Next: Pisces (Feb 19-Mar 20), then one sign a day; screen each sign name for clothing marks first |
+| Gifts for Grandparents | Grandma's Garden (Oct 5) | 5. a grandpa design: **Grandpa's Fishing Hole done 2026-11-09** (built and Legal-cleared, not on Printify yet) |
+| Top 100 Gifts for Libras (zodiac) | Scorpio Constellation (drafted Oct 5) | 1. zodiac series, one design per sign (constellation + birth-month flower): **Scorpio done 2026-10-05** (drafts). **Libra held 2026-10-05**: a pending LIBRA application covers t-shirts and sweatshirts (Astryx LLC, serial 99209588), so the owner decides; the art is ready in `designs/libra-constellation.json`. **Sagittarius held 2026-10-06**: a pending SAGITTARIUS ATHLETIC application covers tees and sweatshirts (Sagittarius Athletic, LLC, serial 97660475), so the owner decides with Libra; no art made. **Capricorn done 2026-11-05** and **Aquarius done 2026-11-06** (both built and Legal-cleared, not on Printify yet). **Pisces held 2026-11-09**: a pending PISCES application covers hats, hoodies and shirts (serial 98067838). **Aries held 2026-11-09**: ARIES is registered for clothing incl. tees and sweatshirts (reg. 6297441, Slam Jam). Both wait for the owner with Libra and Sagittarius. Next: Taurus, then one sign a day; screen each sign name for clothing marks first |
 | Gifts for Him | Campfire Season (drafted Oct 5) | 2. outdoors: **Campfire Season done 2026-10-05** (drafts) |
 | Top 100 Holiday Gifts | Cocoa Season, Christmas Cookies, Snowy Pine Cardinals, Sufganiyot Season (live Oct 5) | 3. Thanksgiving (Nov 26): **Pie Season done 2026-10-06** (built and Legal-cleared, not on Printify yet, see below); then more Christmas: **Tree Farm Season, Deck the Shelves and Vintage Glass Ornaments done 2026-11-05** (built and Legal-cleared, not on Printify yet) |
 | Housewarming Gifts | Soup Season and Cocoa Season art prints and mugs | 6. a kitchen or home art print design |
@@ -382,3 +382,15 @@ Studio Floor at any time.
   cleared with a note to check US serial 99282924; records in `pod-kit/research`, `legal` and `decisions`. Delivery
   page (private): https://claude.ai/artifact/3Vr6YTMvgittq8wadHfa28. One design this run (quality first). No Printify
   products: writes still wait for the owner. $0 spent.
+- 2026-11-09 (16:17 UTC run, Monday): the zodiac row was blocked at the trademark screen (Pisces: pending PISCES
+  application 98067838 for hats, hoodies and shirts; Aries: registered ARIES 6297441, Slam Jam, tees and sweatshirts),
+  so the run took row 5: **Grandpa's Fishing Hole** (a watercolor lake at sunrise: a weathered dock with a tackle box
+  and a rod whose line runs to a red-and-white bobber, a leaping rainbow trout, a red rowboat, cattails and lily pads,
+  spruces and painted mountains under a rose-gold sky; subline "first cast at sunrise"). Engine v2; new motifs
+  `sunrise`, `mountains2`, `lake`, `birds`, `dock`, `rowboat`, `trout`, `cattails`, `lily_pads`; `far_forest` takes a
+  `strength`. Research 21/25 (grandpa fishing shirts are pun typography or cartoon fish; no painted scene found), Legal
+  cleared; records in `pod-kit/research`, `legal` and `decisions`. The print PNG (15.9 MB) is over the artifact file
+  limit, so the delivery page stores it as an asset. Delivery page (private):
+  https://claude.ai/artifact/B4Hi4wxUVxMPx441ScuEqi. Weekly sales review (`pod-kit/research/2026-11-09-pod-review.json`):
+  0 Printify orders since the shop opened; 48 of 58 products have Etsy listing IDs; the 10 Scorpio and Campfire drafts
+  are still unpublished. No Printify products: writes still wait for the owner. $0 spent.

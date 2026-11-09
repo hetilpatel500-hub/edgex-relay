@@ -1,0 +1,30 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a decisions doc.",
+ "id": "2026-11-09-pod-grandpas-fishing-hole",
+ "by": "chief-of-staff",
+ "created": "2026-11-09T16:36:11Z",
+ "items": [
+  "grandpas-fishing-hole"
+ ],
+ "legal_refs": [
+  "pod-kit/legal/grandpas-fishing-hole.json"
+ ],
+ "legal_verdict": "cleared",
+ "decision": "approved for delivery to the owner",
+ "conditions": [
+  "Printify drafts or Etsy publishing only after the owner allows Printify writes (refused by the session's permission check since Oct 6). Then 5 products, 5 listings ($1.00 if paid), inside the $3/day cap.",
+  "Pisces (pending PISCES application 98067838) and Aries (registered ARIES 6297441) are held with Libra and Sagittarius for the owner; Taurus is screened next before any art."
+ ],
+ "reason": "Zodiac row blocked at the trademark screen for both Pisces and Aries, so the run took the next open row (grandpa design), which also fits Christmas gifting 6-7 weeks out; 21/25 research score; Legal cleared; full-size art checked. One design this run (quality first).",
+ "pod_designs": {
+  "doc_id": "grandpas-fishing-hole",
+  "title": "Grandpa's Fishing Hole",
+  "phrase": "Grandpa's Fishing Hole",
+  "niche": "Gifts for Grandparents + fishing",
+  "artifact": "https://claude.ai/artifact/B4Hi4wxUVxMPx441ScuEqi",
+  "product_ids": {},
+  "created": "2026-11-09T16:36:11Z",
+  "status": "built (not on Printify: writes wait for the owner)"
+ },
+ "emailed": "Gmail message 1a1c12e3f3069b22 to the owner, 2026-11-09"
+}
