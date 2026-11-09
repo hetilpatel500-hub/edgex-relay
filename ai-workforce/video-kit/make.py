@@ -75,7 +75,8 @@ def speakable(s):
     s = re.sub(r'\b(\d{1,3}(?:,\d{3})+)\b', lambda m: m.group(1).replace(',', ''), s)  # 450,000 -> 450000
     s = re.sub(r'\$(\d+)\.(\d\d)\b', lambda m: (words(m.group(1)) + ' dollars ' if m.group(1) != '0' else '') +
                ('and ' if m.group(1) != '0' and m.group(2) != '00' else '') + (words(int(m.group(2))) + ' cents' if m.group(2) != '00' else ''), s)
-    s = re.sub(r'([+-]?)(\d+)(?:\.(\d+))?%', lambda m: ('plus ' if m.group(1) == '+' else 'minus ' if m.group(1) == '-' else '') +
+    # a percentage, written as "12.64%" or "12.64 percent", is read with "point", never like a price
+    s = re.sub(r'([+-]?)(\d+)(?:\.(\d+))?(?:%|\s+percent\b)', lambda m: ('plus ' if m.group(1) == '+' else 'minus ' if m.group(1) == '-' else '') +
                say_dec(m.group(2), m.group(3)).strip() + ' percent', s)
     s = re.sub(r'\b(\d{1,2}):(\d\d)\b', lambda m: words(m.group(1)) + ' ' + ('' if m.group(2) == '00' else two(m.group(2))), s)
     s = re.sub(r'\b(\d{2,4})\.(\d{2})\b', lambda m: say_price(m.group(1), m.group(2)), s)
