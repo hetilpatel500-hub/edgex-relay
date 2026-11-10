@@ -1,0 +1,200 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the video desk's videos, decision and collabs docs for this run are filed here.",
+ "videos": [
+  {
+   "doc_id": "2026-11-10-movers",
+   "date": "2026-11-10",
+   "series": "movers",
+   "topic": "Biggest $1B+ movers Nov 10 (AMRC +23.03%, SECZ +22.38%, AAON +19.31%; HIMS -16.61%, WGS -16.57%, EQPT -16.50%; HIMS -26.42% over two sessions)",
+   "title": "Ameresco jumped 23% today: Nov 10's biggest movers",
+   "artifact": "https://claude.ai/artifact/CxatXMR3ZM3atJW6Tg2LAh",
+   "files": [
+    "Edgex_movers-1110_2026-11-10_9x16.mp4"
+   ],
+   "seconds": 45.47,
+   "legal_review": "video-kit/legal/2026-11-10-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-10T22:11:48Z",
+   "emailed": "Gmail message 1a1c7845f7b19f0d"
+  },
+  {
+   "doc_id": "2026-11-10-rvol-explainer",
+   "date": "2026-11-10",
+   "series": "explainer",
+   "topic": "Relative volume (NVDA Nov 10: 421.98M vs 137.35M 20-day avg = 3.07x on -5.47%; AMD 1.59x, AVGO 1.13x on +3.91%, META 0.51x flat)",
+   "title": "Relative volume, explained with Nvidia's 3.07x day",
+   "artifact": "https://claude.ai/artifact/CxatXMR3ZM3atJW6Tg2LAh",
+   "files": [
+    "Edgex_rvol-explainer_2026-11-10_9x16.mp4"
+   ],
+   "seconds": 48.46,
+   "legal_review": "video-kit/legal/2026-11-10-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-10T22:11:48Z",
+   "emailed": "Gmail message 1a1c7845f7b19f0d"
+  },
+  {
+   "doc_id": "2026-11-10-ai-week",
+   "date": "2026-11-10",
+   "series": "ai-this-week",
+   "topic": "Data center limits won 40 of 41 local measures Nov 3 (Ballotpedia); Google AI off by default for K-12 school accounts (Nov 3); Shield AI to buy Echodyne for up to $5.3B (Nov 5)",
+   "title": "Voters said no to data centers this week",
+   "artifact": "https://claude.ai/artifact/CxatXMR3ZM3atJW6Tg2LAh",
+   "files": [
+    "Edgex_ai-week-1110_2026-11-10_9x16.mp4"
+   ],
+   "seconds": 47.77,
+   "legal_review": "video-kit/legal/2026-11-10-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-10T22:11:48Z",
+   "emailed": "Gmail message 1a1c7845f7b19f0d"
+  }
+ ],
+ "last_touch": {
+  "by": "video-last-touch",
+  "verdict": "cleared",
+  "checks": {
+   "video-fact-checker": "Every on-screen and spoken number matched raw/gainers_day1.json, raw/losers_day1.json or raw/daily_6sym.json (relative volume = today / prior 20 sessions), or a named outlet (Ballotpedia, The Washington Post, Washington Technology, Breaking Defense, Defense News). Caught '41 towns and counties' (now '41 local ballot measures').",
+   "copyright-compliance-reviewer": "Own renders only: data visuals and text cards, Kokoro voice (Apache-2.0), synthesized music, OFL fonts; news summarized in our own words with outlets credited.",
+   "content-policy-reviewer": "No trade calls or targets; disclaimer on screen and in the movers and explainer captions; no schedule promises in outros; synthetic voice flagged for the AI label.",
+   "defamation-harassment-screen": "Public companies only, price and volume data; no reason given for any move; news claims are attributed to the outlets that reported them.",
+   "video-brand-tone-final-check": "Opened all three review sheets after the final render: nothing clipped or overlapping; specs h264/aac 1080x1920, under 15 MB, mean volume in range, every short under 60 s; spoken text read cleanly."
+  },
+  "created": "2026-11-10T22:11:48Z"
+ },
+ "decision": {
+  "doc_id": "2026-11-10-video-desk",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-10T22:11:48Z",
+  "reason": "Legal verdict cleared (all ten counsel), Video Last Touch cleared. Rotation: movers (market), explainer (teaching), ai-this-week (news); three different rows, none ran on Nov 9 (spy-tape, quiz, myth-fact); no topic repeats within 30 days (last movers Oct 2, last explainer Oct 5 on the 200-day average, last AI This Week Oct 5). Delivered to the owner only; nothing posted."
+ },
+ "collabs": {
+  "doc_id": "2026-11-10-video-desk",
+  "created": "2026-11-10T22:11:48Z",
+  "members": [
+   "video-trend-scout",
+   "commentary-scriptwriter",
+   "hook-writer",
+   "video-fact-checker",
+   "voiceover-tts-agent",
+   "video-editor-agent",
+   "copyright-compliance-reviewer",
+   "content-policy-reviewer",
+   "defamation-harassment-screen",
+   "video-brand-tone-final-check",
+   "publish-coordinator-video",
+   "instagram-reels-agent",
+   "facebook-video-agent",
+   "general-counsel-agent",
+   "advertising-consumer-protection-counsel",
+   "email-anti-spam-compliance-counsel",
+   "privacy-data-protection-counsel",
+   "copyright-fair-use-counsel",
+   "trademark-brand-clearance-counsel",
+   "financial-content-compliance-counsel",
+   "platform-terms-policy-counsel",
+   "kids-content-coppa-counsel",
+   "contracts-commercial-terms-counsel",
+   "chief-of-staff"
+  ],
+  "log": [
+   {
+    "agent": "video-trend-scout",
+    "line": "Picked movers (market), a relative-volume explainer (teaching) and AI This Week (news): three rows, none ran Nov 9, no topic repeats within 30 days."
+   },
+   {
+    "agent": "commentary-scriptwriter",
+    "line": "Wrote the three scenes.json files from the saved Webull data and the news searches; trimmed movers under 60 s."
+   },
+   {
+    "agent": "hook-writer",
+    "line": "Hooks: 'One stock jumped 23%. Another fell 16.6%.', 'Nvidia traded 3x its normal volume today.', 'Voters said no to data centers.'"
+   },
+   {
+    "agent": "video-fact-checker",
+    "line": "Traced every number to raw/ or a named outlet; fixed '41 towns and counties' to '41 local ballot measures'; dropped a Microsoft/Oracle story that rested on one anonymously sourced report."
+   },
+   {
+    "agent": "voiceover-tts-agent",
+    "line": "Kokoro voice; caught bare decimals read as prices ('twenty-two thirty-eight') before release and spelled tickers for the voice."
+   },
+   {
+    "agent": "video-editor-agent",
+    "line": "Rendered 3 MP4s (9:16); re-rendered after the movers cut ran 61.9 s."
+   },
+   {
+    "agent": "copyright-compliance-reviewer",
+    "line": "Cleared: own visuals, Apache-2.0 voice, synthesized music, OFL fonts, news in our own words."
+   },
+   {
+    "agent": "content-policy-reviewer",
+    "line": "Cleared: disclaimers present, no calls or targets, no schedule promises."
+   },
+   {
+    "agent": "defamation-harassment-screen",
+    "line": "Cleared: price data only, no reasons asserted, news attributed."
+   },
+   {
+    "agent": "video-brand-tone-final-check",
+    "line": "Opened all review sheets and checked specs and spoken text; cleared."
+   },
+   {
+    "agent": "publish-coordinator-video",
+    "line": "Built the private delivery page with Save and Copy buttons and emailed the owner once."
+   },
+   {
+    "agent": "instagram-reels-agent",
+    "line": "Captions and hashtags for the three 9:16 shorts; AI-info label note."
+   },
+   {
+    "agent": "facebook-video-agent",
+    "line": "Same three shorts for Facebook Reels; AI-info label note. No 16:9 cut today (no market-engine video)."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "Ran the ten-counsel review: cleared, 7 fixes made before release, 4 posting notes."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "Pass: numbers sourced, no schedule promise in outros."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: owner-only email."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: no personal data."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "Pass: no third-party assets; news summarized and credited."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "Pass: nominative use of company, product and outlet names."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "Pass: disclaimers on both market videos, no calls, no reasons for moves."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "Pass: turn on Meta 'AI info' for the synthetic voice."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "Pass: general audience; the Google story uses no child's data or image."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "Pass: no paid tools or agreements."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved with the cleared legal verdict on file; delivered to the owner only."
+   }
+  ]
+ }
+}
