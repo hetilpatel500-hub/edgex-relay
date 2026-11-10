@@ -8,7 +8,7 @@ Coordinates: (x, y) in canvas px, y down; s = the motif's size in px.
 """
 import math
 from watercolor import ellipse, leaf, petal, rect, deform
-from motifs import _rot, smooth, gouache, _rgb, _band, _star_pts, CONSTELLATIONS
+from motifs import _rot, smooth, gouache, _rgb, _band, _star_pts, CONSTELLATIONS, crescent
 
 # Capricornus, simplified to its familiar arrowhead outline (alpha-beta at the top right, delta at the left tip)
 CONSTELLATIONS.setdefault('capricornus', {
@@ -1481,10 +1481,197 @@ def lily_pads(c, x, y, s, P, n=4, flower=True):
         c.ink_line(smooth([(fx - s * 0.13, fy), (fx, fy + s * 0.02), (fx + s * 0.13, fy)], 1, closed=False), width=max(1, s * 0.006), closed=False, alpha=110, passes=1)
 
 
+# ---------------------------------------------------------------- spring and summer birth flowers (Gemini)
+# Gemini, simplified: Castor's figure (tau, theta, epsilon down to mu and eta) and Pollux's (upsilon, delta, zeta down to
+# gamma), joined at the shoulders through iota (positions from the stars' RA/Dec)
+CONSTELLATIONS.setdefault('gemini', {
+    'stars': [(-0.58, -0.64), (-0.79, -0.3), (0.55, 0.72), (0.43, -0.05), (0.84, 0.18), (1.0, 0.18), (-0.29, 0.23), (0.03, 0.35),
+              (-0.11, -0.49), (0.25, -0.82), (-0.61, -0.2), (-0.4, -0.28), (-0.77, 0.02), (0.72, 0.38), (-0.25, 0.7)],
+    'lines': [(0, 8), (8, 9), (8, 3), (3, 4), (4, 5), (3, 13), (1, 10), (10, 6), (6, 7), (7, 2), (6, 14), (1, 12), (10, 11), (11, 8)],
+    'bright': [0, 1, 2]})
+
+
+def _ruffled(cx, cy, rx, ry, rot, rnd, freq=7, amp=0.07, n=36):
+    ph = rnd.uniform(0, 6.3)
+    pts = []
+    for i in range(n):
+        t = 2 * math.pi * i / n
+        k = 1 + amp * math.sin(freq * t + ph) + amp * 0.4 * math.sin(2.3 * freq * t + ph * 2)
+        ex, ey = rx * k * math.cos(t), ry * k * math.sin(t)
+        pts.append((cx + ex * math.cos(rot) - ey * math.sin(rot), cy + ex * math.sin(rot) + ey * math.cos(rot)))
+    return pts
+
+
+def _rose_leaflet(x, y, L, W, angle, teeth=9, n=40):
+    """An ovate rose leaflet with a finely toothed edge, base at (x, y), pointing along angle."""
+    pts = []
+    for i in range(n):
+        t = 2 * math.pi * i / n
+        u = (1 - math.cos(t)) / 2                       # 0 at the base, 1 at the tip
+        w = W * math.sin(math.pi * u) ** 0.8 * (1 - 0.25 * u)
+        tooth = 1 + 0.08 * abs(math.sin(teeth * math.pi * u))
+        side = 1 if t < math.pi else -1
+        px, py = L * u, side * w * tooth
+        pts.append((x + px * math.cos(angle) - py * math.sin(angle), y + px * math.sin(angle) + py * math.cos(angle)))
+    return pts
+
+
+def rose_leaves(c, x, y, s, P, angle=0.0, n=3):
+    """A rose leaf: a short reddish-green stalk with a pair (or two) of toothed
+    leaflets and a larger one at the tip, each with a darker midrib.
+    (x, y) = where the stalk leaves the stem, s = its length."""
+    g1, g2, gd = P.get('leaf', '#4f8358'), P.get('leaf2', '#9cc08f'), P.get('leaf_dark', '#2e5a3c')
+    ca, sa = math.cos(angle), math.sin(angle)
+    at = lambda t: (x + s * t * ca, y + s * t * sa)
+    c.wash(_band([at(0), at(0.55), at(0.95)], s * 0.025, s * 0.015), P.get('stalk', '#8a6a4a'), g1, strength=0.7, layers=8, edge=0.7)
+    spots = [(0.95, 0.0, 0.5, 0.24)]
+    pairs = [(0.6, 0.38, 0.18), (0.3, 0.32, 0.15)][:max(1, (n - 1) // 2)]
+    for t, L, W in pairs:
+        for side in (-1, 1):
+            spots.append((t, side * 0.9, L, W))
+    for t, da, L, W in spots[::-1]:
+        bx, by = at(t)
+        aa = angle + da
+        lf = _rose_leaflet(bx, by, s * L, s * W, aa)
+        c.wash(lf, g2, g1, strength=0.72, spread=0.015, layers=14, edge=1.15, ang=aa, vary=gd, vary_amt=0.35)
+        tip = (bx + s * L * 0.85 * math.cos(aa), by + s * L * 0.85 * math.sin(aa))
+        c.wash(_band([(bx, by), tip], s * 0.008, s * 0.002), gd, None, strength=0.5, layers=6, edge=0.3)
+        c.lift(ellipse(bx + s * L * 0.4 * math.cos(aa) - s * W * 0.35 * math.sin(aa),
+                       by + s * L * 0.4 * math.sin(aa) + s * W * 0.35 * math.cos(aa), s * L * 0.22, s * W * 0.18, 10, aa),
+               amount=0.22, soft=0.3)
+
+
+def garden_rose(c, x, y, s, P, angle=0.0, stem=1.0, leaves=1, color=None, color2=None, bud=False, leaf_dir=-1):
+    """A garden rose (June's birth flower) in three-quarter view: a cupped bloom
+    with pale back petals, a deep spiralled centre, ruffled side petals and broad
+    front petals whose rolled rims are lifted to the paper, on a stem with toothed
+    rose leaves. (x, y) = middle of the bloom, s = its width."""
+    rnd = c.rnd
+    col = color or P.get('rose', '#e27a8c'); col2 = color2 or P.get('rose2', '#f8c9cf'); col3 = P.get('rose3', '#b5475d')
+    g1, g2 = P.get('leaf', '#4f8358'), P.get('leaf2', '#9cc08f')
+    ca, sa = math.cos(angle), math.sin(angle)
+    R = lambda px, py: (x + px * ca - py * sa, y + px * sa + py * ca)
+    if stem:
+        st = [R(0, s * 0.4), R(s * 0.04, s * (0.4 + 0.8 * stem)), R(-s * 0.02, s * (0.4 + 1.7 * stem))]
+        c.wash(_band(st, s * 0.035, s * 0.03), g2, g1, strength=0.72, layers=10, edge=0.8)
+        for k in range(leaves):
+            side = (1 if k % 2 == 0 else -1) * leaf_dir
+            bx, by = R(s * 0.02, s * (0.55 + 0.5 * k) * stem + s * 0.2)
+            rose_leaves(c, bx, by, s * 0.62, P, angle=angle + math.pi / 2 + side * 1.05, n=3 if k else 5)
+    if bud:
+        bx, by = R(s * 0.42, -s * 0.18)
+        c.wash(ellipse(bx, by, s * 0.1, s * 0.15, 16, angle + 0.5), col, col3, strength=0.75, layers=14, edge=1.1)
+        for side in (-1, 1):
+            c.wash(petal_pts(bx, by + s * 0.12, s * 0.16, s * 0.05, angle + math.pi / 2 + side * 0.35 + 0.5), g2, g1, strength=0.7, layers=8)
+    # 1 a pale first wash over the whole bloom, soft-edged, deeper low down
+    c.wash(_ruffled(*R(0, s * 0.02), s * 0.5, s * 0.42, angle, rnd, 5, 0.04), col2, col, strength=0.42, spread=0.03, layers=28,
+           edge=0.7, ang=angle + math.pi / 2, vary=col3, vary_amt=0.12)
+    # 2 one pale back petal rising behind the cup
+    c.wash(_ruffled(*R(0, -s * 0.22), s * 0.34, s * 0.15, angle, rnd, 4, 0.05), col2, col, strength=0.3, spread=0.02, layers=16,
+           edge=1.0, ang=angle - math.pi / 2)
+    # 3 the open centre: a dark cup with petals spiralling in
+    cx, cy = R(0, -s * 0.07)
+    c.wash(ellipse(cx, cy, s * 0.22, s * 0.13, 24, angle), col3, col, strength=0.5, spread=0.02, layers=16, edge=0.9)
+    a = rnd.uniform(0, 6.28)
+    for i, (r, th, st_) in enumerate(((0.2, 0.06, 0.5), (0.14, 0.05, 0.6), (0.09, 0.04, 0.75), (0.05, 0.03, 0.9))):
+        a += 2.1
+        cr = crescent(cx, cy, s * r, a, a + 3.3, s * th, n=16)
+        cr = [(cx + (px - cx), cy + (py - cy) * 0.62) for px, py in cr]
+        c.wash(cr, col3 if i > 1 else col, None, strength=st_, spread=0.02, layers=12, edge=1.1)
+    # 4 two side petals cupping the centre, rims lifted to light
+    for side in (-1, 1):
+        c.wash(_ruffled(*R(side * s * 0.3, s * 0.05), s * 0.19, s * 0.26, angle + side * 0.45, rnd, 4, 0.05), col2, col,
+               strength=0.4, spread=0.02, layers=16, edge=1.05, ang=angle + side * 0.6, vary=col3, vary_amt=0.15)
+        c.lift(ellipse(*R(side * s * 0.34, -s * 0.1), s * 0.08, s * 0.03, 12, angle + side * 0.8), amount=0.4, soft=0.35)
+    # 5 one broad front petal; its rolled rim is lifted back to the paper
+    c.wash(_ruffled(*R(0, s * 0.22), s * 0.34, s * 0.18, angle, rnd, 4, 0.04), col, col3, strength=0.42, spread=0.02,
+           layers=18, edge=1.1, ang=angle + math.pi / 2, vary=col3, vary_amt=0.2)
+    c.lift(ellipse(*R(0, s * 0.11), s * 0.27, s * 0.045, 18, angle), amount=0.55, soft=0.3)
+    # soft shadow under the front petal, and a glint on the brightest rim
+    c.wash(ellipse(*R(0, s * 0.37), s * 0.24, s * 0.05, 16, angle), col3, None, strength=0.25, spread=0.03, layers=8, edge=0.4)
+    gouache(c, ellipse(*R(-s * 0.1, s * 0.11), s * 0.04, s * 0.012, 10, angle - 0.15), color=(255, 246, 246), alpha=170, soft=0.2)
+
+
+def _curved_leaf(p0, p1, p2, W, n=26, tip=0.3):
+    """A smooth lance-shaped leaf along a quadratic curve p0 (base) -> p2 (tip), widest a third of the way up."""
+    def at(t):
+        return ((1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t * t * p2[0], (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t * t * p2[1])
+    left, right = [], []
+    for i in range(n + 1):
+        t = i / n
+        (ax, ay), (bx, by) = at(max(0, t - 0.01)), at(min(1, t + 0.01))
+        dx, dy = bx - ax, by - ay
+        L = math.hypot(dx, dy) or 1
+        nx, ny = -dy / L, dx / L
+        w = W * math.sin(math.pi * t) ** 0.65 * (1 - tip * t)
+        x, y = at(t)
+        left.append((x + nx * w, y + ny * w)); right.append((x - nx * w, y - ny * w))
+    return left + right[::-1], at
+
+
+def lily_valley(c, x, y, s, P, facing=1, bells=6, leaves=2):
+    """Lily of the valley (May's birth flower): two broad, ribbed leaves, and an
+    arching stem hung with nodding white bells with scalloped rims, shaded grey-green
+    so white reads on white, largest near the stem and smaller to the tip.
+    (x, y) = base of the stem, s = its height."""
+    rnd = c.rnd
+    g1, g2, gd = P.get('leaf', '#4f8358'), P.get('leaf2', '#9cc08f'), P.get('leaf_dark', '#2e5a3c')
+    f = facing
+    for k in range(leaves):
+        side = -f if k == 0 else f
+        L = s * (0.92 if k == 0 else 0.74)
+        p0, p1, p2 = (x, y), (x + side * s * 0.3, y - L * 0.5), (x + side * s * 0.16, y - L)
+        lf, at = _curved_leaf(p0, p1, p2, s * 0.13)
+        c.wash(lf, g2, g1, strength=0.68, spread=0.012, layers=16, edge=1.1, ang=-math.pi / 2, vary=gd, vary_amt=0.3)
+        for rib in (-0.45, 0.0, 0.45):
+            pts = []
+            for j in range(1, 10):
+                t = j / 10
+                (ax, ay), (bx, by) = at(max(0, t - 0.01)), at(min(1, t + 0.01))
+                L2 = math.hypot(bx - ax, by - ay) or 1
+                w = rib * s * 0.13 * math.sin(math.pi * t) ** 0.65 * (1 - 0.3 * t)
+                px, py = at(t)
+                pts.append((px - (by - ay) / L2 * w, py + (bx - ax) / L2 * w))
+            c.wash(_band(pts, s * 0.005, s * 0.002), gd, None, strength=0.3, layers=5, edge=0.3)
+        mx, my = at(0.45)
+        c.lift(ellipse(mx + side * s * 0.03, my, s * 0.03, s * 0.12, 10, side * 0.3), amount=0.22, soft=0.4)
+    path = smooth([(x + f * s * 0.02, y), (x + f * s * 0.06, y - s * 0.55), (x + f * s * 0.2, y - s * 0.97), (x + f * s * 0.5, y - s * 1.05),
+                   (x + f * s * 0.76, y - s * 0.9)], 2, closed=False)
+    c.wash(_band(path, s * 0.018, s * 0.009), g2, g1, strength=0.78, layers=10, edge=0.8)
+    n = len(path)
+    for b in range(bells):
+        t = 0.42 + 0.56 * b / max(1, bells - 1)
+        i = min(n - 1, int(t * (n - 1)))
+        px, py = path[i]
+        sz = s * (0.175 - 0.075 * b / max(1, bells - 1))
+        drop = sz * (0.95 if b % 2 == 0 else 0.75)
+        hx, hy = px + f * sz * 0.08, py + drop          # the bell hangs on a short curved pedicel
+        ped = smooth([(px, py), (px + f * sz * 0.16, py + drop * 0.35), (hx, hy - sz * 0.42)], 2, closed=False)
+        c.wash(_band(ped, sz * 0.05, sz * 0.04), g2, g1, strength=0.72, layers=8, edge=0.7)
+        if b >= bells - 1:                              # the last one is a round bud
+            gouache(c, ellipse(hx, hy - sz * 0.12, sz * 0.3, sz * 0.34, 18), color=(252, 252, 246), alpha=235, soft=0.03)
+            c.wash(ellipse(hx, hy - sz * 0.12, sz * 0.3, sz * 0.34, 18), '#f4f6ee', '#c2cfc0', strength=0.4, layers=10, edge=1.3)
+            continue
+        dome = [(hx - sz * 0.45 * math.cos(math.pi * j / 20), hy - sz * 0.36 - sz * 0.14 * math.sin(math.pi * j / 20)) for j in range(21)]
+        shape = [(hx - sz * 0.56, hy + sz * 0.05), (hx - sz * 0.48, hy - sz * 0.28)] + dome + [(hx + sz * 0.48, hy - sz * 0.28),
+                                                                                              (hx + sz * 0.56, hy + sz * 0.05)]
+        for j in range(30, -1, -1):                      # scalloped rim, five little flared lobes
+            u = j / 30
+            shape.append((hx + sz * 0.56 * (u * 2 - 1), hy + sz * 0.05 + sz * 0.1 * abs(math.sin(u * math.pi * 5))))
+        shape = smooth(shape, 1)
+        gouache(c, shape, color=(252, 252, 247), alpha=240, soft=0.02)
+        c.wash(shape, '#f7f7f1', '#c8d3d0', strength=0.42, spread=0.006, layers=14, edge=1.5, ang=-math.pi / 2)
+        c.wash(_band([(hx + f * sz * 0.3, hy - sz * 0.3), (hx + f * sz * 0.36, hy + sz * 0.02)], sz * 0.07, sz * 0.05), '#b6c4c2', None,
+               strength=0.22, layers=8, edge=0.3)
+        c.ink_line(shape, width=max(1, sz * 0.022), alpha=95, passes=1, jitter=0, color=(96, 118, 112))
+        gouache(c, ellipse(hx - f * sz * 0.2, hy - sz * 0.2, sz * 0.07, sz * 0.12, 8), color=(255, 255, 255), alpha=230, soft=0.15)
+
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
            'glass_bauble': glass_bauble, 'narcissus': narcissus, 'snowdrop': snowdrop, 'night_sky2': night_sky2,
            'carnation': carnation, 'violet': violet,
            'sunrise': sunrise, 'mountains2': mountains2, 'lake': lake, 'birds': birds, 'dock': dock, 'rowboat': rowboat, 'trout': trout,
-           'cattails': cattails, 'lily_pads': lily_pads}
+           'cattails': cattails, 'lily_pads': lily_pads,
+           'rose_leaves': rose_leaves, 'garden_rose': garden_rose, 'lily_valley': lily_valley}

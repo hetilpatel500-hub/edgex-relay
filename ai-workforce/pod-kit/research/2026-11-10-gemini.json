@@ -1,0 +1,75 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a pod_research doc.",
+ "id": "gemini-constellation-2026-11-10",
+ "created": "2026-11-10T16:28:36Z",
+ "queue_row": "Gift-category plan row 1 (zodiac series, one sign a day). Taurus was screened first and held: the TAURUS design mark reg. 5398909 (Forjas Taurus) covers graphic t-shirts and hats (sold through firearms channels) and TAURUS STYLE serial 90520983 is listed active for t-shirts. Gemini, the next sign, passed the screen.",
+ "phrase": "Gemini",
+ "subline": "May 21 - June 20",
+ "niche": "Top 100 Gifts for zodiac signs (Gemini) + birth-month flowers; an evergreen birthday gift that also sells as a Christmas gift for a Gemini",
+ "seasonal_calendar": "4-8 weeks ahead (Dec 8 - Jan 5): Christmas and New Year's, already covered by the Christmas batch. Zodiac gifts are evergreen; Gemini birthdays run May 21 - June 20, so this listing has six months to index before its peak, and Mother's Day (May 10, 2027) falls just before it.",
+ "trend_searches": [
+  "zodiac constellation shirt trend 2026 Etsy birth flower gift (Etsy listings bundle the sign, the birth flower and a constellation on one tee at about $25-35; gift guides like Uncommon Goods' 2026 zodiac page list birth-month flowers and constellations; no 2026 sales data)",
+  "Gemini constellation shirt etsy watercolor (Gemini tees $13-32 on Etsy; Inktastic Gemini Constellation tees at Walmart $15-26; TeePublic Gemini Constellation tee $24; the only watercolor Gemini item found was a digital clipart bundle)",
+  "Christmas gift trends December 2026 personalized astrology birthday gifts (personalized and sentimental gifts lead; astrology a steady niche; seller blogs, no authoritative data)",
+  "Gemini zodiac mug birth flower lily of the valley rose gift (astrology and florist pages name lily of the valley for May and the rose for June; a birth-flower watercolor mug is sold on Not On The High Street)"
+ ],
+ "sources": [
+  "https://www.etsy.com/listing/1306531088",
+  "https://www.etsy.com/listing/687537270",
+  "https://www.uncommongoods.com/sets/zodiac-gifts",
+  "https://www.etsy.com/listing/1494032486",
+  "https://www.etsy.com/listing/573842886",
+  "https://www.walmart.com/ip/666872604",
+  "https://www.teepublic.com/t-shirts/zodiac-constellation-map",
+  "https://www.customily.com/post/personalized-christmas-gift-trends-what-shoppers-are-actually-searching-for",
+  "https://thursd.com/articles/gemini-zodiac-flower",
+  "https://notonthehighstreet.com/ellieellie/product/birth-flower-personalised-water-colour-mug",
+  "https://trademark.justia.com/735/48/taurus-73548987.html",
+  "https://trademarks.justia.com/905/20/taurus-90520983.html",
+  "https://trademarks.justia.com/984/08/eye-98408111.html",
+  "https://markinton.com/trademark/gemini-98418146"
+ ],
+ "competitors": [
+  {
+   "what": "Gemini zodiac tees (Etsy search results, incl. CozyPrintsClothing on sale)",
+   "price": "$9.49 sale (from $16.65) to about $32",
+   "style": "sign and text"
+  },
+  {
+   "what": "Inktastic Gemini Constellation Zodiac Sign Illustration tee (Walmart, adult and toddler)",
+   "price": "about $15-$26",
+   "style": "flat line-art constellation"
+  },
+  {
+   "what": "Gemini Constellation T-Shirt (TeePublic)",
+   "price": "$24",
+   "style": "constellation map, art style not shown"
+  },
+  {
+   "what": "Aries zodiac birth flower constellation tees (two Etsy listings, the same format other signs use)",
+   "price": "about $24.94-$34.16",
+   "style": "line-art birth flower plus constellation"
+  },
+  {
+   "what": "Watercolor Zodiac Sign PNG Bundle, celestial clipart (Etsy, digital download)",
+   "price": "not shown",
+   "style": "watercolor clipart, not a finished product"
+  },
+  {
+   "what": "Birth flower personalised watercolour mug (Not On The High Street)",
+   "price": "not shown in the results",
+   "style": "watercolor birth flower, no zodiac"
+  }
+ ],
+ "gap": "Gemini shirts found are text, symbols or flat line-art constellations; the birth-flower zodiac tees are line art. The only watercolor Gemini item found is clipart. None pairs a painted watercolor night sky and the Gemini star chart with both of the sign's birth-month flowers (May's lily of the valley and June's rose). Same angle as Capricorn and Aquarius, with new flowers.",
+ "trend": "Zodiac and birth-flower gifts appear across 2026 gift guides and Etsy listings (affiliate pages and listings, no sales ranking). Lily of the valley and rose are widely named as Gemini's flowers. No 2026 sales data found.",
+ "scores": {
+  "demand": 4,
+  "competition": 4,
+  "timing": 3,
+  "fit": 5,
+  "trademark_risk": 4
+ },
+ "total": 20,
+ "decision": "go (20/25)"
+}
