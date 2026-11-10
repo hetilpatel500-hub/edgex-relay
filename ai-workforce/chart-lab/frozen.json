@@ -2888,5 +2888,107 @@
    "t_stat": 0.14,
    "max_drawdown_r": 13.37
   }
+ },
+ "coppock_turn": {
+  "side": "fade",
+  "filter": "rvol",
+  "exit": "2atr/4atr",
+  "tf": "M5",
+  "frozen_at": "2026-11-10",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 102,
+   "win_rate": 0.412,
+   "avg_r": 0.082,
+   "total_r": 8.4,
+   "profit_factor": 1.15,
+   "t_stat": 0.65,
+   "max_drawdown_r": 17.57
+  }
+ },
+ "smi_extreme_cross": {
+  "side": "with",
+  "filter": "vwap+trend",
+  "exit": "2atr/4atr",
+  "tf": "M5",
+  "frozen_at": "2026-11-10",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 41,
+   "win_rate": 0.439,
+   "avg_r": 0.017,
+   "total_r": 0.71,
+   "profit_factor": 1.03,
+   "t_stat": 0.09,
+   "max_drawdown_r": 8.15
+  }
+ },
+ "woodies_cci_zlr": {
+  "side": "fade",
+  "filter": "rvol+trend",
+  "exit": "1atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-11-10",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 68,
+   "win_rate": 0.309,
+   "avg_r": 0.058,
+   "total_r": 3.95,
+   "profit_factor": 1.07,
+   "t_stat": 0.25,
+   "max_drawdown_r": 18.0
+  }
+ },
+ "gap_capitulation_midpoint": {
+  "side": "fade",
+  "filter": "rvol",
+  "exit": "1.5atr/3atr",
+  "tf": "M5",
+  "frozen_at": "2026-11-10",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 55,
+   "win_rate": 0.4,
+   "avg_r": 0.01,
+   "total_r": 0.56,
+   "profit_factor": 1.02,
+   "t_stat": 0.06,
+   "max_drawdown_r": 9.11
+  }
+ },
+ "open_test_drive": {
+  "side": "with",
+  "filter": "ppoc",
+  "exit": "1.5atr/3atr",
+  "tf": "M5",
+  "frozen_at": "2026-11-10",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 179,
+   "win_rate": 0.408,
+   "avg_r": 0.03,
+   "total_r": 5.34,
+   "profit_factor": 1.05,
+   "t_stat": 0.32,
+   "max_drawdown_r": 18.85
+  }
+ },
+ "ib_vwap_side_break": {
+  "side": "fade",
+  "filter": "trend",
+  "exit": "2atr/4atr",
+  "tf": "M5",
+  "frozen_at": "2026-11-10",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 262,
+   "win_rate": 0.443,
+   "avg_r": 0.002,
+   "total_r": 0.44,
+   "profit_factor": 1.0,
+   "t_stat": 0.02,
+   "max_drawdown_r": 47.67
+  }
  }
 }
