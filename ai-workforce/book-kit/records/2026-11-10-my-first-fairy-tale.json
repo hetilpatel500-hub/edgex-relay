@@ -1,0 +1,76 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the book desk's books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-fairy-tale",
+  "title": "My First Fairy Tale Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Fairy Tale",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-fairy-tale.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/Nx7C5KQARkik2EXh86g5tK",
+  "created": "2026-11-10T14:58:00Z",
+  "emailed": "Gmail message 1a1c5f70d5f0d86f to the owner, 2026-11-10"
+ },
+ "decision": {
+  "doc_id": "2026-11-10-book-my-first-fairy-tale",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-10T14:58:00Z",
+  "reason": "Legal verdict cleared (all ten counsel; trademark web screen on file). Planned rotation has ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it. Build checks passed (64 pages, cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-fairy-tale.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-10-book-my-first-fairy-tale",
+  "created": "2026-11-10T14:58:00Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation finished with Christmas; picked Fairy Tale (no earlier book, record or subject list has it, and none of its 30 subjects repeat an earlier book) and flagged the pick to the owner."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched the title: Tiger Tales has a 'My First Fairy Tales' storybook series and Little Bee Books 'My First Big Book of Fairy Tales', so the subtitle and series name carry the difference."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 fairy-tale subjects in art/fairytale.js with new crown(), head(), leaf() and sparkle() helpers; every subject has eyes and 29 smile."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Two contact-sheet passes: fixed the tower's stone marks and base leaves, the gnome's squeezed eyes, the cat-like wolf, the unicorn's crowded forelock, the pegasus wing, the flat glass slipper, thin beanstalk leaves and the thin flying carpet."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, a description in five groups that match the 30 pages (5 + 8 + 4 + 4 + 9) and 7 keywords of 41 characters or fewer, with no character, studio or brand names."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 25 negatives (adult, gothic, horror and similar searches excluded), 3 ad texts (124, 119, 144 characters) and 3 headlines with no banned claims."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Kept the description's lists as 'and' so the HTML has no bare ampersand; build.js listing and ad checks passed."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages; cover 17.3941 x 11.25 in matches KDP's formula; background reaches every page edge; back cover, previews and both A+ images checked."
+   },
+   {
+    "agent": "legal-desk (ten counsel)",
+    "line": "Cleared: no trademark registration found for 'My First Fairy Tales'; public-domain tales, original art, no studio designs or weapons; KDP category to confirm; owner may run a USPTO search."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved for delivery to the owner with a cleared legal review."
+   },
+   {
+    "agent": "publish-coordinator",
+    "line": "Published the private delivery page with 8 files and emailed the owner (Gmail 1a1c5f70d5f0d86f)."
+   }
+  ],
+  "outcome": "Delivered My First Fairy Tale Coloring Book to the owner at https://claude.ai/artifact/Nx7C5KQARkik2EXh86g5tK; nothing published, priced or advertised."
+ }
+}
