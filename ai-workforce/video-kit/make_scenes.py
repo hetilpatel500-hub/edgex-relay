@@ -13,7 +13,7 @@ spoken after the answer appears. Scene length follows the voice.
 If OUT_DIR already has a report.json from make.py (the market videos), these
 videos are appended to it and one delivery page covers everything.
 """
-import json, os, sys, threading, subprocess
+import atexit, json, os, sys, threading, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import make  # voice, mixing, rendering helpers
 
@@ -55,6 +55,8 @@ def main():
     data = f'data_{os.getpid()}.js'
     with open(os.path.join(make.KIT, data), 'w') as fh:
         fh.write('const STORY=' + json.dumps(st, ensure_ascii=False) + ';\n')
+    # remove the per-run data file even if a later step fails
+    atexit.register(lambda p=os.path.join(make.KIT, data): os.path.exists(p) and os.remove(p))
     os.environ['VK_DATA'] = data
     port = make.serve()
     jobs, files = [], {}
@@ -91,7 +93,8 @@ def main():
     for f in os.listdir(out):
         if f.startswith('_'):
             os.remove(os.path.join(out, f))
-    os.remove(os.path.join(make.KIT, data))
+    if os.path.exists(os.path.join(make.KIT, data)):
+        os.remove(os.path.join(make.KIT, data))
     for p in final.values():
         make.fit(p, 14.0e6)
     rp, sp = os.path.join(out, 'report.json'), os.path.join(out, 'story.final.json')
