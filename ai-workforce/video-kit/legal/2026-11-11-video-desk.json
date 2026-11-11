@@ -1,0 +1,80 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "videos",
+  "date": "2026-11-11",
+  "kind": "video_set"
+ },
+ "title": "Video desk, Wed Nov 11 set: Sector Scoreboard (10 largest sectors), Myth vs Fact (Veterans Day market hours), Inside the AI Studio (Nov 9-11)",
+ "reviewed_at": "2026-11-11T22:09:13Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file after reviewing the three 9:16 review sheets, report.json spoken text, titles, captions and sources. Defamation screen: sector data from Webull, market-hours facts reported by two outlets, and the studio's own records; no reason is given for any sector move and no person is named. Nothing commits the owner; delivery is to the owner only. AI review, not legal advice."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Every number traces to a saved raw response or a named source: sector changes and up/down counts to raw/sectors_D1.json and raw/sectors_D5.json; SPY's 32.0M shares to the sum of the 78 bars in raw/spy_m5.json; market hours, the SIFMA bond close, bank closures and Thanksgiving Nov 26 to Fox Television Stations' Veterans Day 2026 guide and StockTitan. Studio counts trace to book-kit/records, pod-kit/decisions, video-kit/records (Nov 9-11) and chart-lab out/results.json. The studio video makes no sales, income or product-availability claim; it says the owner reviews everything before release. Outros say 'Follow for more' with no schedule promise."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery email goes to the owner only."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data. No private person is named; the owner isn't named or shown."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Visuals are drawn from data by the kit's renderer; the voice is Kokoro-82M (Apache-2.0); music is synthesized per video by music.py; fonts are Inter, Space Grotesk and JetBrains Mono (SIL OFL). The market-hours facts are stated in our own words with outlets credited; no quotes, logos, footage, screenshots or third-party images. Studio product names are the studio's own."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "NYSE, Nasdaq, SIFMA, the Federal Reserve, SPY, Webull, Fox Television Stations and StockTitan are named only to refer to them (nominative use); no logos, nothing suggests endorsement. Sector labels are generic. Studio design names (Grandpa's Fishing Hole, Gemini Constellation, Kitchen Herbs) already passed the POD trademark screen. Hashtags are generic. No USPTO search needed: no new brand or series name."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "pass",
+   "note": "'Educational only. Not financial advice.' is on screen in the sector and Veterans Day videos and in both captions; the studio video and caption say 'Research only. Not financial advice.' next to the chart-lab line. No buy or sell calls, no targets, no 'what happens next'. No reason is given for the chip or oil moves; the video says reasons are only given when two outlets report them. The 'passed its tests' line describes the lab's own backtest status, not a recommendation."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Synthetic TTS narration over data charts and text cards; no realistic depiction of real people or events. Meta asks for a label on AI-generated audio, so turn on 'AI info' on Instagram and Facebook. The studio video says the work is made by AI agents. Titles match the content."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "General-audience content, not directed to children. The studio video mentions kids' coloring books as products but shows no child and uses no child's data. Mark 'not made for kids' where a platform asks."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "pass",
+   "note": "No paid tools, licensed assets or third-party agreements. Webull data is read-only and used for commentary. The studio video promises no delivery dates, prices or availability for any product."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Voiceover read '32.0 million' as 'thirty-two point zero million'; it now says 'about 32 million' (32.0M stays on screen).",
+  "Voiceover said 'the NYSE'; it now says 'the New York Stock Exchange' so the voice doesn't mispronounce it.",
+  "Studio outro said 'Follow to see next week's list'; the series has no fixed schedule, so it now says 'Follow for more from the studio'.",
+  "Studio line said six zodiac designs 'didn't pass the trademark check'; the records say they were held at the screen, so it now says 'held back at the trademark check'.",
+  "The first render stopped at the review-sheet step because the system Python's image library is broken in this container; the set was re-rendered with the scratchpad Python (no content change)."
+ ],
+ "posting_notes": [
+  "Instagram and Facebook: turn on the 'AI info' label (synthetic narrator voice).",
+  "The sector and Veterans Day videos describe Wednesday Nov 11 ('today'); post them before Thursday's open or they go stale.",
+  "The studio video covers Nov 9 to Nov 11; post it this week. Don't add sales or availability claims in the post text unless you've listed those items yourself (the three designs aren't on Printify yet).",
+  "The sector video gives no reasons for the moves. Don't add one in the post text unless two outlets report it."
+ ],
+ "last_touch_ref": "video-kit/records/2026-11-11-video-desk.json#last_touch",
+ "decision_ref": "video-kit/records/2026-11-11-video-desk.json#decision",
+ "videos": {
+  "sectors-1111": {
+   "seconds": 32.69
+  },
+  "myth-vetday": {
+   "seconds": 38.43
+  },
+  "studio-1111": {
+   "seconds": 31.79
+  }
+ }
+}
