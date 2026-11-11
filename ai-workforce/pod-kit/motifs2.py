@@ -1667,6 +1667,368 @@ def lily_valley(c, x, y, s, P, facing=1, bells=6, leaves=2):
         gouache(c, ellipse(hx - f * sz * 0.2, hy - sz * 0.2, sz * 0.07, sz * 0.12, 8), color=(255, 255, 255), alpha=230, soft=0.15)
 
 
+
+# ---------------------------------------------------------------- kitchen herbs
+def _at_path(path, t):
+    """Point and direction (radians) at fraction t along a polyline."""
+    n = len(path) - 1
+    f = max(0.0, min(1.0, t)) * n
+    i = min(n - 1, int(f)); u = f - i
+    (ax, ay), (bx, by) = path[i][:2], path[i + 1][:2]
+    return (ax + (bx - ax) * u, ay + (by - ay) * u), math.atan2(by - ay, bx - ax)
+
+
+def _snap(c, box):
+    """A cheap local snapshot (only inside box) for _front."""
+    import numpy as np
+    x0, y0, x1, y1 = max(0, int(box[0])), max(0, int(box[1])), min(c.w, int(box[2])), min(c.h, int(box[3]))
+    ink = np.asarray(c.ink.crop((x0, y0, x1, y1)).getchannel('A'), dtype=np.float32)
+    return (x0, y0, x1, y1), c.cover[y0:y1, x0:x1].copy(), ink, c.paint[y0:y1, x0:x1].copy()
+
+
+def _front(c, snap):
+    """Like Canvas.paint_around, inside the snapshot's box: what was painted since
+    the snapshot is in front, and later leaves and stems go around it."""
+    import numpy as np
+    from PIL import Image, ImageFilter
+    (x0, y0, x1, y1), cov0, ink0, p0 = snap
+    ink1 = np.asarray(c.ink.crop((x0, y0, x1, y1)).getchannel('A'), dtype=np.float32)
+    m = np.clip(np.maximum((c.cover[y0:y1, x0:x1] - cov0) * 4, (ink1 - ink0) / 64), 0, 1)
+    m = np.maximum(m, np.clip((c.paint[y0:y1, x0:x1] - p0) * 3, 0, 1))
+    im = Image.fromarray((m * 255).astype(np.uint8))
+    m = np.asarray(im.filter(ImageFilter.GaussianBlur(max(0.8, c.w / 3500))), dtype=np.float32) / 255
+    if c.occl is None:
+        c.occl = np.zeros((c.h, c.w), dtype=np.float32)
+    c.occl[y0:y1, x0:x1] = np.maximum(c.occl[y0:y1, x0:x1], m)
+
+
+def _herb_leaf(c, p0, p1, p2, W, cols, veins='ink', teeth=0, strength=0.72, shade=0.3, gran=0.35, outline=0, widest=0.62,
+               pebble=0, n=28, bias=1.0):
+    """One painted herb leaf along a curve p0 (base) -> p1 -> p2 (tip), W = half its width:
+    a light first wash with darker pigment drifting in, the lower half shaded wet on dry,
+    a midrib and side veins (pen-dark, or lifted pale for glossy and downy leaves), a lifted
+    highlight on the upper half, optional toothed edge, pebbled texture and fine outline."""
+    light, mid, dark = cols
+    rnd = c.rnd
+
+    def at(t):
+        return ((1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t * t * p2[0],
+                (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t * t * p2[1])
+
+    def nrm(t):
+        (ax, ay), (bx, by) = at(max(0, t - 0.01)), at(min(1, t + 0.01))
+        L = math.hypot(bx - ax, by - ay) or 1
+        return -(by - ay) / L, (bx - ax) / L
+
+    def width(t):
+        w = W * math.sin(math.pi * t ** bias) ** widest * (1 - 0.3 * t)
+        if teeth:
+            w *= 1 + 0.1 * abs(math.sin(teeth * math.pi * t)) * min(1.0, t * 5)
+        return w
+
+    left, right, rib = [], [], []
+    for i in range(n + 1):
+        t = i / n
+        x, y = at(t); nx, ny = nrm(t); w = width(t)
+        left.append((x + nx * w, y + ny * w)); right.append((x - nx * w, y - ny * w)); rib.append((x, y))
+    shape = left + right[::-1]
+    ang = math.atan2(p2[1] - p0[1], p2[0] - p0[0])
+    length = math.hypot(p2[0] - p0[0], p2[1] - p0[1])
+    c.wash(shape, light, mid, strength=strength, spread=0.01, layers=14, edge=1.1, granulate=gran, ang=ang, vary=dark, vary_amt=0.3)
+    nx, ny = nrm(0.5)
+    low, up = (left, 1) if ny > 0 else (right, -1)          # light from above: shade the lower half
+    if shade:
+        inner = [(rx + (lx - rx) * 0.45, ry + (ly - ry) * 0.45) for (rx, ry), (lx, ly) in zip(rib, low)]
+        c.wash(inner + low[::-1], mid, dark, strength=shade, spread=0.014, layers=12, edge=0.0, granulate=gran, blur=W * 0.3, clip=shape)
+    if pebble:                                               # velvety, pebbled surface (sage): little lifted bumps
+        for _ in range(pebble):
+            t = rnd.uniform(0.12, 0.88); side = rnd.uniform(-0.8, 0.8)
+            x, y = at(t); qx, qy = nrm(t); w = width(t) * side
+            r = W * rnd.uniform(0.05, 0.09)
+            c.lift(ellipse(x + qx * w, y + qy * w, r, r * 0.8, 7, ang), amount=0.22, soft=0.45)
+    if veins:
+        main = rib[1:int(n * 0.9)]
+        if veins == 'lift':
+            c.lift(_band(main, W * 0.06, W * 0.025), amount=0.5, soft=W * 0.03 / max(1.0, length), clip=shape)
+        else:
+            c.wash(_band(main, W * 0.05, W * 0.015), dark, None, strength=0.55, layers=5, edge=0.3)
+        for k in range(4):
+            t0 = 0.14 + 0.17 * k; t1 = min(0.95, t0 + 0.15)
+            for side in (1, -1):
+                x0, y0 = at(t0); x1, y1 = at(t1); qx, qy = nrm(t1); w = width(t1) * 0.74 * side
+                v = [(x0, y0), ((x0 + x1) / 2 + qx * w * 0.55, (y0 + y1) / 2 + qy * w * 0.55), (x1 + qx * w, y1 + qy * w)]
+                if veins == 'lift':
+                    c.lift(_band(v, W * 0.035, W * 0.012), amount=0.4, soft=W * 0.03 / max(1.0, length * 0.3), clip=shape)
+                else:
+                    c.wash(_band(v, W * 0.032, W * 0.01), dark, None, strength=0.38, layers=4, edge=0.3)
+    hx, hy = at(0.4); w = width(0.4)
+    c.lift(ellipse(hx - up * nx * w * 0.45, hy - up * ny * w * 0.45, length * 0.15, w * 0.22, 10, ang), amount=0.26, soft=0.35)
+    if outline:
+        c.ink_line(shape, width=max(1, W * 0.035), alpha=outline, passes=1, jitter=0, color=_rgb(dark))
+    return shape
+
+
+def _dew(c, x, y, r):
+    """A drop of water on a leaf: a clear bead with a shadowed lower rim and a white glint."""
+    c.wash(ellipse(x, y, r, r * 0.92, 14), '#e3efe6', None, strength=0.2, layers=6, edge=1.6)
+    c.wash(ellipse(x + r * 0.2, y + r * 0.38, r * 0.62, r * 0.3, 12), '#24502f', None, strength=0.32, layers=5, edge=0.7)
+    gouache(c, ellipse(x - r * 0.32, y - r * 0.34, r * 0.3, r * 0.22, 9, -0.5), color=(255, 255, 255), alpha=245, soft=0.08)
+    gouache(c, ellipse(x + r * 0.35, y + r * 0.2, r * 0.09, r * 0.07, 6), color=(255, 255, 255), alpha=170, soft=0.2)
+
+
+def _stem_path(x, y, s, lean, height=0.86):
+    return smooth([(x, y), (x + s * 0.01, y - s * height * 0.35), (x + s * lean * 0.6, y - s * height * 0.72), (x + s * lean, y - s * height)],
+                  2, closed=False)
+
+
+def _crown(c, tip, s, sizes, cols, box=None, **kw):
+    tx, ty = tip
+    for a, L in sizes:
+        snap = _snap(c, box) if box else None
+        LL = s * L
+        p2 = (tx + LL * math.cos(a), ty - LL * math.sin(a))
+        p1 = (tx + LL * 0.5 * math.cos(a) + LL * 0.08 * math.sin(a), ty - LL * 0.5 * math.sin(a) + LL * 0.05)
+        b0 = (tx + LL * 0.06 * math.cos(a), ty - LL * 0.06 * math.sin(a))
+        _herb_leaf(c, b0, p1, p2, LL * kw.get('wf', 0.3), cols, **{k: v for k, v in kw.items() if k != 'wf'})
+        if snap:
+            _front(c, snap)
+
+
+def _pairs(c, path, s, nodes, cols, wf, droop=0.1, box=None, petioles=None, pet=0.12, **kw):
+    arch = kw.pop('arch', 0.12)
+    """Opposite leaf pairs along a stem: nodes = [(t, length, upward angle)], painted
+    from the top pair down, each pair in front of the ones below it."""
+    rnd = c.rnd
+    shapes = []
+    for t, L, up in sorted(nodes, key=lambda n: -n[0]):
+        snap = _snap(c, box) if box else None
+        (px, py), th = _at_path(path, t)
+        for side in (-1, 1):
+            a = up + rnd.uniform(-0.06, 0.06)
+            LL = s * L * rnd.uniform(0.95, 1.04)
+            p2 = (px + side * LL * math.cos(a), py - LL * math.sin(a) + LL * droop)
+            p1 = (px + side * LL * 0.5, py - LL * math.sin(a) * 1.1 - LL * arch)
+            b0 = (px + (p1[0] - px) * pet * 2, py + (p1[1] - py) * pet * 2)      # the blade starts past a short petiole
+            if petioles is not None:
+                petioles.append([(px, py), ((px + b0[0]) / 2, (py + b0[1]) / 2 + LL * 0.01), (b0[0] + (p1[0] - b0[0]) * 0.08, b0[1] + (p1[1] - b0[1]) * 0.08)])
+            shapes.append((_herb_leaf(c, b0, p1, p2, LL * wf, cols, **kw), b0, p1, p2, LL))
+        if snap:
+            _front(c, snap)
+    return shapes[::-1]
+
+
+def _sprig(c, x, y, s, P, cols, stem_cols, nodes, wf, crown, crown_wf, lean, droop, leaf_kw, crown_kw, stem_w=0.017):
+    """A cut sprig: crown leaves first, then the opposite pairs from the top down
+    (each in front of the ones below), then the stem last so it passes behind."""
+    path = _stem_path(x, y, s, lean)
+    box = (x - s * 0.62, y - s * 1.12, x + s * 0.62, y + s * 0.08)
+    tip, _ = _at_path(path, 0.95)
+    _crown(c, tip, s, crown, cols, box=box, wf=crown_wf, **crown_kw)
+    k = max(3, int(len(path) * 0.95))
+    path = path[:k] + [tip]
+    pets = []
+    leaves = _pairs(c, path, s, nodes, cols, wf, droop=droop, box=box, petioles=pets, **leaf_kw)
+    c.wash(_band(path, s * stem_w, s * stem_w * 0.5), stem_cols[0], stem_cols[1], strength=0.8, layers=10, edge=0.8, spread=0.004)
+    for p in pets:
+        c.wash(_band(smooth(p, 2, closed=False), s * stem_w * 0.38, s * stem_w * 0.26), stem_cols[0], stem_cols[1], strength=0.8, layers=8,
+               edge=0.8, spread=0.01)
+    # the stem's shadow side, a darker line wet on dry
+    c.wash(_band([(px + s * stem_w * 0.4, py) for px, py in path[1:-1]], s * stem_w * 0.2, s * stem_w * 0.1), stem_cols[1], None,
+           strength=0.22, layers=5, edge=0.3, spread=0.004)
+    return path, leaves
+
+
+def basil(c, x, y, s, P, lean=0.04, dew=True):
+    """Sweet basil: a green stem with pairs of broad, glossy, cupped leaves with
+    pointed tips that arch out and droop, smaller toward the crown, with pale
+    lifted veins and a glossy highlight, and a tuft of young leaves on top.
+    (x, y) = the cut end of the stem, s = the sprig's height."""
+    cols = (P.get('basil2', '#acd67e'), P.get('basil', '#5c9b38'), P.get('basil_dark', '#2b6224'))
+    kw = dict(veins='lift', strength=0.78, shade=0.22, gran=0.22, outline=55, bias=0.78, widest=0.85)
+    path, leaves = _sprig(c, x, y, s, P, cols, ('#98c76c', '#4f8a32'),
+                          [(0.26, 0.44, 0.2), (0.52, 0.36, 0.42), (0.75, 0.27, 0.68)], 0.28,
+                          [(math.pi / 2 + 0.72, 0.15), (math.pi / 2 - 0.72, 0.15), (math.pi / 2 + 0.06, 0.17)], 0.3, lean, 0.05,
+                          dict(kw, arch=0.06), dict(kw, strength=0.72, shade=0.22))
+    if dew:
+        _, (px, py), p1, p2, LL = leaves[1]
+        _dew(c, (px + p1[0] * 2 + p2[0]) / 4, (py + p1[1] * 2 + p2[1]) / 4 + LL * 0.04, s * 0.024)
+
+
+def sage(c, x, y, s, P, lean=-0.03):
+    """Garden sage: a sturdy pale stem with pairs of long oval grey-green leaves,
+    velvety and pebbled (granulated pigment, lifted bumps and pale net veins),
+    and a small crown of young silvery leaves."""
+    cols = (P.get('sage2', '#cfdac4'), P.get('sage', '#8ba487'), P.get('sage_dark', '#4f664d'))
+    kw = dict(veins='lift', strength=0.76, shade=0.28, gran=0.9, outline=45, pebble=16)
+    _sprig(c, x, y, s, P, cols, ('#b3bea6', '#7c8b71'),
+           [(0.22, 0.45, 0.34), (0.5, 0.37, 0.6), (0.74, 0.27, 0.86)], 0.2,
+           [(math.pi / 2 + 0.45, 0.15), (math.pi / 2 - 0.45, 0.15), (math.pi / 2, 0.12)], 0.22, lean, 0.04,
+           kw, dict(kw, strength=0.64, shade=0.18, pebble=5), stem_w=0.018)
+
+
+def mint(c, x, y, s, P, lean=0.03, dew=True):
+    """Spearmint: a square green stem with pairs of bright, toothed, oval leaves
+    with deep pen-dark veins, smaller up the stem, and a tight tip of new leaves."""
+    cols = (P.get('mint2', '#b4dd98'), P.get('mint', '#4c9e4f'), P.get('mint_dark', '#245c31'))
+    kw = dict(veins='ink', teeth=12, strength=0.78, shade=0.28, gran=0.25, outline=75, bias=0.85)
+    path, leaves = _sprig(c, x, y, s, P, cols, ('#84bd6c', '#3f7f3c'),
+                          [(0.26, 0.36, 0.12), (0.5, 0.31, 0.36), (0.72, 0.24, 0.62)], 0.31,
+                          [(math.pi / 2 + 0.55, 0.13), (math.pi / 2 - 0.55, 0.13), (math.pi / 2 + 0.05, 0.1)], 0.34, lean, 0.13,
+                          kw, dict(kw, teeth=8, strength=0.72, shade=0.2), stem_w=0.016)
+    c.lift(_band(path[2:-2], s * 0.005, s * 0.003), amount=0.3, soft=0.3)
+    if dew:
+        _, (px, py), p1, p2, LL = leaves[0]
+        _dew(c, (px + p1[0] * 2 + p2[0]) / 4, (py + p1[1] * 2 + p2[1]) / 4 + LL * 0.05, s * 0.022)
+
+
+def _tiny_flower(c, x, y, r, col, col2, dark, petals=5, rot=0.0, strength=0.75):
+    for k in range(petals):
+        a = rot + 2 * math.pi * k / petals
+        c.wash(petal(x, y, r, r * 0.45, a), col2, col, strength=strength, layers=5, edge=1.1)
+    c.wash(ellipse(x, y, r * 0.2, r * 0.2, 8), dark, None, strength=0.75, layers=4, edge=0.6)
+
+
+def rosemary(c, x, y, s, P, flowers=5):
+    """Rosemary: a woody brown sprig with two side shoots, set with narrow,
+    leathery needle leaves that point forward along the stem (green-grey above,
+    a silvery underside showing on some), tufted at the tips, with small pale
+    blue flowers tucked among the upper leaves. (x, y) = base, s = height."""
+    rnd = c.rnd
+    top, under, dk = P.get('rosemary', '#4d7c66'), P.get('rosemary2', '#b2c9bd'), P.get('rosemary_dark', '#2f5244')
+    main = smooth([(x, y), (x + s * 0.02, y - s * 0.4), (x - s * 0.01, y - s * 0.7), (x + s * 0.03, y - s * 0.94)], 3, closed=False)
+    paths = [(main, 1.0)]
+    for t, side, L in ((0.22, -1, 0.62), (0.38, 1, 0.55)):
+        (bx, by), th = _at_path(main, t)
+        ba = -math.pi / 2 + side * 0.75
+        paths.append((smooth([(bx, by), (bx + side * s * 0.13, by - L * s * 0.3), (bx + side * s * 0.22 + L * s * 0.12 * math.cos(ba), by - L * s * 0.92)],
+                             3, closed=False), L))
+    snap = _snap(c, (x - s * 0.6, y - s * 1.1, x + s * 0.6, y + s * 0.05))
+    for f in range(flowers):
+        path, L = paths[f % len(paths)]
+        (px, py), th = _at_path(path, 0.5 + 0.13 * (f // len(paths)) + rnd.uniform(-0.04, 0.04))
+        side = 1 if f % 2 else -1
+        nx, ny = -math.sin(th), math.cos(th)
+        fx, fy = px + side * nx * s * 0.06, py + side * ny * s * 0.06
+        _tiny_flower(c, fx, fy, s * 0.036, P.get('rosemary_fl', '#7896d8'), P.get('rosemary_fl2', '#d7e2f7'), '#3f4f8f',
+                     petals=4, rot=rnd.uniform(0, 1.5), strength=0.85)
+    _front(c, snap)                                   # the flowers sit in front of the needles
+    for path, L in paths:
+        c.wash(_band(path, s * 0.013 * (0.7 + 0.3 * L), s * 0.005), '#a08a6c', '#6e5c46', strength=0.84, layers=8, edge=0.8, spread=0.005)
+    for path, L in paths:
+        n = int(34 * L) + 6
+        for i in range(n):
+            t = (0.14 if L == 1.0 else 0.08) + (0.84 if L == 1.0 else 0.9) * i / (n - 1)
+            (px, py), th = _at_path(path, t)
+            side = 1 if i % 2 else -1
+            na = th + side * (0.6 + 0.25 * (1 - t)) + rnd.uniform(-0.1, 0.1)
+            nl = s * (0.105 - 0.03 * t) * rnd.uniform(0.88, 1.08)
+            silver = rnd.random() < 0.3
+            c.wash(leaf(px, py, nl, nl * 0.15, na), under if silver else '#86a898', '#8aa99c' if silver else top, strength=0.85,
+                   spread=0.02, layers=5, edge=1.15, granulate=0.2)
+            c.wash(_band([(px, py), (px + nl * 0.9 * math.cos(na), py + nl * 0.9 * math.sin(na))], nl * 0.028, nl * 0.008), dk, None,
+                   strength=0.45 if not silver else 0.2, layers=3, edge=0.3)
+        (px, py), th = _at_path(path, 1.0)
+        for da in (-0.32, -0.1, 0.12, 0.34):
+            nl = s * 0.058
+            c.wash(leaf(px - s * 0.02 * math.cos(th), py - s * 0.02 * math.sin(th), nl, nl * 0.15, th + da), '#86a898', top,
+                   strength=0.85, layers=5, edge=1.1)
+
+
+def thyme(c, x, y, s, P, stems=6):
+    """Thyme: a bunch of thin, wiry red-brown stems that branch as they rise,
+    set with small oval grey-green leaves in pairs and tipped with little round
+    clusters of pale pink-lilac flowers. (x, y) = base, s = height."""
+    rnd = c.rnd
+    lt, md, dk = P.get('thyme2', '#c3d6a2'), P.get('thyme', '#7a9a5e'), P.get('thyme_dark', '#4b6a40')
+    fl, fl2, fld = '#dc9cc3', '#f6d9e8', '#9c5583'
+    paths = []
+    for k in range(stems):
+        off = (k - (stems - 1) / 2) / ((stems - 1) / 2)
+        a = -math.pi / 2 + off * 0.46 + rnd.uniform(-0.05, 0.05)
+        L = s * (0.96 - 0.22 * abs(off)) * rnd.uniform(0.9, 1.0)
+        pts = [(x + off * s * 0.018, y)]
+        for j in range(1, 6):
+            t = j / 5
+            wob = s * 0.02 * math.sin(t * 5 + k)
+            pts.append((x + L * t * math.cos(a) - wob * math.sin(a), y + L * t * math.sin(a) + wob * math.cos(a)))
+        path = smooth(pts, 2, closed=False)
+        paths.append((path, L))
+        if k % 2 == 0:
+            (bx, by), th = _at_path(path, 0.5)
+            ba = th + (0.45 if off >= 0 else -0.45)
+            bl = L * 0.34
+            bp = smooth([(bx, by), (bx + bl * 0.5 * math.cos(ba), by + bl * 0.5 * math.sin(ba)), (bx + bl * math.cos(ba), by + bl * math.sin(ba))],
+                        2, closed=False)
+            paths.append((bp, bl))
+    for path, L in paths:
+        c.wash(_band(path, s * 0.0058, s * 0.0028), '#9a6c58', '#77523f', strength=0.85, layers=6, edge=0.8, spread=0.006)
+    for path, L in paths:
+        m = max(4, int(L / (s * 0.05)))
+        for i in range(m):
+            t = 0.14 + 0.8 * i / max(1, m - 1) + rnd.uniform(-0.015, 0.015)
+            (px, py), th = _at_path(path, t)
+            for side in (-1, 1):                          # tiny elliptic leaves in pairs, angled forward
+                la = th + side * (0.9 + rnd.uniform(-0.2, 0.2))
+                ll = s * rnd.uniform(0.034, 0.044) * (1 - 0.3 * t)
+                c.wash(leaf(px, py, ll, ll * 0.3, la), lt, md, strength=0.85, spread=0.02, layers=4, edge=1.15, vary=dk, vary_amt=0.3)
+        (tx, ty), th = _at_path(path, 1.0)
+        cx_, cy_ = tx + s * 0.018 * math.cos(th), ty + s * 0.018 * math.sin(th)
+        c.wash(ellipse(cx_, cy_, s * 0.026, s * 0.024, 12), fl2, fl, strength=0.45, layers=6, edge=1.0)
+        for j in range(11):
+            a = rnd.uniform(0, 2 * math.pi); rr = s * 0.024 * math.sqrt(rnd.random())
+            fx, fy = cx_ + rr * math.cos(a), cy_ + rr * math.sin(a)
+            c.wash(ellipse(fx, fy, s * 0.012, s * 0.0095, 8, a), fl2, fl, strength=0.8, layers=4, edge=1.2)
+            if j % 3 == 0:
+                c.wash(ellipse(fx, fy, s * 0.0035, s * 0.0035, 6), fld, None, strength=0.7, layers=3, edge=0.6)
+
+
+def _chive_bloom(c, x, y, r):
+    """A chive flower head: a round pom-pom of tiny lilac-pink star florets,
+    shaded on the lower right, with a papery bract below."""
+    rnd = c.rnd
+    c.wash(ellipse(x, y, r, r * 0.95, 20), '#efd6f1', '#c99bd5', strength=0.55, layers=14, edge=1.0, vary='#a873b8', vary_amt=0.35,
+           granulate=0.4)
+    for k in range(44):
+        a = rnd.uniform(0, 2 * math.pi); rr = r * math.sqrt(rnd.uniform(0.04, 1)) * 0.86
+        fx, fy = x + rr * math.cos(a), y + rr * math.sin(a) * 0.95
+        for p in range(3):
+            pa = a + (p - 1) * 0.6 + rnd.uniform(-0.2, 0.2)
+            c.wash(petal(fx, fy, r * 0.28, r * 0.09, pa), '#e8c6ec', '#c196cf', strength=0.45, layers=4, edge=0.6)
+    c.wash(ellipse(x + r * 0.32, y + r * 0.36, r * 0.62, r * 0.48, 14, 0.6), '#7c4a8e', None, strength=0.2, layers=8, edge=0.5)
+    for k in range(6):
+        a = rnd.uniform(3.4, 4.6); rr = r * rnd.uniform(0.25, 0.7)
+        gouache(c, ellipse(x + rr * math.cos(a), y + rr * math.sin(a), r * 0.05, r * 0.04, 7), color=(252, 238, 252), alpha=210, soft=0.15)
+    c.wash(leaf(x - r * 0.05, y + r * 0.82, r * 0.42, r * 0.13, math.pi / 2 + 0.25), '#ece4cc', '#c2b28a', strength=0.6, layers=6, edge=1.0)
+
+
+def chives(c, x, y, s, P, blooms=3, leaves=9):
+    """Chives: a clump of long, hollow, grass-like leaves with a pale lifted line
+    down each, and taller flower stalks topped with round lilac pom-pom blossoms."""
+    rnd = c.rnd
+    g, g2, gd = P.get('chive2', '#94c26a'), P.get('chive', '#4a8a38'), P.get('chive_dark', '#2c5e29')
+    for k in range(leaves):
+        off = (k - (leaves - 1) / 2) / ((leaves - 1) / 2)
+        a = -math.pi / 2 + off * 0.34 + rnd.uniform(-0.04, 0.04)
+        L = s * rnd.uniform(0.6, 0.8)
+        curve = s * 0.07 * off
+        path = smooth([(x + off * s * 0.035, y), (x + L * 0.5 * math.cos(a) + curve * 0.25, y + L * 0.5 * math.sin(a)),
+                       (x + L * math.cos(a) + curve, y + L * math.sin(a))], 3, closed=False)
+        c.wash(_band(path, s * 0.011, s * 0.003), g, g2, strength=0.76, layers=7, edge=0.9, vary=gd, vary_amt=0.25, spread=0.005)
+        c.lift(_band(path[2:-3], s * 0.003, s * 0.001), amount=0.3, soft=0.3)
+    heads = []
+    for b in range(blooms):
+        off = (b - (blooms - 1) / 2)
+        a = -math.pi / 2 + off * 0.3
+        L = s * (0.9 if off == 0 else 0.76)
+        path = smooth([(x + off * s * 0.02, y), (x + L * 0.5 * math.cos(a) - off * s * 0.02, y + L * 0.5 * math.sin(a)),
+                       (x + L * math.cos(a), y + L * math.sin(a))], 3, closed=False)
+        c.wash(_band(path, s * 0.009, s * 0.007), g, g2, strength=0.76, layers=7, edge=0.9, spread=0.005)
+        heads.append(path[-1])
+    for hx, hy in heads:
+        r = s * 0.085
+        _chive_bloom(c, hx, hy - r * 0.8, r)
+
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
@@ -1674,4 +2036,5 @@ MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'sn
            'carnation': carnation, 'violet': violet,
            'sunrise': sunrise, 'mountains2': mountains2, 'lake': lake, 'birds': birds, 'dock': dock, 'rowboat': rowboat, 'trout': trout,
            'cattails': cattails, 'lily_pads': lily_pads,
-           'rose_leaves': rose_leaves, 'garden_rose': garden_rose, 'lily_valley': lily_valley}
+           'rose_leaves': rose_leaves, 'garden_rose': garden_rose, 'lily_valley': lily_valley,
+           'basil': basil, 'sage': sage, 'mint': mint, 'rosemary': rosemary, 'thyme': thyme, 'chives': chives}
