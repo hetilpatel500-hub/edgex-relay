@@ -3075,5 +3075,73 @@
    "t_stat": 0.17,
    "max_drawdown_r": 10.06
   }
+ },
+ "vidya_flat_break": {
+  "side": "with",
+  "filter": "rvol",
+  "exit": "3atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-11-12",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 107,
+   "win_rate": 0.467,
+   "avg_r": 0.008,
+   "total_r": 0.83,
+   "profit_factor": 1.02,
+   "t_stat": 0.08,
+   "max_drawdown_r": 10.22
+  }
+ },
+ "developing_va_reentry": {
+  "side": "with",
+  "filter": "trend",
+  "exit": "3atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-11-12",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 40,
+   "win_rate": 0.475,
+   "avg_r": 0.002,
+   "total_r": 0.06,
+   "profit_factor": 1.0,
+   "t_stat": 0.01,
+   "max_drawdown_r": 11.47
+  }
+ },
+ "lunch_drift_vwap_revert": {
+  "side": "with",
+  "filter": "ppoc",
+  "exit": "1atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-11-12",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 30,
+   "win_rate": 0.367,
+   "avg_r": 0.198,
+   "total_r": 5.95,
+   "profit_factor": 1.26,
+   "t_stat": 0.54,
+   "max_drawdown_r": 7.76
+  }
+ },
+ "vwap_poc_confluence": {
+  "side": "fade",
+  "filter": "ppoc",
+  "exit": "1.5atr/3atr",
+  "tf": "M5",
+  "frozen_at": "2026-11-12",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 54,
+   "win_rate": 0.407,
+   "avg_r": 0.011,
+   "total_r": 0.59,
+   "profit_factor": 1.02,
+   "t_stat": 0.06,
+   "max_drawdown_r": 11.84
+  }
  }
 }
