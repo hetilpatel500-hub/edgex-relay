@@ -154,7 +154,7 @@ open rows, in order) instead of 1, and marks each row done with the date.
 | Gifts for Him | Campfire Season (drafted Oct 5) | 2. outdoors: **Campfire Season done 2026-10-05** (drafts) |
 | Top 100 Holiday Gifts | Cocoa Season, Christmas Cookies, Snowy Pine Cardinals, Sufganiyot Season (live Oct 5) | 3. Thanksgiving (Nov 26): **Pie Season done 2026-10-06** (built and Legal-cleared, not on Printify yet, see below); then more Christmas: **Tree Farm Season, Deck the Shelves and Vintage Glass Ornaments done 2026-11-05** (built and Legal-cleared, not on Printify yet) |
 | Housewarming Gifts | Soup Season and Cocoa Season art prints and mugs | 6. a kitchen or home art print design: **Kitchen Herbs done 2026-11-11** (built and Legal-cleared, not on Printify yet) |
-| Gifts for Couples, Anniversary, Engagement, Special Wedding Gifts | none | 7. a couples design that works on matching mugs (no names, no dates) |
+| Gifts for Couples, Anniversary, Engagement, Special Wedding Gifts | none | 7. a couples design that works on matching mugs (no names, no dates): **Lovebirds & Roses done 2026-11-12** (all-over mugs; built and Legal-cleared, not on Printify yet) |
 | Birthday Gifts | every design (tags) | 8. a birthday design (cake and candles) |
 | Most Whimsical Finds | Reading Ghosts, Pumpkins & Purrs, Christmas Cookies | covered |
 | Gifts for Her | Currently Reading, Strawberry Season, Grandma's Garden, Good Dogs | covered |
@@ -416,3 +416,14 @@ Studio Floor at any time.
   Delivery page (private): https://claude.ai/artifact/DNiqYDdDVoiWKWQj6m4mJr. Printify (read-only): 58 products, 48 with Etsy
   listing IDs, the same 10 drafts unpublished, 0 orders. No Printify products, so no 9b photos yet: writes still wait for the
   owner. $0 spent.
+- 2026-11-12 (16:17 UTC run, gift-category queue row 7, pattern day): **Lovebirds & Roses**, an all-over watercolor mug wrap for
+  couples: three lovebird pairs (green and aqua, gold and green, aqua and gold, rosy peach faces) on blossoming branches with a painted
+  heart above each pair, among garden roses, lavender, pink and golden flowers, red berries, hearts and gold sparkles on cream. No names
+  or dates, so two mugs make a matching set; accent mugs in Pink, Red and Light Green. New motif `lovebirds` in `motifs2.py` (the birds
+  are painted first, then the blossoms, and the branch goes around both; the green under the face is lifted so the peach stays clean).
+  `pattern.py` passes two colors to `garden_rose`; `build.py` now gives pattern designs mug details and care in the description copy
+  box (it had carried the t-shirt text), the accent mug's own title and tags, and mug upload steps. Fixes after review: bigger pairs,
+  a seed that keeps every pair off the handle seam on all three print sizes, feather marks kept inside the wing, the beak redrawn,
+  long sprigs spaced so they no longer cross roses. Research 21/25, Legal cleared; records in `pod-kit/research`, `legal` and
+  `decisions`. Delivery page (private): https://claude.ai/artifact/W3YCNQgmaGQ7PcsAbEAhr1. Printify (read-only): 58 products, 48 with
+  Etsy listing IDs, the same 10 drafts unpublished, 0 orders. No Printify products: writes still wait for the owner. $0 spent.

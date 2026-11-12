@@ -29,6 +29,13 @@ RISKY = re.compile(r"\b(disney|pixar|marvel|star wars|harry potter|hogwarts|tayl
                    r"sanrio|peanuts|snoopy|bluey|paw patrol|sesame street|minecraft|fortnite|lego|crocs|yeti|"
                    r"best ?seller|free shipping|#1)\b", re.I)
 STANDARD_DESC = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'standard_description.txt')).read()
+# pattern designs are mugs: the same how-it's-made text, with mug details and care (as printify.py writes them)
+MUG_DESC = ("\n\nHOW IT'S MADE\nThe artwork is digitally painted by our studio with its own watercolor-painting code "
+            "(no stock art, no copied designs). Each item is made on demand and shipped by our production partner, so it's made just for you."
+            "\n\nDETAILS\n- Ceramic mug with a glossy finish: 11 oz white, or an accent mug with a colored handle, rim and inside "
+            "(11 oz or 15 oz)\n- The watercolor pattern wraps all the way around\n- Microwave and dishwasher safe"
+            "\n- Colors can look slightly different on screens\n\nCARE\nDishwasher safe; hand washing keeps the print bright longest."
+            "\n\nBecause each item is made to order, please double-check your choices before checking out.")
 
 
 def check(listing):
@@ -55,15 +62,35 @@ def check(listing):
 
 def page(spec, out, files):
     L = spec['listing']
-    desc = L['description'].strip() + STANDARD_DESC
     sid = spec['id']
+    pattern = spec.get('kind') == 'pattern'
+    desc = L['description'].strip() + (MUG_DESC if pattern else STANDARD_DESC)
     def copy(label, text, rows=3):
         return (f'<div class="cp"><div class="lb">{html.escape(label)}<button type="button" data-copy>Copy</button></div>'
                 f'<textarea rows="{rows}" readonly>{html.escape(text)}</textarea></div>')
     imgs = ''.join(f'<figure><img src="{f}" alt="{html.escape(f)}"><figcaption>{html.escape(f)}</figcaption></figure>'
                    for f in files if f.endswith('.jpg'))
-    pattern = spec.get('kind') == 'pattern'
     noun = 'Mug' if pattern else 'Tee'
+    extra = ''
+    for key, over in (L.get('per_product') or {}).items():
+        name = key.replace('_', ' ')
+        if over.get('title'):
+            extra += copy(f'{name}: title (' + str(len(over['title'])) + '/140)', over['title'], 2)
+        if over.get('tags'):
+            extra += copy(f'{name}: 13 tags', ', '.join(over['tags']), 3)
+    if pattern:
+        accents = ', '.join(c.lower() for c in spec.get('mug_colors', []) if c != 'White') or 'the colors shown'
+        steps = (f"<li>In Printify, create an 11 oz white mug (blueprint 68) and upload <b>{sid}-wrap-2700x1120.png</b> to the full-wrap "
+                 "print area. It is painted at the exact print size, seamless at the handle, so don't scale or move it.</li>"
+                 f"<li>Create an accent mug (blueprint 635) in {html.escape(accents)}, 11 and 15 oz: upload <b>{sid}-wrap-2475x1155.png</b> "
+                 f"for 11 oz and <b>{sid}-wrap-2475x1275.png</b> for 15 oz.</li>"
+                 "<li>Publish to your Etsy shop from Printify, then in Etsy paste the title, tags and description above (the accent mug "
+                 "has its own title and tags).</li>")
+    else:
+        steps = (f"<li>In Printify, create a product for each item listed above and upload <b>{sid}.png</b> to the front print area. "
+                 "Keep it centred; don't stretch it.</li>"
+                 "<li>Choose the colors shown in the mockups (the art is made for light shirts).</li>"
+                 "<li>Publish to your Etsy shop from Printify, then in Etsy paste the title, tags and description above.</li>")
     files_note = ("Wrap files are painted at each mug's exact print area (2475 x 1155 and 2475 x 1275 for the accent mug, "
                   "2700 x 1120 for the white mug), seamless around the handle." if pattern else
                   "The print file is 4500 x 5400 px, transparent, 300 dpi: Printify's front print area for most tees and sweatshirts.")
@@ -93,12 +120,11 @@ ol{{margin:0;padding-left:20px}} li{{margin:4px 0}}
 {copy('Title (' + str(len(L['title'])) + '/140)', L['title'], 2)}
 {copy('13 tags', ', '.join(L['tags']), 3)}
 {copy('Description', desc, 14)}
+{extra}
 <p class="mut">Products: {html.escape(', '.join(L.get('products', [])))}. Price: {html.escape(L.get('price_note', ''))}</p>
 <p class="mut">Trademark check: {html.escape(L['trademark_check'])}</p></div>
 <div class="card"><h2>Publishing</h2><p class="mut">The studio creates these products on Printify and publishes them to Etsy within your $3/day listing budget. To do it by hand instead:</p><ol>
-<li>In Printify, create a product for each item listed above and upload <b>{sid}.png</b> to the front print area. Keep it centred; don't stretch it.</li>
-<li>Choose the colors shown in the mockups (the art is made for light shirts).</li>
-<li>Publish to your Etsy shop from Printify, then in Etsy paste the title, tags and description above.</li>
+{steps}
 <li>In Etsy's listing settings, add Printify as the production partner. If Etsy asks how the design was made, say it was designed by you with digital tools.</li>
 <li>Use the mockup images as listing photos, and add Printify's own mockups too.</li></ol></div>
 </main>

@@ -82,7 +82,7 @@ def paint(spec, W, H, seed_offset=0):
         if e.get('colors'):
             pair = rnd.choice(e['colors'])
             kw['color'] = pair[0]
-            if len(pair) > 1 and e['motif'] in ('maple_leaf', 'rose', 'bauble', 'glass_bauble'):
+            if len(pair) > 1 and e['motif'] in ('maple_leaf', 'rose', 'bauble', 'glass_bauble', 'garden_rose'):
                 kw['color2'] = pair[1]
         if e.get('tilt'):
             key = 'lean' if e['motif'] == 'ghost' else 'angle'

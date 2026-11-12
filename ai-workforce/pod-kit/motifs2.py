@@ -2029,6 +2029,130 @@ def chives(c, x, y, s, P, blooms=3, leaves=9):
         _chive_bloom(c, hx, hy - r * 0.8, r)
 
 
+# ---------------------------------------------------------------- lovebirds (couples)
+LB_BODY = ((0.30, -0.66), (0.50, -0.62), (0.64, -0.50), (0.72, -0.34), (0.70, -0.18), (0.62, -0.04), (0.56, 0.12), (0.44, 0.32),
+           (0.24, 0.46), (0.0, 0.52), (-0.24, 0.48), (-0.44, 0.40), (-0.62, 0.46), (-0.86, 0.56), (-0.90, 0.48), (-0.70, 0.30),
+           (-0.52, 0.14), (-0.40, -0.06), (-0.24, -0.28), (-0.04, -0.48), (0.12, -0.60))
+LB_FACE = ((0.64, -0.50), (0.72, -0.34), (0.70, -0.18), (0.60, -0.06), (0.46, -0.04), (0.32, -0.12), (0.24, -0.30), (0.26, -0.50),
+           (0.36, -0.62), (0.50, -0.62))
+LB_WING = ((0.22, -0.16), (0.02, -0.28), (-0.24, -0.20), (-0.46, 0.02), (-0.66, 0.34), (-0.40, 0.30), (-0.10, 0.30), (0.14, 0.18),
+           (0.26, 0.02))
+LB_TAIL = ((-0.52, 0.28), (-0.86, 0.52), (-0.92, 0.60), (-0.78, 0.62), (-0.50, 0.44))
+LB_BEAK = ((0.62, -0.42), (0.78, -0.40), (0.88, -0.28), (0.86, -0.15), (0.78, -0.17), (0.72, -0.11), (0.62, -0.16))
+LOVEBIRD_COATS = {
+    # peach-faced lovebird: grass green, a rosy peach face, a blue rump
+    'green': dict(light='#b9dc86', body='#6fb35c', dark='#2f7445', wing='#4e9654', face='#f8b493', face2='#e8656b', rump='#5aa6dc',
+                  ink=(40, 70, 45)),
+    # a blue-green (aqua) bird with the same peach face
+    'teal': dict(light='#a9ddd2', body='#4fa9a2', dark='#246d72', wing='#3c8f93', face='#f8b493', face2='#e8656b', rump='#6f8fd8',
+                 ink=(30, 64, 70)),
+    # a golden (lutino) bird with a rose face
+    'yellow': dict(light='#fbe9a0', body='#eec455', dark='#b98a26', wing='#e0ad3c', face='#f9b09a', face2='#e45d6a', rump='#f2e6c0',
+                   ink=(110, 80, 30)),
+}
+
+
+def _lovebird(c, x, y, u, facing, coat, P):
+    """One plump lovebird, side-on, facing 1 = right; (x, y) = middle of the body, u = its unit size."""
+    k = LOVEBIRD_COATS.get(coat, LOVEBIRD_COATS['green'])
+    def pts(seq):
+        return [(x + facing * px * u, y + py * u) for px, py in seq]
+    body = smooth(pts(LB_BODY), rounds=2)
+    # 1 the whole bird in one light wash, the colour pooling low on the belly
+    c.wash(body, k['light'], k['body'], strength=0.6, spread=0.02, layers=28, edge=1.0, granulate=0.3, vary=k['dark'], vary_amt=0.12,
+           ang=math.pi / 2)
+    # 2 a warm glow on the breast, the tail and rump glazed wet on dry
+    c.wash(ellipse(x + facing * 0.36 * u, y + 0.12 * u, 0.2 * u, 0.16 * u, 14), k['light'], None, strength=0.22, layers=10)
+    c.wash(smooth(pts(LB_TAIL), rounds=1), k['body'], k['dark'], strength=0.5, spread=0.03, layers=14, edge=0.9)
+    c.wash(ellipse(x - facing * 0.5 * u, y + 0.3 * u, 0.13 * u, 0.07 * u, 12, facing * 0.5), k['rump'], None, strength=0.4,
+           spread=0.03, layers=12, edge=0.9)
+    # 3 the wing: darker, with three rows of scalloped feather edges
+    wing = smooth(pts(LB_WING), rounds=2)
+    c.wash(wing, k['wing'], k['dark'], strength=0.55, spread=0.025, layers=18, edge=1.0, ang=math.pi / 2)
+    for row, (fx, fy, n) in enumerate(((-0.02, -0.12, 3), (-0.2, 0.06, 3), (-0.36, 0.2, 2))):
+        for i in range(n):
+            cx_ = fx - i * 0.12 + row * 0.04
+            arc = [(x + facing * (cx_ + 0.06 * math.cos(t)) * u, y + (fy + 0.05 * math.sin(t)) * u)
+                   for t in [math.pi * (0.1 + 0.8 * j / 6) for j in range(7)]]
+            c.ink_line(arc, width=max(1, u * 0.018), closed=False, alpha=95, passes=1, jitter=0, color=k['ink'])
+    # a soft shadow along the belly, wet on dry
+    c.wash(smooth(pts(((0.5, 0.12), (0.3, 0.4), (0.0, 0.5), (-0.3, 0.44), (-0.1, 0.36), (0.22, 0.26))), rounds=2), k['body'], None,
+           strength=0.22, spread=0.03, layers=10, edge=0.5)
+    # 4 the rosy face mask, deepest on the forehead: the green is lifted off first so the peach stays clean
+    face = smooth(pts(LB_FACE), rounds=2)
+    c.lift(face, amount=0.93, soft=0.04)
+    c.wash(face, k['face'], k['face2'], strength=0.62, spread=0.02, layers=18, edge=0.9, ang=-math.pi / 2)
+    c.wash(ellipse(x + facing * 0.5 * u, y - 0.52 * u, 0.13 * u, 0.08 * u, 14, facing * 0.2), k['face2'], None, strength=0.35,
+           spread=0.03, layers=10, edge=0.6)
+    # 5 the hooked beak in pale horn, a line between the halves
+    beak = smooth(pts(LB_BEAK), rounds=1)
+    c.wash(beak, '#f3c995', '#d9895a', strength=0.9, spread=0.01, layers=14, edge=1.0, ang=math.pi / 2)
+    c.ink_line(beak, width=max(1, u * 0.016), alpha=110, passes=1, jitter=0, color=(130, 80, 55))
+    c.ink_line(pts(((0.70, -0.25), (0.86, -0.22))), width=max(1, u * 0.016), closed=False, alpha=120, passes=1, jitter=0,
+               color=(120, 80, 60))
+    # 6 a lifted highlight on the crown, the eye with a pale ring and catch light
+    c.lift(ellipse(x + facing * 0.34 * u, y - 0.52 * u, 0.14 * u, 0.05 * u, 14, -facing * 0.35), amount=0.4, soft=0.35)
+    ex, ey = pts(((0.47, -0.36),))[0]
+    c.wash(ellipse(ex, ey, u * 0.058, u * 0.064, 12), '#141012', None, strength=1.4, spread=0.01, layers=10, blur=1)
+    gouache(c, ellipse(ex + facing * u * 0.018, ey - u * 0.02, u * 0.018, u * 0.018, 8), alpha=240, soft=0.1)
+    # 7 a loose outline, and two feet gripping the branch
+    c.ink_line(body, width=max(2, u * 0.022), alpha=130, passes=1, jitter=0, color=k['ink'])
+    for fx in (-0.06, 0.16):
+        top = (fx, 0.44); bot = (fx + 0.03, 0.62)
+        c.ink_line(pts((top, bot)), width=max(2, u * 0.03), closed=False, alpha=170, passes=1, jitter=0, color=(150, 110, 100))
+        for dx in (-0.07, 0.0, 0.07):
+            c.ink_line(pts((bot, (bot[0] + dx, bot[1] + 0.05))), width=max(1, u * 0.022), closed=False, alpha=150, passes=1,
+                       jitter=0, color=(150, 110, 100))
+
+
+def lovebirds(c, x, y, s, P, pair=('green', 'teal'), angle=0.0, heart=True, flowers=True):
+    """Two lovebirds on a branch, turned to each other with their beaks almost
+    touching, a small painted heart between them and blossoms on the branch.
+    (x, y) = between the birds, s = half the width of the scene."""
+    rnd = c.rnd
+    u = s * 0.42
+    occ0 = None if c.occl is None else c.occl.copy()
+    g0 = c.snapshot()
+    for side, coat in ((-1, pair[0]), (1, pair[1])):
+        _lovebird(c, x + side * s * 0.44, y + rnd.uniform(-0.02, 0.02) * s, u, -side, coat, P)
+    # the birds are in front: the branch, leaves and blossoms go around them
+    c.paint_around(g0)
+    by = y + s * 0.27
+    if flowers:
+        # three little blossoms on the branch (five petals, a gold centre), painted before the branch so it passes behind them
+        g1_ = c.snapshot()
+        for fx, fdy in ((0.0, -0.03), (-0.97, 0.0), (0.97, -0.01)):
+            fx_, fy_ = x + fx * s, by + fdy * s
+            for i in range(5):
+                a = i * 2 * math.pi / 5 + rnd.uniform(-0.2, 0.2)
+                c.wash(ellipse(fx_ + s * 0.045 * math.cos(a), fy_ + s * 0.045 * math.sin(a), s * 0.045, s * 0.034, 12, a),
+                       P.get('blossom', '#f6c3cc'), P.get('blossom2', '#e98a9c'), strength=0.6, spread=0.03, layers=12, edge=1.0)
+            c.wash(ellipse(fx_, fy_, s * 0.02, s * 0.02, 10), '#f1c45a', '#d99a32', strength=0.8, layers=8, edge=0.9)
+        c.paint_around(g1_)
+    br = [(x - s * 0.98, by + s * 0.05), (x - s * 0.5, by + s * 0.01), (x, by - s * 0.01), (x + s * 0.5, by + s * 0.0),
+          (x + s * 0.98, by + s * 0.04)]
+    c.wash(_band(br, s * 0.038, s * 0.026), '#b48a64', '#7a5238', strength=0.7, spread=0.02, layers=14, edge=1.0, granulate=0.5)
+    c.dry_brush(br, s * 0.03, '#5a3a28', strength=0.45, bristles=5)
+    g1, g2, gd = P.get('leaf', '#5f9365'), P.get('leaf2', '#a9cc95'), P.get('leaf_dark', '#2f5c3e')
+    for end in (-1, 1):
+        bx, by2 = x + end * s * 0.9, by + s * 0.04
+        for a, L in ((end * 0.5 - 0.9, 0.3), (end * 0.9 + 0.2, 0.26), (end * 0.2 + 0.6, 0.22)):
+            tip = (bx + math.cos(a) * s * L, by2 + math.sin(a) * s * L)
+            mid = (bx + math.cos(a + 0.25) * s * L * 0.5, by2 + math.sin(a + 0.25) * s * L * 0.5)
+            shape, _ = _curved_leaf((bx, by2), mid, tip, s * 0.05)
+            c.wash(shape, g2, g1, strength=0.62, spread=0.02, layers=14, edge=1.0, vary=gd, vary_amt=0.15)
+            c.ink_line([(bx, by2), mid, tip], width=max(1, s * 0.006), closed=False, alpha=80, passes=1, jitter=0, color=(40, 70, 45))
+    if heart:
+        hx, hy, hs = x, y - s * 0.4, s * 0.11
+        hp = [(hx + hs * 0.06 * 16 * math.sin(t) ** 3,
+               hy - hs * 0.06 * (13 * math.cos(t) - 5 * math.cos(2 * t) - 2 * math.cos(3 * t) - math.cos(4 * t)))
+              for t in [i / 28 * 2 * math.pi for i in range(28)]]
+        c.wash(hp, P.get('heart', '#e0566a'), P.get('heart2', '#f29aa6'), strength=0.75, spread=0.02, layers=20, edge=1.1,
+               ang=-math.pi / 4)
+        c.lift(ellipse(hx - hs * 0.42, hy - hs * 0.35, hs * 0.22, hs * 0.12, 12, -0.6), amount=0.5, soft=0.3)
+    c.occl = occ0
+
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
@@ -2037,4 +2161,5 @@ MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'sn
            'sunrise': sunrise, 'mountains2': mountains2, 'lake': lake, 'birds': birds, 'dock': dock, 'rowboat': rowboat, 'trout': trout,
            'cattails': cattails, 'lily_pads': lily_pads,
            'rose_leaves': rose_leaves, 'garden_rose': garden_rose, 'lily_valley': lily_valley,
-           'basil': basil, 'sage': sage, 'mint': mint, 'rosemary': rosemary, 'thyme': thyme, 'chives': chives}
+           'basil': basil, 'sage': sage, 'mint': mint, 'rosemary': rosemary, 'thyme': thyme, 'chives': chives,
+           'lovebirds': lovebirds}
