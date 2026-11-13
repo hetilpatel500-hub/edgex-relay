@@ -3143,5 +3143,39 @@
    "t_stat": 0.06,
    "max_drawdown_r": 11.84
   }
+ },
+ "rsi2_extreme": {
+  "side": "with",
+  "filter": "vwap+rvol",
+  "exit": "2atr/4atr",
+  "tf": "M5",
+  "frozen_at": "2026-11-13",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 47,
+   "win_rate": 0.511,
+   "avg_r": 0.086,
+   "total_r": 4.04,
+   "profit_factor": 1.2,
+   "t_stat": 0.52,
+   "max_drawdown_r": 8.29
+  }
+ },
+ "prior_lvn_rejection": {
+  "side": "with",
+  "filter": "ppoc",
+  "exit": "2atr/4atr",
+  "tf": "M5",
+  "frozen_at": "2026-11-13",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 30,
+   "win_rate": 0.5,
+   "avg_r": 0.22,
+   "total_r": 6.59,
+   "profit_factor": 1.44,
+   "t_stat": 0.92,
+   "max_drawdown_r": 7.36
+  }
  }
 }
