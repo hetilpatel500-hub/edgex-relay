@@ -155,7 +155,7 @@ open rows, in order) instead of 1, and marks each row done with the date.
 | Top 100 Holiday Gifts | Cocoa Season, Christmas Cookies, Snowy Pine Cardinals, Sufganiyot Season (live Oct 5) | 3. Thanksgiving (Nov 26): **Pie Season done 2026-10-06** (built and Legal-cleared, not on Printify yet, see below); then more Christmas: **Tree Farm Season, Deck the Shelves and Vintage Glass Ornaments done 2026-11-05** (built and Legal-cleared, not on Printify yet) |
 | Housewarming Gifts | Soup Season and Cocoa Season art prints and mugs | 6. a kitchen or home art print design: **Kitchen Herbs done 2026-11-11** (built and Legal-cleared, not on Printify yet) |
 | Gifts for Couples, Anniversary, Engagement, Special Wedding Gifts | none | 7. a couples design that works on matching mugs (no names, no dates): **Lovebirds & Roses done 2026-11-12** (all-over mugs; built and Legal-cleared, not on Printify yet) |
-| Birthday Gifts | every design (tags) | 8. a birthday design (cake and candles) |
+| Birthday Gifts | every design (tags) | 8. a birthday design (cake and candles): **Another Year Sweeter done 2026-11-13** (built and Legal-cleared, not on Printify yet) |
 | Most Whimsical Finds | Reading Ghosts, Pumpkins & Purrs, Christmas Cookies | covered |
 | Gifts for Her | Currently Reading, Strawberry Season, Grandma's Garden, Good Dogs | covered |
 | Gifts under $50 / under $100 | every product (our highest price is $38.99) | covered: Etsy groups these by price |
@@ -427,3 +427,16 @@ Studio Floor at any time.
   long sprigs spaced so they no longer cross roses. Research 21/25, Legal cleared; records in `pod-kit/research`, `legal` and
   `decisions`. Delivery page (private): https://claude.ai/artifact/W3YCNQgmaGQ7PcsAbEAhr1. Printify (read-only): 58 products, 48 with
   Etsy listing IDs, the same 10 drafts unpublished, 0 orders. No Printify products: writes still wait for the owner. $0 spent.
+
+- 2026-11-13 (16:17 UTC run, gift-category queue row 8, motif day): **Another Year Sweeter**, a watercolor vintage birthday cake
+  (pale pink layer cake with cream shell borders, Lambeth-style swags with rosettes and drops, sugar pearls and string loops, a red
+  satin bow, five glossy cherries and five striped candles lit on top, on a mint milk-glass cake stand with hobnail dots, between a
+  polka-dot and a striped present, with confetti and gold sparkles; "ANOTHER YEAR" above, "Sweeter" in pink script below; no age,
+  name or date). BIRTHDAY SEASON was rejected at the trademark screen (reg. 4958597 covers art prints). Engine v2; new motifs
+  `birthday_cake` and `confetti` in `motifs2.py` (helpers: piped shells foreshortened at the sides, a teardrop candle flame with a
+  soft glow, striped candles, glossy cherries, a satin bow); `gift2` takes `ink`, `shadow`, `shade` and `soft` (defaults unchanged).
+  Three rounds of fixes (see-through cake over the stand, hard panel shading, spiky end shells, floating presents, lightbulb flames
+  with halo rings, hard shell and swag shadows, a crossed cake-stand foot). Research 20/25, Legal cleared; records in
+  `pod-kit/research`, `legal` and `decisions`. Delivery page (private): https://claude.ai/artifact/RK9SwQMiLFc7KRjdxukCuW. Printify
+  (read-only): 58 products, 48 with Etsy listing IDs, the same 10 drafts unpublished, 0 orders. No Printify products, so no 9b
+  photos yet: writes still wait for the owner. $0 spent.

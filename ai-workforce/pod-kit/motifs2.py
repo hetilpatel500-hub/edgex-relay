@@ -634,7 +634,7 @@ def book_tree2(c, x, y, s, P, rows=11, lights=5, star=True, colors=None):
         c.ink_line(st, width=max(1.5, s * 0.004), alpha=170, passes=1, jitter=0, color=(130, 92, 30))
 
 
-def gift2(c, x, y, s, P, color=None, ribbon=None, pattern=None, tall=1.0, angle=0.0):
+def gift2(c, x, y, s, P, color=None, ribbon=None, pattern=None, tall=1.0, angle=0.0, ink=150, shadow=False, shade=None, soft=False):
     """A wrapped present: patchy paper with a printed pattern (stripes, dots
     or stars) in opaque paint, a satin ribbon both ways with a highlight, and
     a full bow with shaded loops and notched tails. (x, y) = middle of the
@@ -647,8 +647,13 @@ def gift2(c, x, y, s, P, color=None, ribbon=None, pattern=None, tall=1.0, angle=
     def R(pts):
         return _rot(pts, x, y, angle)
     box = R(rect(x - s, y - H, x + s, y))
-    c.wash(box, col, None, strength=0.85, spread=0.004, layers=22, edge=1.0, vary=P.get('book_shadow', '#3a2a2e'), vary_amt=0.25)
-    c.wash(R(rect(x + s * 0.35, y - H, x + s, y)), P.get('book_shadow', '#3a2a2e'), None, strength=0.2, layers=10, edge=0.3)
+    g0 = c.snapshot() if shadow else None
+    sh = _shade(col, 0.7) if shade == 'auto' else (shade or P.get('book_shadow', '#3a2a2e'))
+    c.wash(box, col, None, strength=0.85, spread=0.004, layers=22, edge=1.0, vary=sh, vary_amt=0.25)
+    if soft:
+        c.wash(R(rect(x + s * 0.2, y - H, x + s * 1.2, y)), sh, None, strength=0.3, layers=10, edge=0.0, blur=s * 0.12, clip=box)
+    else:
+        c.wash(R(rect(x + s * 0.35, y - H, x + s, y)), sh, None, strength=0.2, layers=10, edge=0.3)
     deco = (246, 236, 214) if pattern != 'stars' else _rgb(P.get('gold', '#d8b25a'))
     if pattern == 'stripes':
         for k in range(-6, 7):
@@ -670,7 +675,10 @@ def gift2(c, x, y, s, P, color=None, ribbon=None, pattern=None, tall=1.0, angle=
     # lid
     lid = R(rect(x - s * 1.06, y - H - s * 0.14, x + s * 1.06, y - H + s * 0.1))
     c.wash(lid, col, None, strength=0.95, spread=0.004, layers=16, edge=1.0)
-    c.wash(R(rect(x - s * 1.06, y - H + s * 0.04, x + s * 1.06, y - H + s * 0.1)), P.get('book_shadow', '#3a2a2e'), None, strength=0.3, layers=8)
+    if soft:
+        c.wash(R(rect(x - s, y - H + s * 0.1, x + s, y - H + s * 0.2)), sh, None, strength=0.3, layers=8, edge=0.0, blur=s * 0.04, clip=box)
+    else:
+        c.wash(R(rect(x - s * 1.06, y - H + s * 0.04, x + s * 1.06, y - H + s * 0.1)), sh, None, strength=0.3, layers=8)
     # ribbon with a satin highlight
     rw = s * 0.13
     gouache(c, R(rect(x - rw, y - H - s * 0.14, x + rw, y)), color=rib, alpha=248, soft=0.01)
@@ -687,8 +695,13 @@ def gift2(c, x, y, s, P, color=None, ribbon=None, pattern=None, tall=1.0, angle=
                 (x + side * s * 0.12, y - H + s * 0.28), (x + side * s * 0.03, y - H + s * 0.34)]
         gouache(c, R(tail), color=rib, alpha=245, soft=0.02)
     gouache(c, R(ellipse(x, y - H - s * 0.13, s * 0.11, s * 0.09, 10)), color=dk, alpha=250, soft=0.03)
-    c.ink_line(box, width=max(1.5, s * 0.025), alpha=150, passes=1, jitter=0, color=(44, 32, 36))
-    c.ink_line(lid, width=max(1.5, s * 0.025), alpha=150, passes=1, jitter=0, color=(44, 32, 36))
+    c.ink_line(box, width=max(1.5, s * 0.025), alpha=ink, passes=1, jitter=0, color=(44, 32, 36))
+    c.ink_line(lid, width=max(1.5, s * 0.025), alpha=ink, passes=1, jitter=0, color=(44, 32, 36))
+    if shadow:
+        # a soft contact shadow on the table, painted around the box
+        c.paint_around(g0)
+        c.wash(ellipse(x + s * 0.12, y + s * 0.04, s * 1.3, s * 0.13, 20), P.get('table_shadow', '#c9b7c0'), None, strength=0.3,
+               spread=0.03, layers=10, edge=0.0, blur=s * 0.05)
 
 
 def cozy_cat(c, x, y, s, P, scarf=None, tail=1):
@@ -756,7 +769,7 @@ def mini_bauble(c, x, y, r, col, P):
 # ---------------------------------------------------------------- glass ornaments
 def _shade(hexcol, k):
     r, g, b = _rgb(hexcol)
-    return '#%02x%02x%02x' % (int(r * k), int(g * k), int(b * k))
+    return '#%02x%02x%02x' % tuple(min(255, int(v * k)) for v in (r, g, b))
 
 
 GLASS_SHAPES = {
@@ -2153,6 +2166,335 @@ def lovebirds(c, x, y, s, P, pair=('green', 'teal'), angle=0.0, heart=True, flow
     c.occl = occ0
 
 
+
+# ---------------------------------------------------------------- birthday cake (2026-11-13)
+def _teardrop(cx, cy, L, W, ang, n=18):
+    """A piped shell or drop: round head at (cx, cy), the tail running out to
+    length L along ang, widest W."""
+    pts = []
+    for i in range(n):
+        t = 2 * math.pi * i / n
+        X = L * (1 + math.cos(t)) / 2 - L * 0.18
+        Y = W / 2 / 0.77 * math.sin(t) * math.sin(t / 2)
+        pts.append((X, Y))
+    ca, sa = math.cos(ang), math.sin(ang)
+    return [(cx + px * ca - py * sa, cy + px * sa + py * ca) for px, py in pts]
+
+
+def _ring_shells(c, x, y, rx, ry, a0, a1, n, L, W, cols, front_first=True, strength=0.58):
+    """A piped shell border along an ellipse from angle a0 to a1: each shell's
+    tail runs on along the rim. Even shells are painted first and the odd ones
+    go around them, so neighbours overlap cleanly instead of showing through."""
+    cream, shade, rim = cols
+    heads = []
+    for k in range(n):
+        a = a0 + (a1 - a0) * (k + 0.5) / n
+        px, py = x + rx * math.cos(a), y + ry * math.sin(a)
+        tx, ty = -rx * math.sin(a), ry * math.cos(a)
+        ang = math.atan2(ty, tx) if (a1 > a0) else math.atan2(-ty, -tx)
+        # seen edge-on at the sides of the cake, a shell is foreshortened to a short round blob
+        fs = max(0.4, math.hypot(tx, ty) / rx)
+        heads.append((px, py, ang, fs))
+    for parity in (0, 1):
+        g = c.snapshot()
+        for k, (px, py, ang, fs) in enumerate(heads):
+            if k % 2 != parity:
+                continue
+            Lk, Wk = L * fs, W * (0.8 + 0.2 * fs)
+            shp = _teardrop(px, py, Lk, Wk, ang)
+            c.wash(shp, cream, shade, strength=strength, spread=0.02, layers=12, edge=1.15, granulate=0.15, ang=math.pi / 2)
+            # the shell's ridge and its shadowed underside
+            c.wash(_teardrop(px + Wk * 0.05, py + Wk * 0.3, Lk * 0.85, Wk * 0.55, ang), rim, None, strength=0.34, spread=0.02,
+                   layers=8, edge=0.0, blur=Wk * 0.18, clip=shp)
+            hx, hy = px - Wk * 0.1, py - Wk * 0.16
+            gouache(c, ellipse(hx, hy, Wk * 0.2, Wk * 0.09, 10, ang), color=(255, 252, 246), alpha=150, soft=0.35)
+        c.paint_around(g)
+    return heads
+
+
+def _pearl(c, px, py, r, col=(255, 252, 246), alpha=235):
+    gouache(c, ellipse(px, py, r, r, 10), color=col, alpha=alpha, soft=0.12)
+
+
+def _flame2(c, x, y, h):
+    """A candle flame standing on its wick: (x, y) = the wick's tip, h = the
+    flame's height. A soft warm glow with no edge, a round-bottomed teardrop in
+    orange to gold, a pale core in gouache and a breath of blue at the base."""
+    c.glow(x, y - h * 0.5, h * 1.0, '#f9e2a0', strength=0.3)
+    outer = _teardrop(x, y - h * 0.2, h * 1.02, h * 0.44, -math.pi / 2, n=30)
+    c.wash(outer, '#f6c456', '#ee9a34', strength=0.95, spread=0.008, layers=14, edge=1.0, granulate=0.08, ang=math.pi / 2)
+    c.wash(ellipse(x, y - h * 0.05, h * 0.1, h * 0.08, 10), '#7f9fd2', None, strength=0.45, layers=8, edge=0.2, blur=h * 0.03,
+           clip=outer)
+    core = _teardrop(x, y - h * 0.24, h * 0.62, h * 0.24, -math.pi / 2, n=24)
+    gouache(c, core, color=(255, 247, 222), alpha=225, soft=0.14)
+
+
+def _candle(c, x, y, s, h, col, P, stripe=(255, 250, 244)):
+    """A thin birthday candle standing on the cake top: (x, y) = middle of its
+    base, s = the cake's scale, h = its height. Round shading, white spiral
+    stripes in gouache, a waxy top, a dark wick and a lit flame with a glow."""
+    from motifs import flame
+    w = s * 0.042
+    body = rect(x - w, y - h, x + w, y, 4)
+    dark = _shade(col, 0.68)
+    c.wash(body, col, None, strength=0.75, spread=0.004, layers=14, edge=1.0, granulate=0.2)
+    c.wash(rect(x + w * 0.25, y - h, x + w, y, 3), dark, None, strength=0.4, spread=0.004, layers=8, edge=0.5, clip=body)
+    # spiral stripes: parallelograms that climb around the candle
+    step = w * 2.6
+    k = 0
+    yy = y - step * 0.6
+    while yy - w * 1.2 > y - h + w * 0.6:
+        band = [(x - w * 0.96, yy), (x + w * 0.96, yy - w * 1.15), (x + w * 0.96, yy - w * 1.15 - w * 0.7), (x - w * 0.96, yy - w * 0.7)]
+        gouache(c, band, color=stripe, alpha=205, soft=0.04)
+        yy -= step; k += 1
+    c.lift(rect(x - w * 0.55, y - h + w * 0.5, x - w * 0.2, y - w * 0.4, 2), amount=0.35, soft=0.2)
+    # waxy top and wick
+    c.wash(ellipse(x, y - h, w, w * 0.35, 10), _shade(col, 1.12), None, strength=0.6, layers=8, edge=0.9)
+    c.ink_line([(x, y - h), (x + w * 0.1, y - h - s * 0.04)], width=max(1.5, w * 0.2), closed=False, jitter=0, passes=1,
+               alpha=230, color=(46, 36, 34))
+    _flame2(c, x + w * 0.1, y - h - s * 0.012, s * 0.2)
+
+
+def _satin_bow(c, x, y, s, col, P):
+    """A satin ribbon bow (the coquette bow): two full loops with a shaded
+    inner fold, a knot and long tails with notched ends, lifted where the
+    satin catches the light. (x, y) = the knot, s = half the width."""
+    dk = _shade(col, 0.62); lt = _shade(col, 1.25)
+    for side in (-1, 1):
+        loop = [(x, y - s * 0.02), (x + side * s * 0.35, y - s * 0.5), (x + side * s * 0.82, y - s * 0.58), (x + side * s * 1.0, y - s * 0.32),
+                (x + side * s * 0.86, y + s * 0.0), (x + side * s * 0.4, y + s * 0.1)]
+        loop = smooth(loop, 2)
+        c.wash(loop, col, dk, strength=0.85, spread=0.01, layers=16, edge=1.1, ang=math.pi / 2 if side > 0 else math.pi / 2 + 0.3)
+        fold = [(x + side * s * 0.15, y - s * 0.06), (x + side * s * 0.45, y - s * 0.34), (x + side * s * 0.7, y - s * 0.3),
+                (x + side * s * 0.45, y - s * 0.08)]
+        c.wash(smooth(fold, 2), dk, None, strength=0.5, spread=0.01, layers=10, edge=0.0, blur=s * 0.07, clip=loop)
+        c.lift(ellipse(x + side * s * 0.62, y - s * 0.46, s * 0.16, s * 0.05, 12, side * 0.25), amount=0.5, soft=0.35, clip=loop)
+    for side in (-1, 1):
+        tail = [(x + side * s * 0.0, y + s * 0.09), (x + side * s * 0.22, y + s * 0.45), (x + side * s * 0.42, y + s * 0.95),
+                (x + side * s * 0.3, y + s * 0.88), (x + side * s * 0.2, y + s * 1.02), (x + side * s * 0.12, y + s * 0.5),
+                (x + side * s * 0.03, y + s * 0.12)]
+        c.wash(tail, col, dk, strength=0.8, spread=0.01, layers=14, edge=1.0, ang=math.pi / 2)
+        c.lift(_band([(x + side * s * 0.08, y + s * 0.12), (x + side * s * 0.2, y + s * 0.5), (x + side * s * 0.3, y + s * 0.82)],
+                     s * 0.025, s * 0.015), amount=0.4, soft=0.3, clip=tail)
+    knot = ellipse(x, y, s * 0.16, s * 0.14, 14)
+    c.wash(knot, col, dk, strength=1.0, spread=0.01, layers=12, edge=1.0)
+    c.lift(ellipse(x - s * 0.04, y - s * 0.04, s * 0.06, s * 0.035, 10), amount=0.5, soft=0.3)
+    gouache(c, ellipse(x - s * 0.05, y - s * 0.05, s * 0.025, s * 0.015, 8), color=tuple(min(255, int(v)) for v in _rgb(lt)), alpha=150, soft=0.3)
+
+
+def _cherry(c, px, py, r, P, stem_dir=1):
+    """A glossy cherry with its stem: deep red, darker low down, a lifted
+    highlight and a white glint; the stem curves up and back."""
+    red, red2, red3 = P.get('cherry', '#c42b3f'), P.get('cherry2', '#e0566a'), P.get('cherry_dark', '#7a1426')
+    st = [(px + r * 0.05, py - r * 0.75), (px + stem_dir * r * 0.35, py - r * 1.6), (px + stem_dir * r * 0.9, py - r * 2.35)]
+    c.wash(_band(st, r * 0.09, r * 0.05), '#7d8a3c', '#5c4a2a', strength=0.85, spread=0.01, layers=8, edge=1.0)
+    body = [(px + r * 1.0 * math.cos(t) * (1 - 0.06 * math.sin(t) ** 8), py + r * 0.94 * math.sin(t) + (r * 0.12 if math.sin(t) < -0.8 else 0))
+            for t in [2 * math.pi * i / 26 for i in range(26)]]
+    c.wash(body, red2, red, strength=0.9, spread=0.01, layers=16, edge=1.1, ang=math.pi / 2 + 0.5)
+    c.wash(ellipse(px + r * 0.3, py + r * 0.45, r * 0.8, r * 0.55, 14, 0.4), red3, None, strength=0.65, spread=0.02, layers=10, edge=0.0,
+           blur=r * 0.3, clip=body)
+    c.lift(ellipse(px - r * 0.38, py - r * 0.3, r * 0.26, r * 0.17, 12, -0.6), amount=0.55, soft=0.3, clip=body)
+    gouache(c, ellipse(px - r * 0.42, py - r * 0.36, r * 0.1, r * 0.065, 8, -0.6), color=(255, 248, 246), alpha=225, soft=0.2)
+
+
+def birthday_cake(c, x, y, s, P, candles=5, cherries=True, bow=True, stand=True):
+    """A vintage piped layer cake on a milk-glass cake stand, lit for a
+    birthday: pale pink frosting with a piped shell border at the top and the
+    foot, Lambeth-style swags with rosettes, sugar pearls and string loops, a
+    satin bow, glossy cherries round the top and striped candles with flames.
+    (x, y) = middle of the cake's bottom edge, s = the cake's half-width."""
+    rnd = c.rnd
+    e = 0.3
+    Hc = s * 0.95
+    yT = y - Hc
+    pink, pink2, pink3 = P.get('frost', '#f6c6cd'), P.get('frost2', '#fbe3e5'), P.get('frost_dark', '#e08e9d')
+    cream, cream_sh, cream_rim = P.get('pipe', '#fdf3ea'), P.get('pipe2', '#f4cfd2'), P.get('pipe_dark', '#e2a3ad')
+    string = P.get('string', '#d9677e')
+    occ0 = None if c.occl is None else c.occl.copy()
+
+    def top_pt(a, k=1.0):
+        return (x + s * k * math.cos(a), yT + s * e * k * math.sin(a))
+
+    # 1 candles, front row first so the back row goes around it, with a warm glow above
+    if candles:
+        spots = [(-0.52, 0.04, 0.62), (0.0, -0.04, 0.58), (0.52, 0.04, 0.6), (-0.27, -0.46, 0.7), (0.27, -0.46, 0.68)][:candles]
+        cols = P.get('candles', ['#8fb7e0', '#f2cf6b', '#9ccfb4', '#f2a0b4', '#b9a3dd'])
+        order = sorted(range(len(spots)), key=lambda i: -spots[i][1])
+        c.glow(x, yT - s * 0.78, s * 0.75, '#f9e2a6', strength=0.22)
+        for i in order:
+            u, v, hh = spots[i]
+            g = c.snapshot()
+            _candle(c, x + s * u, yT + s * e * v, s, s * hh, cols[i % len(cols)], P)
+            c.paint_around(g)
+    # 2 cherries on rosettes round the top rim (back ones go around the candles)
+    if cherries:
+        for a in (1.22 * math.pi, 1.78 * math.pi, 0.08 * math.pi, 0.5 * math.pi, 0.92 * math.pi):
+            px, py = top_pt(a, 0.86)
+            g = c.snapshot()
+            _cherry(c, px, py - s * 0.075, s * 0.085, P, stem_dir=1 if math.cos(a) >= 0 else -1)
+            c.paint_around(g)
+    # 3 the bow, pinned at the front of the top swag
+    ys = yT + Hc * 0.36
+    if bow:
+        g = c.snapshot()
+        _satin_bow(c, x, ys + s * e + s * 0.02, s * 0.26, P.get('bow', '#c8324a'), P)
+        c.paint_around(g)
+    # 4 piping: the top shell border (back half, then front), rosettes and swags, the foot border
+    g = c.snapshot()
+    _ring_shells(c, x, yT, s * 0.97, s * e * 0.97, math.pi, 2 * math.pi, 12, s * 0.33, s * 0.12, (cream, cream_sh, cream_rim))
+    c.paint_around(g)
+    g = c.snapshot()
+    _ring_shells(c, x, yT + s * 0.01, s * 0.99, s * e * 0.99, 0.0, math.pi, 12, s * 0.34, s * 0.13, (cream, cream_sh, cream_rim))
+    c.paint_around(g)
+    joins = [0.07 * math.pi + k * 0.86 * math.pi / 6 for k in range(7)]
+    # rosettes with a hanging drop under each join
+    g = c.snapshot()
+    for k, a in enumerate(joins):
+        px, py = x + s * math.cos(a), ys + s * e * math.sin(a)
+        if bow and k == 3:
+            continue
+        rr = s * 0.058 * (0.7 + 0.3 * math.sin(a))
+        c.wash(ellipse(px, py, rr, rr * 0.92, 16), cream, cream_sh, strength=0.45, spread=0.02, layers=12, edge=1.15, ang=math.pi / 2)
+        ang0 = rnd.uniform(0, 6.28)
+        c.wash(crescent(px, py, rr * 0.55, ang0, ang0 + 3.6, rr * 0.22, n=12), cream_rim, None, strength=0.35, layers=8, edge=0.9)
+        c.wash(_teardrop(px, py + rr * 2.1, rr * 1.5, rr * 0.75, -math.pi / 2), cream, cream_sh, strength=0.42, spread=0.02, layers=10,
+               edge=1.1, ang=math.pi / 2)
+    c.paint_around(g)
+    # swags (drapes) between the joins, each with sugar pearls along it
+    g = c.snapshot()
+    pearls = []
+    for k in range(6):
+        a0, a1 = joins[k], joins[k + 1]
+        path = []
+        for i in range(13):
+            t = i / 12
+            a = a0 + (a1 - a0) * t
+            path.append((x + s * math.cos(a), ys + s * e * math.sin(a) + Hc * 0.17 * math.sin(math.pi * t)))
+        w0 = s * 0.05
+        left, right = [], []
+        for i, (px, py) in enumerate(path):
+            nx, ny = _path_normal(path, i)
+            w = w0 * (0.35 + 0.65 * math.sin(math.pi * i / 12))
+            left.append((px + nx * w, py + ny * w)); right.append((px - nx * w, py - ny * w))
+        band = left + right[::-1]
+        c.wash(band, cream, cream_sh, strength=0.45, spread=0.015, layers=12, edge=1.15, ang=math.pi / 2)
+        low = [(px, py + w0 * 0.55) for px, py in path[1:12]]
+        c.wash(_band(low, w0 * 0.45, w0 * 0.45), cream_rim, None, strength=0.32, layers=8, edge=0.0, blur=w0 * 0.35, clip=band)
+        hi = [(px, py - w0 * 0.35) for px, py in path[3:10]]
+        gouache(c, _band(hi, w0 * 0.12, w0 * 0.08), color=(255, 252, 247), alpha=140, soft=0.2)
+        pearls += [path[i] for i in (3, 6, 9)]
+    c.paint_around(g)
+    # string loops below the swags, a fine line in deeper pink
+    for k in range(6):
+        a0, a1 = joins[k], joins[k + 1]
+        path = []
+        for i in range(15):
+            t = i / 14
+            a = a0 + (a1 - a0) * t
+            path.append((x + s * math.cos(a), ys + s * e * math.sin(a) + Hc * 0.3 * math.sin(math.pi * t)))
+        c.wash(_band(path, s * 0.009, s * 0.009), string, None, strength=0.7, spread=0.01, layers=8, edge=1.0)
+    g = c.snapshot()
+    _ring_shells(c, x, y + s * 0.015, s * 1.02, s * e * 1.02, -0.04 * math.pi, 1.04 * math.pi, 13, s * 0.33, s * 0.14,
+                 (cream, cream_sh, cream_rim), strength=0.5)
+    c.paint_around(g)
+    # 5 the frosted top and the round side, shaded like a cylinder (light from the upper left)
+    g5 = c.snapshot()
+    top = ellipse(x, yT, s, s * e, 40)
+    c.wash(top, pink2, pink, strength=0.42, spread=0.01, layers=22, edge=0.6, ang=math.pi / 2, vary=pink, vary_amt=0.2)
+    body = [(x + s, yT), (x + s, y)] + [(x + s * math.cos(a), y + s * e * math.sin(a)) for a in [math.pi * i / 30 for i in range(31)]] + \
+           [(x - s, yT)] + [(x + s * math.cos(a), yT + s * e * math.sin(a)) for a in [math.pi * (30 - i) / 30 for i in range(31)]]
+    c.wash(body, pink2, pink, strength=0.58, spread=0.006, layers=26, edge=0.8, ang=0.0, vary=pink3, vary_amt=0.15, granulate=0.25)
+    c.wash(rect(x + s * 0.4, yT - s * 0.3, x + s * 1.25, y + s * 0.5, 3), pink3, None, strength=0.36, spread=0.03, layers=14, edge=0.0,
+           blur=s * 0.16, clip=body)
+    c.wash(rect(x - s * 1.3, yT - s * 0.3, x - s * 0.88, y + s * 0.5, 3), pink3, None, strength=0.2, spread=0.03, layers=10, edge=0.0,
+           blur=s * 0.08, clip=body)
+    c.wash(ellipse(x, y + s * e * 0.2, s * 1.1, s * 0.16, 24), pink3, None, strength=0.22, spread=0.03, layers=10, edge=0.0, blur=s * 0.06,
+           clip=body)
+    c.lift(rect(x - s * 0.66, yT + s * 0.15, x - s * 0.42, y + s * 0.2, 3), amount=0.28, soft=0.45, clip=body)
+    c.paint_around(g5)
+    # 6 the milk-glass cake stand: plate, rim with hobnail dots, stem and foot; a soft shadow under the cake
+    if stand:
+        g1, g2, g3 = P.get('stand', '#d5ebe2'), P.get('stand2', '#a9cfc1'), P.get('stand_dark', '#6f9f8f')
+        yp = y + s * 0.07
+        R = s * 1.32
+        c.wash(ellipse(x + s * 0.12, yp - s * 0.02, s * 1.05, s * e * 1.02, 30), g3, None, strength=0.3, spread=0.03, layers=12, edge=0.3)
+        c.wash(ellipse(x, yp, R, R * e, 40), g1, g2, strength=0.45, spread=0.008, layers=20, edge=0.9, ang=math.pi / 2)
+        th = s * 0.1
+        rim = [(x + R * math.cos(a), yp + R * e * math.sin(a)) for a in [math.pi * i / 30 for i in range(31)]] + \
+              [(x + R * math.cos(a), yp + th + R * e * math.sin(a)) for a in [math.pi * (30 - i) / 30 for i in range(31)]]
+        c.wash(rim, g2, g3, strength=0.55, spread=0.008, layers=16, edge=1.0, ang=0.0)
+        for k in range(15):
+            a = math.pi * (k + 0.5) / 15
+            hx, hy = x + R * math.cos(a), yp + th * 0.5 + R * e * math.sin(a)
+            _pearl(c, hx, hy, s * 0.022 * (0.55 + 0.45 * math.sin(a)), col=(246, 252, 249), alpha=200)
+        yb = yp + R * e + th
+        yf = y + s * 0.72
+        stem = [(x - s * 0.17, yb - s * 0.02), (x - s * 0.08, yb + s * 0.1), (x - s * 0.06, yf - s * 0.2), (x - s * 0.13, yf - s * 0.1),
+                (x - s * 0.1, yf - s * 0.04), (x + s * 0.1, yf - s * 0.04), (x + s * 0.13, yf - s * 0.1), (x + s * 0.06, yf - s * 0.2),
+                (x + s * 0.08, yb + s * 0.1), (x + s * 0.17, yb - s * 0.02)]
+        gs = c.snapshot()
+        stem_shape = smooth(stem, 2)
+        c.wash(stem_shape, g1, g2, strength=0.6, spread=0.01, layers=16, edge=1.0, ang=0.0)
+        c.wash(rect(x + s * 0.01, yb - s * 0.05, x + s * 0.2, yf, 2), g3, None, strength=0.3, layers=8, edge=0.0, blur=s * 0.03, clip=stem_shape)
+        c.wash(ellipse(x, yb + s * 0.03, s * 0.2, s * 0.045, 14), g3, None, strength=0.3, layers=10, edge=0.0, blur=s * 0.02, clip=stem_shape)
+        c.lift(ellipse(x - s * 0.045, yb + s * 0.22, s * 0.022, s * 0.11, 10), amount=0.45, soft=0.3)
+        c.paint_around(gs)
+        fr = s * 0.6; fe = fr * e * 0.8; fth = s * 0.06
+        foot_top = ellipse(x, yf, fr, fe, 36)
+        foot_rim = [(x + fr * math.cos(a), yf + fe * math.sin(a)) for a in [math.pi * i / 24 for i in range(25)]] + \
+                   [(x + fr * math.cos(a), yf + fth + fe * math.sin(a)) for a in [math.pi * (24 - i) / 24 for i in range(25)]]
+        c.wash(foot_top, g1, g2, strength=0.45, spread=0.008, layers=16, edge=0.9, ang=math.pi / 2)
+        c.wash(foot_rim, g2, g3, strength=0.55, spread=0.008, layers=14, edge=1.0, ang=0.0)
+        c.lift(ellipse(x - fr * 0.5, yf + fth * 0.4 + fe * 0.8, fr * 0.2, fth * 0.25, 10, 0.2), amount=0.4, soft=0.3)
+        c.lift(ellipse(x - R * 0.55, yp + th * 0.4 + R * e * 0.75, s * 0.22, s * 0.025, 12, 0.25), amount=0.4, soft=0.3)
+        # shadow on the table
+        c.wash(ellipse(x + s * 0.1, yf + s * 0.1, s * 0.85, s * 0.1, 24), '#c9b7c0', None, strength=0.25, spread=0.04, layers=12, edge=0.2)
+    # finishing: sugar pearls on the swags and glints on the shells
+    for px, py in pearls:
+        _pearl(c, px, py - s * 0.004, s * 0.018)
+    for a in [math.pi * (k + 0.5) / 12 for k in range(12)]:
+        px, py = top_pt(a, 0.99)
+        gouache(c, ellipse(px - s * 0.03, py - s * 0.035, s * 0.03, s * 0.012, 8, 0.2), color=(255, 253, 249), alpha=170, soft=0.3)
+    c.occl = occ0
+
+
+def confetti(c, x, y, s, P, n=70, aspect=0.95, inner=0.45, clear=None, colors=None, size=0.022, avoid=None):
+    """Party confetti in watercolor: round dots, little squares and curled
+    paper streamers in soft colors, scattered in a ring round a scene.
+    (x, y) = centre, s = outer radius; inner = the ring's inner radius (a share
+    of s); clear = boxes [x0, y0, x1, y1] in units of s from the centre to keep empty;
+    avoid = round spots [dx, dy, r] in the same units (sparkles painted separately)."""
+    rnd = c.rnd
+    cols = colors or P.get('confetti', ['#f2a0b4', '#8fb7e0', '#f2cf6b', '#9ccfb4', '#b9a3dd', '#f4a582'])
+    k = 0; tries = 0; placed = []
+    while k < n and tries < n * 30:
+        tries += 1
+        a = rnd.uniform(0, 2 * math.pi); r = s * math.sqrt(rnd.uniform(inner ** 2, 1.0))
+        px, py = x + r * math.cos(a), y + r * aspect * math.sin(a)
+        if clear and any(b[0] < (px - x) / s < b[2] and b[1] < (py - y) / s < b[3] for b in clear):
+            continue
+        u = s * size * rnd.uniform(0.7, 1.3)
+        if avoid and any(math.hypot((px - x) / s - ax, (py - y) / s - ay) < ar for ax, ay, ar in avoid):
+            continue
+        if any(math.hypot(px - qx, py - qy) < (u + qu) * 2.2 for qx, qy, qu in placed):
+            continue
+        placed.append((px, py, u))
+        k += 1
+        col = rnd.choice(cols); dk = _shade(col, 0.75)
+        kind = rnd.choice(('dot', 'dot', 'square', 'curl', 'curl'))
+        rot = rnd.uniform(0, math.pi)
+        if kind == 'dot':
+            c.wash(ellipse(px, py, u * 0.55, u * 0.55, 12), col, dk, strength=0.75, spread=0.03, layers=10, edge=1.1)
+        elif kind == 'square':
+            c.wash(_rot(rect(px - u * 0.5, py - u * 0.35, px + u * 0.5, py + u * 0.35, 1), px, py, rot), col, dk, strength=0.7,
+                   spread=0.02, layers=10, edge=1.0)
+        else:
+            L = u * rnd.uniform(2.6, 3.6); amp = u * 0.55
+            path = [(px + (t - 0.5) * L * math.cos(rot) - amp * math.sin(2 * math.pi * t) * math.sin(rot),
+                     py + (t - 0.5) * L * math.sin(rot) + amp * math.sin(2 * math.pi * t) * math.cos(rot)) for t in [i / 10 for i in range(11)]]
+            c.wash(_band(path, u * 0.2, u * 0.16), col, dk, strength=0.72, spread=0.02, layers=10, edge=1.05)
+
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
@@ -2162,4 +2504,5 @@ MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'sn
            'cattails': cattails, 'lily_pads': lily_pads,
            'rose_leaves': rose_leaves, 'garden_rose': garden_rose, 'lily_valley': lily_valley,
            'basil': basil, 'sage': sage, 'mint': mint, 'rosemary': rosemary, 'thyme': thyme, 'chives': chives,
-           'lovebirds': lovebirds}
+           'lovebirds': lovebirds,
+           'birthday_cake': birthday_cake, 'confetti': confetti}
