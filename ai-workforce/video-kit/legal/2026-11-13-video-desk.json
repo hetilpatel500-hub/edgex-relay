@@ -1,0 +1,88 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "videos",
+  "date": "2026-11-13",
+  "kind": "video_set"
+ },
+ "title": "Video desk, Fri Nov 13 set: Mag 7 Scoreboard, Where The Money Went (Palantir), Guess Which (chip stocks), Make Money With AI (landing-page prices)",
+ "reviewed_at": "2026-11-13T22:33:56Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file after reviewing the four 9:16 review sheets, report.json spoken text, titles, captions and sources. Defamation screen: Mag 7 and chip figures are Webull daily closes; Palantir's figures are Webull's income statement; the landing-page prices are attributed by name to the three guides that publish them, and the video says those guides come from companies that sell landing pages. No reason is given for any price move, including AMD's Friday drop and Nvidia's weekly loss. No person is named. Nothing commits the owner; delivery is to the owner only. AI review, not legal advice."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Every number traces to a saved raw response or a named source. Mag 7: closes Fri Nov 6 to Fri Nov 13 in raw/daily.json (AAPL's +4.14% uses Webull's dividend-adjusted Nov 6 close; the unadjusted price change is +4.06%, same rank). Chips: raw/chips_daily.json, AMD's Nov 13 close also matches the chart lab's last 5-minute bar (534.06). Palantir: raw/pltr_income_5q.json, per-$100 split adds to exactly $100. Landing pages: each range is credited to LanderLab (2026), eSEOspace (2025) or Clicks Geek (2026) on screen and in the caption; the figures were confirmed through domain-limited web searches of each site because this session can't open the pages directly. The money video says 'No earnings promised' on screen and in the caption and makes no income claim; it teaches what buyers are quoted, not what anyone will earn. Outros make no schedule promises."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery email goes to the owner only."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data. No person is named or shown; the owner isn't named or shown."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Visuals are drawn from data by the kit's renderer; the voice is Kokoro-82M (Apache-2.0); music is synthesized per video by music.py; fonts are Inter, Space Grotesk and JetBrains Mono (SIL OFL). Price ranges are facts restated in our own words with the publishers credited; no quotes, screenshots, logos or third-party images."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Apple, Microsoft, Nvidia, Alphabet (GOOGL), Amazon, Meta, Tesla, Palantir, AMD, Broadcom, Micron, Intel, Qualcomm, LanderLab, eSEOspace, Clicks Geek and Webull are named only to refer to them (nominative use); no logos, nothing suggests endorsement or affiliation. Ticker hashtags (#TSLA, #PLTR) refer to the companies the videos are about. Series names are generic. No new brand or series name, so no USPTO search needed."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "pass",
+   "note": "'Educational only. Not financial advice.' is on screen at the end of all four videos (the Mag 7 outro was fixed to carry the full line) and in all four captions. No buy or sell calls, no targets, no predictions; the Mag 7 outro asks 'Who wins next week?' as a question, with no pick. The quiz shows price moves only and says no reasons are given. The Palantir video reports one quarter's results without valuation talk. The money video carries 'No earnings promised'."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Synthetic TTS narration over data charts and text cards; no realistic depiction of real people or events. Meta asks for a label on AI-generated audio, so turn on 'AI info' on Instagram and Facebook. Titles match the content; the quiz title doesn't give away the answer, and the caption puts the answer below the question."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "General-audience content, not directed to children; no child shown, no child's data. Mark 'not made for kids' where a platform asks."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "pass",
+   "note": "No paid tools, licensed assets or third-party agreements. Webull data is read-only and used for commentary. No sponsorship or affiliation with any company or price guide named."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Mag 7 outro: the kit's small print read 'Not financial advice.' only; render.html now draws 'Educational only. Not financial advice.' on its own line under the date span, and the Mag 7 video was re-rendered.",
+  "Money video: the first render ran 64.6 s, over the 60 s limit for shorts; the voiceover was tightened with no figure changed, and the final cut runs 58.0 s.",
+  "Chip quiz: the line chart's day labels collided ('Thu 11/12Fri 11/13'); they now read Fri, Mon, Tue, Wed, Thu, Fri, with the dates in the note, and it was re-rendered.",
+  "Chip quiz: the voice read '18.16' as 'eighteen sixteen'; each figure in that line now ends in 'percent', and it was re-rendered.",
+  "Money video: the voice lines now spell out 'e S E O space' and 'C R M' so the narrator says them clearly; the on-screen text is unchanged.",
+  "Earnings breakdown: Cisco and Disney were checked first, but Webull's newest quarters for both are the August reports, so Palantir's Nov 3 report was used instead."
+ ],
+ "posting_notes": [
+  "Instagram and Facebook: turn on the 'AI info' label (synthetic narrator voice).",
+  "Mag 7 Scoreboard and the chip quiz describe this week (Fri Nov 6 to Fri Nov 13) and say 'Friday'; post them by Sunday Nov 15, or change 'this week' in the post text to the dates.",
+  "Palantir breakdown: 'last quarter' is the quarter ended Sep 30, 2026, reported Nov 3; it stays accurate until Palantir's next report.",
+  "Landing-page prices: the three guides can change their numbers. They were read through web search, not opened directly; if you want, open them before posting (landerlab.io, eseospace.com, clicksgeek.com). Don't add income claims in the post text.",
+  "Don't add reasons for any move (AMD's Friday drop, Nvidia's week) in the post text."
+ ],
+ "excluded": [
+  "Cisco and Disney earnings breakdowns (Webull's newest quarters for both are the August reports)"
+ ],
+ "last_touch_ref": "video-kit/records/2026-11-13-video-desk.json#last_touch",
+ "decision_ref": "video-kit/records/2026-11-13-video-desk.json#decision",
+ "videos": {
+  "mag": {
+   "seconds": 39.13
+  },
+  "pltr-q3-breakdown": {
+   "seconds": 54.07
+  },
+  "chip-quiz-1113": {
+   "seconds": 45.62
+  },
+  "landing-page-prices": {
+   "seconds": 58.03
+  }
+ }
+}

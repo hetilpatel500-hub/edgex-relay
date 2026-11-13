@@ -230,7 +230,8 @@ function magVideo(){
     const x=WIDE?W/2:64*S,al=WIDE?'center':'left',y=WIDE?430*S:760*S;
     headline(SC.outro.lines,x,y,WIDE?84:92,t,{d:T.out[0],al,hl:SC.outro.hl});
     font('IN',500,32);txt(SC.outro.sub,x,y+(WIDE?160:200)*S,{c:C.mut,al});
-    font('IN',500,24);txt(`${M.span} · Data: Webull · Not financial advice.`,x,y+(WIDE?210:255)*S,{c:C.dim,al});
+    font('IN',500,24);txt(`${M.span} · Data: Webull`,x,y+(WIDE?210:255)*S,{c:C.dim,al});
+    txt('Educational only. Not financial advice.',x,y+(WIDE?245:295)*S,{c:C.dim,al});
     X.restore()}
   return {DUR,draw(t){bg(t);drawHook(t);drawRace(t);drawRev(t);drawOut(t);brand(t,DUR,'MARKETS')}};
 }
