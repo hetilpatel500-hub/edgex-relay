@@ -1,0 +1,71 @@
+{
+ "note": "Office DB is full (100 MB, writes refused 2026-11-05), so the book desk's books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-music",
+  "title": "My First Music Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Music",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-music.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/LTmHLdiauzY9nHY6BYvq4R",
+  "created": "2026-11-05T14:54:23Z",
+  "emailed": "Gmail message 1a1ac34ccbd85280 to the owner, 2026-11-05"
+ },
+ "decision": {
+  "doc_id": "2026-11-05-book-my-first-music",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-05T14:54:23Z",
+  "reason": "Legal verdict cleared (all ten counsel). Next topic in the owner's 'my first step' rotation after Pets; build checks passed (64 pages, cover 17.394 x 11.25 in matches KDP's formula, full bleed). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-music.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-05-book-my-first-music",
+  "created": "2026-11-05T14:54:23Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Picked Music: next in the BOOK-DESK.md rotation after Pets; not in the books collection."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched for 'My First Music Coloring Book': no identical title; similar music coloring titles exist, so the listing leans on toddler-first wording."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 instruments and music things in art/music.js, 19 of them with happy faces."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Contact sheet: fixed inner arcs on guitar, violin and ukulele, a stray violin blob, a floating accordion handle and the ukulele flower."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, description in four groups that match the 30 pages, and 7 keywords under 50 characters."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 23 negatives, 3 ad texts and 3 headlines with no banned claims."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "build.js listing and ad checks passed with no problems."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages; cover 17.3941 x 11.25 in matches KDP's formula; background reaches every page edge; A+ images checked."
+   },
+   {
+    "agent": "legal-desk (ten counsel)",
+    "line": "Cleared: trademark screen noted MY FIRST COLORING (markers/puzzles) and a pending MY FIRST BOOK application, neither used; KDP category to confirm."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved for delivery to the owner with a cleared legal review."
+   }
+  ]
+ }
+}

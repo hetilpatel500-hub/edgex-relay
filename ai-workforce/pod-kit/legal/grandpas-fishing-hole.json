@@ -1,0 +1,57 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "grandpas-fishing-hole",
+  "kind": "pod_design"
+ },
+ "title": "Grandpa's Fishing Hole (tee, sweatshirt, mug, art print, sticker)",
+ "reviewed_at": "2026-11-09T16:36:11Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions. Pisces and Aries were held at the trademark screen and go to the owner with Libra and Sagittarius."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against the full-size art: wooden dock with a green tackle box and a fishing rod whose line runs to a red-and-white bobber, a leaping rainbow trout, a red rowboat, cattails and lily pads (one with a white water lily), spruces, snow-capped mountains and a low sun under a rose-gold sky; 'Grandpa's' in deep blue script, 'Fishing Hole' in rust capitals, 'first cast at sunrise' below. Every item named is in the art. No best-seller, sale, free or review claims; the price note cites what was found and when."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (watercolor.py, motifs.py, motifs2.py, with new sunrise, mountains2, lake, birds, dock, rowboat, trout, cattails and lily_pads motifs written today); no stock art, traced designs or AI image generator. Fonts Pacifico, Playfair Display and Dancing Script are SIL OFL 1.1. Machine-drawn art may not be registrable for US copyright (Thaler v. Perlmutter)."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check): no GRANDPA'S FISHING HOLE or FISHING HOLE clothing mark or application found, and no shirt using the phrase. Avoided nearby phrases: GRANDPA AND GRANDPA'S FISHING PARTNER (pending, serial 97850000), 'Grandpa's Fishing Buddy' and 'Reel Cool Grandpa' (common on other sellers' shirts). 'Lake life' was kept out of the tags. No brand names in title, tags or art (no reel or lure brand marks; the tackle box and rod are generic). Search-engine screen only: tmsearch.uspto.gov and the Justia/Markinton detail pages are blocked from our sessions."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Titles 118-133 characters (140 max) and 13 tags of 20 characters or fewer per product (build.py checks passed). The standard description says the art is digitally painted by the studio and printed by a production partner (Etsy's production-partner disclosure). 'christmas for him' is a real gift search and the design is a gift item, not a claim."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Adult sizes only; not a children's product."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract or terms. Printify and Etsy terms apply once the owner allows publishing."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [
+  "Quality Bar: lettering overlap ('p' descender into 'FISHING HOLE') fixed; flat triangle mountains replaced with painted ridgelines; grey sky gradient replaced with a lavender-to-gold dawn; far treeline darkened so the mountains don't show through; boat reflection softened and shortened; rod and line reconnected to the grip and tip; mountain gully scratches and stamped-looking ripples toned down."
+ ],
+ "decision_ref": "pod-kit/decisions/2026-11-09-pod-grandpas-fishing-hole.json"
+}

@@ -1,0 +1,59 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-sports",
+  "kind": "book"
+ },
+ "title": "My First Sports Coloring Book (book, cover, KDP listing, Amazon Ads kit)",
+ "reviewed_at": "2026-11-06T14:56:14Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note below is a screen, not a clearance; the owner decides before publishing."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, back cover, A+ points and ad texts checked against the built book: 30 subjects in four groups (9 + 8 + 7 + 6) exactly as listed, 64 pages, blank backs, name labels and certificate are all true. 'Most with happy faces' is true (27 of 30 pictures have a face; hockey stick, jump rope and bicycle don't). The Table Tennis page shows a paddle and ball and the Goal page a soccer goal, as the description says. Every named example in the ad texts and headlines (soccer ball, basketball, bicycle, trophy, baseball glove, roller skate, medal, sneaker) is in the book. Fix made: an awkward, unclear phrase in the first description paragraph was rewritten before build."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/sports.js; contact sheet reviewed: no team logos, league marks, brand swooshes or licensed characters on any ball, shoe, cap or jersey item. Fredoka font is SIL OFL 1.1, which allows embedding. AI-drawn pages can't be registered for US copyright (Thaler v. Perlmutter), so others may copy them."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search, no USPTO search run (unreachable; trademarks.justia.com is also blocked here). No book titled 'My First Sports Coloring Book' found. The phrase 'My First Sports' is used descriptively by several children's publishers (Kane Miller's 'My First Sports' board-book series, Union Square Kids' 'My First Sports Book', Sports Illustrated Kids' 'My First Book of Sports'); no registration for books was found. MY FIRST SPORTS reg. 2745083 (My First Sports, LLC; sports classes and camps, Class 41) is cancelled (2010). Justia lists MY FIRST SPORTS reg. 4363999 (Keva Sports Center, a youth sports facility; filed 2012, Section 8 & 15 accepted 2018); its goods/services and current status couldn't be confirmed, but the owner is a sports center, not a publisher. Our title is descriptive, follows the series pattern, carries the 'my first step' series name and JONNY COLOR, and book titles alone aren't protected. Keywords and ad keywords name no brands, teams or authors; 'Ping-Pong', 'Frisbee' and 'Hula Hoop' (registered marks) were deliberately avoided ('Table Tennis' used instead). Owner may run a USPTO search on 'My First Sports' and the 'my first step' series name before publishing."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP AI disclosure: answer Yes for images and text, as the listing says. Keywords are 7 phrases of 50 characters or fewer, with no brands or misleading terms. Ad texts and headlines avoid best-seller, sale, price, free and review claims, as Amazon's book ad policy requires; build.js checks passed. The third category (Children's Books > Sports & Outdoors > General) should be confirmed in KDP's category picker; if it isn't offered, pick the nearest children's sports category."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "Ages 2-5 content is friendly and safe: balls, gear and rides with happy faces, nothing scary or violent (no boxing or weapons-like gear). The 'This book belongs to' line collects no data. Nothing pushes purchases on kids. Fits KDP's children's content guidelines."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms. The owner publishes and prices on KDP."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [
+  "Quality Bar: football laces moved off the edge; volleyball arcs kept inside the ball; beach ball stripes widened so the face isn't cramped; golf ball dimples re-spaced (two overlapped); tennis-ball seams removed where they crossed its face; baseball seams moved out from its face (both pages); sneaker laces put on the tongue; sled given a curled front so it doesn't read as a bench; goal ball enlarged with patches clear of its face.",
+  "Copy: description phrase \"roller skates' cousin the ice skate\" replaced with \"an ice skate\"."
+ ],
+ "last_touch_ref": "book desk step 5 (Grammar & Copy Editor, Deliverable QA Reviewer), 2026-11-06",
+ "decision_ref": "book-kit/records/2026-11-06-my-first-sports.json#decision"
+}

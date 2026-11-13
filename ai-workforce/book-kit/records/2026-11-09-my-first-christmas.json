@@ -1,0 +1,75 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the book desk's books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-christmas",
+  "title": "My First Christmas Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Christmas",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-christmas.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/4KPU8XUJkUs8gEEGEVp96H",
+  "created": "2026-11-09T15:02:22Z",
+  "emailed": "Gmail message 1a1c0d4af89dd504 to the owner, 2026-11-09"
+ },
+ "decision": {
+  "doc_id": "2026-11-09-book-my-first-christmas",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-09T15:02:22Z",
+  "reason": "Legal verdict cleared (all ten counsel; trademark web screen on file). Planned rotation had ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it. Build checks passed (64 pages, cover 17.394 x 11.25 in matches KDP's formula, full bleed). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-christmas.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-09-book-my-first-christmas",
+  "created": "2026-11-09T15:02:22Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation finished with Sports; picked Christmas (in season, not in the books collection, the repo records or any earlier book's subjects) and flagged the pick to the owner."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched 'My First Christmas Coloring Book': several self-published books already use the title (Yvonne May, Silver Summer, Gogo Publishers), so the subtitle and series name carry the difference."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 Christmas subjects in art/christmas.js, 28 with happy faces; new hband() and holly() helpers; reindeer nose kept brown to avoid the red-nosed character."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Two contact-sheet passes: fixed the jingle-bell slot that read as a second mouth, the ramp-like chimney roof, the candle plate, small light bulbs, the pinecone shape, the stocking loop, and cheeks crowding Santa's mustache and the reindeer's muzzle."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, description in four groups that match the 30 pages (7 + 12 + 7 + 4) and 7 keywords under 50 characters, with no character or brand names."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 25 negatives (religious and other-holiday searches excluded), 3 ad texts (123, 124, 141 characters) and 3 headlines with no banned claims."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Used 'Milk and Cookies' in the description so the HTML has no bare ampersand; build.js listing and ad checks passed."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages; cover 17.3941 x 11.25 in matches KDP's formula; background reaches every page edge; both A+ images and the back cover checked."
+   },
+   {
+    "agent": "legal-desk (ten counsel)",
+    "line": "Cleared: MY FIRST CHRISTMAS reg. 4530374 and MY 1ST CHRISTMAS serial 97009510 are clothing (Class 25), no books mark found; title phrase descriptive; no licensed characters; KDP category to confirm; owner may run a USPTO search."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved for delivery to the owner with a cleared legal review."
+   },
+   {
+    "agent": "publish-coordinator",
+    "line": "Published the private delivery page with 8 files and emailed the owner (Gmail 1a1c0d4af89dd504)."
+   }
+  ]
+ }
+}

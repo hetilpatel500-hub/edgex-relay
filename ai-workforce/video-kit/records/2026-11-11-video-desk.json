@@ -1,0 +1,200 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the video desk's videos, decision and collabs docs for this run are filed here.",
+ "videos": [
+  {
+   "doc_id": "2026-11-11-sectors",
+   "date": "2026-11-11",
+   "series": "sector-board",
+   "topic": "10 largest US sectors Nov 11, 1-day and 5-day change (chips +5.18% today, -3.56% over 5 days; oil & gas +1.35% / -6.32%; retail -1.04% / +5.82%)",
+   "title": "Chip stocks jumped 5.18% today but are still down over 5 days",
+   "artifact": "https://claude.ai/artifact/D6ArYAwnrpdtCKhy1WyKH4",
+   "files": [
+    "Edgex_sectors-1111_2026-11-11_9x16.mp4"
+   ],
+   "seconds": 32.69,
+   "legal_review": "video-kit/legal/2026-11-11-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-11T22:09:13Z",
+   "emailed": "Gmail message 1a1cca7fc0295268"
+  },
+  {
+   "doc_id": "2026-11-11-myth-vetday",
+   "date": "2026-11-11",
+   "series": "myth-fact",
+   "topic": "Veterans Day market hours (Nov 11, 2026: NYSE and Nasdaq open, SPY 32.0M shares 9:30-4:00 ET; bond market closed per SIFMA; most banks closed; next stock market holiday Thanksgiving Nov 26)",
+   "title": "Myth: the stock market closes on Veterans Day",
+   "artifact": "https://claude.ai/artifact/D6ArYAwnrpdtCKhy1WyKH4",
+   "files": [
+    "Edgex_myth-vetday_2026-11-11_9x16.mp4"
+   ],
+   "seconds": 38.43,
+   "legal_review": "video-kit/legal/2026-11-11-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-11T22:09:13Z",
+   "emailed": "Gmail message 1a1cca7fc0295268"
+  },
+  {
+   "doc_id": "2026-11-11-studio",
+   "date": "2026-11-11",
+   "series": "studio",
+   "topic": "What the studio made Nov 9-11 (3 coloring books, 90 drawings; 3 POD designs, 6 zodiac designs held at the trademark check; 6 videos; chart lab 362 setups, 7 validated)",
+   "title": "What our AI studio made in 3 days",
+   "artifact": "https://claude.ai/artifact/D6ArYAwnrpdtCKhy1WyKH4",
+   "files": [
+    "Edgex_studio-1111_2026-11-11_9x16.mp4"
+   ],
+   "seconds": 31.79,
+   "legal_review": "video-kit/legal/2026-11-11-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-11T22:09:13Z",
+   "emailed": "Gmail message 1a1cca7fc0295268"
+  }
+ ],
+ "last_touch": {
+  "by": "video-last-touch",
+  "verdict": "cleared",
+  "checks": {
+   "video-fact-checker": "Every on-screen and spoken number matched raw/sectors_D1.json, raw/sectors_D5.json or raw/spy_m5.json (32,000,602 shares across 78 bars, 9:30 to 4:00 ET), the studio records (book-kit/records, pod-kit/decisions, video-kit/records, chart-lab out/results.json), or two named outlets (Fox Television Stations, StockTitan) for market hours, the SIFMA bond close, bank closures and Thanksgiving Nov 26.",
+   "copyright-compliance-reviewer": "Own renders only: data visuals and text cards, Kokoro voice (Apache-2.0), synthesized music, OFL fonts; market-hours facts in our own words with outlets credited.",
+   "content-policy-reviewer": "No trade calls or targets; disclaimer on screen and in the sector and Veterans Day captions, 'Research only' on the studio video; no schedule promises in outros; synthetic voice flagged for the AI label.",
+   "defamation-harassment-screen": "Sector data and the studio's own records only; no reason given for any move; no person named; market-hours facts attributed to the outlets that reported them.",
+   "video-brand-tone-final-check": "Opened all three review sheets after the final render: nothing clipped or overlapping; specs h264/aac 1080x1920, under 15 MB, mean volume about -20 dB, every short under 60 s; spoken text read cleanly after the '32.0 million' and NYSE fixes."
+  },
+  "created": "2026-11-11T22:09:13Z"
+ },
+ "decision": {
+  "doc_id": "2026-11-11-video-desk",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-11T22:09:13Z",
+  "reason": "Legal verdict cleared (all ten counsel), Video Last Touch cleared. Rotation: sector-board (market), myth-fact (teaching), studio (interactive); three different rows, none ran on Nov 10 (movers, explainer, ai-this-week); no topic repeats within 30 days (last sector board Sep 29, last myth-fact Nov 9 on loss-recovery math, last studio Oct 2). Delivered to the owner only; nothing posted."
+ },
+ "collabs": {
+  "doc_id": "2026-11-11-video-desk",
+  "created": "2026-11-11T22:09:13Z",
+  "members": [
+   "video-trend-scout",
+   "commentary-scriptwriter",
+   "hook-writer",
+   "video-fact-checker",
+   "voiceover-tts-agent",
+   "video-editor-agent",
+   "copyright-compliance-reviewer",
+   "content-policy-reviewer",
+   "defamation-harassment-screen",
+   "video-brand-tone-final-check",
+   "publish-coordinator-video",
+   "instagram-reels-agent",
+   "facebook-video-agent",
+   "general-counsel-agent",
+   "advertising-consumer-protection-counsel",
+   "email-anti-spam-compliance-counsel",
+   "privacy-data-protection-counsel",
+   "copyright-fair-use-counsel",
+   "trademark-brand-clearance-counsel",
+   "financial-content-compliance-counsel",
+   "platform-terms-policy-counsel",
+   "kids-content-coppa-counsel",
+   "contracts-commercial-terms-counsel",
+   "chief-of-staff"
+  ],
+  "log": [
+   {
+    "agent": "video-trend-scout",
+    "line": "Picked a sector scoreboard (market), a Veterans Day myth vs fact (teaching) and Inside the AI Studio (interactive): none of these series ran Nov 10, no topic repeats within 30 days (last sector board Sep 29, last studio Oct 2)."
+   },
+   {
+    "agent": "commentary-scriptwriter",
+    "line": "Wrote the three scenes.json files from the saved Webull sector and SPY data, two outlet reports, and the studio's Nov 9-11 records."
+   },
+   {
+    "agent": "hook-writer",
+    "line": "Hooks: 'Chip stocks jumped 5.18% today.', 'Myth: the stock market closes on Veterans Day.', '3 days. What did our AI agents make?'"
+   },
+   {
+    "agent": "video-fact-checker",
+    "line": "Traced every number to raw/ or the studio records; market hours and the SIFMA bond close confirmed in Fox Television Stations and StockTitan; changed 'didn't pass the trademark check' to 'held back' to match the records."
+   },
+   {
+    "agent": "voiceover-tts-agent",
+    "line": "Kokoro voice; fixed '32.0 million' read as 'thirty-two point zero' and spelled out the New York Stock Exchange."
+   },
+   {
+    "agent": "video-editor-agent",
+    "line": "Rendered 3 MP4s (9:16); re-ran with the scratchpad Python after the system image library failed at the review-sheet step, then once more after the voice fixes."
+   },
+   {
+    "agent": "copyright-compliance-reviewer",
+    "line": "Cleared: own visuals, Apache-2.0 voice, synthesized music, OFL fonts, facts in our own words."
+   },
+   {
+    "agent": "content-policy-reviewer",
+    "line": "Cleared: disclaimers present, no calls or targets, no schedule promises (studio outro fixed)."
+   },
+   {
+    "agent": "defamation-harassment-screen",
+    "line": "Cleared: sector data and own records only, no reasons asserted, no people named."
+   },
+   {
+    "agent": "video-brand-tone-final-check",
+    "line": "Opened all review sheets and checked specs and spoken text; cleared."
+   },
+   {
+    "agent": "publish-coordinator-video",
+    "line": "Built the private delivery page with Save and Copy buttons and emailed the owner once."
+   },
+   {
+    "agent": "instagram-reels-agent",
+    "line": "Captions and hashtags for the three 9:16 shorts; AI-info label note."
+   },
+   {
+    "agent": "facebook-video-agent",
+    "line": "Same three shorts for Facebook Reels; AI-info label note. No 16:9 cut today (no market-engine video)."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "Ran the ten-counsel review: cleared, 5 fixes made before release, 4 posting notes."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "Pass: numbers sourced, no sales or availability claims in the studio video, no schedule promise."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: owner-only email."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: no personal data."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "Pass: no third-party assets; facts summarized and credited."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "Pass: nominative use of NYSE, Nasdaq, SIFMA, SPY and outlet names; design names already screened."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "Pass: disclaimers on both market videos, research-only note on the studio video, no calls, no reasons for moves."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "Pass: turn on Meta 'AI info' for the synthetic voice."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "Pass: general audience; coloring books mentioned as products, no child shown."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "Pass: no paid tools or agreements; no product dates or prices promised."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved with the cleared legal verdict on file; delivered to the owner only."
+   }
+  ]
+ }
+}

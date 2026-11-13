@@ -1,0 +1,259 @@
+{
+  "id": "gemini-constellation",
+  "name": "Gemini",
+  "engine": 2,
+  "template": "free",
+  "top": "Gemini",
+  "bottom": "May 21 - June 20",
+  "top_font": "Pacifico",
+  "bottom_font": "PlayfairDisplay",
+  "florals": null,
+  "palette": "lavender",
+  "colors": {
+    "sky": "#1b2c5e",
+    "sky2": "#4b72b4",
+    "sky3": "#3a2d78",
+    "star": "#f6dc8c",
+    "star2": "#f3d58f",
+    "leaf": "#4f8358",
+    "leaf2": "#9cc08f",
+    "leaf_dark": "#2e5a3c",
+    "stalk": "#7d6a48",
+    "rose": "#ec8597",
+    "rose2": "#fbd6dc",
+    "rose3": "#c2546c",
+    "accent": "#e2b04a",
+    "accent2": "#f3d58f"
+  },
+  "ink": "#1f3550",
+  "seed": 51,
+  "shirt_colors": [
+    "white",
+    "natural",
+    "heather_gray"
+  ],
+  "art": [
+    {
+      "motif": "garden_rose",
+      "x": 0.0,
+      "y": 0.265,
+      "s": 0.175,
+      "angle": 0.0,
+      "stem": 0.25,
+      "leaves": 0,
+      "front": true
+    },
+    {
+      "motif": "garden_rose",
+      "x": -0.155,
+      "y": 0.235,
+      "s": 0.15,
+      "angle": -0.25,
+      "stem": 0.32,
+      "leaves": 1,
+      "bud": true,
+      "front": true,
+      "leaf_dir": 1
+    },
+    {
+      "motif": "garden_rose",
+      "x": 0.155,
+      "y": 0.235,
+      "s": 0.15,
+      "angle": 0.25,
+      "stem": 0.32,
+      "leaves": 1,
+      "front": true,
+      "leaf_dir": -1
+    },
+    {
+      "motif": "lily_valley",
+      "x": -0.27,
+      "y": 0.42,
+      "s": 0.25,
+      "facing": -1,
+      "bells": 5,
+      "front": true
+    },
+    {
+      "motif": "lily_valley",
+      "x": 0.27,
+      "y": 0.42,
+      "s": 0.25,
+      "facing": 1,
+      "bells": 5,
+      "front": true
+    },
+    {
+      "motif": "night_sky2",
+      "x": 0.0,
+      "y": -0.06,
+      "s": 0.28
+    },
+    {
+      "motif": "constellation",
+      "x": 0.01,
+      "y": -0.06,
+      "s": 0.19,
+      "name": "gemini"
+    },
+    {
+      "motif": "moon",
+      "x": -0.32,
+      "y": -0.22,
+      "s": 0.042
+    },
+    {
+      "motif": "twinkle",
+      "x": 0.34,
+      "y": -0.22,
+      "s": 0.026
+    },
+    {
+      "motif": "twinkle",
+      "x": 0.37,
+      "y": 0.0,
+      "s": 0.018
+    },
+    {
+      "motif": "twinkle",
+      "x": -0.36,
+      "y": -0.02,
+      "s": 0.017
+    }
+  ],
+  "lettering": [
+    {
+      "text": "Gemini",
+      "font": "Pacifico",
+      "size": 0.17,
+      "max_w": 0.7,
+      "y": -0.44,
+      "color": "#2b4a86",
+      "vary": "#16295a",
+      "outline": [
+        "#16295a",
+        0.0013,
+        150
+      ]
+    },
+    {
+      "text": "May 21 - June 20",
+      "caps": true,
+      "font": "PlayfairDisplay",
+      "size": 0.05,
+      "max_w": 0.66,
+      "tracking": 0.1,
+      "y": 0.45,
+      "color": "#9a6f22",
+      "vary": "#6e4c12",
+      "outline": [
+        "#5c3f0f",
+        0.001,
+        130
+      ]
+    }
+  ],
+  "listing": {
+    "title": "Gemini Constellation Shirt, Watercolor Gemini Zodiac Tee, May June Birth Flower Astrology Shirt, Gemini Birthday Gift",
+    "tags": [
+      "gemini shirt",
+      "gemini gift",
+      "gemini star chart",
+      "gemini zodiac",
+      "gemini birthday",
+      "astrology shirt",
+      "zodiac gift",
+      "celestial shirt",
+      "star sign shirt",
+      "may birthday",
+      "june birthday",
+      "lily of the valley",
+      "horoscope gift"
+    ],
+    "description": "The Gemini constellation drawn in gold stars on a round watercolor night sky, framed by the season's birth flowers: nodding white lily of the valley bells with broad ribbed leaves for May and pink garden roses with a rosebud for June, with a crescent moon and gold twinkles. \"Gemini\" is painted in deep blue script on top and \"May 21 - June 20\" in gold capitals below. A birthday gift for the Gemini in your life.",
+    "per_product": {
+      "sweatshirt": {
+        "title": "Gemini Constellation Sweatshirt, Watercolor Gemini Zodiac Crewneck, Spring Birth Flower Astrology Pullover, Gemini Birthday Gift",
+        "tags": [
+          "gemini sweatshirt",
+          "gemini gift",
+          "gemini star chart",
+          "gemini zodiac",
+          "gemini birthday",
+          "astrology crewneck",
+          "zodiac gift",
+          "celestial sweater",
+          "star sign gift",
+          "may birthday",
+          "june birthday",
+          "cozy sweatshirt",
+          "horoscope gift"
+        ]
+      },
+      "mug": {
+        "title": "Gemini Constellation Mug, Watercolor Gemini Zodiac Coffee Mug, May June Birth Flower Astrology Mug, Gemini Birthday Gift",
+        "tags": [
+          "gemini mug",
+          "gemini gift",
+          "gemini star chart",
+          "gemini zodiac",
+          "gemini birthday",
+          "astrology mug",
+          "zodiac gift",
+          "celestial mug",
+          "star sign mug",
+          "may birthday",
+          "june birthday",
+          "zodiac coffee mug",
+          "horoscope gift"
+        ]
+      },
+      "poster": {
+        "title": "Gemini Constellation Art Print, Watercolor Gemini Zodiac Wall Art, May June Birth Flower Astrology Print, Gemini Gift",
+        "tags": [
+          "gemini wall art",
+          "gemini gift",
+          "gemini star chart",
+          "gemini zodiac",
+          "gemini print",
+          "astrology print",
+          "zodiac wall art",
+          "celestial decor",
+          "star sign print",
+          "may birthday",
+          "june birthday",
+          "nursery zodiac art",
+          "horoscope gift"
+        ]
+      },
+      "sticker": {
+        "title": "Gemini Constellation Sticker, Watercolor Gemini Zodiac Vinyl Sticker, May June Birth Flower Astrology Sticker, Gemini Gift",
+        "tags": [
+          "gemini sticker",
+          "gemini gift",
+          "gemini star chart",
+          "gemini zodiac",
+          "astrology sticker",
+          "zodiac sticker",
+          "celestial sticker",
+          "star sign sticker",
+          "laptop sticker",
+          "water bottle decal",
+          "lily of the valley",
+          "journal sticker",
+          "horoscope gift"
+        ]
+      }
+    },
+    "products": [
+      "Unisex tee (Bella+Canvas 3001)",
+      "Crewneck sweatshirt (Gildan 18000)",
+      "11 oz mug",
+      "Art print (matte poster)",
+      "Kiss-cut sticker"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table (2026-10-05 pricing review): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. Gemini tees found on 2026-11-10 ran about $13-$32 on Etsy and $15-$26 (Inktastic, Walmart) and $24 (TeePublic); our tee sits in that range. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-11-10 (before any art): web searches 'TAURUS trademark clothing t-shirts registration', '\"TAURUS\" trademark class 25 apparel', 'GEMINI trademark clothing t-shirts registered justia' and 'Google GEMINI trademark application class 25 clothing apparel 2024'. Taurus was held: TAURUS design mark reg. 5398909 (Forjas Taurus) covers graphic t-shirts and hats (sold through firearms channels) and TAURUS STYLE (serial 90520983) is listed active for t-shirts. For GEMINI, the Class 25 records found are dead or cancelled (a 2010 Gemini Rogue registration for t-shirts was cancelled in 2017; a 1968 GEMINI registration for cravats is dead); live GEMINI-formative apparel marks are different composite marks (GEMINIDJ reg. 2556881; EYE GEMINI serial 98408111, pending). Google's GEMINI filings found are in Classes 9 and 42, not clothing. No live or pending plain GEMINI word mark for apparel, mugs or prints was found. 'Gemini' is used descriptively, as the buyer's star sign next to its dates. tmsearch.uspto.gov is blocked from our sessions, so this is a search-engine screen (aggregator sites), not a clearance."
+  }
+}

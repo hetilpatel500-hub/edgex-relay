@@ -1,0 +1,64 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-christmas",
+  "kind": "book"
+ },
+ "title": "My First Christmas Coloring Book (book, cover, KDP listing, Amazon Ads kit)",
+ "reviewed_at": "2026-11-09T15:01:03Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note below is a web screen, not a clearance; the owner decides before publishing. Topic note: the planned rotation had ended, so Trend Scout picked Christmas under the owner's standing 'different topics' directive; the owner can swap it."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, back cover, A+ points and ad texts checked against the built book: 30 subjects in four groups (7 + 12 + 7 + 4) exactly as listed, 64 pages, blank backs, name labels and certificate are all true. 'Most with happy faces' is true (28 of 30 have a face; the candy cane and wreath don't). Every named example in the ad texts, headlines and subtitle (Santa, Christmas tree, reindeer, snowman, gingerbread man, candy cane, hot cocoa, nutcracker) is in the book. The book is secular (no nativity or religious figures), and the ad negatives exclude religious searches so shoppers aren't misled."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/christmas.js; contact sheet reviewed. No licensed characters: the reindeer has a brown nose (not the trademarked red-nosed character), there is no shelf elf, no snowman from a film or song, and the nutcracker is a generic toy soldier. Santa Claus, jingle bells, candy canes and gingerbread men are traditional public-domain subjects. Fredoka font is SIL OFL 1.1, which allows embedding. AI-drawn pages can't be registered for US copyright (Thaler v. Perlmutter), so others may copy them."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search only (USPTO and trademark.justia.com are unreachable from this environment). MY FIRST CHRISTMAS reg. 4530374 (serial 85735321, owner Edmund J. Ferdinand III) is in Class 25 clothing per Justia's summary, not books; MY 1ST CHRISTMAS serial 97009510 is a Class 25 clothing application; MY FIRST CHRISTMAS TREE serial 98618395 is pending, goods not confirmed. No books-class registration found. Several other self-published books already use the title 'My First Christmas Coloring Book' (Yvonne May; Silver Summer) and Tomie dePaola's 'My First Christmas' is a board book, so the phrase is descriptive and book titles alone aren't protected. Our title follows the series pattern with the 'my first step' series name and JONNY COLOR. Keywords and ad keywords name no brands, characters or authors (no Rudolph, Elf on the Shelf, Frosty or the Grinch). Owner may run a USPTO search on 'My First Christmas' (books, Class 16) before publishing."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP AI disclosure: answer Yes for images and text, as the listing says. Keywords are 7 phrases of 50 characters or fewer, with no brands, other authors or time-sensitive or sale claims. Ad texts (123, 124, 141 characters) and headlines avoid best-seller, sale, price, free and review claims, as Amazon's book ad policy requires; build.js checks passed. The third category (Children's Books > Holidays & Celebrations > Christmas) should be confirmed in KDP's category picker. Because the title shares wording with other books, the subtitle and series name are what set it apart."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "Ages 2-5 content is friendly and safe: smiling holiday things, nothing scary. The candle and chimney smoke are drawings only. The 'This book belongs to' line and 'Letter to Santa' picture collect no data. Nothing pushes purchases on kids. Fits KDP's children's content guidelines."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms. The owner publishes and prices on KDP."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [
+  "Quality Bar: jingle-bell slot made smaller and lower (it read as a second mouth); chimney roof redrawn as a gable (it read as a ramp); candle now stands on its plate; Christmas lights redrawn as three bigger bulbs; pinecone reshaped narrower at the bottom with holly on top and offset scale rows; stocking hanging loop removed; Santa's and the reindeer's cheeks moved off the mustache and muzzle."
+ ],
+ "sources": [
+  "https://trademark.justia.com/857/35/my-first-85735321.html (via web search summary)",
+  "https://trademarks.justia.com/970/09/my-1st-97009510.html (via web search summary)",
+  "https://blackwells.co.uk/bookshop/product/My-First-Christmas-Coloring-Book-For-Toddlers-by-Yvonne-May/9798572913163",
+  "https://www.thriftbooks.com/w/my-first-christmas_tomie-depaola/592457/item/"
+ ],
+ "last_touch_ref": "book desk step 5 (Grammar & Copy Editor, Deliverable QA Reviewer), 2026-11-09",
+ "decision_ref": "book-kit/records/2026-11-09-my-first-christmas.json#decision"
+}

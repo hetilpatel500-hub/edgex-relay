@@ -1,0 +1,69 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-clothes",
+  "kind": "book"
+ },
+ "title": "My First Clothes Coloring Book: interior, cover, KDP listing and Amazon Ads kit",
+ "reviewed_at": "2026-11-11T14:55:31Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishing. Topic note: the planned rotation has ended, so Trend Scout picked Clothes under the owner's standing 'different topics' directive; the owner can swap it."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, back cover, A+ points and ad texts checked against the built book: 30 subjects in five groups (6 + 9 + 6 + 3 + 6) exactly as listed, 64 pages, blank backs, name labels and certificate are all true. 'Most with happy faces' is true (29 of 30; the jacket has none). Every named example in the subtitle, ad texts and headlines (T-shirt, dress, socks, shoes, sun hat, overalls, tutu, flip-flops, party hat) is in the book. No 'bestselling', review or result claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit; the 'This book belongs to' line collects nothing."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/clothes.js; line and color contact sheets reviewed. Everyday garments with no brand marks, logos, designer looks or characters (no swooshes, stripes trade dress or mascot prints). Fredoka font is SIL OFL 1.1, which allows embedding. AI-art note: purely AI-made pictures and text can't be registered for US copyright (US Copyright Office guidance; Thaler v. Perlmutter, D.C. Cir. 2025), so others may be able to copy the pages."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search only (USPTO is unreachable from this environment). No book titled 'My First Clothes Coloring Book' turned up; nearest are Justine Avery's 'My First Getting Dressed Copy Coloring Book' (2021) and a 'My First Clothes' first-words board book. A 'MY FIRST' mark is registered for children's clothing (Class 25, not books), and 'MY FIRST BOOK' applications for books (2025 and 2026) are pending with 'BOOK' disclaimed. Our title is the series' descriptive pattern 'My First <Topic> Coloring Book', used for a book about clothes, with the 'my first step' series name and JONNY COLOR; a single book title isn't protected on its own. 'Onesie' was left out on purpose (a registered trademark). Keywords and ad keywords name no brands, other authors, titles or characters."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP AI disclosure: answer Yes for images and text, as the listing says. Keywords are 7 phrases of 43 characters or fewer, with no brands, other authors, or time-sensitive or sale claims. Ad texts (131, 114, 124 characters) and headlines (41, 39, 37) avoid best-seller, sale, price, free and review claims, as Amazon's book ad policy requires; build.js checks passed. Phrase keywords that could match clothing-shopping searches ('toddler clothes', a bare 'getting dressed') were replaced, and 'size', 'costume', 'sewing', 'paper doll' and 'fashion design' added as negatives, so the ads stay on book searches."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "Ages 2-5 content is friendly and safe: smiling everyday clothes, shoes, hats and bags, nothing scary or unsafe. No children are shown or named, and no data is collected. Nothing pushes purchases on kids. Fits KDP's children's content guidelines."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms. The owner publishes and prices on KDP."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Two ad phrase keywords could match clothing-shopping searches ('toddler clothes', 'getting dressed'); replaced with 'clothes book for toddlers' and 'getting dressed book', and two exact keywords aimed at older fashion-design buyers ('fashion coloring book for kids', 'dress up coloring book') were replaced. Negatives added."
+ ],
+ "sources": [
+  "https://bookshop.org/a/13627/9781638822639",
+  "https://trademarks.justia.com/owners/claude-haddad-1339966",
+  "https://trademark.justia.com/991/13/my-first-99113304.html"
+ ],
+ "owner_notes": [
+  "Answer KDP's AI question Yes for images and text.",
+  "Optional: run a USPTO search on the title before publishing; this was a web screen only.",
+  "Confirm the third category in KDP's category picker."
+ ],
+ "last_touch_ref": "book-kit/records/2026-11-11-my-first-clothes.json#collabs (quality-bar-agent, grammar-copy-editor, deliverable-qa-reviewer)",
+ "decision_ref": "book-kit/records/2026-11-11-my-first-clothes.json#decision"
+}

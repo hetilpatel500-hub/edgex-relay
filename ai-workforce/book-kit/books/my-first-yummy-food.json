@@ -1,0 +1,171 @@
+{
+ "id": "my-first-yummy-food",
+ "count": 30,
+ "art": [
+  "art/food.js"
+ ],
+ "subjects": [
+  "pancakes",
+  "pizza",
+  "cupcake",
+  "ice-cream",
+  "donut",
+  "sandwich",
+  "taco",
+  "cookie",
+  "muffin",
+  "bread",
+  "cheese",
+  "egg",
+  "milk",
+  "juice-box",
+  "cereal",
+  "pie",
+  "spaghetti",
+  "burger",
+  "hot-dog",
+  "jelly",
+  "popcorn",
+  "lollipop",
+  "birthday-cake",
+  "waffle",
+  "toast",
+  "croissant",
+  "ice-pop",
+  "honey",
+  "yogurt",
+  "fries"
+ ],
+ "cover": {
+  "kicker": "My First",
+  "word": "Yummy Food",
+  "tagline": "30 big & easy food pages to color!",
+  "ages": "2-5",
+  "hero": [
+   "cupcake",
+   "pizza",
+   "ice-cream"
+  ],
+  "back_title": "Big pictures for little hands",
+  "back_points": [
+   "30 friendly food pictures: pizza, a cupcake, pancakes, ice cream and more",
+   "Breakfast foods, lunch favorites and sweet treats, all with smiling faces",
+   "One big picture per page with extra-thick lines",
+   "Every picture has a blank back, so markers won't spoil the next one",
+   "A \"Great job!\" certificate at the end"
+  ],
+  "aplus_points": [
+   "30 big food pages, one picture per page",
+   "Extra-thick lines for little hands",
+   "Each name in big letters to color",
+   "Blank backs, so markers won't spoil the next picture"
+  ],
+  "back_minis": [
+   "donut",
+   "cookie",
+   "burger",
+   "lollipop"
+  ],
+  "cert_word": "yummy foods"
+ },
+ "listing": {
+  "title": "My First Yummy Food Coloring Book",
+  "subtitle": "30 Big & Easy Food Pages – Pizza, Cupcake, Ice Cream, Pancakes & More for Kids Ages 2-5",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "description_html": "<p><b>Big, bold and easy to color: a first coloring book full of yummy food!</b></p><p>Little hands color 30 smiling foods, from pancakes and pizza to a cupcake and a birthday cake. Every page has one big, simple picture with extra-thick lines, so small hands can color inside the lines.</p><p><b>Inside you'll find:</b></p><ul><li>Breakfast: Pancakes, Waffle, Toast, Egg, Cereal, Muffin, Croissant, Milk, Yogurt and Honey</li><li>Lunch and dinner: Pizza, Sandwich, Taco, Burger, Hot Dog, French Fries, Spaghetti, Bread, Cheese and Juice Box</li><li>Sweet treats: Cupcake, Ice Cream, Donut, Cookie, Pie, Jelly, Popcorn, Lollipop, Birthday Cake and Ice Pop</li><li>One large picture per page with thick outlines, and each name in big letters to color</li><li>Single-sided pages with a blank back, so markers won't bleed onto the next picture</li><li>Big 8.5 x 11 inch pages and a \"Great job!\" certificate at the end</li></ul><p>A fun, screen-free activity for toddlers and preschoolers ages 2 to 5.</p><p>Part of the <b>my first step</b> series.</p>",
+  "keywords": [
+   "food coloring book for toddlers",
+   "yummy food coloring book for kids ages 2-5",
+   "cute food coloring pages for preschoolers",
+   "my first coloring book for toddlers",
+   "cupcake pizza and ice cream coloring pages",
+   "simple coloring book thick lines",
+   "toddler activity book for boys and girls"
+  ],
+  "categories": [
+   "Children's Books > Activities, Crafts & Games > Coloring Books",
+   "Children's Books > Activities, Crafts & Games > Activity Books",
+   "Children's Books > Early Learning > Basic Concepts > Words"
+  ],
+  "reading_age": "2 - 5 years",
+  "price_note": "Similar toddler coloring books are commonly priced around $5.99-$6.99 (kdpeasy.com age-group guide). Use the calculator below with KDP's printing cost before you choose. Your call.",
+  "ai_disclosure": "KDP asks if the book has AI-generated content. The pictures and the text were made by Edgex's AI agents, so answer Yes for images and text."
+ },
+ "ads": {
+  "bids": {
+   "auto": "0.35",
+   "exact": "0.45",
+   "phrase": "0.40"
+  },
+  "keywords": {
+   "exact": [
+    "food coloring book",
+    "food coloring book for kids",
+    "cute food coloring book",
+    "dessert coloring book for kids",
+    "sweet treats coloring book",
+    "coloring books for toddlers",
+    "toddler coloring book",
+    "coloring book for 2 year old",
+    "coloring book for 3 year old",
+    "coloring book for kids ages 2-4",
+    "my first coloring book",
+    "big and easy coloring book",
+    "simple coloring book for toddlers",
+    "preschool coloring book",
+    "coloring books for kids ages 2-4"
+   ],
+   "phrase": [
+    "food coloring pages",
+    "dessert coloring",
+    "cupcake coloring",
+    "toddler coloring",
+    "coloring book for 2 year olds",
+    "preschool activity book",
+    "first coloring book",
+    "easy coloring book"
+   ]
+  },
+  "negatives": [
+   "adult",
+   "adults",
+   "for adults",
+   "mandala",
+   "grayscale",
+   "free",
+   "printable",
+   "pdf",
+   "sticker",
+   "stickers",
+   "dot markers",
+   "paint by number",
+   "teen",
+   "sketchbook",
+   "realistic",
+   "recipe",
+   "cookbook",
+   "dye",
+   "gel",
+   "liquid",
+   "drops",
+   "neon",
+   "baking"
+  ],
+  "categories": [
+   "Children's Coloring Books",
+   "Children's Activity Books",
+   "Children's Early Learning Books"
+  ],
+  "custom_text": [
+   "30 big food pages with extra-thick lines, made for little hands. A screen-free first coloring book for ages 2 to 5.",
+   "Pizza, a cupcake, pancakes and more: one big picture per page, each name to color, and a Great job! certificate at the end.",
+   "Your toddler's first food coloring book: smiling treats and snacks, thick lines and blank backs so markers won't spoil the next page."
+  ],
+  "headlines": [
+   "Big, easy coloring books for little hands",
+   "My First coloring books for ages 2 to 5",
+   "Pizza, cupcakes and pancakes for ages 2-5"
+  ]
+ }
+}

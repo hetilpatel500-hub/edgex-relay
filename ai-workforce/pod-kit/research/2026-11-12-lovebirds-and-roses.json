@@ -1,0 +1,84 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a pod_research doc.",
+ "id": "2026-11-12-lovebirds-and-roses",
+ "created": "2026-11-12T16:29:06Z",
+ "queue_row": "Gift-category plan row 7 (Gifts for Couples, Anniversary, Engagement, Wedding): a couples design that works on matching mugs, no names and no dates. The Nov 11 decision set it as the next pattern design (motif and pattern days alternate). Row 1 (zodiac) has no sign left to screen; rows 2-6 are done.",
+ "phrase": "lovebirds couple mug (no lettering on the art)",
+ "niche": "couples, anniversary, wedding and Valentine's gifts: matching all-over mugs",
+ "seasonal_calendar": "4-8 weeks ahead (Dec 10 - Jan 7): Christmas, covered by the Christmas batch; couples' Christmas gifts fall in the same window. Valentine's Day (Feb 14) is 13 weeks out, and the desk's list starts Valentine's designs in early January, so a couples mug listed now has indexed by then. Anniversaries and weddings run all year.",
+ "trend_searches": [
+  "couples mug trends 2026 etsy matching mugs (seller guides: matching mug sets still outsell most gimmick mugs and can be listed as a set with single mugs too; shared symbols such as hearts; plan Valentine's and anniversary designs early; vendor content, no Etsy data)",
+  "best selling couples gifts Christmas 2026 trends (thin: gift guides favour shared gifts a couple uses together; one POD vendor claims personalised gifts rose; sponsored pages discounted)",
+  "Valentine's Day 2027 gift trends print on demand mugs (no 2027 data; 2026 vendor guides: personalisation leads, mugs convert well in Valentine's season, friendship and Galentine's designs are growing)"
+ ],
+ "sources": [
+  "https://bootstrappingecommerce.com/mug-design-ideas-for-couples/",
+  "https://coffeifymug.com/blogs/news/matching-coffee-mugs-for-couples-how-to-choose-a-set-that-works",
+  "https://www.hgtv.com/design/make-and-celebrate/holidays/christmas-gifts-for-couples-pictures",
+  "https://www.gearlaunch.com/guidelines/10-best-valentines-gearlaunch-products",
+  "https://www.demdaco.com/lovebirds-mug",
+  "https://stampington.com/lovebirds-mug",
+  "https://www.etsy.com/listing/4510470586",
+  "https://www.kohls.com/product/prd-8384812/moon-sun-ceramic-coffee-mugs-gift-set-mothers-day-gift.jsp",
+  "https://www.dunelm.com/product/personalised-you-are-my-sun-my-moon-mug-1000228058",
+  "https://www.zazzle.co.uk/modern_watercolor_wedding_mug-168869872320678465",
+  "https://www.etsy.com/listing/1649574917",
+  "https://www.youcustomizeit.com/p/Birds-Hearts-Coffee-Mug-Personalized/469886"
+ ],
+ "competitors": [
+  {
+   "what": "Dean Crouser watercolor Lovebirds stoneware mug, 16 oz (Demdaco)",
+   "price": "$18.00",
+   "style": "watercolor-style art, one scene on a stoneware mug"
+  },
+  {
+   "what": "Lovebirds Mug with two hummingbirds (Stampington)",
+   "price": "$16.99",
+   "style": "watercolor-style art by the same illustrator, pitched for weddings and new homes"
+  },
+  {
+   "what": "Handmade moon pinch cup and bow-handle mug set for couples (Etsy)",
+   "price": "not shown in the snippet; 2 left",
+   "style": "pottery glaze, no illustration"
+  },
+  {
+   "what": "Sun and moon ceramic mug set, 4 pieces (Kohl's third-party seller)",
+   "price": "$95.97",
+   "style": "shaped ceramic, sun and moon pairs"
+  },
+  {
+   "what": "Personalised 'You are my sun, my moon and stars' mug (Dunelm, UK)",
+   "price": "GBP 9",
+   "style": "fixed quote text plus an optional name"
+  },
+  {
+   "what": "Modern Watercolor Wedding Mug (Zazzle)",
+   "price": "not shown",
+   "style": "a blue watercolor stripe with script text"
+  },
+  {
+   "what": "Personalised 10th anniversary engraved mug set (Etsy)",
+   "price": "about $12-26",
+   "style": "laser-engraved text on steel tumblers"
+  },
+  {
+   "what": "Birds & Hearts custom coffee mug (YouCustomizeIt)",
+   "price": "not shown",
+   "style": "vector birds and hearts with a name"
+  }
+ ],
+ "gap": "Couples mugs are mostly text (Mr & Mrs, quotes, names and dates), engraving, pottery or flat vector. The only watercolor lovebirds found are single-scene stoneware mugs (Dean Crouser, $16.99-18). No all-over watercolor lovebird wrap and no accent-mug pair turned up. Angle: an all-over wrap of painted lovebird pairs (three coats: green, aqua and gold, rosy faces) among garden roses and hearts, no lettering, so two mugs make a matching set in the accent colours (pink, red, light green).",
+ "trend": "Matching sets for couples are a steady seller in the guides; hearts and paired symbols are the shared language; mugs convert well in Valentine's season. All-over wraps lead printed mugs in the owner's Etsy scan.",
+ "owner_scan_read": "pod_research/owner-etsy-mug-scan-2026-09-28 read (DB): all-over wraps and accent mugs win; printed best sellers are flat vector or stained glass; real-looking watercolor is rare. Personalised name mugs are the biggest group but wait for the owner, so this design has no names.",
+ "pod_review_read": "pod-kit/research/2026-11-09-pod-review.json: 0 orders since 2026-09-28; rule: follow Etsy search demand, gift niches with an evergreen angle. Printify read 2026-11-12: 58 products, 48 with Etsy listing IDs, 0 orders.",
+ "repeat_check": "pod-kit/designs has no couples or lovebird design. Snowy Pine Cardinals is a winter bird pattern, a different subject and season; Grandma's Garden has roses but is a single bouquet for grandparents.",
+ "scores": {
+  "demand": 4,
+  "competition": 4,
+  "timing": 4,
+  "fit": 5,
+  "trademark_risk": 4
+ },
+ "total": 21,
+ "decision": "go (21/25): Lovebirds & Roses, an all-over pattern for the wrap mug and the accent mug (pink, red, light green)"
+}

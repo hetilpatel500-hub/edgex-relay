@@ -1,0 +1,210 @@
+{
+  "id": "scorpio-constellation",
+  "name": "Scorpio",
+  "template": "stack",
+  "top": "Scorpio",
+  "bottom": "October 23 - November 21",
+  "top_font": "Pacifico",
+  "bottom_font": "PlayfairDisplay",
+  "art": [
+    {
+      "motif": "chrysanthemum",
+      "x": -0.22,
+      "y": 0.15,
+      "s": 0.085,
+      "front": true
+    },
+    {
+      "motif": "chrysanthemum",
+      "x": 0.23,
+      "y": 0.14,
+      "s": 0.075,
+      "color": "#e07b6a",
+      "color2": "#f5b9a8",
+      "front": true
+    },
+    {
+      "motif": "chrysanthemum",
+      "x": -0.07,
+      "y": 0.215,
+      "s": 0.062,
+      "color": "#d9a441",
+      "color2": "#f2d58a",
+      "front": true
+    },
+    {
+      "motif": "chrysanthemum",
+      "x": 0.09,
+      "y": 0.215,
+      "s": 0.055,
+      "front": true
+    },
+    {
+      "motif": "sprig",
+      "x": -0.29,
+      "y": 0.1,
+      "s": 0.09,
+      "angle": -2.6,
+      "front": true
+    },
+    {
+      "motif": "sprig",
+      "x": 0.3,
+      "y": 0.09,
+      "s": 0.09,
+      "angle": -0.55,
+      "front": true
+    },
+    {
+      "motif": "night_sky",
+      "x": 0.0,
+      "y": -0.05,
+      "s": 0.25
+    },
+    {
+      "motif": "constellation",
+      "x": 0.02,
+      "y": -0.06,
+      "s": 0.185,
+      "name": "scorpius"
+    },
+    {
+      "motif": "sparkle",
+      "x": -0.31,
+      "y": -0.22,
+      "s": 0.025
+    },
+    {
+      "motif": "sparkle",
+      "x": 0.32,
+      "y": -0.24,
+      "s": 0.02
+    },
+    {
+      "motif": "moon",
+      "x": 0.3,
+      "y": -0.12,
+      "s": 0.038
+    }
+  ],
+  "florals": null,
+  "palette": "lavender",
+  "colors": {
+    "sky": "#27325f",
+    "sky2": "#4f63a8",
+    "star": "#f6dc8c",
+    "mum": "#a77bd1",
+    "mum2": "#dcc4ef",
+    "accent": "#e2b04a",
+    "accent2": "#f3d58f"
+  },
+  "ink": "#2c2f4a",
+  "seed": 23,
+  "shirt_colors": [
+    "white",
+    "natural",
+    "heather_gray"
+  ],
+  "listing": {
+    "title": "Scorpio Constellation Shirt, Watercolor Scorpio Zodiac Tee, November Birth Flower Astrology Shirt, Scorpio Birthday Gift, Star Sign Tee",
+    "tags": [
+      "scorpio shirt",
+      "scorpio gift",
+      "scorpio star chart",
+      "scorpio zodiac",
+      "scorpio birthday",
+      "astrology shirt",
+      "zodiac gift",
+      "celestial shirt",
+      "star sign shirt",
+      "november birthday",
+      "chrysanthemum shirt",
+      "watercolor floral",
+      "horoscope gift"
+    ],
+    "description": "The Scorpio constellation drawn in gold stars on a watercolor night sky, framed by chrysanthemums, the November birth-month flower, with a crescent moon and sparkles. \"Scorpio\" in round script on top and \"October 23 - November 21\" below. A birthday gift for the Scorpio in your life (October 23 - November 21).",
+    "per_product": {
+      "sweatshirt": {
+        "title": "Scorpio Constellation Sweatshirt, Watercolor Scorpio Zodiac Crewneck, November Birth Flower Astrology Pullover, Scorpio Birthday Gift",
+        "tags": [
+          "scorpio sweatshirt",
+          "scorpio gift",
+          "scorpio star chart",
+          "scorpio zodiac",
+          "scorpio birthday",
+          "astrology crewneck",
+          "zodiac gift",
+          "celestial sweater",
+          "star sign gift",
+          "november birthday",
+          "chrysanthemum gift",
+          "cozy sweatshirt",
+          "horoscope gift"
+        ]
+      },
+      "mug": {
+        "title": "Scorpio Constellation Mug, Watercolor Scorpio Zodiac Coffee Mug, November Birth Flower Astrology Mug, Scorpio Birthday Gift, Star Sign Cup",
+        "tags": [
+          "scorpio mug",
+          "scorpio gift",
+          "scorpio star chart",
+          "scorpio zodiac",
+          "scorpio birthday",
+          "astrology mug",
+          "zodiac gift",
+          "celestial mug",
+          "star sign mug",
+          "november birthday",
+          "chrysanthemum mug",
+          "zodiac coffee mug",
+          "horoscope gift"
+        ]
+      },
+      "poster": {
+        "title": "Scorpio Constellation Art Print, Watercolor Scorpio Zodiac Wall Art, November Birth Flower Astrology Print, Scorpio Birthday Gift",
+        "tags": [
+          "scorpio wall art",
+          "scorpio gift",
+          "scorpio star chart",
+          "scorpio zodiac",
+          "scorpio print",
+          "astrology print",
+          "zodiac wall art",
+          "celestial decor",
+          "star sign print",
+          "november birthday",
+          "chrysanthemum print",
+          "nursery zodiac art",
+          "horoscope gift"
+        ]
+      },
+      "sticker": {
+        "title": "Scorpio Constellation Sticker, Watercolor Scorpio Zodiac Vinyl Sticker, November Birth Flower Astrology Sticker, Scorpio Gift",
+        "tags": [
+          "scorpio sticker",
+          "scorpio gift",
+          "scorpio star chart",
+          "scorpio zodiac",
+          "astrology sticker",
+          "zodiac sticker",
+          "celestial sticker",
+          "star sign sticker",
+          "laptop sticker",
+          "water bottle decal",
+          "chrysanthemum decal",
+          "journal sticker",
+          "horoscope gift"
+        ]
+      }
+    },
+    "products": [
+      "Unisex tee (Bella+Canvas 3001)",
+      "Crewneck sweatshirt (Gildan 18000)",
+      "11 oz mug",
+      "Art print (matte poster)",
+      "Kiss-cut sticker"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table after the 2026-10-05 pricing review (decisions/pricing-2026-10-05): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. Etsy zodiac sweatshirt and scorpio shirt market pages (etsy.com/market/zodiac_sweatshirts, etsy.com/market/scorpio_shirt, checked 2026-10-05) show floral and constellation zodiac tops as a busy niche; our prices sit in the middle of those pages. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-10-05 (before any art): web searches '\"Scorpio Constellation\" OR \"Libra Constellation\" trademark clothing USPTO', 'SCORPIO trademark class 25 clothing' and 'Zodiac apparel brand'. Found a SCORPIO clothing application by Sahara Ray Inc. (serial 88665340) that is abandoned, a cancelled SCORPIO mark for herbal tea (74649454), and SCORPIO marks for other goods (lighting, candles, financial services). No live SCORPIO or SCORPIO CONSTELLATION apparel, mug or print mark found. 'Scorpio' is used descriptively, as the buyer's star sign next to its dates; 'Zodiac Apparel' is a brand name and is not used. The star pattern is a natural fact drawn by us. The copy says 'birth-month flower', not 'zodiac flower'. tmsearch.uspto.gov and Justia are blocked from our sessions, so this is a search-engine screen, not a clearance."
+  }
+}

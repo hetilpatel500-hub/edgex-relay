@@ -1,0 +1,61 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "kitchen-herbs",
+  "kind": "pod_design"
+ },
+ "title": "Kitchen Herbs (tee, sweatshirt, mug, art print, sticker)",
+ "reviewed_at": "2026-11-11T16:40:03Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions. Cancer, Leo and Virgo were held at the screen and wait for the owner with Libra, Sagittarius, Pisces, Aries and Taurus."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against the full-size art: six herbs, each on its own pale watercolor wash with its name in dark green capitals; basil with glossy highlights and pale veins, rosemary with pale blue flowers, thyme with pink flower clusters, grey-green pebbled sage, toothed mint leaves with dark veins, chives with lilac pom-pom blossoms; 'Kitchen Herbs' in green script on top. Each plant is drawn as that herb (common names, no species or health claims). No best-seller, sale, free or review claims; no culinary or medicinal claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (watercolor.py and motifs2.py, with new basil, sage, mint, rosemary, thyme and chives motifs written today); no stock art, traced designs, public-domain engravings or AI image generator. The herb-chart layout (a title over labelled specimens) is a common convention, not any competitor's arrangement or art. Fonts Pacifico and Playfair Display are SIL OFL 1.1. Machine-drawn art may not be registrable for US copyright (Thaler v. Perlmutter)."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check): no KITCHEN HERBS mark found for clothing, mugs or posters; KITCHEN HERBCRAFT (reg. 7183022) is Class 41 services; HERB GARDEN records are abandoned, expired or other goods, and the phrase is used only in tags as a description; HERB & IRON is a different composite mark not used. Herb names are generic plant names. No brands in titles or tags. Search-engine screen only; tmsearch.uspto.gov is blocked from our sessions, so the owner may run a USPTO search on KITCHEN HERBS before listing."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description carries the production-partner disclosure. Titles are 140 characters or fewer (113-125) and every listing has 13 unique tags of 20 characters or fewer (build.py checked)."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Adult sizes; not made or marketed for children."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [
+  "Quality Bar, preview 1: leaves split into hard two-tone halves, overlapping leaves showed through each other (x-ray), rosemary read as pine boughs, thyme as sticks, labels sat far from the plants and the bottom of the sheet was empty. Shadows narrowed to the lower edge; leaf pairs now painted top-down with each pair in front of the one below (local paint-around); rosemary rebuilt as one sprig with two side shoots and lighter green-grey needles; grid enlarged and moved down.",
+  "Quality Bar, previews 2-4: leaf bases met in diamond seams at the stem, crowns floated above the sage and mint stems. Added short petioles, stem now ends at the crown, thinner stems.",
+  "Quality Bar, mockups: herb names were too small to read on a shirt at 3 m. Labels enlarged from 0.036 to 0.05 of the design width.",
+  "Quality Bar, full size: pale veins on basil and sage were invisible (the lift blur scaled with leaf length), the leaf shadows still had a hard edge, stems and chive leaves wobbled, thyme leaves read as stacked scales, chive blossoms had dark blotches, rosemary flowers were see-through. Vein blur now scales with leaf width, shadows are blurred and clipped to the leaf, stems straightened, thyme leaves made small narrow pairs, chive florets lightened, rosemary flowers painted first so the needles go around them. Checked again at full size."
+ ],
+ "research_ref": "pod-kit/research/2026-11-11-kitchen-herbs.json",
+ "decision_ref": "pod-kit/decisions/2026-11-11-pod-kitchen-herbs.json"
+}

@@ -1,0 +1,21 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a decisions doc.",
+ "id": "2026-11-11-pod-kitchen-herbs",
+ "by": "chief-of-staff",
+ "created": "2026-11-11T16:40:03Z",
+ "items": [
+  "kitchen-herbs"
+ ],
+ "legal_refs": [
+  "pod-kit/legal/kitchen-herbs.json"
+ ],
+ "legal_verdict": "cleared",
+ "decision": "approved for delivery to the owner",
+ "conditions": [
+  "Printify drafts or Etsy publishing only after the owner allows Printify writes (refused by the session's permission check since Oct 6). Then 5 products, 5 listings ($1.00 if paid), inside the $3/day cap.",
+  "Step 9b (9 extra photos per listing) runs after the products exist: photos.py draws from each Printify product's print area.",
+  "Before listing: the owner may run a USPTO search on KITCHEN HERBS.",
+  "Cancer, Leo and Virgo join Libra, Sagittarius, Pisces, Aries and Taurus waiting for the owner (registered or pending clothing marks). The zodiac row has no sign left to screen."
+ ],
+ "reason": "Zodiac row blocked at the trademark screen for its last three signs, so the run took the next open row (6, Housewarming: a kitchen art print). 20/25 research score; Legal cleared; full-size art checked after four rounds of fixes. One design this run for quality; it is a motif design (the row asks for an art print, which only the motif set makes), so the next pattern design is row 7's matching couples mugs."
+}

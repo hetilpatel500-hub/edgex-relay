@@ -1,0 +1,29 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a decisions doc; pod_designs and pod_listings records are kept here too.",
+ "id": "2026-11-13-pod-another-year-sweeter",
+ "by": "chief-of-staff",
+ "created": "2026-11-13T16:41:20Z",
+ "items": ["another-year-sweeter"],
+ "legal_refs": ["pod-kit/legal/another-year-sweeter.json"],
+ "legal_verdict": "cleared",
+ "decision": "approved for delivery to the owner",
+ "conditions": [
+  "Printify drafts or Etsy publishing only after the owner allows Printify writes (refused by the session's permission check since Oct 6). Then 5 products (tee, sweatshirt, mug, art print, sticker), 5 listings ($1.00 if paid), inside the $3/day cap.",
+  "Step 9b (9 extra photos per listing) runs after the products exist: photos.py draws from each Printify product's print area.",
+  "Before listing: the owner may run a USPTO search on ANOTHER YEAR SWEETER."
+ ],
+ "reason": "Queue row 8 (Birthday Gifts: a cake-and-candles design). 20/25 research score; BIRTHDAY SEASON rejected at the trademark screen (registered for art prints), ANOTHER YEAR SWEETER screened clear; Legal cleared; full-size art checked after three rounds of fixes. It is a motif design (the last one was a pattern). One design this run, for quality.",
+ "artifact": "https://claude.ai/artifact/RK9SwQMiLFc7KRjdxukCuW",
+ "emailed": "Gmail message 1a1d5c8d7b1c67be to the owner, 2026-11-13",
+ "printify_read_only": "2026-11-13: 58 products, 48 with Etsy listing IDs, the same 10 Scorpio and Campfire drafts unpublished, 0 orders",
+ "pod_designs": {
+  "title": "Another Year Sweeter",
+  "phrase": "Another Year Sweeter",
+  "niche": "Birthday Gifts (adult birthday shirt, mug, print, sticker; any age, any month)",
+  "artifact": "https://claude.ai/artifact/RK9SwQMiLFc7KRjdxukCuW",
+  "product_ids": {},
+  "status": "approved, not on Printify (writes wait for the owner)",
+  "created": "2026-11-13T16:41:20Z"
+ },
+ "pod_listings": []
+}

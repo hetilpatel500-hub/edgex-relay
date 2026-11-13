@@ -1,0 +1,226 @@
+{
+ "note": "Office DB is full (100 MB, creates refused since 2026-11-05), so the video desk's videos, decision and collabs docs for this run are filed here.",
+ "videos": [
+  {
+   "doc_id": "2026-11-12-earnings-week",
+   "date": "2026-11-12",
+   "series": "earnings-week",
+   "topic": "Earnings Nov 17-19: Nvidia Tue (after close, confirmed by Nvidia), TJX and Palo Alto Networks Wed, Walmart and Intuit Thu; revenue estimates WMT $187.2B, NVDA $109.0B, TJX $15.9B, INTU $4.3B, PANW $3.3B; NVDA last quarter $96.2B vs $92.2B est",
+   "title": "5 big earnings reports next week, Nov 17 to 19",
+   "artifact": "https://claude.ai/artifact/1rPahGgza1q6iiFC6KpPte",
+   "files": [
+    "Edgex_earnings-week-1117_2026-11-12_9x16.mp4"
+   ],
+   "seconds": 41.73,
+   "legal_review": "video-kit/legal/2026-11-12-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-12T22:13:33Z",
+   "emailed": "gmail:1a1d1d249b3c69b6"
+  },
+  {
+   "doc_id": "2026-11-12-gap-fill-explainer",
+   "date": "2026-11-12",
+   "series": "explainer",
+   "topic": "Gap fill explained with Nov 12 data: QQQ -1.46% gap filled in the 10:55 ET bar, SPY -0.77% filled in the same bar, AMD +2.96% gap not filled (low 554.90 vs 552.90 prior close), closed +5.86%",
+   "title": "Gap fill, explained with Thursday's QQQ and AMD",
+   "artifact": "https://claude.ai/artifact/1rPahGgza1q6iiFC6KpPte",
+   "files": [
+    "Edgex_gap-fill-explainer_2026-11-12_9x16.mp4"
+   ],
+   "seconds": 53.75,
+   "legal_review": "video-kit/legal/2026-11-12-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-12T22:13:33Z",
+   "emailed": "gmail:1a1d1d249b3c69b6"
+  },
+  {
+   "doc_id": "2026-11-12-ai-week",
+   "date": "2026-11-12",
+   "series": "ai-this-week",
+   "topic": "AI this week: OpenAI says ChatGPT search is about 1/5 of Google's; SemiAnalysis GDPx (206 tasks, best 12%); Anthropic IPO roadshow ($70-$78 expected, Nasdaq ANT)",
+   "title": "OpenAI says ChatGPT gets a fifth of Google's searches",
+   "artifact": "https://claude.ai/artifact/1rPahGgza1q6iiFC6KpPte",
+   "files": [
+    "Edgex_ai-week-1112_2026-11-12_9x16.mp4"
+   ],
+   "seconds": 54.87,
+   "legal_review": "video-kit/legal/2026-11-12-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-12T22:13:33Z",
+   "emailed": "gmail:1a1d1d249b3c69b6"
+  }
+ ],
+ "last_touch": {
+  "by": "video-last-touch",
+  "verdict": "cleared",
+  "checks": {
+   "video-fact-checker": "Every on-screen and spoken number matched raw/: earnings dates, quarters and consensus revenue for NVDA, TJX, PANW, WMT and INTU (Webull earnings calendar), Nvidia's Nov 17 date (Nvidia release, Oct 28), NVDA last quarter $96.2B vs $92.2B; QQQ 690.38 close, 680.32 open (-1.46%), fill in the 10:55-11:00 ET bar (high 691.87); SPY -0.77%, filled in the same bar; AMD 552.90 close, 569.28 open (+2.96%), low 554.90, close +5.86%. AI stories each carry 3-4 outlets dated within 14 days; the unconfirmed Nov 3 interview date was removed.",
+   "copyright-compliance-reviewer": "Own renders only: data visuals and text cards, Kokoro voice (Apache-2.0), synthesized music, OFL fonts; news in our own words with outlets credited.",
+   "content-policy-reviewer": "No trade calls, targets or predictions; 'Educational only. Not financial advice.' on the last scene of all three and in all three captions; IPO range called expected with the price not final; no schedule promises in outros; synthetic voice flagged for the AI label.",
+   "defamation-harassment-screen": "No reason given for any move; Adam Fry's figure attributed to OpenAI with the method caveat; the developing Nvidia leadership story left out.",
+   "video-brand-tone-final-check": "Opened all three review sheets after the final render: the gap video's clipped AMD label and missing open point were fixed and re-rendered; nothing clipped or overlapping now. Specs: h264/aac 1080x1920; 10.5, 13.6 and 13.3 MB (under 15); mean volume -20.2, -20.7 and -21.1 dB; 41.7, 53.8 and 54.9 s (under 60). Spoken text read cleanly (tickers spelled out)."
+  },
+  "created": "2026-11-12T22:13:33Z"
+ },
+ "decision": {
+  "doc_id": "2026-11-12-video-desk",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-12T22:13:33Z",
+  "reason": "Legal verdict cleared (all ten counsel), Video Last Touch cleared. Rotation: earnings-week (market), explainer (teaching), ai-this-week (interactive); three different rows, none ran on Nov 11 (sector-board, myth-fact, studio). No topic repeats within 30 days: last earnings week Sep 30 (Oct 1-13 reports), no earlier gap-fill explainer (past explainers: VWAP, opening range, ATR, 200-day, relative volume), and the AI stories differ from Nov 10's. A developing Nvidia leadership story was left out on purpose. Delivered to the owner only; nothing posted."
+ },
+ "collabs": {
+  "doc_id": "2026-11-12-video-desk",
+  "created": "2026-11-12T22:13:33Z",
+  "members": [
+   "video-trend-scout",
+   "commentary-scriptwriter",
+   "hook-writer",
+   "video-fact-checker",
+   "voiceover-tts-agent",
+   "video-editor-agent",
+   "copyright-compliance-reviewer",
+   "content-policy-reviewer",
+   "defamation-harassment-screen",
+   "video-brand-tone-final-check",
+   "publish-coordinator-video",
+   "instagram-reels-agent",
+   "facebook-video-agent",
+   "general-counsel-agent",
+   "advertising-consumer-protection-counsel",
+   "email-anti-spam-compliance-counsel",
+   "privacy-data-protection-counsel",
+   "copyright-fair-use-counsel",
+   "trademark-brand-clearance-counsel",
+   "financial-content-compliance-counsel",
+   "platform-terms-policy-counsel",
+   "kids-content-coppa-counsel",
+   "contracts-commercial-terms-counsel",
+   "chief-of-staff"
+  ],
+  "log": [
+   {
+    "agent": "video-trend-scout",
+    "line": "Picked Earnings This Week (market), a gap-fill explainer (teaching) and AI This Week (interactive): three different rows, none ran Nov 11 (sector-board, myth-fact, studio). Left out a developing Nvidia leadership story."
+   },
+   {
+    "agent": "commentary-scriptwriter",
+    "line": "Wrote the three scenes from saved Webull earnings, daily and 5-minute data, Nvidia's Oct 28 release, and 11 outlet reports for the AI stories."
+   },
+   {
+    "agent": "hook-writer",
+    "line": "Hooks: '5 big reports next week.', 'QQQ opened 1.46% lower. By 10:55, it was back.', 'ChatGPT gets a fifth of Google's searches?'"
+   },
+   {
+    "agent": "video-fact-checker",
+    "line": "Traced every number to raw/ or a named source; dropped HD, LOW and TGT (Webull showed results on future dates); removed an unconfirmed Nov 3 date from the ChatGPT story; changed 'By 10:55' to 'By 11:00' to match the fill bar."
+   },
+   {
+    "agent": "voiceover-tts-agent",
+    "line": "Kokoro voice; tickers spelled out letter by letter (Q Q Q, S P Y, A M D, T J X, A N T)."
+   },
+   {
+    "agent": "video-editor-agent",
+    "line": "Rendered 3 MP4s (9:16); re-rendered twice, after the earnings kicker fix and after the gap-video layout fixes."
+   },
+   {
+    "agent": "copyright-compliance-reviewer",
+    "line": "Cleared: own visuals, Apache-2.0 voice, synthesized music, OFL fonts, news in our own words."
+   },
+   {
+    "agent": "content-policy-reviewer",
+    "line": "Cleared: disclaimers in all three, no calls or targets, IPO range called expected, no schedule promises."
+   },
+   {
+    "agent": "defamation-harassment-screen",
+    "line": "Cleared: no reasons asserted for moves; Adam Fry's figure attributed to OpenAI; the Nvidia leadership story left out."
+   },
+   {
+    "agent": "video-brand-tone-final-check",
+    "line": "Opened all review sheets and checked specs and spoken text; cleared."
+   },
+   {
+    "agent": "publish-coordinator-video",
+    "line": "Built the private delivery page with Save and Copy buttons and emailed the owner once."
+   },
+   {
+    "agent": "instagram-reels-agent",
+    "line": "Captions and hashtags for the three 9:16 shorts; AI-info label note."
+   },
+   {
+    "agent": "facebook-video-agent",
+    "line": "Same three shorts for Facebook Reels; AI-info label note. No 16:9 cut today."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "Ran the ten-counsel review: cleared, 8 fixes made before release, 5 posting notes."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "Pass: numbers sourced, OpenAI's figure framed as its claim, Claude disclosure added, no schedule promise."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: owner-only email."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: no personal data; one executive named for a public statement."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "Pass: no third-party assets; news summarized and credited."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "Pass: nominative use of company, product, fund and outlet names; no new brand."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "Pass: disclaimers in all three, no calls or predictions, no reasons for moves, IPO price not final."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "Pass: turn on Meta 'AI info' for the synthetic voice."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "Pass: general audience, no child shown."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "Pass: no paid tools, deals or sponsorships."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved with the cleared legal verdict on file; delivered to the owner only."
+   }
+  ]
+ },
+ "agents_updated": [
+  "video-trend-scout",
+  "commentary-scriptwriter",
+  "hook-writer",
+  "video-fact-checker",
+  "voiceover-tts-agent",
+  "video-editor-agent",
+  "copyright-compliance-reviewer",
+  "content-policy-reviewer",
+  "defamation-harassment-screen",
+  "video-brand-tone-final-check",
+  "publish-coordinator-video",
+  "instagram-reels-agent",
+  "facebook-video-agent",
+  "general-counsel-agent",
+  "advertising-consumer-protection-counsel",
+  "email-anti-spam-compliance-counsel",
+  "privacy-data-protection-counsel",
+  "copyright-fair-use-counsel",
+  "trademark-brand-clearance-counsel",
+  "financial-content-compliance-counsel",
+  "platform-terms-policy-counsel",
+  "kids-content-coppa-counsel",
+  "contracts-commercial-terms-counsel",
+  "chief-of-staff"
+ ]
+}
