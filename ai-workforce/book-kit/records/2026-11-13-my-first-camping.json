@@ -1,0 +1,111 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the book desk's books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-camping",
+  "title": "My First Camping Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Camping",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-camping.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/46a3KPsmMykEqhtAR93x5X",
+  "created": "2026-11-13T14:59:24Z",
+  "emailed": "Gmail message 1a1d56b63708a7d1 to the owner, 2026-11-13"
+ },
+ "decision": {
+  "doc_id": "2026-11-13-book-my-first-camping",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-13T14:59:24Z",
+  "reason": "Legal verdict cleared at 2026-11-13T14:58:21Z (all ten counsel; trademark web screen on file; four drawing fixes made before the build). Planned rotation has ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it. Build checks passed (64 pages, cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge). Delivery to the owner only: no KDP publishing, no ads, no prices set. This decision doc was written after the page went up; the cleared verdict came first.",
+  "legal_review": "book-kit/legal/my-first-camping.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-13-book-my-first-camping",
+  "created": "2026-11-13T14:59:24Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation is finished; picked Camping (no book, record or DB books doc has it) and left out every camping subject already drawn in other books (lantern, backpack, pinecone, acorn, mountain, trees, owl, fox, bear, firefly, hot dog, pot and more)."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched the title: no book is called 'My First Camping Coloring Book'; the nearest are 'My First Camping Book' (CICO), 'My First Book of Camping' and 'My First Camping Trip', all different titles."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 camping subjects in art/camping.js: campsite things, campfire treats, gear, things for the water and six woodland animals, all with smiling faces."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Line and color sheets reviewed at full size; removed door dots on the tent that read as eyes, moved the raccoon's mask and the bat's belly off the faces, gave the deer sturdier legs and a smoother neck, and added a fish to the tackle box."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, a description in five groups that match the 30 pages (9 + 2 + 8 + 5 + 6) and 7 keywords of 39 characters or fewer, with no brand names."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 35 negatives; added camping-journal, RV, survival, hiking-guide and gear negatives so ads stay off adult camping searches."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Kept the description's lists as 'and' so the HTML has no bare ampersand; ad texts 120, 116 and 124 characters, headlines 41, 39 and 39; build.js checks passed."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages; cover 17.3941 x 11.25 in matches KDP's formula; background reaches every page edge; cover wrap, page previews and both A+ images checked."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "Ran the ten-counsel review: cleared, four fixes made before delivery (tent door dots, raccoon mask, bat belly, tackle box fish and deer legs), four owner notes (AI question Yes, optional USPTO search, topic swap, third category)."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "Pass: groups, counts, faces (30 of 30) and every named example match the built book."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: owner-only email."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: no personal data."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "Pass: original vector art, no maker shapes or logos, OFL font, AI-copyright note given."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "Pass: web screen found no 'My First Camping' mark or same-title book; 'S'mores' is disclaimed in the marks that contain it."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "n/a: no money content."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "Pass: AI disclosure Yes; keywords and ad texts within KDP and Amazon Ads rules; third category noted for the owner."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "Pass: friendly pictures, campfire in a stone ring, no fangs, no knives or axes, no data collected."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: no contract or terms."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved with the cleared legal verdict on file; delivered to the owner only, nothing published."
+   },
+   {
+    "agent": "publish-coordinator",
+    "line": "Published the private delivery page with save buttons for all eight files and emailed the owner once."
+   }
+  ]
+ }
+}

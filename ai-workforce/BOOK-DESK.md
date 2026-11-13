@@ -47,7 +47,7 @@ Space (2026-10-01), Yummy Food (2026-10-02), Birds (2026-10-05), Shapes & Colors
 At Home (2026-10-19), Weather & Nature (2026-10-20). All twelve were rebuilt on
 2026-10-20 with the bleed-correct cover. Pets (2026-10-26), Music (2026-11-05), Sports (2026-11-06),
 Christmas (2026-11-09), Fairy Tale (2026-11-10), Clothes (2026-11-11),
-Farmyard (2026-11-12; topic Farm, titled Farmyard because "My First Farm Coloring Book" exists).
+Farmyard (2026-11-12; topic Farm, titled Farmyard because "My First Farm Coloring Book" exists). Camping (2026-11-13).
 While the office DB is full (100 MB), the Legal review goes in `book-kit/legal/<id>.json`
 and the books, decisions and collabs docs in `book-kit/records/<date>-<id>.json`.
 Next: the planned rotation is finished. Until the owner names a topic, Trend Scout picks one that
