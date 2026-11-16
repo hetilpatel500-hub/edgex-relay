@@ -1,0 +1,167 @@
+{
+ "note": "Office DB is full (100 MB, creates refused since 2026-11-05), so the video desk's videos, decision and collabs docs for this run are filed here.",
+ "videos": [
+  {
+   "doc_id": "2026-11-16-spy-tape",
+   "date": "2026-11-16",
+   "series": "spy-tape",
+   "topic": "SPY Mon Nov 16: gap down 0.62% (open 749.72 vs Fri close 754.37), low 738.07 at 2:45 ET, close 739.95 (-1.91% on the day, -1.30% from the open), range $11.75; biggest daily drop since Nov 5 (-4.41%)",
+   "title": "SPY fell 1.91% Monday, its biggest drop since Nov 5",
+   "artifact": "https://claude.ai/artifact/VdR5VcnxANNaskfj9va9D4",
+   "files": [
+    "Edgex_spy_2026-11-16_9x16.mp4",
+    "Edgex_spy_2026-11-16_16x9.mp4"
+   ],
+   "seconds": 39.37,
+   "legal_review": "video-kit/legal/2026-11-16-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-16T22:09:43Z",
+   "emailed": "gmail:1a1e66765e3f970f"
+  },
+  {
+   "doc_id": "2026-11-16-explainer-closing-volume",
+   "date": "2026-11-16",
+   "series": "explainer",
+   "topic": "The last five minutes / closing auction: last 5-minute bar share of Nov 16 regular-session volume (Webull 5-minute bars) AAPL 34.85%, MSFT 28.43%, SPY 21.55%, AMZN 20.32%, TSLA 20.17%, QQQ 11.00%, IWM 10.87%, NVDA 10.41%; AAPL last bar 27.2x its average bar; SPY Fri Nov 13 15.81% vs Mon 21.55%; NYSE 5%-8% average day, BMLL ~9% (2024)",
+   "title": "34.85% of Apple's Monday volume came in the last 5 minutes",
+   "artifact": "https://claude.ai/artifact/VdR5VcnxANNaskfj9va9D4",
+   "files": [
+    "Edgex_closing-volume_2026-11-16_9x16.mp4"
+   ],
+   "seconds": 55.2,
+   "legal_review": "video-kit/legal/2026-11-16-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-16T22:09:43Z",
+   "emailed": "gmail:1a1e66765e3f970f"
+  },
+  {
+   "doc_id": "2026-11-16-ai-this-week",
+   "date": "2026-11-16",
+   "series": "ai-this-week",
+   "topic": "Meta Muse Ember (Nov 9, $0.10 per 1M input tokens reported; TechCrunch, The New Stack, VKTR); Gemini 4 Carbon GA (Nov 10, $2/$10 intro, $4/$20 after; 9to5Google, Digital Trends, GadgetReview); CrowdStrike to buy Fiddler AI + Dreadnode (Nov 3, ~$495M per WSJ reporting; CSO Online, SecurityWeek, GovInfoSecurity)",
+   "title": "AI this week: Meta's Muse Ember, Gemini 4 Carbon prices, a $495M deal",
+   "artifact": "https://claude.ai/artifact/VdR5VcnxANNaskfj9va9D4",
+   "files": [
+    "Edgex_ai-this-week-1116_2026-11-16_9x16.mp4"
+   ],
+   "seconds": 53.63,
+   "legal_review": "video-kit/legal/2026-11-16-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-16T22:09:43Z",
+   "emailed": "gmail:1a1e66765e3f970f"
+  }
+ ],
+ "last_touch": {
+  "by": "video-last-touch",
+  "verdict": "cleared",
+  "checks": {
+   "video-fact-checker": "Every on-screen and spoken number matched raw/ or a named source (factcheck.py: 0 unmatched). SPY from raw/spy_m5.json and raw/daily.json (open 749.72, low 738.07 at 2:45 ET, close 739.95, -1.91% day, -1.30% open to close; Nov 5 -4.41% is the only bigger daily drop in the saved bars). Closing volume: 78 regular-session bars per name on Nov 16 from raw/m5_stocks.json, raw/m5_etfs.json, raw/spy_m5.json; last bar = busiest bar for all eight; last-bar close equals the daily close for every name with a daily bar. AI stories each in 2+ outlets dated Nov 3-10; ChatGPT Wallet and a LangChain round were dropped as unconfirmed.",
+   "copyright-compliance-reviewer": "Own renders only: data visuals and text cards, Kokoro voice (Apache-2.0), synthesized music, OFL fonts; news restated in our own words with outlets credited.",
+   "content-policy-reviewer": "No trade calls, targets or predictions; 'Educational only. Not financial advice.' on the SPY and explainer outros and captions; no reason given for SPY's drop or Monday's heavy close.",
+   "defamation-harassment-screen": "No person named. Company claims labeled as theirs (Meta's benchmarks; deal price per WSJ, CrowdStrike didn't disclose terms).",
+   "video-brand-tone-final-check": "Review sheets checked for all three (plus SPY 16:9). AI hook subline first ran off the right edge; shortened and re-rendered. Specs: all under 60 s and 15 MB, h264 1080x1920 + aac, mean volume -20.0 to -20.7 dB.",
+   "publish-coordinator-video": "Private page with Save buttons published; email sent to the owner only. Nothing posted."
+  }
+ },
+ "decision": {
+  "doc_id": "2026-11-16-video-desk",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-16T22:07:32Z",
+  "reason": "Legal verdict cleared (all ten counsel), Video Last Touch cleared. Rotation: spy-tape (market), explainer (teaching), ai-this-week (news) are three different rows; none ran on Fri Nov 13 (mag7-race, earnings-breakdown, quiz, money-skill). spy-tape's first run this week, on a -1.91% day. No topic repeats within 30 days: earlier explainers were VWAP, opening range, ATR, 200-day, relative volume and gap fill; the AI stories are new. Delivered to the owner only; nothing posted."
+ },
+ "collabs": {
+  "doc_id": "2026-11-16-video-desk",
+  "created": "2026-11-16T22:09:43Z",
+  "members": [
+   "video-trend-scout",
+   "commentary-scriptwriter",
+   "hook-writer",
+   "video-fact-checker",
+   "voiceover-tts-agent",
+   "video-editor-agent",
+   "copyright-compliance-reviewer",
+   "content-policy-reviewer",
+   "defamation-harassment-screen",
+   "video-brand-tone-final-check",
+   "publish-coordinator-video",
+   "instagram-reels-agent",
+   "facebook-video-agent",
+   "general-counsel-agent",
+   "advertising-consumer-protection-counsel",
+   "email-anti-spam-compliance-counsel",
+   "privacy-data-protection-counsel",
+   "copyright-fair-use-counsel",
+   "trademark-brand-clearance-counsel",
+   "financial-content-compliance-counsel",
+   "platform-terms-policy-counsel",
+   "kids-content-coppa-counsel",
+   "contracts-commercial-terms-counsel",
+   "chief-of-staff"
+  ],
+  "log": [
+   {
+    "agent": "video-trend-scout",
+    "line": "Monday set: The SPY Tape (market; first this week, -1.91% day), Trading Explained on the last five minutes (teaching; new topic), AI This Week (news). None ran Fri Nov 13."
+   },
+   {
+    "agent": "commentary-scriptwriter",
+    "line": "Wrote the closing-volume scenes from saved Webull 5-minute bars plus NYSE and BMLL figures, and the AI news scenes from three stories confirmed in 2+ outlets."
+   },
+   {
+    "agent": "hook-writer",
+    "line": "Hooks: 'SPY gapped down 0.62%. It closed -1.30% from the open.', '34.85% of Apple's volume came in the last 5 minutes.', 'A 10-cent AI model and a $495M deal.' (qualified on screen)."
+   },
+   {
+    "agent": "video-fact-checker",
+    "line": "factcheck.py: 0 unmatched numbers across titles, captions and scenes."
+   },
+   {
+    "agent": "voiceover-tts-agent",
+    "line": "Kokoro am_michael voice for all three; levels -20.0 to -20.7 dB."
+   },
+   {
+    "agent": "video-editor-agent",
+    "line": "Rendered SPY 9:16 + 16:9 and two 9:16 scene videos; SPY re-run under the kit venv after Pillow failed under system python; AI video re-rendered twice for the hook subline."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "Cleared, all ten counsel on file in video-kit/legal/2026-11-16-video-desk.json."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved; delivered to the owner only."
+   },
+   {
+    "agent": "publish-coordinator-video",
+    "line": "Page https://claude.ai/artifact/VdR5VcnxANNaskfj9va9D4; email gmail:1a1e66765e3f970f."
+   }
+  ]
+ },
+ "agents_updated": [
+  "video-trend-scout",
+  "commentary-scriptwriter",
+  "hook-writer",
+  "video-fact-checker",
+  "voiceover-tts-agent",
+  "video-editor-agent",
+  "copyright-compliance-reviewer",
+  "content-policy-reviewer",
+  "defamation-harassment-screen",
+  "video-brand-tone-final-check",
+  "publish-coordinator-video",
+  "instagram-reels-agent",
+  "facebook-video-agent",
+  "general-counsel-agent",
+  "advertising-consumer-protection-counsel",
+  "email-anti-spam-compliance-counsel",
+  "privacy-data-protection-counsel",
+  "copyright-fair-use-counsel",
+  "trademark-brand-clearance-counsel",
+  "financial-content-compliance-counsel",
+  "platform-terms-policy-counsel",
+  "kids-content-coppa-counsel",
+  "contracts-commercial-terms-counsel",
+  "chief-of-staff"
+ ]
+}
