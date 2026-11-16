@@ -2495,6 +2495,300 @@ def confetti(c, x, y, s, P, n=70, aspect=0.95, inner=0.45, clear=None, colors=No
             c.wash(_band(path, u * 0.2, u * 0.16), col, dk, strength=0.72, spread=0.02, layers=10, edge=1.05)
 
 
+# ---------------------------------------------------------------- classroom (Apples & Pencils)
+def _loc(x, y, a):
+    """Local coords (along the object's own axis) to canvas coords."""
+    ca, sa = math.cos(a), math.sin(a)
+    return lambda px, py: (x + px * ca - py * sa, y + px * sa + py * ca)
+
+
+def _rr(x0, y0, x1, y1, r, n=5):
+    """A rounded rectangle in local coords."""
+    r = min(r, (x1 - x0) / 2, (y1 - y0) / 2)
+    pts = []
+    for cx, cy, a0 in ((x1 - r, y0 + r, -math.pi / 2), (x1 - r, y1 - r, 0.0), (x0 + r, y1 - r, math.pi / 2), (x0 + r, y0 + r, math.pi)):
+        for i in range(n + 1):
+            a = a0 + math.pi / 2 * i / n
+            pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
+    return pts
+
+
+def _mix(hexcol, k):
+    """Toward white by k (0 = the color, 1 = white)."""
+    r, g, b = _rgb(hexcol)
+    return '#%02x%02x%02x' % tuple(int(v + (255 - v) * k) for v in (r, g, b))
+
+
+def _inkc(hexcol, k=0.42):
+    return tuple(int(v * k) for v in _rgb(hexcol))
+
+
+APPLE_KINDS = {'red': ('#d8343f', '#f2934e', '#8c1a27'), 'green': ('#8cbd47', '#e8e07a', '#4b7a2a'),
+               'gold': ('#eebd45', '#f8e6a6', '#b07a20')}
+
+
+def school_apple(c, x, y, s, P, angle=0.0, color=None, leaf_side=1):
+    """A glossy apple: a round body with a dimple at the stem, wet-in-wet blush
+    (red over warm yellow, or green over pale yellow), a shadow low on the far
+    side, a lifted highlight and a white glint, a short stem and a veined leaf."""
+    kind = color if color in APPLE_KINDS else 'red'
+    base, blush, dark = APPLE_KINDS[kind]
+    T = _loc(x, y + s * 0.12, angle); r = s * 0.74
+    body = []
+    for i in range(44):
+        t = 2 * math.pi * i / 44
+        ct, st = math.cos(t), math.sin(t)
+        px = r * ct * (1.04 - 0.1 * max(0.0, st) ** 2)
+        py = r * 0.93 * st
+        if st < 0:
+            py += r * 0.2 * math.exp(-(ct / 0.3) ** 2) * (-st)
+        else:
+            py -= r * 0.06 * math.exp(-(ct / 0.25) ** 2) * st
+        body.append((px, py))
+    B = [T(px, py) for px, py in body]
+    # leaf and stem first, so the body's edge sits over their base
+    sx, sy = 0.0, -r * 0.7
+    stem = [T(sx, sy), T(r * 0.04, -r * 0.92), T(r * 0.14, -r * 1.12)]
+    c.wash(_band(stem, s * 0.05, s * 0.035), '#8a5a33', '#5c3a20', strength=0.9, spread=0.01, layers=8, edge=1.0)
+    lx, ly = T(r * 0.08, -r * 0.95)
+    la = angle - math.pi / 2 + leaf_side * 1.05
+    lf = leaf(lx, ly, s * 0.62, s * 0.24, la, 16)
+    c.wash(lf, '#7fb34d', '#4f8a35', strength=0.85, spread=0.012, layers=12, edge=1.0, ang=la)
+    c.wash(leaf(lx, ly, s * 0.62, s * 0.12, la, 12), '#3f6f2a', None, strength=0.35, spread=0.02, layers=8, edge=0.0, blur=s * 0.03, clip=lf)
+    tip = (lx + s * 0.55 * math.cos(la), ly + s * 0.55 * math.sin(la))
+    c.ink_line([(lx, ly), tip], width=max(1.2, s * 0.012), closed=False, alpha=110, passes=1, jitter=0, color=(40, 70, 30))
+    c.ink_line(lf, width=max(1.2, s * 0.012), alpha=120, passes=1, jitter=0, color=(40, 70, 30))
+    # body
+    c.wash(B, blush, base, strength=0.95, spread=0.012, layers=18, edge=1.05, ang=angle + 2.2, vary=base, vary_amt=0.6)
+    c.wash([T(px, py) for px, py in ellipse(r * 0.32, r * 0.42, r * 0.72, r * 0.5, 16, -0.3)], dark, None, strength=0.6,
+           spread=0.02, layers=10, edge=0.0, blur=r * 0.32, clip=B)
+    c.wash([T(px, py) for px, py in ellipse(0, -r * 0.62, r * 0.24, r * 0.09, 12)], dark, None, strength=0.55, spread=0.02,
+           layers=8, edge=0.0, blur=r * 0.08, clip=B)
+    c.lift([T(px, py) for px, py in ellipse(-r * 0.42, -r * 0.2, r * 0.17, r * 0.3, 12, 0.45)], amount=0.62, soft=0.35, clip=B)
+    gouache(c, [T(px, py) for px, py in ellipse(-r * 0.45, -r * 0.3, r * 0.06, r * 0.11, 8, 0.45)], color=(255, 250, 246), alpha=220, soft=0.2)
+    c.ink_line(B, width=max(1.5, s * 0.014), alpha=135, passes=1, jitter=0, color=_inkc(dark, 0.7))
+    c.ink_line(stem, width=max(1.2, s * 0.012), closed=False, alpha=150, passes=1, jitter=0, color=(70, 45, 25))
+
+
+PENCIL_COLORS = ['#f2c23a', '#e8574f', '#4f8fd6', '#5fae6b', '#9b74cf', '#f28a3c', '#f07fa6']
+
+
+def pencil(c, x, y, s, P, angle=0.0, color=None):
+    """A six-sided wooden pencil: three painted facets (light, mid, shadow), a
+    metal ferrule with ridges, a pink eraser, a shaved wood cone with the
+    paint's scalloped edge, and a graphite point."""
+    col = color or P.get('pencil', '#f2c23a')
+    T = _loc(x, y, angle)
+    L, w = s * 2.0, s * 0.3; h = w / 2
+    x0 = -L / 2; xe = x0 + L * 0.11; xf = xe + L * 0.09; xb = x0 + L * 0.8; xt = x0 + L
+    W = lambda pts: [T(px, py) for px, py in pts]
+    # wood cone and graphite (under the body's scalloped edge)
+    cone = W([(xb - w * 0.1, -h * 0.96), (xt - L * 0.055, -h * 0.24), (xt, 0), (xt - L * 0.055, h * 0.24), (xb - w * 0.1, h * 0.96)])
+    c.wash(cone, '#f5dcb0', '#d7a565', strength=0.85, spread=0.01, layers=12, edge=1.0, ang=angle + math.pi / 2)
+    lead = W([(xt - L * 0.06, -h * 0.25), (xt + s * 0.01, 0), (xt - L * 0.06, h * 0.25)])
+    c.wash(lead, '#5b5d66', '#2f3036', strength=0.95, spread=0.008, layers=10, edge=1.1)
+    # body with a scalloped painted edge at the cone
+    edge_pts = [(xb + w * 0.2 * abs(math.sin(3 * math.pi * k / 18)), -h + 2 * h * k / 18) for k in range(19)]
+    body = W([(xf, -h)] + edge_pts + [(xf, h)])
+    c.wash(body, _mix(col, 0.15), col, strength=0.95, spread=0.008, layers=14, edge=1.0, ang=angle + math.pi / 2)
+    c.wash(W([(xf, h * 0.32), (xb + w * 0.2, h * 0.32), (xb + w * 0.2, h * 1.1), (xf, h * 1.1)]), _shade(col, 0.7), None,
+           strength=0.55, spread=0.01, layers=8, edge=0.6, clip=body)
+    c.lift(W([(xf + L * 0.02, -h * 0.92), (xb - w * 0.1, -h * 0.92), (xb - w * 0.1, -h * 0.4), (xf + L * 0.02, -h * 0.4)]),
+           amount=0.4, soft=0.15, clip=body)
+    # ferrule and eraser
+    fer = W(_rr(xe, -h * 1.04, xf + w * 0.02, h * 1.04, w * 0.06))
+    c.wash(fer, '#dfe2e6', '#9aa1aa', strength=0.9, spread=0.006, layers=10, edge=1.0, ang=angle + math.pi / 2)
+    c.lift(W([(xe, -h * 0.9), (xf, -h * 0.9), (xf, -h * 0.45), (xe, -h * 0.45)]), amount=0.45, soft=0.2, clip=fer)
+    er = W(_rr(x0, -h * 0.96, xe + w * 0.05, h * 0.96, w * 0.28))
+    c.wash(er, '#f6b3b6', '#e27d88', strength=0.9, spread=0.01, layers=12, edge=1.0, ang=angle + math.pi / 2)
+    ic = _inkc(_shade(col, 0.6), 0.75)
+    for pts in (er, fer, body, cone):
+        c.ink_line(pts, width=max(1.4, s * 0.012), alpha=150, passes=1, jitter=0, color=ic)
+    for k in (0.3, 0.55, 0.8):
+        xx = xe + (xf - xe) * k
+        c.ink_line(W([(xx, -h * 1.0), (xx, h * 1.0)]), width=max(1, s * 0.008), closed=False, alpha=110, passes=1, jitter=0, color=(90, 94, 102))
+    c.ink_line(W([(xf, h * 0.32), (xb + w * 0.05, h * 0.32)]), width=max(1, s * 0.007), closed=False, alpha=70, passes=1, jitter=0, color=ic)
+    c.ink_line(W([(xf, -h * 0.32), (xb + w * 0.05, -h * 0.32)]), width=max(1, s * 0.007), closed=False, alpha=60, passes=1, jitter=0, color=ic)
+
+
+CRAYON_COLORS = ['#e8453c', '#3f7fd0', '#f2b631', '#4fa864', '#8d63c7', '#f27b2e', '#ef6fa0', '#35b3b0']
+
+
+def crayon(c, x, y, s, P, angle=0.0, color=None):
+    """A wax crayon: a rounded body in strong color, a paler paper wrapper
+    with two thin bands at each end, a sloped shoulder and a blunt tip, and a
+    long waxy highlight."""
+    col = color or P.get('crayon', '#e8453c')
+    T = _loc(x, y, angle)
+    L, w = s * 1.7, s * 0.36; h = w / 2
+    x0 = -L / 2; xb = x0 + L * 0.8; xt = x0 + L
+    W = lambda pts: [T(px, py) for px, py in pts]
+    tip = W([(xb - w * 0.1, -h), (xb + L * 0.06, -h * 0.62), (xt - L * 0.035, -h * 0.3), (xt, -h * 0.05), (xt, h * 0.05),
+             (xt - L * 0.035, h * 0.3), (xb + L * 0.06, h * 0.62), (xb - w * 0.1, h)])
+    c.wash(tip, _mix(col, 0.1), _shade(col, 0.82), strength=0.95, spread=0.008, layers=12, edge=1.0, ang=angle + math.pi / 2)
+    body = W(_rr(x0, -h, xb, h, w * 0.14))
+    c.wash(body, col, _shade(col, 0.85), strength=0.95, spread=0.008, layers=14, edge=1.0, ang=angle + math.pi / 2)
+    wx0, wx1 = x0 + L * 0.08, x0 + L * 0.72
+    wrap = W([(wx0, -h * 1.02), (wx1, -h * 1.02), (wx1, h * 1.02), (wx0, h * 1.02)])
+    c.lift(wrap, amount=0.62, soft=0.03, clip=body)
+    for k in (0.05, 0.11, 0.89, 0.95):
+        xx = wx0 + (wx1 - wx0) * k
+        c.wash(W([(xx - w * 0.04, -h), (xx + w * 0.04, -h), (xx + w * 0.04, h), (xx - w * 0.04, h)]), _shade(col, 0.6), None,
+               strength=0.8, spread=0.005, layers=6, edge=1.0, clip=body)
+    c.wash(W([(x0, h * 0.35), (xt, h * 0.35), (xt, h * 1.1), (x0, h * 1.1)]), _shade(col, 0.6), None, strength=0.45, spread=0.01,
+           layers=8, edge=0.4, clip=body + tip)
+    c.lift(W([(x0 + L * 0.03, -h * 0.75), (xt - L * 0.08, -h * 0.55), (xt - L * 0.08, -h * 0.3), (x0 + L * 0.03, -h * 0.4)]),
+           amount=0.5, soft=0.2, clip=body + tip)
+    ic = _inkc(col, 0.5)
+    c.ink_line(body, width=max(1.4, s * 0.012), alpha=140, passes=1, jitter=0, color=ic)
+    c.ink_line(tip, width=max(1.4, s * 0.012), alpha=140, passes=1, jitter=0, color=ic)
+
+
+BOOK_COLORS = [('#c94a4a', '#e88a7a'), ('#3f6fb3', '#86aee0'), ('#4f9a62', '#9fd0a2'), ('#e0a536', '#f5d27f'), ('#8a5fb8', '#c4a6e3')]
+
+
+def book_stack(c, x, y, s, P, angle=0.0, color=None, n=3):
+    """A stack of hardcover books seen from the spine side: each a colored
+    cover with gold bands and a pale title panel, the cream page edges showing
+    at one end, and a soft shadow under each book."""
+    T = _loc(x, y, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    rnd = c.rnd
+    cols = list(BOOK_COLORS); rnd.shuffle(cols)
+    bh = s * 0.36; y_base = s * 0.62
+    for i in range(n):
+        col, col2 = cols[i % len(cols)]
+        bw = s * (1.6 - 0.16 * i + rnd.uniform(-0.05, 0.05)); off = s * rnd.uniform(-0.1, 0.1)
+        y1 = y_base - i * bh * 0.98; y0 = y1 - bh * 0.92
+        xa, xz = -bw / 2 + off, bw / 2 + off
+        cover = W(_rr(xa, y0, xz, y1, bh * 0.16))
+        pages = W(_rr(xz - bw * 0.09, y0 + bh * 0.13, xz + bw * 0.005, y1 - bh * 0.13, bh * 0.05))
+        c.wash(cover, col2, col, strength=0.92, spread=0.008, layers=14, edge=1.0, ang=angle + math.pi / 2)
+        c.wash(W([(xa, y1 - bh * 0.3), (xz, y1 - bh * 0.3), (xz, y1 + bh * 0.1), (xa, y1 + bh * 0.1)]), _shade(col, 0.65), None,
+               strength=0.45, spread=0.01, layers=8, edge=0.4, clip=cover)
+        gouache(c, pages, color=(250, 244, 226), alpha=245, soft=0.05)
+        for k in (0.3, 0.5, 0.7):
+            yy = y0 + bh * 0.13 + (bh * 0.74) * k
+            c.ink_line(W([(xz - bw * 0.085, yy), (xz, yy)]), width=max(1, s * 0.006), closed=False, alpha=90, passes=1, jitter=0, color=(150, 130, 100))
+        for xx in (xa + bw * 0.1, xa + bw * 0.16, xz - bw * 0.2, xz - bw * 0.14):
+            c.wash(W([(xx, y0 + bh * 0.04), (xx + bw * 0.025, y0 + bh * 0.04), (xx + bw * 0.025, y1 - bh * 0.04), (xx, y1 - bh * 0.04)]),
+                   '#f2cf6b', '#d9a93c', strength=0.85, spread=0.005, layers=6, edge=1.0, clip=cover)
+        label = W(_rr(xa + bw * 0.3, y0 + bh * 0.3, xa + bw * 0.62, y1 - bh * 0.3, bh * 0.05))
+        c.lift(label, amount=0.6, soft=0.02, clip=cover)
+        c.ink_line(label, width=max(1, s * 0.007), alpha=95, passes=1, jitter=0, color=_inkc(col, 0.55))
+        ic = _inkc(col, 0.5)
+        c.ink_line(cover, width=max(1.4, s * 0.012), alpha=140, passes=1, jitter=0, color=ic)
+        c.ink_line(pages, width=max(1, s * 0.008), alpha=110, passes=1, jitter=0, color=(150, 120, 90))
+
+
+def ruler(c, x, y, s, P, angle=0.0, color=None):
+    """A wooden ruler: a warm wood wash with dry-brush grain, a hanging hole,
+    and inked marks along one edge (longer every fourth)."""
+    T = _loc(x, y, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    L, w = s * 2.1, s * 0.34; h = w / 2
+    body = W(_rr(-L / 2, -h, L / 2, h, w * 0.1))
+    c.wash(body, '#f4d79b', '#d9a85c', strength=0.9, spread=0.008, layers=14, edge=1.0, ang=angle + math.pi / 2)
+    for k in range(3):
+        yy = -h * 0.5 + h * 0.5 * k + c.rnd.uniform(-h * 0.1, h * 0.1)
+        c.dry_brush(W([(-L * 0.45, yy), (0, yy + h * 0.08), (L * 0.45, yy - h * 0.05)]), w * 0.08, '#c48a45', strength=0.35)
+    c.wash(W([(-L / 2, h * 0.45), (L / 2, h * 0.45), (L / 2, h * 1.1), (-L / 2, h * 1.1)]), '#b9803f', None, strength=0.4, spread=0.01,
+           layers=8, edge=0.4, clip=body)
+    c.lift(W(ellipse(-L * 0.44, 0, w * 0.13, w * 0.13, 12)), amount=0.85, soft=0.05, clip=body)
+    c.ink_line(W(ellipse(-L * 0.44, 0, w * 0.13, w * 0.13, 14)), width=max(1, s * 0.009), alpha=130, passes=1, jitter=0, color=(110, 70, 30))
+    n = 28
+    for k in range(1, n):
+        xx = -L * 0.38 + (L * 0.8) * k / n
+        ln = h * (0.62 if k % 4 == 0 else 0.34)
+        c.ink_line(W([(xx, -h), (xx, -h + ln)]), width=max(1, s * (0.011 if k % 4 == 0 else 0.008)), closed=False, alpha=170, passes=1,
+                   jitter=0, color=(90, 55, 25))
+    c.ink_line(body, width=max(1.4, s * 0.012), alpha=140, passes=1, jitter=0, color=(110, 70, 30))
+
+
+def paper_plane(c, x, y, s, P, angle=0.0, color=None):
+    """A folded paper airplane in pale paper: the near wing light, the keel
+    in shadow, crisp fold lines, and a looping dashed flight trail behind."""
+    col = color or '#cfe3f5'
+    T = _loc(x + s * 0.18, y, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    k = s * 0.62
+    nose = (k, 0); tt = (-k * 0.95, -k * 0.62); fold = (-k * 0.55, k * 0.02); tb = (-k * 0.78, k * 0.4); keel = (-k * 0.4, k * 0.22)
+    wing = W([nose, tt, fold]); low = W([nose, fold, tb]); kl = W([nose, fold, keel])
+    c.wash(low, _shade(col, 0.82), None, strength=0.8, spread=0.006, layers=10, edge=1.0)
+    c.wash(wing, _mix(col, 0.35), col, strength=0.75, spread=0.006, layers=10, edge=1.0, ang=angle)
+    c.wash(kl, _shade(col, 0.7), None, strength=0.75, spread=0.006, layers=8, edge=1.0)
+    ic = _inkc(_shade(col, 0.55), 0.6)
+    for pts in (wing, low, kl):
+        c.ink_line(pts, width=max(1.3, s * 0.011), alpha=150, passes=1, jitter=0, color=ic)
+    # dashed loop behind the tail, inside the motif's circle
+    path = []
+    A, Bq = s * 0.055, s * 0.15
+    for i in range(49):
+        u = 2 * math.pi * i / 48
+        path.append((-k * 0.9 - (A * u + Bq * math.sin(u)), k * 0.08 - Bq * (1 - math.cos(u))))
+    for i in range(0, len(path) - 2, 4):
+        c.ink_line(W(path[i:i + 3]), width=max(1.2, s * 0.012), closed=False, alpha=120, passes=1, jitter=0, color=(110, 120, 140))
+
+
+PAINT_COLORS = ['#e8453c', '#f2b631', '#3f7fd0', '#4fa864', '#8d63c7', '#ef6fa0']
+
+
+def paint_palette(c, x, y, s, P, angle=0.0, color=None):
+    """An artist's palette: a wooden kidney shape with a thumb hole, glossy
+    dabs of paint in bright colors, and a brush lying across it."""
+    T = _loc(x, y, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    R = s * 0.82
+    # brush across the palette first, then everything else paints around it
+    g0 = c.snapshot()
+    hp = [T(-R * 1.05, R * 0.72), T(R * 0.5, -R * 0.02)]
+    c.wash(_band(hp, s * 0.06, s * 0.045), '#e8574f', '#b8353a', strength=0.95, spread=0.006, layers=10, edge=1.0)
+    fp = [T(R * 0.5, -R * 0.02), T(R * 0.74, -R * 0.13)]
+    c.wash(_band(fp, s * 0.05, s * 0.05), '#dfe2e6', '#9aa1aa', strength=0.95, spread=0.006, layers=10, edge=1.0)
+    bp = [T(R * 0.74, -R * 0.13), T(R * 0.93, -R * 0.21), T(R * 1.06, -R * 0.29)]
+    c.wash(_band(bp, s * 0.05, s * 0.012), '#3f7fd0', '#24558f', strength=0.95, spread=0.008, layers=10, edge=1.0)
+    for pts, w0, w1 in ((hp, s * 0.06, s * 0.045), (fp, s * 0.05, s * 0.05), (bp, s * 0.05, s * 0.012)):
+        c.ink_line(_band(pts, w0, w1), width=max(1.1, s * 0.009), alpha=130, passes=1, jitter=0, color=(70, 60, 60))
+    c.paint_around(g0)
+    shape = []
+    for i in range(48):
+        t = 2 * math.pi * i / 48
+        px, py = R * 1.12 * math.cos(t), R * 0.82 * math.sin(t)
+        d = math.hypot(px - R * 0.95, py - R * 0.2)
+        if d < R * 0.42:
+            k = (R * 0.42 - d) / (R * 0.42)
+            px -= R * 0.32 * k; py -= R * 0.05 * k
+        shape.append((px, py))
+    B = W(shape)
+    c.wash(B, '#f2d6a6', '#d6a463', strength=0.88, spread=0.01, layers=14, edge=1.0, ang=angle + 1.2)
+    c.wash(W(ellipse(R * 0.1, R * 0.4, R * 1.0, R * 0.45, 18)), '#b97f40', None, strength=0.35, spread=0.02, layers=8, edge=0.0, blur=R * 0.25, clip=B)
+    hole = W(ellipse(-R * 0.55, R * 0.18, R * 0.15, R * 0.12, 14))
+    c.lift(hole, amount=0.9, soft=0.04, clip=B)
+    c.ink_line(B, width=max(1.4, s * 0.012), alpha=140, passes=1, jitter=0, color=(110, 70, 30))
+    c.ink_line(hole, width=max(1.2, s * 0.01), alpha=130, passes=1, jitter=0, color=(110, 70, 30))
+    spots = [(-R * 0.7, -R * 0.28), (-R * 0.28, -R * 0.52), (R * 0.18, -R * 0.55), (R * 0.62, -R * 0.42), (R * 0.4, R * 0.42), (-R * 0.05, R * 0.52)]
+    cols = list(PAINT_COLORS); c.rnd.shuffle(cols)
+    for (px, py), col in zip(spots, cols):
+        blob = W([(px + R * 0.16 * (1 + 0.15 * math.sin(3 * t + px)) * math.cos(t), py + R * 0.13 * (1 + 0.15 * math.cos(2 * t + py)) * math.sin(t))
+                  for t in [2 * math.pi * i / 18 for i in range(18)]])
+        c.wash(blob, _mix(col, 0.15), col, strength=0.95, spread=0.012, layers=10, edge=1.15)
+        gouache(c, W(ellipse(px - R * 0.06, py - R * 0.05, R * 0.04, R * 0.025, 8)), color=(255, 252, 248), alpha=215, soft=0.2)
+
+
+def gold_star(c, x, y, s, P, angle=0.0, color=None):
+    """A gold star sticker: five points with alternate facets in shadow, so it
+    reads as raised, a lifted highlight and a white glint."""
+    col = color or '#f0c14b'
+    r = s * 0.9; r2 = r * 0.45
+    pts = _star_pts(x, y, r, r2, 5, angle)
+    c.wash(pts, _mix(col, 0.3), col, strength=0.95, spread=0.008, layers=14, edge=1.05)
+    for i in range(5):
+        a = pts[2 * i]; b = pts[(2 * i + 1) % 10]
+        c.wash([(x, y), a, b], _shade(col, 0.78), None, strength=0.55, spread=0.004, layers=6, edge=0.8, clip=pts)
+    c.lift(ellipse(x - r * 0.18, y - r * 0.2, r * 0.12, r * 0.08, 10, -0.5), amount=0.55, soft=0.3, clip=pts)
+    c.ink_line(pts, width=max(1.2, s * 0.012), alpha=140, passes=1, jitter=0, color=_inkc(col, 0.55))
+
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
@@ -2505,4 +2799,6 @@ MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'sn
            'rose_leaves': rose_leaves, 'garden_rose': garden_rose, 'lily_valley': lily_valley,
            'basil': basil, 'sage': sage, 'mint': mint, 'rosemary': rosemary, 'thyme': thyme, 'chives': chives,
            'lovebirds': lovebirds,
-           'birthday_cake': birthday_cake, 'confetti': confetti}
+           'birthday_cake': birthday_cake, 'confetti': confetti,
+           'school_apple': school_apple, 'pencil': pencil, 'crayon': crayon, 'book_stack': book_stack, 'ruler': ruler,
+           'paper_plane': paper_plane, 'paint_palette': paint_palette, 'gold_star': gold_star}

@@ -1,0 +1,66 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "apples-and-pencils",
+  "kind": "pod pattern design (wrap mug, accent mug)"
+ },
+ "title": "Apples & Pencils: all-over watercolor teacher mug wraps (2700 x 1120, 2475 x 1155, 2475 x 1275), mockups and listings",
+ "reviewed_at": "2026-11-16T16:26:08Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions. The trademark screen is a web screen, not a clearance. Queue note: the gift-category table has no open row, so this is item 9 (teacher appreciation) from the list of more best sellers under it."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against the three full-size wraps: red and green watercolor apples, sharpened pencils (yellow and other colors), wax crayons, stacks of three hardcover books, wooden rulers, paper airplanes with a looping trail, painter's palettes with a brush, and gold stars and sparkles on a warm cream background are all there; nothing named is missing. 'No slogan or name' is true: the art has no lettering. No claims of sales, reviews, 'best seller', quality guarantees or 'free'."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data; no names, schools or dates on the art."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (pattern.py, watercolor.py, and eight motifs written today in motifs2.py: school_apple, pencil, crayon, book_stack, ruler, paper_plane, paint_palette, gold_star). Generic classroom objects with no brand marks: the pencils carry no maker's name or color scheme beyond plain paint, the crayon wrappers are plain bands with no wavy-line wrapper or logo, the books have blank title panels. Clearly different from the Rifle Paper Co. pencils mug and the Hallmark collage (different objects, layout and medium). Purely machine-made images can't be registered for US copyright; the design is composed by the agents and drawn by our code, noted as usual."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check): no brand, shop or mark named 'Apples and Pencils' / 'Apples & Pencils' or 'Watercolor Classroom' turned up. Title and tags use descriptive words only (teacher, apples, pencils, crayon, school supplies, classroom, Christmas); no brand, school, character or franchise. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description carries the production-partner disclosure and says the art is digitally painted by the studio; the delivery page gives mug details and care, not apparel text. Titles are 135 and 130 characters (limit 140); 13 tags each, all 20 characters or fewer and all different. 'Teacher appreciation' and 'teacher christmas' describe the gift occasion, not an affiliation."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Drinkware for adults (a gift for teachers); not made or marketed for children."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Palette: the brush showed the paint dabs through it; the brush is now painted first and the palette and paint go around it, and the dabs were moved off its line.",
+  "Book stacks: the title panels were blurry white smears; they are now lifted panels with a fine outline.",
+  "Paper airplane: the trail read as a stray dotted circle; it is now a clean dashed loop behind the tail, and the planes were made bigger.",
+  "Crayons: the paper wrapper was barely visible; it is lifted paler so the wrapper reads."
+ ],
+ "owner_notes": [
+  "Optional: run a USPTO search on APPLES & PENCILS for mugs before listing; this was a web screen only.",
+  "Teacher Christmas gifts are bought in early and mid December, so this design is most useful if Printify writes are allowed soon."
+ ],
+ "research_ref": "pod-kit/research/2026-11-16-apples-and-pencils.json",
+ "decision_ref": "pod-kit/decisions/2026-11-16-pod-apples-and-pencils.json"
+}

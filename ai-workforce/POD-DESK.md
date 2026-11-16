@@ -172,7 +172,7 @@ and Dachshund Florals (2 mugs) are built, Legal-cleared and approved, with print
 pages; they go to Printify once the owner allows Printify writes from the scheduled run again.
 
 More best sellers outside the menu (from the 2026 Etsy/Printify niche guides):
-9. teacher appreciation, 10. nurse, 11. coffee lover, 12. plant lover,
+9. teacher appreciation (**Apples & Pencils done 2026-11-16**: all-over mugs; built and Legal-cleared, not on Printify yet), 10. nurse, 11. coffee lover, 12. plant lover,
 13. Valentine's Day (from early January), 14. Mother's Day (from early April).
 Book lovers are covered by Currently Reading and Reading Ghosts.
 
@@ -440,3 +440,15 @@ Studio Floor at any time.
   `pod-kit/research`, `legal` and `decisions`. Delivery page (private): https://claude.ai/artifact/RK9SwQMiLFc7KRjdxukCuW. Printify
   (read-only): 58 products, 48 with Etsy listing IDs, the same 10 drafts unpublished, 0 orders. No Printify products, so no 9b
   photos yet: writes still wait for the owner. $0 spent.
+
+- 2026-11-16 (16:17 UTC run, Monday, pattern day): the gift-category table has no open row, so the run took item 9 of the
+  best-seller list under it (teacher appreciation): **Apples & Pencils**, an all-over watercolor teacher mug: red and green
+  apples, sharpened pencils, wax crayons, stacks of hardcover books, wooden rulers, paper airplanes with a looping trail,
+  painter's palettes with a brush, and gold stars on warm cream; no slogan or name. Accent mugs in Red, Navy and Light Green.
+  New motifs `school_apple`, `pencil`, `crayon`, `book_stack`, `ruler`, `paper_plane`, `paint_palette` and `gold_star` in
+  `motifs2.py`. Fixes after review: the palette brush showed the paint through it (now painted first and kept in front),
+  blurry book title panels, a stray dotted trail on the plane, faint crayon wrappers. Research 21/25 (teacher Christmas gifts
+  peak in December; competing mugs are slogans or flat collages), Legal cleared; records in `pod-kit/research`, `legal` and
+  `decisions`. Delivery page (private): https://claude.ai/artifact/Fqpe9DNRyqNrs4qdzf1LQ9. Weekly sales review
+  (`pod-kit/research/2026-11-16-pod-review.json`): 0 Printify orders; 58 products, 48 with Etsy listing IDs, the same 10 drafts
+  unpublished. No Printify products: writes still wait for the owner. $0 spent.
