@@ -2789,6 +2789,104 @@ def gold_star(c, x, y, s, P, angle=0.0, color=None):
     c.ink_line(pts, width=max(1.2, s * 0.012), alpha=140, passes=1, jitter=0, color=_inkc(col, 0.55))
 
 
+STETH_COLORS = {'teal': ('#56c2bb', '#2a9090'), 'navy': ('#5878b6', '#2f4b86'), 'pink': ('#f2a0b9', '#d3708f'),
+                'purple': ('#a28ad6', '#7258ab'), 'red': ('#e46f74', '#b0424b')}
+
+
+def _sm(pts, rounds=2):
+    """Chaikin smoothing that keeps both end points."""
+    return [pts[0]] + smooth(pts, rounds, closed=False) + [pts[-1]]
+
+
+def _tube(c, path, hw, col, col2, ink, alpha=150, hi=0.62, shade=0.32, strength=0.8):
+    """A round tube along a path: the base wash, a shadow along the lower
+    right, a lifted highlight along the upper left, ink on both edges."""
+    band = _band(path, hw, hw)
+    c.wash(band, col, col2, strength=strength, spread=0.005, layers=12, edge=1.0)
+    off = hw * 0.62
+    c.wash(_band([(px + off, py + off) for px, py in path], hw * 0.8, hw * 0.8), _shade(col2, 0.8), None, strength=shade,
+           spread=0.005, layers=8, edge=0.5, clip=band)
+    off = hw * 0.34
+    c.lift(_band([(px - off, py - off) for px, py in path], hw * 0.26, hw * 0.26), amount=hi, soft=0.25, clip=band)
+    n = len(band) // 2
+    for side in (band[:n], band[n:]):
+        c.ink_line(side, width=max(1.2, hw * 0.16), closed=False, alpha=alpha, passes=1, jitter=0, color=ink)
+    return band
+
+
+def stethoscope(c, x, y, s, P, color=None, drop=1, ink=None):
+    """A stethoscope as a heart: rubber tubing over two round lobes (the
+    parametric heart), meeting at the point and running on to a chestpiece
+    (silver rim, pale diaphragm) that hangs to one side; at the notch a silver
+    yoke from which the two binaurals rise and turn in to dark ear tips.
+    x, y is the heart's center, s half its width."""
+    if color in STETH_COLORS or not color:
+        col, col2 = STETH_COLORS[color or 'teal']
+    else:
+        col, col2 = color, _shade(color, 0.72)
+    k = s / 16.0
+    T = lambda px, py: (x + px * k, y + py * k)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    ic = _inkc(col2, 0.62)
+    metal, metal2, mink = '#eef1f4', '#a8b0ba', (82, 88, 98)
+    hw = 1.05  # rubber half width, in k
+
+    def hp(t, side):
+        return (side * 16 * math.sin(t) ** 3,
+                -(13 * math.cos(t) - 5 * math.cos(2 * t) - 2 * math.cos(3 * t) - math.cos(4 * t)) - 2.5)
+
+    # the yoke in the notch: painted first, so the binaurals and the lobes' ends tuck behind it
+    yx0, yy0 = T(-2.2, -13.6); yx1, yy1 = T(2.2, -9.0)
+    ysnap = _snap(c, (yx0, yy0, yx1, yy1))
+    yoke = W(_rr(-1.75, -13.0, 1.75, -9.6, 0.8))
+    c.wash(yoke, metal, metal2, strength=0.9, spread=0.005, layers=12, edge=1.0, ang=0.0)
+    c.wash(W(_rr(0.4, -13.0, 1.75, -9.6, 0.6)), metal2, None, strength=0.35, spread=0.005, layers=6, edge=0.6, clip=yoke)
+    c.lift(W(_rr(-1.25, -12.6, -0.55, -10.0, 0.3)), amount=0.55, soft=0.3, clip=yoke)
+    c.ink_line(yoke, width=max(1.2, s * 0.009), alpha=150, passes=1, jitter=0, color=mink)
+    _front(c, ysnap)
+    # binaurals: from the yoke up and out, then in to the ear tips
+    bin_r = _sm([(0.8, -12.6), (1.1, -14.2), (2.3, -17.4), (4.3, -20.6), (5.6, -23.2), (5.5, -25.4), (4.6, -26.9)])
+    for sd in (-1, 1):
+        path = W([(sd * px, py) for px, py in bin_r])
+        _tube(c, path, hw * 0.48 * k, metal, metal2, mink, alpha=135, hi=0.5, shade=0.3, strength=0.85)
+        (ax, ay), (bx, by) = path[-2], path[-1]
+        a = math.atan2(by - ay, bx - ax)
+        ex, ey = bx + math.cos(a) * 1.0 * k, by + math.sin(a) * 1.0 * k
+        tip = ellipse(ex, ey, 1.45 * k, 1.05 * k, 16, a)
+        c.wash(tip, '#5c616a', '#33363c', strength=0.92, spread=0.006, layers=12, edge=1.0)
+        c.lift(ellipse(ex - 0.35 * k, ey - 0.4 * k, 0.55 * k, 0.28 * k, 10, a), amount=0.5, soft=0.35, clip=tip)
+        c.ink_line(tip, width=max(1.2, s * 0.009), alpha=150, passes=1, jitter=0, color=(30, 32, 36))
+    # tubing: the chestpiece drop and the drop-side lobe as one tube; the other
+    # lobe joins it at the point, its end tucked just under the first tube's edge
+    ts = [math.pi - math.pi * i / 70 for i in range(60)]
+    drop_pts = [(drop * 4.6, 21.2), (drop * 2.4, 19.9), (drop * 0.9, 18.3), (drop * 0.15, 16.4)]
+    lobe_a = [hp(t, drop) for t in ts]
+    path_a = _sm(drop_pts + lobe_a)
+    jx0, jy0 = T(-4.0, 10.5); jx1, jy1 = T(4.0, 18.5)
+    snap = _snap(c, (min(jx0, jx1), jy0, max(jx0, jx1), jy1))
+    _tube(c, W(path_a), hw * k, col, col2, ic)
+    _front(c, snap)  # the other lobe's end tucks behind this tube at the joint
+    lobe_b = [hp(t, -drop) for t in ts]
+    _tube(c, W(_sm(lobe_b[1:])), hw * k, col, col2, ic)
+    # chestpiece: a short stem and a round head
+    sx0, sy0 = drop * 4.6, 21.2
+    a = math.atan2(21.2 - 19.9, drop * 2.2)
+    sx1, sy1 = sx0 + math.cos(a) * 1.5, sy0 + math.sin(a) * 1.5
+    _tube(c, W([(sx0 - math.cos(a) * 0.12, sy0 - math.sin(a) * 0.12), (sx1, sy1)]), hw * 0.62 * k, metal, metal2, mink,
+          alpha=135, strength=0.85)
+    R = 3.3
+    cx, cy = sx1 + math.cos(a) * R * 0.92, sy1 + math.sin(a) * R * 0.92
+    rim = W(ellipse(cx, cy, R, R, 36))
+    c.wash(rim, metal, metal2, strength=0.9, spread=0.006, layers=14, edge=1.0, ang=-2.3)
+    dia = W(ellipse(cx, cy, R * 0.74, R * 0.74, 32))
+    c.wash(dia, '#f8fafb', '#d5dde3', strength=0.8, spread=0.006, layers=12, edge=1.0, ang=-2.3)
+    c.wash(W(ellipse(cx + R * 0.16, cy + R * 0.16, R * 0.62, R * 0.62, 28)), '#aab4be', None, strength=0.3, spread=0.008,
+           layers=8, edge=0.0, blur=R * k * 0.25, clip=dia)
+    c.lift(W(crescent_pts(cx, cy, R * 0.88, math.pi * 0.95, math.pi * 1.55, R * 0.1)), amount=0.55, soft=0.3, clip=rim)
+    gouache(c, W(ellipse(cx - R * 0.32, cy - R * 0.36, R * 0.16, R * 0.09, 8, -0.7)), color=(255, 255, 255), alpha=210, soft=0.2)
+    c.ink_line(rim, width=max(1.3, s * 0.01), alpha=150, passes=1, jitter=0, color=mink)
+    c.ink_line(dia, width=max(1.1, s * 0.007), alpha=110, passes=1, jitter=0, color=mink)
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
@@ -2801,4 +2899,5 @@ MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'sn
            'lovebirds': lovebirds,
            'birthday_cake': birthday_cake, 'confetti': confetti,
            'school_apple': school_apple, 'pencil': pencil, 'crayon': crayon, 'book_stack': book_stack, 'ruler': ruler,
-           'paper_plane': paper_plane, 'paint_palette': paint_palette, 'gold_star': gold_star}
+           'paper_plane': paper_plane, 'paint_palette': paint_palette, 'gold_star': gold_star,
+           'stethoscope': stethoscope}

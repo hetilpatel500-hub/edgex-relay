@@ -1,0 +1,392 @@
+{
+  "id": "nurse-stethoscope-heart",
+  "name": "Nurse Stethoscope Heart",
+  "engine": 2,
+  "template": "free",
+  "top": "Nurse",
+  "bottom": null,
+  "top_font": "Pacifico",
+  "bottom_font": "PlayfairDisplay",
+  "florals": null,
+  "palette": "blush",
+  "colors": {
+    "rose": "#e9899a",
+    "rose2": "#f9d2d6",
+    "rose3": "#c25a6e",
+    "carn": "#f0a0b6",
+    "carn2": "#fbdbe3",
+    "carn3": "#cf6f8c",
+    "viol": "#7a5fc0",
+    "viol2": "#c6b4ee",
+    "leaf": "#5f8f66",
+    "leaf2": "#a6c79a",
+    "leaf_dark": "#2f5c3e",
+    "accent": "#e2b356",
+    "accent2": "#f5dc9c"
+  },
+  "ink": "#1f6a6a",
+  "seed": 61,
+  "shirt_colors": [
+    "white",
+    "natural",
+    "heather_pink"
+  ],
+  "lettering": [
+    {
+      "text": "Nurse",
+      "font": "Pacifico",
+      "size": 0.19,
+      "max_w": 0.6,
+      "y": -0.49,
+      "color": "#2f9490",
+      "vary": "#1f6a6a",
+      "vary_amt": 0.5,
+      "outline": [
+        "#1b5d5e",
+        0.0015,
+        160
+      ]
+    }
+  ],
+  "art": [
+    {
+      "motif": "stethoscope",
+      "x": 0.0,
+      "y": 0.09,
+      "s": 0.26,
+      "color": "teal",
+      "drop": 1,
+      "front": true
+    },
+    {
+      "motif": "garden_rose",
+      "x": -0.01,
+      "y": 0.065,
+      "s": 0.19,
+      "stem": 0,
+      "front": true
+    },
+    {
+      "motif": "garden_rose",
+      "x": 0.14,
+      "y": -0.02,
+      "s": 0.13,
+      "stem": 0,
+      "color": "#f2b09f",
+      "color2": "#fde2d8",
+      "front": true
+    },
+    {
+      "motif": "carnation",
+      "x": -0.13,
+      "y": -0.035,
+      "s": 0.12,
+      "stem": 0,
+      "front": true
+    },
+    {
+      "motif": "garden_rose",
+      "x": 0.095,
+      "y": 0.155,
+      "s": 0.1,
+      "stem": 0,
+      "front": true
+    },
+    {
+      "motif": "garden_rose",
+      "x": -0.09,
+      "y": 0.155,
+      "s": 0.095,
+      "stem": 0,
+      "color": "#f2b09f",
+      "color2": "#fde2d8",
+      "front": true
+    },
+    {
+      "motif": "violet",
+      "x": -0.04,
+      "y": -0.07,
+      "s": 0.048,
+      "stem": 0,
+      "leaves": 0,
+      "front": true
+    },
+    {
+      "motif": "violet",
+      "x": -0.2,
+      "y": 0.065,
+      "s": 0.045,
+      "stem": 0,
+      "leaves": 0,
+      "front": true
+    },
+    {
+      "motif": "violet",
+      "x": 0.205,
+      "y": 0.075,
+      "s": 0.045,
+      "stem": 0,
+      "leaves": 0,
+      "front": true
+    },
+    {
+      "motif": "violet",
+      "x": 0.0,
+      "y": 0.215,
+      "s": 0.045,
+      "stem": 0,
+      "leaves": 0,
+      "front": true
+    },
+    {
+      "motif": "splash",
+      "x": 0.0,
+      "y": 0.06,
+      "s": 0.36,
+      "aspect": 0.95,
+      "color": "#f8dfe2",
+      "color2": "#fdf1f2",
+      "vary": "#dcefe9",
+      "strength": 0.3,
+      "drips": 5
+    },
+    {
+      "motif": "rose_leaves",
+      "x": -0.01,
+      "y": 0.065,
+      "s": 0.15,
+      "angle": -2.2,
+      "n": 3
+    },
+    {
+      "motif": "rose_leaves",
+      "x": -0.01,
+      "y": 0.065,
+      "s": 0.17,
+      "angle": 1.75,
+      "n": 3
+    },
+    {
+      "motif": "rose_leaves",
+      "x": 0.14,
+      "y": -0.02,
+      "s": 0.12,
+      "angle": -0.95,
+      "n": 3
+    },
+    {
+      "motif": "rose_leaves",
+      "x": 0.14,
+      "y": -0.02,
+      "s": 0.12,
+      "angle": 0.45,
+      "n": 3
+    },
+    {
+      "motif": "rose_leaves",
+      "x": -0.13,
+      "y": -0.035,
+      "s": 0.12,
+      "angle": 2.65,
+      "n": 3
+    },
+    {
+      "motif": "rose_leaves",
+      "x": -0.13,
+      "y": -0.035,
+      "s": 0.11,
+      "angle": -1.95,
+      "n": 3
+    },
+    {
+      "motif": "rose_leaves",
+      "x": 0.095,
+      "y": 0.155,
+      "s": 0.1,
+      "angle": 1.0,
+      "n": 3
+    },
+    {
+      "motif": "rose_leaves",
+      "x": -0.09,
+      "y": 0.155,
+      "s": 0.1,
+      "angle": 2.2,
+      "n": 3
+    },
+    {
+      "motif": "wildflower",
+      "x": 0.045,
+      "y": -0.085,
+      "s": 0.022,
+      "color": "#f6c9d4"
+    },
+    {
+      "motif": "wildflower",
+      "x": -0.18,
+      "y": 0.13,
+      "s": 0.02,
+      "color": "#f6c9d4"
+    },
+    {
+      "motif": "wildflower",
+      "x": 0.18,
+      "y": 0.135,
+      "s": 0.02,
+      "color": "#f6c9d4"
+    },
+    {
+      "motif": "heart",
+      "x": -0.32,
+      "y": -0.2,
+      "s": 0.03,
+      "color": "#ea8a9c"
+    },
+    {
+      "motif": "heart",
+      "x": 0.33,
+      "y": -0.12,
+      "s": 0.024,
+      "color": "#f2a9b8"
+    },
+    {
+      "motif": "heart",
+      "x": -0.3,
+      "y": 0.3,
+      "s": 0.02,
+      "color": "#f2a9b8"
+    },
+    {
+      "motif": "sparkle",
+      "x": 0.3,
+      "y": -0.3,
+      "s": 0.026
+    },
+    {
+      "motif": "sparkle",
+      "x": -0.36,
+      "y": 0.06,
+      "s": 0.02
+    },
+    {
+      "motif": "sparkle",
+      "x": 0.35,
+      "y": 0.2,
+      "s": 0.022
+    },
+    {
+      "motif": "twinkle",
+      "x": -0.25,
+      "y": -0.33,
+      "s": 0.018
+    },
+    {
+      "motif": "twinkle",
+      "x": 0.24,
+      "y": 0.4,
+      "s": 0.016
+    }
+  ],
+  "listing": {
+    "title": "Nurse Shirt, Watercolor Stethoscope Heart Tee, Floral Nurse Shirt with Roses, Nurse Gift, RN Shirt, Nursing Student Graduation Gift",
+    "tags": [
+      "nurse shirt",
+      "nurse gift",
+      "stethoscope shirt",
+      "floral nurse shirt",
+      "nursing student",
+      "nurse graduation",
+      "rn shirt",
+      "nurse appreciation",
+      "watercolor nurse",
+      "nurse week gift",
+      "heart stethoscope",
+      "nurse christmas",
+      "gift for nurse"
+    ],
+    "description": "A stethoscope painted in watercolor and curled into a heart: teal tubing with silver ear tubes and chestpiece, filled with a small bouquet of garden roses in pink and peach, a pink carnation, purple violets and rose leaves that tuck under the tubing, with pink hearts and gold sparkles around it. \"Nurse\" is painted above in deep teal script. No name, unit or year, so it suits any nurse, nursing student or new grad, for Christmas, a pinning ceremony or Nurses Week.",
+    "per_product": {
+      "sweatshirt": {
+        "title": "Nurse Sweatshirt, Watercolor Stethoscope Heart Crewneck, Floral Nurse Sweater with Roses, Nurse Gift, Nursing Student Gift",
+        "tags": [
+          "nurse sweatshirt",
+          "nurse gift",
+          "stethoscope",
+          "floral nurse",
+          "nursing student",
+          "nurse graduation",
+          "rn sweatshirt",
+          "nurse appreciation",
+          "watercolor nurse",
+          "nurse week gift",
+          "heart stethoscope",
+          "nurse christmas",
+          "nurse crewneck"
+        ]
+      },
+      "mug": {
+        "title": "Nurse Mug, Watercolor Stethoscope Heart Coffee Mug, Floral Nurse Mug with Roses, Nurse Gift, Nurse Appreciation, Nursing Student Gift",
+        "tags": [
+          "nurse mug",
+          "nurse gift",
+          "stethoscope mug",
+          "floral nurse mug",
+          "nursing student",
+          "nurse graduation",
+          "rn mug",
+          "nurse appreciation",
+          "watercolor nurse",
+          "nurse week gift",
+          "coffee mug gift",
+          "nurse christmas",
+          "gift for nurse"
+        ]
+      },
+      "poster": {
+        "title": "Nurse Art Print, Watercolor Stethoscope Heart Wall Art, Floral Nurse Print with Roses, Clinic Office Decor, Nurse Graduation Gift",
+        "tags": [
+          "nurse print",
+          "nurse wall art",
+          "stethoscope art",
+          "floral nurse",
+          "nursing student",
+          "nurse graduation",
+          "medical office art",
+          "nurse appreciation",
+          "watercolor nurse",
+          "nurse week gift",
+          "clinic decor",
+          "nurse christmas",
+          "gift for nurse"
+        ]
+      },
+      "sticker": {
+        "title": "Nurse Sticker, Watercolor Stethoscope Heart Vinyl Sticker, Floral Nurse Decal with Roses, Nursing Student Gift, Nurse Gift",
+        "tags": [
+          "nurse sticker",
+          "nurse gift",
+          "stethoscope sticker",
+          "floral nurse",
+          "nursing student",
+          "nurse graduation",
+          "laptop sticker",
+          "nurse appreciation",
+          "watercolor nurse",
+          "water bottle decal",
+          "heart stethoscope",
+          "nurse christmas",
+          "planner sticker"
+        ]
+      }
+    },
+    "products": [
+      "Unisex tee (Bella+Canvas 3001)",
+      "Crewneck sweatshirt (Gildan 18000)",
+      "11 oz mug",
+      "Art print (matte poster)",
+      "Kiss-cut sticker"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table (2026-10-05 pricing review): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. Stethoscope mugs found on 2026-11-17 were listed at $19.49 and $22.99 on Etsy, and a personalized floral stethoscope mug at $9.98 on sale (from $18.14); listing prices only, no sales counts.",
+    "trademark_check": "Legal Desk screen 2026-11-17 (before any art): web searches '\"NIGHT SHIFT NURSE\" trademark USPTO apparel', '\"NIGHT SHIFT\" trademark registered class 25 clothing OR class 21 mugs' and '\"NURSE\" stethoscope heart design mark trademark class 25 registered USPTO'. Found NIGHT SHIFT BY SCRUBIN UNIFORMS (Reg. 5027941, registered 2016) and a NIGHTSHFT class 25 application (filed Nov 2025), so 'Night Shift' was left out of the art, title and tags. NURSE 4EVER (Reg. 7161252, class 25) is a different phrase with NURSE disclaimed. THE NURSE NURTURER (Serial 88268344, heart-and-stethoscope design) is class 41 and abandoned. No class 25 or 21 mark found for the word NURSE alone or a stethoscope heart; 'Nurse' is the generic name of the buyer's job. Aggregator pages (Justia, trademarkregistration.app, markinton), not TSDR; owner can confirm in USPTO Trademark Search before listing. No stethoscope brand name (e.g. no maker's name or logo) in the art, title or tags."
+  }
+}

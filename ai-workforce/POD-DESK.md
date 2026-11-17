@@ -172,7 +172,7 @@ and Dachshund Florals (2 mugs) are built, Legal-cleared and approved, with print
 pages; they go to Printify once the owner allows Printify writes from the scheduled run again.
 
 More best sellers outside the menu (from the 2026 Etsy/Printify niche guides):
-9. teacher appreciation (**Apples & Pencils done 2026-11-16**: all-over mugs; built and Legal-cleared, not on Printify yet), 10. nurse, 11. coffee lover, 12. plant lover,
+9. teacher appreciation (**Apples & Pencils done 2026-11-16**: all-over mugs; built and Legal-cleared, not on Printify yet), 10. nurse (**Nurse Stethoscope Heart done 2026-11-17**: motif design for tee, sweatshirt, mug, art print and sticker; built and Legal-cleared, not on Printify yet), 11. coffee lover, 12. plant lover,
 13. Valentine's Day (from early January), 14. Mother's Day (from early April).
 Book lovers are covered by Currently Reading and Reading Ghosts.
 
@@ -452,3 +452,13 @@ Studio Floor at any time.
   `decisions`. Delivery page (private): https://claude.ai/artifact/Fqpe9DNRyqNrs4qdzf1LQ9. Weekly sales review
   (`pod-kit/research/2026-11-16-pod-review.json`): 0 Printify orders; 58 products, 48 with Etsy listing IDs, the same 10 drafts
   unpublished. No Printify products: writes still wait for the owner. $0 spent.
+- 2026-11-17 (16:17 UTC run, motif day): item 10 of the best-seller list (nurse): **Nurse Stethoscope Heart**, "Nurse" in
+  teal Pacifico over a watercolor stethoscope curled into a heart (teal tubing, silver yoke, binaurals and chestpiece), filled
+  with pink and peach garden roses, a carnation, violets and rose leaves tucked under the tubing; pink hearts and gold
+  sparkles. Tee, sweatshirt, mug, art print and sticker listings; shirts white, natural, heather pink. New motif
+  `stethoscope` (with helpers `_tube` and `_sm`) in `motifs2.py`; it paints its yoke first so the binaurals and lobe ends tuck
+  behind it, and tucks the second lobe behind the first at the heart's point. 'Night Shift' kept out (registered class 25
+  mark NIGHT SHIFT BY SCRUBIN UNIFORMS). Research 20/25, Legal cleared; records in `pod-kit/research`, `legal` and
+  `decisions`. Delivery page (private): https://claude.ai/artifact/WR5zed7CyszeTSjvKty9YJ. Printify read-only: 58 products,
+  48 with Etsy listing IDs, the same 10 drafts unpublished, 0 orders. No Printify products: writes still wait for the owner.
+  $0 spent.
