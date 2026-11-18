@@ -14,7 +14,8 @@ A pattern spec (designs/<id>.json) has "kind": "pattern":
   Optional per element: "spacing" (gap multiplier), "tilt" (random rotation),
   "gaps": true (placed after the rest, only where the paint left the paper empty;
   "clear" sets how much empty paper it needs, in radii),
-  "y_range": [0.1, 0.6] (keep it in part of the height), "args" (motif options).
+  "y_range": [0.1, 0.6] (keep it in part of the height), "args" (motif options),
+  "cycle": true (use "colors" in order instead of at random, so each print size shows every color).
   ]
   "mug_colors": ["Orange", "Black"]   accent colors (rim, handle, inside) for mockups
 Sizes are fractions of the print height. The wrap is seamless left to right:
@@ -76,11 +77,16 @@ def paint(spec, W, H, seed_offset=0):
     m = int(max(r for _, _, r, _ in items) * 1.6) + 8
     c = Canvas(W + 2 * m, H, seed=seed)
     c.v2 = spec.get('engine', 1) >= 2
+    turn = {}
     for x, y, r, e in items:
         fn = M.MOTIFS[e['motif']]
         kw = dict(e.get('args', {}))
         if e.get('colors'):
-            pair = rnd.choice(e['colors'])
+            if e.get('cycle'):      # take the colors in order, so every print size shows each one
+                k = turn.get(id(e), 0); turn[id(e)] = k + 1
+                pair = e['colors'][k % len(e['colors'])]
+            else:
+                pair = rnd.choice(e['colors'])
             kw['color'] = pair[0]
             if len(pair) > 1 and e['motif'] in ('maple_leaf', 'rose', 'bauble', 'glass_bauble', 'garden_rose'):
                 kw['color2'] = pair[1]

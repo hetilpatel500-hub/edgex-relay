@@ -172,7 +172,7 @@ and Dachshund Florals (2 mugs) are built, Legal-cleared and approved, with print
 pages; they go to Printify once the owner allows Printify writes from the scheduled run again.
 
 More best sellers outside the menu (from the 2026 Etsy/Printify niche guides):
-9. teacher appreciation (**Apples & Pencils done 2026-11-16**: all-over mugs; built and Legal-cleared, not on Printify yet), 10. nurse (**Nurse Stethoscope Heart done 2026-11-17**: motif design for tee, sweatshirt, mug, art print and sticker; built and Legal-cleared, not on Printify yet), 11. coffee lover, 12. plant lover,
+9. teacher appreciation (**Apples & Pencils done 2026-11-16**: all-over mugs; built and Legal-cleared, not on Printify yet), 10. nurse (**Nurse Stethoscope Heart done 2026-11-17**: motif design for tee, sweatshirt, mug, art print and sticker; built and Legal-cleared, not on Printify yet), 11. coffee lover (**Coffee & Croissants done 2026-11-18**: all-over mugs; built and Legal-cleared, not on Printify yet), 12. plant lover,
 13. Valentine's Day (from early January), 14. Mother's Day (from early April).
 Book lovers are covered by Currently Reading and Reading Ghosts.
 
@@ -460,5 +460,20 @@ Studio Floor at any time.
   behind it, and tucks the second lobe behind the first at the heart's point. 'Night Shift' kept out (registered class 25
   mark NIGHT SHIFT BY SCRUBIN UNIFORMS). Research 20/25, Legal cleared; records in `pod-kit/research`, `legal` and
   `decisions`. Delivery page (private): https://claude.ai/artifact/WR5zed7CyszeTSjvKty9YJ. Printify read-only: 58 products,
+  48 with Etsy listing IDs, the same 10 drafts unpublished, 0 orders. No Printify products: writes still wait for the owner.
+  $0 spent.
+- 2026-11-18 (16:17 UTC run, pattern day): item 11 of the best-seller list (coffee lover): **Coffee & Croissants**, an all-over
+  watercolor coffee mug: cappuccino cups on saucers in sage, blue, terracotta, blush and mustard glazes with a heart or tulip of
+  milk foam, takeaway cups with painted-heart sleeves, a glass French press, red and blue speckled enamel coffee pots, butter
+  croissants, coffee branches with red cherries, roasted beans, cinnamon sticks, star anise and small hearts on warm cream; no
+  slogan or name. Accent mugs in Black, Pink and Navy. New motifs `latte_cup`, `togo_cup`, `french_press`, `enamel_pot`,
+  `croissant`, `coffee_branch` and `coffee_beans` in `motifs2.py` (cups, pots, presses and croissants call `paint_around` when
+  finished, so later motifs tuck behind them); new `pattern.py` option `"cycle": true` takes an element's colors in order, so
+  every print size shows each color the description names. The eight-sided stovetop espresso pot was left out (a well-known
+  brand's signature shape). Fixes after review: faint latte art and an invisible rosetta (now a crisp heart or tulip), a
+  fan-like croissant (now one crescent with rolls), small dark cherries with leaves showing through, a branch across a saucer,
+  print sizes missing cup colors or cinnamon, a sparse first layout. Research 21/25 (coffee gift searches peak in December;
+  competing mugs are slogans, bean photos or single icons), Legal cleared; records in `pod-kit/research`, `legal` and
+  `decisions`. Delivery page (private): https://claude.ai/artifact/He9NxWDCYNWM1X8cgA43k5. Printify read-only: 58 products,
   48 with Etsy listing IDs, the same 10 drafts unpublished, 0 orders. No Printify products: writes still wait for the owner.
   $0 spent.

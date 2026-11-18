@@ -2887,6 +2887,407 @@ def stethoscope(c, x, y, s, P, color=None, drop=1, ink=None):
     c.ink_line(rim, width=max(1.3, s * 0.01), alpha=150, passes=1, jitter=0, color=mink)
     c.ink_line(dia, width=max(1.1, s * 0.007), alpha=110, passes=1, jitter=0, color=mink)
 
+
+# ---------------------------------------------------------------- coffee shop (Coffee & Croissants)
+CUP_GLAZES = {'sage': ('#bcd3b6', '#7ea47c'), 'blue': ('#b0c8e0', '#6d95bf'), 'terracotta': ('#efb08f', '#c9704d'),
+              'blush': ('#f5c6be', '#dc8e88'), 'cream': ('#f7ebd5', '#d6bb93'), 'mustard': ('#f3d48e', '#d5a446')}
+FOAM = (250, 242, 226)
+
+
+def _steam(c, pts_at, s, n=2, col='#bfae9c', h=0.5):
+    """Soft rising steam: pale tapering wisps that wave as they rise.
+    pts_at(px, py) maps local coords; wisps start at local (0, 0) and rise."""
+    rnd = c.rnd
+    for k in range(n):
+        ox = (k - (n - 1) / 2) * s * 0.24
+        ph = rnd.uniform(0, 6.28); amp = s * rnd.uniform(0.045, 0.07)
+        path = [pts_at(ox + amp * math.sin(ph + 5.0 * t) * (0.4 + t), -s * h * t) for t in [i / 16 for i in range(17)]]
+        c.wash(_band(path, s * 0.032, s * 0.006), col, None, strength=0.3, spread=0.02, layers=10, edge=0.6, blur=s * 0.01)
+
+
+def _latte_art(c, W, cx, cy, rx, ry, kind):
+    """Milk foam poured into the crema: a heart or a tulip, foreshortened like the surface."""
+    def heart_pts(hx0, hy0, w, h, n=32):
+        pts = []
+        for i in range(n):
+            t = 2 * math.pi * i / n
+            hx = 16 * math.sin(t) ** 3
+            hy = -(13 * math.cos(t) - 5 * math.cos(2 * t) - 2 * math.cos(3 * t) - math.cos(4 * t))
+            pts.append((hx0 + hx / 16 * w, hy0 + (hy / 15 + 0.12) * h))
+        return pts
+    line = lambda y0, y1, w: W([(cx - w, y0), (cx + w, y0), (cx + w * 0.5, y1), (cx - w * 0.5, y1)])
+    if kind == 'heart':
+        gouache(c, W(heart_pts(cx, cy - ry * 0.02, rx * 0.5, ry * 0.66)), color=FOAM, alpha=240, soft=0.02)
+        gouache(c, line(cy + ry * 0.35, cy + ry * 0.86, rx * 0.018), color=FOAM, alpha=225, soft=0.06)
+    elif kind == 'tulip':
+        def crescent(oy, orx, ory, iy, irx, iry, n=18):
+            outer = [(cx + orx * math.cos(a), oy + ory * math.sin(a)) for a in [math.pi * i / n for i in range(n + 1)]]
+            inner = [(cx + irx * math.cos(a), iy + iry * math.sin(a)) for a in [math.pi * (n - i) / n for i in range(n + 1)]]
+            return W(outer + inner)
+        gouache(c, crescent(cy + ry * 0.16, rx * 0.42, ry * 0.5, cy + ry * 0.1, rx * 0.3, ry * 0.26), color=FOAM, alpha=238, soft=0.02)
+        gouache(c, crescent(cy - ry * 0.16, rx * 0.3, ry * 0.3, cy - ry * 0.22, rx * 0.21, ry * 0.13), color=FOAM, alpha=236, soft=0.025)
+        gouache(c, W(heart_pts(cx, cy - ry * 0.56, rx * 0.15, ry * 0.24, 24)), color=FOAM, alpha=236, soft=0.03)
+        gouache(c, line(cy - ry * 0.62, cy + ry * 0.8, rx * 0.012), color=FOAM, alpha=215, soft=0.06)
+    else:   # a plain cappuccino: a soft island of foam
+        gouache(c, W(ellipse(cx, cy + ry * 0.05, rx * 0.52, ry * 0.55, 22)), color=FOAM, alpha=215, soft=0.08)
+
+
+def latte_cup(c, x, y, s, P, angle=0.0, color=None, art=None, steam=True):
+    """A cappuccino cup on its saucer, seen a little from above: a glazed cup
+    (soft wet-in-wet glaze, the shadow side darker, a lifted highlight), the
+    crema with a heart or rosetta of milk foam, a looped handle, a saucer with
+    a well and a contact shadow, and a curl of steam."""
+    glaze = color if color in CUP_GLAZES else c.rnd.choice(list(CUP_GLAZES))
+    g1, g2 = CUP_GLAZES[glaze]
+    kind = art or c.rnd.choice(['heart', 'heart', 'tulip'])
+    T = _loc(x, y + s * 0.08, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    ic = _inkc(g2, 0.5)
+    rx, ry, ry0 = s * 0.6, s * 0.2, -s * 0.24          # rim ellipse
+    rim = [(rx * math.cos(a), ry0 + ry * math.sin(a)) for a in [2 * math.pi * i / 40 for i in range(40)]]
+    front = [(rx * math.cos(a), ry0 + ry * math.sin(a)) for a in [math.pi * i / 20 for i in range(21)]]   # x: +rx -> -rx
+    side = [(-rx, ry0), (-rx * 0.99, ry0 + s * 0.12), (-rx * 0.9, ry0 + s * 0.36), (-rx * 0.72, ry0 + s * 0.56),
+            (-rx * 0.48, ry0 + s * 0.7), (-rx * 0.4, ry0 + s * 0.72)]
+    foot_y = ry0 + s * 0.72
+    body = smooth([p for p in front] + side + [(-p[0], p[1]) for p in side[::-1]][1:], rounds=1)
+    # the cup in front, then the saucer and handle go around it
+    g0 = c.snapshot()
+    B = W(body)
+    c.wash(B, g1, g2, strength=0.9, spread=0.008, layers=16, edge=1.0, ang=angle, vary=_mix(g2, 0.3), vary_amt=0.35)
+    c.wash(W([(rx * 0.3, ry0), (rx * 1.1, ry0), (rx * 1.1, foot_y), (rx * 0.3, foot_y)]), _shade(g2, 0.8), None, strength=0.45,
+           spread=0.01, layers=10, edge=0.0, blur=s * 0.08, clip=B)
+    c.wash(W(ellipse(0, foot_y - s * 0.02, rx * 0.5, s * 0.07, 16)), _shade(g2, 0.75), None, strength=0.35, spread=0.01, layers=8,
+           edge=0.0, blur=s * 0.05, clip=B)
+    c.lift(W([(-rx * 0.66, ry0 + s * 0.12), (-rx * 0.5, ry0 + s * 0.12), (-rx * 0.38, ry0 + s * 0.52), (-rx * 0.5, ry0 + s * 0.56)]),
+           amount=0.55, soft=0.35, clip=B)
+    # inside: the glazed inner wall (pale), then the coffee a little lower
+    R = W(rim)
+    c.wash(R, '#fbf6ee', _mix(g1, 0.4), strength=0.55, spread=0.006, layers=10, edge=0.8, ang=angle + math.pi / 2)
+    cx, cy, crx, cry = 0, ry0 + ry * 0.12, rx * 0.9, ry * 0.82
+    coffee = W(ellipse(cx, cy, crx, cry, 36))
+    c.wash(coffee, '#d8a675', '#9c5e33', strength=0.95, spread=0.006, layers=14, edge=1.35, ang=angle + math.pi / 2,
+           vary='#b87a46', vary_amt=0.4)
+    c.wash(W(ellipse(cx, cy, crx * 0.97, cry * 0.95, 36)), '#7a4524', None, strength=0.35, spread=0.004, layers=6, edge=1.6, blur=s * 0.012,
+           clip=coffee)
+    _latte_art(c, W, cx + rx * 0.02, cy, crx, cry, kind)
+    c.ink_line(B, width=max(1.4, s * 0.012), alpha=135, passes=1, jitter=0, color=ic)
+    c.ink_line(R, width=max(1.4, s * 0.012), alpha=140, passes=1, jitter=0, color=ic)
+    c.ink_line(coffee, width=max(1, s * 0.008), alpha=90, passes=1, jitter=0, color=(110, 66, 36))
+    c.paint_around(g0)
+    # handle: a loop on the right, tucked behind the cup at both ends
+    hp = [(rx * 0.86, ry0 + s * 0.08)] + [(rx * 1.02 + s * 0.17 * math.cos(a), ry0 + s * 0.27 + s * 0.17 * math.sin(a))
+                                           for a in [-math.pi * 0.62 + math.pi * 1.24 * i / 14 for i in range(15)]] + \
+         [(rx * 0.8, ry0 + s * 0.46)]
+    H = W(_band(hp, s * 0.055, s * 0.05))
+    c.wash(H, g1, g2, strength=0.9, spread=0.008, layers=12, edge=1.0, ang=angle)
+    c.ink_line(H, width=max(1.3, s * 0.011), alpha=135, passes=1, jitter=0, color=ic)
+    # saucer
+    sy = foot_y - s * 0.02
+    S = W(ellipse(0, sy, s * 0.98, s * 0.2, 40))
+    c.wash(S, _mix(g1, 0.25), g2, strength=0.8, spread=0.008, layers=14, edge=1.0, ang=angle + 0.3)
+    c.wash(W(ellipse(0, sy - s * 0.01, s * 0.58, s * 0.1, 30)), _shade(g2, 0.85), None, strength=0.3, spread=0.01, layers=8, edge=0.9,
+           clip=S)
+    c.wash(W(ellipse(s * 0.06, sy + s * 0.02, s * 0.5, s * 0.08, 24)), '#5a3a2a', None, strength=0.4, spread=0.01, layers=8, edge=0.0,
+           blur=s * 0.04, clip=S)
+    c.lift(W(ellipse(-s * 0.62, sy - s * 0.06, s * 0.2, s * 0.035, 14, 0.12)), amount=0.5, soft=0.4, clip=S)
+    c.ink_line(S, width=max(1.4, s * 0.012), alpha=130, passes=1, jitter=0, color=ic)
+    c.paint_around(g0)          # the whole cup and saucer sit in front of what is painted later
+    if steam:
+        _steam(c, lambda px, py: T(px, ry0 - s * 0.12 + py), s, n=2, h=0.42)
+
+
+def togo_cup(c, x, y, s, P, angle=0.0, color=None, steam=True):
+    """A takeaway coffee cup: a paper cup narrowing to its base, a kraft (or
+    colored) sleeve with a little painted heart, a white snap-on lid with a
+    sip opening, soft shading and a curl of steam."""
+    sleeve = color or '#d4a06a'
+    T = _loc(x, y + s * 0.06, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    top, bot = -s * 0.5, s * 0.8
+    wt, wb = s * 0.44, s * 0.31
+    hw = lambda yy: wt + (wb - wt) * (yy - top) / (bot - top)
+    arc = lambda yy, d, n=14: [(hw(yy) * math.cos(a), yy + d * math.sin(a)) for a in [math.pi * i / n for i in range(n + 1)]]
+    body = [(-wt, top), (wt, top)] + arc(bot, s * 0.045)
+    # lid first: it sits in front of the cup's top edge
+    g0 = c.snapshot()
+    lr = W(_rr(-s * 0.49, -s * 0.62, s * 0.49, -s * 0.48, s * 0.05))
+    dome = W(smooth([(-s * 0.46, -s * 0.6), (-s * 0.42, -s * 0.72), (-s * 0.34, -s * 0.77), (s * 0.34, -s * 0.77), (s * 0.42, -s * 0.72),
+                     (s * 0.46, -s * 0.6)], rounds=2, closed=False) + [(s * 0.46, -s * 0.58), (-s * 0.46, -s * 0.58)])
+    for pts in (dome, lr):
+        c.wash(pts, '#f8f5f0', '#bdb5aa', strength=0.7, spread=0.006, layers=12, edge=1.0, ang=angle)
+    c.wash(W([(s * 0.12, -s * 0.8), (s * 0.6, -s * 0.8), (s * 0.6, -s * 0.46), (s * 0.12, -s * 0.46)]), '#9d948a', None, strength=0.35,
+           spread=0.01, layers=8, edge=0.0, blur=s * 0.06, clip=dome + lr)
+    slot = W(_rr(-s * 0.26, -s * 0.755, -s * 0.06, -s * 0.715, s * 0.018))
+    c.wash(slot, '#4a3426', None, strength=0.9, spread=0.004, layers=6, edge=1.0)
+    for pts in (dome, lr):
+        c.ink_line(pts, width=max(1.3, s * 0.011), alpha=130, passes=1, jitter=0, color=(110, 100, 92))
+    c.paint_around(g0)
+    B = W(body)
+    c.wash(B, '#fdfbf7', '#cfc6ba', strength=0.65, spread=0.006, layers=12, edge=1.0, ang=angle)
+    c.wash(W([(wt * 0.35, top), (wt * 1.2, top), (wt * 1.2, bot + s * 0.1), (wt * 0.35, bot + s * 0.1)]), '#a99d90', None, strength=0.35,
+           spread=0.01, layers=8, edge=0.0, blur=s * 0.07, clip=B)
+    y0, y1 = -s * 0.12, s * 0.36
+    sl = W([(hw(y0) * math.cos(a), y0 + s * 0.03 * math.sin(a)) for a in [math.pi * (1 - i / 14) for i in range(15)]] + arc(y1, s * 0.035))
+    c.wash(sl, _mix(sleeve, 0.12), _shade(sleeve, 0.78), strength=0.92, spread=0.008, layers=14, edge=1.0, ang=angle, vary=_shade(sleeve, 0.85),
+           vary_amt=0.4)
+    c.wash(W([(wt * 0.3, y0), (wt * 1.2, y0), (wt * 1.2, y1 + s * 0.05), (wt * 0.3, y1 + s * 0.05)]), _shade(sleeve, 0.6), None,
+           strength=0.35, spread=0.01, layers=8, edge=0.0, blur=s * 0.06, clip=sl)
+    hy = (y0 + y1) / 2 + s * 0.02; hs = s * 0.1
+    heart_pts = [(-s * 0.04 + hs * 0.06 * 16 * math.sin(t) ** 3,
+                  hy - hs * 0.06 * (13 * math.cos(t) - 5 * math.cos(2 * t) - 2 * math.cos(3 * t) - math.cos(4 * t)))
+                 for t in [2 * math.pi * i / 24 for i in range(24)]]
+    gouache(c, W(heart_pts), color=(250, 240, 226), alpha=215, soft=0.08)
+    c.lift(W([(-wt * 0.78, top + s * 0.06), (-wt * 0.6, top + s * 0.06), (-wb * 0.55, bot - s * 0.08), (-wb * 0.75, bot - s * 0.08)]),
+           amount=0.3, soft=0.3, clip=B)
+    c.ink_line(B, width=max(1.3, s * 0.011), alpha=125, passes=1, jitter=0, color=(120, 108, 96))
+    c.ink_line(sl, width=max(1.3, s * 0.011), alpha=135, passes=1, jitter=0, color=_inkc(sleeve, 0.5))
+    c.paint_around(g0)
+    if steam:
+        _steam(c, lambda px, py: T(-s * 0.16 + px * 0.6, -s * 0.8 + py), s, n=1, h=0.3)
+
+
+def french_press(c, x, y, s, P, angle=0.0, color=None):
+    """A glass French press: brushed-steel lid, rod and knob, a steel band at
+    the top and a footed base, coffee showing through the glass with a crema
+    line and the plunger's mesh disc, glass glints, and a dark handle."""
+    handle = color or '#3a3330'
+    T = _loc(x, y + s * 0.04, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    gx, gt, gb = s * 0.34, -s * 0.5, s * 0.66                # glass half width, top, bottom
+    steel = ('#e6e9ec', '#8f979f')
+    # steel parts in front: base, top band, lid, rod, knob
+    g0 = c.snapshot()
+    base = W(_rr(-gx * 1.08, gb - s * 0.1, gx * 1.08, gb + s * 0.04, s * 0.03))
+    band = W(_rr(-gx * 1.06, gt - s * 0.01, gx * 1.06, gt + s * 0.09, s * 0.02))
+    lid = W(smooth([(-gx * 1.04, gt), (-gx * 0.9, gt - s * 0.1), (-gx * 0.45, gt - s * 0.15), (gx * 0.45, gt - s * 0.15), (gx * 0.9, gt - s * 0.1),
+                    (gx * 1.04, gt)], rounds=2, closed=False) + [(gx * 1.04, gt + s * 0.01), (-gx * 1.04, gt + s * 0.01)])
+    spout = W([(-gx * 1.02, gt - s * 0.02), (-gx * 1.26, gt - s * 0.06), (-gx * 1.22, gt + s * 0.03), (-gx * 1.02, gt + s * 0.05)])
+    rod = W(_rr(-s * 0.017, gt - s * 0.42, s * 0.017, gt - s * 0.14, s * 0.01))
+    knob = W(ellipse(0, gt - s * 0.46, s * 0.075, s * 0.065, 16))
+    for pts in (base, band, lid, spout, rod, knob):
+        c.wash(pts, steel[0], steel[1], strength=0.85, spread=0.006, layers=10, edge=1.0, ang=angle)
+    for xx in (-gx * 0.8, -gx * 0.1, gx * 0.6):
+        c.wash(W([(xx, gb - s * 0.1), (xx + gx * 0.12, gb - s * 0.1), (xx + gx * 0.12, gb + s * 0.04), (xx, gb + s * 0.04)]), '#6f777f', None,
+               strength=0.3, spread=0.004, layers=5, edge=0.4, clip=base)
+    for pts, yy in ((base, gb - s * 0.07), (band, gt + s * 0.01)):
+        c.lift(W([(-gx * 0.95, yy), (gx * 0.4, yy), (gx * 0.4, yy + s * 0.025), (-gx * 0.95, yy + s * 0.025)]), amount=0.45, soft=0.3, clip=pts)
+    c.lift(W(ellipse(-gx * 0.3, gt - s * 0.08, gx * 0.35, s * 0.025, 12)), amount=0.5, soft=0.4, clip=lid)
+    gouache(c, W(ellipse(-s * 0.025, gt - s * 0.48, s * 0.02, s * 0.014, 8)), color=(255, 255, 255), alpha=230, soft=0.2)
+    for pts in (base, band, lid, spout, rod, knob):
+        c.ink_line(pts, width=max(1.2, s * 0.01), alpha=135, passes=1, jitter=0, color=(70, 76, 84))
+    for xx in (-gx * 1.0, gx * 0.95):
+        c.wash(W([(xx - s * 0.03, gb - s * 0.0), (xx + s * 0.03, gb), (xx + s * 0.025, gb + s * 0.1), (xx - s * 0.025, gb + s * 0.1)]),
+               steel[0], steel[1], strength=0.85, spread=0.006, layers=8, edge=1.0)
+    c.paint_around(g0)
+    # glass, coffee, crema, plunger disc and the rod through the glass
+    G = W([(-gx, gt + s * 0.09), (gx, gt + s * 0.09), (gx, gb - s * 0.1), (-gx, gb - s * 0.1)])
+    c.wash(G, '#eef3f5', '#c9d6dc', strength=0.5, spread=0.004, layers=8, edge=1.2, ang=angle)
+    lv = gt + s * 0.36
+    cof = W([(-gx * 0.97, lv), (gx * 0.97, lv), (gx * 0.97, gb - s * 0.1), (-gx * 0.97, gb - s * 0.1)])
+    c.wash(cof, '#7a4626', '#3e2314', strength=0.95, spread=0.004, layers=14, edge=1.0, ang=angle + math.pi / 2, vary='#5a321c', vary_amt=0.4)
+    c.wash(W([(-gx * 0.97, lv - s * 0.01), (gx * 0.97, lv - s * 0.01), (gx * 0.97, lv + s * 0.05), (-gx * 0.97, lv + s * 0.05)]),
+           '#c9935e', '#a8703f', strength=0.9, spread=0.004, layers=8, edge=0.9, ang=angle)
+    disc = W(ellipse(0, lv - s * 0.04, gx * 0.94, s * 0.035, 20))
+    c.wash(disc, '#d9dde1', '#9aa2aa', strength=0.8, spread=0.004, layers=8, edge=1.0, ang=angle)
+    c.ink_line(disc, width=max(1, s * 0.008), alpha=120, passes=1, jitter=0, color=(80, 86, 94))
+    c.wash(W(_rr(-s * 0.014, gt + s * 0.09, s * 0.014, lv - s * 0.06, s * 0.008)), '#b8bfc6', '#8a929a', strength=0.85, spread=0.004,
+           layers=6, edge=1.0)
+    for x0, x1, a in ((-gx * 0.78, -gx * 0.62, 0.75), (-gx * 0.5, -gx * 0.44, 0.5), (gx * 0.55, gx * 0.64, 0.35)):
+        c.lift(W([(x0, gt + s * 0.14), (x1, gt + s * 0.14), (x1, gb - s * 0.16), (x0, gb - s * 0.16)]), amount=a, soft=0.12, clip=G)
+    c.ink_line(G, width=max(1.2, s * 0.01), alpha=110, passes=1, jitter=0, color=(90, 100, 108))
+    # handle: a C on the right from the top band to the base
+    hp = [(gx * 1.02, gt + s * 0.05), (gx * 1.42, gt + s * 0.1), (gx * 1.58, gt + s * 0.4), (gx * 1.5, gb - s * 0.35),
+          (gx * 1.3, gb - s * 0.18), (gx * 1.02, gb - s * 0.12)]
+    Hd = W(_band(_sm(hp, 2), s * 0.06, s * 0.05))
+    c.wash(Hd, _mix(handle, 0.25), handle, strength=0.95, spread=0.006, layers=12, edge=1.0, ang=angle)
+    c.lift(W(_band(_sm([(gx * 1.38, gt + s * 0.14), (gx * 1.5, gt + s * 0.4), (gx * 1.44, gb - s * 0.36)], 2), s * 0.014, s * 0.008)),
+           amount=0.4, soft=0.3, clip=Hd)
+    c.ink_line(Hd, width=max(1.2, s * 0.01), alpha=140, passes=1, jitter=0, color=_inkc(handle, 0.6))
+    c.paint_around(g0)
+
+
+ENAMEL = {'blue': ('#5d8fc8', '#2f5f99'), 'red': ('#d65a4c', '#a3332c'), 'green': ('#6fa57d', '#3f7453'), 'cream': ('#f2e6cc', '#cdb68c')}
+
+
+def enamel_pot(c, x, y, s, P, angle=0.0, color=None):
+    """A speckled enamel coffee pot (the campfire percolator): a tapered body
+    in glossy enamel with white speckles, a dark rolled rim, a domed lid with
+    a clear glass knob, a long curved spout and a looped handle."""
+    kind = color if color in ENAMEL else 'blue'
+    e1, e2 = ENAMEL[kind]
+    rim_col = '#2b3442' if kind != 'cream' else '#3d5f8f'
+    T = _loc(x + s * 0.05, y + s * 0.04, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    tt, bb = -s * 0.36, s * 0.66
+    tw, bw = s * 0.3, s * 0.48
+    body = smooth([(-tw, tt), (tw, tt), (bw * 0.96, bb - s * 0.14), (bw, bb - s * 0.04), (bw * 0.9, bb), (-bw * 0.9, bb), (-bw, bb - s * 0.04),
+                   (-bw * 0.96, bb - s * 0.14)], rounds=1)
+    g0 = c.snapshot()
+    B = W(body)
+    c.wash(B, _mix(e1, 0.1), e2, strength=0.95, spread=0.008, layers=16, edge=1.05, ang=angle, vary=e2, vary_amt=0.35)
+    c.wash(W([(bw * 0.25, tt), (bw * 1.2, tt), (bw * 1.2, bb), (bw * 0.25, bb)]), _shade(e2, 0.72), None, strength=0.45, spread=0.01, layers=8,
+           edge=0.0, blur=s * 0.08, clip=B)
+    c.lift(W([(-tw * 0.75, tt + s * 0.08), (-tw * 0.45, tt + s * 0.08), (-bw * 0.5, bb - s * 0.16), (-bw * 0.78, bb - s * 0.16)]), amount=0.5,
+           soft=0.3, clip=B)
+    rnd = c.rnd
+    for _ in range(int(60 + s * 0.1)):
+        v = rnd.uniform(0.04, 0.96); u = rnd.uniform(-0.92, 0.92)
+        yy = tt + (bb - tt) * v; hw = tw + (bw - tw) * min(1, v * 1.15)
+        r = s * rnd.uniform(0.006, 0.014)
+        gouache(c, W(ellipse(u * hw * 0.95, yy, r, r * 0.9, 7)), color=(252, 250, 246), alpha=rnd.randint(170, 235), soft=0.25)
+    rimb = W(_rr(-tw * 1.06, tt - s * 0.04, tw * 1.06, tt + s * 0.03, s * 0.02))
+    foot = W(_rr(-bw * 0.9, bb - s * 0.035, bw * 0.9, bb + s * 0.02, s * 0.02))
+    for pts in (rimb, foot):
+        c.wash(pts, _mix(rim_col, 0.2), rim_col, strength=0.95, spread=0.006, layers=8, edge=1.0, ang=angle)
+    lid = W(smooth([(-tw * 0.96, tt - s * 0.03), (-tw * 0.8, tt - s * 0.15), (-tw * 0.35, tt - s * 0.21), (tw * 0.35, tt - s * 0.21),
+                    (tw * 0.8, tt - s * 0.15), (tw * 0.96, tt - s * 0.03)], rounds=2, closed=False) + [(tw * 0.96, tt), (-tw * 0.96, tt)])
+    c.wash(lid, _mix(e1, 0.1), e2, strength=0.95, spread=0.008, layers=12, edge=1.05, ang=angle)
+    c.lift(W(ellipse(-tw * 0.3, tt - s * 0.14, tw * 0.3, s * 0.025, 12)), amount=0.45, soft=0.4, clip=lid)
+    knob = W(smooth([(-s * 0.07, tt - s * 0.2), (-s * 0.08, tt - s * 0.3), (-s * 0.05, tt - s * 0.37), (s * 0.05, tt - s * 0.37),
+                     (s * 0.08, tt - s * 0.3), (s * 0.07, tt - s * 0.2)], rounds=2, closed=True))
+    c.wash(knob, '#e8f0f2', '#b9cbd2', strength=0.55, spread=0.006, layers=8, edge=1.4)
+    c.wash(W(ellipse(0, tt - s * 0.25, s * 0.05, s * 0.04, 10)), '#7a4b2c', None, strength=0.45, spread=0.01, layers=6, edge=0.6, clip=knob)
+    gouache(c, W(ellipse(-s * 0.035, tt - s * 0.32, s * 0.016, s * 0.022, 8)), color=(255, 255, 255), alpha=235, soft=0.2)
+    ic = _inkc(e2, 0.55)
+    for pts in (B, lid):
+        c.ink_line(pts, width=max(1.3, s * 0.011), alpha=135, passes=1, jitter=0, color=ic)
+    for pts in (rimb, foot, knob):
+        c.ink_line(pts, width=max(1.1, s * 0.009), alpha=120, passes=1, jitter=0, color=(40, 44, 52))
+    c.paint_around(g0)
+    # spout from low on the left, curving up and out
+    sp = _sm([(-bw * 0.7, bb - s * 0.3), (-bw * 1.02, bb - s * 0.42), (-bw * 1.2, tt + s * 0.2), (-bw * 1.32, tt - s * 0.02)], 2)
+    S = W(_band(sp, s * 0.09, s * 0.035))
+    c.wash(S, _mix(e1, 0.1), e2, strength=0.95, spread=0.008, layers=12, edge=1.05, ang=angle)
+    c.wash(W(ellipse(-bw * 1.32, tt - s * 0.02, s * 0.04, s * 0.022, 10, -0.6)), rim_col, None, strength=0.9, spread=0.006, layers=6, edge=1.0)
+    c.ink_line(S, width=max(1.2, s * 0.01), alpha=130, passes=1, jitter=0, color=ic)
+    # handle on the right
+    hp = _sm([(tw * 0.96, tt + s * 0.04), (bw * 1.22, tt + s * 0.06), (bw * 1.42, tt + s * 0.3), (bw * 1.36, bb - s * 0.42),
+              (bw * 1.12, bb - s * 0.26), (bw * 0.92, bb - s * 0.26)], 2)
+    Hd = W(_band(hp, s * 0.05, s * 0.045))
+    c.wash(Hd, _mix(e1, 0.1), e2, strength=0.95, spread=0.008, layers=12, edge=1.05, ang=angle)
+    c.ink_line(Hd, width=max(1.2, s * 0.01), alpha=130, passes=1, jitter=0, color=ic)
+    c.paint_around(g0)
+
+
+def croissant(c, x, y, s, P, angle=0.0, color=None, n=5):
+    """A butter croissant: one crescent of laminated dough with rounded rolls
+    along its back (the middle roll fattest), deep golden brown on the baked
+    tops, paler gold in the grooves and underneath, glossy from the egg wash,
+    thin curled tips, and a few flakes."""
+    T = _loc(x, y + s * 0.16, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    cx, cy, R = 0.0, s * 0.46, s * 0.62
+    a0, a1 = math.radians(192), math.radians(348)
+    g0 = c.snapshot()
+    th = lambda u: s * (0.05 + 0.29 * math.sin(math.pi * u) ** 0.85)       # half thickness along the crescent
+    # roll boundaries, wider in the middle
+    us = [-1 + 2 * k / n for k in range(n + 1)]
+    bnd = [0.5 + 0.5 * (1 if u >= 0 else -1) * abs(u) ** 0.85 for u in us]
+    bnd = [0.06 + 0.88 * b for b in bnd]
+
+    def bump(u):
+        for k in range(n):
+            if bnd[k] <= u <= bnd[k + 1]:
+                return math.sin(math.pi * (u - bnd[k]) / (bnd[k + 1] - bnd[k]))
+        return 0.0
+
+    def pt(u, r):
+        a = a0 + (a1 - a0) * u
+        return (cx + r * math.cos(a), cy + r * math.sin(a))
+    N = 90
+    outer = [pt(u, R + th(u) * (0.62 + 0.3 * bump(u))) for u in [i / N for i in range(N + 1)]]
+    inner = [pt(u, R - th(u) * (0.78 + 0.1 * bump(u))) for u in [i / N for i in range(N, -1, -1)]]
+    body = W(outer + inner)
+    c.wash(body, '#f6d48e', '#e0a052', strength=0.92, spread=0.006, layers=16, edge=1.0, ang=angle + math.pi / 2, vary='#e8b468', vary_amt=0.4)
+    for k in range(n):
+        um = (bnd[k] + bnd[k + 1]) / 2; span = bnd[k + 1] - bnd[k]
+        a = a0 + (a1 - a0) * um
+        hk = th(um)
+        tw = (R + hk * 0.3) * (a1 - a0) * span * 0.42
+        bx, by = pt(um, R + hk * 0.22)
+        top = W(ellipse(bx, by, hk * 0.62, tw, 22, a))
+        c.wash(top, '#c97b36', '#9a521f', strength=0.62, spread=0.01, layers=10, edge=0.3, blur=s * 0.035, ang=angle + a + math.pi, clip=body)
+        hx, hy = pt(um - span * 0.18, R + hk * 0.42)
+        c.lift(W(ellipse(hx, hy, hk * 0.22, tw * 0.22, 12, a + 0.3)), amount=0.42, soft=0.4, clip=body)
+    for k in range(1, n):
+        u = bnd[k]
+        groove = [pt(u + 0.012 * (j / 6 - 0.5), R - th(u) * 0.75 + th(u) * 1.6 * j / 6) for j in range(7)]
+        g = W(_band(groove, s * 0.016, s * 0.008))
+        c.wash(g, '#8a4a1e', None, strength=0.55, spread=0.006, layers=6, edge=0.6, blur=s * 0.006, clip=body)
+        c.ink_line(W(groove[1:-1]), width=max(1, s * 0.008), closed=False, alpha=95, passes=1, jitter=0, color=(115, 62, 26))
+    c.ink_line(body, width=max(1.3, s * 0.011), alpha=135, passes=1, jitter=0, color=(122, 68, 30))
+    c.paint_around(g0)
+    rnd = c.rnd
+    for _ in range(4):
+        fx, fy = rnd.uniform(-s * 0.45, s * 0.45), cy + rnd.uniform(-s * 0.1, -s * 0.02)
+        c.wash(W(ellipse(fx, fy, s * rnd.uniform(0.012, 0.024), s * rnd.uniform(0.008, 0.013), 7, rnd.uniform(0, 3))), '#d9974c', None,
+               strength=0.85, spread=0.02, layers=6, edge=1.0)
+
+
+def coffee_branch(c, x, y, s, P, angle=0.0, color=None, cherries=3):
+    """A coffee plant sprig: a woody stem with pairs of glossy dark leaves
+    (wavy edges, a lifted midrib) and clusters of coffee cherries at the leaf
+    joints, mostly ripe red, a few orange or still green, each with a glint."""
+    T = _loc(x, y, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    rnd = c.rnd
+    stem = _sm([(-s * 0.85, s * 0.22), (-s * 0.3, s * 0.04), (s * 0.25, -s * 0.06), (s * 0.85, -s * 0.2)], 2)
+    leaves = [(0.12, 1, 0.62), (0.12, -1, 0.56), (0.45, 1, 0.58), (0.45, -1, 0.6), (0.78, 1, 0.46), (0.78, -1, 0.42), (1.0, 0, 0.4)]
+    cols = ('#7fb06f', '#3f7a4a', '#24502f')
+    g0 = c.snapshot()
+    for t in (0.12, 0.45, 0.78)[:max(1, min(3, cherries))]:
+        (px, py), _ = _at_path(W(stem), t)
+        k = rnd.randint(3, 4)
+        for j in range(k):
+            a = angle + math.pi / 2 + (j - (k - 1) / 2) * 0.65 + rnd.uniform(-0.15, 0.15)
+            d = s * rnd.uniform(0.09, 0.14)
+            qx, qy = px + d * math.cos(a), py + d * math.sin(a)
+            r = s * rnd.uniform(0.105, 0.125)
+            col = rnd.choice([('#e8474c', '#b72634')] * 5 + [('#f29a45', '#cf6a26'), ('#b5d066', '#7aa33e')])
+            ch = ellipse(qx, qy, r, r * 0.86, 18, a)
+            c.wash(ch, col[0], col[1], strength=0.95, spread=0.01, layers=12, edge=1.1, ang=a + math.pi)
+            c.wash(ellipse(qx + r * 0.3 * math.cos(a), qy + r * 0.3 * math.sin(a), r * 0.55, r * 0.45, 12, a), _shade(col[1], 0.8), None,
+                   strength=0.3, spread=0.01, layers=6, edge=0.0, blur=r * 0.25, clip=ch)
+            c.wash(ellipse(qx + r * 0.78 * math.cos(a), qy + r * 0.78 * math.sin(a), r * 0.1, r * 0.08, 8), '#5a3424', None, strength=0.7,
+                   spread=0.01, layers=5, edge=1.0)
+            c.lift(ellipse(qx - r * 0.25, qy - r * 0.28, r * 0.38, r * 0.24, 10, -0.6), amount=0.35, soft=0.4, clip=ch)
+            gouache(c, ellipse(qx - r * 0.38, qy - r * 0.38, r * 0.15, r * 0.09, 8, -0.6), color=(255, 250, 246), alpha=230, soft=0.15)
+            c.ink_line(ch, width=max(1, s * 0.008), alpha=120, passes=1, jitter=0, color=_inkc(col[1], 0.6))
+    c.paint_around(g0)          # cherries in front; the leaves and stem tuck behind them
+    for t, side, L in leaves:
+        (px, py), sa = _at_path(W(stem), min(t, 0.999))
+        la = sa + side * 0.95 if side else sa
+        tip = (px + s * L * math.cos(la), py + s * L * math.sin(la))
+        mid = (px + s * L * 0.5 * math.cos(la) + side * s * 0.06 * math.cos(la + math.pi / 2),
+               py + s * L * 0.5 * math.sin(la) + side * s * 0.06 * math.sin(la + math.pi / 2))
+        _herb_leaf(c, (px, py), mid, tip, s * L * 0.26, cols, veins='lift', teeth=0, strength=0.85, shade=0.35, gran=0.25, outline=90,
+                   widest=0.75)
+    c.wash(_band(W(stem), s * 0.03, s * 0.016), '#8a6a45', '#5c4228', strength=0.9, spread=0.008, layers=8, edge=1.0)
+    c.paint_around(g0)
+
+
+def coffee_beans(c, x, y, s, P, angle=0.0, color=None, n=3):
+    """Roasted coffee beans: glossy brown ovals with the S-shaped center
+    crease, a darker shadow side and a small glint. n = 1-5 in a loose pile."""
+    rnd = c.rnd
+    spots = [(0, 0)] if n == 1 else [(math.cos(2 * math.pi * k / n + angle) * s * 0.42, math.sin(2 * math.pi * k / n + angle) * s * 0.34)
+                                     for k in range(n)]
+    r0 = s * (0.62 if n == 1 else 0.34)
+    for (ox, oy) in spots:
+        a = angle + rnd.uniform(-1.2, 1.2)
+        bx, by = x + ox, y + oy
+        r = r0 * rnd.uniform(0.9, 1.08)
+        T = _loc(bx, by, a)
+        W = lambda pts: [T(px, py) for px, py in pts]
+        bean = W(ellipse(0, 0, r, r * 0.68, 20))
+        c.wash(bean, '#8a5532', '#3f2213', strength=0.95, spread=0.01, layers=12, edge=1.1, ang=a + 2.4, vary='#5e341c', vary_amt=0.4)
+        crease = [(-r * 0.86, r * 0.02), (-r * 0.4, -r * 0.1), (0, 0.0), (r * 0.4, r * 0.1), (r * 0.86, -r * 0.02)]
+        c.wash(W(_band(_sm(crease, 2), r * 0.045, r * 0.03)), '#24130a', None, strength=0.9, spread=0.006, layers=6, edge=1.0)
+        c.lift(W(ellipse(-r * 0.3, -r * 0.34, r * 0.32, r * 0.1, 10)), amount=0.4, soft=0.4, clip=bean)
+        gouache(c, W(ellipse(-r * 0.36, -r * 0.36, r * 0.12, r * 0.045, 8)), color=(255, 246, 236), alpha=190, soft=0.25)
+        c.ink_line(bean, width=max(1, s * 0.012), alpha=110, passes=1, jitter=0, color=(50, 28, 16))
+
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
@@ -2900,4 +3301,6 @@ MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'sn
            'birthday_cake': birthday_cake, 'confetti': confetti,
            'school_apple': school_apple, 'pencil': pencil, 'crayon': crayon, 'book_stack': book_stack, 'ruler': ruler,
            'paper_plane': paper_plane, 'paint_palette': paint_palette, 'gold_star': gold_star,
-           'stethoscope': stethoscope}
+           'stethoscope': stethoscope,
+           'latte_cup': latte_cup, 'togo_cup': togo_cup, 'french_press': french_press, 'enamel_pot': enamel_pot,
+           'croissant': croissant, 'coffee_branch': coffee_branch, 'coffee_beans': coffee_beans}

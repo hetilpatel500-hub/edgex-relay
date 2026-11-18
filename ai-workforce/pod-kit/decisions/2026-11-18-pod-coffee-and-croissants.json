@@ -1,0 +1,33 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a decisions doc; pod_designs and pod_listings records are kept here too.",
+ "id": "2026-11-18-pod-coffee-and-croissants",
+ "by": "chief-of-staff",
+ "created": "2026-11-18T16:41:09Z",
+ "items": [
+  "coffee-and-croissants"
+ ],
+ "legal_refs": [
+  "pod-kit/legal/coffee-and-croissants.json"
+ ],
+ "legal_verdict": "cleared",
+ "decision": "approved for delivery to the owner",
+ "conditions": [
+  "Printify drafts or Etsy publishing only after the owner allows Printify writes (refused by the session's permission check since Oct 6). Then 2 products (white wrap mug, accent mug), 2 listings ($0.40 if paid), inside the $3/day cap.",
+  "Step 9b (9 extra photos per listing) runs after the products exist: photos.py draws from each Printify product's print area.",
+  "Before listing: the owner may run a USPTO search on COFFEE & CROISSANTS and look up serial 90606003."
+ ],
+ "reason": "Next queue item after the gift-category table: 11. coffee lover. Pattern day (Nov 17 was a motif design). Research 21/25 (coffee gift searches peak in December; competitors are slogan, bean-photo or single-icon mugs), trademark screen clear, Legal cleared; three full-size wraps checked after several rounds of motif fixes. One design this run, for quality.",
+ "artifact": "https://claude.ai/artifact/He9NxWDCYNWM1X8cgA43k5",
+ "emailed": "Gmail message 1a1ef88587ca5703 to the owner, 2026-11-18",
+ "printify_read_only": "2026-11-18: 58 products, 48 with Etsy listing IDs, the same 10 Scorpio and Campfire drafts unpublished, 0 orders",
+ "pod_designs": {
+  "title": "Coffee & Croissants",
+  "phrase": "coffee lover mug (no lettering on the art)",
+  "niche": "coffee lovers: Christmas, birthdays, everyday gifts",
+  "artifact": "https://claude.ai/artifact/He9NxWDCYNWM1X8cgA43k5",
+  "product_ids": {},
+  "created": "2026-11-18T16:41:09Z",
+  "status": "built (not on Printify: writes wait for the owner)"
+ },
+ "pod_listings": []
+}
