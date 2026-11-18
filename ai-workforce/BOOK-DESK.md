@@ -49,6 +49,7 @@ At Home (2026-10-19), Weather & Nature (2026-10-20). All twelve were rebuilt on
 Christmas (2026-11-09), Fairy Tale (2026-11-10), Clothes (2026-11-11),
 Farmyard (2026-11-12; topic Farm, titled Farmyard because "My First Farm Coloring Book" exists). Camping (2026-11-13), Jungle & Safari (2026-11-16),
 Cars, Trains & Planes (2026-11-17; vehicles without trucks, titled this way because "My First Things That Go Coloring Book" exists).
+Helpers (2026-11-18; community helpers, titled this way because "My First Community Helpers Coloring Book" exists).
 While the office DB is full (100 MB), the Legal review goes in `book-kit/legal/<id>.json`
 and the books, decisions and collabs docs in `book-kit/records/<date>-<id>.json`.
 Next: the planned rotation is finished. Until the owner names a topic, Trend Scout picks one that
