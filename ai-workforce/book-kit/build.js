@@ -70,8 +70,8 @@ function interiorHtml() {
   .own{margin-top:1.6in;font:600 26pt Fredoka}.line{margin:0.5in auto 0;width:5.5in;border-bottom:4px solid #111}
   .cert .box{position:absolute;inset:1in;border:10px solid #111;border-radius:.6in;text-align:center;font:600 30pt Fredoka}
   .cert .lab{height:2in;width:90%;margin-top:.8in}
-  .cert .nm{position:absolute;bottom:1in;left:0;right:0;font-size:24pt}
-  .star{margin:.4in auto;width:3.2in;height:3.2in}
+  .cert .nm{position:absolute;bottom:.6in;left:0;right:0;font-size:24pt}
+  .star{margin:.3in auto;width:2.6in;height:2.6in}
   </style></head><body>${pages.join('')}<script>${artJs}</script><script>
   document.querySelectorAll('.art').forEach(el=>{el.innerHTML=ART.svg(el.dataset.id,'line','preserveAspectRatio="xMidYMid meet"')});
   document.querySelectorAll('.star').forEach(el=>{el.innerHTML='<svg viewBox="0 0 100 100"><path d="M50 6 L62 38 L96 38 L68 58 L79 92 L50 71 L21 92 L32 58 L4 38 L38 38 Z" fill="#fff" stroke="#111" stroke-width="3" stroke-linejoin="round"/></svg>'});

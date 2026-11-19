@@ -1,0 +1,111 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the book desk's books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-robots",
+  "title": "My First Robots Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Robots",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-robots.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/2E9MXKf4owLQGFDPRPF26F",
+  "created": "2026-11-19T15:00:24Z",
+  "emailed": "Gmail message 1a1f452757f6d0f8 to the owner, 2026-11-19"
+ },
+ "decision": {
+  "doc_id": "2026-11-19-book-my-first-robots",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-19T15:00:24Z",
+  "reason": "Legal verdict cleared at 2026-11-19T14:59:17Z (all ten counsel; trademark web screen on file; the tracks robot was redrawn so it no longer resembles a film robot, and the owl got a smile so 'every page has a happy face' is true). Planned rotation has ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it. Build checks passed (64 pages, cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-robots.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-19-book-my-first-robots",
+  "created": "2026-11-19T15:00:24Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation is finished; picked robots (no book, record or DB books doc has it; only one robot each in Space and Toys, neither reused) over winter, garden and fall, which overlap Christmas, Weather & Nature, Bugs and Farmyard."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched titles: no 'My First Robots Coloring Book' turned up; 'My First Guide to Robots' (Raintree nonfiction) is different; toddler robot coloring books sell under generic titles such as 'Robot Coloring Book for Toddlers'."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 subjects in art/robots.js from boxes, circles and tubes in four groups (10 robot shapes, 8 robot animals, 7 robots with a job, 5 robot things and friends), each with a smiling face."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Line and color sheets reviewed at full size; fixed the jet pack arms crossing the chest, the dog's comb-like legs, the bird's wing over its cheek, the dinosaur's TV-on-a-post head and stray dot, the cleaning robot that read as a pool, and the owl's missing smile."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, a description in four groups that match the 30 pages (10 + 8 + 7 + 5) and 7 keywords of 41 characters or fewer, with no brand names or other titles."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 47 negatives, including film and toy robot franchises and 'robot kit', 'robot toy', 'coding' so ads stay off franchise and toy searches."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Ad texts 115, 119 and 120 characters, headlines 41, 39 and 24; build.js checks passed."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages; cover 17.3941 x 11.25 in matches KDP's formula; background reaches every page edge; cover, page previews, both A+ images and long labels checked; fixed the certificate's name line overlapping the star in build.js."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "pass: All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishing..."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "pass: Description, back cover, A+ points and ad texts checked against the built book: 30 subjects in four groups (10 robot shapes + 8 robot animals + 7 robots with a job + 5 robot things and friends) exactly as listed, 64 pages..."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: No commercial email. The delivery goes only to the owner."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: No personal data in the book, listing or ads kit; the 'This book belongs to' line and the certificate's name line collect nothing."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "pass: Art is original vector drawing in art/robots.js built from boxes, circles and tubes; line and color contact sheets reviewed at full size. Checked each robot against famous film, TV and toy robots: the first Robot with Tra..."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "pass: Web search only (USPTO is unreachable from this environment). No book or mark titled 'My First Robots' or 'My First Robots Coloring Book' turned up. Nearby: 'My First Guide to Robots' (Kathryn Clay, Raintree, a nonfiction..."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "n/a: No money content."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "pass: KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover matches the metadata title; 7 keywords of 41 characters or fewer, no brands, no 'bestseller' or 'free' style..."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "pass: General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no weapons, lasers, claws used to grab people, fire beyond two small jet-pack flames, or scary faces; every robot ..."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved with a cleared Legal verdict; delivered to the owner only (no KDP publishing, no ads, no prices set)."
+   },
+   {
+    "agent": "publish-coordinator",
+    "line": "Page https://claude.ai/artifact/2E9MXKf4owLQGFDPRPF26F; email to the owner (Gmail message 1a1f452757f6d0f8)."
+   }
+  ]
+ }
+}
