@@ -1,0 +1,111 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the book desk's books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-helpers",
+  "title": "My First Helpers Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Helpers (community helpers)",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-helpers.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/6tZXFdShBVJkLV25VCGm3M",
+  "created": "2026-11-18T14:56:06Z",
+  "emailed": "Gmail message 1a1ef28076d9f1c1 to the owner, 2026-11-18"
+ },
+ "decision": {
+  "doc_id": "2026-11-18-book-my-first-helpers",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-18T14:54:54Z",
+  "reason": "Legal verdict cleared at 2026-11-18T14:54:54Z (all ten counsel; trademark web screen on file; drawing fixes made before the build). Planned rotation has ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it; the 'Community Helpers' and 'Jobs' titles were avoided because they exist. Build checks passed (64 pages, cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-helpers.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-18-book-my-first-helpers",
+  "created": "2026-11-18T14:56:06Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation is finished; picked community helpers (no book, record or DB books doc has it) and left out helpers already drawn elsewhere (farmer, astronaut, knight) and the vehicles (police car, ambulance, school bus, the owner's Trucks book)."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched titles: 'My First Community Helpers Coloring Book' (The Little Learners Club) and a 'My First Jobs Coloring Book' printable exist, so the title became 'My First Helpers Coloring Book'; no book or mark with that title turned up."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 subjects in art/helpers.js on one shared body: 22 helpers told apart by a hat, outfit and one big tool, plus 8 things they use, all with smiling faces, hearts instead of red crosses and no agency names or logos."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Line and color sheets reviewed at full size; fixed the hammer that read as a sign, scissors that read as chopsticks, the cone's smile on a stripe, the hard hat's ridge through its face, the crowded letter stamp, the nurse's hidden heart, the pilot's missing wing and the small nozzle."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, a description in four groups that match the 30 pages (8 + 7 + 7 + 8) and 7 keywords of 44 characters or fewer, with no brand names or other titles."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 41 negatives; added paw patrol, fireman sam, bob the builder, doc mcstuffins, daniel tiger, bluey, sesame street and disney negatives so ads stay off franchise searches."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Ad texts 121, 120 and 114 characters, headlines 41, 39 and 30; build.js checks passed."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages; cover 17.3941 x 11.25 in matches KDP's formula; background reaches every page edge; cover, page previews and both A+ images checked."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "pass: All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishin..."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "pass: Description, back cover, A+ points and ad texts checked against the built book: 30 subjects in four groups (8 safe-and-well + 7 teach-build-fix + 7 around town + 8 things they use) exactly as listed, 64 pages, blank back..."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: No commercial email. The delivery goes only to the owner."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: No personal data in the book, listing or ads kit; the 'This book belongs to' line collects nothing."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "pass: Art is original vector drawing in art/helpers.js; line and color contact sheets reviewed at full size. Generic helpers only: no real agency, department, airline, hospital or company uniform, patch, logo or name; badges a..."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "pass: Web search only (USPTO is unreachable from this environment). No book or mark titled 'My First Helpers' or 'My First Helpers Coloring Book' turned up. 'My First Community Helpers Coloring Book' (The Little Learners Club)..."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "n/a: No money content."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "pass: KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover matches the metadata title; 7 keywords of 44 characters or fewer, no brands, no 'bestseller' or 'free' styl..."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "pass: General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no fire, crime, injury, needles or blood; the police officer carries nothing but a badge; the firefighter holds a..."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved with a cleared Legal verdict; delivered to the owner only (no KDP publishing, no ads, no prices set)."
+   },
+   {
+    "agent": "publish-coordinator",
+    "line": "Page https://claude.ai/artifact/6tZXFdShBVJkLV25VCGm3M; email to the owner (Gmail message 1a1ef28076d9f1c1)."
+   }
+  ]
+ }
+}

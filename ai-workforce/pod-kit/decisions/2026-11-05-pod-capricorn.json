@@ -1,0 +1,19 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a decisions doc.",
+ "id": "2026-11-05-pod-capricorn",
+ "by": "chief-of-staff",
+ "created": "2026-11-05T16:23:22Z",
+ "items": [
+  "capricorn-constellation"
+ ],
+ "legal_refs": [
+  "pod-kit/legal/capricorn-constellation.json"
+ ],
+ "legal_verdict": "cleared",
+ "decision": "approved for delivery to the owner",
+ "conditions": [
+  "Printify drafts or Etsy publishing only after the owner allows Printify writes (refused by the session's permission check since Oct 6). Then 5 products, 5 listings ($1.00 if paid), inside the $3/day cap.",
+  "Libra and Sagittarius stay held for the owner (pending clothing applications)."
+ ],
+ "reason": "Next open queue row (zodiac series), timed 4-8 weeks ahead of Capricorn season; 22/25 research score; Legal cleared; full-size art checked."
+}

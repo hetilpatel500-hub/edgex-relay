@@ -1,0 +1,165 @@
+{
+ "id": "my-first-fruits-veggies",
+ "count": 30,
+ "art": [
+  "art/fruits.js"
+ ],
+ "subjects": [
+  "apple",
+  "banana",
+  "strawberry",
+  "orange",
+  "pear",
+  "cherries",
+  "grapes",
+  "pineapple",
+  "watermelon",
+  "lemon",
+  "peach",
+  "kiwi",
+  "mango",
+  "blueberries",
+  "coconut",
+  "carrot",
+  "broccoli",
+  "corn",
+  "tomato",
+  "cucumber",
+  "pepper",
+  "eggplant",
+  "pumpkin",
+  "potato",
+  "mushroom",
+  "peas",
+  "onion",
+  "radish",
+  "avocado",
+  "lettuce"
+ ],
+ "cover": {
+  "kicker": "My First",
+  "word": "Fruits & Veggies",
+  "tagline": "30 big & easy smiling foods to color!",
+  "ages": "2-5",
+  "hero": [
+   "strawberry",
+   "apple",
+   "carrot"
+  ],
+  "back_title": "Big pictures for little hands",
+  "back_points": [
+   "30 smiling fruits and vegetables, from apples to broccoli",
+   "One big picture per page with extra-thick lines",
+   "Each food's name in big letters to color, for first words",
+   "Every picture has a blank back, so markers won't spoil the next one",
+   "A \"Great job!\" certificate at the end"
+  ],
+  "aplus_points": [
+   "30 smiling fruits and vegetables",
+   "Extra-thick lines for little hands",
+   "Each name in big letters to color",
+   "Blank backs, so markers won't spoil the next picture"
+  ],
+  "back_minis": [
+   "banana",
+   "broccoli",
+   "pineapple",
+   "pumpkin"
+  ]
+ },
+ "listing": {
+  "title": "My First Fruits & Veggies Coloring Book",
+  "subtitle": "30 Big & Easy Smiling Fruits and Vegetables – Apples, Bananas, Carrots, Broccoli & More for Kids Ages 2-5",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "description_html": "<p><b>Big, bold and easy to color: a happy first book of fruits and vegetables!</b></p><p>Thirty smiling foods are waiting for little artists, from juicy strawberries and bananas to crunchy carrots and broccoli. Every page has one big, simple picture with extra-thick lines, so small hands can color inside the lines and learn the names of everyday foods.</p><p><b>Inside you'll find:</b></p><ul><li>30 cheerful fruits and vegetables: apple, banana, strawberry, orange, pear, cherries, grapes, pineapple, watermelon, lemon, peach, kiwi, mango, blueberries, coconut, carrot, broccoli, corn, tomato, cucumber, pepper, eggplant, pumpkin, potato, mushroom, peas, onion, radish, avocado and lettuce</li><li>One large picture per page with thick outlines, made for crayons and chunky markers</li><li>Each food's name in big letters on every page, to color and to learn first words</li><li>Single-sided pages with a blank back, so markers won't bleed onto the next picture</li><li>Big 8.5 x 11 inch pages and a \"Great job!\" certificate at the end</li></ul><p>A fun, screen-free activity for toddlers and preschoolers ages 2 to 5, and a playful way to talk about food at home.</p><p>Part of the <b>my first step</b> series. Also try <i>My First Animals Coloring Book</i> and <i>My First Trucks Coloring Book</i>.</p>",
+  "keywords": [
+   "toddler coloring book fruits and vegetables",
+   "healthy food coloring book for kids",
+   "coloring books for kids ages 2-4",
+   "big easy coloring pages for preschoolers",
+   "my first coloring book for toddlers",
+   "simple coloring book thick lines",
+   "preschool activity book for boys and girls"
+  ],
+  "categories": [
+   "Children's Books > Activities, Crafts & Games > Coloring Books",
+   "Children's Books > Growing Up & Facts of Life > Health > Diet & Nutrition",
+   "Children's Books > Early Learning > Basic Concepts > Words"
+  ],
+  "reading_age": "2 - 5 years",
+  "price_note": "Similar toddler coloring books are commonly priced around $5.99-$6.99 (kdpeasy.com age-group guide). Use the calculator below with KDP's printing cost before you choose. Your call.",
+  "ai_disclosure": "KDP asks if the book has AI-generated content. The pictures and the text were made by Edgex's AI agents, so answer Yes for images and text."
+ },
+ "ads": {
+  "bids": {
+   "auto": "0.35",
+   "exact": "0.45",
+   "phrase": "0.40"
+  },
+  "keywords": {
+   "exact": [
+    "toddler coloring book",
+    "coloring books for toddlers",
+    "fruit coloring book for kids",
+    "vegetable coloring book for kids",
+    "food coloring book for toddlers",
+    "fruits and vegetables coloring book",
+    "toddler coloring book ages 2-4",
+    "coloring books for kids ages 2-4",
+    "coloring book for 2 year old",
+    "coloring book for 3 year old",
+    "my first coloring book",
+    "big and easy coloring book",
+    "simple coloring book for toddlers",
+    "preschool coloring book",
+    "healthy eating book for toddlers"
+   ],
+   "phrase": [
+    "toddler coloring",
+    "fruit coloring book",
+    "vegetable coloring",
+    "food coloring book",
+    "coloring books for kids",
+    "coloring book for 2 year olds",
+    "preschool activity book",
+    "jumbo coloring book"
+   ]
+  },
+  "negatives": [
+   "adult",
+   "adults",
+   "for adults",
+   "mandala",
+   "grayscale",
+   "free",
+   "printable",
+   "pdf",
+   "sticker",
+   "stickers",
+   "dot markers",
+   "paint by number",
+   "teen",
+   "sketchbook",
+   "recipe",
+   "cookbook",
+   "food coloring",
+   "dye"
+  ],
+  "categories": [
+   "Children's Coloring Books",
+   "Children's Activity Books",
+   "Children's Books on Food or Nutrition (or the closest match Amazon shows)"
+  ],
+  "custom_text": [
+   "30 smiling fruits and veggies with extra-thick lines, made for little hands. A screen-free first coloring book for ages 2 to 5.",
+   "From apples to broccoli: one big, happy food per page, its name in letters to color, and a Great job! certificate at the end.",
+   "Your toddler's first fruit and veggie coloring book: simple pictures, thick lines and blank backs so markers won't spoil a page."
+  ],
+  "headlines": [
+   "Big, easy coloring books for little hands",
+   "My First coloring books for ages 2 to 5",
+   "Thick lines, big pictures, happy toddlers"
+  ]
+ }
+}

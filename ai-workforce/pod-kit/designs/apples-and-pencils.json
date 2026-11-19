@@ -1,0 +1,219 @@
+{
+  "id": "apples-and-pencils",
+  "kind": "pattern",
+  "name": "Apples & Pencils",
+  "engine": 2,
+  "seed": 1116,
+  "background": "#f8f1e3",
+  "palette": {
+    "main": "#d8343f",
+    "main2": "#f2934e",
+    "accent": "#f0c14b",
+    "accent2": "#f7e3a0",
+    "leaf": "#5f9365",
+    "leaf2": "#a9cc95",
+    "leaf_dark": "#2f5c3e",
+    "pencil": "#f2c23a"
+  },
+  "elements": [
+    {
+      "motif": "book_stack",
+      "size": 0.15,
+      "count": 3,
+      "tilt": 0.18,
+      "spacing": 1.0
+    },
+    {
+      "motif": "paint_palette",
+      "size": 0.12,
+      "count": 2,
+      "tilt": 0.5,
+      "spacing": 1.0
+    },
+    {
+      "motif": "school_apple",
+      "size": 0.11,
+      "count": 7,
+      "colors": [
+        [
+          "red"
+        ],
+        [
+          "red"
+        ],
+        [
+          "green"
+        ]
+      ],
+      "tilt": 0.35,
+      "spacing": 1.0
+    },
+    {
+      "motif": "ruler",
+      "size": 0.12,
+      "count": 2,
+      "tilt": 3.14,
+      "spacing": 0.95
+    },
+    {
+      "motif": "pencil",
+      "size": 0.12,
+      "count": 6,
+      "tilt": 3.14,
+      "colors": [
+        [
+          "#f2c23a"
+        ],
+        [
+          "#f2c23a"
+        ],
+        [
+          "#e8574f"
+        ],
+        [
+          "#4f8fd6"
+        ],
+        [
+          "#5fae6b"
+        ],
+        [
+          "#9b74cf"
+        ]
+      ],
+      "spacing": 0.9
+    },
+    {
+      "motif": "crayon",
+      "size": 0.1,
+      "count": 7,
+      "tilt": 3.14,
+      "colors": [
+        [
+          "#e8453c"
+        ],
+        [
+          "#3f7fd0"
+        ],
+        [
+          "#f2b631"
+        ],
+        [
+          "#4fa864"
+        ],
+        [
+          "#8d63c7"
+        ],
+        [
+          "#f27b2e"
+        ],
+        [
+          "#ef6fa0"
+        ],
+        [
+          "#35b3b0"
+        ]
+      ],
+      "spacing": 0.95
+    },
+    {
+      "motif": "paper_plane",
+      "size": 0.13,
+      "count": 2,
+      "tilt": 0.5,
+      "spacing": 1.0
+    },
+    {
+      "motif": "gold_star",
+      "size": 0.05,
+      "count": 6,
+      "tilt": 0.6,
+      "spacing": 1.1
+    },
+    {
+      "motif": "school_apple",
+      "size": 0.05,
+      "count": 6,
+      "colors": [
+        [
+          "red"
+        ],
+        [
+          "green"
+        ]
+      ],
+      "tilt": 0.4,
+      "spacing": 1.1
+    },
+    {
+      "motif": "gold_star",
+      "size": 0.025,
+      "count": 18,
+      "gaps": true,
+      "clear": 1.6,
+      "spacing": 1.6,
+      "tilt": 0.6
+    },
+    {
+      "motif": "sparkle",
+      "size": 0.014,
+      "count": 20,
+      "args": {
+        "color": "#e5b85a"
+      },
+      "gaps": true,
+      "clear": 2.0,
+      "spacing": 2.0
+    }
+  ],
+  "mug_colors": [
+    "Red",
+    "Navy",
+    "Light Green",
+    "White"
+  ],
+  "listing": {
+    "title": "Teacher Mug, Watercolor Apples and Pencils All Over Print Coffee Mug, School Supplies Mug, Teacher Christmas Gift, Teacher Appreciation",
+    "tags": [
+      "teacher mug",
+      "teacher gift",
+      "teacher coffee mug",
+      "apple teacher mug",
+      "school supplies mug",
+      "teacher christmas",
+      "teacher appreciation",
+      "back to school gift",
+      "pencil mug",
+      "watercolor mug",
+      "end of year gift",
+      "gift for teacher",
+      "crayon mug"
+    ],
+    "description": "Watercolor apples in red and green, sharpened pencils in sunny yellow and bright colors, wax crayons, stacks of hardcover books, wooden rulers, paper airplanes, a painter's palette with its brush and little gold stars fill the whole mug on a warm cream background. There's no slogan or name, so it works as a thank-you from any family: at Christmas, for Teacher Appreciation Week or at the end of the school year.",
+    "per_product": {
+      "accent_mug": {
+        "title": "Teacher Accent Mug, Watercolor Apples and Pencils Coffee Cup, Red, Navy or Light Green Handle, 11 or 15 oz, Teacher Christmas Gift",
+        "tags": [
+          "teacher accent mug",
+          "red handle mug",
+          "navy handle mug",
+          "green handle mug",
+          "15 oz teacher mug",
+          "apple coffee cup",
+          "school supplies cup",
+          "teacher tea mug",
+          "teacher gift idea",
+          "pencil coffee cup",
+          "classroom mug",
+          "teacher thank you",
+          "christmas teacher"
+        ]
+      }
+    },
+    "products": [
+      "11 oz white mug, full wrap (68 / SPOKE)",
+      "Accent mug 11 or 15 oz, red, navy or light green handle, rim and inside (635 / Printify Choice)"
+    ],
+    "price_note": "$16.99 white wrap mug, $19.99 (11 oz) / $22.99 (15 oz) accent mug, the studio's standard mug prices (POD-DESK.md product table). Competing teacher mugs found 2026-11-16: Hallmark's School Supplies Navy Teacher Mug (16 oz) $16.99; TeePublic apple teacher mugs $13 (down from $18); Sip Full of Design's watercolour 'Best Teacher Ever' mug GBP 10.99. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-11-16: web searches '\"Apples and Pencils\" OR \"Apples & Pencils\" trademark brand mugs teacher' and '\"Watercolor Classroom\" trademark OR brand mug' found no brand, shop or mark by either name (the results were generic apple-and-pencil teacher mugs from Hallmark, Our Name is Mud/Enesco, Personalization Mall and others). The art has no lettering; 'teacher', 'apples', 'pencils', 'crayon' and 'school supplies' describe the gift and what is pictured. Rifle Paper Co. sells a 'Pencils' porcelain mug: this art is a mixed watercolor classroom pattern, not a pencil repeat. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen, not a clearance."
+  }
+}

@@ -1,0 +1,74 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-robots",
+  "kind": "book"
+ },
+ "title": "My First Robots Coloring Book: interior, cover, KDP listing and Amazon Ads kit",
+ "reviewed_at": "2026-11-19T14:59:17Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishing. Topic note: the planned rotation has ended, so Trend Scout picked robots under the owner's standing 'different topics' directive; no earlier book, record or DB books doc has it, and the series has drawn only two robots before (one in Space, one in Toys), neither reused here. The owner can swap the topic."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, back cover, A+ points and ad texts checked against the built book: 30 subjects in four groups (10 robot shapes + 8 robot animals + 7 robots with a job + 5 robot things and friends) exactly as listed, 64 pages, blank backs, name labels and the 'Great job!' certificate are all true. 'Every page has ... a happy face' was not true for the Robot Owl (eyes and beak only); a smile was added before clearing, and all 30 pictures now have a smiling face. Every named example in the subtitle, description, back cover, ad texts and headlines (robot dog, flying robot, chef robot, box robot, round robot, robot friends, battery, gear) is in the book. No 'bestselling', review or result claims, and nothing says the book teaches coding, STEM or any skill."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit; the 'This book belongs to' line and the certificate's name line collect nothing."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/robots.js built from boxes, circles and tubes; line and color contact sheets reviewed at full size. Checked each robot against famous film, TV and toy robots: the first Robot with Tracks (yellow box body on treads with binocular eyes) was too close to a well-known film robot and was redrawn with a rounded head, a screen face, two antennas and green colors before clearing. No other page resembles a franchise robot: the round robot is a single ball with a face (no separate dome head), the tall robot is green blocks, the robot on wheels is an orange box, and the cleaning and delivery robots are generic product types with no logo, name or color scheme of a real company. Fredoka font is SIL OFL 1.1, which allows embedding. AI-art note: purely AI-made pictures and text can't be registered for US copyright (US Copyright Office guidance; Thaler v. Perlmutter, D.C. Cir. 2025), so others may be able to copy the pages."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search only (USPTO is unreachable from this environment). No book or mark titled 'My First Robots' or 'My First Robots Coloring Book' turned up. Nearby: 'My First Guide to Robots' (Kathryn Clay, Raintree, a nonfiction series title, not used), and a 'MY FIRST ROBOT' registration for dolls (Reg. 1392505, 'ROBOT' disclaimed) that Justia lists as cancelled under Section 8 in 1992. Toddler robot coloring books exist under generic titles ('Robot Coloring Book for Toddlers'), so 'robot coloring book' is a generic phrase. 'MY FIRST ...' marks exist for specific series, and the series uses 'My First' descriptively as in its 24 earlier books. Keywords, ad keywords and headlines use no brand, author or character names; Transformers, WALL-E, Star Wars, Big Hero 6, Robocar Poli, Disney, Pixar, Paw Patrol, Bluey, LEGO, Minecraft, FNAF and Gundam appear only as ad negatives so ads stay off franchise searches. An optional USPTO search before publishing would settle it."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover matches the metadata title; 7 keywords of 41 characters or fewer, no brands, no 'bestseller' or 'free' style terms, no other authors or titles. Categories are the three general children's paths used by earlier books; a robots or science-and-technology category, if KDP's picker offers one, is left to the owner. Amazon Ads book policy: 3 custom texts (115, 119, 120 characters) and 3 headlines (41, 39, 24) with no price, sale, 'free' offer, best-seller or review claims ('screen-free' describes the activity); ad keywords are generic searches; 47 negatives, including 'robot kit', 'robot toy', 'coding' and 'programming' so ads stay off toy and course searches."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no weapons, lasers, claws used to grab people, fire beyond two small jet-pack flames, or scary faces; every robot smiles. The battery is a large cylinder cell drawn as a friendly character, not a button battery, and nothing in the book tells a child to handle batteries. The builder robot's hammer is the same picture-to-color kind used in the Helpers book."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Robot with Tracks looked too much like a famous film robot (yellow box on treads with binocular eyes); redrawn with a rounded screen-face head, two antennas, a heart and green colors.",
+  "Robot Owl had no smile, which would have made 'every page has a happy face' untrue; a smile was added.",
+  "Jet Pack Robot's arms crossed its chest panel; they were moved behind the body and raised. Robot Dog's legs and feet ran together like a comb; they were spaced into a front and back pair.",
+  "Robot Bird's wing covered a cheek; the face moved up and the wing moved down. Robot Dinosaur's head read as a TV on a post and had a dot that looked like a third eye; it now has a rounded head on a thick neck.",
+  "Cleaning Robot read as a pool and its side brushes looked like legs; it was redrawn as a disc with a visible side, and the brush lines and a line through its button were removed.",
+  "Certificate page: the 'Name:' line overlapped the bottom of the star in the shared template (earlier books too); build.js now draws a smaller star and a lower name line."
+ ],
+ "sources": [
+  "https://trademarks.justia.com/735/60/my-first-robot-73560011.html",
+  "https://www.worldofbooks.com/en-us/books/kathryn-clay/my-first-guide-to-robots/9781474749589",
+  "https://blackwells.co.uk/bookshop/product/Robot-Coloring-Book-for-Toddlers-by-Diana-Press-House/9781651621769"
+ ],
+ "owner_notes": [
+  "Answer KDP's AI question Yes for images and text.",
+  "If KDP's category picker offers a children's robots or science-and-technology category, it fits this book.",
+  "Optional USPTO search on the title before publishing.",
+  "Purely AI-made pages can't be registered for US copyright.",
+  "Earlier books' certificate pages have the name line touching the star; rebuild any you haven't uploaded yet if you want the fixed page."
+ ]
+}

@@ -1,0 +1,203 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the video desk's videos, decision and collabs docs for this run are filed here.",
+ "videos": [
+  {
+   "doc_id": "2026-11-09-spy-tape",
+   "date": "2026-11-09",
+   "series": "spy-tape",
+   "topic": "SPY Nov 9: +0.90% gap up, +2.37% close",
+   "title": "SPY Monday Nov 9: gapped up 0.90%, closed +2.37%",
+   "artifact": "https://claude.ai/artifact/YZ9K96qv7PCDXPV9cjJ8Dx",
+   "files": [
+    "Edgex_spy_2026-11-09_9x16.mp4",
+    "Edgex_spy_2026-11-09_16x9.mp4"
+   ],
+   "seconds": 45.97,
+   "legal_review": "video-kit/legal/2026-11-09-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-09T22:18:03Z",
+   "emailed": "Gmail message 1a1c2636c6271b6a"
+  },
+  {
+   "doc_id": "2026-11-09-mag7-quiz",
+   "date": "2026-11-09",
+   "series": "quiz",
+   "topic": "Guess which Mag 7 stock fell (NVDA -4.27% on a +2.37% SPY day)",
+   "title": "6 of the Mag 7 rose today. Guess which one fell 4.27%.",
+   "artifact": "https://claude.ai/artifact/YZ9K96qv7PCDXPV9cjJ8Dx",
+   "files": [
+    "Edgex_mag7-quiz_2026-11-09_9x16.mp4"
+   ],
+   "seconds": 35.12,
+   "legal_review": "video-kit/legal/2026-11-09-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-09T22:18:03Z",
+   "emailed": "Gmail message 1a1c2636c6271b6a"
+  },
+  {
+   "doc_id": "2026-11-09-myth-recovery",
+   "date": "2026-11-09",
+   "series": "myth-fact",
+   "topic": "Loss recovery math (a 50% drop needs +100%), GOOGL Oct 29 example",
+   "title": "Myth: a 50% drop needs a 50% gain to get back",
+   "artifact": "https://claude.ai/artifact/YZ9K96qv7PCDXPV9cjJ8Dx",
+   "files": [
+    "Edgex_myth-recovery_2026-11-09_9x16.mp4"
+   ],
+   "seconds": 56.43,
+   "legal_review": "video-kit/legal/2026-11-09-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-09T22:18:03Z",
+   "emailed": "Gmail message 1a1c2636c6271b6a"
+  }
+ ],
+ "last_touch": {
+  "by": "video-last-touch",
+  "verdict": "cleared",
+  "created": "2026-11-09T22:18:03Z",
+  "checks": {
+   "video-fact-checker": "Every on-screen and spoken number matched raw/spy_m5.json, raw/daily.json or raw/snapshot_mag7.json, or the recovery formula.",
+   "copyright-compliance-reviewer": "Own renders only: data visuals, Kokoro voice (Apache-2.0), synthesized music, OFL fonts.",
+   "content-policy-reviewer": "No trade calls or targets; disclaimer on screen and in every caption; synthetic voice flagged for the AI label.",
+   "defamation-harassment-screen": "Public companies and one ETF, price data only; no reason given for any move.",
+   "video-brand-tone-final-check": "Review sheets opened; specs h264/aac, 1080x1920 and 1920x1080, all under 15 MB, mean volume -20 to -21 dB; spoken text read cleanly after the percent fix."
+  }
+ },
+ "decision": {
+  "doc_id": "2026-11-09-video-desk",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-09T22:18:03Z",
+  "reason": "Legal verdict cleared (all ten counsel), Video Last Touch cleared. Rotation: spy-tape (market; Nov 9 had a 0.90% gap and a 2.37% move, so the unusual-day exception applies), quiz (interactive), myth-fact (teaching), three different rows. Delivered to the owner only; nothing posted."
+ },
+ "collabs": {
+  "doc_id": "2026-11-09-video-desk",
+  "created": "2026-11-09T22:18:03Z",
+  "members": [
+   "video-trend-scout",
+   "commentary-scriptwriter",
+   "hook-writer",
+   "video-fact-checker",
+   "voiceover-tts-agent",
+   "video-editor-agent",
+   "copyright-compliance-reviewer",
+   "content-policy-reviewer",
+   "defamation-harassment-screen",
+   "video-brand-tone-final-check",
+   "publish-coordinator-video",
+   "instagram-reels-agent",
+   "facebook-video-agent",
+   "general-counsel-agent",
+   "advertising-consumer-protection-counsel",
+   "email-anti-spam-compliance-counsel",
+   "privacy-data-protection-counsel",
+   "copyright-fair-use-counsel",
+   "trademark-brand-clearance-counsel",
+   "financial-content-compliance-counsel",
+   "platform-terms-policy-counsel",
+   "kids-content-coppa-counsel",
+   "contracts-commercial-terms-counsel",
+   "chief-of-staff"
+  ],
+  "log": [
+   {
+    "agent": "video-trend-scout",
+    "line": "Picked spy-tape (unusual day: 0.90% gap, +2.37%), a Mag 7 quiz and a myth-fact on loss recovery; three rows, one market, one teaching, one interactive."
+   },
+   {
+    "agent": "commentary-scriptwriter",
+    "line": "Wrote the quiz and myth scenes.json from the saved Webull data; changed the SPY outro to 'Follow for more SPY tapes.'"
+   },
+   {
+    "agent": "hook-writer",
+    "line": "Hooks: 'gapped up 0.90%, closed +2.37%', 'Guess which one fell 4.27%', 'a 50% drop needs a 50% gain?'"
+   },
+   {
+    "agent": "video-fact-checker",
+    "line": "Traced every number to raw/ or the formula; caught '2 times' for a 2.47x volume bar (now 'about 2.5 times')."
+   },
+   {
+    "agent": "voiceover-tts-agent",
+    "line": "Kokoro voice; fixed '12.64 percent' read as 'twelve sixty-four' (make.py speakable) and re-rendered."
+   },
+   {
+    "agent": "video-editor-agent",
+    "line": "Rendered 4 MP4s (SPY 9:16 + 16:9, quiz, myth); fixed the kit's Python deps (sherpa-onnx<2, PYTHON-pinned setup, FFMPEG env)."
+   },
+   {
+    "agent": "copyright-compliance-reviewer",
+    "line": "Cleared: own visuals, Apache-2.0 voice, synthesized music, OFL fonts."
+   },
+   {
+    "agent": "content-policy-reviewer",
+    "line": "Cleared: disclaimers present, no calls or targets."
+   },
+   {
+    "agent": "defamation-harassment-screen",
+    "line": "Cleared: price data only, no reasons asserted."
+   },
+   {
+    "agent": "video-brand-tone-final-check",
+    "line": "Opened all review sheets and checked specs and spoken text; cleared."
+   },
+   {
+    "agent": "publish-coordinator-video",
+    "line": "Built the private delivery page with Save and Copy buttons and emailed the owner once."
+   },
+   {
+    "agent": "instagram-reels-agent",
+    "line": "Captions and hashtags for the three 9:16 shorts; AI-info label note."
+   },
+   {
+    "agent": "facebook-video-agent",
+    "line": "16:9 SPY cut and caption for Facebook/YouTube; AI-info label note."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "Ran the ten-counsel review: cleared, 4 fixes made before render, 4 posting notes."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "Pass: numbers sourced, no schedule promise in outros."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: owner-only email."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: no personal data."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "Pass: no third-party assets."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "Pass: nominative use of company names, no logos."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "Pass: disclaimer on screen and in captions; '+12.75%' framed as arithmetic, not a forecast."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "Pass: turn on Meta 'AI info'; quiz caption not misleading."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "Pass: general audience; mark not made for kids."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "Pass: no paid tools or licensed assets."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved the set on the cleared legal verdict and Last Touch."
+   }
+  ],
+  "outcome": "Delivered 3 videos (4 files) to the owner at https://claude.ai/artifact/YZ9K96qv7PCDXPV9cjJ8Dx; one email sent (Gmail message 1a1c2636c6271b6a); nothing posted."
+ },
+ "agents_updated": "24 agents docs set to done in the office DB at 2026-11-09T22:18:22Z (results kept no longer than before, so the full DB accepted them)."
+}

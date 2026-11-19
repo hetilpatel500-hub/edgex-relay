@@ -1,0 +1,165 @@
+{
+ "id": "my-first-space",
+ "count": 30,
+ "art": [
+  "art/space.js"
+ ],
+ "subjects": [
+  "rocket",
+  "astronaut",
+  "moon",
+  "crescent-moon",
+  "sun",
+  "star",
+  "earth",
+  "saturn",
+  "jupiter",
+  "mars",
+  "alien",
+  "flying-saucer",
+  "comet",
+  "shooting-star",
+  "telescope",
+  "satellite",
+  "moon-rover",
+  "space-helmet",
+  "asteroid",
+  "space-shuttle",
+  "lunar-lander",
+  "robot",
+  "space-dog",
+  "space-cat",
+  "big-dipper",
+  "space-station",
+  "rocket-launch",
+  "moon-flag",
+  "observatory",
+  "galaxy"
+ ],
+ "cover": {
+  "kicker": "My First",
+  "word": "Space",
+  "tagline": "30 big & easy space pages to color!",
+  "ages": "2-5",
+  "hero": [
+   "rocket",
+   "saturn",
+   "astronaut"
+  ],
+  "back_title": "Big pictures for little hands",
+  "back_points": [
+   "30 friendly space pictures: a rocket, an astronaut, the moon, Saturn and more",
+   "Planets, stars, spaceships and space pets in helmets",
+   "One big picture per page with extra-thick lines",
+   "Every picture has a blank back, so markers won't spoil the next one",
+   "A \"Great job!\" certificate at the end"
+  ],
+  "aplus_points": [
+   "30 big space pages, one picture per page",
+   "Extra-thick lines for little hands",
+   "Each name in big letters to color",
+   "Blank backs, so markers won't spoil the next picture"
+  ],
+  "back_minis": [
+   "moon",
+   "flying-saucer",
+   "robot",
+   "comet"
+  ]
+ },
+ "listing": {
+  "title": "My First Space Coloring Book",
+  "subtitle": "30 Big & Easy Outer Space Pages – Rocket, Astronaut, Moon, Planets & More for Kids Ages 2-5",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "description_html": "<p><b>Big, bold and easy to color: a first coloring book that blasts off into space!</b></p><p>Little hands color 30 friendly space pictures, from a rocket and an astronaut to the moon, Saturn and a shooting star. Every page has one big, simple picture with extra-thick lines, so small hands can color inside the lines.</p><p><b>Inside you'll find:</b></p><ul><li>In the sky: Moon, Sleepy Moon, Sun, Star, Shooting Star, Comet, Space Rock, Star Picture and Galaxy</li><li>Planets: Earth, Saturn, Jupiter and Mars</li><li>Space travel: Rocket, Blast Off, Space Shuttle, Moon Lander, Moon Rover, Satellite, Space Station, Flying Saucer, Telescope and Star Watching House</li><li>Space friends: Astronaut, Space Helmet, Flag on the Moon, Friendly Alien, Robot, Space Puppy and Space Kitty</li><li>One large picture per page with thick outlines, and each name in big letters to color</li><li>Single-sided pages with a blank back, so markers won't bleed onto the next picture</li><li>Big 8.5 x 11 inch pages and a \"Great job!\" certificate at the end</li></ul><p>A fun, screen-free activity for toddlers and preschoolers ages 2 to 5.</p><p>Part of the <b>my first step</b> series.</p>",
+  "keywords": [
+   "space coloring book for toddlers",
+   "outer space coloring book for kids ages 2-5",
+   "planets coloring pages for preschoolers",
+   "my first coloring book for toddlers",
+   "rocket and astronaut coloring pages",
+   "simple coloring book thick lines",
+   "toddler activity book for boys and girls"
+  ],
+  "categories": [
+   "Children's Books > Activities, Crafts & Games > Coloring Books",
+   "Children's Books > Science, Nature & How It Works > Astronomy & Space",
+   "Children's Books > Early Learning > Basic Concepts > Words"
+  ],
+  "reading_age": "2 - 5 years",
+  "price_note": "Similar toddler coloring books are commonly priced around $5.99-$6.99 (kdpeasy.com age-group guide). Use the calculator below with KDP's printing cost before you choose. Your call.",
+  "ai_disclosure": "KDP asks if the book has AI-generated content. The pictures and the text were made by Edgex's AI agents, so answer Yes for images and text."
+ },
+ "ads": {
+  "bids": {
+   "auto": "0.35",
+   "exact": "0.45",
+   "phrase": "0.40"
+  },
+  "keywords": {
+   "exact": [
+    "space coloring book",
+    "outer space coloring book",
+    "planet coloring book",
+    "space coloring book for kids",
+    "rocket coloring book",
+    "coloring books for toddlers",
+    "toddler coloring book",
+    "coloring book for 2 year old",
+    "coloring book for 3 year old",
+    "coloring book for kids ages 2-4",
+    "my first coloring book",
+    "big and easy coloring book",
+    "simple coloring book for toddlers",
+    "preschool coloring book",
+    "coloring books for kids ages 2-4"
+   ],
+   "phrase": [
+    "space coloring",
+    "outer space coloring",
+    "planet coloring",
+    "toddler coloring",
+    "coloring book for 2 year olds",
+    "preschool activity book",
+    "first coloring book",
+    "easy coloring book"
+   ]
+  },
+  "negatives": [
+   "adult",
+   "adults",
+   "for adults",
+   "mandala",
+   "grayscale",
+   "free",
+   "printable",
+   "pdf",
+   "sticker",
+   "stickers",
+   "dot markers",
+   "paint by number",
+   "teen",
+   "sketchbook",
+   "realistic",
+   "nasa",
+   "star wars",
+   "toy story"
+  ],
+  "categories": [
+   "Children's Coloring Books",
+   "Children's Activity Books",
+   "Children's Early Learning Books"
+  ],
+  "custom_text": [
+   "30 big space pages with extra-thick lines, made for little hands. A screen-free first coloring book for ages 2 to 5.",
+   "A rocket, an astronaut, the moon and more: one big picture per page, each name to color, and a Great job! certificate at the end.",
+   "Your toddler's first space coloring book: friendly planets, rockets and robots, thick lines and blank backs so markers won't spoil the next page."
+  ],
+  "headlines": [
+   "Big, easy coloring books for little hands",
+   "My First coloring books for ages 2 to 5",
+   "Rockets, planets and robots for ages 2-5"
+  ]
+ }
+}

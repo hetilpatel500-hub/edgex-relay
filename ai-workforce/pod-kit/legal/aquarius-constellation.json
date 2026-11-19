@@ -1,0 +1,59 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "aquarius-constellation",
+  "kind": "pod_design"
+ },
+ "title": "Aquarius Constellation (tee, sweatshirt, mug, art print, sticker)",
+ "reviewed_at": "2026-11-06T16:27:11Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against the full-size art: gold Aquarius star chart on a round watercolor night sky, three ruffled pink carnations, purple violets with heart-shaped leaves, snowdrops at both ends, crescent moon and gold twinkles, 'Aquarius' in blue script and 'January 20 - February 18' in gold capitals. Fix made: the description first mentioned eucalyptus, which was painted out of the final art; removed before the build. Carnations and snowdrops are January birth flowers and violets February's; the star chart is a simplified stick figure of Aquarius from the stars' real positions. No best-seller, sale, free or review claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (watercolor.py, motifs.py, motifs2.py, with new carnation and violet motifs written today); no stock art, traced designs or AI image generator. Star positions are public facts drawn in our own style. Fonts Pacifico and Playfair Display are SIL OFL 1.1. Machine-drawn art may not be registrable for US copyright (Thaler v. Perlmutter)."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check): the US Class 25 AQUARIUS records found are dead (reg. 4358010 cancelled 2020; serials 90386098 and 78643689 dead). Live AQUARIUS marks found cover software, toys and other services. EUIPO 019100555 covers clothing in the EU only: EU sales would need care, and the EU shipping decision is already open with the owner (owner_actions/etsy-eu-gpsr-decision). A 2025 US image application (serial 99282924) lists mugs and shirts but its wording couldn't be confirmed; recommend the owner check it in USPTO TSDR before listing. 'Aquarius' is used descriptively as the buyer's star sign with its dates. No brands in titles or tags. Search-engine screen only; tmsearch.uspto.gov is blocked from our sessions."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description carries the production-partner disclosure. Titles are 140 characters or fewer (sweatshirt title shortened from 144) and every listing has 13 unique tags of 20 characters or fewer (build.py checked). Astrology is sold as decor and gifts only; no predictions or claims."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Adult sizes; not made or marketed for children ('nursery zodiac art' tag on the print describes room decor, not a children's product)."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [
+  "Quality Bar: first preview had spiky, fan-like carnations, hidden snowdrops, long twig-like eucalyptus and stems running into the dates. Carnation redrawn as a ruffled dome over a calyx; snowdrops moved to the outer ends; eucalyptus replaced by two more violets; stems shortened. Full-size check: violet stems showed through the translucent lower petal and a dark square sat where each carnation stem met its calyx; both fixed. Sky seed changed (37 to 44) for a more even night sky.",
+  "Copy: eucalyptus removed from the description to match the art; sweatshirt title shortened to 134 characters."
+ ],
+ "research_ref": "pod-kit/research/2026-11-06-aquarius.json",
+ "decision_ref": "pod-kit/decisions/2026-11-06-pod-aquarius.json"
+}

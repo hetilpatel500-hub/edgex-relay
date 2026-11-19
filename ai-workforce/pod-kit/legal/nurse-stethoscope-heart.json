@@ -1,0 +1,67 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "nurse-stethoscope-heart",
+  "kind": "pod motif design (tee, sweatshirt, mug, art print, sticker)"
+ },
+ "title": "Nurse Stethoscope Heart: watercolor 'Nurse' design (4500 x 5400 transparent PNG), shirt mockups and listings",
+ "reviewed_at": "2026-11-17T16:36:38Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions from the product table. The trademark screen is a web screen, not a clearance. Queue note: item 10 (nurse) from the list of more best sellers under the gift-category table; motif day (Nov 16 was a pattern)."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against the full-size PNG: teal tubing curled into a heart, silver ear tubes with dark ear tips, a silver chestpiece, pink and peach garden roses, a pink carnation, purple violets, rose leaves tucking under the tubing, pink hearts, gold sparkles, and 'Nurse' in deep teal script are all there; nothing named is missing. 'No name, unit or year' is true. No claims of sales, reviews, 'best seller', medical endorsement, quality guarantees or 'free'."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data; no names, hospitals, units or dates on the art."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (design.py, watercolor.py, and the stethoscope motif written today in motifs2.py; flowers from the existing garden_rose, carnation, violet and rose_leaves motifs). A stethoscope bent into a heart is a common, unprotectable idea; ours is drawn from a parametric heart with our own yoke, binaurals and chestpiece, and differs from the Zazzle floral stethoscope and stethoscope-heart tumblers (bouquet inside the heart, different layout, lettering and medium). Pacifico is an Open Font License font already used in other designs. Purely machine-made images can't be registered for US copyright; the design is composed by the agents and drawn by our code, noted as usual."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check): NIGHT SHIFT BY SCRUBIN UNIFORMS (Reg. 5027941) and a NIGHTSHFT class 25 application exist, so 'Night Shift' is not used anywhere. NURSE 4EVER (Reg. 7161252) is a different phrase with NURSE disclaimed; THE NURSE NURTURER heart-and-stethoscope design is class 41 and abandoned. 'Nurse' alone is the generic name of the buyer's job. No stethoscope maker's name, shape cue or logo in the art, title or tags. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the delivery page's standard description carries the production-partner disclosure and says the art is digitally painted by the studio. Titles are 131 (tee), 122 (sweatshirt), 133 (mug), 129 (art print) and 122 (sticker) characters (limit 140); 13 tags each, all 20 characters or fewer and all different within each set. 'RN shirt' and 'nurse appreciation' describe the buyer and the occasion, not an affiliation with any nursing body; no 'Nurses Week' official mark or logo is used."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Apparel and drinkware for adults (nurses and nursing students); not made or marketed for children."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Stethoscope colors first painted too dark (teal read as dark green, pink as crimson); lightened.",
+  "The two lobes overlapped at the heart's point and left a dark blotch; the second lobe now tucks behind the first tube.",
+  "The yoke showed the binaurals and tube ends through it; it is painted first now and both go behind it.",
+  "The bouquet was sparse and the leaf stalks showed through the roses; the flowers are now larger, overlap, and the leaves start under the blooms and tuck under the tubing.",
+  "Dropped a lily-of-the-valley spray whose small white bells read as paper scraps at shirt size."
+ ],
+ "owner_notes": [
+  "Optional: run a USPTO search on NURSE with a stethoscope heart for class 25 and 21 before listing; this was a web screen only.",
+  "December pinning ceremonies and Christmas make this most useful if Printify writes are allowed soon."
+ ],
+ "research_ref": "pod-kit/research/2026-11-17-nurse-stethoscope-heart.json",
+ "decision_ref": "pod-kit/decisions/2026-11-17-pod-nurse-stethoscope-heart.json"
+}

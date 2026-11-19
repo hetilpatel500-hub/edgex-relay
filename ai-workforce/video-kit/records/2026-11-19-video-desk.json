@@ -1,0 +1,169 @@
+{
+ "note": "Office DB is full (100 MB, creates refused since 2026-11-05), so the video desk's videos, decision and collabs docs for this run are filed here.",
+ "videos": [
+  {
+   "doc_id": "2026-11-19-spy-tape",
+   "date": "2026-11-19",
+   "series": "spy-tape",
+   "topic": "SPY Thu Nov 19: gap up 1.01% (open 737.54 vs Wed close 730.20), gap filled in the 10:30 ET bar, low 715.65 at 3:05 ET, close 715.87 (-1.96% on the day, -2.94% from the open), range $24.25; 12:20 ET bar +$4.85 on ~1.7x median volume",
+   "title": "SPY Thursday Nov 19: gapped up 1.01%, then filled it",
+   "artifact": "https://claude.ai/artifact/76wqY4D4zpdRLeBz3PcsD9",
+   "files": [
+    "Edgex_spy_2026-11-19_9x16.mp4",
+    "Edgex_spy_2026-11-19_16x9.mp4"
+   ],
+   "seconds": 44.96,
+   "legal_review": "video-kit/legal/2026-11-19-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-19T22:11:25Z",
+   "emailed": "gmail:1a1f5dd3f8934aa0"
+  },
+  {
+   "doc_id": "2026-11-19-myth-ex-dividend",
+   "date": "2026-11-19",
+   "series": "myth-fact",
+   "topic": "Buying before the ex-dividend date isn't free money: own it before the ex-date to get the dividend (SEC/Investor.gov); the price tends to fall by about the dividend (Investor.gov); median U.S. large-cap fell ~90% of its dividend on the ex-date, ~1 in 5 rose (Nasdaq analysis); MSFT $0.98 quarterly, ex/record Nov 19, 2026 (Microsoft release; 24/7 Wall St), 0.19% of the $507.31 Nov 18 close (Webull); $100/$1 made-up example",
+   "title": "Myth: buying before the ex-dividend date is free money",
+   "artifact": "https://claude.ai/artifact/76wqY4D4zpdRLeBz3PcsD9",
+   "files": [
+    "Edgex_myth-ex-dividend_2026-11-19_9x16.mp4"
+   ],
+   "seconds": 56.82,
+   "legal_review": "video-kit/legal/2026-11-19-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-19T22:11:25Z",
+   "emailed": "gmail:1a1f5dd3f8934aa0"
+  },
+  {
+   "doc_id": "2026-11-19-quiz-guess-chart-amd",
+   "date": "2026-11-19",
+   "series": "quiz",
+   "topic": "Guess the chart: AMD Nov 19, 2026 regular session (Webull 5-min): high 555.01 (9:50 ET bar), low 470.56 (10:50 ET bar, -15.22% from the high), close 489.19 (-7.72% vs 530.14), market value $802B; Mag 7 all down (AMZN -3.87% worst, AAPL -0.92% least); no reasons given",
+   "title": "Guess the chart: this $802B stock fell 7.72% today",
+   "artifact": "https://claude.ai/artifact/76wqY4D4zpdRLeBz3PcsD9",
+   "files": [
+    "Edgex_quiz-guess-chart-amd_2026-11-19_9x16.mp4"
+   ],
+   "seconds": 40.8,
+   "legal_review": "video-kit/legal/2026-11-19-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-19T22:11:25Z",
+   "emailed": "gmail:1a1f5dd3f8934aa0"
+  }
+ ],
+ "last_touch": {
+  "by": "video-last-touch",
+  "verdict": "cleared",
+  "checks": {
+   "video-fact-checker": "Every on-screen and spoken number matched raw/ or a named source (factcheck.py: 0 unmatched). SPY: raw/spy_m5.json, 78 regular-session bars on Nov 19 (open 737.54; gap filled in the 10:30 ET bar, the first to trade at Wednesday's 730.20 close from raw/daily.json; 12:20 ET bar 719.46 to 724.31 on 1,161,974 shares vs a 689,636 median; low 715.65 at 3:05 ET; high 739.90 at 9:30 ET; close 715.87). The 3:50 ET bar's 731.87 high is about 14 points above its open and close (no other bar's upper wick is above about 1.3 points); it isn't in any stat, and the caption names it. AMD: raw/amd_m5.json (78 bars, 9:30 to 3:55 ET) and raw/snapshot.json agree on high 555.01, low 470.56 and close 489.19; -7.72% vs 530.14; market value $802.3B. Mag 7 day changes from raw/snapshot.json. Myth: Investor.gov (SEC) and a Nasdaq.com article on ex-dividend dates found by web search; neither page could be fetched from this environment (DNS), so the video paraphrases them and quotes neither. Microsoft's $0.98 dividend with a Nov 19 record and ex date is in Microsoft's Sept 2026 release and 24/7 Wall St (Nov 13, 2026); Webull's MSFT yield field (0.7867% at $498.30 = $3.92 a year) matches 4 x $0.98. The payment date is left out because sources disagree.",
+   "copyright-compliance-reviewer": "Own renders only: data visuals and text cards, Kokoro voice (Apache-2.0), synthesized music, OFL fonts. Investor.gov and Nasdaq are paraphrased and credited; no quotes, logos or third-party footage.",
+   "content-policy-reviewer": "No trade calls, targets or predictions; 'Educational only. Not financial advice.' on all three outros and captions. The myth video teaches dividend mechanics and says nothing about buying or selling around an ex-date. AMD's and SPY's drops get no reason, and the quiz says why.",
+   "defamation-harassment-screen": "No person named. Companies appear only with Webull data, their own release, or credited reporting.",
+   "video-brand-tone-final-check": "Review sheets checked for all four cuts after the fixes: no clipped or overlapping text, numbers readable at phone size, brand bar on every card. Fixes: Myth vs Fact: trimmed the voiceover (178 to about 160 words) so the video runs under 60 seconds; the first cut was 62.5 s. Myth vs Fact: shortened the hook's subline, which touched the right edge. Guess The Chart: price-axis labels rounded to whole dollars ($554 / $475), replacing a '$474.9' label. The SPY Tape: caption now says the thin spike at 3:50 ET is one 731.87 high in Webull's 3:50 bar (open 717.14, close 717.56); the data is unchanged. Myth vs Fact: the Nasdaq source is labeled 'Nasdaq.com: ex-dividend dates article', because its title couldn't be confirmed (page wouldn't load here). Specs: 45.0, 45.0, 56.8, 40.8 s, all under 60 s; files 11.07, 12.34, 12.86, 10.30 MB, all under 15 MB; h264 + aac, 1080x1920 (and 1920x1080 for the SPY wide cut); mean volume -20.9 to -20.1 dB.",
+   "publish-coordinator-video": "Private page with Save buttons published; email sent to the owner only. Nothing posted."
+  }
+ },
+ "decision": {
+  "doc_id": "2026-11-19-video-desk",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-19T22:10:28Z",
+  "reason": "Legal verdict cleared (all ten counsel), Video Last Touch cleared. Rotation: spy-tape (market), myth-fact (teaching), quiz (interactive) are three different rows, and none ran Wed Nov 18 (earnings-breakdown, explainer, studio). spy-tape ran Mon Nov 16, so this is its second run this week, the most rule 3 allows; it also qualifies as an unusual day (SPY -1.96%, a 1.01% gap). Last runs: myth-fact and quiz Nov 17. No topic repeats within 30 days: earlier myths were day trading, stock splits, best days, loss-recovery math, Veterans Day hours and share price vs size, so this is the first dividend video; earlier quizzes were 'guess which' rankings, so this is the first 'guess the chart'. AMD was also the Nov 13 quiz answer (a four-day +30% rally); today's is a different event (a one-day 15% peak-to-low drop), noted so the next quiz picks another stock. Delivered to the owner only; nothing posted."
+ },
+ "collabs": {
+  "doc_id": "2026-11-19-video-desk",
+  "created": "2026-11-19T22:11:25Z",
+  "members": [
+   "video-trend-scout",
+   "commentary-scriptwriter",
+   "hook-writer",
+   "video-fact-checker",
+   "voiceover-tts-agent",
+   "video-editor-agent",
+   "copyright-compliance-reviewer",
+   "content-policy-reviewer",
+   "defamation-harassment-screen",
+   "video-brand-tone-final-check",
+   "publish-coordinator-video",
+   "instagram-reels-agent",
+   "facebook-video-agent",
+   "general-counsel-agent",
+   "advertising-consumer-protection-counsel",
+   "email-anti-spam-compliance-counsel",
+   "privacy-data-protection-counsel",
+   "copyright-fair-use-counsel",
+   "trademark-brand-clearance-counsel",
+   "financial-content-compliance-counsel",
+   "platform-terms-policy-counsel",
+   "kids-content-coppa-counsel",
+   "contracts-commercial-terms-counsel",
+   "chief-of-staff"
+  ],
+  "log": [
+   {
+    "agent": "video-trend-scout",
+    "line": "Thursday set: The SPY Tape (market; second this week, SPY -1.96%), Myth vs Fact on buying before the ex-dividend date (teaching; Microsoft went ex today), Guess The Chart on AMD's -7.72% day (interactive). None ran Wed Nov 18."
+   },
+   {
+    "agent": "commentary-scriptwriter",
+    "line": "SPY script from prep.py; myth and quiz written from saved Webull bars and snapshots plus Investor.gov, Nasdaq, Microsoft and 24/7 Wall St (via web search)."
+   },
+   {
+    "agent": "hook-writer",
+    "line": "Hooks: 'SPY gapped up 1.01%. The gap filled at 10:30.', 'Myth: buy before the ex-dividend date. Free money.', 'This $802B stock fell 7.72% today.'"
+   },
+   {
+    "agent": "video-fact-checker",
+    "line": "factcheck.py: 0 unmatched numbers; SPY story traced to raw bars; AMD high/low/close agree between bars and snapshot; MSFT $0.98 x 4 matches Webull's yield field."
+   },
+   {
+    "agent": "voiceover-tts-agent",
+    "line": "Kokoro am_michael voice for all three."
+   },
+   {
+    "agent": "video-editor-agent",
+    "line": "Rendered the SPY tape (9:16 and 16:9) with make.py and two 9:16 scene videos with make_scenes.py."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "Cleared, all ten counsel on file in video-kit/legal/2026-11-19-video-desk.json."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved; delivered to the owner only."
+   },
+   {
+    "agent": "publish-coordinator-video",
+    "line": "Page https://claude.ai/artifact/76wqY4D4zpdRLeBz3PcsD9; email gmail:1a1f5dd3f8934aa0."
+   }
+  ]
+ },
+ "agents_updated": [
+  "video-trend-scout",
+  "commentary-scriptwriter",
+  "hook-writer",
+  "video-fact-checker",
+  "voiceover-tts-agent",
+  "video-editor-agent",
+  "copyright-compliance-reviewer",
+  "content-policy-reviewer",
+  "defamation-harassment-screen",
+  "video-brand-tone-final-check",
+  "publish-coordinator-video",
+  "instagram-reels-agent",
+  "facebook-video-agent",
+  "advertising-consumer-protection-counsel",
+  "email-anti-spam-compliance-counsel",
+  "privacy-data-protection-counsel",
+  "copyright-fair-use-counsel",
+  "trademark-brand-clearance-counsel",
+  "financial-content-compliance-counsel",
+  "platform-terms-policy-counsel",
+  "kids-content-coppa-counsel",
+  "contracts-commercial-terms-counsel",
+  "chief-of-staff"
+ ],
+ "agents_not_updated": {
+  "general-counsel-agent": "Status 'blocked' on another desk's dental pilots (needs_attorney); not overwritten."
+ }
+}

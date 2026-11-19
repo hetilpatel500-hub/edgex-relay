@@ -1,0 +1,64 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "lovebirds-and-roses",
+  "kind": "pod pattern design (wrap mug, accent mug)"
+ },
+ "title": "Lovebirds & Roses: all-over watercolor mug wraps (2700 x 1120, 2475 x 1155, 2475 x 1275), mockups and listings",
+ "reviewed_at": "2026-11-12T16:37:35Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions. The trademark screen is a web search, not a clearance; the owner can run a USPTO search before listing."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against the full-size wraps: three lovebird pairs (green and aqua, gold and green, aqua and gold) with rosy peach faces on blossoming branches, a painted heart above each pair; ten garden roses in pink and deep rose with leaves; lavender, pink and golden flowers; red berries; small hearts and gold sparkles on cream, all the way around. 'Eucalyptus' was taken out of the description because the final placement left none on the wraps. 'Matching mugs' is offered as buying two of the same design, which is true; no set is claimed. No sale, best-seller, review or result claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data; the design has no names or dates on purpose."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (pattern.py, watercolor.py, motifs2.py with a new lovebirds motif written today; garden_rose, rose_leaves, wildflower, daisy, berries and heart from the kit). No stock art, traced designs or AI image generator. The Dean Crouser lovebird mugs found in research were not used as a reference: different birds, pose, palette and layout (theirs is one scene, ours an all-over repeat). Purely machine-made art may not be registrable for US copyright, so others may be able to copy it."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check): US LOVEBIRDS marks found are cosmetics (Class 3) and all dead (Coty 77789203 abandoned 2012, Coty reg. 4446806 cancelled 2020, Daniela Gozlan 97191860 dead); a 1994 LOVE BIRDS Class 21 application was abandoned. A Lithuanian national LOVE BIRDS registration covers Class 21 and 25 in Lithuania only. The art has no lettering, and 'lovebirds' and 'love birds' are used only to describe the birds pictured. Tags name no brands; 'his and hers mug' is a generic phrase. tmsearch.uspto.gov is blocked from our sessions."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description carries the production-partner disclosure and says the art is digitally painted by the studio. Titles are 124 and 114 characters (140 max) and each listing has 13 unique tags of 20 characters or fewer (build.py checked). No personalisation is offered, so no per-order artwork promise is made."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Drinkware for adults; not made or marketed for children."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Description: 'eucalyptus' removed and 'golden flowers, red berries and gold sparkles' added so it matches what the final wraps show.",
+  "Delivery page: the description copy box carried the apparel text (fabric, direct-to-garment, size chart, wash inside out) and the publishing steps spoke of shirts; build.py now gives pattern designs the mug details and care that Printify listings use, the accent mug's own title and tags, and mug upload steps."
+ ],
+ "owner_notes": [
+  "Optional: run a USPTO search on LOVEBIRDS for mugs before listing; this was a web screen only.",
+  "A Lithuanian LOVE BIRDS registration covers drinkware there; if the shop ships to Lithuania, the owner may want to know."
+ ],
+ "research_ref": "pod-kit/research/2026-11-12-lovebirds-and-roses.json",
+ "decision_ref": "pod-kit/decisions/2026-11-12-pod-lovebirds-and-roses.json"
+}

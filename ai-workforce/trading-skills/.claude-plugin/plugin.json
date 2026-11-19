@@ -1,0 +1,11 @@
+{
+  "name": "edgex-trading-skills",
+  "displayName": "Edgex Trading Skills",
+  "version": "0.1.0",
+  "description": "Twelve read-only day-trading research skills: chart scanner, news and event checks, market context, entry and exit planning, a calibrated time machine that replays the rest of the day thousands of times, backtests with luck checks, position sizing and a paper-trade journal. Analysis only: a hook blocks every order tool while the plugin is enabled.",
+  "author": {
+    "name": "Edgex"
+  },
+  "license": "MIT",
+  "keywords": ["trading", "stocks", "backtesting", "monte-carlo", "risk", "day-trading", "research"]
+}

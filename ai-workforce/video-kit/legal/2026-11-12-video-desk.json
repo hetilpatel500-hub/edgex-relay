@@ -1,0 +1,88 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "videos",
+  "date": "2026-11-12",
+  "kind": "video_set"
+ },
+ "title": "Video desk, Thu Nov 12 set: Earnings This Week (Nov 17-19), Explained (gap fill), AI This Week",
+ "reviewed_at": "2026-11-12T22:13:33Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file after reviewing the three 9:16 review sheets, report.json spoken text, titles, captions and sources. Defamation screen: earnings dates and estimates come from Webull and Nvidia's own Oct 28 release; gap figures from Webull bars; each AI story is reported by three or four outlets dated within 14 days. No reason is given for any price move. The one person named, OpenAI's Adam Fry, is quoted only for a figure he gave publicly, attributed to OpenAI, with the caveat that the method isn't published. A same-week Nvidia leadership story was left out on purpose: it is still developing and includes unproven claims about a person. Nothing commits the owner; delivery is to the owner only. AI review, not legal advice."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Every number traces to a saved raw response or a named source: earnings dates, quarters and consensus estimates to raw/get_stock_earnings_calendar_*.json; Nvidia's Nov 17 date and call time to its Oct 28 release; last quarter's $96.2B vs $92.2B to the NVDA earnings record; QQQ, SPY and AMD gaps, fill bars, lows and closes to the saved daily and 5-minute bars. AI stories: the ChatGPT one-fifth figure is presented as OpenAI's own claim; GDPx's 206 tasks, 11 fields and 12% top score match SemiAnalysis; the Anthropic $70 to $78 range is called expected with the final price not set. The AI caption discloses that the studio uses Anthropic's Claude and that the video isn't sponsored. Outros say 'Follow for more' with no schedule promise."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery email goes to the owner only."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data. The only person named is a company executive speaking publicly in his job; no private person is named and the owner isn't named or shown."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Visuals are drawn from data by the kit's renderer; the voice is Kokoro-82M (Apache-2.0); music is synthesized per video by music.py; fonts are Inter, Space Grotesk and JetBrains Mono (SIL OFL). News is stated in our own words with outlets credited; no quotes beyond a short figure, no logos, footage, screenshots or third-party images."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Nvidia, Walmart, TJX, Palo Alto Networks, Intuit, QQQ, SPY, AMD, OpenAI, ChatGPT, Google, SemiAnalysis, GDPx, Anthropic, Claude, Nasdaq and Webull are named only to refer to them (nominative use); no logos, nothing suggests endorsement. Series names are generic. Hashtags are generic. No USPTO search needed: no new brand or series name."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "pass",
+   "note": "'Educational only. Not financial advice.' is on screen at the end of all three videos and in all three captions. No buy or sell calls, no targets, no predictions of beats or misses; the earnings video says 'No predictions here.' The gap video says a gap alone doesn't tell you whether it fills and gives no reason for any move. The IPO item states the expected range and that the price isn't final, with no suggestion to buy; the caption discloses the studio's use of Claude."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Synthetic TTS narration over data charts and text cards; no realistic depiction of real people or events. Meta asks for a label on AI-generated audio, so turn on 'AI info' on Instagram and Facebook. Titles match the content; the AI title frames the one-fifth figure as OpenAI's claim."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "General-audience content, not directed to children; no child shown, no child's data. Mark 'not made for kids' where a platform asks."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "pass",
+   "note": "No paid tools, licensed assets or third-party agreements. Webull data is read-only and used for commentary. No sponsorship from any company named; the studio's use of Claude is a normal paid subscription, not a deal."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "The ChatGPT story first gave the Big Technology interview a Nov 3 date; outlets disagree on when and where the figure was first shared, so the date was removed and only Siècle Digital's Nov 4 report keeps a date.",
+  "The earnings hook said 'EARNINGS THIS WEEK' above '5 big reports next week'; the kicker now says 'EARNINGS WEEK · NOV 17-19'.",
+  "Added a disclosure to the AI caption: the studio uses Anthropic's Claude and the video isn't sponsored (the video covers Anthropic's IPO and a Claude model's top score).",
+  "Home Depot, Lowe's and Target were left off the earnings calendar: Webull's records for them showed reported results on future dates, so their dates couldn't be trusted.",
+  "Gap video: the AMD 'no fill' label ran off the right edge of the bar chart; that scene is now a two-column table (gap at the open, filled or not).",
+  "Gap video: the QQQ line started at the first 5-minute close (683.70), so the 680.32 open named in the title never showed; Thursday's open is now the second point.",
+  "Gap video: the hook said 'By 10:55, it was back', but the fill happened inside the 10:55 to 11:00 bar; it now says 'By 11:00'.",
+  "A same-week Nvidia leadership story was not covered: it is still developing and includes unproven claims about a person. The gap explainer uses QQQ, SPY and AMD instead of NVDA."
+ ],
+ "posting_notes": [
+  "Instagram and Facebook: turn on the 'AI info' label (synthetic narrator voice).",
+  "The gap explainer describes Thursday Nov 12 ('today'); post it Friday at the latest or change 'today' in the post text to 'Thursday'.",
+  "The earnings video says 'next week' (Nov 17 to 19); post it by Sunday Nov 15. Dates are expected dates from Webull except Nvidia's, which Nvidia confirmed.",
+  "The AI video's IPO price range may change before pricing; post it this week, and don't add a price or 'buy' language in the post text. Keep the Claude disclosure in the caption.",
+  "Don't add reasons for any move, or anything about the Nvidia leadership story, in the post text."
+ ],
+ "excluded": [
+  "Nvidia leadership story (developing; unproven claims about a person)",
+  "HD, LOW, TGT earnings dates (Webull records inconsistent)"
+ ],
+ "last_touch_ref": "video-kit/records/2026-11-12-video-desk.json#last_touch",
+ "decision_ref": "video-kit/records/2026-11-12-video-desk.json#decision",
+ "videos": {
+  "earnings-week-1117": {
+   "seconds": 41.73
+  },
+  "gap-fill-explainer": {
+   "seconds": 53.75
+  },
+  "ai-week-1112": {
+   "seconds": 54.87
+  }
+ }
+}

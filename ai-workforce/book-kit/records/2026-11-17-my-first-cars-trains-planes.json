@@ -1,0 +1,111 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the book desk's books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-cars-trains-planes",
+  "title": "My First Cars, Trains & Planes Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Cars, Trains & Planes (vehicles)",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-cars-trains-planes.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/BfTvK3Sjb1JPmdNLxrYKff",
+  "created": "2026-11-17T14:56:53Z",
+  "emailed": "Gmail message 1a1ea02749f5a011 to the owner, 2026-11-17"
+ },
+ "decision": {
+  "doc_id": "2026-11-17-book-my-first-cars-trains-planes",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-17T14:55:46Z",
+  "reason": "Legal verdict cleared at 2026-11-17T14:55:46Z (all ten counsel; trademark web screen on file; drawing fixes made before the build). Planned rotation has ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it; the 'Things That Go' title was avoided because it exists. Build checks passed (64 pages, cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-cars-trains-planes.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-17-book-my-first-cars-trains-planes",
+  "created": "2026-11-17T14:56:53Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation is finished; picked vehicles (no book, record or DB books doc has it), left out trucks (the owner's own Trucks book) and every vehicle already drawn elsewhere in the series (toy car, toy train, sailboat, submarine, rocket, safari truck, camper, tractor and more)."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched titles: 'My First Things That Go Coloring Book' and Peter Pauper's 'My 1st Coloring Book: Things That Go!' exist, so the title became 'My First Cars, Trains & Planes Coloring Book'; no book has that title (nearest: Jupiter Kids' 'Cars, Trains, and Planes Coloring Book')."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 subjects in art/vehicles.js: 9 on the road, 6 on rails and cables, 7 in the air and 8 on the water, all with smiling faces and no maker's badges or liveries."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Line and color sheets reviewed at full size; fixed the race car's stray numeral, the school bus knob, the police star hidden by a wheel, the motorcycle's floating seat, the lollipop-looking ice cream cone, the tiny speedboat and the rowboat face on the plank line."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, a description in four groups that match the 30 pages (9 + 6 + 7 + 8) and 7 keywords of 45 characters or fewer, with no brand names or other titles."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 41 negatives; added disney, pixar, lightning mcqueen, thomas the tank engine, paw patrol, hot wheels and lego negatives so ads stay off franchise searches."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Ad texts 134, 130 and 115 characters, headlines 41, 39 and 35; shortened the A+ title so it no longer wraps behind the cards; build.js checks passed."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages; cover 17.3941 x 11.25 in matches KDP's formula; background reaches every page edge; cover wrap, page previews and both A+ images checked; the bubble-letter B in School Bus is the Fredoka font's own shape, same as earlier books."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "pass: All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishin..."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "pass: Description, back cover, A+ points and ad texts checked against the built book: 30 subjects in four groups (9 road + 6 rails and cables + 7 air + 8 water) exactly as listed, 64 pages, blank backs, name labels and the 'Gr..."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: No commercial email. The delivery goes only to the owner."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: No personal data in the book, listing or ads kit; the 'This book belongs to' line collects nothing."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "pass: Art is original vector drawing in art/vehicles.js; line and color contact sheets reviewed at full size. Generic vehicles only: no car maker's shape, grille, badge or name, no airline or rail livery, no cruise or ferry li..."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "pass: Web search only (USPTO is unreachable from this environment). No book is titled 'My First Cars, Trains & Planes Coloring Book'; nearest are 'Cars, Trains, and Planes Coloring Book' (Jupiter Kids), Dover's 'Things That Go..."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "n/a: No money content."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "pass: KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover matches the metadata title; 7 keywords of 45 characters or fewer, no brands, no 'bestseller' or 'free' styl..."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "pass: General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no crashes, no one in danger, no flashing-light or siren claims, the police car and ambulance just smile, and the..."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved with the cleared legal verdict; delivery to the owner only, no KDP publishing, ads or prices."
+   },
+   {
+    "agent": "publish-coordinator",
+    "line": "Published the private delivery page (https://claude.ai/artifact/BfTvK3Sjb1JPmdNLxrYKff) with all eight files and emailed the owner (Gmail 1a1ea02749f5a011)."
+   }
+  ]
+ }
+}

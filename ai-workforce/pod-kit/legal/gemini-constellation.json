@@ -1,0 +1,59 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "gemini-constellation",
+  "kind": "pod_design"
+ },
+ "title": "Gemini Constellation (tee, sweatshirt, mug, art print, sticker)",
+ "reviewed_at": "2026-11-10T16:28:36Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions. Taurus was held at the screen and waits for the owner with Libra, Sagittarius, Pisces and Aries."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against the full-size art: gold Gemini star chart on a round watercolor night sky, three pink garden roses (one with a rosebud) with toothed rose leaves, two lily of the valley stems with white bells and broad ribbed leaves, a crescent moon and gold twinkles, 'Gemini' in blue script and 'May 21 - June 20' in gold capitals. Lily of the valley is May's birth flower and the rose June's; the star chart is a simplified stick figure of Gemini from the stars' real positions (RA/Dec). No best-seller, sale, free or review claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (watercolor.py, motifs.py, motifs2.py, with new garden_rose, rose_leaves and lily_valley motifs and the gemini star chart written today); no stock art, traced designs or AI image generator. Star positions are public facts drawn in our own style. Fonts Pacifico and Playfair Display are SIL OFL 1.1. Machine-drawn art may not be registrable for US copyright (Thaler v. Perlmutter)."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check): no live or pending plain GEMINI word mark for apparel, mugs or prints was found; Class 25 GEMINI records found are dead or cancelled; GEMINIDJ (reg. 2556881) and EYE GEMINI (serial 98408111, pending) are different composite marks; Google's GEMINI filings are Classes 9 and 42. 'Gemini' is used descriptively as the buyer's star sign with its dates, never as a brand. No brands in titles or tags. Search-engine screen only; tmsearch.uspto.gov is blocked from our sessions, so the owner may run a USPTO search on GEMINI (Class 25) before listing."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description carries the production-partner disclosure. Titles are 140 characters or fewer (117-128) and every listing has 13 unique tags of 20 characters or fewer (build.py checked). Astrology is sold as decor and gifts only; no predictions or claims."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Adult sizes; not made or marketed for children ('nursery zodiac art' tag on the print describes room decor, not a children's product)."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [
+  "Quality Bar, preview: the first roses were dark, see-through stacked discs with their stems showing through, the lily of the valley leaves were angular and its bells too small to see. Rose stems now start below the bloom and the palette is lighter; lily leaves redrawn as smooth curved lances with ribs; bells made larger with an ink outline; separate rose-leaf sprigs that covered the dates removed, and leaves attached to the side roses pointing outward; layers reordered so the centre rose sits in front.",
+  "Quality Bar, full size: roses still read as x-ray stacks of petals and the bells as grey jelly cups with the stem showing through. Rose rebuilt with fewer, broader petals (one back, two side, one front with a lifted rim) around the spiral centre; bells painted over a white gouache base so the stem sits behind them, with cleaner pedicels, lighter shading and five bells spaced along a longer arch."
+ ],
+ "research_ref": "pod-kit/research/2026-11-10-gemini.json",
+ "decision_ref": "pod-kit/decisions/2026-11-10-pod-gemini.json"
+}

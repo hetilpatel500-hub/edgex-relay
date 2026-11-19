@@ -1,0 +1,34 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a decisions doc; pod_designs and pod_listings records are kept here too.",
+ "id": "2026-11-19-pod-just-one-more-plant",
+ "by": "chief-of-staff",
+ "created": "2026-11-19T16:34:17Z",
+ "items": [
+  "just-one-more-plant"
+ ],
+ "legal_refs": [
+  "pod-kit/legal/just-one-more-plant.json"
+ ],
+ "legal_verdict": "cleared",
+ "decision": "approved for delivery to the owner",
+ "conditions": [
+  "Printify drafts or Etsy publishing only after the owner allows Printify writes (refused by the session's permission check since Oct 6). Then 5 products (tee, sweatshirt, mug, art print, sticker), 5 listings ($1.00 if paid), inside the $3/day cap.",
+  "Step 9b (9 extra photos per listing) runs after the products exist: photos.py draws from each Printify product's print area.",
+  "Before listing: the owner may run a USPTO search on JUST ONE MORE PLANT (classes 25 and 21). 'Plant mom' and 'plant lady' stay out of the art, titles and tags."
+ ],
+ "reason": "Next queue item after the gift-category table: 12. plant lover. Motif day (Nov 18 was a pattern design). Research 20/25 (plant-gift searches peak in December; competitors are slogan shirts, clip art or single monstera leaves; a painted trio of named houseplants is rare), trademark screen clear with 'plant mom' and 'plant lady' avoided, Legal cleared at 2026-11-19T16:33:28Z; full-size PNG checked after fixes to the lettering, monstera layout, pothos leaves, snake-plant edges and pothos streaks. One design this run, for quality.",
+ "artifact": "https://claude.ai/artifact/ADZ5qhMyfcb5DjJjDHd7BD",
+ "emailed": "Gmail message 1a1f4a86741288fb to the owner, 2026-11-19",
+ "printify_read_only": "2026-11-19: 58 products, 48 with Etsy listing IDs, the same 10 Scorpio and Campfire drafts unpublished, 0 orders",
+ "pod_designs": {
+  "title": "Just One More Plant",
+  "phrase": "just one more plant",
+  "niche": "plant lovers: Christmas, birthdays and housewarmings",
+  "artifact": "https://claude.ai/artifact/ADZ5qhMyfcb5DjJjDHd7BD",
+  "thumb": "just-one-more-plant-preview.jpg (on the delivery page)",
+  "product_ids": {},
+  "created": "2026-11-19T16:34:17Z",
+  "status": "built (not on Printify: writes wait for the owner)"
+ },
+ "pod_listings": []
+}

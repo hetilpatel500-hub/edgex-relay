@@ -1,0 +1,172 @@
+{
+ "note": "Office DB is full (100 MB, creates refused since 2026-11-05), so the video desk's videos, decision and collabs docs for this run are filed here.",
+ "videos": [
+  {
+   "doc_id": "2026-11-18-nvda-q3-breakdown",
+   "date": "2026-11-18",
+   "series": "earnings-breakdown",
+   "topic": "Nvidia quarter ended Oct 25, 2026 (FY27 Q3, reported Nov 17): revenue $115.84B (+103.2% y/y), net income $65.29B (+104.6%); per $100: cost of revenue $25.18, research $6.43, sales & admin $1.47, unusual items $1.59, operating profit $65.32, net $56.36; research $7.45B",
+   "title": "Nvidia kept $56.36 of every $100 in sales last quarter",
+   "artifact": "https://claude.ai/artifact/HAsoxMxHbgbX5J26bGcyKX",
+   "files": [
+    "Edgex_nvda-q3-breakdown_2026-11-18_9x16.mp4"
+   ],
+   "seconds": 53.0,
+   "legal_review": "video-kit/legal/2026-11-18-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-18T22:23:04Z",
+   "emailed": "gmail:1a1f0c0078beb58c"
+  },
+  {
+   "doc_id": "2026-11-18-pe-ratio-explained",
+   "date": "2026-11-18",
+   "series": "explainer",
+   "topic": "P/E ratio (trailing: price / past-12-month EPS, per Schwab; Nasdaq on trailing vs forward) with Mag 7 at the Nov 18 close (Webull): TSLA 421.90, AAPL 39.25, MSFT 26.54, AMZN 21.64, META 21.01, NVDA 16.22, GOOGL 14.75; Apple example $352.45 / $8.98",
+   "title": "P/E ratio, explained: Tesla's is 421.90, Alphabet's is 14.75",
+   "artifact": "https://claude.ai/artifact/HAsoxMxHbgbX5J26bGcyKX",
+   "files": [
+    "Edgex_pe-ratio-explained_2026-11-18_9x16.mp4"
+   ],
+   "seconds": 57.03,
+   "legal_review": "video-kit/legal/2026-11-18-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-18T22:23:04Z",
+   "emailed": "gmail:1a1f0c0078beb58c"
+  },
+  {
+   "doc_id": "2026-11-18-studio-coloring-book",
+   "date": "2026-11-18",
+   "series": "studio",
+   "topic": "How one coloring book gets made (My First Helpers, Nov 18): title check ('My First Community Helpers' exists), 30 subjects (22 helpers + 8 things they use), 8 drawing fixes, 10 legal checks, 64 pages, delivered to the owner only; 10 books in 10 weekdays (Nov 5-18) per book-kit/records",
+   "title": "How our AI agents make a coloring book: 30 drawings, 8 fixes, 10 checks",
+   "artifact": "https://claude.ai/artifact/HAsoxMxHbgbX5J26bGcyKX",
+   "files": [
+    "Edgex_studio-coloring-book_2026-11-18_9x16.mp4"
+   ],
+   "seconds": 55.92,
+   "legal_review": "video-kit/legal/2026-11-18-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-18T22:23:04Z",
+   "emailed": "gmail:1a1f0c0078beb58c"
+  }
+ ],
+ "last_touch": {
+  "by": "video-last-touch",
+  "verdict": "cleared",
+  "checks": {
+   "video-fact-checker": "Every on-screen and spoken number matched raw/ or the book records (factcheck.py: 0 unmatched). Nvidia: raw/get_income_statement_0.json, quarter ended Oct 25, 2026 (published Nov 17): revenue $115.844B, cost of revenue $29.168B, research $7.454B, sales & admin $1.702B, unusual items $1.846B, operating income $75.674B, net interest +$4.871B and other -$1.528B, tax $13.730B, net income $65.287B; year-ago quarter (ended Oct 26, 2025) revenue $57.006B, net income $31.910B; per-$100 figures rounded to the cent (the five bars sum to $99.99, noted as rounded). P/E: raw/get_stock_snapshot_0.json pe_ratio for all seven, each re-derived as price / eps_ttm (Apple 352.45 / 8.9791 = 39.25; Tesla 383.72 / 0.9095 = 421.90). Definition: Charles Schwab (trailing P/E = price / EPS over the previous 12 months) and Nasdaq (trailing 12-month version most popular; forward uses estimates), both found by web search; Investor.gov could not be fetched from this environment, so it isn't cited. Studio: book-kit/records 2026-11-05 to 2026-11-18 (10 books, each 30 subjects and 64 pages, all delivered and approved) and today's record (22 helpers + 8 things they use; 8 drawing fixes, 4 shown with the record's own wording; the 'My First Community Helpers' title found by the market-research agent; ten legal checks; no publishing, prices or ads).",
+   "copyright-compliance-reviewer": "Own renders only: data visuals and text cards, Kokoro voice (Apache-2.0), synthesized music, OFL fonts. The P/E definition is paraphrased and credited; no book art is shown in the studio video.",
+   "content-policy-reviewer": "No trade calls, targets or predictions; 'Educational only. Not financial advice.' on the Nvidia and P/E outros and captions. The P/E video makes no claim that any stock is cheap or expensive. Nvidia's stock move today isn't mentioned, and no reason is given for anything.",
+   "defamation-harassment-screen": "No person named. Companies appear only with their own reported figures and Webull data.",
+   "video-brand-tone-final-check": "Review sheets checked for all three after the fixes: no clipped or overlapping text, numbers readable at phone size, brand bar on every card. Specs: 53.0, 57.0, 55.9 s, all under 60 s; files 13.51, 12.85, 13.67 MB, all under 15 MB; h264 1080x1920 + aac; mean volume -20.4 to -21.2 dB.",
+   "publish-coordinator-video": "Private page with Save buttons published; email sent to the owner only. Nothing posted."
+  }
+ },
+ "decision": {
+  "doc_id": "2026-11-18-video-desk",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-18T22:20:23Z",
+  "reason": "Legal verdict cleared (all ten counsel), Video Last Touch cleared after three fixes and a re-render. Rotation: earnings-breakdown (market), explainer (teaching), studio (news/interactive) are three different rows, and none ran Tue Nov 17 (movers, myth-fact, quiz). Last runs: earnings-breakdown Nov 13 (Palantir), explainer Nov 16 (closing auction), studio Nov 11 (what the studio made Nov 9-11). No topic repeats within 30 days: the last Nvidia breakdown covered the quarter ended Jul 26, 2026 (Sep 25); no earlier P/E explainer (past explainers: VWAP, opening range, ATR, 200-day, relative volume, gap fill, closing auction); the Nov 11 studio video was a three-day output recap, this one is one book's process. Delivered to the owner only; nothing posted."
+ },
+ "collabs": {
+  "doc_id": "2026-11-18-video-desk",
+  "created": "2026-11-18T22:23:04Z",
+  "members": [
+   "video-trend-scout",
+   "commentary-scriptwriter",
+   "hook-writer",
+   "video-fact-checker",
+   "voiceover-tts-agent",
+   "video-editor-agent",
+   "copyright-compliance-reviewer",
+   "content-policy-reviewer",
+   "defamation-harassment-screen",
+   "video-brand-tone-final-check",
+   "publish-coordinator-video",
+   "instagram-reels-agent",
+   "facebook-video-agent",
+   "general-counsel-agent",
+   "advertising-consumer-protection-counsel",
+   "email-anti-spam-compliance-counsel",
+   "privacy-data-protection-counsel",
+   "copyright-fair-use-counsel",
+   "trademark-brand-clearance-counsel",
+   "financial-content-compliance-counsel",
+   "platform-terms-policy-counsel",
+   "kids-content-coppa-counsel",
+   "contracts-commercial-terms-counsel",
+   "chief-of-staff"
+  ],
+  "log": [
+   {
+    "agent": "video-trend-scout",
+    "line": "Wednesday set: Where The Money Went on Nvidia's new quarter (market; Webull posted it after the Nov 17 report), Trading Explained on the P/E ratio with the Mag 7 (teaching), Inside The AI Studio on how one coloring book gets made (interactive/news). None of the three ran Tue Nov 17."
+   },
+   {
+    "agent": "commentary-scriptwriter",
+    "line": "Wrote all three from the saved Webull income statement and snapshots, Schwab's and Nasdaq's P/E definitions, and the book desk's own records."
+   },
+   {
+    "agent": "hook-writer",
+    "line": "Hooks: 'Nvidia kept $56.36 of every $100 in sales.', 'Tesla's P/E: 421.90. Alphabet's: 14.75.', '10 coloring books in 10 weekdays.'"
+   },
+   {
+    "agent": "video-fact-checker",
+    "line": "factcheck.py: 0 unmatched numbers; every P/E re-derived as price / trailing EPS; Nvidia's per-$100 path checked (65.32 + 2.89 - 11.85 = 56.36); studio facts matched to book-kit/records."
+   },
+   {
+    "agent": "voiceover-tts-agent",
+    "line": "Kokoro am_michael voice for all three."
+   },
+   {
+    "agent": "video-editor-agent",
+    "line": "Rendered three 9:16 scene videos with make_scenes.py, then re-rendered after the Last Touch fixes."
+   },
+   {
+    "agent": "video-brand-tone-final-check",
+    "line": "Sent back the 69.7 s Nvidia cut, the P/E hook's '40 seconds' line and the studio's crowded '64 pages' card; all fixed and re-checked."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "Cleared, all ten counsel on file in video-kit/legal/2026-11-18-video-desk.json. Its agents doc was left as is: another desk has it blocked on the dental pilots."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved; delivered to the owner only."
+   },
+   {
+    "agent": "publish-coordinator-video",
+    "line": "Page https://claude.ai/artifact/HAsoxMxHbgbX5J26bGcyKX; email gmail:1a1f0c0078beb58c."
+   }
+  ]
+ },
+ "agents_updated": [
+  "video-trend-scout",
+  "commentary-scriptwriter",
+  "hook-writer",
+  "video-fact-checker",
+  "voiceover-tts-agent",
+  "video-editor-agent",
+  "copyright-compliance-reviewer",
+  "content-policy-reviewer",
+  "defamation-harassment-screen",
+  "video-brand-tone-final-check",
+  "publish-coordinator-video",
+  "instagram-reels-agent",
+  "facebook-video-agent",
+  "advertising-consumer-protection-counsel",
+  "email-anti-spam-compliance-counsel",
+  "privacy-data-protection-counsel",
+  "copyright-fair-use-counsel",
+  "trademark-brand-clearance-counsel",
+  "financial-content-compliance-counsel",
+  "platform-terms-policy-counsel",
+  "kids-content-coppa-counsel",
+  "contracts-commercial-terms-counsel",
+  "chief-of-staff"
+ ],
+ "agents_not_updated": {
+  "general-counsel-agent": "Status 'blocked' on another desk's dental pilots (needs_attorney); not overwritten."
+ }
+}

@@ -1,0 +1,328 @@
+{
+  "id": "aquarius-constellation",
+  "name": "Aquarius",
+  "engine": 2,
+  "template": "free",
+  "top": "Aquarius",
+  "bottom": "January 20 - February 18",
+  "top_font": "Pacifico",
+  "bottom_font": "PlayfairDisplay",
+  "florals": null,
+  "palette": "lavender",
+  "colors": {
+    "sky": "#15385a",
+    "sky2": "#3d7fae",
+    "sky3": "#2b3a86",
+    "star": "#f6dc8c",
+    "star2": "#f3d58f",
+    "leaf": "#4f8358",
+    "leaf2": "#9cc08f",
+    "leaf_dark": "#2e5a3c",
+    "carn": "#e0668e",
+    "carn2": "#f7c1d2",
+    "carn3": "#b8406a",
+    "carn_leaf": "#8fb5a6",
+    "viol": "#6a4fb0",
+    "viol2": "#b9a2e6",
+    "viol3": "#3d2a75",
+    "euc": "#8fb3a8",
+    "euc2": "#c4dad2",
+    "accent": "#e2b04a",
+    "accent2": "#f3d58f"
+  },
+  "ink": "#1f3550",
+  "seed": 44,
+  "shirt_colors": [
+    "white",
+    "natural",
+    "heather_gray"
+  ],
+  "art": [
+    {
+      "motif": "violet",
+      "x": -0.305,
+      "y": 0.165,
+      "s": 0.06,
+      "angle": -0.45,
+      "stem": 0.7,
+      "leaves": 1,
+      "front": true
+    },
+    {
+      "motif": "violet",
+      "x": 0.305,
+      "y": 0.165,
+      "s": 0.06,
+      "angle": 0.45,
+      "stem": 0.7,
+      "leaves": 1,
+      "front": true
+    },
+    {
+      "motif": "snowdrop",
+      "x": -0.33,
+      "y": 0.355,
+      "s": 0.16,
+      "facing": -1,
+      "front": true
+    },
+    {
+      "motif": "snowdrop",
+      "x": -0.27,
+      "y": 0.37,
+      "s": 0.13,
+      "facing": -1,
+      "front": true
+    },
+    {
+      "motif": "snowdrop",
+      "x": 0.27,
+      "y": 0.37,
+      "s": 0.13,
+      "front": true
+    },
+    {
+      "motif": "snowdrop",
+      "x": 0.33,
+      "y": 0.355,
+      "s": 0.16,
+      "front": true
+    },
+    {
+      "motif": "violet",
+      "x": -0.235,
+      "y": 0.205,
+      "s": 0.075,
+      "angle": -0.25,
+      "stem": 0.55,
+      "front": true
+    },
+    {
+      "motif": "violet",
+      "x": 0.235,
+      "y": 0.205,
+      "s": 0.075,
+      "angle": 0.25,
+      "stem": 0.55,
+      "front": true
+    },
+    {
+      "motif": "carnation",
+      "x": -0.15,
+      "y": 0.22,
+      "s": 0.15,
+      "angle": -0.22,
+      "stem": 0.36,
+      "front": true
+    },
+    {
+      "motif": "carnation",
+      "x": 0.15,
+      "y": 0.22,
+      "s": 0.15,
+      "angle": 0.22,
+      "stem": 0.36,
+      "front": true
+    },
+    {
+      "motif": "violet",
+      "x": -0.075,
+      "y": 0.3,
+      "s": 0.068,
+      "angle": 0.1,
+      "stem": 0.45,
+      "leaves": 1,
+      "front": true
+    },
+    {
+      "motif": "violet",
+      "x": 0.075,
+      "y": 0.3,
+      "s": 0.068,
+      "angle": -0.1,
+      "stem": 0.45,
+      "leaves": 1,
+      "front": true
+    },
+    {
+      "motif": "carnation",
+      "x": 0.0,
+      "y": 0.245,
+      "s": 0.16,
+      "angle": 0.0,
+      "stem": 0.3,
+      "front": true
+    },
+    {
+      "motif": "night_sky2",
+      "x": 0.0,
+      "y": -0.06,
+      "s": 0.28
+    },
+    {
+      "motif": "constellation",
+      "x": 0.0,
+      "y": -0.04,
+      "s": 0.2,
+      "name": "aquarius"
+    },
+    {
+      "motif": "moon",
+      "x": 0.32,
+      "y": -0.22,
+      "s": 0.042
+    },
+    {
+      "motif": "twinkle",
+      "x": -0.34,
+      "y": -0.22,
+      "s": 0.026
+    },
+    {
+      "motif": "twinkle",
+      "x": 0.36,
+      "y": -0.03,
+      "s": 0.02
+    },
+    {
+      "motif": "twinkle",
+      "x": -0.37,
+      "y": 0.0,
+      "s": 0.017
+    }
+  ],
+  "lettering": [
+    {
+      "text": "Aquarius",
+      "font": "Pacifico",
+      "size": 0.17,
+      "max_w": 0.76,
+      "y": -0.44,
+      "color": "#1f4a6e",
+      "vary": "#102a45",
+      "outline": [
+        "#102a45",
+        0.0013,
+        150
+      ]
+    },
+    {
+      "text": "January 20 - February 18",
+      "caps": true,
+      "font": "PlayfairDisplay",
+      "size": 0.05,
+      "max_w": 0.7,
+      "tracking": 0.1,
+      "y": 0.45,
+      "color": "#9a6f22",
+      "vary": "#6e4c12",
+      "outline": [
+        "#5c3f0f",
+        0.001,
+        130
+      ]
+    }
+  ],
+  "listing": {
+    "title": "Aquarius Constellation Shirt, Watercolor Aquarius Zodiac Tee, January February Birth Flower Astrology Shirt, Aquarius Birthday Gift",
+    "tags": [
+      "aquarius shirt",
+      "aquarius gift",
+      "aquarius star chart",
+      "aquarius zodiac",
+      "aquarius birthday",
+      "astrology shirt",
+      "zodiac gift",
+      "celestial shirt",
+      "star sign shirt",
+      "february birthday",
+      "january birthday",
+      "violet shirt",
+      "horoscope gift"
+    ],
+    "description": "The Aquarius constellation drawn in gold stars on a round watercolor night sky, framed by the season's birth flowers: ruffled pink carnations and nodding snowdrops for January and purple violets with heart-shaped leaves for February, with a crescent moon and gold twinkles. \"Aquarius\" is painted in deep blue script on top and \"January 20 - February 18\" in gold capitals below. A birthday gift for the Aquarius in your life.",
+    "per_product": {
+      "sweatshirt": {
+        "title": "Aquarius Constellation Sweatshirt, Watercolor Aquarius Zodiac Crewneck, Winter Birth Flower Astrology Pullover, Aquarius Birthday Gift",
+        "tags": [
+          "aquarius sweatshirt",
+          "aquarius gift",
+          "aquarius star chart",
+          "aquarius zodiac",
+          "aquarius birthday",
+          "astrology crewneck",
+          "zodiac gift",
+          "celestial sweater",
+          "star sign gift",
+          "january birthday",
+          "february birthday",
+          "cozy sweatshirt",
+          "horoscope gift"
+        ]
+      },
+      "mug": {
+        "title": "Aquarius Constellation Mug, Watercolor Aquarius Zodiac Coffee Mug, January February Birth Flower Astrology Mug, Aquarius Birthday Gift",
+        "tags": [
+          "aquarius mug",
+          "aquarius gift",
+          "aquarius star chart",
+          "aquarius zodiac",
+          "aquarius birthday",
+          "astrology mug",
+          "zodiac gift",
+          "celestial mug",
+          "star sign mug",
+          "january birthday",
+          "february birthday",
+          "zodiac coffee mug",
+          "horoscope gift"
+        ]
+      },
+      "poster": {
+        "title": "Aquarius Constellation Art Print, Watercolor Aquarius Zodiac Wall Art, January February Birth Flower Astrology Print, Aquarius Gift",
+        "tags": [
+          "aquarius wall art",
+          "aquarius gift",
+          "aquarius star chart",
+          "aquarius zodiac",
+          "aquarius print",
+          "astrology print",
+          "zodiac wall art",
+          "celestial decor",
+          "star sign print",
+          "january birthday",
+          "february birthday",
+          "nursery zodiac art",
+          "horoscope gift"
+        ]
+      },
+      "sticker": {
+        "title": "Aquarius Constellation Sticker, Watercolor Aquarius Zodiac Vinyl Sticker, January February Birth Flower Astrology Sticker, Aquarius Gift",
+        "tags": [
+          "aquarius sticker",
+          "aquarius gift",
+          "aquarius star chart",
+          "aquarius zodiac",
+          "astrology sticker",
+          "zodiac sticker",
+          "celestial sticker",
+          "star sign sticker",
+          "laptop sticker",
+          "water bottle decal",
+          "violet decal",
+          "journal sticker",
+          "horoscope gift"
+        ]
+      }
+    },
+    "products": [
+      "Unisex tee (Bella+Canvas 3001)",
+      "Crewneck sweatshirt (Gildan 18000)",
+      "11 oz mug",
+      "Art print (matte poster)",
+      "Kiss-cut sticker"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table (2026-10-05 pricing review): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. Aquarius mugs found on 2026-11-06 in gift guides ran about $15-$20.94 (guide figures; may be out of date); our mug price sits in that range. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-11-06 (before any art): web searches '\"AQUARIUS\" trademark clothing class 25 USPTO live registration', '\"AQUARIUS\" trademark mugs OR t-shirts OR sweatshirts pending application 2025 2026' and the newest AQUARIUS serial (99409708). US Class 25 AQUARIUS records found are dead: reg. 4358010 (Aquarius Styles, cancelled 2020), serial 90386098 (S3W LLC, dead), serial 78643689 (Aquarius Rags, dead). Live AQUARIUS marks found cover other goods (Class 9/42 software, Class 28 toys, Class 42 services 99409708, Class 11/37 pending). An EU registration (EUIPO 019100555, 2025) covers clothing in the EU only. A 2025 US image application (serial 99282924) lists mugs, sweatshirts and t-shirts, but its wording couldn't be confirmed. No live or pending US AQUARIUS word mark for apparel, mugs or prints was found. 'Aquarius' is used descriptively, as the buyer's star sign next to its dates. Competitor brands ('Lost Gods') not used. tmsearch.uspto.gov is blocked from our sessions, so this is a search-engine screen (aggregator sites), not a clearance."
+  }
+}

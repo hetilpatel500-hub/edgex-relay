@@ -1,0 +1,71 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the book desk's books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-sports",
+  "title": "My First Sports Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Sports",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-sports.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/TKrALavZi7UqDNqw3Mba1X",
+  "created": "2026-11-06T14:57:00Z",
+  "emailed": "Gmail message 1a1b15d37d0d1dd5 to the owner, 2026-11-06"
+ },
+ "decision": {
+  "doc_id": "2026-11-06-book-my-first-sports",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-06T14:57:00Z",
+  "reason": "Legal verdict cleared (all ten counsel, trademark note on file). Last topic in the BOOK-DESK.md rotation after Music; build checks passed (64 pages, cover 17.394 x 11.25 in matches KDP's formula, full bleed). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-sports.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-06-book-my-first-sports",
+  "created": "2026-11-06T14:57:00Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Picked Sports: next in the BOOK-DESK.md rotation after Music; not in the books collection or the repo records."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched for 'My First Sports Coloring Book': no identical title; 'My First Sports' appears as a board-book series name (Kane Miller) and Twinkl has a printable pack, so the listing leans on coloring-book wording."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 balls, gear and rides in art/sports.js, 27 of them with happy faces; new tube() helper gives clean joints on frames, ropes and handles."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Two contact-sheet passes: fixed football laces, volleyball arcs, beach-ball stripes, golf dimples, tennis-ball and baseball seams near faces, sneaker laces, the sled's bench look and the goal ball."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, description in four groups that match the 30 pages (9 + 8 + 7 + 6), and 7 keywords under 50 characters; used 'Table Tennis' to avoid the Ping-Pong mark."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 23 negatives, 3 ad texts (142, 126, 140 characters) and 3 headlines with no banned claims."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Replaced an unclear description phrase; build.js listing and ad checks passed."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages; cover 17.3941 x 11.25 in matches KDP's formula; background reaches every page edge; both A+ images and the back cover checked."
+   },
+   {
+    "agent": "legal-desk (ten counsel)",
+    "line": "Cleared: MY FIRST SPORTS reg. 2745083 is cancelled; reg. 4363999 (a sports center) unconfirmed but not a publisher; phrase used descriptively by several publishers; owner may run a USPTO search; KDP category to confirm."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved for delivery to the owner with a cleared legal review."
+   }
+  ]
+ }
+}

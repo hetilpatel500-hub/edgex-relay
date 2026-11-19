@@ -1,0 +1,73 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-helpers",
+  "kind": "book"
+ },
+ "title": "My First Helpers Coloring Book: interior, cover, KDP listing and Amazon Ads kit",
+ "reviewed_at": "2026-11-18T14:54:54Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishing. Topic note: the planned rotation has ended, so Trend Scout picked community helpers under the owner's standing 'different topics' directive; no earlier book, record or DB books doc has it. Helpers already drawn elsewhere in the series (farmer, astronaut, knight) and the vehicles (police car, ambulance, school bus, the Trucks book) were left out. 'My First Community Helpers Coloring Book' and 'My First Jobs Coloring Book' already exist, so the title is 'My First Helpers Coloring Book'. The owner can swap the topic."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, back cover, A+ points and ad texts checked against the built book: 30 subjects in four groups (8 safe-and-well + 7 teach-build-fix + 7 around town + 8 things they use) exactly as listed, 64 pages, blank backs, name labels and the 'Great job!' certificate are all true. 'Every page has ... a happy face' is true: all 30 pictures have faces. Every named example in the subtitle, description, back cover, ad texts and headlines (firefighter, doctor, teacher, chef, bus driver, mail carrier, fire hydrant, toolbox, traffic cone) is in the book. No 'bestselling', review or result claims, and nothing says the book teaches a job or a skill."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit; the 'This book belongs to' line collects nothing."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/helpers.js; line and color contact sheets reviewed at full size. Generic helpers only: no real agency, department, airline, hospital or company uniform, patch, logo or name; badges are plain stars and a blank shield; the pilot's wings are a plain shape. The doctor, nurse, first aid kit and doctor's bag carry a heart instead of a red cross or star of life (protected emblems). The STOP sign is the generic traffic sign and 'ABC' on the chalkboard is plain letters. Fredoka font is SIL OFL 1.1, which allows embedding. AI-art note: purely AI-made pictures and text can't be registered for US copyright (US Copyright Office guidance; Thaler v. Perlmutter, D.C. Cir. 2025), so others may be able to copy the pages."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search only (USPTO is unreachable from this environment). No book or mark titled 'My First Helpers' or 'My First Helpers Coloring Book' turned up. 'My First Community Helpers Coloring Book' (The Little Learners Club) and a 'My First Jobs Coloring Book' printable exist, so neither title is used. 'MY FIRST ...' marks exist for specific series (e.g. MY FIRST HELLO READER!), and the series uses 'My First' descriptively as in its 23 earlier books. 'Community helpers' and 'people who help us' are generic preschool terms. Keywords, ad keywords and headlines use no brand, author or character names; Paw Patrol, Fireman Sam, Bob the Builder, Doc McStuffins, Daniel Tiger, Bluey, Sesame Street and Disney appear only as ad negatives so ads stay off franchise searches. An optional USPTO search before publishing would settle it."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover matches the metadata title; 7 keywords of 44 characters or fewer, no brands, no 'bestseller' or 'free' style terms, no other authors or titles. Categories are the three general children's paths used by earlier books; a careers or community-helpers category, if KDP's picker offers one, is left to the owner. Amazon Ads book policy: 3 custom texts (121, 120, 114 characters) and 3 headlines (41, 39, 30) with no price, sale, 'free' offer, best-seller or review claims ('screen-free' describes the activity); ad keywords are generic searches; 41 negatives."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no fire, crime, injury, needles or blood; the police officer carries nothing but a badge; the firefighter holds a hose with no fire; the lifeguard holds a ring with no one in the water. Helpers vary in hair style and, on the cover, skin tone, and no job is shown as only for boys or girls. The hairdresser's scissors are a picture to color, not a safety claim."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Working titles 'My First Community Helpers Coloring Book' and 'My First Jobs Coloring Book' already exist, so the book is titled 'My First Helpers Coloring Book'.",
+  "Doctor, nurse, first aid kit and doctor's bag drawn with a heart instead of a red cross or star of life (protected emblems); badges are plain stars and a blank shield.",
+  "Builder's hammer read as a sign; it was redrawn with a head and claw. Hairdresser's scissors read as chopsticks; they were redrawn as open scissors with two finger rings.",
+  "Traffic cone's smile crossed a stripe and the hard hat's ridge ran through its face; both faces were moved clear. The letter's stamp crowded the flap line and was removed.",
+  "Nurse's clipboard heart sat under her hand and was moved up; the pilot's badge was missing a wing; the firefighter's nozzle was enlarged.",
+  "Ad negatives add paw patrol, fireman sam, bob the builder, doc mcstuffins, daniel tiger, bluey, sesame street and disney so ads stay off franchise searches."
+ ],
+ "sources": [
+  "https://www.barnesandnoble.com/w/my-first-community-helpers-coloring-book-the-little-learners-club/1142988556",
+  "https://luxecrafteddesigns.gumroad.com/l/jgdjp",
+  "https://trademarks.justia.com/752/78/my-first-hello-75278450.html"
+ ],
+ "owner_notes": [
+  "Answer KDP's AI question Yes for images and text.",
+  "If KDP's category picker offers a children's careers or community-helpers category, it fits this book.",
+  "Optional USPTO search on the title before publishing.",
+  "Purely AI-made pages can't be registered for US copyright."
+ ]
+}

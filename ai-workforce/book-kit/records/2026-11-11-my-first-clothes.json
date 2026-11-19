@@ -1,0 +1,111 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the book desk's books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-clothes",
+  "title": "My First Clothes Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Clothes",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-clothes.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/DYPn3nCecBsn2QBvdDNCPJ",
+  "created": "2026-11-11T14:56:40Z",
+  "emailed": "Gmail message 1a1cb1c11ba7ba2e to the owner, 2026-11-11"
+ },
+ "decision": {
+  "doc_id": "2026-11-11-book-my-first-clothes",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-11T14:56:40Z",
+  "reason": "Legal verdict cleared (all ten counsel; trademark web screen on file). Planned rotation has ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it. Build checks passed (64 pages, cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-clothes.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-11-book-my-first-clothes",
+  "created": "2026-11-11T14:56:40Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation is finished; picked Clothes (no earlier book, record or subject list has it) and left out every thing-to-wear already drawn in other books (rain boots, mittens, pajamas, slippers, sneaker, cap, Santa hat and more)."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched the title: no 'My First Clothes Coloring Book' exists; nearest are 'My First Getting Dressed Copy Coloring Book' and a 'My First Clothes' first-words board book."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 clothes, shoes, hats and bags in art/clothes.js with new mirP/mirX pair helpers, tr() and heart(); 29 of 30 have smiling faces (the jacket keeps its zipper clear)."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Line and color contact sheets reviewed; fixed the gloves, whose two thumbs overlapped in the middle, and re-checked the sheet."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, a description in five groups that match the 30 pages (6 + 9 + 6 + 3 + 6) and 7 keywords of 43 characters or fewer, with no brand names (left 'Onesie' out)."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 32 negatives; swapped phrases that would match real clothes shoppers ('toddler clothes', 'getting dressed') and fashion-design terms for book-focused ones."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Kept the description's lists as 'and' so the HTML has no bare ampersand; ad texts 131, 114 and 124 characters, headlines 41, 39 and 37; build.js checks passed."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages; cover 17.3941 x 11.25 in matches KDP's formula; background reaches every page edge; back cover, previews and both A+ images checked."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "Ran the ten-counsel review: cleared, one ads fix made before the build, three owner notes (AI question Yes, optional USPTO search, confirm the third category)."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "Pass: groups, counts, faces (29 of 30) and every named example match the built book."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: owner-only email."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: no personal data."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "Pass: original vector art, no brand marks or characters, OFL font; AI-art copyright note passed on."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "Pass on a web screen: 'MY FIRST' is registered for clothing (Class 25), not books; 'MY FIRST BOOK' book filings are pending with 'BOOK' disclaimed."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "n/a: no money content."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "Pass: KDP AI disclosure Yes; keywords and ad text within KDP and Amazon Ads rules; third category to confirm."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "Pass: friendly everyday clothes, no children shown, no data collected."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: no contract or terms."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved with the cleared legal review on file; delivered to the owner only."
+   },
+   {
+    "agent": "publish-coordinator",
+    "line": "Published the private page with downloads and the 8 files, and emailed the owner once."
+   }
+  ]
+ }
+}

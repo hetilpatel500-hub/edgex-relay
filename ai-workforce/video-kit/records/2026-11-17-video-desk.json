@@ -1,0 +1,166 @@
+{
+ "note": "Office DB is full (100 MB, creates refused since 2026-11-05), so the video desk's videos, decision and collabs docs for this run are filed here.",
+ "videos": [
+  {
+   "doc_id": "2026-11-17-movers",
+   "date": "2026-11-17",
+   "series": "movers",
+   "topic": "Biggest $1B+ movers Nov 17 (SLS +156.36%, BILL +12.58%, ENR +12.57%, LUXE +11.16%, ACM +11.08%; OMER -16.55%, WWB -14.25% the only $1B+ names down more than 14%); SLS opened 24.105 (+222.69%), high 24.89, closed 19.15 (23.06% off the high); no reasons given",
+   "title": "Sellas jumped 156% today: Nov 17's biggest movers",
+   "artifact": "https://claude.ai/artifact/AmTGkSJEq8z3fKC6SAouMZ",
+   "files": [
+    "Edgex_movers-1117_2026-11-17_9x16.mp4"
+   ],
+   "seconds": 47.45,
+   "legal_review": "video-kit/legal/2026-11-17-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-17T22:12:31Z",
+   "emailed": "gmail:1a1eb917305960a0"
+  },
+  {
+   "doc_id": "2026-11-17-myth-price-vs-size",
+   "date": "2026-11-17",
+   "series": "myth-fact",
+   "topic": "Share price vs company size (market value = price x shares, SEC/Investor.gov): AMD $503.41 / $826B vs MSFT $506.24 / $3.76T (4.55x); NVDA $155.46 / $3.75T; AAPL $351.91 / $5.11T (Webull, Nov 17 close)",
+   "title": "Myth: a $500 stock is a bigger company than a $155 one",
+   "artifact": "https://claude.ai/artifact/AmTGkSJEq8z3fKC6SAouMZ",
+   "files": [
+    "Edgex_myth-price-vs-size_2026-11-17_9x16.mp4"
+   ],
+   "seconds": 51.97,
+   "legal_review": "video-kit/legal/2026-11-17-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-17T22:12:31Z",
+   "emailed": "gmail:1a1eb917305960a0"
+  },
+  {
+   "doc_id": "2026-11-17-quiz-52wk-high",
+   "date": "2026-11-17",
+   "series": "quiz",
+   "topic": "Guess which Mag 7 stock is furthest below its 52-week high at the Nov 17 close: NVDA -36.12% (high 243.37 on Oct 6, 2026), GOOGL -31.34%, TSLA -23.80%, META -20.64%, AMZN -10.21%, MSFT -9.46%, AAPL -2.47%",
+   "title": "One Mag 7 stock is 36% below its 52-week high. Guess which.",
+   "artifact": "https://claude.ai/artifact/AmTGkSJEq8z3fKC6SAouMZ",
+   "files": [
+    "Edgex_quiz-52wk-high_2026-11-17_9x16.mp4"
+   ],
+   "seconds": 41.83,
+   "legal_review": "video-kit/legal/2026-11-17-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-17T22:12:31Z",
+   "emailed": "gmail:1a1eb917305960a0"
+  }
+ ],
+ "last_touch": {
+  "by": "video-last-touch",
+  "verdict": "cleared",
+  "checks": {
+   "video-fact-checker": "Every on-screen and spoken number matched raw/ (factcheck.py: 0 unmatched, rounding from Webull's raw values). Movers from raw/gainers.json and raw/losers.json (100 each; 100th gainer +10.78%, 100th loser -14.03%, so the $1B+ lists above those lines are complete) and raw/snapshot.json for SLS. Myth: prices, share counts and market values from raw/snapshot.json; 4.55x = $3.76T / $826B; definition from SEC Investor.gov. Quiz: 52-week highs in raw/snapshot.json matched to the day in Webull daily bars for all seven (NVDA 243.37 on Oct 6, 2026). No dated reason for any mover found in two outlets, so none given.",
+   "copyright-compliance-reviewer": "Own renders only: data visuals and text cards, Kokoro voice (Apache-2.0), synthesized music, OFL fonts; the SEC definition is paraphrased and credited.",
+   "content-policy-reviewer": "No trade calls, targets or predictions; 'Educational only. Not financial advice.' on all three outros and captions; no reason given for any move.",
+   "defamation-harassment-screen": "No person named. Companies appear only with their price data; no claims about why anything moved.",
+   "video-brand-tone-final-check": "Review sheets checked for all three. Myth hook subline ran off the right edge and the AMD bar read $0.83T; fixed and re-rendered. Movers voice re-recorded with 16.5 and 14.2 (raw rounding). Specs: all under 60 s and 15 MB, h264 1080x1920 + aac, mean volume -20.6 to -21.4 dB.",
+   "publish-coordinator-video": "Private page with Save buttons published; email sent to the owner only. Nothing posted."
+  }
+ },
+ "decision": {
+  "doc_id": "2026-11-17-video-desk",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-17T22:11:49Z",
+  "reason": "Legal verdict cleared (all ten counsel), Video Last Touch cleared. Rotation: movers (market), myth-fact (teaching), quiz (interactive) are three different rows, and none ran Mon Nov 16 (spy-tape, explainer, ai-this-week). Last runs: movers Nov 10, myth-fact Nov 11, quiz Nov 13. No topic repeats within 30 days: earlier myths were loss-recovery math and Veterans Day hours; earlier quizzes were a Mag 7 day move and a chip-stock week; this is the first video on share price vs market value and on 52-week highs. Delivered to the owner only; nothing posted."
+ },
+ "collabs": {
+  "doc_id": "2026-11-17-video-desk",
+  "created": "2026-11-17T22:12:31Z",
+  "members": [
+   "video-trend-scout",
+   "commentary-scriptwriter",
+   "hook-writer",
+   "video-fact-checker",
+   "voiceover-tts-agent",
+   "video-editor-agent",
+   "copyright-compliance-reviewer",
+   "content-policy-reviewer",
+   "defamation-harassment-screen",
+   "video-brand-tone-final-check",
+   "publish-coordinator-video",
+   "instagram-reels-agent",
+   "facebook-video-agent",
+   "general-counsel-agent",
+   "advertising-consumer-protection-counsel",
+   "email-anti-spam-compliance-counsel",
+   "privacy-data-protection-counsel",
+   "copyright-fair-use-counsel",
+   "trademark-brand-clearance-counsel",
+   "financial-content-compliance-counsel",
+   "platform-terms-policy-counsel",
+   "kids-content-coppa-counsel",
+   "contracts-commercial-terms-counsel",
+   "chief-of-staff"
+  ],
+  "log": [
+   {
+    "agent": "video-trend-scout",
+    "line": "Tuesday set: Today's Biggest Movers (market), Myth vs Fact on share price vs company size (teaching), Guess Which on Mag 7 vs 52-week highs (interactive). None of the three ran Mon Nov 16. An Nvidia earnings breakdown was ruled out: Webull doesn't have the new quarter yet."
+   },
+   {
+    "agent": "commentary-scriptwriter",
+    "line": "Wrote all three from saved Webull ranks and snapshots, plus the SEC's market-cap definition."
+   },
+   {
+    "agent": "hook-writer",
+    "line": "Hooks: 'One $3.9B stock jumped 156% today.', 'Myth: a $500 stock is a bigger company.', 'One Mag 7 stock is 36% below its 52-week high.'"
+   },
+   {
+    "agent": "video-fact-checker",
+    "line": "factcheck.py: 0 unmatched numbers; 52-week highs matched Webull daily bars for all seven; no dated reason for any mover found in two outlets, so none given."
+   },
+   {
+    "agent": "voiceover-tts-agent",
+    "line": "Kokoro am_michael voice for all three."
+   },
+   {
+    "agent": "video-editor-agent",
+    "line": "Rendered three 9:16 scene videos with make_scenes.py."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "Cleared, all ten counsel on file in video-kit/legal/2026-11-17-video-desk.json."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved; delivered to the owner only."
+   },
+   {
+    "agent": "publish-coordinator-video",
+    "line": "Page https://claude.ai/artifact/AmTGkSJEq8z3fKC6SAouMZ; email gmail:1a1eb917305960a0."
+   }
+  ]
+ },
+ "agents_updated": [
+  "video-trend-scout",
+  "commentary-scriptwriter",
+  "hook-writer",
+  "video-fact-checker",
+  "voiceover-tts-agent",
+  "video-editor-agent",
+  "copyright-compliance-reviewer",
+  "content-policy-reviewer",
+  "defamation-harassment-screen",
+  "video-brand-tone-final-check",
+  "publish-coordinator-video",
+  "instagram-reels-agent",
+  "facebook-video-agent",
+  "general-counsel-agent",
+  "advertising-consumer-protection-counsel",
+  "email-anti-spam-compliance-counsel",
+  "privacy-data-protection-counsel",
+  "copyright-fair-use-counsel",
+  "trademark-brand-clearance-counsel",
+  "financial-content-compliance-counsel",
+  "platform-terms-policy-counsel",
+  "kids-content-coppa-counsel",
+  "contracts-commercial-terms-counsel",
+  "chief-of-staff"
+ ]
+}

@@ -1,0 +1,334 @@
+{
+  "id": "capricorn-constellation",
+  "name": "Capricorn",
+  "engine": 2,
+  "template": "free",
+  "top": "Capricorn",
+  "bottom": "December 22 - January 19",
+  "top_font": "Pacifico",
+  "bottom_font": "PlayfairDisplay",
+  "florals": null,
+  "palette": "lavender",
+  "colors": {
+    "sky": "#1f2a57",
+    "sky2": "#4a5fa8",
+    "star": "#f6dc8c",
+    "leaf": "#4f8358",
+    "leaf2": "#9cc08f",
+    "holly": "#2f6b4f",
+    "holly2": "#6fa27e",
+    "cup": "#f0b93a",
+    "cup2": "#f7dc85",
+    "accent": "#e2b04a",
+    "accent2": "#f3d58f",
+    "star2": "#f3d58f",
+    "leaf_dark": "#2e5a3c",
+    "sky3": "#3a2c6e"
+  },
+  "ink": "#232a4a",
+  "seed": 31,
+  "shirt_colors": [
+    "white",
+    "natural",
+    "heather_gray"
+  ],
+  "art": [
+    {
+      "motif": "narcissus",
+      "x": -0.2,
+      "y": 0.205,
+      "s": 0.058,
+      "stem": 0.45,
+      "front": true
+    },
+    {
+      "motif": "narcissus",
+      "x": -0.105,
+      "y": 0.245,
+      "s": 0.05,
+      "angle": 0.3,
+      "stem": 0.4,
+      "front": true
+    },
+    {
+      "motif": "narcissus",
+      "x": 0.0,
+      "y": 0.262,
+      "s": 0.056,
+      "angle": 0.12,
+      "stem": 0.35,
+      "front": true
+    },
+    {
+      "motif": "narcissus",
+      "x": 0.11,
+      "y": 0.24,
+      "s": 0.05,
+      "angle": 0.4,
+      "stem": 0.4,
+      "front": true
+    },
+    {
+      "motif": "narcissus",
+      "x": 0.205,
+      "y": 0.2,
+      "s": 0.055,
+      "angle": 0.2,
+      "stem": 0.45,
+      "front": true
+    },
+    {
+      "motif": "snowdrop",
+      "x": -0.27,
+      "y": 0.33,
+      "s": 0.15,
+      "facing": -1,
+      "front": true
+    },
+    {
+      "motif": "snowdrop",
+      "x": -0.05,
+      "y": 0.35,
+      "s": 0.13,
+      "facing": -1,
+      "front": true
+    },
+    {
+      "motif": "snowdrop",
+      "x": 0.06,
+      "y": 0.35,
+      "s": 0.13,
+      "front": true
+    },
+    {
+      "motif": "snowdrop",
+      "x": 0.27,
+      "y": 0.33,
+      "s": 0.15,
+      "front": true
+    },
+    {
+      "motif": "holly",
+      "x": -0.29,
+      "y": 0.15,
+      "s": 0.06,
+      "angle": 0.6,
+      "front": true
+    },
+    {
+      "motif": "holly",
+      "x": 0.3,
+      "y": 0.14,
+      "s": 0.058,
+      "angle": -0.6,
+      "front": true
+    },
+    {
+      "motif": "holly",
+      "x": -0.16,
+      "y": 0.3,
+      "s": 0.045,
+      "angle": 1.6,
+      "front": true
+    },
+    {
+      "motif": "holly",
+      "x": 0.16,
+      "y": 0.3,
+      "s": 0.045,
+      "angle": 1.4,
+      "front": true
+    },
+    {
+      "motif": "pine_bough",
+      "x": -0.31,
+      "y": 0.22,
+      "s": 0.075,
+      "angle": -0.9,
+      "snow": false,
+      "twigs": 2,
+      "front": true
+    },
+    {
+      "motif": "pine_bough",
+      "x": 0.31,
+      "y": 0.21,
+      "s": 0.075,
+      "angle": 4.04,
+      "snow": false,
+      "twigs": 2,
+      "front": true
+    },
+    {
+      "motif": "night_sky2",
+      "x": 0.0,
+      "y": -0.06,
+      "s": 0.28
+    },
+    {
+      "motif": "constellation",
+      "x": 0.0,
+      "y": -0.07,
+      "s": 0.2,
+      "name": "capricornus"
+    },
+    {
+      "motif": "moon",
+      "x": 0.32,
+      "y": -0.22,
+      "s": 0.042
+    },
+    {
+      "motif": "twinkle",
+      "x": -0.34,
+      "y": -0.22,
+      "s": 0.026
+    },
+    {
+      "motif": "twinkle",
+      "x": 0.36,
+      "y": -0.03,
+      "s": 0.02
+    },
+    {
+      "motif": "twinkle",
+      "x": -0.37,
+      "y": 0.0,
+      "s": 0.017
+    }
+  ],
+  "lettering": [
+    {
+      "text": "Capricorn",
+      "font": "Pacifico",
+      "size": 0.17,
+      "max_w": 0.76,
+      "y": -0.44,
+      "color": "#2b3566",
+      "vary": "#151b3a",
+      "outline": [
+        "#151b3a",
+        0.0013,
+        150
+      ]
+    },
+    {
+      "text": "December 22 - January 19",
+      "caps": true,
+      "font": "PlayfairDisplay",
+      "size": 0.05,
+      "max_w": 0.7,
+      "tracking": 0.1,
+      "y": 0.415,
+      "color": "#9a6f22",
+      "vary": "#6e4c12",
+      "outline": [
+        "#5c3f0f",
+        0.001,
+        130
+      ]
+    }
+  ],
+  "listing": {
+    "title": "Capricorn Constellation Shirt, Watercolor Capricorn Zodiac Tee, December January Birth Flower Astrology Shirt, Capricorn Birthday Gift",
+    "tags": [
+      "capricorn shirt",
+      "capricorn gift",
+      "capricorn star chart",
+      "capricorn zodiac",
+      "capricorn birthday",
+      "astrology shirt",
+      "zodiac gift",
+      "celestial shirt",
+      "star sign shirt",
+      "january birthday",
+      "december birthday",
+      "narcissus shirt",
+      "horoscope gift"
+    ],
+    "description": "The Capricorn constellation drawn in gold stars on a round watercolor night sky, framed by the season's birth flowers: white paperwhite narcissus and holly for December and nodding snowdrops for January, with a crescent moon and gold twinkles. \"Capricorn\" is painted in deep blue script on top and \"December 22 - January 19\" in gold capitals below. A birthday gift for the Capricorn in your life.",
+    "per_product": {
+      "sweatshirt": {
+        "title": "Capricorn Constellation Sweatshirt, Watercolor Capricorn Zodiac Crewneck, Winter Birth Flower Astrology Pullover, Capricorn Birthday Gift",
+        "tags": [
+          "capricorn sweatshirt",
+          "capricorn gift",
+          "capricorn star chart",
+          "capricorn zodiac",
+          "capricorn birthday",
+          "astrology crewneck",
+          "zodiac gift",
+          "celestial sweater",
+          "star sign gift",
+          "january birthday",
+          "december birthday",
+          "cozy sweatshirt",
+          "horoscope gift"
+        ]
+      },
+      "mug": {
+        "title": "Capricorn Constellation Mug, Watercolor Capricorn Zodiac Coffee Mug, Winter Birth Flower Astrology Mug, Capricorn Birthday Gift",
+        "tags": [
+          "capricorn mug",
+          "capricorn gift",
+          "capricorn star chart",
+          "capricorn zodiac",
+          "capricorn birthday",
+          "astrology mug",
+          "zodiac gift",
+          "celestial mug",
+          "star sign mug",
+          "january birthday",
+          "december birthday",
+          "zodiac coffee mug",
+          "horoscope gift"
+        ]
+      },
+      "poster": {
+        "title": "Capricorn Constellation Art Print, Watercolor Capricorn Zodiac Wall Art, Winter Birth Flower Astrology Print, Capricorn Gift",
+        "tags": [
+          "capricorn wall art",
+          "capricorn gift",
+          "capricorn star chart",
+          "capricorn zodiac",
+          "capricorn print",
+          "astrology print",
+          "zodiac wall art",
+          "celestial decor",
+          "star sign print",
+          "january birthday",
+          "december birthday",
+          "nursery zodiac art",
+          "horoscope gift"
+        ]
+      },
+      "sticker": {
+        "title": "Capricorn Constellation Sticker, Watercolor Capricorn Zodiac Vinyl Sticker, Winter Birth Flower Astrology Sticker, Capricorn Gift",
+        "tags": [
+          "capricorn sticker",
+          "capricorn gift",
+          "capricorn star chart",
+          "capricorn zodiac",
+          "astrology sticker",
+          "zodiac sticker",
+          "celestial sticker",
+          "star sign sticker",
+          "laptop sticker",
+          "water bottle decal",
+          "snowdrop decal",
+          "journal sticker",
+          "horoscope gift"
+        ]
+      }
+    },
+    "products": [
+      "Unisex tee (Bella+Canvas 3001)",
+      "Crewneck sweatshirt (Gildan 18000)",
+      "11 oz mug",
+      "Art print (matte poster)",
+      "Kiss-cut sticker"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table (2026-10-05 pricing review): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. Capricorn tees and hoodies found on 2026-11-05 (Walmart listing snapshots) run about $13.99-$29.99; our prices sit in the middle. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-11-05 (before any art): web search '\"CAPRICORN\" trademark clothing class 25 USPTO registered'. Found CAPRICORN (reg. 2957052, Class 25 clothing, owner Werner Traub) and CAPRICORNUS (reg. 5412640): both listed dead. Capricorn Trading LLC holds other Class 25 marks (COTTONFELT, FLEX COLORS), not CAPRICORN. No live CAPRICORN or CAPRICORN CONSTELLATION apparel, mug or print mark found. 'Capricorn' is used descriptively, as the buyer's star sign next to its dates. Competitor phrases and the 'Lost Gods' brand are not used. tmsearch.uspto.gov is blocked from our sessions, so this is a search-engine screen (aggregator sites), not a clearance."
+  }
+}

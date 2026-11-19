@@ -1,0 +1,77 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-camping",
+  "kind": "book"
+ },
+ "title": "My First Camping Coloring Book: interior, cover, KDP listing and Amazon Ads kit",
+ "reviewed_at": "2026-11-13T14:58:21Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishing. Topic note: the planned rotation has ended, so Trend Scout picked Camping under the owner's standing 'different topics' directive; no earlier book, record or DB books doc has it, and none of its 30 subjects repeats a picture from another book in the series. The owner can swap the topic."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, back cover, A+ points and ad texts checked against the built book: 30 subjects in five groups (9 around the campsite + 2 campfire treats + 8 camping gear + 5 on the water + 6 woodland animals) exactly as listed, 64 pages, blank backs, name labels and the 'Great job!' certificate are all true. 'Every page has ... a happy face' is true: all 30 pictures have faces. Every named example in the subtitle, ad texts and headlines (tent, campfire, canoe, raccoon, s'mores, sleeping bag, cabin, moose) is in the book, and 'a canoe on the water' matches the canoe page, which shows water. No 'bestselling', review or result claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit; the 'This book belongs to' line collects nothing."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/camping.js; line and color contact sheets reviewed. Generic camping gear, campsite things and woodland animals with no brand marks, logos, gear makers or characters (the camper, cooler, water bottle and flashlight have no maker's shapes or names). Fredoka font is SIL OFL 1.1, which allows embedding. AI-art note: purely AI-made pictures and text can't be registered for US copyright (US Copyright Office guidance; Thaler v. Perlmutter, D.C. Cir. 2025), so others may be able to copy the pages."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search only (USPTO is unreachable from this environment). No 'MY FIRST CAMPING' mark or book with this exact title turned up. Nearby titles are different books with different titles: 'My First Camping Book' (Dominic Bliss, CICO Books, a camping guide), 'My First Book of Camping' (a board book) and 'My First Camping Trip' (Samantha Seebeck, an activity book). 'MY FIRST' marks found are for other goods (for example MY FIRST TRAMPOLINE). CAMPING marks found disclaim the word 'camping'. 'S'mores' is used as a common food name: registered marks that contain it (HERSHEY'S S'MORES & MORE, S'MORES GALORE) disclaim the word, and standalone S'MORES applications were abandoned. Keywords and ad keywords name no brands, authors or characters."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP AI disclosure: answer Yes for images and text, as the listing says. Keywords are 7 phrases of 39 characters or fewer, with no brands, other authors, or time-sensitive or sale claims. Ad texts (120, 116, 124 characters) and headlines (41, 39, 39) avoid best-seller, sale, price, free and review claims, as Amazon's book ad policy requires; build.js checks passed. Negatives ('camping journal', 'camping log book', 'rv', 'campground', 'survival', 'hiking guide', 'travel guide', 'camping gear', 'textbook', 'planner') keep the ads off adult camping-gear, trip-log and guidebook searches. Third category 'Children's Books > Early Learning > Basic Concepts > Words' is one the series already uses; if KDP's picker offers a children's camping or outdoor category, it is a reasonable swap."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "Ages 2-5 content is friendly and safe: smiling gear and smiling woodland animals, and a friendly bat (no fangs). The campfire sits inside a ring of stones and the marshmallow is on a long stick, both shown as pictures, not instructions. No knives, axes or hatchets (the firewood is shown already stacked). The life jacket page shows water-safety gear. No children are shown or named, and no data is collected. Nothing pushes purchases on kids. Fits KDP's children's content guidelines."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms. The owner publishes and prices on KDP."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Tent door: two toggle dots looked like a second pair of eyes, so they were removed before the build.",
+  "Raccoon: the mask patches touched the cheeks, so they were moved up until the face reads cleanly.",
+  "Bat: the light belly patch touched the smile, so it was moved down.",
+  "Tackle box: a small fish was added so the box doesn't read as a briefcase; the deer got sturdier legs and a smoother neck."
+ ],
+ "sources": [
+  "https://www.simonandschuster.com/books/My-First-Camping-Book/Dominic-Bliss/9781782491989",
+  "https://bookscloud.io/products/my-first-book-of-camping-board-book",
+  "https://www.readings.com.au/product/9781954086593/my-first-camping-trip--samantha-seebeck--2025--9781954086593",
+  "https://trademarks.justia.com/773/04/my-first-77304544.html",
+  "https://trademarks.justia.com/976/15/camping-with-97615597.html",
+  "https://gleanmark.com/trademark/uspto-88690130",
+  "https://trademarks.justia.com/875/60/s-mores-87560226.html"
+ ],
+ "owner_notes": [
+  "Answer KDP's AI question Yes for images and text.",
+  "Optional: run a USPTO search on the title before publishing; this was a web screen only.",
+  "Camping was picked by Trend Scout because the planned rotation is done; swap it if you'd rather have another topic.",
+  "The third category reuses one the series already has; pick a children's camping or outdoor category instead if KDP offers one."
+ ],
+ "last_touch_ref": "book-kit/records/2026-11-13-my-first-camping.json#collabs (quality-bar-agent, grammar-copy-editor, deliverable-qa-reviewer)",
+ "decision_ref": "book-kit/records/2026-11-13-my-first-camping.json#decision"
+}

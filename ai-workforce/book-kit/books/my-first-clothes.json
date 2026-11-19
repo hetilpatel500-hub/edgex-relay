@@ -1,0 +1,187 @@
+{
+  "id": "my-first-clothes",
+  "count": 30,
+  "art": [
+    "art/clothes.js"
+  ],
+  "subjects": [
+    "t-shirt",
+    "dress",
+    "socks",
+    "sun-hat",
+    "shoes",
+    "pants",
+    "hoodie",
+    "skirt",
+    "overalls",
+    "backpack",
+    "shorts",
+    "coat",
+    "flip-flops",
+    "party-hat",
+    "swimsuit",
+    "gloves",
+    "shirt",
+    "tutu",
+    "cowboy-boot",
+    "scarf",
+    "bib",
+    "sandals",
+    "jacket",
+    "bow-tie",
+    "ballet-shoes",
+    "bathrobe",
+    "necktie",
+    "apron",
+    "top-hat",
+    "purse"
+  ],
+  "cover": {
+    "kicker": "My First",
+    "word": "Clothes",
+    "tagline": "30 big & easy things to wear to color!",
+    "ages": "2-5",
+    "hero": [
+      "t-shirt",
+      "dress",
+      "sun-hat"
+    ],
+    "back_title": "Big pictures for little hands",
+    "back_points": [
+      "30 pages of things to wear: a T-shirt, a dress, socks and more",
+      "Tops, pants and dresses, shoes and socks, hats, bags and dress-up things",
+      "One big picture per page with extra-thick lines",
+      "Every picture has a blank back, so markers won't spoil the next one",
+      "A \"Great job!\" certificate at the end"
+    ],
+    "aplus_title": "Look inside: clothes to color!",
+    "aplus_pages": [
+      "overalls",
+      "socks",
+      "party-hat",
+      "backpack"
+    ],
+    "aplus_points": [
+      "30 big pictures of clothes, shoes, hats and bags",
+      "One picture per page, its name in big letters",
+      "Extra-thick lines for little hands",
+      "Blank backs, so markers won't spoil the next picture"
+    ],
+    "back_minis": [
+      "shoes",
+      "bow-tie",
+      "gloves",
+      "flip-flops"
+    ],
+    "cert_word": "clothes pictures"
+  },
+  "listing": {
+    "title": "My First Clothes Coloring Book",
+    "subtitle": "30 Big & Easy Things to Wear – T-Shirt, Dress, Socks, Shoes & More for Kids Ages 2-5",
+    "series": "my first step",
+    "author": "JONNY COLOR",
+    "description_html": "<p><b>Big, bold and easy to color: a first coloring book full of friendly things to wear!</b></p><p>Little hands color 30 pages of clothes, from a T-shirt, a dress and a pair of socks to a sun hat, a hoodie and a backpack. Every page has one big, simple picture with extra-thick lines, most with happy faces, so small hands can color inside the lines, and each picture's name is written in big letters to color too.</p><p><b>Inside you'll find:</b></p><ul><li>Tops: T-Shirt, Shirt, Hoodie, Jacket, Coat and Bathrobe</li><li>Dresses and play clothes: Dress, Skirt, Pants, Shorts, Overalls, Swimsuit, Tutu, Apron and Bib</li><li>Shoes and socks: Socks, Shoes, Sandals, Flip-Flops, Ballet Shoes and a Cowboy Boot</li><li>Hats: Sun Hat, Top Hat and Party Hat</li><li>Warm, dressy and carry-along things: Scarf, Gloves, Bow Tie, Necktie, Backpack and Purse</li><li>One large picture per page with thick outlines</li><li>Single-sided pages with a blank back, so markers won't bleed onto the next picture</li><li>Big 8.5 x 11 inch pages and a \"Great job!\" certificate at the end</li></ul><p>A fun, screen-free activity for toddlers and preschoolers ages 2 to 5.</p><p>Part of the <b>my first step</b> series.</p>",
+    "keywords": [
+      "clothes coloring book for toddlers",
+      "getting dressed coloring book for kids",
+      "things to wear coloring pages for preschool",
+      "my first coloring book for toddlers",
+      "easy coloring book for kids ages 2-5",
+      "simple coloring book thick lines",
+      "toddler activity book for boys and girls"
+    ],
+    "categories": [
+      "Children's Books > Activities, Crafts & Games > Coloring Books",
+      "Children's Books > Activities, Crafts & Games > Activity Books",
+      "Children's Books > Early Learning > Basic Concepts > Words"
+    ],
+    "reading_age": "2 - 5 years",
+    "price_note": "Similar toddler coloring books are commonly priced around $5.99-$6.99 (kdpeasy.com age-group guide). Use the calculator below with KDP's printing cost before you choose. Your call.",
+    "ai_disclosure": "KDP asks if the book has AI-generated content. The pictures and the text were made by Edgex's AI agents, so answer Yes for images and text."
+  },
+  "ads": {
+    "bids": {
+      "auto": "0.35",
+      "exact": "0.45",
+      "phrase": "0.40"
+    },
+    "keywords": {
+      "exact": [
+        "coloring books for toddlers",
+        "toddler coloring book",
+        "coloring book for 2 year old",
+        "coloring book for 3 year old",
+        "my first coloring book",
+        "big and easy coloring book",
+        "simple coloring book for toddlers",
+        "clothes coloring book",
+        "clothes coloring book for kids",
+        "getting dressed book for toddlers",
+        "clothing coloring book",
+        "coloring book for 4 year old",
+        "shoes coloring book",
+        "coloring book for preschoolers",
+        "easy coloring book for kids"
+      ],
+      "phrase": [
+        "clothes coloring",
+        "getting dressed book",
+        "clothing coloring",
+        "clothes book for toddlers",
+        "toddler coloring",
+        "coloring book for 2 year olds",
+        "preschool activity book",
+        "first coloring book"
+      ]
+    },
+    "negatives": [
+      "adult",
+      "adults",
+      "for adults",
+      "mandala",
+      "grayscale",
+      "free",
+      "printable",
+      "pdf",
+      "sticker",
+      "stickers",
+      "dot markers",
+      "paint by number",
+      "color by number",
+      "teen",
+      "sketchbook",
+      "cozy",
+      "bold and easy",
+      "relaxation",
+      "swear",
+      "realistic",
+      "anime",
+      "gothic",
+      "dark fantasy",
+      "horror",
+      "tattoo",
+      "sewing",
+      "pattern",
+      "fashion design",
+      "fashion designer",
+      "paper doll",
+      "size",
+      "costume"
+    ],
+    "categories": [
+      "Children's Coloring Books",
+      "Children's Activity Books",
+      "Children's Early Learning Books"
+    ],
+    "custom_text": [
+      "30 big pictures of things to wear, with extra-thick lines made for little hands. A screen-free first coloring book for ages 2 to 5.",
+      "A T-shirt, a dress, socks, a sun hat and more: one big picture per page, plus a Great job! certificate at the end.",
+      "A first clothes coloring book: overalls, a tutu, flip-flops and a party hat, with blank backs so markers won't spoil a page."
+    ],
+    "headlines": [
+      "Big, easy coloring books for little hands",
+      "My First coloring books for ages 2 to 5",
+      "T-shirts, socks and hats for ages 2-5"
+    ]
+  }
+}

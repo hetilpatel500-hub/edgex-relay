@@ -1,0 +1,51 @@
+{
+ "id": "dog-walks-club",
+ "template": "badge",
+ "top": "Morning Walks",
+ "bottom": "& Good Dogs",
+ "top_font": "PlayfairDisplay",
+ "bottom_font": "DancingScript",
+ "art": [
+  {
+   "motif": "dog",
+   "x": 0.0,
+   "y": 0.0,
+   "s": 0.2
+  }
+ ],
+ "florals": "wreath",
+ "florals_s": 0.3,
+ "palette": "blush",
+ "seed": 9,
+ "shirt_colors": [
+  "heather_pink",
+  "white",
+  "sand"
+ ],
+ "listing": {
+  "title": "Morning Walks and Good Dogs Shirt, Watercolor Dog Tee with Florals, Dog Lover Gift, Cute Puppy T-Shirt for Dog Owners",
+  "tags": [
+   "dog lover gift",
+   "dog owner shirt",
+   "watercolor dog",
+   "puppy shirt",
+   "dog walk tee",
+   "floral dog shirt",
+   "cute dog tshirt",
+   "gift for dog lover",
+   "golden dog shirt",
+   "dog walker gift",
+   "pet lover tee",
+   "morning walks",
+   "good dogs shirt"
+  ],
+  "description": "A sweet watercolor pup sitting in a wreath of roses, wildflowers and eucalyptus, with \"Morning Walks & Good Dogs\" lettered around it. For everyone whose best mornings start with a leash and a wagging tail.",
+  "products": [
+   "Unisex tee (Bella+Canvas 3001)",
+   "Crewneck sweatshirt (Gildan 18000)"
+  ],
+  "price_note": "Tee $24-$28 (Printify Bella+Canvas 3001 base is about $10-$11 without Premium, before shipping and Etsy fees; Etsy tees in this style commonly sell for $22-$32 - sellermockups.com and marginory.com 2026 guides). Sweatshirt $38-$45. You set the final price.",
+  "trademark_check": "Web search 2026-09-28 for 'morning walks' + 'good dogs' trademarks on shirts found no registration for the phrase. 'Dog Mom' wording avoided on purpose. USPTO site blocked here; re-check at tmsearch.uspto.gov."
+ },
+ "name": "Good Dogs"
+}

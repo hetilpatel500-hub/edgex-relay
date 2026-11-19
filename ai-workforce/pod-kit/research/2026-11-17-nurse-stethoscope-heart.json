@@ -1,0 +1,84 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a pod_research doc.",
+ "id": "2026-11-17-nurse-stethoscope-heart",
+ "created": "2026-11-17T16:36:38Z",
+ "queue_row": "The Gift-category table has no open row left (rows 1-8 done or held for the owner). The list of more best sellers under it is next in order: 9. teacher appreciation was done 2026-11-16, so this is 10. nurse. Nov 16 was a pattern design, so this is a motif design (tee, sweatshirt, mug, art print, sticker).",
+ "phrase": "Nurse (one generic word, no 'Night Shift')",
+ "niche": "nurse gifts: Christmas (December), nursing school pinning and graduation (December and May), Nurses Week (May 6-12), and all year as a thank-you or new-job gift",
+ "seasonal_calendar": "4-8 weeks ahead (Dec 15 - Jan 12): Christmas and December pinning ceremonies. A nurse gift listed now has time to index; the same design sells again for Nurses Week and May graduations.",
+ "trend_searches": [
+  "Etsy trending nurse gifts 2026 Christmas nurse graduation gift ideas (RankHero keyword tool: 82% of 'nurse gifts' demand is from the US, 58% of listings are under $10, monthly searches peaked in May 2026 at 12,100, and 632,549 Etsy listings compete for 'nurse gifts'; 'ER nurse gifts' fell 47% from Oct 2025 to Sep 2026; Uncommon Goods runs a 2026 Christmas gifts for nurses page; tool figures, no Etsy sales data)",
+  "best selling nurse mug Etsy watercolor stethoscope floral (no sales data; floral stethoscope mugs and stickers are common; stethoscope mugs listed at $19.49 and $22.99, a personalized floral stethoscope mug at $9.98 on sale from $18.14; a watercolor stethoscope-and-flowers design found only on Zazzle drinkware)",
+  "print on demand nurse niche 2026 trends nurse shirt sweatshirt best sellers (vendor blogs: nurse shirts and healthcare hoodies are steady sellers; narrower identities and ICU/ER humor convert better than generic 'nurse'; marketing-informed, not independent data)"
+ ],
+ "sources": [
+  "https://www.rankhero.com/keywords/nurse-gifts",
+  "https://www.rankhero.com/keywords/er-nurse-gifts",
+  "https://uncommongoods.com/sets/nurse-christmas-gifts",
+  "https://merchtitans.com/blog/profitable-print-on-demand-niches-2026",
+  "https://blog.teelaunch.com/2026/03/print-on-demand-in-2026-market-growth-stats-opportunities/",
+  "https://www.etsy.com/listing/4516259214",
+  "https://www.etsy.com/listing/4486868099",
+  "https://www.zazzle.de/nurse_stethoscope_floral_appreciation_design_thermosbecher-256422362938789155",
+  "https://www.zazzle.ca/stethoscope_heart_butterfly_colorful_nurse_thermal_tumbler-256136750966906921",
+  "https://reach.dog/shop/gallery-of-mugs/products/nurse-life-personalize-it-your-name-heart-shaped-mug",
+  "https://www.teepublic.com/hoodie/heartbeat-hero",
+  "https://www.hallmark.com/house-and-home/kitchen/mugs/a-caring-heart-yellow-nurse-mug-16-oz.-1MUG3650.html"
+ ],
+ "competitors": [
+  {
+   "what": "Etsy 'Mug Coffee Cup Doctor Lab Coat Motif Stethoscope Detail'",
+   "price": "not shown in results",
+   "style": "lab coat and stethoscope graphic on a mug"
+  },
+  {
+   "what": "Etsy 'Custom Nurse Tumbler 40oz | Nurse Cups, Gift For Nursing Student'",
+   "price": "not shown in results",
+   "style": "personalized name tumbler"
+  },
+  {
+   "what": "Zazzle 'nurse stethoscope floral appreciation design' thermos",
+   "price": "not shown in results",
+   "style": "watercolor stethoscope with flowers on drinkware; the closest style, noted so our art stays clearly different (our stethoscope is a heart filled with a bouquet, with lettering)"
+  },
+  {
+   "what": "Zazzle 'stethoscope heart butterfly colorful nurse' tumbler",
+   "price": "not shown in results",
+   "style": "stethoscope heart with butterflies, bright flat colors"
+  },
+  {
+   "what": "'Nurse Life \u00b7 Personalize It! Your Name' heart-shaped mug (reach.dog)",
+   "price": "not shown in results",
+   "style": "personalized slogan mug"
+  },
+  {
+   "what": "TeePublic 'Heartbeat Hero' hoodie",
+   "price": "not shown in results",
+   "style": "moon and EKG line, night-shift theme"
+  },
+  {
+   "what": "Hallmark 'A Caring Heart' yellow nurse mug, 16 oz",
+   "price": "not shown in results",
+   "style": "slogan mug"
+  },
+  {
+   "what": "Etsy 'Embroidered Nurse Sweatshirt, Stethoscope Crewneck' and a 'Watercolor Nurse Shirt, Retro Comfort Nurse Shirt' (named in search summaries)",
+   "price": "not shown in results",
+   "style": "embroidered stethoscope; retro watercolor lettering"
+  }
+ ],
+ "gap": "Nurse gifts found are mostly slogan or humor designs, personalized name items, or flat clipart stethoscopes; under-$10 listings dominate. A real painted watercolor piece is rare (the only close one is a Zazzle stethoscope-and-flowers tumbler). Angle: a hand-painted-look stethoscope curled into a heart, filled with roses, a carnation and violets, under 'Nurse' in teal script; gentle and giftable for any nurse or new grad, no humor, no name, no unit.",
+ "trend": "Nurse gifts sell all year with peaks at Christmas, December and May graduations and Nurses Week; buyers mostly in the US; very crowded, so the painted style is the difference.",
+ "owner_scan_read": "pod_research/owner-etsy-mug-scan-2026-09-28 (repo copy): the owner's Etsy scan showed illustrated gift mugs among the sellers; a centred motif with lettering fits the tee, sweatshirt and mug.",
+ "pod_review_read": "pod-kit/research/2026-11-16-pod-review.json: 0 orders since the shop opened (2026-09-28); still no sales signal, so follow search demand with December gift niches that have an evergreen angle.",
+ "repeat_check": "No nurse, stethoscope or medical design among the other 28 files in pod-kit/designs or in the pod_designs list (the only 'nurse' matches are 'nursery zodiac art' tags on constellation designs). Roses and carnations appear in Lovebirds & Roses and Another Year Sweeter, but this is a nurse design.",
+ "scores": {
+  "demand": 4,
+  "competition": 3,
+  "timing": 4,
+  "style_fit": 5,
+  "trademark_risk": 4
+ },
+ "total": 20,
+ "decision": "go: 'Nurse' watercolor stethoscope heart with a bouquet (tee, sweatshirt, mug, art print, sticker); avoid 'Night Shift' (registered class 25 mark)"
+}

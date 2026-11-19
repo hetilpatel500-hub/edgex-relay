@@ -1,0 +1,58 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "capricorn-constellation",
+  "kind": "pod_design"
+ },
+ "title": "Capricorn Constellation (tee, sweatshirt, mug, art print, sticker)",
+ "reviewed_at": "2026-11-05T16:23:22Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against the full-size art: gold Capricornus star chart on a round night sky, paperwhite narcissus, holly and snowdrops, crescent moon, gold twinkles, 'Capricorn' in blue script and 'December 22 - January 19' in gold capitals. Narcissus and holly are December birth flowers and snowdrops are a January flower; the star chart is a simplified stick figure of Capricornus. No best-seller, sale, free or review claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (watercolor.py, motifs.py, motifs2.py); no stock art, traced designs or AI image generator. Star positions are public facts drawn in our own style. Fonts Pacifico and Playfair Display are SIL OFL 1.1. Machine-drawn art may not be registrable for US copyright (Thaler v. Perlmutter)."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check): CAPRICORN (reg. 2957052, Class 25) and CAPRICORNUS (reg. 5412640) are both listed dead; no live CAPRICORN apparel, mug or print mark found. 'Capricorn' is used descriptively as the buyer's star sign with its dates. No brands in titles or tags ('Lost Gods' and 'Inktastic' not used). Search-engine screen only; tmsearch.uspto.gov is blocked from our sessions."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description carries the production-partner disclosure. Titles are 140 characters or fewer and every listing has 13 unique tags of 20 characters or fewer (build.py checked). Astrology is sold as decor and gifts only; no predictions or claims."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Adult sizes; not made or marketed for children ('nursery zodiac art' tag on the print describes room decor, not a children's product)."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [
+  "Quality Bar: first preview had a sparse row of flowers and a flat sky; repainted with a richer night sky (night_sky2) and fuller flower clusters. Fixed a faint square halo around glows (watercolor.glow now fades to zero at its edge)."
+ ],
+ "research_ref": "pod-kit/research/2026-11-05-capricorn.json",
+ "decision_ref": "pod-kit/decisions/2026-11-05-pod-capricorn.json"
+}

@@ -1,0 +1,20 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a pod_review doc (step 10, Mondays).",
+ "id": "2026-11-09",
+ "created": "2026-11-09T16:36:11Z",
+ "by": "sales-analyst (TikTok Analytics Agent)",
+ "source": "Printify GET /v1/shops/29114200/orders.json and /products.json, read 2026-11-09",
+ "orders": {
+  "total": 0,
+  "since": "shop opened (2026-09-28)"
+ },
+ "products": {
+  "total": 58,
+  "with_etsy_listing_id": 48,
+  "unpublished_drafts": 10,
+  "drafts": "Scorpio Constellation and Campfire Season (5 each), approved Oct 5, waiting for Printify writes"
+ },
+ "what_sold": "nothing yet: 0 orders in about 6 weeks",
+ "rule_for_next_week": "No sales signal to follow, so keep following Etsy search demand: Christmas and gift niches with an evergreen angle (grandparents, hobbies). The 60-day retire rule starts to apply from Nov 27 for the first listings (live since Oct 2); judge them then with Etsy's views and favorites, which Printify doesn't show (the owner can read them in Etsy Shop Manager > Stats).",
+ "blockers": "Printify writes still refused by the session's permission check (since Oct 6): no new products and no publishing until the owner allows them."
+}

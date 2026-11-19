@@ -1,0 +1,180 @@
+{
+ "id": "my-first-christmas",
+ "count": 30,
+ "art": [
+  "art/christmas.js"
+ ],
+ "subjects": [
+  "christmas-tree",
+  "santa",
+  "reindeer",
+  "snowman",
+  "gift",
+  "candy-cane",
+  "stocking",
+  "gingerbread-man",
+  "ornament",
+  "jingle-bell",
+  "wreath",
+  "santa-hat",
+  "sleigh",
+  "polar-bear",
+  "snow-globe",
+  "gingerbread-house",
+  "candle",
+  "holly",
+  "christmas-lights",
+  "hot-cocoa",
+  "milk-and-cookies",
+  "bow",
+  "nutcracker",
+  "toy-sack",
+  "chimney",
+  "letter-to-santa",
+  "christmas-sweater",
+  "pinecone",
+  "earmuffs",
+  "poinsettia"
+ ],
+ "cover": {
+  "kicker": "My First",
+  "word": "Christmas",
+  "tagline": "30 big & easy Christmas things to color!",
+  "ages": "2-5",
+  "hero": [
+   "gift",
+   "christmas-tree",
+   "snowman"
+  ],
+  "back_title": "Big pictures for little hands",
+  "back_points": [
+   "30 Christmas pages: Santa, a Christmas tree, a reindeer and more",
+   "Santa's things, decorations, treats and winter friends",
+   "One big picture per page with extra-thick lines",
+   "Every picture has a blank back, so markers won't spoil the next one",
+   "A \"Great job!\" certificate at the end"
+  ],
+  "aplus_title": "Look inside: Christmas to color!",
+  "aplus_pages": [
+   "santa",
+   "gingerbread-man",
+   "hot-cocoa",
+   "nutcracker"
+  ],
+  "aplus_points": [
+   "30 big pictures of Santa, treats, decorations and winter friends",
+   "One picture per page, its name in big letters",
+   "Extra-thick lines for little hands",
+   "Blank backs, so markers won't spoil the next picture"
+  ],
+  "back_minis": [
+   "candy-cane",
+   "stocking",
+   "jingle-bell",
+   "ornament"
+  ],
+  "cert_word": "Christmas pictures"
+ },
+ "listing": {
+  "title": "My First Christmas Coloring Book",
+  "subtitle": "30 Big & Easy Christmas Things – Santa, Christmas Tree, Reindeer, Snowman & More for Kids Ages 2-5",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "description_html": "<p><b>Big, bold and easy to color: a first coloring book full of friendly Christmas things!</b></p><p>Little hands color 30 cute Christmas pages, from Santa, a Christmas tree and a reindeer to a gingerbread man, a candy cane and a mug of hot cocoa. Every page has one big, simple picture with extra-thick lines, most with happy faces, so small hands can color inside the lines, and each picture's name is written in big letters to color too.</p><p><b>Inside you'll find:</b></p><ul><li>Santa and his things: Santa, Santa Hat, Reindeer, Sleigh, Toy Sack, Chimney and Letter to Santa</li><li>Decorations: Christmas Tree, Ornament, Christmas Lights, Wreath, Stocking, Jingle Bell, Candle, Holly, Poinsettia, Snow Globe, Nutcracker and Pinecone</li><li>Gifts and treats: Gift, Bow, Candy Cane, Gingerbread Man, Gingerbread House, Hot Cocoa and Milk and Cookies</li><li>Winter friends and warm clothes: Snowman, Polar Bear, Christmas Sweater and Earmuffs</li><li>One large picture per page with thick outlines</li><li>Single-sided pages with a blank back, so markers won't bleed onto the next picture</li><li>Big 8.5 x 11 inch pages and a \"Great job!\" certificate at the end</li></ul><p>A fun, screen-free activity for toddlers and preschoolers ages 2 to 5.</p><p>Part of the <b>my first step</b> series.</p>",
+  "keywords": [
+   "christmas coloring book for toddlers",
+   "christmas coloring book for kids ages 2-5",
+   "santa and reindeer coloring pages",
+   "my first coloring book for toddlers",
+   "christmas activity book for preschool",
+   "simple coloring book thick lines",
+   "toddler christmas gifts for boys and girls"
+  ],
+  "categories": [
+   "Children's Books > Activities, Crafts & Games > Coloring Books",
+   "Children's Books > Activities, Crafts & Games > Activity Books",
+   "Children's Books > Holidays & Celebrations > Christmas"
+  ],
+  "reading_age": "2 - 5 years",
+  "price_note": "Similar toddler coloring books are commonly priced around $5.99-$6.99 (kdpeasy.com age-group guide). Use the calculator below with KDP's printing cost before you choose. Your call.",
+  "ai_disclosure": "KDP asks if the book has AI-generated content. The pictures and the text were made by Edgex's AI agents, so answer Yes for images and text."
+ },
+ "ads": {
+  "bids": {
+   "auto": "0.35",
+   "exact": "0.45",
+   "phrase": "0.40"
+  },
+  "keywords": {
+   "exact": [
+    "coloring books for toddlers",
+    "toddler coloring book",
+    "coloring book for 2 year old",
+    "coloring book for 3 year old",
+    "my first coloring book",
+    "big and easy coloring book",
+    "simple coloring book for toddlers",
+    "christmas coloring book",
+    "christmas coloring books for kids",
+    "christmas coloring book for toddlers",
+    "toddler christmas coloring book",
+    "christmas coloring book for kids ages 2-4",
+    "christmas activity book for toddlers",
+    "santa coloring book",
+    "christmas books for toddlers"
+   ],
+   "phrase": [
+    "christmas coloring pages",
+    "christmas coloring",
+    "santa coloring",
+    "toddler coloring",
+    "coloring book for 2 year olds",
+    "preschool activity book",
+    "first coloring book",
+    "holiday coloring book"
+   ]
+  },
+  "negatives": [
+   "adult",
+   "adults",
+   "for adults",
+   "mandala",
+   "grayscale",
+   "free",
+   "printable",
+   "pdf",
+   "sticker",
+   "stickers",
+   "dot markers",
+   "paint by number",
+   "color by number",
+   "teen",
+   "sketchbook",
+   "cozy",
+   "bold and easy",
+   "relaxation",
+   "swear",
+   "realistic",
+   "nativity",
+   "bible",
+   "advent",
+   "halloween",
+   "thanksgiving"
+  ],
+  "categories": [
+   "Children's Coloring Books",
+   "Children's Activity Books",
+   "Children's Christmas Books"
+  ],
+  "custom_text": [
+   "30 big Christmas pictures with extra-thick lines, made for little hands. A screen-free first coloring book for ages 2 to 5.",
+   "Santa, a Christmas tree, a reindeer, a snowman and more: one big picture per page, plus a Great job! certificate at the end.",
+   "A first Christmas coloring book: a gingerbread man, a candy cane, hot cocoa and a nutcracker, with blank backs so markers won't spoil a page."
+  ],
+  "headlines": [
+   "Big, easy coloring books for little hands",
+   "My First coloring books for ages 2 to 5",
+   "Santa, a reindeer, a snowman and more, ages 2-5"
+  ]
+ }
+}
