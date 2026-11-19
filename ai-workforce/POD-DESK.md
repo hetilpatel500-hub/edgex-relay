@@ -172,7 +172,7 @@ and Dachshund Florals (2 mugs) are built, Legal-cleared and approved, with print
 pages; they go to Printify once the owner allows Printify writes from the scheduled run again.
 
 More best sellers outside the menu (from the 2026 Etsy/Printify niche guides):
-9. teacher appreciation (**Apples & Pencils done 2026-11-16**: all-over mugs; built and Legal-cleared, not on Printify yet), 10. nurse (**Nurse Stethoscope Heart done 2026-11-17**: motif design for tee, sweatshirt, mug, art print and sticker; built and Legal-cleared, not on Printify yet), 11. coffee lover (**Coffee & Croissants done 2026-11-18**: all-over mugs; built and Legal-cleared, not on Printify yet), 12. plant lover,
+9. teacher appreciation (**Apples & Pencils done 2026-11-16**: all-over mugs; built and Legal-cleared, not on Printify yet), 10. nurse (**Nurse Stethoscope Heart done 2026-11-17**: motif design for tee, sweatshirt, mug, art print and sticker; built and Legal-cleared, not on Printify yet), 11. coffee lover (**Coffee & Croissants done 2026-11-18**: all-over mugs; built and Legal-cleared, not on Printify yet), 12. plant lover (**Just One More Plant done 2026-11-19**: motif design for tee, sweatshirt, mug, art print and sticker; built and Legal-cleared, not on Printify yet),
 13. Valentine's Day (from early January), 14. Mother's Day (from early April).
 Book lovers are covered by Currently Reading and Reading Ghosts.
 
@@ -477,3 +477,16 @@ Studio Floor at any time.
   `decisions`. Delivery page (private): https://claude.ai/artifact/He9NxWDCYNWM1X8cgA43k5. Printify read-only: 58 products,
   48 with Etsy listing IDs, the same 10 drafts unpublished, 0 orders. No Printify products: writes still wait for the owner.
   $0 spent.
+- 2026-11-19 (16:17 UTC run, motif day): item 12 of the best-seller list (plant lover): **Just One More Plant**, "just one more" in
+  green Pacifico over a larger "plant", above three watercolor houseplants on a soft sage wash: a split-leaf monstera with pale holes
+  and slits in a terracotta pot, a banded snake plant with butter-yellow edges in a speckled cream pot, and golden pothos with cream
+  streaks trailing over a sage-green pot with a painted band; gold sparkles, two pink hearts and a contact shadow under the pots.
+  Shirts white, natural, sage. New motifs `plant_pot` (terracotta, cream, sage, blush, blue glazes; optional band and speckles; ends
+  as an object in front so plants grow from behind the rim), `monstera` (V-slit, holed leaves on petioles, front leaves first),
+  `snake_plant` and `pothos` (each leaf painted in front of the next) in `motifs2.py`. 'Plant mom' (registered class 25 mark) and
+  'plant lady' (class 25 filings) kept out of the art, titles and tags. Fixes after review: touching lettering lines, a symmetric
+  pinwheel monstera, a muddy pothos of stacked transparent leaves, then leaves hanging in columns, invisible snake-plant edges and
+  pothos streaks. Research 20/25 (plant-gift searches peak in December; competitors are slogan shirts, clip art or single monstera
+  leaves), Legal cleared; records in `pod-kit/research`, `legal` and `decisions`. Delivery page (private):
+  https://claude.ai/artifact/ADZ5qhMyfcb5DjJjDHd7BD. Printify read-only: 58 products, 48 with Etsy listing IDs, the same 10 drafts
+  unpublished, 0 orders. No Printify products: writes still wait for the owner. $0 spent.

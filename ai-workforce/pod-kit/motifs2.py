@@ -3288,6 +3288,252 @@ def coffee_beans(c, x, y, s, P, angle=0.0, color=None, n=3):
         c.ink_line(bean, width=max(1, s * 0.012), alpha=110, passes=1, jitter=0, color=(50, 28, 16))
 
 
+# ---------------------------------------------------------------- houseplants (plant lovers)
+POT_GLAZES = {'terracotta': ('#e8a073', '#c06a43', '#8a4428'), 'cream': ('#f7efe0', '#e3d3b6', '#b19a74'),
+              'sage': ('#bdd3b1', '#87a87f', '#5b7d56'), 'blush': ('#f7d3c7', '#e3a293', '#b8705f'),
+              'blue': ('#c3d8ee', '#86a5d3', '#56719f')}
+
+
+def plant_pot(c, x, y, s, P, color='terracotta', speckle=False, band=None):
+    """A flowerpot seen straight on: a rolled rim a little wider than the tapering
+    body, a soft wet-in-wet glaze with the right side in shadow and a lifted
+    highlight on the left, a shadow under the rim, an optional painted band and
+    glaze speckles, and a fine pen line. (x, y) = centre of the rim top, s = the
+    pot's height. It ends as an object in front: plants painted after it grow
+    from behind the rim."""
+    g1, g2, g3 = POT_GLAZES.get(color, POT_GLAZES['terracotta'])
+    rnd = c.rnd
+    ic = _inkc(g3, 0.5)
+    T = _loc(x, y, 0.0)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    g0 = c.snapshot()
+    rh = s * 0.2                       # rim height
+    bt, bb = s * 0.5, s * 0.37         # body half widths, top and bottom
+    hw = lambda yy: bt - (bt - bb) * max(0.0, min(1.0, (yy - rh) / (s - rh)))
+    left = [(-hw(rh + (s - rh) * t), rh * 0.92 + (s - rh * 0.92) * t) for t in [i / 12 for i in range(13)]]
+    body = left[:-1] + [(-bb * 0.9, s * 0.995), (bb * 0.9, s * 0.995)] + [(-px, py) for px, py in left[::-1][1:]]
+    B = W(body)
+    c.wash(B, g1, g2, strength=0.85, spread=0.006, layers=16, edge=1.0, ang=0.2, vary=g3, vary_amt=0.25)
+    c.wash(W([(bt * 0.18, rh), (bt * 1.1, rh), (bb * 1.1, s), (bb * 0.1, s)]), _shade(g2, 0.86), None, strength=0.42,
+           spread=0.01, layers=10, edge=0.0, blur=s * 0.07, clip=B)
+    c.wash(W([(-bt * 1.05, rh * 0.9), (bt * 1.05, rh * 0.9), (bt, rh + s * 0.06), (-bt, rh + s * 0.06)]), _shade(g2, 0.78),
+           None, strength=0.42, spread=0.01, layers=8, edge=0.0, blur=s * 0.025, clip=B)
+    c.lift(W([(-bt * 0.74, rh + s * 0.1), (-bt * 0.52, rh + s * 0.1), (-bb * 0.48, s * 0.88), (-bb * 0.68, s * 0.88)]),
+           amount=0.5, soft=0.35, clip=B)
+    if band:
+        y0, y1 = rh + (s - rh) * 0.36, rh + (s - rh) * 0.5
+        bp = W([(-hw(y0) * 1.02, y0), (hw(y0) * 1.02, y0), (hw(y1) * 1.02, y1), (-hw(y1) * 1.02, y1)])
+        c.wash(bp, band, _shade(band, 0.8), strength=0.75, spread=0.006, layers=10, edge=0.9, clip=B)
+        for k in range(5):                     # a row of painted dots under the band
+            yy = rh + (s - rh) * 0.6
+            xx = -hw(yy) * 0.7 + hw(yy) * 1.4 * k / 4
+            c.wash(W(ellipse(xx, yy, s * 0.022, s * 0.022, 10)), band, None, strength=0.7, spread=0.04, layers=8, edge=0.9, clip=B)
+    if speckle:
+        for _ in range(int(60 * speckle)):
+            yy = rnd.uniform(rh * 1.1, s * 0.96); xx = rnd.uniform(-hw(yy) * 0.92, hw(yy) * 0.92)
+            r = s * rnd.uniform(0.004, 0.009)
+            c.wash(W(ellipse(xx, yy, r, r * rnd.uniform(0.7, 1.0), 8)), '#7a5a3a', None, strength=rnd.uniform(0.5, 0.9),
+                   spread=0.1, layers=6, edge=0.9, blur=1, clip=B)
+    c.ink_line(B, width=max(1.4, s * 0.008), alpha=130, passes=1, jitter=0, color=ic)
+    # the rolled rim
+    rp = [(-s * 0.56, s * 0.012), (s * 0.56, s * 0.012), (s * 0.56, rh), (-s * 0.56, rh)]
+    R = W(smooth(rp, rounds=2, closed=True))
+    c.wash(R, _mix(g1, 0.12), g2, strength=0.85, spread=0.006, layers=14, edge=1.0, ang=0.3, vary=g3, vary_amt=0.2)
+    c.wash(W([(s * 0.12, 0), (s * 0.6, 0), (s * 0.6, rh), (s * 0.12, rh)]), _shade(g2, 0.86), None, strength=0.36, spread=0.01,
+           layers=8, edge=0.0, blur=s * 0.05, clip=R)
+    c.lift(W([(-s * 0.48, rh * 0.25), (-s * 0.1, rh * 0.25), (-s * 0.1, rh * 0.45), (-s * 0.48, rh * 0.45)]), amount=0.45,
+           soft=0.4, clip=R)
+    c.ink_line(R, width=max(1.4, s * 0.008), alpha=135, passes=1, jitter=0, color=ic)
+    c.paint_around(g0)
+
+
+MONSTERA = ('#86b86a', '#3d8a4e', '#1f5534')
+
+
+def _monstera_leaf(c, B, ang, L, cols=MONSTERA, holes=True, splits=4, ink=(28, 70, 44)):
+    """One split-leaf monstera leaf from its sinus B, the midrib along `ang`:
+    a heart-shaped blade cut by deep V slits from the edge toward the midrib,
+    a row of oval holes along the midrib, the lower half shaded, pale lifted veins."""
+    light, mid, dark = cols
+    rnd = c.rnd
+    T = _loc(B[0], B[1], ang)
+    ctrl = [(1.0, 0.0), (0.9, 0.17), (0.72, 0.33), (0.48, 0.43), (0.24, 0.45), (0.04, 0.39), (-0.11, 0.27), (-0.13, 0.12),
+            (-0.03, 0.03)]
+    side = _sm([(u * L, v * L) for u, v in ctrl], 3)
+    n = len(side)
+
+    def notched(pts, fr):
+        pts = list(pts); mids = []
+        for f in sorted(fr, reverse=True):
+            i = max(2, min(len(pts) - 3, int(len(pts) * f)))
+            ex, ey = pts[i]
+            mu = max(0.06 * L, min(0.9 * L, ex - 0.1 * L))
+            dpt = rnd.uniform(0.56, 0.7)
+            ix, iy = ex + (mu - ex) * dpt, ey * (1 - dpt)
+            pts = pts[:i - 1] + [pts[i - 1], (ix, iy), pts[i + 1]] + pts[i + 2:]
+            mids.append((mu, (ix, iy)))
+        return pts, mids
+    fr = [0.17, 0.33, 0.5, 0.66, 0.8][:splits]
+    lt, lm = notched(side, [f + rnd.uniform(-0.02, 0.02) for f in fr])
+    rt, rm = notched([(u, -v) for u, v in side], [f + rnd.uniform(-0.02, 0.02) for f in fr])
+    shape_l = lt + rt[::-1]
+    S = [T(u, v) for u, v in shape_l]
+    c.wash(S, light, mid, strength=0.86, spread=0.006, layers=16, edge=1.1, granulate=0.3, ang=ang, vary=dark, vary_amt=0.32)
+    half = [T(u, v) for u, v in ([(1.02 * L, 0), (-0.2 * L, 0)] + [(-0.2 * L, -0.6 * L), (1.02 * L, -0.6 * L)])]
+    c.wash(half, mid, dark, strength=0.3, spread=0.01, layers=10, edge=0.0, blur=L * 0.05, clip=S)
+    # pale veins from the midrib out into each lobe, then the midrib
+    for mids, sg in ((lm, 1), (rm, -1)):
+        us = sorted([m[0] for m in mids]) + [0.95 * L]
+        prev = -0.05 * L
+        for u1 in us:
+            um = (prev + u1) / 2
+            tip = (um + 0.12 * L, sg * 0.36 * L * (1 - max(0, um / L - 0.55)))
+            c.lift(_band([T(um - 0.02 * L, 0), T(*tip)], L * 0.007, L * 0.003), amount=0.32, soft=0.3, clip=S)
+            if holes and 0.08 * L < um < 0.8 * L and rnd.random() < 0.85:
+                hx, hy = um + 0.03 * L, sg * rnd.uniform(0.11, 0.15) * L
+                hole = [T(px, py) for px, py in ellipse(hx, hy, L * rnd.uniform(0.05, 0.068), L * 0.026, 12, sg * 0.35)]
+                c.lift(hole, amount=0.95, soft=0.12, clip=S)
+                c.ink_line(hole, width=max(1, L * 0.004), alpha=95, passes=1, jitter=0, color=ink)
+            prev = u1
+    rib = [T(u * L, 0.0) for u in (-0.04, 0.3, 0.6, 0.97)]
+    c.lift(_band(rib, L * 0.012, L * 0.004), amount=0.38, soft=0.25, clip=S)
+    c.ink_line(rib, width=max(1, L * 0.004), alpha=80, passes=1, jitter=0, closed=False, color=ink)
+    c.ink_line(S, width=max(1.2, L * 0.006), alpha=125, passes=1, jitter=0, color=ink)
+    return S
+
+
+def monstera(c, x, y, s, P, leaves=None, cols=None):
+    """A potted split-leaf monstera: leaves on long petioles fanning from the pot,
+    front leaves painted first so the ones behind tuck under them, petioles
+    last so they disappear behind the leaves and the pot rim. (x, y) = where the
+    stems leave the soil, s = the plant's height."""
+    cols = tuple(cols) if cols else MONSTERA
+    lv = leaves or [(-0.55, 0.5, 0.42, 0.55), (0.5, 0.5, 0.42, -0.5), (-0.08, 0.78, 0.46, 0.18),
+                    (-1.05, 0.34, 0.33, 0.7), (1.0, 0.32, 0.32, -0.7)]
+    stems = []
+    for a, ln, sz, droop in lv:                 # front leaves first
+        g0 = c.snapshot()
+        bx, by = x + math.sin(a) * ln * s, y - math.cos(a) * ln * s
+        lang = -math.pi / 2 + a - droop
+        _monstera_leaf(c, (bx, by), lang, sz * s, cols, splits=4 if sz > 0.36 else 3)
+        c.paint_around(g0)
+        mx, my = x + math.sin(a * 0.5) * ln * s * 0.45, y - ln * s * 0.55
+        stems.append(_sm([(x + math.sin(a) * s * 0.02, y + s * 0.04), (mx, my), (bx, by)], 2))
+    for st in stems:
+        _tube(c, st, s * 0.011, '#9cc47e', '#5c9a52', (40, 82, 50), alpha=110, hi=0.4, shade=0.25)
+
+
+def snake_plant(c, x, y, s, P, n=6, cols=None):
+    """A snake plant (sansevieria): stiff sword leaves rising in a fan, banded
+    across with wavy dark-green stripes and edged in butter yellow, the front
+    leaves painted first so the rest stand behind them. s = the tallest leaf."""
+    rnd = c.rnd
+    light, mid, dark = cols or ('#9cc27c', '#3f7d47', '#24502f')
+    edge_col = '#e8d86e'
+    spec = [(-0.02, 0.7, 0.075), (0.2, 0.62, 0.07), (-0.24, 0.66, 0.072), (0.08, 1.0, 0.085), (-0.12, 0.92, 0.08),
+            (0.3, 0.78, 0.068), (-0.34, 0.74, 0.066)][:n]
+    for a, h, wd in spec:
+        g0 = c.snapshot()
+        p0 = (x + a * s * 0.3, y + s * 0.02)
+        p2 = (p0[0] + math.sin(a) * h * s, p0[1] - math.cos(a) * h * s)
+        bend = rnd.uniform(-0.05, 0.05) * s
+        p1 = ((p0[0] + p2[0]) / 2 + bend, (p0[1] + p2[1]) / 2)
+        shape, at = _curved_leaf(p0, p1, p2, wd * s, n=34, tip=0.35)
+        m = len(shape) // 2
+        lft, rgt = shape[:m], shape[m:][::-1]
+        c.wash(shape, light, mid, strength=0.85, spread=0.005, layers=16, edge=1.0, granulate=0.35, ang=-math.pi / 2,
+               vary=dark, vary_amt=0.3)
+        for k in range(11):                     # wavy cross bands
+            t = 0.08 + 0.84 * k / 11 + rnd.uniform(-0.015, 0.015)
+            if t >= 0.95:
+                continue
+            i = int(t * (m - 1))
+            (lx, ly), (rx, ry) = lft[i], rgt[i]
+            th = h * s * rnd.uniform(0.008, 0.014)
+            wob = h * s * 0.012
+            pts = [(lx + (rx - lx) * q, ly + (ry - ly) * q + math.sin(q * math.pi * 3 + k) * wob) for q in [j / 8 for j in range(9)]]
+            c.wash(_band(pts, th, th), dark, None, strength=rnd.uniform(0.35, 0.55), spread=0.01, layers=8, edge=0.6, clip=shape)
+        for sd in (lft, rgt):                   # butter-yellow margins: lift the green, then glaze yellow
+            inner = [(px + (cx_ - px) * 0.3, py + (cy_ - py) * 0.3) for (px, py), (cx_, cy_) in zip(sd, [at(i / (m - 1)) for i in range(m)])]
+            mg = sd[1:-3] + inner[1:-3][::-1]
+            c.lift(mg, amount=0.92, soft=0.05, clip=shape)
+            c.wash(mg, '#e2cc4e', '#f1e6a0', strength=1.0, spread=0.004, layers=12, edge=1.0, granulate=0.2, clip=shape)
+        c.lift(_band([at(t) for t in (0.1, 0.5, 0.9)], wd * s * 0.12, wd * s * 0.04), amount=0.25, soft=0.4, clip=shape)
+        c.ink_line(shape, width=max(1.2, s * 0.004), alpha=120, passes=1, jitter=0, color=(30, 66, 40))
+        c.paint_around(g0)
+
+
+POTHOS = ('#9cc865', '#3f8a3a', '#245c2e')
+
+
+def _pothos_leaf(c, x, y, sz, ang, cols=POTHOS):
+    """A golden pothos leaf: a pointed heart with cream-gold streaks of variegation."""
+    light, mid, dark = cols
+    rnd = c.rnd
+    hl = _heart_leaf(x, y, sz, ang)
+    # stretch the heart into a pointed pothos leaf along its axis
+    ca, sa = math.cos(ang), math.sin(ang)
+    pts = []
+    for px, py in hl:
+        dx, dy = px - x, py - y
+        u = dx * ca + dy * sa; v = -dx * sa + dy * ca
+        v = v * 1.22 if v > 0 else v
+        pts.append((x + u * ca - v * sa, y + u * sa + v * ca))
+    c.wash(pts, light, mid, strength=0.95, spread=0.006, layers=12, edge=1.1, granulate=0.3, ang=ang, vary=dark, vary_amt=0.35)
+    T = _loc(x, y, ang + math.pi / 2)       # local: +x along the midrib toward the tip
+    half = [T(-sz * 0.2, 0), T(sz * 1.5, 0), T(sz * 1.5, sz * 1.2), T(-sz * 0.2, sz * 1.2)]
+    c.wash(half, mid, dark, strength=0.3, spread=0.01, layers=8, edge=0.0, blur=sz * 0.12, clip=pts)
+    for k in range(rnd.randint(1, 2)):          # golden variegation: a lifted streak, then a cream glaze
+        sd = rnd.choice((-1, 1)); a0 = rnd.uniform(0.35, 0.65)
+        st = [T(sz * (0.12 + 0.75 * q), sd * sz * a0 * math.sin(q * 2.0) * 0.7) for q in (0.0, 0.3, 0.6, 0.9)]
+        band = _band(st, sz * 0.09, sz * 0.02)
+        c.lift(band, amount=0.9, soft=0.25, clip=pts)
+        c.wash(band, '#eadb86', '#f8f1c8', strength=0.75, spread=0.01, layers=8, edge=0.5, clip=pts)
+    c.lift(_band([T(sz * 0.05, 0), T(sz * 0.6, 0), T(sz * 1.05, 0)], sz * 0.025, sz * 0.008), amount=0.35, soft=0.3, clip=pts)
+    c.ink_line(pts, width=max(1, sz * 0.02), alpha=120, passes=1, jitter=0, color=(32, 74, 40))
+    return pts
+
+
+def pothos(c, x, y, s, P, vines=None, tuft=5, cols=None):
+    """Golden pothos spilling over a pot: trailing vines with pointed heart
+    leaves that shrink toward the tips, and a tuft of leaves above the rim.
+    Each leaf is painted as an object in front, so the next one tucks behind it
+    instead of glazing over it. Painted before its pot, so the vines hang in
+    front of it. (x, y) = the rim top centre, s = the length scale of the vines."""
+    rnd = c.rnd
+    cols = tuple(cols) if cols else POTHOS
+    vines = vines or [(-0.32, -0.2, 1.0), (0.3, 0.25, 0.85), (0.05, 0.05, 0.7)]
+    for k in range(tuft):                        # the tuft above the rim, front leaves first
+        a = (-0.95 + 1.9 * k / max(1, tuft - 1)) * (1 if k % 2 else -1) * 0.95 + rnd.uniform(-0.08, 0.08)
+        sz = s * rnd.uniform(0.13, 0.16)
+        px, py = x + math.sin(a) * s * 0.3, y - s * 0.03 - math.cos(a) * s * 0.1
+        g0 = c.snapshot()
+        _pothos_leaf(c, px, py, sz, a - math.pi, cols)
+        c.paint_around(g0)
+    paths, pets = [], []
+    for sx, curl, ln in vines:
+        x0, y0 = x + sx * s * 0.5, y + s * 0.01
+        pts = [(x0 + curl * s * 0.6 * math.sin(q * 1.6) + sx * s * 0.25 * q, y0 + ln * s * q) for q in [i / 20 for i in range(21)]]
+        paths.append(pts)
+        L = ln * s; d = 0.0; j = 0
+        while True:
+            sz = s * (0.12 - 0.055 * d / max(L, 1)) * rnd.uniform(0.92, 1.06)
+            d += sz * 1.15
+            if d > L * 0.97:
+                break
+            i = min(20, int(d / L * 20)); px, py = pts[i]
+            side = -1 if j % 2 else 1; j += 1
+            tilt = side * rnd.uniform(0.85, 1.2)
+            lx, ly = px + side * sz * 0.55, py - sz * 0.1
+            g0 = c.snapshot()
+            _pothos_leaf(c, lx, ly, sz, tilt, cols)
+            c.paint_around(g0)
+            pets.append([(px, py), (lx, ly)])
+    for pts in paths:
+        c.wash(_band(pts, s * 0.009, s * 0.004), '#8db36a', '#5a8a45', strength=0.85, spread=0.006, layers=8, edge=0.8)
+    for pt in pets:
+        c.wash(_band(pt, s * 0.006, s * 0.004), '#8db36a', '#5a8a45', strength=0.85, spread=0.006, layers=6, edge=0.8)
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
@@ -3303,4 +3549,5 @@ MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'sn
            'paper_plane': paper_plane, 'paint_palette': paint_palette, 'gold_star': gold_star,
            'stethoscope': stethoscope,
            'latte_cup': latte_cup, 'togo_cup': togo_cup, 'french_press': french_press, 'enamel_pot': enamel_pot,
-           'croissant': croissant, 'coffee_branch': coffee_branch, 'coffee_beans': coffee_beans}
+           'croissant': croissant, 'coffee_branch': coffee_branch, 'coffee_beans': coffee_beans,
+           'plant_pot': plant_pot, 'monstera': monstera, 'snake_plant': snake_plant, 'pothos': pothos}
