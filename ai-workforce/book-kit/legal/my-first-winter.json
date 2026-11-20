@@ -1,0 +1,75 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-winter",
+  "kind": "book"
+ },
+ "title": "My First Winter Coloring Book: interior, cover, KDP listing and Amazon Ads kit",
+ "reviewed_at": "2026-11-20T14:58:30Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishing. Topic note: the planned rotation has ended, so Trend Scout picked Winter under the owner's standing 'different topics' directive; no earlier book, record or DB books doc has it. The series has drawn a snowman twice before (Weather & Nature, Christmas); this book has one snowman in a new design, and its other 29 subjects are new to the series (no mittens, sled, polar bear or penguin repeated). The owner can swap the topic."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, back cover, A+ points and ad texts checked against the built book: 30 subjects in five groups (5 snow play + 5 sliding and gliding + 6 snowy days + 6 warm and cozy + 8 winter animals) exactly as listed, 64 pages, blank backs, name labels and the 'Great job!' certificate are all true (pdftotext of interior.pdf). The description says 'lots of them with smiling faces', not every page, because the chickadee and snowy owl have eyes and a beak only. Every named example in the subtitle, description, back cover, ad texts and headlines (snowman, igloo, snow angel, skis, snowboard, snowplow, fireplace, arctic fox, husky, snowy owl) is in the book. Ad text 1 and headline 3 first said 'snowy pictures'; not every page is snowy (fireplace, soup, blanket, beluga), so both now say 'winter pictures'. No 'bestselling', review or result claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit; the 'This book belongs to' line and the certificate's name line collect nothing."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/winter.js; line and color contact sheets reviewed at full size. Checked against famous winter characters: the snowman is a generic three-ball snowman with a knit hat, scarf and carrot nose (no buck teeth, twig hair or other film-character traits); the husky, snowy owl and arctic fox are generic animals, and the snowmobile, ski lift and snowplow carry no maker's name, logo or color scheme. Frozen, Olaf, Elsa, Anna, Snoopy and the Grinch appear only as ad negatives. Fredoka font is SIL OFL 1.1, which allows embedding. AI-art note: purely AI-made pictures and text can't be registered for US copyright (US Copyright Office guidance; Thaler v. Perlmutter), so others could reuse them; that doesn't stop selling the book."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search only (USPTO is unreachable from this environment). No book or mark titled 'My First Winter' or 'My First Winter Coloring Book' turned up. Nearby but different titles: 'My First Book about Winter' (Carlsen board book), 'My First Snow' (board book), 'My First ABC Winter Edition' (an alphabet coloring book) and generic 'Winter Coloring Book' titles, so 'winter coloring book' is a generic phrase. 'MY FIRST ...' marks exist for specific series, and the series uses 'My First' descriptively as in its 25 earlier books. Keywords, ad keywords and headlines use no brand, author or character names; snowmobile, ski lift and snow tube are generic words. Brand and character names appear only as ad negatives so ads stay off those searches."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover matches the metadata title; 7 keywords of 37 characters or fewer, no brands, no 'bestseller' or 'free' style terms, no other authors or titles. Categories are the three general children's paths used by earlier books; a winter or seasonal category, if KDP's picker offers one, is left to the owner. Amazon Ads book policy: 3 custom texts (115, 112, 107 characters) and 3 headlines (41, 39, 28) with no price, sale, 'free' offer, best-seller or review claims ('screen-free' describes the activity); ad keywords are generic searches; 45 negatives, including Frozen and its characters so ads stay off film-merchandise searches."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no weapons or scary faces; the snowballs sit in a pile and nobody throws them at anyone; the bear is asleep in its cave. Fire appears only inside a fireplace with no child nearby. Ice Fishing shows a fish jumping from a hole in the ice with no person on the ice and no hook drawn. The snow angel child is dressed for the cold (hat, mittens, snowsuit, boots)."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Snowsuit first read as an astronaut or robot (round helmet hood, box body); redrawn as a child in a puffy snowsuit with a fur-trimmed hood, angled arms and mittens.",
+  "Cozy Blanket first read as a box or radiator; redrawn as a folded blanket stack with rounded folds, polka dots, stripes and fringe.",
+  "Arctic Fox and Snow Leopard bodies read as rings (a light chest ellipse inside the body); the inner ellipse was replaced with front paws, plus a chest tuft on the fox.",
+  "Chickadee's tail stuck out like a flag; lowered and reshaped.",
+  "Cover: the series' green grass looked wrong for a winter book, so build.js gained an optional ground colour and this book uses light-blue snow (earlier books unchanged, checked by rebuilding Robots).",
+  "Ad text 1 and Sponsored Brands headline 3 said 'snowy pictures'; changed to 'winter pictures' because not every page is snowy."
+ ],
+ "sources": [
+  "https://bookscloud.io/products/my-first-abc-winter-edition-alphabet-coloring-book-for-toddlers-perfect-gift-for-boys-and-girls-great-for-developing-learning-skills-paperback",
+  "https://www.carlsen.de/rights/catalogue/my-first-book-about-winter/978-3-551-06243-7",
+  "https://www.momoxbooks.com/products/folw-rado-my-first-snow-9780987621450",
+  "https://blackwells.co.uk/bookshop/product/Winter-Coloring-Book-Excellent-Coloring-Books-for-Kids-Ages-4-8-Perfect-Winter-Gift-by-BIG-AampI-Dream/9781716208263"
+ ],
+ "owner_notes": [
+  "Answer KDP's AI question Yes for images and text.",
+  "If KDP's category picker offers a children's winter or seasonal category, it fits this book.",
+  "Optional USPTO search on the title before publishing.",
+  "Purely AI-made pages can't be registered for US copyright.",
+  "Topic was picked by Trend Scout (the planned list is finished); you can swap it."
+ ]
+}

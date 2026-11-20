@@ -84,6 +84,8 @@ function coverHtml(pages, frontOnly) {
   const W = frontOnly ? TRIM_W : BLEED * 2 + TRIM_W * 2 + spine, H = frontOnly ? TRIM_H : TRIM_H + BLEED * 2;
   const frontX = frontOnly ? 0 : BLEED + TRIM_W + spine, bx = frontOnly ? 0 : BLEED;
   const c = book.cover, colors = ['#ff6b6b', '#ff9f43', '#f5c400', '#4caf50', '#2196f3', '#9c6ade'];
+  // optional ground colours (default grass); e.g. a winter book sets snow: { fill, edge, text }
+  const gnd = Object.assign({ fill: '#8fd694', edge: '#5fb865', text: '#2e6b33' }, c.ground || {});
   const word = [...c.word.toUpperCase()].map((ch, i) => `<tspan fill="${colors[i % colors.length]}">${esc(ch)}</tspan>`).join('');
   const hero = c.hero.map((id, i) => `<div class="hero h${i}">${'HERO_' + id}</div>`).join('');
   const front = `<div class="front" style="left:${frontX}in">
@@ -110,11 +112,11 @@ function coverHtml(pages, frontOnly) {
   // grass top sits 2.5 in above the bottom trim; the band reaches the page edge
   const groundH = 2.5 + (frontOnly ? 0 : BLEED);
   return { spine, W, H, html: `<html><head><style>${FONTS}
-  @page{size:${W}in ${H}in;margin:0} html,body{margin:0;width:${W}in;height:${H}in;overflow:hidden;background:#8fd694}
+  @page{size:${W}in ${H}in;margin:0} html,body{margin:0;width:${W}in;height:${H}in;overflow:hidden;background:${gnd.fill}}
   .wrap{position:relative;width:${W + 0.1}in;height:${H + 0.1}in;margin:0 -0.1in -0.1in 0;overflow:hidden;background:linear-gradient(#bfe6ff,#dcf1ff ${(H - groundH) / H * 100}%);font-family:Fredoka}
   .front,.back{position:absolute;top:${frontOnly ? 0 : BLEED}in;width:${TRIM_W}in;height:${TRIM_H}in}
   .spine{position:absolute;top:0;height:${H - groundH}in;background:#6ec6ff}
-  .ground{position:absolute;left:0;right:0;top:${H - groundH}in;bottom:0;background:#8fd694;border-top:.08in solid #5fb865}
+  .ground{position:absolute;left:0;right:0;top:${H - groundH}in;bottom:0;background:${gnd.fill};border-top:.08in solid ${gnd.edge}}
   .sun{position:absolute;left:.35in;top:.35in;width:1.9in;height:1.9in}
   .rainbow{position:absolute;left:.9in;right:.9in;top:1.1in;height:3.35in}.rainbow svg{width:100%;height:100%}
   .cloud{position:absolute;background:#fff;border-radius:1in;box-shadow:0 0 0 .02in #d6ecfa}
@@ -125,7 +127,7 @@ function coverHtml(pages, frontOnly) {
   .tbox .cb{font:600 30pt Fredoka;color:#444}.tbox .tag{font:600 15pt Fredoka;color:#666;margin-top:.08in}
   .hero{position:absolute;bottom:.55in;width:2.8in;height:2.8in}.hero svg{width:100%;height:100%}
   .h0{left:.25in}.h1{left:2.85in;bottom:.9in}.h2{left:5.45in}
-  .series{position:absolute;left:0;right:0;bottom:.3in;text-align:center;font:600 13pt Fredoka;color:#2e6b33}
+  .series{position:absolute;left:0;right:0;bottom:.3in;text-align:center;font:600 13pt Fredoka;color:${gnd.text}}
   .bbox{position:absolute;left:.75in;right:.75in;top:1in;background:#fffe;border-radius:.3in;border:.05in solid #555;padding:.35in .45in;font:400 15pt Fredoka;color:#333}
   .bt{font:700 24pt Fredoka;margin-bottom:.15in}.bbox ul{margin:0;padding-left:.3in}.bbox li{margin:.08in 0}.bs{margin-top:.2in;font:600 12pt Fredoka;color:#666}
   .minis{position:absolute;left:.75in;right:.75in;top:5.6in;display:flex;justify-content:space-between}.mini{width:1.6in;height:1.6in;background:#fff;border-radius:.2in;border:.04in solid #555}.mini svg{width:100%;height:100%}
@@ -163,13 +165,14 @@ function coverHtml(pages, frontOnly) {
   await p.screenshot({ path: path.join(out, 'cover-kindle.jpg'), type: 'jpeg', quality: 92 });
   // A+ Content images, 970 x 600 ("Standard Image Header with Text" module)
   const c = book.cover, picks = c.aplus_pages || book.subjects.slice(0, 4);
+  const ag = Object.assign({ fill: '#8fd694', edge: '#5fb865', text: '#1f4d24' }, c.ground || {});
   const aplusCss = `${FONTS} body{margin:0} .a{width:970px;height:600px;position:relative;overflow:hidden;font-family:Fredoka;background:linear-gradient(#bfe6ff,#fff)}
     h1{margin:0;position:absolute;top:26px;left:0;right:0;text-align:center;font:700 44px Fredoka;color:#333}
     .row{position:absolute;left:30px;right:30px;top:110px;display:flex;justify-content:space-between}
     .pg{width:205px;height:265px;background:#fff;border:3px solid #555;border-radius:14px;box-shadow:0 6px 0 #0002;display:flex;flex-direction:column;align-items:center}
     .pg .t{font:700 20px Fredoka;margin-top:8px;color:#333;text-align:center;padding:0 6px;overflow-wrap:anywhere}.pg svg{width:185px;height:200px}
-    .foot{position:absolute;bottom:0;left:0;right:0;height:170px;background:#8fd694;border-top:6px solid #5fb865;display:flex;align-items:center;justify-content:center;gap:34px;font:600 25px Fredoka;color:#1f4d24}
-    .foot span{background:#fff;border-radius:40px;padding:10px 22px;border:3px solid #5fb865}
+    .foot{position:absolute;bottom:0;left:0;right:0;height:170px;background:${ag.fill};border-top:6px solid ${ag.edge};display:flex;align-items:center;justify-content:center;gap:34px;font:600 25px Fredoka;color:${ag.text}}
+    .foot span{background:#fff;border-radius:40px;padding:10px 22px;border:3px solid ${ag.edge}}
     ul{position:absolute;left:50px;right:340px;top:120px;margin:0;padding:0;list-style:none;font:600 27px/1.25 Fredoka;color:#333;display:grid;gap:16px}
     li:before{content:'★ ';color:#f5b400}
     .hero{position:absolute;right:25px;top:150px;width:300px;height:300px}.hero svg{width:100%;height:100%}`;
