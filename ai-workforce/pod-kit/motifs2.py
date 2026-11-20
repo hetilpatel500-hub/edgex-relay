@@ -3534,6 +3534,381 @@ def pothos(c, x, y, s, P, vines=None, tuft=5, cols=None):
     for pt in pets:
         c.wash(_band(pt, s * 0.006, s * 0.004), '#8db36a', '#5a8a45', strength=0.85, spread=0.006, layers=6, edge=0.8)
 
+
+# ---------------------------------------------------------------- winter woodland (2026-11-20)
+def _vband(path, widths):
+    """A band along a smoothed path whose half-width follows `widths` (interpolated)."""
+    pts = smooth(path, rounds=2, closed=False) if len(path) > 2 else list(path)
+    n = len(pts); left, right = [], []
+    for i, (px, py) in enumerate(pts):
+        t = i / max(1, n - 1) * (len(widths) - 1)
+        k = min(int(t), len(widths) - 2); f = t - k
+        w = widths[k] + (widths[k + 1] - widths[k]) * f
+        nx, ny = _path_normal(pts, i)
+        left.append((px + nx * w, py + ny * w)); right.append((px - nx * w, py - ny * w))
+    return left + right[::-1], pts
+
+
+def _inside(pt, poly):
+    x, y = pt; inside = False; n = len(poly)
+    for i in range(n):
+        x1, y1 = poly[i][:2]; x2, y2 = poly[(i + 1) % n][:2]
+        if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / ((y2 - y1) or 1e-9) + x1:
+            inside = not inside
+    return inside
+
+
+def _snow_mound(c, x, y, w, h):
+    """A soft drift of snow under an animal or a toadstool: a pale blue-grey
+    shadow wash, lifted along the top, with a white gouache crest."""
+    rnd = c.rnd
+    pts = [(x + w * math.cos(a) * (1 + 0.06 * math.sin(3 * a + rnd.uniform(0, 3))), y + h * math.sin(a) * (0.55 if a > math.pi else 1.0))
+           for a in [2 * math.pi * i / 28 for i in range(28)]]
+    c.wash(pts, '#dfe8f0', '#b7c9d8', strength=0.5, spread=0.03, layers=16, edge=0.7, granulate=0.25, ang=math.pi / 2)
+    c.lift(ellipse(x, y - h * 0.25, w * 0.8, h * 0.4, 16), amount=0.6, soft=0.25)
+    gouache(c, [(x + w * 0.85 * math.cos(a), y - h * 0.32 + h * 0.22 * math.sin(a)) for a in [math.pi + math.pi * i / 14 for i in range(15)]]
+            + [(x + w * 0.6, y - h * 0.22), (x - w * 0.6, y - h * 0.22)], alpha=150, soft=0.05)
+
+
+FOX = {'light': '#f4ae68', 'body': '#e27a36', 'dark': '#b0502a', 'cream': '#fbf2e4', 'shade': '#c9d4de', 'sock': '#4a332c',
+       'ink': (112, 58, 34), 'ear': '#f2d3bb'}
+
+
+def fox(c, x, y, s, P, pose='sit', facing=None, angle=0.0, snow=True):
+    """A red fox in watercolor: pose 'sit' (side-on, the brush tail wrapped round
+    its front paws) or 'curl' (asleep in a ring, nose tucked into the white
+    tail tip). The tail is painted first and stays in front; the head and legs
+    next; the body last goes around them, so nothing shows through."""
+    rnd = c.rnd
+    if facing is None:
+        facing = rnd.choice((-1, 1))
+    k = FOX
+    occ0 = None if c.occl is None else c.occl.copy()
+    box = (x - s * 1.4, y - s * 1.5, x + s * 1.4, y + s * 1.4)
+    g_all = c.snapshot()
+    if pose == 'curl':
+        u = s * 1.05; oy = y + 0.04 * u
+    else:
+        u = s * 0.98; oy = y + 0.13 * u
+    ca, sa = math.cos(angle), math.sin(angle)
+
+    def P_(seq):
+        out = []
+        for px, py in seq:
+            lx, ly = facing * px * u, py * u
+            out.append((x + lx * ca - ly * sa, oy + lx * sa + ly * ca))
+        return out
+
+    ink = k['ink']; lw = max(1.5, u * 0.016)
+    if pose == 'curl':
+        tail_path = [(-0.50, -0.02), (-0.52, 0.22), (-0.30, 0.40), (0.02, 0.45), (0.34, 0.37), (0.54, 0.16), (0.55, -0.04)]
+        tail_w = [0.11, 0.15, 0.17, 0.17, 0.15, 0.12, 0.06]
+        head = [(-0.02, -0.18), (0.04, -0.32), (0.16, -0.38), (0.30, -0.34), (0.40, -0.24), (0.50, -0.10), (0.54, -0.02),
+                (0.46, 0.02), (0.32, 0.0), (0.16, -0.02), (0.04, -0.06)]
+        ears = ([(0.04, -0.30), (-0.08, -0.56), (0.14, -0.36)], [(0.14, -0.36), (0.12, -0.62), (0.30, -0.34)])
+        body = [(-0.55, 0.02), (-0.50, -0.20), (-0.34, -0.36), (-0.10, -0.42), (0.12, -0.38), (0.34, -0.26), (0.50, -0.06),
+                (0.52, 0.16), (0.30, 0.36), (-0.05, 0.44), (-0.36, 0.36)]
+        bib = [(0.30, -0.12), (0.44, -0.08), (0.52, -0.03), (0.44, 0.01), (0.30, -0.01), (0.18, -0.03)]
+        eye = (0.30, -0.18); nose = (0.535, -0.03); legs = []
+    else:
+        tail_path = [(-0.42, 0.36), (-0.58, 0.54), (-0.36, 0.69), (0.02, 0.71), (0.36, 0.65), (0.56, 0.54)]
+        tail_w = [0.05, 0.14, 0.17, 0.155, 0.12, 0.06]
+        head = [(0.02, -0.52), (0.08, -0.66), (0.22, -0.72), (0.34, -0.68), (0.44, -0.60), (0.58, -0.53), (0.64, -0.49),
+                (0.59, -0.45), (0.45, -0.42), (0.30, -0.36), (0.14, -0.36), (0.04, -0.42)]
+        ears = ([(0.05, -0.62), (0.02, -0.93), (0.19, -0.69)], [(0.16, -0.68), (0.25, -0.97), (0.35, -0.66)])
+        body = [(0.18, -0.42), (0.30, -0.20), (0.33, 0.05), (0.29, 0.30), (0.24, 0.56), (0.0, 0.64), (-0.26, 0.62), (-0.46, 0.52),
+                (-0.53, 0.28), (-0.46, 0.02), (-0.28, -0.18), (-0.06, -0.36)]
+        bib = [(0.30, -0.44), (0.46, -0.44), (0.58, -0.47), (0.52, -0.41), (0.40, -0.33), (0.34, -0.14), (0.31, 0.10),
+               (0.24, 0.20), (0.17, 0.04), (0.15, -0.20), (0.20, -0.36)]
+        eye = (0.37, -0.57); nose = (0.625, -0.49)
+        legs = [((0.11, 0.10), (0.125, 0.62), 0.05), ((0.235, 0.08), (0.255, 0.62), 0.048)]
+    # 1 the tail: one russet wash, the tip lifted softly and glazed cream, fur flicks along the edge
+    tshape, tpts = _vband(P_(tail_path), [w * u for w in tail_w])
+    n = len(tpts); cut = int(n * 0.72)
+    g = c.snapshot()
+    c.wash(tshape, k['light'], k['body'], strength=0.72, spread=0.02, layers=26, edge=1.0, granulate=0.4, vary=k['dark'],
+           vary_amt=0.25, ang=-math.pi / 2)
+    under = [tpts[i] for i in range(2, cut)]
+    side = 1 if pose == 'curl' else 1
+    c.wash(_band([(px - _path_normal(tpts, i)[0] * tail_w[2] * u * 0.45 * side, py - _path_normal(tpts, i)[1] * tail_w[2] * u * 0.45 * side)
+                  for i, (px, py) in enumerate(under, 2)], u * 0.07, u * 0.04), k['dark'], None, strength=0.22, spread=0.04, layers=10,
+           edge=0.2, clip=tshape)
+    tip_shape, _ = _vband(tpts[cut - 3:] + [(tpts[-1][0] + (tpts[-1][0] - tpts[-2][0]) * 2, tpts[-1][1] + (tpts[-1][1] - tpts[-2][1]) * 2)],
+                          [tail_w[-2] * u * 1.3, tail_w[-2] * u * 1.3, tail_w[-1] * u * 1.6])
+    c.lift(tip_shape, amount=0.97, soft=0.1, clip=tshape)
+    c.wash(tshape, k['cream'], k['shade'], strength=0.42, spread=0.015, layers=12, edge=0.5, clip=tip_shape, ang=math.pi / 2)
+    for i in range(3, n - 2, 2):   # short fur flicks off the edge
+        px, py = tpts[i]; nx, ny = _path_normal(tpts, i)
+        wi = (tail_w[min(len(tail_w) - 1, int(i / n * len(tail_w)))]) * u
+        for sgn in (1, -1):
+            if rnd.random() < 0.5:
+                continue
+            ax, ay = px + nx * wi * 0.85 * sgn, py + ny * wi * 0.85 * sgn
+            dx, dy = tpts[min(n - 1, i + 1)][0] - px, tpts[min(n - 1, i + 1)][1] - py
+            L_ = math.hypot(dx, dy) or 1
+            col = (150, 140, 130) if i >= cut else k['ink']
+            c.ink_line([(ax, ay), (ax + dx / L_ * u * 0.05 + nx * u * 0.02 * sgn, ay + dy / L_ * u * 0.05 + ny * u * 0.02 * sgn)],
+                       width=max(1, u * 0.009), closed=False, alpha=110, passes=1, jitter=0, color=col)
+    c.ink_line(tshape, width=lw, alpha=100, passes=1, jitter=0, color=ink)
+    c.paint_around(g)
+    # 2 legs (sitting fox): russet tops, dark socks; behind the tail, in front of the body
+    for (a, b, w) in legs:
+        g = c.snapshot()
+        lp = P_([a, ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2), b])
+        shape, _ = _vband(lp, [w * u, w * u * 0.8, w * u * 0.72])
+        c.wash(shape, k['body'], k['dark'], strength=0.7, spread=0.02, layers=16, edge=1.0, ang=math.pi / 2)
+        sock = _vband(P_([((a[0] + 1.3 * b[0]) / 2.3, (a[1] + 1.3 * b[1]) / 2.3), b]), [w * u * 0.85, w * u * 0.8])[0]
+        c.wash(sock, k['sock'], '#7a4a32', strength=0.7, spread=0.03, layers=14, edge=0.7, ang=-math.pi / 2, clip=shape)
+        c.ink_line(shape, width=lw * 0.8, alpha=100, passes=1, jitter=0, color=ink)
+        c.paint_around(g)
+    # 3 the head and ears
+    g = c.snapshot()
+    hs = smooth(P_(head), rounds=2)
+    c.wash(hs, k['light'], k['body'], strength=0.72, spread=0.02, layers=24, edge=1.0, granulate=0.35, vary=k['dark'], vary_amt=0.2,
+           ang=math.pi / 2)
+    for ear in ears:
+        es = P_(ear)
+        c.wash(es, k['body'], k['dark'], strength=0.75, spread=0.015, layers=16, edge=1.0, ang=-math.pi / 2)
+        tip = [es[1], (es[1][0] * 0.62 + es[0][0] * 0.38, es[1][1] * 0.62 + es[0][1] * 0.38),
+               (es[1][0] * 0.62 + es[2][0] * 0.38, es[1][1] * 0.62 + es[2][1] * 0.38)]
+        c.wash(tip, k['sock'], None, strength=0.7, spread=0.02, layers=10, edge=0.9)
+        c.ink_line(es, width=lw, alpha=120, passes=1, jitter=0, color=ink)
+    inner = ears[1]
+    ci = (sum(p[0] for p in inner) / 3, sum(p[1] for p in inner) / 3)
+    c.wash(P_([((p[0] + ci[0]) / 2, (p[1] + ci[1]) / 2 + 0.03) for p in inner]), k['ear'], None, strength=0.6, layers=10, edge=0.8)
+    c.paint_around(g)
+    # 4 the body around everything in front, darker along the back
+    g = c.snapshot()
+    bs = smooth(P_(body), rounds=2)
+    c.wash(bs, k['light'], k['body'], strength=0.7, spread=0.02, layers=26, edge=1.0, granulate=0.4, vary=k['dark'], vary_amt=0.22,
+           ang=math.pi / 2)
+    if pose == 'curl':
+        back = P_([(-0.46, -0.16), (-0.30, -0.33), (-0.06, -0.40), (0.16, -0.36)])
+    else:
+        back = P_([(-0.04, -0.33), (-0.26, -0.15), (-0.43, 0.04), (-0.50, 0.28)])
+        thigh = P_([(-0.40, 0.48), (-0.22, 0.30), (-0.06, 0.36), (0.0, 0.56)])
+        c.ink_line(smooth(thigh, rounds=1, closed=False), width=lw * 0.9, closed=False, alpha=90, passes=1, jitter=0, color=ink)
+    c.wash(_band(smooth(back, rounds=1, closed=False), u * 0.07, u * 0.04), k['dark'], None, strength=0.35, spread=0.03, layers=10,
+           edge=0.5, clip=bs)
+    c.ink_line(bs, width=lw, alpha=115, passes=1, jitter=0, color=ink)
+    c.paint_around(g)
+    # 5 the white bib and cheek: lifted, then a clean cream glaze with a cool shadow
+    occ_obj = c.occl
+    c.occl = occ0
+    c.wash(_band(smooth(P_([(0.02, -0.56), (0.10, -0.44), (0.16, -0.38)] if pose != 'curl' else [(0.0, -0.20), (0.06, -0.10), (0.16, -0.04)]),
+                        rounds=1, closed=False), u * 0.05, u * 0.02), k['dark'], None, strength=0.3, layers=10, edge=0.4, clip=hs)
+    bb = smooth(P_(bib), rounds=2)
+    c.lift(bb, amount=0.95, soft=0.05)
+    c.wash(bb, k['cream'], k['shade'], strength=0.45, spread=0.015, layers=14, edge=0.6, ang=math.pi / 2)
+    if pose != 'curl':
+        for i in range(4):   # a few tufts of chest ruff
+            px, py = P_([(0.28 - i * 0.03, -0.24 + i * 0.1)])[0]
+            c.ink_line([(px, py), (px + facing * u * 0.03, py + u * 0.02), (px, py + u * 0.04)], width=lw * 0.7, closed=False, alpha=70,
+                       passes=1, jitter=0, color=(150, 140, 135))
+    # 6 the face: nose, eye (open when sitting, a closed curve when asleep), a lifted highlight on the crown
+    nx_, ny_ = P_([nose])[0]
+    c.wash(ellipse(nx_, ny_, u * 0.03, u * 0.025, 10), '#1f1717', None, strength=1.3, spread=0.01, layers=8, blur=1)
+    ex, ey = P_([eye])[0]
+    if pose == 'curl':
+        arc = [(ex + facing * u * 0.06 * math.cos(t), ey + u * 0.03 * math.sin(t)) for t in [math.pi * (0.05 + 0.9 * j / 8) for j in range(9)]]
+        c.ink_line(arc, width=max(1.5, u * 0.014), closed=False, alpha=200, passes=1, jitter=0, color=(45, 30, 25))
+    else:
+        c.wash(ellipse(ex, ey, u * 0.03, u * 0.024, 12, facing * 0.35), '#1d1512', None, strength=1.3, spread=0.01, layers=8, blur=1)
+        gouache(c, ellipse(ex + facing * u * 0.01, ey - u * 0.009, u * 0.009, u * 0.009, 8), alpha=240, soft=0.1)
+        c.ink_line(P_([(0.46, -0.445), (0.50, -0.43)]), width=lw * 0.8, closed=False, alpha=120, passes=1, jitter=0, color=(70, 40, 30))
+    c.lift(ellipse(*P_([(0.2, -0.62)] if pose != 'curl' else [(0.2, -0.3)])[0], u * 0.08, u * 0.035, 12), amount=0.35, soft=0.3)
+    c.occl = occ0
+    # 7 a drift of snow under the fox, behind it
+    if snow:
+        g2 = c.snapshot()
+        c.paint_around(g_all)
+        my = oy + (0.47 if pose == 'curl' else 0.72) * u
+        _snow_mound(c, x, my, u * 0.68, u * 0.1)
+        c.occl = occ0
+        c.paint_around(g_all)
+    else:
+        c.paint_around(g_all)
+
+
+HEDGE = {'spine': '#8a6446', 'spine2': '#b9926c', 'spine_dark': '#4a3426', 'face': '#f4dfc4', 'face2': '#d9ab80', 'belly': '#e9cfac',
+         'ink': (88, 60, 42)}
+
+
+def hedgehog(c, x, y, s, P, facing=None, angle=0.0, carry=None, snow=True):
+    """A hedgehog side-on, nosing along: a pale pointed face, a dome of spines
+    built from a dark wash and hundreds of short brush strokes with pale tips,
+    a black button nose. carry='berries' puts a holly sprig with red berries on
+    its back."""
+    rnd = c.rnd
+    if facing is None:
+        facing = rnd.choice((-1, 1))
+    k = HEDGE
+    occ0 = None if c.occl is None else c.occl.copy()
+    g_all = c.snapshot()
+    u = s * 1.02; oy = y - 0.02 * u
+    ca, sa = math.cos(angle), math.sin(angle)
+
+    def P_(seq):
+        out = []
+        for px, py in seq:
+            lx, ly = facing * px * u, py * u
+            out.append((x + lx * ca - ly * sa, oy + lx * sa + ly * ca))
+        return out
+
+    ink = k['ink']; lw = max(1.5, u * 0.015)
+    # 1 the face in front: pale, warming to the snout
+    g = c.snapshot()
+    face = smooth(P_([(0.12, -0.20), (0.30, -0.12), (0.48, 0.0), (0.62, 0.11), (0.70, 0.17), (0.67, 0.23), (0.52, 0.29), (0.32, 0.33),
+                      (0.16, 0.30), (0.08, 0.10)]), rounds=2)
+    c.wash(face, k['face'], k['face2'], strength=0.62, spread=0.02, layers=20, edge=0.9, granulate=0.3, ang=0.0)
+    c.wash(ellipse(*P_([(0.40, 0.17)])[0], u * 0.05, u * 0.03, 12), '#f0a6a0', None, strength=0.35, layers=10, edge=0.5)
+    c.ink_line(face, width=lw, alpha=110, passes=1, jitter=0, color=ink)
+    ear = P_([(0.25, -0.07)])[0]
+    c.wash(ellipse(ear[0], ear[1], u * 0.055, u * 0.05, 12), '#d9ab80', '#a77a55', strength=0.7, layers=12, edge=1.0)
+    c.ink_line(ellipse(ear[0], ear[1], u * 0.055, u * 0.05, 12), width=lw * 0.8, alpha=110, passes=1, jitter=0, color=ink)
+    c.paint_around(g)
+    # 2 little dark feet
+    g = c.snapshot()
+    for fx, fy in ((0.20, 0.36), (-0.24, 0.38)):
+        px, py = P_([(fx, fy)])[0]
+        c.wash(ellipse(px, py, u * 0.07, u * 0.04, 10), '#6b4a36', '#3e2a20', strength=0.8, layers=10, edge=1.0)
+    c.paint_around(g)
+    # 3 the dome of spines: a ragged outline, a wash, then strokes radiating from the body
+    g = c.snapshot()
+    cx, cy = -0.08, 0.14
+    dome = []
+    N = 60
+    for i in range(N + 1):
+        th = 3.05 - (3.05 - 0.42) * i / N
+        r = 1.0 if i % 2 == 0 else 0.9
+        dome.append((cx + 0.6 * r * math.cos(th), cy - 0.54 * r * math.sin(th)))
+    dome += [(0.22, 0.04), (0.10, 0.24), (-0.20, 0.30), (-0.50, 0.26), (-0.66, 0.16)]
+    D_ = P_(dome)
+    c.wash(D_, k['spine2'], k['spine'], strength=0.75, spread=0.012, layers=22, edge=1.1, granulate=0.55, vary=k['spine_dark'],
+           vary_amt=0.3, ang=math.pi / 2, base_depth=2, layer_depth=2)
+    c.wash(_band(smooth(P_([(-0.62, 0.12), (-0.40, 0.24), (-0.05, 0.27), (0.18, 0.12)]), rounds=1, closed=False), u * 0.08, u * 0.05),
+           k['spine_dark'], None, strength=0.35, spread=0.03, layers=10, edge=0.5, clip=D_)
+    loc = [(px, py) for px, py in dome]
+    ox, oy2 = cx, cy + 0.12
+    strokes = 0; tries = 0
+    while strokes < 230 and tries < 4000:
+        tries += 1
+        px, py = rnd.uniform(-0.68, 0.30), rnd.uniform(-0.45, 0.28)
+        th = math.atan2(py - oy2, px - ox) + rnd.uniform(-0.18, 0.18)
+        L = rnd.uniform(0.07, 0.13)
+        qx, qy = px + L * math.cos(th), py + L * math.sin(th)
+        if not (_inside((px, py), loc) and _inside((qx, qy), loc)):
+            continue
+        strokes += 1
+        a, b = P_([(px, py), (qx, qy)])
+        c.ink_line([a, b], width=max(1, u * 0.011), closed=False, alpha=rnd.randint(110, 170), passes=1, jitter=0, color=(58, 38, 26))
+        if strokes % 3 == 0:
+            m = P_([(px + 0.65 * (qx - px), py + 0.65 * (qy - py))])[0]
+            c.ink_line([m, b], width=max(1, u * 0.009), closed=False, alpha=170, passes=1, jitter=0, color=(244, 230, 206))
+    c.lift(ellipse(*P_([(-0.12, -0.26)])[0], u * 0.22, u * 0.07, 14), amount=0.25, soft=0.4)
+    c.paint_around(g)
+    # 4 the belly fur, behind the rest
+    c.wash(ellipse(*P_([(-0.04, 0.27)])[0], u * 0.42, u * 0.09, 16), k['belly'], k['face2'], strength=0.5, layers=14, edge=0.7)
+    # 5 eye and nose last, on top
+    c.occl = occ0
+    ex, ey = P_([(0.43, 0.05)])[0]
+    c.wash(ellipse(ex, ey, u * 0.032, u * 0.036, 10), '#161010', None, strength=1.4, spread=0.01, layers=8, blur=1)
+    gouache(c, ellipse(ex + facing * u * 0.01, ey - u * 0.012, u * 0.01, u * 0.01, 8), alpha=240, soft=0.1)
+    nx_, ny_ = P_([(0.695, 0.185)])[0]
+    c.wash(ellipse(nx_, ny_, u * 0.042, u * 0.038, 10), '#1a1212', None, strength=1.4, spread=0.01, layers=8, blur=1)
+    gouache(c, ellipse(nx_ + facing * u * 0.008, ny_ - u * 0.014, u * 0.012, u * 0.008, 8), alpha=220, soft=0.1)
+    if carry == 'berries':
+        bx, by = P_([(-0.12, -0.44)])[0]
+        from motifs import holly
+        holly(c, bx, by, u * 0.2, P, angle=facing * 0.4)
+    c.occl = occ0
+    if snow:
+        c.paint_around(g_all)
+        _snow_mound(c, x, oy + 0.41 * u, u * 0.72, u * 0.09)
+        c.occl = occ0
+    c.paint_around(g_all)
+
+
+def _toadstool_one(c, bx, by, h, lean, rnd, snow):
+    """One fly-agaric toadstool, base at (bx, by), height h."""
+    ca, sa = math.cos(lean), math.sin(lean)
+
+    def L(px, py):   # local (x right, y up from the base, in heights) -> canvas
+        return (bx + (px * ca + py * sa) * h, by + (-py * ca + px * sa) * h)
+
+    capc = (0.0, 0.64)
+    # 1 the cap in front: red wet-in-wet, deeper at the crown's edge
+    g = c.snapshot()
+    cap = [L(0.44 * math.cos(t), 0.64 + 0.32 * math.sin(t)) for t in [math.pi * i / 20 for i in range(21)]]
+    cap += [L(-0.40, 0.60), L(-0.2, 0.585), L(0.2, 0.585), L(0.40, 0.60)]
+    cap = smooth(cap, rounds=1)
+    c.wash(cap, '#ec6a3c', '#d42f36', strength=0.85, spread=0.015, layers=26, edge=1.15, granulate=0.3, vary='#a91f2e', vary_amt=0.25,
+           ang=-math.pi / 2)
+    c.lift([L(-0.30, 0.78), L(-0.16, 0.90), L(0.02, 0.92), L(-0.12, 0.84), L(-0.26, 0.74)], amount=0.55, soft=0.25)
+    # warts: white gouache flecks, flatter toward the rim
+    for _ in range(11):
+        t = rnd.uniform(0.18, 0.82) * math.pi; rr = rnd.uniform(0.15, 0.92)
+        px, py = 0.40 * rr * math.cos(t), 0.64 + 0.27 * rr * math.sin(t) + 0.02
+        sz = rnd.uniform(0.022, 0.045) * (1.15 - 0.4 * rr)
+        p = L(px, py)
+        gouache(c, ellipse(p[0], p[1], h * sz, h * sz * (0.85 - 0.3 * abs(math.cos(t)) * rr), 9, rnd.uniform(0, 3)), alpha=232, soft=0.06)
+    if snow:   # a little snow on the crown
+        crest = [L(0.36 * math.cos(t), 0.66 + 0.33 * math.sin(t)) for t in [math.pi * (0.22 + 0.56 * i / 12) for i in range(13)]]
+        crest += [L(-0.22, 0.86), L(0.0, 0.89), L(0.22, 0.86)][::-1]
+        gouache(c, crest, alpha=225, soft=0.04)
+        c.wash([L(-0.25, 0.85), L(0.0, 0.895), L(0.25, 0.85), L(0.0, 0.875)], '#b9cadb', None, strength=0.35, layers=8, edge=0.6)
+    c.ink_line(cap, width=max(1.5, h * 0.012), alpha=120, passes=1, jitter=0, color=(110, 30, 30))
+    c.paint_around(g)
+    # 2 the gills under the cap's rim, then the skirt ring
+    g = c.snapshot()
+    gills = [L(-0.40, 0.60), L(-0.2, 0.585), L(0.2, 0.585), L(0.40, 0.60), L(0.2, 0.55), L(0.0, 0.54), L(-0.2, 0.55)]
+    c.wash(gills, '#f3e8d6', '#d8c6aa', strength=0.6, spread=0.01, layers=12, edge=0.8)
+    for i in range(7):
+        xx = -0.32 + i * 0.107
+        c.ink_line([L(xx, 0.585), L(xx * 0.4, 0.55)], width=max(1, h * 0.006), closed=False, alpha=80, passes=1, jitter=0, color=(150, 125, 100))
+    ring = [L(-0.085, 0.47), L(-0.13, 0.425), L(-0.12, 0.405), L(-0.04, 0.415), L(0.0, 0.40), L(0.05, 0.415), L(0.12, 0.405), L(0.13, 0.425),
+            L(0.085, 0.47)]
+    c.wash(smooth(ring, rounds=1), '#fbf5ea', '#d9dfe4', strength=0.55, spread=0.012, layers=12, edge=0.9, ang=math.pi / 2)
+    c.ink_line(smooth(ring, rounds=1), width=max(1, h * 0.008), alpha=90, passes=1, jitter=0, color=(130, 120, 115))
+    c.paint_around(g)
+    # 3 the stem goes behind both: creamy white with a cool shadow side and a bulb at the foot
+    stem = [L(-0.07, 0.56), L(-0.085, 0.3), L(-0.13, 0.08), L(-0.11, 0.0), L(0.11, 0.0), L(0.13, 0.08), L(0.085, 0.3), L(0.07, 0.56)]
+    stem = smooth(stem, rounds=1)
+    c.wash(stem, '#f7eedd', '#e6d8c0', strength=0.5, spread=0.012, layers=16, edge=0.8, ang=0.0)
+    c.wash([L(0.03, 0.55), L(0.075, 0.3), L(0.115, 0.06), L(0.07, 0.02), L(0.045, 0.3)], '#c9c2b4', None, strength=0.3, layers=8, edge=0.4,
+           clip=stem)
+    c.ink_line(stem, width=max(1, h * 0.009), alpha=100, passes=1, jitter=0, color=(120, 110, 100))
+
+
+def toadstool(c, x, y, s, P, angle=0.0, n=2, snow=True):
+    """A little cluster of red-and-white fly-agaric toadstools in the snow
+    (the 'enchanted winter garden' mushroom): a tall one and a smaller one in
+    front of it, a few dry grass blades, a drift of snow at the foot."""
+    rnd = c.rnd
+    occ0 = None if c.occl is None else c.occl.copy()
+    g_all = c.snapshot()
+    by = y + s * 0.62
+    side = rnd.choice((-1, 1))
+    specs = [(x + side * s * 0.32, by + s * 0.04, s * 0.95, side * 0.12)]
+    if n >= 2:
+        specs.insert(0, (x - side * s * 0.22, by - s * 0.0, s * 1.35, -side * 0.06))
+    if n >= 3:
+        specs.append((x + side * s * 0.70, by + s * 0.06, s * 0.6, side * 0.25))
+    # smallest in front: paint from the front back
+    for bx, b_y, h, lean in sorted(specs, key=lambda t: t[2]):
+        _toadstool_one(c, bx, b_y, h, lean + angle * 0.3, rnd, snow)
+    for i in range(5):   # dry grass blades poking through the snow
+        gx = x + rnd.uniform(-0.7, 0.7) * s; gy = by + s * 0.02
+        tip = (gx + rnd.uniform(-0.15, 0.15) * s, gy - rnd.uniform(0.25, 0.45) * s)
+        c.ink_line([(gx, gy), ((gx + tip[0]) / 2 + s * 0.03, (gy + tip[1]) / 2), tip], width=max(1, s * 0.012), closed=False, alpha=110,
+                   passes=1, jitter=0, color=(140, 120, 70))
+    c.occl = occ0
+    c.paint_around(g_all)
+    _snow_mound(c, x, by + s * 0.02, s * 0.85, s * 0.11)
+    c.occl = occ0
+    c.paint_around(g_all)
+
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
@@ -3550,4 +3925,5 @@ MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'sn
            'stethoscope': stethoscope,
            'latte_cup': latte_cup, 'togo_cup': togo_cup, 'french_press': french_press, 'enamel_pot': enamel_pot,
            'croissant': croissant, 'coffee_branch': coffee_branch, 'coffee_beans': coffee_beans,
-           'plant_pot': plant_pot, 'monstera': monstera, 'snake_plant': snake_plant, 'pothos': pothos}
+           'plant_pot': plant_pot, 'monstera': monstera, 'snake_plant': snake_plant, 'pothos': pothos,
+           'fox': fox, 'hedgehog': hedgehog, 'toadstool': toadstool}

@@ -1,0 +1,70 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "foxes-and-hedgehogs",
+  "kind": "pod pattern design (wrap mug, accent mug)"
+ },
+ "title": "Foxes & Hedgehogs in the Snow: all-over watercolor winter mug wraps (2700 x 1120, 2475 x 1155, 2475 x 1275), mockups and listings",
+ "reviewed_at": "2026-11-20T16:36:14Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions. The trademark screen is a web screen, not a clearance. Queue note: the gift-category table and the best-seller list under it have no open row today (Valentine's Day opens in early January), so this is the one new design per run, picked from trend research."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against all three full-size wraps: red foxes sitting with their tails wrapped round their paws (three on every size) and curled up asleep (two), hedgehogs (four, two with a holly sprig on their backs), red-and-white toadstools, snowy pine boughs, pinecones, holly, red berries, falling snow and snowflakes on warm cream. Nothing named is missing. 'No slogan or name' is true: the art has no lettering. No claims of sales, reviews, 'best seller', quality guarantees or 'free'."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data; no names or dates on the art."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (pattern.py, watercolor.py, and three motifs written today in motifs2.py: fox, hedgehog, toadstool; pine_bough, pinecone, holly, berries, snowflake and snow_dot are older studio motifs). The fox and hedgehog are generic wild animals drawn from our own shapes, not any book, film, brand mascot or character (no clothes, no names, no famous poses). Not copied from the competing mugs found in research (TeePublic, Etsy, Zazzle, Walmart/3dRose, the LIGARTI enamel mug); no third-party image was used. Purely machine-made images can't be registered for US copyright; the design is composed by the agents and drawn by our code, noted as usual."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check): no mark found for 'winter woodland', 'fox and hedgehog' or 'foxes and hedgehogs'. Nearby: WINTER WOODS (reg. 5415467, class 003), SNOWY WOODS (cancelled), WINTER WONDERLAND (LED projectors; a pending 2025 application), WOODLAND WONDERS (serial 87906238, class 21, goods not shown) and WOODLAND (serial 74282610, 1992, class 21 household containers, current status not shown), plus WOODLAND marks for unrelated goods. 'Woodland' appears only as a plain description inside longer phrases ('Winter Woodland Animals', 'woodland animals mug', 'woodland christmas', 'woodland coffee cup'), never alone or styled as a brand, which is descriptive use; 'Woodland Wonders' and 'Woodland Friends' are kept out. Other title and tag words describe what is pictured (fox, hedgehog, toadstool, mushroom, watercolor, cottagecore) or the occasion (Secret Santa, Christmas). tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description carries the production-partner disclosure and says the art is digitally painted by the studio; the delivery page gives mug details and care. Titles are 126 and 129 characters (limit 140); 13 tags each, all 20 characters or fewer and all different (build.py checks). 'Cottagecore' is a style word; 'Secret Santa' names a gift exchange, not a brand."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Cute animals, but these are adult gift mugs, not made for or marketed to children (no 'kids' words in the title or tags)."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "pass",
+   "note": "Prices are the studio's standard mug prices from POD-DESK.md and stay suggestions; no new supplier terms. Printify writes still wait for the owner's go-ahead."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "The toadstools didn't paint at all on the first test (only their white spots and grass showed): the cap, gills, ring and stem were drawn at 1/100 size. Fixed, and the ring was made a narrow drooping skirt and the stem warm cream instead of grey.",
+  "Eyes were missing on the foxes and hedgehogs: they were painted 'around' the head that had just been finished in front. Eyes, noses and the white bib now go on after that is cleared.",
+  "The fox tail had hard dark stripes (it read as a raccoon tail) and a boxy white tip with a straight cut: the tail is now one russet wash with a soft shadow and short fur flicks, and the tip is lifted softly and glazed cream; the tail now tapers in from under the haunch instead of starting with a flat edge.",
+  "Fox legs were thick pillars with a hard band for the dark socks: thinner legs, the russet fading into the dark sock wet-in-wet.",
+  "A pale bloom spot on the fox's haunch looked like a stain; removed.",
+  "Falling snow read as blue polka dots: fewer, smaller and lighter dots; more pine boughs and bigger hedgehogs so the wrap is as dense as the best sellers.",
+  "Every fox faced the same way: foxes and hedgehogs now face both ways (two sitting foxes face each other in the middle).",
+  "A sitting fox sat on the handle seam on all three print sizes, so the accent mug's handle would have cut it in half: a seed was chosen (1957) that keeps every fox and hedgehog clear of the seam on all three sizes."
+ ],
+ "owner_notes": [
+  "Optional: run a USPTO search on WOODLAND in Class 21 (serial 74282610 and WOODLAND WONDERS 87906238) before listing; this was a web screen only, and 'woodland' is used only descriptively.",
+  "Mug searches peak in December and the design has no Christmas-only symbols, so it keeps selling through February once Printify writes are allowed."
+ ],
+ "research_ref": "pod-kit/research/2026-11-20-foxes-and-hedgehogs.json",
+ "decision_ref": "pod-kit/decisions/2026-11-20-pod-foxes-and-hedgehogs.json"
+}

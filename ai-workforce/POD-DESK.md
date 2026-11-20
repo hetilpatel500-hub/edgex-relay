@@ -490,3 +490,19 @@ Studio Floor at any time.
   leaves), Legal cleared; records in `pod-kit/research`, `legal` and `decisions`. Delivery page (private):
   https://claude.ai/artifact/ADZ5qhMyfcb5DjJjDHd7BD. Printify read-only: 58 products, 48 with Etsy listing IDs, the same 10 drafts
   unpublished, 0 orders. No Printify products: writes still wait for the owner. $0 spent.
+- 2026-11-20 (16:17 UTC run, pattern day): the gift-category table and the best-seller list have no open row (Valentine's Day opens in
+  early January), so the run made one design from trend research: **Foxes & Hedgehogs in the Snow**, an all-over watercolor winter
+  mug: red foxes sitting with their brush tails wrapped round their paws and curled up asleep, hedgehogs nosing through the snow (two
+  with a holly sprig on their backs), red-and-white fly-agaric toadstools, snowy pine boughs, pinecones, holly, red berries and
+  falling snow on warm cream; no slogan or name. Accent mugs in Red, Orange and Black. New motifs `fox` (poses `sit` and `curl`; the
+  tail is painted first, then the legs and head, and the body goes around them; the white tail tip is lifted softly and glazed
+  cream), `hedgehog` (a pale face, a dome of spines from a ragged wash and a few hundred short strokes with pale tips; `carry`
+  'berries' adds a holly sprig) and `toadstool` (a cluster with glossy red caps, white gouache warts, a snow cap, gills, a skirt
+  ring and a cream stem), plus helpers `_vband`, `_inside` and `_snow_mound` in `motifs2.py`. Fixes after review: toadstools drawn at
+  1/100 size, eyes hidden by the head's own paint-around, a striped tail with a boxy tip, pillar legs, blue polka-dot snow, every fox
+  facing one way, and a fox on the handle seam on all three sizes (seed 1957 keeps every animal clear of it). Research 20/25 (mug
+  searches peak in December; eRank's 2026 'Enchanted Winter Garden' trend favors mushrooms and magical woodland style; competing
+  woodland mugs are flat cartoons or clip-art patterns), Legal cleared ('woodland' only as a plain description); records in
+  `pod-kit/research`, `legal` and `decisions`. Delivery page (private): https://claude.ai/artifact/87SeyqjbKc4LYay6Qudk5a. Printify
+  read-only: 58 products, 48 with Etsy listing IDs, the same 10 drafts unpublished, 0 orders. No Printify products: writes still wait
+  for the owner. $0 spent.
