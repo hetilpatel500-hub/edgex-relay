@@ -1,0 +1,68 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-valentines-day",
+  "kind": "book"
+ },
+ "title": "My First Valentine's Day Coloring Book: interior, cover, KDP listing and Amazon Ads kit",
+ "reviewed_at": "2026-11-23T14:59:06Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishing. Topic note: the planned rotation has ended, so Trend Scout picked Valentine's Day under the owner's standing 'different topics' directive (no earlier book, repo record or DB books doc has it) so the book can be indexed before January-February searches; the owner can swap it. Some animals appear in earlier books (puppy, kitty, bunny, panda, mouse, penguins, ladybug, octopus, elephant), each redrawn here in a new Valentine pose with a heart."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, subtitle, back cover, A+ points and ad texts checked against the built interior (text of interior.pdf): 64 pages, 30 labelled pictures in four groups (7 hearts everywhere + 7 yummy treats + 6 cards and gifts + 10 animal friends) exactly as listed, each with a blank back, a name label and the 'Great job!' certificate. Every named example (heart, heart balloons, heart-shaped hot air balloon, cupcake, box of chocolates, love letter, teddy bear hugging a heart, heart glasses on a smiling sun) is in the book. 'Lots of them with smiling faces' is true and not 'every page' (rose, present, flowers, love letter have none). Fixed: the treats group first said 'sweet treats' but includes Heart Pizza; the description, back cover and ad text 3 now say 'yummy treats'. No 'bestselling', review, sale or result claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit; the 'This book belongs to' line and the certificate's name line collect nothing."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/valentine.js; line and color contact sheets reviewed at full size. Checked against well-known characters: the kitty has a mouth, whiskers and no bow (not Hello Kitty); the teddy bear holds a heart in its paws and has no belly symbol (not a Care Bear); bunny, panda, puppy, mouse and penguins are generic; the candy hearts carry no printed words or maker's marks; no Cupid figure, so no borrowed mascot. Hello Kitty, Care Bears, Peanuts and Snoopy appear only as ad negatives. Fredoka font is SIL OFL 1.1, which allows embedding. AI-art note: purely AI-made pictures and text can't be registered for US copyright (US Copyright Office guidance; Thaler v. Perlmutter), so others could reuse them; that doesn't stop selling the book."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search only (USPTO is unreachable from this environment). No book or mark titled 'My First Valentine's Day Coloring Book' turned up. Nearby but different titles: 'My First Valentine' (WorthyKids/Hachette board book, not a coloring book), 'My First Valentine's Day Book' (a board book with tucked-in cards), 'My First Big Book of Valentine's Day' (Little Bee Books, about 200 pages, ages 3-5) and 'My First Valentine's Day Activity Coloring Book for Toddler and Preschoolers' (160 pages of mixed activities); 'Valentine's Day coloring book' is a generic phrase and the series uses 'My First' descriptively as in its 25 earlier books. Page labels are plain descriptions: 'Candy Hearts' (not the SWEETHEARTS candy brand), 'Love Letter' names an envelope picture, not the card game. Keywords, ad keywords and headlines use no brand, author or character names."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover and title page matches the metadata title; 7 keywords of 41 characters or fewer, no brands, no 'bestseller', 'new' or 'free' style terms, no other authors or titles. Interior: the long title word now wraps inside 0.46 in side margins on the title page (KDP minimum 0.375 in inside, 0.25 in outside). Categories are the three general children's paths used by earlier books; a Valentine's Day or holidays category, if KDP's picker offers one, is left to the owner. Amazon Ads book policy: 3 custom texts (124, 114, 102 characters) and 3 headlines (41, 39, 31) with no price, sale, 'free' offer, best-seller or review claims; ad keywords are generic searches; 50 negatives, including adult romance terms so ads stay off grown-up Valentine searches."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no weapons (no Cupid's bow or arrows), no scary faces, no people in risky places (the hot air balloon basket is empty), and the rose has no thorns. Treats (candy hearts, chocolates, lollipop, milkshake) are pictures only, with no message telling children to ask for or buy anything; nothing pushes purchases on kids. The love theme stays friendship-and-family level (hugging a heart, lovebirds on a branch)."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Treats group: 'sweet treats' was not true for Heart Pizza; the description, back cover and ad text 3 now say 'yummy treats'.",
+  "Title page: at the fixed 88 pt size 'Valentine's Day' ran almost to the page edges; build.js now pads the title page 0.5 in each side, so long topic words wrap or sit inside KDP's margins (earlier books' short words are unchanged).",
+  "A+ 'Look inside' headline nearly touched the image's right edge; shortened to 'Look inside: 30 Valentine pictures to color!'.",
+  "Art review: heart-balloon strings and hot-air-balloon ropes started outside their shapes, the heart tree's small hearts crossed the crown edge, and the rainbow's ends showed flat cuts; all fixed. Heart Glasses redrawn on a smiling sun so they read as glasses, and the penguins' crossed flippers over the heart were removed."
+ ],
+ "owner_notes": [
+  "Optional: run a USPTO search for 'My First Valentine' before publishing; this was a web screen only.",
+  "Listing now (late November) gives Amazon time to index the book before Valentine's searches pick up in January; it's your call when to publish.",
+  "KDP's AI question: answer Yes for images and text."
+ ],
+ "research_ref": "web search 2026-11-23: title conflicts and toddler Valentine coloring books (Walmart, Barnes & Noble, Hachette, Little Bee Books listings)",
+ "last_touch_ref": "grammar-copy-editor and deliverable-qa-reviewer lines in book-kit/records/2026-11-23-my-first-valentines-day.json",
+ "decision_ref": "book-kit/records/2026-11-23-my-first-valentines-day.json (decision)"
+}

@@ -65,7 +65,7 @@ function interiorHtml() {
   .lab{width:100%;height:100%}
   .art{position:absolute;left:0.55in;right:0.55in;top:2.05in;bottom:0.55in}
   .art svg{width:100%;height:100%}
-  .title{text-align:center}
+  .title{text-align:center;padding:0 .5in}
   .t1{margin-top:2.2in;font:600 40pt Fredoka}.t2{font:700 88pt Fredoka;line-height:1}.t3{font:600 36pt Fredoka;margin-top:.2in}
   .own{margin-top:1.6in;font:600 26pt Fredoka}.line{margin:0.5in auto 0;width:5.5in;border-bottom:4px solid #111}
   .cert .box{position:absolute;inset:1in;border:10px solid #111;border-radius:.6in;text-align:center;font:600 30pt Fredoka}

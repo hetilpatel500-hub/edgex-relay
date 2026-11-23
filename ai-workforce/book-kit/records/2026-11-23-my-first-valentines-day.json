@@ -1,0 +1,111 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the book desk's books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-valentines-day",
+  "title": "My First Valentine's Day Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Valentine's Day",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-valentines-day.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/MSDc1mzEYicaRbnWgyt1Q9",
+  "created": "2026-11-23T15:00:11Z",
+  "emailed": "Gmail message 1a208ebec9cda131 to the owner, 2026-11-23"
+ },
+ "decision": {
+  "doc_id": "2026-11-23-book-my-first-valentines-day",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-23T15:00:11Z",
+  "reason": "Legal verdict cleared at 2026-11-23T14:59:06Z (all ten counsel; trademark web screen on file; 'sweet treats' corrected to 'yummy treats' because the group includes Heart Pizza; the title page now stays inside KDP's margins). Planned rotation has ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it. Build checks passed (64 pages, cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-valentines-day.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-23-book-my-first-valentines-day",
+  "created": "2026-11-23T15:00:11Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation is finished; picked Valentine's Day (no book, repo record or DB books doc has it) so the book can be indexed before January-February searches; toddler Valentine coloring books found sell under generic titles."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched titles: no 'My First Valentine's Day Coloring Book' turned up; 'My First Valentine' (board book), 'My First Big Book of Valentine's Day' and a 160-page 'My First Valentine's Day Activity Coloring Book' are different books."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 subjects in art/valentine.js in four groups (7 hearts everywhere, 7 yummy treats, 6 cards and gifts, 10 animal friends), with a heart helper and a shared 'animal hugging a heart' pose."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Line and color sheets reviewed at full size; fixed balloon strings and hot-air-balloon ropes that started outside their shapes, the heart tree's crossing hearts and the rainbow's flat ends; redrew Heart Glasses on a smiling sun; removed the penguins' crossed flippers."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, a description in four groups that match the 30 pages (7 + 7 + 6 + 10) and 7 keywords of 41 characters or fewer, with no brand names or other titles."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 50 negatives, including adult romance terms and character brands, so ads stay on toddler searches."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Ad texts 124, 114 and 102 characters, headlines 41, 39 and 31; changed 'sweet treats' to 'yummy treats' (the group includes Heart Pizza); shortened the A+ headline; build.js checks passed."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages; cover 17.3941 x 11.25 in matches KDP's formula; background reaches every page edge; title page now padded 0.5 in so 'Valentine's Day' stays inside KDP's margins (build.js fix)."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "pass: All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner deci..."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "pass: Description, subtitle, back cover, A+ points and ad texts checked against the built interior (text of interior.pdf): 64 pages, 30 labelled pictures in four groups (7 hearts everywhere + 7 yummy treats..."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: No commercial email. The delivery goes only to the owner."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: No personal data in the book, listing or ads kit; the 'This book belongs to' line and the certificate's name line collect nothing."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "pass: Art is original vector drawing in art/valentine.js; line and color contact sheets reviewed at full size. Checked against well-known characters: the kitty has a mouth, whiskers and no bow (not Hello Ki..."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "pass: Web search only (USPTO is unreachable from this environment). No book or mark titled 'My First Valentine's Day Coloring Book' turned up. Nearby but different titles: 'My First Valentine' (WorthyKids/H..."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "n/a: No money content."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "pass: KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover and title page matches the metadata title; 7 keywords of 41 characters or fewer, no bra..."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "pass: General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no weapons (no Cupid's bow or arrows), no scary faces, no people in risky places (the hot air..."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved with a cleared legal review on file; delivered to the owner only."
+   },
+   {
+    "agent": "publish-coordinator",
+    "line": "Published the delivery page as a new private artifact with downloads and emailed the owner (Gmail 1a208ebec9cda131)."
+   }
+  ]
+ }
+}
