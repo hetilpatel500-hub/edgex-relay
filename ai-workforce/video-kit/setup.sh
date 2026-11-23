@@ -6,7 +6,8 @@ export PIP_CERT="${PIP_CERT:-/root/.ccr/ca-bundle.crt}"
 PY="${PYTHON:-python3}"
 # sherpa-onnx 2.x wants a lexicon for Kokoro and no longer reads the model's espeak-ng data, so stay on 1.x.
 "$PY" -m pip install -q imageio-ffmpeg numpy soundfile "sherpa-onnx<2" Pillow 2>&1 | grep -v -i warning || true
-"$PY" -c "import numpy, soundfile, sherpa_onnx, imageio_ffmpeg, PIL" || { echo "video kit: Python deps missing for $PY (set PYTHON=/path/to/python)"; exit 1; }
+# `from PIL import Image` loads Pillow's compiled core; a bare `import PIL` passes even when that core is broken.
+"$PY" -c "import numpy, soundfile, sherpa_onnx, imageio_ffmpeg; from PIL import Image" || { echo "video kit: Python deps missing or broken for $PY (set PYTHON=/path/to/python, e.g. a venv)"; exit 1; }
 DEST="${KOKORO_DIR:-$HOME/.cache/edgex-kokoro/kokoro-int8-en-v0_19}"
 if [ ! -f "$DEST/model.int8.onnx" ]; then
   # Kokoro-82M (Apache-2.0), int8, packaged for sherpa-onnx inside this npm tarball.
