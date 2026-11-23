@@ -995,7 +995,7 @@ CONSTELLATIONS.setdefault('aquarius', {
     'bright': [1, 2, 10]})
 
 
-def carnation(c, x, y, s, P, angle=0.0, stem=1.0, color=None, color2=None):
+def carnation(c, x, y, s, P, angle=0.0, stem=1.0, color=None, color2=None, leaves=((0.55, -1), (1.15, 1))):
     """A carnation (January's birth flower), seen from the side: a rounded dome of
     ruffled petals with frilled edges, pale on top and deeper in the folds, over a
     tapered green calyx with pointed sepals, on a stem with narrow blue-green
@@ -1008,7 +1008,7 @@ def carnation(c, x, y, s, P, angle=0.0, stem=1.0, color=None, color2=None):
     if stem:
         st = [R(0, s * 0.44), R(s * 0.05, s * (0.44 + 0.9 * stem)), R(s * 0.02, s * (0.44 + 1.9 * stem))]
         c.wash(_band(st, s * 0.04, s * 0.034), g2, g1, strength=0.7, layers=10, edge=0.8)
-        for t, side in ((0.55, -1), (1.15, 1)):
+        for t, side in leaves:   # (position along the stem, side): each leaf can be left out or flipped
             if t > 1.7 * stem:
                 continue
             bx, by = R(s * 0.035, s * (0.4 + t * stem))
@@ -3909,6 +3909,87 @@ def toadstool(c, x, y, s, P, angle=0.0, n=2, snow=True):
     c.paint_around(g_all)
 
 
+# ---------------- January birth flowers (2026-11-23) ----------------
+def _open_smooth(pts, k=2):
+    """Chaikin corner cutting for an open path: the ends stay put (smooth() treats every list as a closed loop)."""
+    for _ in range(k):
+        out = [pts[0]]
+        for (x0, y0), (x1, y1) in zip(pts[:-1], pts[1:]):
+            out += [(0.75 * x0 + 0.25 * x1, 0.75 * y0 + 0.25 * y1), (0.25 * x0 + 0.75 * x1, 0.25 * y0 + 0.75 * y1)]
+        pts = out + [pts[-1]]
+    return pts
+
+
+def snowdrop2(c, x, y, s, P, angle=0.0, leaves=1, flip=1, bell=1.0):
+    """A snowdrop painted in detail: a slim stem that bends over at the top, a
+    small papery spathe at the bend, a green ovary, and a bell that hangs
+    straight down whatever the stem's tilt. The bell is one cool-white shape
+    (grey-blue at the rim, white gouache inside) with three pointed outer
+    petals, and in front a short inner cup with the green V at its tip.
+    Optional strap leaves with a pale midstripe. (x, y) = the base of the
+    stem, s = its length; angle tilts the stem (0 = up); flip = 1 bends right."""
+    g1, g2 = P.get('leaf', '#5f8f62'), P.get('leaf2', '#a9c79a')
+    gl, gl2 = P.get('sd_leaf', '#6f9488'), P.get('sd_leaf2', '#a9c2b8')
+    ca, sa = math.cos(angle), math.sin(angle)
+    f = flip
+    R = lambda px, py: (x + px * ca - py * sa, y + px * sa + py * ca)
+    if leaves:
+        for side, L, bend in ((-1, 0.6, 0.1), (1, 0.48, 0.08)):
+            lf = [R(0, 0), R(side * s * 0.03, -s * L * 0.5), R(side * s * bend, -s * L)]
+            band = _band(lf, s * 0.026, s * 0.005)
+            c.wash(band, gl2, gl, strength=0.7, spread=0.01, layers=12, edge=0.9, ang=angle - math.pi / 2)
+            c.lift(_band([R(0, -s * 0.03), R(side * s * 0.028, -s * L * 0.5), R(side * s * bend * 0.92, -s * L * 0.9)], s * 0.005, s * 0.002),
+                   amount=0.35, soft=0.4, clip=band)
+    st = _open_smooth([R(0, 0), R(f * s * 0.01, -s * 0.5), R(f * s * 0.015, -s * 0.9), R(f * s * 0.04, -s * 0.985), R(f * s * 0.085, -s * 1.0),
+                       R(f * s * 0.12, -s * 0.975)], 2)
+    c.wash(_band(st, s * 0.011, s * 0.008), g2, g1, strength=0.8, spread=0.01, layers=10, edge=0.9)
+    sp = [R(f * s * 0.022, -s * 0.955), R(f * s * 0.0, -s * 1.02), R(-f * s * 0.008, -s * 1.055), R(f * s * 0.032, -s * 0.995)]
+    c.wash(smooth(sp, 2), '#e2ead8', '#9fb58e', strength=0.6, spread=0.01, layers=10, edge=1.0)
+    ox, oy = R(f * s * 0.125, -s * 0.962)
+    b = s * 0.19 * bell
+    c.wash(ellipse(ox, oy + b * 0.04, b * 0.075, b * 0.12, 14), g2, g1, strength=0.85, spread=0.01, layers=10, edge=1.0)
+    top = oy + b * 0.13
+    sway = f * 0.08
+    cs, sn = math.cos(sway), math.sin(sway)
+    B = lambda u, v: (ox + (u * cs - v * sn) * b, top + (u * sn + v * cs) * b)
+    sil = [(0, 0), (0.15, 0.05), (0.3, 0.28), (0.37, 0.6), (0.37, 0.95), (0.25, 0.8), (0.13, 0.92), (0.0, 1.06), (-0.13, 0.92),
+           (-0.25, 0.8), (-0.37, 0.95), (-0.37, 0.6), (-0.3, 0.28), (-0.15, 0.05)]
+    shape = smooth([B(u, v) for u, v in sil], 1)
+    # a strong near-white body wash first: it makes the bell solid, so stems painted later go around it
+    c.wash(shape, '#fbfcfd', '#f4f6f9', strength=1.0, spread=0.004, layers=18, edge=0.0)
+    # then cool rims and shading, the folds, the inner cup and its green mark (gouache sits on the top layer, so it comes last)
+    c.wash(shape, '#f2f5f9', '#8ea2bb', strength=0.45, spread=0.008, layers=14, edge=1.9, ang=-math.pi / 2)
+    c.wash(smooth([B(u, v) for u, v in ((-0.3, 0.3), (-0.37, 0.6), (-0.37, 0.95), (-0.25, 0.8), (-0.2, 0.4))], 1), '#c3cfde', None,
+           strength=0.35, spread=0.01, layers=8, edge=0.2, blur=b * 0.04)
+    cup_pts = ((0, 0.32), (0.08, 0.35), (0.125, 0.5), (0.13, 0.7), (0.09, 0.81), (0.0, 0.84), (-0.09, 0.81), (-0.13, 0.7), (-0.125, 0.5),
+               (-0.08, 0.35))
+    cup = smooth([B(u, v) for u, v in cup_pts], 2)
+    c.wash(cup, '#f3f6f1', '#a3b7a6', strength=0.4, spread=0.006, layers=12, edge=1.5, ang=-math.pi / 2)
+    chev = [B(u, v) for u, v in ((-0.1, 0.79), (-0.035, 0.68), (0.0, 0.66), (0.035, 0.68), (0.1, 0.79), (0.06, 0.8), (0.0, 0.72),
+                                 (-0.06, 0.8))]
+    c.wash(smooth(chev, 1), '#79ae63', '#3f7d3a', strength=1.0, spread=0.004, layers=8, edge=0.9)
+    # white gouache on the petals, kept off the rims, the cup's outline and the green mark
+    W = lambda pts, al: gouache(c, smooth([B(u, v) for u, v in pts], 1), color=(252, 252, 250), alpha=al, soft=0.015)
+    for sd_ in (-1, 1):
+        W([(sd_ * 0.03, 0.07), (sd_ * 0.14, 0.09), (sd_ * 0.26, 0.3), (sd_ * 0.325, 0.6), (sd_ * 0.325, 0.86), (sd_ * 0.25, 0.74),
+           (sd_ * 0.18, 0.72), (sd_ * 0.15, 0.55), (sd_ * 0.11, 0.34), (sd_ * 0.03, 0.29)], 218)
+    W([(-0.08, 0.4), (0.08, 0.4), (0.1, 0.55), (0.09, 0.62), (-0.09, 0.62), (-0.1, 0.55)], 170)
+    c.wash(ellipse(*B(0, 0.03), b * 0.09, b * 0.04, 12), g2, g1, strength=0.75, spread=0.01, layers=8, edge=0.8)
+
+
+def ribbon_tie(c, x, y, s, P, color=None, wrap=True):
+    """A satin ribbon tying a bouquet: a band wrapped round the stems with a
+    shaded lower edge, then a full satin bow with long notched tails on top.
+    (x, y) = the knot, s = half the bow's width."""
+    col = color or P.get('bow', '#d9778f')
+    if wrap:
+        band = smooth([(x - s * 0.42, y - s * 0.16), (x, y - s * 0.2), (x + s * 0.42, y - s * 0.16), (x + s * 0.44, y + s * 0.14),
+                       (x, y + s * 0.18), (x - s * 0.44, y + s * 0.14)], 2)
+        c.wash(band, col, _shade(col, 0.7), strength=0.8, spread=0.01, layers=12, edge=1.1, ang=math.pi / 2)
+        c.lift(ellipse(x - s * 0.1, y - s * 0.07, s * 0.24, s * 0.035, 12), amount=0.4, soft=0.35, clip=band)
+    _satin_bow(c, x, y, s, col, P)
+
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
@@ -3926,4 +4007,5 @@ MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'sn
            'latte_cup': latte_cup, 'togo_cup': togo_cup, 'french_press': french_press, 'enamel_pot': enamel_pot,
            'croissant': croissant, 'coffee_branch': coffee_branch, 'coffee_beans': coffee_beans,
            'plant_pot': plant_pot, 'monstera': monstera, 'snake_plant': snake_plant, 'pothos': pothos,
-           'fox': fox, 'hedgehog': hedgehog, 'toadstool': toadstool}
+           'fox': fox, 'hedgehog': hedgehog, 'toadstool': toadstool,
+           'snowdrop2': snowdrop2, 'ribbon_tie': ribbon_tie}

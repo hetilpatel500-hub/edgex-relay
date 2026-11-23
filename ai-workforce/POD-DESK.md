@@ -506,3 +506,17 @@ Studio Floor at any time.
   `pod-kit/research`, `legal` and `decisions`. Delivery page (private): https://claude.ai/artifact/87SeyqjbKc4LYay6Qudk5a. Printify
   read-only: 58 products, 48 with Etsy listing IDs, the same 10 drafts unpublished, 0 orders. No Printify products: writes still wait
   for the owner. $0 spent.
+- 2026-11-23 (16:17 UTC run, Monday, motif day): the gift-category table and the best-seller list have no open row (Valentine's Day opens
+  in early January), so the run made one design from trend research: **Carnation & Snowdrop**, January's two birth flowers as a hand-tied
+  watercolor bouquet: ruffled carnations in rose pink, coral red, blush and magenta, five white snowdrops (each bell with its inner cup and
+  green chevron), round eucalyptus leaves and a pink satin bow, under "Carnation & Snowdrop" in painted Pacifico (rose and slate blue), with
+  gold sparkles, pale blue snowflakes and a small heart. Tee, sweatshirt, mug, art print and sticker listings; shirts white, natural,
+  heather pink. New motifs `snowdrop2` (tilting stem with an open, smoothed hook, spathe, ovary, a bell that hangs straight down: a strong
+  near-white body wash, cool rims and folds, the cup and its green mark, then gouache on the petals only) and `ribbon_tie` (satin bow with an
+  optional wrap) plus helper `_open_smooth` in `motifs2.py`; `carnation` takes an optional `leaves` list (default unchanged). 'January' kept
+  off the art and the clothing titles and tags: a pending JANUARY class 25 application (serial 90543337); mug, print and sticker use
+  'January birth flower' only descriptively. Fixes after review: snowdrop bells three times too big and muddy, hooked stems and floating
+  spathes, a gouache box around each bell, a stem through a bell (smooth() closes open paths), bells that buried their own cup, a stray
+  carnation leaf, a muddy ribbon wrap. Research 20/25, Legal cleared; records in `pod-kit/research`, `legal` and `decisions`. Delivery page
+  (private): https://claude.ai/artifact/G4iRhtHpmrj9cguUPe1DYE. Weekly sales review (`pod-kit/research/2026-11-23-pod-review.json`): 0
+  Printify orders; 58 products, 48 with Etsy listing IDs, the same 10 drafts unpublished; 18 built designs wait for Printify writes. $0 spent.
