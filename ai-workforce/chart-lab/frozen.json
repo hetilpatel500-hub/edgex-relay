@@ -3670,5 +3670,39 @@
    "t_stat": 0.67,
    "max_drawdown_r": 16.98
   }
+ },
+ "raschke_80_20": {
+  "side": "with",
+  "filter": "none",
+  "exit": "1atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-11-24",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 30,
+   "win_rate": 0.167,
+   "avg_r": 0.352,
+   "total_r": 10.57,
+   "profit_factor": 1.38,
+   "t_stat": 0.35,
+   "max_drawdown_r": 16.17
+  }
+ },
+ "mfi_extreme_cross": {
+  "side": "with",
+  "filter": "ppoc",
+  "exit": "2atr/4atr",
+  "tf": "M5",
+  "frozen_at": "2026-11-24",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 47,
+   "win_rate": 0.404,
+   "avg_r": 0.017,
+   "total_r": 0.81,
+   "profit_factor": 1.03,
+   "t_stat": 0.1,
+   "max_drawdown_r": 9.87
+  }
  }
 }
