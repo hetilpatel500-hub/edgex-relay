@@ -1,0 +1,72 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "videos",
+  "date": "2026-11-24",
+  "kind": "video_set"
+ },
+ "title": "Video desk, Tue Nov 24 set: The SPY Tape, Myth vs Fact (Black Friday market hours), Guess Which (index funds)",
+ "reviewed_at": "2026-11-24T22:08:55Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file after reviewing the three review sheets (SPY tape, Black Friday myth, index-fund quiz), report.json spoken text, titles, captions and sources. Defamation screen: funds appear only with their Webull price data and what they track; no reason is given for any move, and the quiz says so. No person is named. Nothing commits the owner; delivery is to the owner only. AI review, not legal advice."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Every number traces to a saved raw response or a cited source (factcheck.py: 0 unmatched; the 12:05 ET candle, open-to-close and range re-checked by hand). SPY tape: raw/spy_m5.json bars (open 715.148, low 712.14 at 9:30 ET, high 720.921 at 10:00 ET, 12:05 ET bar 714.735 to 717.70 = +$2.97, close 718.78) and raw/daily.json (Nov 23 close 722.29): gap -0.99%, day -0.49%, open to close +0.51%, range $8.78. Quiz: raw/02_get_stock_snapshot.json change_ratio DIA +0.7947%, IWM +0.5268%, SPY -0.4860%, QQQ -1.9861%; gap 2.78 points. What each fund tracks: State Street fund pages (SPY: S&P 500; DIA: Dow Jones Industrial Average, 30 stocks), Nasdaq.com and The Motley Fool (QQQ: Nasdaq-100; IWM: Russell 2000 small caps). Myth: NYSE and Nasdaq 2026 calendars (Thanksgiving Nov 26 closed; Nov 27 early close 1:00 p.m. ET; eligible options 1:15 p.m. per NYSE), SIFMA 2026 recommendation (bonds closed Nov 26, 2:00 p.m. ET early close Nov 27), Fidelity and AARP; 2025 Black Friday 1 p.m. close per USA Today via AOL and Geo News; SPY Nov 28, 2025 volume 49,212,030 vs 88,965,305 average of the 20 prior sessions (Oct 30 to Nov 26, 2025) = 55% (raw/03_get_stock_bars.json)."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery email goes to the owner only."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data. No person is named or shown; the owner isn't named or shown."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Visuals are drawn from data and text by the kit's renderer; the voice is Kokoro-82M (Apache-2.0); music is synthesized per video by music.py; fonts are Inter, Space Grotesk and JetBrains Mono (SIL OFL). Schedules and fund descriptions are stated as facts in our own words with credit; nothing is quoted at length. No screenshots, logos or third-party footage."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "SPY, QQQ, DIA, IWM, S&P 500, Nasdaq-100, Dow Jones Industrial Average, Russell 2000, NYSE, Nasdaq, SIFMA, State Street, Fidelity, AARP, USA Today, AOL, Geo News, The Motley Fool and Webull are named only to refer to them (nominative use); no logos; nothing suggests endorsement or affiliation. 'Black Friday' is used descriptively for the day after Thanksgiving. Hashtags are generic topic tags."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "pass",
+   "note": "'Educational only. Not financial advice.' is on screen at the end of all three and in every caption. No buy/sell call, target, prediction or performance promise. The SPY tape shows what happened; the quiz shows what moved and says no reason is given; the myth video gives market hours with official sources and a past volume figure, with no advice on what to trade."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "The narrator is a synthetic (AI) voice over data graphics: on Instagram and Facebook turn on the 'AI info' label. Nothing realistic depicts a real person, so YouTube's altered-content disclosure isn't triggered, but disclosing the AI voice is still the safer choice. No branded-content relationship exists. Titles match the content (no misleading metadata)."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "All three are adult finance content: not made for kids, no child appears, no child data is collected."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No proposal, quote, offer or contract; nothing is sold or promised in these videos."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "First render's voiceover read '49.21 million' as 'forty-nine twenty-one million', '10:00:' as 'ten :', and left DIA/IWM to be read as words; the voice lines were rewritten (same numbers: 'forty-nine point two one million', 'At 10 o'clock', 'D I A', 'I W M', 'S and P 500') and all three were re-rendered.",
+  "The prep line 'on about 1 times normal volume' for the 12:05 ET candle was dropped from the voiceover as unclear; the on-screen card still shows the bar's 0.52M shares (~1x a typical bar), which traces to the bar."
+ ],
+ "posting_notes": [
+  "Instagram and Facebook: turn on the 'AI info' label (synthetic narrator voice).",
+  "YouTube: no realistic person is depicted, so the altered-content toggle isn't required, but turning it on for the AI voice is the safer choice.",
+  "The SPY tape and the quiz say 'today' for Tue Nov 24; post them by Nov 25 or say 'Nov 24' in the post text.",
+  "The Black Friday video is about this week (Nov 25-27, 2026); post it before Friday Nov 27."
+ ],
+ "excluded": [],
+ "last_touch_ref": "video-kit/records/2026-11-24-video-desk.json#last_touch",
+ "decision_ref": "video-kit/records/2026-11-24-video-desk.json#decision",
+ "videos": [
+  "2026-11-24-spy-tape",
+  "2026-11-24-myth-black-friday",
+  "2026-11-24-quiz-index-split"
+ ]
+}
