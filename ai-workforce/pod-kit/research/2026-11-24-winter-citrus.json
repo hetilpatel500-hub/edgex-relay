@@ -1,0 +1,82 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a pod_research doc.",
+ "id": "2026-11-24-winter-citrus",
+ "created": "2026-11-24T16:27:03Z",
+ "queue_row": "The Gift-category table has no open row and the best-seller list under it is done through 12; 13 Valentine's Day starts in early January and 14 Mother's Day in early April. So the queue is empty: ONE new design, picked from trend research. Nov 23 was a motif design, so this is a pattern design (all-over white wrap mug and accent mug).",
+ "phrase": "Winter Citrus (internal design name; no lettering on the art)",
+ "niche": "citrus and fruit lovers, kitchen and foodie gifts, winter birthdays and January 'bright morning' gifting; sells on into spring and summer as citrus kitchen decor",
+ "seasonal_calendar": "4-8 weeks ahead of Nov 24 is Dec 22 to Jan 19: late Christmas, New Year, winter, and early Valentine's. Winter citrus (blood oranges, clementines, grapefruit) is in season December to February, and citrus decor is a 2026 home trend, so the design fits January and keeps selling after it.",
+ "trend_searches": [
+  "Etsy trends January 2026 mugs gifts winter citrus orange print",
+  "citrus aesthetic trend 2026 home decor kitchen oranges lemons print",
+  "winter citrus season blood orange clementine trend December January 2026"
+ ],
+ "sources": [
+  "https://www.livingetc.com/news/citrus-fruit-pattern-trend",
+  "https://www.thecoolist.com/lemon-kitchen-decor-ideas-2026",
+  "https://www.thecoolist.com/orange-kitchen-ideas-for-2026",
+  "https://www.outfy.com/blog/?p=19797",
+  "https://help.erank.com/?p=48326",
+  "https://www.freshplaza.com/article/9813018/spanish-blood-oranges-return-to-european-winter-market",
+  "https://www.thepacker.com/news/produce-crops/mandarins-lead-way-california-citrus",
+  "https://www.teepublic.com/mug/mediterranean-fig-fruit-pattern",
+  "https://mm-anderson.pixels.com/products/colorful-citrus-slices-mm-anderson-coffee-mug.html",
+  "https://www.redbubble.com/i/mug/Citrus-Fruits-by-DesignsofNote/76846937/ctqx",
+  "https://www.zazzle.ca/citrus_fruits_vibrant_watercolor_pattern_thermal_tumbler-256687737844145393",
+  "https://thehuntingtonstore.org/collections/the-huntington-store-holiday-gift-guide/products/citrus-grove-porcelain-mug",
+  "https://www.surlatable.com/product/sur-la-table-citrus-bloom-mug/9710260",
+  "https://www.juniqe.com/uk/product/tazza-in-smalto/arancia-e-limone-light-329857-mge"
+ ],
+ "competitors": [
+  {
+   "what": "TeePublic 'Vintage Watercolor Citrus Orange Seamless Pattern Mug'",
+   "price": "$18",
+   "style": "one-fruit (orange) seamless pattern"
+  },
+  {
+   "what": "Pixels 'Colorful Citrus Slices' coffee mug (MM Anderson)",
+   "price": "not shown in the search results",
+   "style": "painted citrus slices, art-print look"
+  },
+  {
+   "what": "Redbubble 'Citrus Fruits' mug (DesignsofNote); also 'Lemon Spray' and 'Lemon Tree Pattern' mugs",
+   "price": "not shown",
+   "style": "flat illustrated fruit patterns, mostly lemons"
+  },
+  {
+   "what": "Zazzle 'Citrus Fruits Vibrant Watercolor Pattern' tumbler and an orange-citrus watercolor monogram mug",
+   "price": "not shown",
+   "style": "watercolor oranges and blossoms on white, personalized name"
+  },
+  {
+   "what": "The Huntington Store 'Citrus Grove' porcelain mug",
+   "price": "not shown",
+   "style": "oranges, lemons and flowers on dark blue"
+  },
+  {
+   "what": "Sur La Table 'Citrus Bloom' mug, 13 oz",
+   "price": "not shown",
+   "style": "retail ceramic, citrus collection"
+  },
+  {
+   "what": "Juniqe 'Arancia e Limone' enamel mug",
+   "price": "not shown",
+   "style": "Mediterranean oranges and lemons"
+  }
+ ],
+ "gap": "Citrus mugs are mostly summer lemons (Amalfi style), single-fruit repeats or flat illustration, often on white. None found mixes the winter citrus (blood orange, clementine, pink grapefruit) with lemons and limes, orange blossom, cinnamon and star anise in layered watercolor on cream, and none offers accent handles in matching citrus colors. Our angle: a dense all-over watercolor wrap with whole fruit, wheels and half-moons, plus Orange, Yellow and Light Green accent mugs.",
+ "trend": "Citrus prints are a 2026 interiors trend (Living Etc: citrus fruit pattern trend; TheCoolist: lemon kitchens and orange kitchens for 2026; Outfy lists citrus tones among 2026 palette trends). Winter citrus is in season: mandarin and clementine volumes rose this winter (The Packer), and blood oranges peak from mid-December (FreshPlaza). eRank's January snapshot ranks 'mug' #37 among searches.",
+ "scores": {
+  "demand": 4,
+  "competition": 3,
+  "timing": 4,
+  "fit_with_watercolor": 5,
+  "trademark_risk": 5,
+  "total": 21
+ },
+ "decision": "go (21/25): pattern design 'Winter Citrus', no slogan or name on the art",
+ "owner_scan_read": "pod_research/owner-etsy-mug-scan-2026-09-28: winners are all-over wraps with accent handles and insides; printed competitors are mostly flat vector, so layered watercolor on cream is our angle. Applied: full wrap, three accent colors.",
+ "pod_review_read": "research/2026-11-23-pod-review.json: 0 orders since the shop opened; rule: follow search demand with gift niches that have an evergreen angle. Citrus keeps selling after January.",
+ "printify_status_read": "2026-11-24 read-only: 58 products, 48 with Etsy listing IDs, the same 10 Scorpio and Campfire drafts unpublished, 0 orders.",
+ "repeat_check": "No citrus design among the 33 files in pod-kit/designs before this one (searched for 'citrus', 'lemon' and 'orange slice'). Cocoa Season shows one dried orange slice as a garnish, and Strawberry Season only uses a color palette named 'citrus'; neither is a citrus design."
+}

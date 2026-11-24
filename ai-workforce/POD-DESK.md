@@ -520,3 +520,18 @@ Studio Floor at any time.
   carnation leaf, a muddy ribbon wrap. Research 20/25, Legal cleared; records in `pod-kit/research`, `legal` and `decisions`. Delivery page
   (private): https://claude.ai/artifact/G4iRhtHpmrj9cguUPe1DYE. Weekly sales review (`pod-kit/research/2026-11-23-pod-review.json`): 0
   Printify orders; 58 products, 48 with Etsy listing IDs, the same 10 drafts unpublished; 18 built designs wait for Printify writes. $0 spent.
+- 2026-11-24 (16:17 UTC run, pattern day): the gift-category table and the best-seller list have no open row (Valentine's Day opens in
+  early January), so the run made one design from trend research: **Winter Citrus**, an all-over watercolor mug: whole oranges,
+  clementines, blood oranges, lemons, limes and grapefruit with glossy leaves, wheels and half-moons (blood orange, orange, lemon, lime,
+  pink grapefruit), white orange-blossom sprigs, cinnamon sticks, star anise and pale blue snowflakes on warm cream; no slogan or name.
+  Accent mugs in Orange, Yellow and Light Green. New motifs `citrus_fruit` (round orange, flatter clementine and lime, lemon with pointed
+  ends; leaves and stem tucked behind, wet-in-wet body, shadow, peel pores, lifted highlight and glint, calyx), `citrus_slice` (wheel or
+  half-moon: pith, rind ring, segments with lifted juice cells and glints, a deep-red drift for blood orange) and `citrus_blossom` (a
+  sprig with two leaves, plump buds and five-petal flowers whose petals tuck behind each other and the stamens), plus `CITRUS_KINDS` and
+  `_citrus_leaf` in `motifs2.py`. Fixes after review: a sparse first layout, see-through petals showing each other's outlines, a stem
+  over its own leaf, and whole fruit overflowing their placement circles. Research 21/25 (citrus is a 2026 kitchen trend; winter citrus is
+  in season December to February; competing citrus mugs are summer lemons, single-fruit repeats or flat art), Legal cleared ('Winter
+  Citrus Wreath' is a Bath & Body Works hand-soap application, serial 90538513, so it is never used; the art has no lettering); records in
+  `pod-kit/research`, `legal` and `decisions`. Delivery page (private): https://claude.ai/artifact/RTMFF65dkadSx5H2VG9YCw. Printify
+  read-only: 58 products, 48 with Etsy listing IDs, the same 10 drafts unpublished, 0 orders. No Printify products: writes still wait
+  for the owner. $0 spent.

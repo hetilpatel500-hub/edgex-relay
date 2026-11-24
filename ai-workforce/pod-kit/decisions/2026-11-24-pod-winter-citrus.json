@@ -1,0 +1,34 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a decisions doc; pod_designs and pod_listings records are kept here too.",
+ "id": "2026-11-24-pod-winter-citrus",
+ "by": "chief-of-staff",
+ "created": "2026-11-24T16:29:01Z",
+ "items": [
+  "winter-citrus"
+ ],
+ "legal_refs": [
+  "pod-kit/legal/winter-citrus.json"
+ ],
+ "legal_verdict": "cleared",
+ "decision": "approved for delivery to the owner",
+ "conditions": [
+  "Printify drafts or Etsy publishing only after the owner allows Printify writes (refused by the session's permission check since Oct 6). Then 2 products (white wrap mug, accent mug in Orange, Yellow and Light Green), 2 listings ($0.40 if paid), inside the $3/day cap.",
+  "Step 9b (9 extra photos per listing) runs after the products exist: photos.py draws from each Printify product's print area.",
+  "'Winter Citrus Wreath' is never used in a title, tag or description (Bath & Body Works hand-soap application, serial 90538513)."
+ ],
+ "reason": "The gift-category queue and the best-seller list under it have no open row today (Valentine's Day opens in early January), so the run makes one new design from trend research. Pattern day (Nov 23 was a motif). Research 21/25 (citrus is a 2026 kitchen and home trend, winter citrus is in season December to February, and competing citrus mugs are summer lemons, single-fruit repeats or flat art), trademark screen done, Legal cleared; full-size wraps checked after the density, petal and stem fixes.",
+ "artifact": "https://claude.ai/artifact/RTMFF65dkadSx5H2VG9YCw",
+ "emailed": "Gmail message 1a20e6366e67a9fe to the owner, 2026-11-24",
+ "printify_read_only": "2026-11-24: 58 products, 48 with Etsy listing IDs, the same 10 Scorpio and Campfire drafts unpublished, 0 orders",
+ "pod_designs": {
+  "title": "Winter Citrus",
+  "phrase": "Winter Citrus (internal name; no lettering on the art)",
+  "niche": "citrus and fruit lovers, kitchen and foodie gifts, January gifting",
+  "artifact": "https://claude.ai/artifact/RTMFF65dkadSx5H2VG9YCw",
+  "thumb": "winter-citrus-mug-orange-b.jpg on the delivery page",
+  "product_ids": {},
+  "created": "2026-11-24T16:29:01Z",
+  "status": "built (not on Printify: writes wait for the owner)"
+ },
+ "pod_listings": []
+}

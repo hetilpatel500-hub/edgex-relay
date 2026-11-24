@@ -3990,6 +3990,199 @@ def ribbon_tie(c, x, y, s, P, color=None, wrap=True):
     _satin_bow(c, x, y, s, col, P)
 
 
+# ---------------- winter citrus (2026-11-24) ----------------
+# rind light, rind dark, flesh, flesh light, pith
+CITRUS_KINDS = {
+    'orange': ('#f9a640', '#dc6a1c', '#f7a03c', '#fcc66e', '#fdf1d6'),
+    'clementine': ('#f8933a', '#d4581a', '#f58d32', '#f9b85e', '#fdeccc'),
+    'lemon': ('#f7dc52', '#d4a21c', '#f4dc63', '#faeda6', '#fdf8df'),
+    'blood': ('#ee8a3a', '#b8432a', '#c42a3e', '#e3605e', '#fbe8d6'),
+    'grapefruit': ('#f7b860', '#df7f45', '#ee6a6a', '#f7a59a', '#fdf0dc'),
+    'lime': ('#9fca52', '#5a8c2b', '#c3dd79', '#e2efb0', '#f4f8e2'),
+}
+CITRUS_LEAF = ('#7fae5a', '#3f7a3e', '#22502c')
+
+
+def _citrus_leaf(c, x, y, a, L, W):
+    """A glossy citrus leaf from (x, y) along angle a: dark green with a lifted midrib."""
+    tip = (x + L * math.cos(a), y + L * math.sin(a))
+    mid = (x + L * 0.5 * math.cos(a) + W * 0.3 * math.cos(a + math.pi / 2), y + L * 0.5 * math.sin(a) + W * 0.3 * math.sin(a + math.pi / 2))
+    _herb_leaf(c, (x, y), mid, tip, W, CITRUS_LEAF, veins='lift', teeth=0, strength=0.9, shade=0.4, gran=0.25, outline=95, widest=0.7)
+
+
+def citrus_fruit(c, x, y, s, P, angle=0.0, color=None, leaves=2, leaf_side=1):
+    """A whole citrus fruit: glossy dark leaves and a short stem behind, then the
+    body (round orange, flatter clementine, lemon with pointed ends), the light
+    side wet-in-wet into the dark side, a shadow low on the far side, a peel of
+    tiny pores, a lifted highlight with a gouache glint, the star-shaped calyx
+    and a fine outline. color = a CITRUS_KINDS name. s = radius."""
+    kind = color if color in CITRUS_KINDS else 'orange'
+    lt, dk, _, _, _ = CITRUS_KINDS[kind]
+    rnd = c.rnd
+    s = s * 0.62                     # body radius: the leaves and lemon tips stay near the placement circle
+    T = _loc(x, y, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    body = []
+    for i in range(48):
+        t = 2 * math.pi * i / 48
+        ct, st = math.cos(t), math.sin(t)
+        if kind == 'lemon':
+            rx, ry = s * 1.12, s * 0.82
+            px = rx * ct * (1 + 0.16 * max(0.0, abs(ct)) ** 6)
+            py = ry * st * (1 - 0.25 * abs(ct) ** 4)
+        elif kind in ('clementine', 'lime'):
+            px, py = s * 1.06 * ct, s * 0.9 * st * (1 - 0.05 * st)
+        else:
+            px, py = s * ct, s * 0.95 * st
+        body.append((px, py))
+    B = W(body)
+    g0 = c.snapshot()
+    # leaves and stem first, tucked behind the fruit
+    top = (0.0, -s * 0.93) if kind != 'lemon' else (-s * 1.2, -s * 0.02)
+    sx, sy = T(*top)
+    up = angle - math.pi / 2 if kind != 'lemon' else angle + math.pi
+    for j in range(max(0, min(2, leaves))):
+        la = up + leaf_side * (0.75 if j == 0 else -0.55) + rnd.uniform(-0.12, 0.12)
+        _citrus_leaf(c, sx, sy, la, s * (0.9 if j == 0 else 0.7), s * (0.27 if j == 0 else 0.22))
+    stem = [(sx, sy), (sx + s * 0.16 * math.cos(up), sy + s * 0.16 * math.sin(up))]
+    c.wash(_band(stem, s * 0.045, s * 0.035), '#7a6a3a', '#4f4426', strength=0.9, spread=0.01, layers=8, edge=1.0)
+    c.paint_around(g0)
+    g1 = c.snapshot()
+    # body: light side into dark side, then shadow, pores, highlight
+    c.wash(B, lt, dk, strength=0.95, spread=0.012, layers=18, edge=1.05, ang=angle + 2.3, vary=_shade(lt, 0.92), vary_amt=0.4)
+    c.wash(W(ellipse(s * 0.38, s * 0.42, s * 0.82, s * 0.55, 16, -0.35)), dk, None, strength=0.55, spread=0.02, layers=10, edge=0.0,
+           blur=s * 0.32, clip=B)
+    for _ in range(int(46 + s * 0.02)):
+        a = rnd.uniform(0, 2 * math.pi); r = s * 0.88 * math.sqrt(rnd.random())
+        px, py = r * math.cos(a), r * math.sin(a) * 0.92
+        if (px + s * 0.35) ** 2 + (py + s * 0.35) ** 2 < (s * 0.3) ** 2:
+            continue
+        qx, qy = T(px, py)
+        c.wash(ellipse(qx, qy, s * 0.018, s * 0.016, 6), dk, None, strength=0.32, spread=0.05, layers=3, edge=0.6)
+    c.lift(W(ellipse(-s * 0.38, -s * 0.36, s * 0.26, s * 0.17, 12, -0.7)), amount=0.58, soft=0.35, clip=B)
+    gouache(c, W(ellipse(-s * 0.42, -s * 0.42, s * 0.09, s * 0.05, 8, -0.7)), color=(255, 251, 242), alpha=225, soft=0.2)
+    if kind != 'lemon':
+        cx, cy = T(0.0, -s * 0.8)
+        c.wash(_star_pts(cx, cy, s * 0.085, s * 0.035, 5, angle), '#6f7d38', '#4e5a26', strength=0.85, spread=0.01, layers=8, edge=1.0)
+    else:
+        cx, cy = T(s * 1.27, s * 0.01)
+        c.wash(ellipse(cx, cy, s * 0.05, s * 0.04, 8), '#a8962f', None, strength=0.7, layers=6, spread=0.02)
+    c.ink_line(B, width=max(1.5, s * 0.014), alpha=135, passes=1, jitter=0, color=_inkc(dk, 0.62))
+    c.paint_around(g1)
+
+
+def citrus_slice(c, x, y, s, P, angle=0.0, color=None, half=False):
+    """A citrus cut in a wheel (or a half wheel): the rind ring, a cream pith
+    band, juicy segments separated by pale membranes (each segment wet-in-wet
+    from the deep flesh color at the rind to light at the core, with lifted
+    juice cells and a glint), a pale core and a fine outline. s = radius."""
+    kind = color if color in CITRUS_KINDS else 'orange'
+    lt, dk, fl, fl2, pith = CITRUS_KINDS[kind]
+    rnd = c.rnd
+    a0, a1 = (angle, angle + math.pi) if half else (angle, angle + 2 * math.pi)
+    span = a1 - a0
+    n = 60
+
+    def arc(r, k=n):
+        return [(x + r * math.cos(a0 + span * i / k), y + r * math.sin(a0 + span * i / k)) for i in range(k + 1)]
+
+    outer = arc(s) if half else arc(s)[:-1]
+    if half:
+        outer = outer + [(x, y)]
+    g0 = c.snapshot()
+    # pith disc (the whole face), then the rind ring over its edge
+    c.wash(outer, pith, None, strength=0.9, spread=0.006, layers=12, edge=0.5)
+    if half:
+        ring = arc(s) + arc(s * 0.9)[::-1]
+    else:
+        ring = arc(s) + arc(s * 0.9)[::-1]
+    c.wash(ring, lt, dk, strength=0.95, spread=0.006, layers=14, edge=1.0, ang=angle + 2.3)
+    nseg = 10 if kind in ('orange', 'blood', 'grapefruit', 'clementine') else 9
+    segs = nseg // 2 if half else nseg
+    gap = 0.055
+    for k in range(segs):
+        b0 = a0 + span * k / segs + gap * (1.2 if half and k == 0 else 1)
+        b1 = a0 + span * (k + 1) / segs - gap * (1.2 if half and k == segs - 1 else 1)
+        bm = (b0 + b1) / 2
+        inner = s * 0.1
+        seg = [(x + inner * math.cos(bm), y + inner * math.sin(bm))]
+        seg += [(x + s * 0.8 * math.cos(b0 + (b1 - b0) * t), y + s * 0.8 * math.sin(b0 + (b1 - b0) * t)) for t in (0, 0.2, 0.4, 0.6, 0.8, 1)]
+        seg = smooth(seg, 1)
+        c.wash(seg, fl, fl2, strength=0.92, spread=0.012, layers=14, edge=1.15, ang=bm + math.pi, granulate=0.4)
+        if kind == 'blood':
+            c.wash(seg, '#8f1630', None, strength=0.35, spread=0.02, layers=8, edge=0.0, blur=s * 0.05, clip=seg,
+                   vary='#e8743a', vary_amt=0.7)
+        for _ in range(5):
+            t = rnd.uniform(0.15, 0.85); r = s * rnd.uniform(0.3, 0.7)
+            ba = b0 + (b1 - b0) * t
+            qx, qy = x + r * math.cos(ba), y + r * math.sin(ba)
+            c.lift(ellipse(qx, qy, s * 0.06, s * 0.016, 8, ba), amount=0.32, soft=0.3, clip=seg)
+        ga = b0 + (b1 - b0) * 0.35
+        if rnd.random() < 0.5:
+            gouache(c, ellipse(x + s * 0.55 * math.cos(ga), y + s * 0.55 * math.sin(ga), s * 0.035, s * 0.012, 6, ga),
+                    color=(255, 252, 244), alpha=200, soft=0.25)
+    c.wash(ellipse(x, y, s * 0.07, s * 0.07, 10) if not half else arc(s * 0.07) + [(x, y)], pith, None, strength=0.8, layers=8, spread=0.02)
+    c.ink_line(outer if not half else outer + [outer[0]], width=max(1.5, s * 0.014), alpha=135, passes=1, jitter=0,
+               color=_inkc(dk, 0.62), closed=not half)
+    c.paint_around(g0)
+
+
+def citrus_blossom(c, x, y, s, P, angle=0.0, n=2, buds=1):
+    """An orange-blossom sprig: a slim green stem with two glossy leaves behind,
+    n open five-petal flowers (waxy white petals with cool blue-grey shading and
+    a white gouache sheen, a ring of yellow-tipped stamens around a green
+    pistil) and a few plump white buds. s = half the sprig's length."""
+    rnd = c.rnd
+    T = _loc(x, y, angle)
+    stem = [T(-s * 0.9, s * 0.25), T(-s * 0.35, s * 0.08), T(s * 0.1, -s * 0.02), T(s * 0.55, -s * 0.12)]
+    g0 = c.snapshot()
+    lx, ly = T(-s * 0.45, s * 0.1)
+    _citrus_leaf(c, lx, ly, angle + math.pi / 2 + 0.9, s * 0.75, s * 0.22)
+    lx, ly = T(-s * 0.2, s * 0.02)
+    _citrus_leaf(c, lx, ly, angle - math.pi / 2 - 0.6, s * 0.62, s * 0.19)
+    c.paint_around(g0)          # the stem tucks behind the leaves
+    g0 = c.snapshot()
+    c.wash(_band(stem, s * 0.025, s * 0.016), '#6f9a4a', '#4c7433', strength=0.9, spread=0.008, layers=8, edge=1.0)
+    c.paint_around(g0)
+    spots = [(s * 0.58, -s * 0.13, 1.0), (s * 0.05, -s * 0.3, 0.82), (-s * 0.25, s * 0.42, 0.78)][:max(1, min(3, n))]
+    bspots = [(s * 0.32, s * 0.2), (-s * 0.55, -s * 0.18)][:max(0, min(2, buds))]
+    for bx, by in bspots:
+        qx, qy = T(bx, by)
+        ba = rnd.uniform(-0.6, 0.6) + angle - math.pi / 2
+        g = c.snapshot()
+        bud = ellipse(qx, qy, s * 0.085, s * 0.14, 14, ba + math.pi / 2)
+        c.wash(bud, '#fbfcfd', '#eef2f6', strength=1.0, spread=0.004, layers=14, edge=0.0)
+        c.wash(bud, '#f2f5f9', '#9fb0c4', strength=0.42, spread=0.008, layers=10, edge=1.8, ang=ba)
+        c.wash(ellipse(qx - s * 0.09 * math.cos(ba), qy - s * 0.09 * math.sin(ba), s * 0.04, s * 0.03, 8), '#7aa34c', None, strength=0.8,
+               layers=6, spread=0.02)
+        c.ink_line(bud, width=max(1, s * 0.01), alpha=110, passes=1, jitter=0, color=(90, 100, 115))
+        c.paint_around(g)
+    for fx, fy, k in spots:
+        qx, qy = T(fx, fy)
+        r = s * 0.33 * k
+        rot = rnd.uniform(0, 2 * math.pi)
+        # stamens and pistil first, as an object in front; then each petal tucks behind
+        # what is already painted, so no petal's outline shows through another
+        g = c.snapshot()
+        for i in range(12):
+            sa = rot + 2 * math.pi * i / 12 + 0.13
+            ex, ey = qx + r * 0.34 * math.cos(sa), qy + r * 0.34 * math.sin(sa)
+            c.ink_line([(qx, qy), (ex, ey)], width=max(1, s * 0.006), closed=False, alpha=110, passes=1, jitter=0, color=(150, 140, 70))
+            c.wash(ellipse(ex, ey, r * 0.045, r * 0.045, 6), '#f3c33a', '#d9962a', strength=0.95, layers=6, spread=0.02, edge=1.0)
+        c.wash(ellipse(qx, qy, r * 0.1, r * 0.1, 8), '#a9c65a', '#6d9a3a', strength=0.9, layers=8, spread=0.02, edge=1.0)
+        c.paint_around(g)
+        for i in range(5):
+            g = c.snapshot()
+            pa = rot + 2 * math.pi * i / 5
+            pt = petal(qx, qy, r, r * 0.52, pa, 16)
+            c.wash(pt, '#fbfcfd', '#f3f6f9', strength=1.0, spread=0.004, layers=14, edge=0.0)
+            c.wash(pt, '#f2f5f9', '#9aabc0', strength=0.4, spread=0.008, layers=10, edge=1.7, ang=pa + math.pi)
+            gouache(c, ellipse(qx + r * 0.62 * math.cos(pa), qy + r * 0.62 * math.sin(pa), r * 0.16, r * 0.07, 8, pa), color=(255, 255, 255),
+                    alpha=200, soft=0.3)
+            c.ink_line(pt, width=max(1, s * 0.009), alpha=105, passes=1, jitter=0, color=(90, 100, 115))
+            c.paint_around(g)
+
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
@@ -4008,4 +4201,5 @@ MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'sn
            'croissant': croissant, 'coffee_branch': coffee_branch, 'coffee_beans': coffee_beans,
            'plant_pot': plant_pot, 'monstera': monstera, 'snake_plant': snake_plant, 'pothos': pothos,
            'fox': fox, 'hedgehog': hedgehog, 'toadstool': toadstool,
-           'snowdrop2': snowdrop2, 'ribbon_tie': ribbon_tie}
+           'snowdrop2': snowdrop2, 'ribbon_tie': ribbon_tie,
+           'citrus_fruit': citrus_fruit, 'citrus_slice': citrus_slice, 'citrus_blossom': citrus_blossom}

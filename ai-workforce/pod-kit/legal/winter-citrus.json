@@ -1,0 +1,66 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "winter-citrus",
+  "kind": "pod pattern design (all-over white wrap mug and accent mug)"
+ },
+ "title": "Winter Citrus: all-over watercolor citrus mug pattern (three print sizes), mockups and two listings",
+ "reviewed_at": "2026-11-24T16:28:18Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions. The trademark screen is a web screen, not a clearance; the owner decides before listing. Topic picked from trend research because the gift-category queue has no open row (Valentine's Day opens in early January)."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against all three full-size wraps (2475 x 1155, 2475 x 1275, 2700 x 1120): each shows whole oranges, clementines, blood oranges, lemons, limes and grapefruit with glossy leaves, wheels and half-moons of blood orange, orange, lemon, lime and pink grapefruit, sprigs of white orange blossom, cinnamon sticks, star anise and pale blue snowflakes on cream. 'No slogan or name' is true (no lettering). No 'best seller', 'free', sale or review claims; prices are the studio's standard suggestions with a competitor reference (TeePublic $18)."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data; no names or dates on the art."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (pattern.py, watercolor.py, and three motifs written today in motifs2.py: citrus_fruit, citrus_slice, citrus_blossom; existing cinnamon_stick, star_anise and snowflake). No stock art, no traced photos, no competitor layout: the competitors seen are single-fruit repeats, flat illustrations or white-ground watercolor. Purely machine-made images can't be registered for US copyright (US Copyright Office guidance); the delivery notes this."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check): no WINTER CITRUS mark found. Nearby: WINTER CITRUS WREATH (Bath & Body Works, serial 90538513, filed 2021-02-22, hand soap, Class 3; status not visible), WINTER SWEETZ (fresh fruit), Frieda's 'winter citrus' produce program (marketing wording). None covers mugs. The art has no lettering; the title and 26 tags use plain descriptions only and never 'Winter Citrus Wreath'; 'Winter Citrus' stays the internal design name. No brand stickers or crate labels are drawn on the fruit. tmsearch.uspto.gov is blocked from our sessions."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description carries the production-partner disclosure and says the art is digitally painted by the studio. Titles 131 and 127 characters (max 140); 13 tags per listing, all 20 characters or fewer and all different. Mug details match the Printify blueprints already used (68 white wrap, 635 accent mug); accent colors Orange, Yellow and Light Green are in pattern.py's accent list."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Adult gift mugs, not made for or marketed to children (no 'kids' words in the title or tags)."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "pass",
+   "note": "Prices are the studio's standard mug prices from POD-DESK.md and stay suggestions; no new supplier terms. Printify writes still wait for the owner's go-ahead."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "First preview was too sparse for an all-over wrap: counts and sizes raised (8 whole fruit, 9 wheels, 5 half-moons, 7 blossom sprigs plus 8 small ones, 5 cinnamon pairs, 10 star anise).",
+  "Orange-blossom petals were see-through, so each showed the outline of the petal under it; petals now tuck behind each other and behind the stamens.",
+  "A blossom stem crossed over its own leaf; the stem now goes behind the leaves.",
+  "Whole fruit overflowed their placement circles (leaves and lemon tips crowded neighbors); the fruit now paints at 62% of its circle."
+ ],
+ "owner_notes": [
+  "Optional: a USPTO search for 'WINTER CITRUS' in Class 21 before listing; this was a web screen only.",
+  "Printify products wait for your go-ahead on Printify writes (refused by the session's permission check since Oct 6)."
+ ],
+ "research_ref": "pod-kit/research/2026-11-24-winter-citrus.json",
+ "decision_ref": "pod-kit/decisions/2026-11-24-pod-winter-citrus.json"
+}
