@@ -1,0 +1,67 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-bath-bedtime",
+  "kind": "book"
+ },
+ "title": "My First Bath & Bedtime Coloring Book: interior, cover, KDP listing and Amazon Ads kit",
+ "reviewed_at": "2026-11-25T14:55:02Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishing. Topic note: the planned rotation has ended, so Trend Scout picked Bath & Bedtime under the owner's standing 'different topics' directive (no earlier book, repo record or DB books doc has it); the owner can swap it. 'Bath & Bedtime' was chosen over plain 'Bedtime' because 'My First Bedtime Copy Coloring Book' (Justine Avery, 2021) already exists. Overlap disclosed to the owner: 7 page names also appear in My First At Home (Bed, Pajamas, Pillow, Slippers, Soap, Toothbrush, Towel; its Bathtub page is 'Bubble Bath' here), and Moon (Space), Bathrobe (Clothes), Music Box (Music) and Blanket (Winter's Cozy Blanket) repeat too, each redrawn in new designs; 'Sleepy Bear' was renamed 'Bedtime Bear' so it doesn't repeat the Winter page."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, subtitle, back cover, A+ points and ad texts checked against the built interior (text of interior.pdf): 64 pages, 30 labelled pictures in four groups (9 bath time + 8 getting ready for bed + 9 night-time things + 4 sleepy friends) exactly as listed, each with a blank back, a name label and the 'Great job!' certificate. Every named example (a smiling bathtub full of bubbles, a toothbrush, a bar of soap, pajamas, a sleepy bear in a nightcap, a moon wearing a nightcap, a sheep jumping a fence) is in the book. 'Many of them with smiling or sleepy faces' is true and not 'every page': 18 of 30 have faces (Toothbrush, Hairbrush, Bathrobe, Pajamas, Nightgown, Bunk Bed, Crib, Blanket, Alarm Clock, Bedtime Story, Music Box and Rocking Chair don't). No sleep, calming or development claims, and no 'bestselling', review, sale or result claims. Fixed: the subtitle and the description list named 'Bathtub' and 'Sleepy Bear' after those pages were renamed; both now match the page labels (Bubble Bath, Bedtime Bear)."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit; the 'This book belongs to' line and the certificate's name line collect nothing."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/bedtime.js; line and color contact sheets reviewed at full size. Checked against well-known bedtime books and characters: no bunny in a bed, red balloon or 'great green room' scene (Goodnight Moon), no cat in a striped hat, no llama in red pajamas, no blue heeler dogs; the bear is a plain teddy in a blue nightcap, the moon and stars are generic shapes. Goodnight Moon, Pete the Cat, Llama Llama, Bluey and others appear only as ad negatives. Fredoka font is SIL OFL 1.1, which allows embedding. AI-art note: purely AI-made pictures and text can't be registered for US copyright (US Copyright Office guidance; Thaler v. Perlmutter), so others could reuse them; that doesn't stop selling the book."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search only (USPTO is unreachable from this environment). No book or mark titled 'My First Bath & Bedtime Coloring Book' or 'My First Bath and Bedtime Coloring Book' turned up. Nearby: 'My First Bedtime Copy Coloring Book' (Justine Avery, Suteki Creative, 2021; different title), 'Bathtime and Bedtime' (Liesbet Slegers, board book), and the registered mark BATHTIME TO BEDTIME (Justia record, registered 2021). The title uses 'Bath & Bedtime' to describe the book's content, not as a brand, and doesn't use 'Bathtime to Bedtime'. The series uses 'My First' descriptively as in its 28 earlier books. Page labels are plain descriptions ('Sweet Dreams', 'Baby Mobile', 'Bedtime Story', 'Bubble Bath'); keywords, ad keywords and headlines use no brand, author or character names."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover and title page matches the metadata title. 7 keywords of 46 characters or fewer, no brands, no 'bestseller', 'new' or 'free' style terms, no other authors or titles. Categories are the three general children's paths used by earlier books; a bedtime or bath-time category, if KDP's picker offers one, is left to the owner. Amazon Ads book policy: 3 custom texts (125, 131, 122 characters) and 3 headlines (41, 39, 38) with no price, sale, 'free' offer, best-seller, star-rating or review claims; ad keywords are generic searches; 49 negatives, including bath-toy, board-book and sleep-aid terms so ads stay on coloring-book searches. Fixed: build.js rejected the third ad text because 'stars' can read as a rating; it now says 'the night sky'."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no people, no child shown in the bath or near water, no plugs, cords or open flames (the night light is a table lamp with drawn rays), no medicine or sleep aids. The warm milk is a mug with steam lines and a face; nothing tells a child to use a stove, the bath or a lamp alone. No claims that the book helps children sleep."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Ad text 3 said 'the moon and stars'; build.js refuses 'stars' as a possible rating claim, so it now says 'the moon and the night sky'.",
+  "Page labels 'Bathtub' and 'Sleepy Bear' repeated earlier books (At Home, Winter); they became 'Bubble Bath' and 'Bedtime Bear', and the subtitle and description list were changed to match.",
+  "Art review: the bunk bed's top guard rail crossed the upper pillow and was raised; the sheep's legs were hidden by its fleece and its head was small, so the fleece was trimmed, the legs lengthened and the head enlarged; the rocking chair's back slats crossed the armrest, so the back became one wide post with a heart; the baby mobile's hanging shapes were too small for little hands and were enlarged; the slippers were redrawn as a top-view pair with faces and pom-poms."
+ ],
+ "owner_notes": [
+  "Optional: run a USPTO search for 'Bath & Bedtime' before publishing; this was a web screen only. A registered mark BATHTIME TO BEDTIME exists, and this title doesn't use that phrase.",
+  "Some page names repeat earlier books, mostly My First At Home (Bed, Pajamas, Pillow, Slippers, Soap, Toothbrush, Towel); every picture is a new drawing. If you'd rather avoid repeats in the series, say so and the desk will swap them.",
+  "KDP's AI question: answer Yes for images and text."
+ ],
+ "research_ref": "web search 2026-11-25: title conflicts ('My First Bedtime Coloring Book', 'My First Bath & Bedtime Coloring Book') and 'Bath & Bedtime' marks (AbeBooks, Twinkl, Simon & Schuster, Justia trademark listings)",
+ "last_touch_ref": "grammar-copy-editor and deliverable-qa-reviewer lines in book-kit/records/2026-11-25-my-first-bath-bedtime.json",
+ "decision_ref": "book-kit/records/2026-11-25-my-first-bath-bedtime.json (decision)"
+}

@@ -53,6 +53,7 @@ Helpers (2026-11-18; community helpers, titled this way because "My First Commun
 Robots (2026-11-19). Winter (2026-11-20; picked by Trend Scout, cover uses the optional snow ground).
 Valentine's Day (2026-11-23; picked by Trend Scout to be indexed before January-February searches).
 Easter & Spring (2026-11-24; picked by Trend Scout as the next season, titled this way because "My First Easter Coloring Book" exists).
+Bath & Bedtime (2026-11-25; picked by Trend Scout as an evergreen bath-and-bed routine topic, titled this way because "My First Bedtime Copy Coloring Book" exists).
 While the office DB is full (100 MB), the Legal review goes in `book-kit/legal/<id>.json`
 and the books, decisions and collabs docs in `book-kit/records/<date>-<id>.json`.
 Next: the planned rotation is finished. Until the owner names a topic, Trend Scout picks one that

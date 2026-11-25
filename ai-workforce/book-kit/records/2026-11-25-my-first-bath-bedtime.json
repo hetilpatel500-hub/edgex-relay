@@ -1,0 +1,134 @@
+{
+ "note": "Office DB is full (100 MB, creates refused since 2026-11-05), so the books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-bath-bedtime",
+  "title": "My First Bath & Bedtime Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Bath & Bedtime",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-bath-bedtime.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/VNv653EUHLYjGMgb9Sm36Q",
+  "created": "2026-11-25T14:56:09Z",
+  "emailed": "Gmail message 1a21334aeaa97bfc to the owner, 2026-11-25"
+ },
+ "decision": {
+  "doc_id": "2026-11-25-book-my-first-bath-bedtime",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-25T14:56:09Z",
+  "reason": "Legal verdict cleared at 2026-11-25T14:55:02Z (all ten counsel; trademark web screen on file; the 'stars' ad text and the two repeated page names fixed). Planned rotation has ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it; 'Bath &' added because 'My First Bedtime Copy Coloring Book' exists. Repeats with My First At Home (7 page names) are disclosed in the delivery email. Build checks passed (64 pages, cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-bath-bedtime.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-25-book-my-first-bath-bedtime",
+  "created": "2026-11-25T14:56:09Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation is finished; picked Bath & Bedtime (no book, repo record or DB books doc has it): an evergreen bath-and-bed routine topic. Seasonal options (Beach & Summer) were passed over because most of their subjects already appear in Ocean and Sports."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched titles: 'My First Bedtime Copy Coloring Book' (Justine Avery, 2021) exists and Twinkl has a free 'My First Bedtime Colouring Pack', so the title adds 'Bath &'; no 'My First Bath & Bedtime Coloring Book' turned up. Toddler bedtime coloring books are scarce in the results (one bedtime reveal book is for ages 4-8)."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 subjects in art/bedtime.js in four groups (9 bath time, 8 getting ready for bed, 9 night-time things, 4 sleepy friends), with new sleepy-face, star, crescent-moon, Zzz, heart and music-note helpers."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Contact sheet reviewed at full size; raised the bunk bed's top rail off the upper pillow, trimmed the sheep's fleece so its legs show and enlarged its head, simplified the rocking chair's back, enlarged the baby mobile's shapes and redrew the slippers as a top-view pair."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, a description in four groups that match the 30 pages (9 + 8 + 9 + 4) and 7 keywords of 46 characters or fewer, with no brand names or other titles; renamed Bathtub and Sleepy Bear to Bubble Bath and Bedtime Bear so they don't repeat earlier books."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 49 negatives including bath-toy, board-book and sleep-aid terms and character brands; dropped 'cozy' from the usual negatives because parents search cozy bedtime books."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Ad texts 125, 131 and 122 characters, headlines 41, 39 and 38; build.js rejected 'the moon and stars' as a possible rating claim, so ad text 3 now says 'the moon and the night sky'."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages; cover 17.3941 x 11.25 in matches KDP's formula and the bleed reaches every edge; 30 page labels match the description list; every picture has a blank back; cover, preview pages and both A+ images checked."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "pass: All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner deci"
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "pass: Description, subtitle, back cover, A+ points and ad texts checked against the built interior (text of interior.pdf): 64 pages, 30 labelled pictures in four groups (9 bath time + 8 getting ready for be"
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: No commercial email. The delivery goes only to the owner."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: No personal data in the book, listing or ads kit; the 'This book belongs to' line and the certificate's name line collect nothing."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "pass: Art is original vector drawing in art/bedtime.js; line and color contact sheets reviewed at full size. Checked against well-known bedtime books and characters: no bunny in a bed, red balloon or 'great"
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "pass: Web search only (USPTO is unreachable from this environment). No book or mark titled 'My First Bath & Bedtime Coloring Book' or 'My First Bath and Bedtime Coloring Book' turned up. Nearby: 'My First B"
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "n/a: No money content."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "pass: KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover and title page matches the metadata title. 7 keywords of 46 characters or fewer, no bra"
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "pass: General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no people, no child shown in the bath or near water, no plugs, cords or open flames (the nigh"
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved after a cleared Legal verdict; delivered to the owner only."
+   },
+   {
+    "agent": "publish-coordinator",
+    "line": "Published the private delivery page (https://claude.ai/artifact/VNv653EUHLYjGMgb9Sm36Q) with downloads and the 8 files; emailed the owner (Gmail message 1a21334aeaa97bfc to the owner, 2026-11-25)."
+   }
+  ],
+  "members": [
+   "trend-scout",
+   "market-research-agent",
+   "brand-graphic-design-agent",
+   "quality-bar-agent",
+   "copywriter-seo-agent",
+   "paid-ads-agent",
+   "grammar-copy-editor",
+   "deliverable-qa-reviewer",
+   "general-counsel-agent",
+   "advertising-consumer-protection-counsel",
+   "email-anti-spam-compliance-counsel",
+   "privacy-data-protection-counsel",
+   "copyright-fair-use-counsel",
+   "trademark-brand-clearance-counsel",
+   "financial-content-compliance-counsel",
+   "platform-terms-policy-counsel",
+   "kids-content-coppa-counsel",
+   "contracts-commercial-terms-counsel",
+   "chief-of-staff",
+   "publish-coordinator"
+  ],
+  "outcome": "Delivered My First Bath & Bedtime Coloring Book (64 pages, 30 pictures) with its KDP listing and Amazon Ads kit on a private page; one email to the owner (Gmail message 1a21334aeaa97bfc to the owner, 2026-11-25). Nothing published, priced or advertised."
+ }
+}
