@@ -4183,6 +4183,258 @@ def citrus_blossom(c, x, y, s, P, angle=0.0, n=2, buds=1):
             c.paint_around(g)
 
 
+# ---------------------------------------------------------------- tea time (Tea Season)
+TEA_GLAZES = {'rose': ('#f7cdd3', '#d88896'), 'blue': ('#c7dbef', '#6e96c6'), 'cream': ('#f9f0de', '#d6bd93'),
+              'sage': ('#cfe0c8', '#7fa67c'), 'lilac': ('#e2d6f1', '#9f88c8')}
+GILT = ('#f3dc9c', '#c99a45')
+
+
+def _tiny_blossom(c, W, cx, cy, r, col, col2, ink):
+    """A small painted china flower: five round petals, a gold heart, two leaves."""
+    for k in (-1, 1):
+        lf = W(leaf(cx + k * r * 1.45, cy + r * 0.55, r * 1.05, r * 0.42, k * 0.5 + (0 if k > 0 else math.pi)))
+        c.wash(lf, '#9fc28c', '#5d8a55', strength=0.85, spread=0.006, layers=8, edge=1.0)
+    for i in range(5):
+        a = -math.pi / 2 + 2 * math.pi * i / 5
+        pt = W(ellipse(cx + r * 0.62 * math.cos(a), cy + r * 0.62 * math.sin(a), r * 0.5, r * 0.44, 10, a))
+        c.wash(pt, col, col2, strength=0.85, spread=0.006, layers=8, edge=1.1, ang=a)
+    c.wash(W(ellipse(cx, cy, r * 0.3, r * 0.3, 10)), GILT[0], GILT[1], strength=0.95, spread=0.004, layers=6, edge=1.0)
+    c.ink_line(W(ellipse(cx, cy, r * 1.05, r * 1.0, 18)), width=max(1, r * 0.05), alpha=60, passes=1, jitter=0.01, color=ink)
+
+
+def teapot(c, x, y, s, P, angle=0.0, color=None, flowers=True, steam=True):
+    """A round china teapot, seen a little from above: a squat glazed body
+    (wet-in-wet glaze, the shadow side darker, a lifted window highlight and a
+    gouache glint), a gilt band at the shoulder, small painted flowers on the
+    belly, a domed lid with a round knob, a foot ring, a curved spout on the
+    left and a looped handle on the right (both tucked behind the body), and
+    a curl of steam from the spout."""
+    glaze = color if color in TEA_GLAZES else 'rose'
+    g1, g2 = TEA_GLAZES[glaze]
+    T = _loc(x, y, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    ic = _inkc(g2, 0.5)
+    half = [(s * 0.34, -s * 0.33), (s * 0.5, -s * 0.24), (s * 0.6, -s * 0.08), (s * 0.64, s * 0.12), (s * 0.6, s * 0.3),
+            (s * 0.48, s * 0.44), (s * 0.36, s * 0.5)]
+    body = smooth(half + [(-px, py) for px, py in half[::-1]], rounds=2)
+    g0 = c.snapshot()
+    # foot ring and lid, then the body; all of them sit in front of the spout and handle
+    B = W(body)
+    c.wash(B, _mix(g1, 0.15), g2, strength=0.92, spread=0.008, layers=18, edge=1.0, ang=angle + 0.4, vary=_mix(g2, 0.35), vary_amt=0.35)
+    c.wash(W([(s * 0.18, -s * 0.4), (s * 0.8, -s * 0.4), (s * 0.8, s * 0.6), (s * 0.18, s * 0.6)]), _shade(g2, 0.8), None, strength=0.45,
+           spread=0.01, layers=10, edge=0.0, blur=s * 0.1, clip=B)
+    c.wash(W(ellipse(0, s * 0.42, s * 0.5, s * 0.12, 18)), _shade(g2, 0.75), None, strength=0.3, spread=0.01, layers=8, edge=0.0,
+           blur=s * 0.06, clip=B)
+    # gilt band at the shoulder
+    band = W(_band(_sm([(-s * 0.5, -s * 0.2), (-s * 0.2, -s * 0.15), (s * 0.2, -s * 0.15), (s * 0.5, -s * 0.2)], 2), s * 0.017, s * 0.017))
+    c.wash(band, GILT[0], GILT[1], strength=0.95, spread=0.004, layers=8, edge=1.0, clip=B)
+    if flowers:
+        fc = {'rose': ('#f3a1ae', '#c95c72'), 'blue': ('#f3b6c1', '#cf6f86'), 'cream': ('#f4a6b3', '#cc6479'),
+              'sage': ('#f6b9c2', '#d27a8c'), 'lilac': ('#f7c3cc', '#d6788d')}[glaze]
+        _tiny_blossom(c, W, -s * 0.06, s * 0.12, s * 0.11, fc[0], fc[1], ic)
+        _tiny_blossom(c, W, -s * 0.33, s * 0.2, s * 0.075, '#fbf2dc', '#e2c27e', ic)
+        _tiny_blossom(c, W, s * 0.24, s * 0.22, s * 0.08, fc[0], fc[1], ic)
+        for dx, dy in ((-s * 0.2, -s * 0.02), (s * 0.08, -s * 0.03), (s * 0.4, s * 0.06), (-s * 0.44, s * 0.02), (s * 0.06, s * 0.34)):
+            gouache(c, W(ellipse(dx, dy, s * 0.016, s * 0.016, 7)), color=_rgb(GILT[0]), alpha=225, soft=0.15)
+    c.lift(W(smooth([(-s * 0.46, -s * 0.12), (-s * 0.34, -s * 0.2), (-s * 0.28, -s * 0.1), (-s * 0.4, s * 0.12), (-s * 0.5, s * 0.08)], 2)),
+           amount=0.55, soft=0.35, clip=B)
+    gouache(c, W(ellipse(-s * 0.36, -s * 0.13, s * 0.05, s * 0.025, 10, -0.7)), color=(255, 255, 255), alpha=225, soft=0.2)
+    c.ink_line(B, width=max(1.4, s * 0.012), alpha=140, passes=1, jitter=0, color=ic)
+    # lid and knob
+    lid = W(smooth([(-s * 0.36, -s * 0.31), (-s * 0.3, -s * 0.43), (-s * 0.14, -s * 0.5), (s * 0.14, -s * 0.5), (s * 0.3, -s * 0.43),
+                    (s * 0.36, -s * 0.31)], rounds=2, closed=False) + [(s * 0.37, -s * 0.28), (-s * 0.37, -s * 0.28)])
+    c.wash(lid, _mix(g1, 0.2), g2, strength=0.9, spread=0.006, layers=12, edge=1.0, ang=angle + 0.4)
+    c.wash(W(_band([(-s * 0.35, -s * 0.305), (s * 0.35, -s * 0.305)], s * 0.011, s * 0.011)), GILT[0], GILT[1], strength=0.9, spread=0.004,
+           layers=6, edge=1.0)
+    c.lift(W(ellipse(-s * 0.14, -s * 0.44, s * 0.12, s * 0.025, 12, -0.15)), amount=0.5, soft=0.4, clip=lid)
+    knob = W(ellipse(0, -s * 0.57, s * 0.075, s * 0.07, 16))
+    c.wash(knob, _mix(g1, 0.2), g2, strength=0.92, spread=0.006, layers=8, edge=1.0)
+    c.wash(W(_rr(-s * 0.035, -s * 0.53, s * 0.035, -s * 0.49, s * 0.01)), GILT[0], GILT[1], strength=0.95, spread=0.004, layers=6, edge=1.0)
+    gouache(c, W(ellipse(-s * 0.028, -s * 0.59, s * 0.016, s * 0.012, 8)), color=(255, 255, 255), alpha=230, soft=0.2)
+    for pts in (lid, knob):
+        c.ink_line(pts, width=max(1.3, s * 0.011), alpha=135, passes=1, jitter=0, color=ic)
+    c.paint_around(g0)
+    # spout from low on the left, curving up and out
+    sp = _sm([(-s * 0.5, s * 0.2), (-s * 0.72, s * 0.12), (-s * 0.86, -s * 0.06), (-s * 0.98, -s * 0.24)], 2)
+    S = W(_band(sp, s * 0.13, s * 0.045))
+    c.wash(S, _mix(g1, 0.15), g2, strength=0.92, spread=0.008, layers=12, edge=1.0, ang=angle + 0.4)
+    c.lift(W(_band(_sm([(-s * 0.66, s * 0.1), (-s * 0.82, -s * 0.04), (-s * 0.92, -s * 0.2)], 2), s * 0.02, s * 0.01)), amount=0.45, soft=0.3,
+           clip=S)
+    c.wash(W(ellipse(-s * 0.985, -s * 0.245, s * 0.05, s * 0.026, 10, -0.9)), _shade(g2, 0.6), None, strength=0.8, spread=0.006, layers=6,
+           edge=1.0)
+    c.ink_line(S, width=max(1.3, s * 0.011), alpha=135, passes=1, jitter=0, color=ic)
+    # handle: a loop on the right, both ends tucked behind the body
+    hp = _sm([(s * 0.5, -s * 0.2), (s * 0.82, -s * 0.22), (s * 0.98, -s * 0.02), (s * 0.92, s * 0.2), (s * 0.74, s * 0.32), (s * 0.52, s * 0.3)], 2)
+    Hd = W(_band(hp, s * 0.075, s * 0.06))
+    c.wash(Hd, _mix(g1, 0.15), g2, strength=0.92, spread=0.008, layers=12, edge=1.0, ang=angle + 0.4)
+    c.wash(W(_band(hp, s * 0.02, s * 0.016)), GILT[0], GILT[1], strength=0.7, spread=0.004, layers=6, edge=1.0, clip=Hd)
+    c.ink_line(Hd, width=max(1.3, s * 0.011), alpha=135, passes=1, jitter=0, color=ic)
+    foot = W(_rr(-s * 0.3, s * 0.4, s * 0.3, s * 0.555, s * 0.04))
+    c.wash(foot, _mix(g1, 0.2), g2, strength=0.9, spread=0.006, layers=10, edge=1.0, ang=angle)
+    c.wash(W(_rr(-s * 0.3, s * 0.4, s * 0.3, s * 0.555, s * 0.04)), _shade(g2, 0.75), None, strength=0.3, spread=0.006, layers=6, edge=0.0,
+           blur=s * 0.03, clip=foot)
+    c.ink_line(foot, width=max(1.2, s * 0.01), alpha=130, passes=1, jitter=0, color=ic)
+    c.paint_around(g0)
+    if steam:
+        _steam(c, lambda px, py: T(-s * 1.0 + px * 0.5, -s * 0.3 + py), s, n=1, h=0.36)
+
+
+def teacup(c, x, y, s, P, angle=0.0, color=None, tag=True, steam=True, lemon=False):
+    """A china teacup of tea on its saucer, seen a little from above: a glazed
+    cup with a gilt rim and a small painted flower, amber tea with a lifted
+    reflection, a looped handle, a saucer with a well and a contact shadow, a
+    tea-bag string over the rim with a paper tag hanging down the side, an
+    optional lemon wheel floating in the tea, and a curl of steam."""
+    glaze = color if color in TEA_GLAZES else 'blue'
+    g1, g2 = TEA_GLAZES[glaze]
+    T = _loc(x, y + s * 0.08, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    ic = _inkc(g2, 0.5)
+    rx, ry, ry0 = s * 0.62, s * 0.2, -s * 0.22
+    rim = [(rx * math.cos(a), ry0 + ry * math.sin(a)) for a in [2 * math.pi * i / 40 for i in range(40)]]
+    front = [(rx * math.cos(a), ry0 + ry * math.sin(a)) for a in [math.pi * i / 20 for i in range(21)]]
+    side = [(-rx, ry0), (-rx * 0.98, ry0 + s * 0.14), (-rx * 0.86, ry0 + s * 0.36), (-rx * 0.66, ry0 + s * 0.52),
+            (-rx * 0.44, ry0 + s * 0.6), (-rx * 0.36, ry0 + s * 0.62)]
+    foot_y = ry0 + s * 0.62
+    body = smooth(front + side + [(-p[0], p[1]) for p in side[::-1]][1:], rounds=1)
+    g0 = c.snapshot()
+    B = W(body)
+    c.wash(B, _mix(g1, 0.12), g2, strength=0.9, spread=0.008, layers=16, edge=1.0, ang=angle, vary=_mix(g2, 0.3), vary_amt=0.35)
+    c.wash(W([(rx * 0.3, ry0), (rx * 1.1, ry0), (rx * 1.1, foot_y), (rx * 0.3, foot_y)]), _shade(g2, 0.8), None, strength=0.45,
+           spread=0.01, layers=10, edge=0.0, blur=s * 0.08, clip=B)
+    fc = ('#f3a1ae', '#c95c72') if glaze != 'rose' else ('#fbf2dc', '#e2c27e')
+    _tiny_blossom(c, W, -rx * 0.12, ry0 + s * 0.3, s * 0.07, fc[0], fc[1], ic)
+    c.lift(W([(-rx * 0.7, ry0 + s * 0.14), (-rx * 0.54, ry0 + s * 0.14), (-rx * 0.44, ry0 + s * 0.44), (-rx * 0.58, ry0 + s * 0.48)]),
+           amount=0.5, soft=0.35, clip=B)
+    R = W(rim)
+    c.wash(R, '#fbf6ee', _mix(g1, 0.4), strength=0.55, spread=0.006, layers=10, edge=0.8, ang=angle + math.pi / 2)
+    cx, cy, crx, cry = 0, ry0 + ry * 0.14, rx * 0.88, ry * 0.8
+    tea = W(ellipse(cx, cy, crx, cry, 36))
+    c.wash(tea, '#f3c27a', '#b8702a', strength=0.95, spread=0.006, layers=14, edge=1.25, ang=angle + math.pi / 2, vary='#dc9a48', vary_amt=0.4)
+    c.wash(W(ellipse(cx, cy, crx * 0.97, cry * 0.95, 36)), '#8a4a1a', None, strength=0.22, spread=0.004, layers=6, edge=1.6, blur=s * 0.012,
+           clip=tea)
+    c.lift(W(ellipse(-crx * 0.3, cy - cry * 0.25, crx * 0.32, cry * 0.18, 16, -0.1)), amount=0.45, soft=0.4, clip=tea)
+    if lemon:
+        L = W(ellipse(crx * 0.3, cy + cry * 0.05, crx * 0.3, cry * 0.34, 24))
+        c.lift(L, amount=0.85, soft=0.02)
+        c.wash(L, '#fbe98a', '#e2b81f', strength=0.95, spread=0.004, layers=10, edge=1.4)
+        c.lift(W(ellipse(crx * 0.3, cy + cry * 0.05, crx * 0.07, cry * 0.08, 10)), amount=0.6, soft=0.2)
+        for i in range(6):
+            a = 2 * math.pi * i / 6
+            c.ink_line(W([(crx * 0.3, cy + cry * 0.05), (crx * 0.3 + crx * 0.24 * math.cos(a), cy + cry * 0.05 + cry * 0.27 * math.sin(a))]),
+                       width=max(1, s * 0.006), alpha=90, passes=1, jitter=0, color=(205, 170, 60), closed=False)
+        c.ink_line(L, width=max(1, s * 0.008), alpha=110, passes=1, jitter=0, color=(180, 140, 30))
+    gilt = W(_band([(rx * math.cos(a), ry0 + ry * math.sin(a)) for a in [math.pi * i / 30 for i in range(31)]], s * 0.016, s * 0.016))
+    c.wash(gilt, GILT[0], GILT[1], strength=0.9, spread=0.004, layers=6, edge=1.0)
+    c.ink_line(B, width=max(1.4, s * 0.012), alpha=135, passes=1, jitter=0, color=ic)
+    c.ink_line(R, width=max(1.4, s * 0.012), alpha=140, passes=1, jitter=0, color=ic)
+    if tag:
+        # the string runs from the tea over the front-right of the rim and down the side to a paper tag
+        st = _sm([(crx * 0.42, cy - cry * 0.2), (rx * 0.66, ry0 + ry * 0.75), (rx * 0.82, ry0 + s * 0.2), (rx * 0.8, ry0 + s * 0.42)], 2)
+        c.ink_line(W(st), width=max(1.2, s * 0.008), alpha=170, passes=1, jitter=0, color=(150, 120, 90), closed=False)
+        tg = W(_rr(rx * 0.62, ry0 + s * 0.42, rx * 0.98, ry0 + s * 0.62, s * 0.015))
+        c.wash(tg, '#f7ecd6', '#d9c09a', strength=0.85, spread=0.004, layers=8, edge=1.0)
+        hp = [(rx * 0.8 + s * 0.035 * 16 * math.sin(t) ** 3 / 16,
+               ry0 + s * 0.52 - s * 0.035 * (13 * math.cos(t) - 5 * math.cos(2 * t) - 2 * math.cos(3 * t) - math.cos(4 * t)) / 16)
+              for t in [2 * math.pi * i / 20 for i in range(20)]]
+        c.wash(W(hp), '#e98a9a', '#c95c72', strength=0.9, spread=0.004, layers=6, edge=1.0)
+        c.ink_line(tg, width=max(1.1, s * 0.008), alpha=130, passes=1, jitter=0, color=(140, 110, 80))
+    c.paint_around(g0)
+    hp = [(rx * 0.86, ry0 + s * 0.08)] + [(rx * 1.02 + s * 0.15 * math.cos(a), ry0 + s * 0.25 + s * 0.15 * math.sin(a))
+                                           for a in [-math.pi * 0.62 + math.pi * 1.24 * i / 14 for i in range(15)]] + [(rx * 0.8, ry0 + s * 0.42)]
+    H = W(_band(hp, s * 0.05, s * 0.045))
+    c.wash(H, _mix(g1, 0.12), g2, strength=0.9, spread=0.008, layers=12, edge=1.0, ang=angle)
+    c.ink_line(H, width=max(1.3, s * 0.011), alpha=135, passes=1, jitter=0, color=ic)
+    sy = foot_y - s * 0.02
+    S = W(ellipse(0, sy, s * 0.98, s * 0.2, 40))
+    c.wash(S, _mix(g1, 0.3), g2, strength=0.8, spread=0.008, layers=14, edge=1.0, ang=angle + 0.3)
+    c.wash(W(_band([(s * 0.98 * math.cos(a), sy + s * 0.2 * math.sin(a)) for a in [math.pi * i / 30 for i in range(31)]], s * 0.014, s * 0.014)),
+           GILT[0], GILT[1], strength=0.85, spread=0.004, layers=6, edge=1.0, clip=S)
+    c.wash(W(ellipse(s * 0.06, sy + s * 0.02, s * 0.5, s * 0.08, 24)), '#5a3a2a', None, strength=0.35, spread=0.01, layers=8, edge=0.0,
+           blur=s * 0.04, clip=S)
+    c.lift(W(ellipse(-s * 0.62, sy - s * 0.06, s * 0.2, s * 0.035, 14, 0.12)), amount=0.5, soft=0.4, clip=S)
+    c.ink_line(S, width=max(1.4, s * 0.012), alpha=130, passes=1, jitter=0, color=ic)
+    c.paint_around(g0)
+    if steam:
+        _steam(c, lambda px, py: T(-s * 0.1 + px, ry0 - s * 0.1 + py), s, n=2, h=0.4)
+
+
+def honey_jar(c, x, y, s, P, angle=0.0, dipper=True):
+    """A jar of golden honey: a rounded glass jar with amber honey glowing
+    lighter at the center, glass glints, a cream label with a little painted
+    bee, a gingham-checked cloth cover tied with twine, and a wooden honey
+    dipper lying in front with a honey drip."""
+    T = _loc(x, y, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    g0 = c.snapshot()
+    if dipper:
+        # the dipper lies in front of the jar's base, painted first
+        dp = _loc(x + s * 0.18, y + s * 0.62, angle - 0.32)
+        Wd = lambda pts: [dp(px, py) for px, py in pts]
+        handle = Wd(_rr(-s * 0.62, -s * 0.03, s * 0.05, s * 0.03, s * 0.025))
+        c.wash(handle, '#e2b47c', '#a9703c', strength=0.9, spread=0.006, layers=10, edge=1.0)
+        head = Wd(smooth([(s * 0.04, -s * 0.08), (s * 0.2, -s * 0.11), (s * 0.34, -s * 0.09), (s * 0.4, 0), (s * 0.34, s * 0.09), (s * 0.2, s * 0.11),
+                          (s * 0.04, s * 0.08)], 2))
+        c.wash(head, '#e8bd84', '#a46a36', strength=0.92, spread=0.006, layers=12, edge=1.0, ang=angle)
+        for k in range(4):
+            gx = s * (0.1 + 0.07 * k)
+            c.ink_line(Wd([(gx, -s * 0.1), (gx, s * 0.1)]), width=max(1, s * 0.01), alpha=120, passes=1, jitter=0, color=(110, 70, 36),
+                       closed=False)
+        c.wash(Wd(smooth([(s * 0.16, -s * 0.06), (s * 0.34, -s * 0.05), (s * 0.4, 0.02 * s), (s * 0.3, s * 0.07), (s * 0.16, s * 0.05)], 2)),
+               '#f6c64a', '#d48b12', strength=0.7, spread=0.006, layers=8, edge=1.2)
+        c.wash(Wd(smooth([(s * 0.26, s * 0.06), (s * 0.3, s * 0.2), (s * 0.27, s * 0.26), (s * 0.23, s * 0.2)], 2)), '#f6c64a', '#d48b12',
+               strength=0.85, spread=0.004, layers=6, edge=1.2)
+        for pts in (handle, head):
+            c.ink_line(pts, width=max(1.1, s * 0.01), alpha=130, passes=1, jitter=0, color=(110, 70, 36))
+        c.paint_around(g0)
+    half = [(s * 0.3, -s * 0.36), (s * 0.4, -s * 0.28), (s * 0.44, -s * 0.06), (s * 0.44, s * 0.34), (s * 0.38, s * 0.5), (s * 0.28, s * 0.54)]
+    jar = W(smooth(half + [(-px, py) for px, py in half[::-1]], 2))
+    c.wash(jar, '#f9cf63', '#c97a12', strength=0.95, spread=0.008, layers=16, edge=1.1, ang=angle + 0.5, vary='#e59a26', vary_amt=0.4)
+    c.wash(W(ellipse(-s * 0.04, s * 0.1, s * 0.26, s * 0.3, 20)), '#fde9a8', None, strength=0.5, spread=0.01, layers=8, edge=0.0,
+           blur=s * 0.08, clip=jar)
+    c.wash(W([(s * 0.2, -s * 0.4), (s * 0.6, -s * 0.4), (s * 0.6, s * 0.6), (s * 0.2, s * 0.6)]), '#9a5508', None, strength=0.4, spread=0.01,
+           layers=8, edge=0.0, blur=s * 0.06, clip=jar)
+    lab = W(_rr(-s * 0.3, -s * 0.02, s * 0.3, s * 0.3, s * 0.05))
+    c.lift(lab, amount=0.9, soft=0.02)
+    c.wash(lab, '#fbf3e1', '#e0caa2', strength=0.6, spread=0.004, layers=8, edge=1.2)
+    # a little bee on the label
+    bx, by = 0, s * 0.15
+    for k in (-1, 1):
+        wg = W(ellipse(bx + k * s * 0.05, by - s * 0.07, s * 0.06, s * 0.038, 12, k * 0.6))
+        c.wash(wg, '#dbeaf3', '#8fb2c7', strength=0.85, spread=0.004, layers=6, edge=1.4)
+        c.ink_line(wg, width=max(1, s * 0.007), alpha=110, passes=1, jitter=0, color=(80, 100, 120))
+    body = W(ellipse(bx, by, s * 0.1, s * 0.068, 16))
+    c.wash(body, '#f6cf4e', '#d9971a', strength=0.95, spread=0.004, layers=8, edge=1.0)
+    for dx in (-s * 0.02, s * 0.03):
+        c.wash(W(_rr(bx + dx - s * 0.012, by - s * 0.058, bx + dx + s * 0.012, by + s * 0.058, s * 0.006)), '#3c2a1e', None, strength=0.9,
+               spread=0.004, layers=5, edge=1.0, clip=body)
+    c.ink_line(body, width=max(1, s * 0.008), alpha=130, passes=1, jitter=0, color=(70, 50, 30))
+    c.ink_line(lab, width=max(1.1, s * 0.009), alpha=110, passes=1, jitter=0, color=(150, 120, 80))
+    for x0, x1, a in ((-s * 0.36, -s * 0.31, 0.7), (-s * 0.26, -s * 0.23, 0.45)):
+        c.lift(W([(x0, -s * 0.26), (x1, -s * 0.26), (x1 + s * 0.02, -s * 0.06), (x0 + s * 0.02, -s * 0.06)]), amount=a, soft=0.15, clip=jar)
+    gouache(c, W(ellipse(-s * 0.33, s * 0.38, s * 0.025, s * 0.04, 8)), color=(255, 252, 240), alpha=210, soft=0.2)
+    c.ink_line(jar, width=max(1.3, s * 0.011), alpha=135, passes=1, jitter=0, color=(140, 80, 20))
+    # gingham cloth cover over the lid, tied with twine
+    cloth = W(smooth([(-s * 0.36, -s * 0.34), (-s * 0.42, -s * 0.42), (-s * 0.3, -s * 0.52), (0, -s * 0.56), (s * 0.3, -s * 0.52),
+                      (s * 0.42, -s * 0.42), (s * 0.36, -s * 0.34), (s * 0.44, -s * 0.2), (s * 0.3, -s * 0.24), (s * 0.18, -s * 0.18),
+                      (0, -s * 0.24), (-s * 0.18, -s * 0.18), (-s * 0.3, -s * 0.24), (-s * 0.44, -s * 0.2)], 1))
+    c.wash(cloth, '#fbf1f1', '#e9c3c6', strength=0.85, spread=0.006, layers=10, edge=1.0)
+    for k in range(-4, 5):
+        c.wash(W(_rr(k * s * 0.09 - s * 0.022, -s * 0.6, k * s * 0.09 + s * 0.022, -s * 0.16, 0)), '#e98a9a', None, strength=0.45,
+               spread=0.004, layers=5, edge=0.6, clip=cloth)
+    for k in range(5):
+        yy = -s * 0.52 + k * s * 0.08
+        c.wash(W(_rr(-s * 0.5, yy - s * 0.02, s * 0.5, yy + s * 0.02, 0)), '#e98a9a', None, strength=0.4, spread=0.004, layers=5, edge=0.6,
+               clip=cloth)
+    c.ink_line(cloth, width=max(1.1, s * 0.009), alpha=115, passes=1, jitter=0, color=(170, 90, 100))
+    tw = W(_band(_sm([(-s * 0.38, -s * 0.33), (0, -s * 0.31), (s * 0.38, -s * 0.33)], 2), s * 0.018, s * 0.018))
+    c.wash(tw, '#d9b98c', '#9c7a4c', strength=0.95, spread=0.004, layers=6, edge=1.0)
+    for k in (-1, 1):
+        lp = W(ellipse(s * 0.06 + k * s * 0.07, -s * 0.36, s * 0.065, s * 0.035, 12, k * 0.4))
+        c.ink_line(lp, width=max(1.2, s * 0.014), alpha=190, passes=1, jitter=0, color=(160, 125, 80))
+    c.paint_around(g0)
+
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
@@ -4202,4 +4454,5 @@ MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'sn
            'plant_pot': plant_pot, 'monstera': monstera, 'snake_plant': snake_plant, 'pothos': pothos,
            'fox': fox, 'hedgehog': hedgehog, 'toadstool': toadstool,
            'snowdrop2': snowdrop2, 'ribbon_tie': ribbon_tie,
-           'citrus_fruit': citrus_fruit, 'citrus_slice': citrus_slice, 'citrus_blossom': citrus_blossom}
+           'citrus_fruit': citrus_fruit, 'citrus_slice': citrus_slice, 'citrus_blossom': citrus_blossom,
+           'teapot': teapot, 'teacup': teacup, 'honey_jar': honey_jar}

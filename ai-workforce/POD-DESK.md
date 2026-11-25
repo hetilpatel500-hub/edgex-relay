@@ -535,3 +535,15 @@ Studio Floor at any time.
   `pod-kit/research`, `legal` and `decisions`. Delivery page (private): https://claude.ai/artifact/RTMFF65dkadSx5H2VG9YCw. Printify
   read-only: 58 products, 48 with Etsy listing IDs, the same 10 drafts unpublished, 0 orders. No Printify products: writes still wait
   for the owner. $0 spent.
+- 2026-11-25 (16:17 UTC run, motif day): the gift-category table and the best-seller list have no open row (Valentine's Day opens in
+  early January), so the run made one design from trend research: **Tea Season**, a watercolor tea-time still life for light shirts: a
+  rose-pink china teapot with painted flowers and gold bands, a blue teacup of tea with a lemon wheel and a tea-bag tag, a honey jar with a
+  gingham cover and a bee label, a honey dipper, a lemon, a lemon wheel, cinnamon sticks and star anise on a blush wash, under "Tea Season"
+  in Pacifico. Tee, sweatshirt, mug, art print and sticker listings. New motifs `teapot`, `teacup` and `honey_jar` (plus `TEA_GLAZES`,
+  `GILT` and `_tiny_blossom`) in `motifs2.py`. Fixes after review: a sparse first layout, 'Tea' clipped at the top, the teapot foot
+  showing as a bar in front of the body, heavy gold bands, and the lemon and bee hidden under the opaque top layer (now painted on a
+  lifted area). Research 21/25 (tea-lover gift guides are live this season; sweatshirts and mugs lead winter POD sales; competing tea
+  shirts are slogans, boba or a single teacup), Legal cleared ('Tea' is never used alone because of the TEA clothing marks; TEAS THE
+  SEASON! covers retail tea services only; tea slogans kept out); records in `pod-kit/research`, `legal` and `decisions`. Delivery page
+  (private): https://claude.ai/artifact/9nr3BjruVzNyXNN2dQYTQG. Printify read-only: 58 products, 48 with Etsy listing IDs, the same 10
+  drafts unpublished, 0 orders. No Printify products: writes still wait for the owner. $0 spent.
