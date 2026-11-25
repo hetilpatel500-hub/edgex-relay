@@ -1,0 +1,77 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "videos",
+  "date": "2026-11-25",
+  "kind": "video_set"
+ },
+ "title": "Video desk, Wed Nov 25 set: Sector Scoreboard, Trading Explained (gross margin), AI This Week",
+ "reviewed_at": "2026-11-25T22:18:03Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file after reviewing the three review sheets (sector scoreboard, gross-margin explainer, AI This Week), report.json spoken text, titles, captions and sources. Defamation screen: sectors and companies appear only with Webull data; no reason is given for any move, and the sector video says so. The two people named (Jakub Pachocki and Antonio Guterres; no private person) appear only with what two or more outlets report they said or proposed, in neutral words. Nothing commits the owner; delivery is to the owner only. AI review, not legal advice."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Every number traces to a saved raw response or a cited source (factcheck.py: 0 unmatched; every bar and compare value re-checked against raw with its sign). Sectors: raw/00_get_market_sectors_D1.json and raw/01_get_market_sectors_D5.json, the 20 sectors returned in market-value order (16 of 20 up on the day, 13 of 20 down over 5 days). Gross margin: raw/02-08 get_income_statement (gross_profit / revenue; operating margin = op_income / revenue); Apple quarter ended Sep 26, 2026: 114,477M revenue - 59,657M cost = 54,820M gross profit = 47.89%. Definition: AccountingTools, Wall Street Prep, Patriot Software (with Wikipedia and Xero consistent). AI news: each story in 2+ independent outlets dated Nov 22-24, 2026 (within 14 days): Pachocki proposal (Quartz, Techstrong.ai, Digital Today, Epoch Times), Bridgetown summit (UN News, Rappler, Caribbean Today, Tech Times), Nuro/Lucid/Uber driverless tests (Quartz, The Next Web, Investing.com, GadgetReview, Nuro's own page). Claims are worded no stronger than the sources: 'a proposal, not a binding rule', 'no number yet', 'still testing', launch 'targeted for 2027'."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery email goes to the owner only."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data. The only people named are public figures in their public roles; no private person is named or shown; the owner isn't named or shown."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Visuals are drawn from data and text by the kit's renderer; the voice is Kokoro-82M (Apache-2.0); music is synthesized per video by music.py; fonts are Inter, Space Grotesk and JetBrains Mono (SIL OFL). News is summarized in our own words with credit; the one quote is seven words from a public statement (Guterres: 'not a treaty, it's not regulation'), attributed. No screenshots, logos, photos or third-party footage."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Webull, Meta, Nvidia, Microsoft, Alphabet, Amazon, Apple, Tesla, OpenAI, Nuro, Lucid (Gravity), Uber, the UN and the named outlets are used only to refer to them (nominative use); no logos; nothing suggests endorsement or affiliation. 'Mag 7' is a descriptive market nickname. Hashtags are generic topic tags (#OpenAI names the subject of the story)."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "pass",
+   "note": "'Educational only. Not financial advice.' is on screen at the end of the sector and gross-margin videos and in both captions. No buy/sell call, target, prediction or performance promise. The sector video shows what moved and says no reason is given; the explainer defines a ratio with real reported figures and makes no judgement on any stock. The AI news video makes no market or stock claims, so it carries no disclaimer."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "The narrator is a synthetic (AI) voice over data graphics: on Instagram and Facebook turn on the 'AI info' label. Nothing realistic depicts a real person, so YouTube's altered-content disclosure isn't triggered, but disclosing the AI voice is still the safer choice. No branded-content relationship exists. Titles match the content (no misleading metadata)."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "All three are adult finance and tech-news content: not made for kids, no child appears, no child data is collected."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No proposal, quote, offer or contract; nothing is sold or promised in these videos."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "The first render of the gross-margin explainer ran 60.83 s, over the 60 s limit for shorts. Its voice lines were tightened with the same numbers (e.g. 'Sales minus the direct cost of what was sold is gross profit. Divide that by sales: gross margin.') and all three videos were re-rendered.",
+  "The explainer's Mag 7 bars first showed Apple and Tesla in amber (below 50%), which could read as a judgement with no legend; all seven bars are now the same green.",
+  "report.json's spoken text showed the voice reading '79.31 dollars' as 'seventy-nine thirty-one dollars' and '114.48 billion' as 'one fourteen forty-eight billion'. The lines were rewritten with the same numbers ('79 dollars and 31 cents', 'one hundred fourteen point four eight billion', percentages said with 'percent') and all three were re-rendered."
+ ],
+ "posting_notes": [
+  "Instagram and Facebook: turn on the 'AI info' label (synthetic narrator voice).",
+  "YouTube: no realistic person is depicted, so the altered-content toggle isn't required, but turning it on for the AI voice is the safer choice.",
+  "The sector scoreboard says 'today' for Wed Nov 25; post it by Friday Nov 27 (markets are closed Thursday for Thanksgiving) or say 'Nov 25' in the post text.",
+  "The gross-margin figures are the latest reported quarters (Sep 2026; Nvidia's ended Oct 25) and stay accurate until the next reports (late January 2027 for most).",
+  "AI This Week covers Nov 22-24 news; post it within the week."
+ ],
+ "excluded": [
+  "Nvidia CEO story (Nov 24-25 digests): only aggregator sources found, not two independent outlets, so it was left out.",
+  "Amazon-Decart deal and Claude Ship (Nov 24 digests): single aggregator sources only; left out."
+ ],
+ "last_touch_ref": "video-kit/records/2026-11-25-video-desk.json#last_touch",
+ "decision_ref": "video-kit/records/2026-11-25-video-desk.json#decision",
+ "videos": [
+  "2026-11-25-sector-board",
+  "2026-11-25-explainer-gross-margin",
+  "2026-11-25-ai-this-week"
+ ]
+}
