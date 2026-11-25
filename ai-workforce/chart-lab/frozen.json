@@ -3704,5 +3704,39 @@
    "t_stat": 0.1,
    "max_drawdown_r": 9.87
   }
+ },
+ "wolfe_wave": {
+  "side": "fade",
+  "filter": "none",
+  "exit": "3atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-11-25",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 34,
+   "win_rate": 0.471,
+   "avg_r": 0.017,
+   "total_r": 0.58,
+   "profit_factor": 1.03,
+   "t_stat": 0.08,
+   "max_drawdown_r": 7.91
+  }
+ },
+ "ib_retest": {
+  "side": "with",
+  "filter": "rvol+trend",
+  "exit": "1atr/close",
+  "tf": "M5",
+  "frozen_at": "2026-11-25",
+  "status_at_freeze": "promising",
+  "oos_at_freeze": {
+   "n": 57,
+   "win_rate": 0.298,
+   "avg_r": 0.014,
+   "total_r": 0.82,
+   "profit_factor": 1.02,
+   "t_stat": 0.05,
+   "max_drawdown_r": 14.66
+  }
  }
 }
