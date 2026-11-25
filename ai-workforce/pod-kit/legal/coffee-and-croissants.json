@@ -1,0 +1,68 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "coffee-and-croissants",
+  "kind": "pod pattern design (wrap mug, accent mug)"
+ },
+ "title": "Coffee & Croissants: all-over watercolor coffee-lover mug wraps (2700 x 1120, 2475 x 1155, 2475 x 1275), mockups and listings",
+ "reviewed_at": "2026-11-18T16:40:05Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions. The trademark screen is a web screen, not a clearance. Queue note: the gift-category table has no open row, so this is item 11 (coffee lover) from the list of more best sellers under it."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against all three full-size wraps: cappuccino cups on saucers in sage, blue, terracotta, blush and mustard glazes (every glaze on every size; colors are now assigned in order, not at random), each with a heart or tulip of milk foam; takeaway cups; a glass French press; a red and a blue speckled enamel pot; butter croissants; coffee branches with red cherries; roasted beans; cinnamon sticks; star anise; small hearts; warm cream background. Nothing named is missing. 'No slogan or name' is true: the art has no lettering. No claims of sales, reviews, 'best seller', quality guarantees or 'free'."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data; no names or dates on the art."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (pattern.py, watercolor.py, and seven motifs written today in motifs2.py: latte_cup, togo_cup, french_press, enamel_pot, croissant, coffee_branch, coffee_beans; cinnamon_stick and star_anise are older studio motifs). Generic objects with no brand marks: the takeaway cups are plain with a painted heart on the sleeve (no logo, siren, wordmark or brand color scheme), the French press and enamel pots carry no maker's name, and the cups are plain glazes. Not copied from the clip-art packs found in research (Design Bundles, Gumroad) or Spoonflower's wallpaper; no third-party image was used. Purely machine-made images can't be registered for US copyright; the design is composed by the agents and drawn by our code, noted as usual."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check): no mark, brand or shop named 'Coffee & Croissants' / 'Coffee and Croissants', 'Cafe Mornings' or 'Coffee Shop Mornings' turned up. Nearby: COFFEE & (old mark 75240025; COFFEE &, INC.'s pending Class 43 application 99485718), CROISSANT AND CO (cancelled), CRISS-CROISSANTS (bakery goods); none covers mugs with this phrase. Serial 90606003 (mugs, apparel, bakery services) could not be read because trademarks.justia.com is blocked from this session, so it goes to the owner as an optional check. Title and tags use descriptive words only (coffee, latte, croissant, cappuccino, barista, French press, cafe, Secret Santa as an occasion). The eight-sided stovetop espresso pot, a well-known brand's signature shape, was left out on purpose. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description carries the production-partner disclosure and says the art is digitally painted by the studio; the delivery page gives mug details and care, not apparel text. Titles are 131 and 126 characters (limit 140); 13 tags each, all 20 characters or fewer and all different (build.py checks). 'French press' is a generic name for the brewer; 'Secret Santa' names a gift exchange, not a brand."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Adult gift mugs; not made for or marketed to children."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "pass",
+   "note": "Prices are the studio's standard mug prices from POD-DESK.md and stay suggestions; no new supplier terms. Printify writes still wait for the owner's go-ahead."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Latte art: the first heart was a faint blur and the rosetta didn't show at all; the cups are now seen a little more from above, the heart is crisp foam and the rosetta was replaced by a tulip (stacked crescents under a small heart).",
+  "Croissant: separate lens-shaped rolls read as a fan or shell; it is now one crescent of dough with rounded rolls, baked tops, grooves and curled tips.",
+  "Coffee cherries were small and dark (they read as ladybugs) and the leaves and stem showed through them; they are bigger, brighter and painted first, so the branch tucks behind them.",
+  "A coffee branch lay across a saucer and a leaf across a croissant: finished cups, saucers, pots, presses, takeaway cups and croissants now sit in front of anything painted after them.",
+  "Cup and pot colors were random, so some print sizes lacked the sage and blue cups the description names; colors now go in order (new 'cycle' option in pattern.py), and cinnamon sticks were given room so every size has them.",
+  "The first preview was too sparse next to the best sellers; motifs were made bigger and packed closer."
+ ],
+ "owner_notes": [
+  "Optional: run a USPTO search on COFFEE & CROISSANTS for mugs, and look up serial 90606003, before listing; this was a web screen only.",
+  "Coffee gift searches peak in December, so this design is most useful if Printify writes are allowed soon; it keeps selling after Christmas."
+ ],
+ "research_ref": "pod-kit/research/2026-11-18-coffee-and-croissants.json",
+ "decision_ref": "pod-kit/decisions/2026-11-18-pod-coffee-and-croissants.json"
+}

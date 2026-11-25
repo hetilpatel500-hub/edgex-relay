@@ -1,0 +1,67 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "just-one-more-plant",
+  "kind": "pod motif design (tee, sweatshirt, mug, art print, sticker)"
+ },
+ "title": "Just One More Plant: watercolor houseplant trio with 'just one more plant' lettering (4500 x 5400 transparent PNG), shirt mockups and listings",
+ "reviewed_at": "2026-11-19T16:33:28Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions from the product table. The trademark screen is a web screen, not a clearance. Queue note: item 12 (plant lover) from the list of more best sellers under the gift-category table; motif day (Nov 18 was a pattern)."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against the full-size PNG: a split-leaf monstera with pale holes and slits in a terracotta pot, a banded snake plant in a speckled cream pot, golden pothos with cream streaks trailing over a sage-green pot, 'just one more plant' in green script, gold sparkles and two small pink hearts are all there; nothing named is missing. No claims of sales, reviews, 'best seller', plant-care results, quality guarantees or 'free'. The humor line makes no factual claim."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data; no names or dates on the art."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (design.py, watercolor.py, and the plant_pot, monstera, snake_plant and pothos motifs written today in motifs2.py). Potted houseplants and a plant-collector joke are common, unprotectable ideas; the closest listing found (a flat-vector hoodie with three potted plants and a different line) differs in medium, plants, layout and words. Pacifico is an Open Font License font already used in other designs. Purely machine-made images can't be registered for US copyright; the design is composed by the agents and drawn by our code, noted as usual."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check): no record found for JUST ONE MORE PLANT or ONE MORE PLANT; JUST1MORE (serial 98057922, class 25, pending) and ONE PLANT (Reg. 5753266, class 25) are different words. PLANT MOM is registered for clothing (Reg. 6540815) and THE MODERN PLANT LADY has class 25 filings, so neither 'plant mom' nor 'plant lady' appears in the art, titles or tags. The phrase is in wide use on other sellers' plant shirts. No nursery, plant shop or brand name anywhere. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the delivery page's standard description carries the production-partner disclosure and says the art is digitally painted by the studio. Titles are 134 (tee), 133 (sweatshirt), 124 (mug), 131 (art print) and 133 (sticker) characters (limit 140); 13 tags each, all 20 characters or fewer and all different within each set; no brand or other seller's shop name in any tag."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Apparel, drinkware, prints and stickers for adults; not made or marketed for children."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "The two lettering lines touched ('one' ran into the 'l' of 'plant'); they were spaced apart and moved clear of the top leaf.",
+  "The monstera read as a symmetric pinwheel; its six leaves now fan unevenly at different heights and sizes, and the holes were enlarged so they read at print size.",
+  "The pothos was a muddy blob of stacked transparent leaves; each leaf is now painted in front of the next, and the leaves alternate along each vine on short petioles instead of hanging in columns.",
+  "The snake plant's yellow edges and the pothos's cream streaks didn't show; both are now lifted out of the green first and then glazed, so they read at full size."
+ ],
+ "owner_notes": [
+  "Printify writes still wait for your OK: nothing was created or published.",
+  "Optional: a USPTO search on JUST ONE MORE PLANT (classes 25 and 21) before listing.",
+  "'Plant mom' and 'plant lady' stay out of the titles and tags (a registered clothing mark and class 25 filings)."
+ ],
+ "research_ref": "pod-kit/research/2026-11-19-just-one-more-plant.json",
+ "decision_ref": "pod-kit/decisions/2026-11-19-pod-just-one-more-plant.json"
+}

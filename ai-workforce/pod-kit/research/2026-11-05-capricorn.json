@@ -1,0 +1,63 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a pod_research doc.",
+ "id": "capricorn-constellation-2026-11-05",
+ "created": "2026-11-05T16:23:22Z",
+ "queue_row": "Gift-category plan row 1 (zodiac series, one sign at a time): Capricorn, December 22 - January 19, 4-8 weeks ahead",
+ "phrase": "Capricorn",
+ "niche": "Zodiac and birth-month gifts (Top 100 Gifts for zodiac signs)",
+ "sources": [
+  "https://www.walmart.com/ip/986547299",
+  "https://www.walmart.com/ip/11088605887",
+  "https://www.walmart.com/ip/453607260",
+  "https://www.walmart.com/ip/571035007",
+  "https://www.ebay.de/itm/285215298377",
+  "https://www.etsy.com/listing/687537270",
+  "https://idealhome.co.uk/all-rooms/all-rooms-decor/zodiac-homeware-microtrend",
+  "https://www.billboard.com/culture/product-recommendations/best-astrology-gifts-for-every-zodiac-sign-1235148574",
+  "https://markinton.com/trademark/capricorn-78322459",
+  "https://markinton.com/trademark/capricornus-87554596"
+ ],
+ "competitors": [
+  {
+   "what": "Capricorn hoodie, zodiac birthday astrology gift (Walmart)",
+   "price": "not shown in the results",
+   "style": "text and sign"
+  },
+  {
+   "what": "Capricorn Zodiac Sign heather gray hoodie (Walmart)",
+   "price": "not shown in the results",
+   "style": "not checked (search summary only)"
+  },
+  {
+   "what": "Inktastic Capricorn Constellation Zodiac Sign Illustration baby tee (Walmart)",
+   "price": "not shown in the results",
+   "style": "constellation illustration"
+  },
+  {
+   "what": "Vintage Capricorn zodiac birthday tee (Walmart)",
+   "price": "$13.99-$29.99",
+   "style": "vintage text"
+  },
+  {
+   "what": "Steinbock (Capricorn) watercolor zodiac sweatshirt (eBay Germany)",
+   "price": "not shown in the results",
+   "style": "watercolor"
+  },
+  {
+   "what": "Zodiac Vintage Tee, all twelve signs (Etsy)",
+   "price": "not shown in the results",
+   "style": "vintage"
+  }
+ ],
+ "gap": "Capricorn apparel found is mostly text, symbol or flat constellation art; one watercolor sweatshirt (eBay DE). Ours pairs a painted night sky and the Capricornus star chart with the season's birth flowers (December paperwhite narcissus and holly, January snowdrops), which none of the listings found combine.",
+ "trend": "Zodiac gifts stay popular (gift guides; an undated UK report of a 198% rise in Etsy zodiac decor searches; birth flowers and constellations are related search terms). No 2026 sales ranking found.",
+ "scores": {
+  "demand": 4,
+  "competition": 3,
+  "timing": 5,
+  "fit": 5,
+  "trademark_risk": 5
+ },
+ "total": 22,
+ "decision": "go (22/25)"
+}

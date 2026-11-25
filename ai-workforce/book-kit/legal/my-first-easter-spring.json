@@ -1,0 +1,66 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-easter-spring",
+  "kind": "book"
+ },
+ "title": "My First Easter & Spring Coloring Book: interior, cover, KDP listing and Amazon Ads kit",
+ "reviewed_at": "2026-11-24T14:56:16Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishing. Topic note: the planned rotation has ended, so Trend Scout picked Easter & Spring under the owner's standing 'different topics' directive (no earlier book, repo record or DB books doc has it), next after Valentine's Day on the seasonal calendar; the owner can swap it. 'Easter & Spring' was chosen over plain 'Easter' because several books are already titled 'My First Easter Coloring Book'. Some subjects appear in earlier books (chick, lamb, duck, bunny, frog, caterpillar, butterfly, bumblebee, tulip, carrot, kite), each redrawn here in a new pose."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, subtitle, back cover, A+ points and ad texts checked against the built interior (text of interior.pdf): 64 pages, 30 labelled pictures in three groups (11 Easter fun + 10 baby animals and garden friends + 9 spring flowers and rainy days) exactly as listed, each with a blank back, a name label and the 'Great job!' certificate. Every named example (Easter bunny hugging a spotted egg, a basket of eggs, a chick wearing its eggshell as a hat, a smiling tulip, rain boots, an umbrella, a blossom tree) is in the book. 'Lots of them with smiling faces' is true and not 'every page' (for example Easter Egg, Easter Basket, Jelly Beans, Painted Eggs, Easter Bonnet and Rain Boots have none). Fixed: the description first said 'a basket full of eggs' for a basket holding three eggs; it now says 'a basket of eggs'. No 'bestselling', review, sale or result claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit; the 'This book belongs to' line and the certificate's name line collect nothing."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/easter.js; line and color contact sheets reviewed at full size. Checked against well-known characters and products: the bunnies wear no clothes (not Peter Rabbit's blue jacket); the chocolate bunny is plain brown with a pink bow, no gold foil or bell (not the Lindt Gold Bunny look); the chick is a round chick in an eggshell cap, not a flat marshmallow shape (not Peeps); jelly beans and eggs carry no maker's marks or printed words. Peter Rabbit, Peeps, Bluey, Paw Patrol and others appear only as ad negatives. Fredoka font is SIL OFL 1.1, which allows embedding. AI-art note: purely AI-made pictures and text can't be registered for US copyright (US Copyright Office guidance; Thaler v. Perlmutter), so others could reuse them; that doesn't stop selling the book."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search only (USPTO is unreachable from this environment). No book or mark titled 'My First Easter & Spring Coloring Book' or 'My First Easter and Spring Coloring Book' turned up. 'My First Easter Coloring Book' is used by several independent books (Walmart and Blackwell's listings, 2019-2024), which is why this title adds '& Spring'; 'Easter and spring coloring book' is a generic descriptive phrase in many listings, and no trademark filing for it appeared. The series uses 'My First' descriptively as in its 26 earlier books. Page labels are plain descriptions ('Jelly Beans', 'Chocolate Bunny', 'Robin's Nest', 'Easter Bonnet'). Keywords, ad keywords and headlines use no brand, author or character names."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover and title page matches the metadata title; title page text sits 2.1 in from the left and right edges (KDP minimum 0.375 in inside, 0.25 in outside). 7 keywords of 38 characters or fewer, no brands, no 'bestseller', 'new' or 'free' style terms, no other authors or titles. Categories are the three general children's paths used by earlier books; an Easter or holidays category, if KDP's picker offers one, is left to the owner. Amazon Ads book policy: 3 custom texts (126, 120, 100 characters) and 3 headlines (41, 39, 39) with no price, sale, 'free' offer, best-seller or review claims; ad keywords are generic searches; 48 negatives, including Bible and Sunday-school terms so ads for this non-religious book don't show on religious Easter book searches."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no weapons, no scary faces, no people in risky places. Treats (chocolate bunny, jelly beans) are pictures only, with no message telling children to ask for, eat or buy anything; nothing pushes purchases on kids. Holiday content is the secular, family side of Easter (eggs, bunnies, baskets) with no religious figures, so it doesn't misstate any faith's observance."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Description: 'a basket full of eggs' overstated a basket holding three eggs; it now says 'a basket of eggs'.",
+  "Art review: the basket's eggs were small and mostly hidden, so they were enlarged and raised; the egg-hunt hill and the duckling's water were closed boxes, now an open hill line and a round pond; the jar's bow crowded its lid and was removed; the bunny slippers were enlarged; the fawn got a smooth neck; the robin now sits on the nest rim instead of beside two floating branch lines."
+ ],
+ "owner_notes": [
+  "Optional: run a USPTO search for 'My First Easter' before publishing; this was a web screen only.",
+  "Easter 2027 is Sunday, March 28. Listing now gives Amazon time to index the book before Easter-basket searches pick up in February and March; it's your call when to publish.",
+  "KDP's AI question: answer Yes for images and text."
+ ],
+ "research_ref": "web search 2026-11-24: title conflicts and toddler Easter coloring books (Walmart, Blackwell's, AbeBooks, Goodreads listings)",
+ "last_touch_ref": "grammar-copy-editor and deliverable-qa-reviewer lines in book-kit/records/2026-11-24-my-first-easter-spring.json",
+ "decision_ref": "book-kit/records/2026-11-24-my-first-easter-spring.json (decision)"
+}

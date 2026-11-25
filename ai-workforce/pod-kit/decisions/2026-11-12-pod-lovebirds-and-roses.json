@@ -1,0 +1,31 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a decisions doc.",
+ "id": "2026-11-12-pod-lovebirds-and-roses",
+ "by": "chief-of-staff",
+ "created": "2026-11-12T16:37:35Z",
+ "items": [
+  "lovebirds-and-roses"
+ ],
+ "legal_refs": [
+  "pod-kit/legal/lovebirds-and-roses.json"
+ ],
+ "legal_verdict": "cleared",
+ "decision": "approved for delivery to the owner",
+ "conditions": [
+  "Printify drafts or Etsy publishing only after the owner allows Printify writes (refused by the session's permission check since Oct 6). Then 2 products (wrap mug; accent mug in pink, red and light green, 11 and 15 oz), 2 listings ($0.40 if paid), inside the $3/day cap.",
+  "Step 9b (9 extra photos per listing) runs after the products exist: photos.py draws from each Printify product's print area.",
+  "Before listing: the owner may run a USPTO search on LOVEBIRDS for mugs."
+ ],
+ "reason": "Queue row 7 (couples: a design that works on matching mugs, no names or dates), the next pattern design after Kitchen Herbs. 21/25 research score; Legal cleared; full-size wraps checked after fixes (pairs moved off the handle seam, feather marks kept inside the wing, beak redrawn, long sprigs spaced so they no longer cross roses). One design this run, for quality.",
+ "artifact": "https://claude.ai/artifact/W3YCNQgmaGQ7PcsAbEAhr1",
+ "emailed": "Gmail message 1a1d0a08aebd2483 to the owner, 2026-11-12",
+ "pod_designs": {
+  "title": "Lovebirds & Roses",
+  "phrase": "lovebirds couple mug (no lettering)",
+  "niche": "couples, anniversary, wedding, Valentine's",
+  "artifact": "https://claude.ai/artifact/W3YCNQgmaGQ7PcsAbEAhr1",
+  "product_ids": {},
+  "status": "approved, not on Printify (writes wait for the owner)",
+  "thumb": "lovebirds-and-roses-mug-pink-a.jpg on the delivery page"
+ }
+}

@@ -1,0 +1,206 @@
+{
+ "id": "my-first-winter",
+ "count": 30,
+ "art": [
+  "art/winter.js"
+ ],
+ "subjects": [
+  "snowman",
+  "arctic-fox",
+  "igloo",
+  "skis",
+  "snowy-owl",
+  "hot-soup",
+  "snowplow",
+  "snow-angel",
+  "husky",
+  "icicles",
+  "snowballs",
+  "snow-leopard",
+  "ski-lift",
+  "snow-boots",
+  "chickadee",
+  "snow-tube",
+  "fireplace",
+  "beluga",
+  "snowmobile",
+  "snow-cloud",
+  "snowshoe-hare",
+  "snow-shovel",
+  "snowsuit",
+  "sleepy-bear",
+  "thermometer",
+  "bird-feeder",
+  "snow-fort",
+  "blanket",
+  "snowboard",
+  "ice-fishing"
+ ],
+ "cover": {
+  "kicker": "My First",
+  "word": "Winter",
+  "tagline": "30 big & easy winter pictures to color!",
+  "ages": "2-5",
+  "ground": {
+   "fill": "#dcedf8",
+   "edge": "#9fc9e6",
+   "text": "#2b5d86"
+  },
+  "hero": [
+   "husky",
+   "snowman",
+   "snowy-owl"
+  ],
+  "back_title": "Big pictures for little hands",
+  "back_points": [
+   "30 winter pages: a snowman, an igloo, a husky and more",
+   "Snow play, skis and snowboards, cozy things and winter animals",
+   "One big picture per page with extra-thick lines",
+   "Every picture has a blank back, so markers won't spoil the next one",
+   "A \"Great job!\" certificate at the end"
+  ],
+  "aplus_title": "Look inside: 30 winter pictures to color!",
+  "aplus_pages": [
+   "snow-angel",
+   "arctic-fox",
+   "fireplace",
+   "snowplow"
+  ],
+  "aplus_points": [
+   "30 big pictures of snowy days and winter animals",
+   "One picture per page, its name in big letters",
+   "Extra-thick lines for little hands",
+   "Blank backs, so markers won't spoil the next picture"
+  ],
+  "back_minis": [
+   "igloo",
+   "chickadee",
+   "snowboard",
+   "hot-soup"
+  ],
+  "cert_word": "winter pictures"
+ },
+ "listing": {
+  "title": "My First Winter Coloring Book",
+  "subtitle": "30 Big & Easy Winter Pages – Snowman, Igloo, Arctic Fox & More for Kids Ages 2-5",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "description_html": "<p><b>Big, bold and easy to color: a first coloring book full of snowy days!</b></p><p>Little hands color 30 winter pictures, from a snowman, an igloo and a snow angel to skis, a snowplow, a cozy fireplace and winter animals like an arctic fox, a husky and a snowy owl. Every page has one big, simple picture with extra-thick lines, lots of them with smiling faces, so small hands can color inside the lines, and each picture's name is written in big letters to color too.</p><p><b>Inside you'll find:</b></p><ul><li>Snow play: Snowman, Snowballs, Snow Fort, Snow Angel and Igloo</li><li>Sliding and gliding: Skis, Snowboard, Snow Tube, Ski Lift and Snowmobile</li><li>Snowy days: Snowplow, Snow Shovel, Icicles, Snow Cloud, Thermometer and Ice Fishing</li><li>Warm and cozy: Snow Boots, Snowsuit, Cozy Blanket, Fireplace, Hot Soup and Bird Feeder</li><li>Winter animals: Chickadee, Snowy Owl, Arctic Fox, Snowshoe Hare, Husky, Snow Leopard, Beluga Whale and a Sleepy Bear in its cave</li><li>One large picture per page with thick outlines</li><li>Single-sided pages with a blank back, so markers won't bleed onto the next picture</li><li>Big 8.5 x 11 inch pages and a \"Great job!\" certificate at the end</li></ul><p>A fun, screen-free activity for toddlers and preschoolers ages 2 to 5.</p><p>Part of the <b>my first step</b> series.</p>",
+  "keywords": [
+   "winter coloring book for toddlers",
+   "snow coloring book for kids ages 2-5",
+   "snowman coloring book for toddlers",
+   "winter activity book for preschoolers",
+   "my first coloring book for toddlers",
+   "simple coloring book thick lines",
+   "big and easy coloring book winter"
+  ],
+  "categories": [
+   "Children's Books > Activities, Crafts & Games > Coloring Books",
+   "Children's Books > Activities, Crafts & Games > Activity Books",
+   "Children's Books > Early Learning > Basic Concepts > Words"
+  ],
+  "category_note": "KDP shows its own category list at upload. If you see a winter, seasonal or holidays category for children's books there, it fits this book; we couldn't confirm Amazon's exact path from here, so it isn't listed above.",
+  "reading_age": "2 - 5 years",
+  "price_note": "Similar toddler coloring books are commonly priced around $5.99-$6.99 (kdpeasy.com age-group guide). Use the calculator below with KDP's printing cost before you choose. Your call.",
+  "ai_disclosure": "KDP asks if the book has AI-generated content. The pictures and the text were made by Edgex's AI agents, so answer Yes for images and text."
+ },
+ "ads": {
+  "bids": {
+   "auto": "0.35",
+   "exact": "0.45",
+   "phrase": "0.40"
+  },
+  "keywords": {
+   "exact": [
+    "coloring books for toddlers",
+    "toddler coloring book",
+    "coloring book for 2 year old",
+    "coloring book for 3 year old",
+    "my first coloring book",
+    "big and easy coloring book",
+    "simple coloring book for toddlers",
+    "winter coloring book",
+    "winter coloring book for kids",
+    "winter coloring book for toddlers",
+    "snowman coloring book",
+    "snow coloring book",
+    "winter activity book for kids",
+    "coloring book for 4 year old",
+    "coloring book for preschoolers"
+   ],
+   "phrase": [
+    "winter coloring",
+    "snowman coloring",
+    "snow coloring",
+    "winter activity book",
+    "winter books for toddlers",
+    "toddler coloring",
+    "coloring book for 2 year olds",
+    "first coloring book"
+   ]
+  },
+  "negatives": [
+   "adult",
+   "adults",
+   "for adults",
+   "mandala",
+   "grayscale",
+   "free",
+   "printable",
+   "pdf",
+   "sticker",
+   "stickers",
+   "dot markers",
+   "paint by number",
+   "color by number",
+   "teen",
+   "sketchbook",
+   "cozy",
+   "bold and easy",
+   "relaxation",
+   "swear",
+   "realistic",
+   "anime",
+   "gothic",
+   "horror",
+   "tattoo",
+   "landscape",
+   "village",
+   "cottage",
+   "hygge",
+   "disney",
+   "frozen",
+   "elsa",
+   "olaf",
+   "anna",
+   "pixar",
+   "bluey",
+   "paw patrol",
+   "peppa",
+   "pokemon",
+   "minecraft",
+   "snoopy",
+   "grinch",
+   "planner",
+   "zentangle",
+   "textbook",
+   "jigsaw"
+  ],
+  "categories": [
+   "Children's Coloring Books",
+   "Children's Activity Books",
+   "Children's Early Learning Books"
+  ],
+  "custom_text": [
+   "30 winter pictures with extra-thick lines made for little hands. A screen-free first coloring book for ages 2 to 5.",
+   "A snowman, an igloo, an arctic fox and more: one big picture per page, plus a Great job! certificate at the end.",
+   "Snow play, skis and snowboards, cozy things and winter animals. One big picture per page with a blank back."
+  ],
+  "headlines": [
+   "Big, easy coloring books for little hands",
+   "My First coloring books for ages 2 to 5",
+   "Color 30 big winter pictures"
+  ]
+ }
+}

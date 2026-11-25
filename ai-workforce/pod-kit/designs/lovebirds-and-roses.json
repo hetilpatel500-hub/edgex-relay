@@ -1,0 +1,248 @@
+{
+  "id": "lovebirds-and-roses",
+  "kind": "pattern",
+  "name": "Lovebirds & Roses",
+  "engine": 2,
+  "seed": 517,
+  "background": "#f7efe4",
+  "palette": {
+    "main": "#e0566a",
+    "main2": "#f29aa6",
+    "accent": "#e5b85a",
+    "accent2": "#f6dfa0",
+    "leaf": "#5f9365",
+    "leaf2": "#a9cc95",
+    "leaf_dark": "#2f5c3e",
+    "rose": "#e27a8c",
+    "rose2": "#f8c9cf",
+    "rose3": "#b5475d",
+    "heart": "#e0566a",
+    "heart2": "#f29aa6",
+    "blossom": "#f6c3cc",
+    "blossom2": "#e98a9c"
+  },
+  "elements": [
+    {
+      "motif": "lovebirds",
+      "size": 0.27,
+      "count": 1,
+      "args": {
+        "pair": [
+          "green",
+          "teal"
+        ]
+      },
+      "spacing": 1.1,
+      "edge": 0.85,
+      "y_range": [
+        0.3,
+        0.7
+      ]
+    },
+    {
+      "motif": "lovebirds",
+      "size": 0.27,
+      "count": 1,
+      "args": {
+        "pair": [
+          "yellow",
+          "green"
+        ]
+      },
+      "spacing": 1.1,
+      "edge": 0.85,
+      "y_range": [
+        0.3,
+        0.7
+      ]
+    },
+    {
+      "motif": "lovebirds",
+      "size": 0.27,
+      "count": 1,
+      "args": {
+        "pair": [
+          "teal",
+          "yellow"
+        ]
+      },
+      "spacing": 1.1,
+      "edge": 0.85,
+      "y_range": [
+        0.3,
+        0.7
+      ]
+    },
+    {
+      "motif": "garden_rose",
+      "size": 0.11,
+      "count": 10,
+      "args": {
+        "stem": 0.3,
+        "leaves": 1
+      },
+      "colors": [
+        [
+          "#e27a8c",
+          "#f8c9cf"
+        ],
+        [
+          "#c9485e",
+          "#f2a7b4"
+        ],
+        [
+          "#eea29b",
+          "#fbe0d8"
+        ]
+      ],
+      "tilt": 0.5,
+      "spacing": 1.0
+    },
+    {
+      "motif": "rose_leaves",
+      "size": 0.08,
+      "count": 10,
+      "tilt": 3.1,
+      "spacing": 1.1
+    },
+    {
+      "motif": "eucalyptus",
+      "size": 0.06,
+      "count": 8,
+      "tilt": 3.1,
+      "spacing": 1.55
+    },
+    {
+      "motif": "sprig",
+      "size": 0.05,
+      "count": 10,
+      "tilt": 3.1,
+      "spacing": 1.5
+    },
+    {
+      "motif": "wildflower",
+      "size": 0.04,
+      "count": 20,
+      "colors": [
+        [
+          "#9a86c9"
+        ],
+        [
+          "#b9a7dd"
+        ],
+        [
+          "#f2a7b8"
+        ]
+      ],
+      "spacing": 1.0
+    },
+    {
+      "motif": "daisy",
+      "size": 0.035,
+      "count": 12,
+      "spacing": 1.0,
+      "colors": [
+        [
+          "#f4cf6e"
+        ],
+        [
+          "#f8c9cf"
+        ]
+      ]
+    },
+    {
+      "motif": "berries",
+      "size": 0.03,
+      "count": 10,
+      "args": {
+        "color": "#c94f5e",
+        "n": 4
+      },
+      "spacing": 0.85
+    },
+    {
+      "motif": "heart",
+      "size": 0.026,
+      "count": 18,
+      "args": {
+        "color": "#e0566a"
+      },
+      "gaps": true,
+      "clear": 1.5,
+      "spacing": 1.4
+    },
+    {
+      "motif": "heart",
+      "size": 0.016,
+      "count": 18,
+      "args": {
+        "color": "#f29aa6"
+      },
+      "gaps": true,
+      "clear": 1.5,
+      "spacing": 1.4
+    },
+    {
+      "motif": "sparkle",
+      "size": 0.014,
+      "count": 20,
+      "args": {
+        "color": "#e5b85a"
+      },
+      "gaps": true,
+      "clear": 2.0,
+      "spacing": 2.0
+    }
+  ],
+  "mug_colors": [
+    "Pink",
+    "Red",
+    "Light Green",
+    "White"
+  ],
+  "listing": {
+    "title": "Lovebirds Couple Mug, Watercolor Love Birds and Roses All Over Print Coffee Mug, Matching Mugs for Couples, Anniversary Gift",
+    "tags": [
+      "couples mug",
+      "lovebirds mug",
+      "love birds mug",
+      "matching mugs",
+      "anniversary gift",
+      "couple gift",
+      "watercolor mug",
+      "bird coffee mug",
+      "wedding gift",
+      "valentines mug",
+      "gift for wife",
+      "gift for husband",
+      "romantic mug"
+    ],
+    "description": "Pairs of watercolor lovebirds in grass green, aqua and gold, with rosy peach faces, sit side by side on blossoming branches with a little painted heart between them. Garden roses in pink and deep rose with their leaves, little lavender, pink and golden flowers, red berries, small hearts and gold sparkles fill the spaces all the way around the mug on a warm cream background. Made for matching mugs, one for each of you, with no names or dates, so it suits an anniversary, a wedding, a new home or just because.",
+    "per_product": {
+      "accent_mug": {
+        "title": "Lovebirds Accent Mug, Watercolor Love Birds Coffee Cup, Pink, Red or Light Green Handle, 11 or 15 oz, Couples Gift",
+        "tags": [
+          "lovebirds cup",
+          "pink handle mug",
+          "red handle mug",
+          "green handle mug",
+          "couples accent mug",
+          "matching couple cups",
+          "15 oz couple mug",
+          "love bird tea mug",
+          "anniversary mug",
+          "his and hers mug",
+          "gift for couple",
+          "wedding gift mug",
+          "valentine mug"
+        ]
+      }
+    },
+    "products": [
+      "11 oz white mug, full wrap (68 / SPOKE)",
+      "Accent mug 11 or 15 oz, pink, red or light green handle, rim and inside (635 / Printify Choice)"
+    ],
+    "price_note": "$16.99 white wrap mug, $19.99 (11 oz) / $22.99 (15 oz) accent mug, the studio's standard mug prices (POD-DESK.md product table). Competing lovebird mugs found 2026-11-12: Demdaco's Dean Crouser watercolor Lovebirds stoneware mug $18.00 and Stampington's Lovebirds mug $16.99; the owner's Etsy mug scan (2026-09-28) shows printed all-over wraps at about $9-24. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-11-12: web searches '\"LOVEBIRDS\" trademark mugs class 21 registered' and 'LOVEBIRDS trademark 97191860 OR 85870893 OR 77789203' found US LOVEBIRDS marks only for cosmetics (Class 3), all dead (Coty 77789203 abandoned 2012, Coty reg. 4446806 cancelled 2020, Daniela Gozlan 97191860 dead); a 1994 LOVE BIRDS Class 21 application was abandoned. A Lithuanian national LOVE BIRDS registration (2024 0932, MB Stankeviciu projektai) covers Class 21 drinking vessels and Class 25, in Lithuania only. The art has no lettering; 'lovebirds' and 'love birds' describe the birds pictured. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen, not a clearance."
+  }
+}

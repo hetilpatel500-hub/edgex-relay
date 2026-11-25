@@ -1,0 +1,89 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a pod_research doc.",
+ "id": "2026-11-18-coffee-and-croissants",
+ "created": "2026-11-18T16:21:42Z",
+ "queue_row": "The gift-category table has no open row (rows 1-8 done or held for the owner; Personalized and Kids wait for the owner). Items 9 (teacher, Nov 16) and 10 (nurse, Nov 17) of the best-seller list under it are done, so this run takes 11. coffee lover. Nov 17 was a motif design, so this is a pattern design (all-over mugs), which suits a coffee gift.",
+ "phrase": "coffee lover mug, watercolor coffee shop pattern (no lettering on the art)",
+ "niche": "coffee lovers: Christmas and Secret Santa gifts (December peak), birthdays and everyday gifts all year",
+ "seasonal_calendar": "4-8 weeks ahead (Dec 16 - Jan 13): Christmas, then winter. Keyword tools put the December peak for coffee gifts at about 60,500 searches ('coffee gifts') and 74,000 ('gift coffee lover') in Dec 2025; the design has no holiday marks, so it keeps selling after Christmas. One seller guide says new listings take 8-10 weeks to rank, so the December lift is a bonus, not the plan.",
+ "trend_searches": [
+  "Etsy trending coffee lover gifts Christmas 2026 (keyword tool: 'coffee gifts' 18,100 monthly searches, peak 60,500 in Dec 2025, 2,062,527 competing Etsy listings; 'gift coffee lover' peak 74,000 in Dec 2025, 221,701 listings; top results are printables, pour-over sets, candles and personalized mugs; one vendor's numbers, not Etsy data)",
+  "best selling coffee mug designs Etsy 2026 all over print (guides list full-wrap and all-over pattern mugs as high demand / medium-high competition; personalized, funny-quote and hobby mugs sell most at about $12-$30; one tool says 'coffee mug design' searches fell 34% Sep 2025 - Aug 2026; no sales data for all-over prints)",
+  "print on demand coffee niche trends winter 2026 mugs (vendor blogs: mugs are a top POD product; sellers are moving from single icons to full 'story theme' collections; generic AI designs are the most crowded part; no reliable winter data)"
+ ],
+ "sources": [
+  "https://www.rankhero.com/keywords/coffee-gifts",
+  "https://www.rankhero.com/keywords/gift-coffee-lover",
+  "https://www.insightagent.app/trends/etsy-trending-mugs",
+  "https://www.insightagent.app/guides/selling-mugs-on-etsy",
+  "https://www.rankhero.com/keywords/coffee-mug-design",
+  "https://www.customily.com/post/print-on-demand-trends-best-products-design-ideas",
+  "https://printify.com/blog/best-gifts-for-coffee-lovers/",
+  "https://shutterfly.com/a/coffee-beans-printed-mugs",
+  "https://youcustomizeit.com/p/Coffee-Addict-Coffee-Mug/470131",
+  "https://www.zazzle.co.nz/latte_art_master_mug-256673039033628491",
+  "https://cdn.notonthehighstreet.com/ellieellie/product/my-birthstone-is-a-coffee-bean-mug",
+  "https://target.com/p/amici-home-coffee-coffee-more-coffee-ceramic-mug-black-letters-on-white-coffee-tea-mug-microwave-dishwasher-safe-20-ounce/-/A-89197641",
+  "https://www.urbanoutfitters.com/shop/croissant-icon-mug",
+  "https://www.oliverbonas.com/homeware/un-croissant-ceramic-mug",
+  "https://www.juniqe.com/uk/product/tazza-in-smalto/caffe-a-ore-illustrazione-85855-mge",
+  "https://designbundles.net/balada-digital-art/2345698-watercolor-coffee-seamless-pattern",
+  "https://www.spoonflower.com/en/fabric/20261231"
+ ],
+ "competitors": [
+  {
+   "what": "Shutterfly Coffee Beans Printed Mugs (25 oz latte mug)",
+   "price": "from $29.99",
+   "style": "photo-style coffee bean repeat"
+  },
+  {
+   "what": "YouCustomizeIt 'Coffee Addict' mug",
+   "price": "not shown in results",
+   "style": "wrap-around print packed with coffee beans, customizable text"
+  },
+  {
+   "what": "Zazzle 'Latte Art Master' mug",
+   "price": "$31.25",
+   "style": "two-tone slogan mug for baristas"
+  },
+  {
+   "what": "notonthehighstreet 'My Birthstone Is A Coffee Bean' mug (EllieEllie)",
+   "price": "not shown in results",
+   "style": "pun slogan"
+  },
+  {
+   "what": "Amici Home 'Coffee Coffee More Coffee' 20 oz ceramic mug (Target)",
+   "price": "not shown in results",
+   "style": "black lettering on white"
+  },
+  {
+   "what": "Urban Outfitters croissant icon mug",
+   "price": "not shown in results",
+   "style": "sculpted croissant icons on stoneware"
+  },
+  {
+   "what": "Oliver Bonas 'Un Croissant' ceramic mug",
+   "price": "GBP 12.50",
+   "style": "hand-painted 3D croissant with French text"
+  },
+  {
+   "what": "Juniqe espresso pot illustration mug",
+   "price": "not shown in results",
+   "style": "minimalist line illustration of a stovetop pot and beans"
+  }
+ ],
+ "gap": "Coffee mugs found are slogan mugs, bean-photo repeats or a single icon. Watercolor coffee-shop patterns exist only as digital clip-art and seamless files for designers (Design Bundles, Gumroad) and as fabric (Spoonflower), not as finished all-over mugs in the results. Angle: a dense all-over watercolor cafe pattern (cappuccino cups on saucers with latte art in soft glaze colors, takeaway cups, a French press, an enamel coffee pot, butter croissants, coffee branches with red cherries, beans, cinnamon and star anise) on warm cream, no slogan, with accent mugs in colors from the art.",
+ "trend": "Coffee gifts peak in December and sell all year; mugs are the classic coffee-lover gift; buyers see mostly slogans and flat graphics.",
+ "owner_scan_read": "pod_research/owner-etsy-mug-scan-2026-09-28 (repo copy, POD-DESK.md 'What sells'): dense all-over illustrated wraps and accent mugs are what sells; real-looking watercolor is rare. This follows that format.",
+ "pod_review_read": "pod-kit/research/2026-11-16-pod-review.json (latest): 0 orders since the shop opened, so still no sales signal; keep following search demand with evergreen gift niches.",
+ "repeat_check": "No coffee design in pod-kit/designs (28 designs); 'coffee mug' appears only as a product tag. Cocoa Season is hot cocoa (a motif design), not coffee.",
+ "scores": {
+  "demand": 4,
+  "competition": 3,
+  "timing": 4,
+  "style_fit": 5,
+  "trademark_risk": 5
+ },
+ "total": 21,
+ "decision": "go: 'Coffee & Croissants' all-over watercolor coffee-lover mug (white wrap mug + accent mug); trademark screen next"
+}

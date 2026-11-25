@@ -1,0 +1,80 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a pod_research doc.",
+ "id": "grandpas-fishing-hole-2026-11-09",
+ "created": "2026-11-09T16:36:11Z",
+ "queue_row": "Gift-category plan: row 1 (zodiac) was tried first. Pisces held (pending PISCES Class 25 application, serial 98067838, William Lethco, goods listed as hats, hoodies and shirts). Aries held (registered ARIES, reg. 6297441, Slam Jam S.r.l., Classes 18 and 25 including tee-shirts and sweat shirts). So this run took the next open row: 5. a grandpa design (garden, fishing or coffee).",
+ "phrase": "Grandpa's Fishing Hole",
+ "subline": "first cast at sunrise",
+ "niche": "Gifts for Grandparents (grandpa) + fishing, an evergreen hobby niche",
+ "seasonal_calendar": "4-8 weeks ahead (Dec 7 - Jan 4): Christmas gifting for grandpa is the timely use; fishing is evergreen and peaks again for Father's Day (June) and birthdays.",
+ "trend_searches": [
+  "Etsy trending shirt designs November 2026 (general 2026 guides only; watercolor designs named among visible Etsy categories in a Kittl analysis; personalized and family shirts lead; no November-specific data)",
+  "zodiac birthday gift trends 2026 astrology shirts celestial (gift guides and marketplace tees; birth-month wording is common)",
+  "Pisces constellation shirt etsy watercolor birth flower (Walmart Inktastic Pisces constellation tees; water lily named as Pisces flower)",
+  "best selling grandpa shirt gift ideas Etsy 2026 Christmas grandpa gifts (identity lines like 'Best Grandpa Ever', est.-year designs, personalized photo shirts; third-party trackers only)",
+  "grandpa fishing shirt etsy watercolor lake (pun typography: 'Reel Cool Grandpa', 'Grandpa Is My Name, Fishing Is My Game', 'Grandpa's Fishing Buddy' kids' tees; no watercolor lake scene found)",
+  "grandpa garden shirt etsy vegetable garden gift for grandpa (few grandpa garden shirts; 'I'm A Farmer Grandpa' tee)"
+ ],
+ "sources": [
+  "https://www.kittl.com/blogs/2026-t-shirt-design-ideas-trends-dsi/",
+  "https://listingview.io/blogs/how-to-find-trending-t-shirt-designs-on-etsy-in-2026",
+  "https://www.uncommongoods.com/sets/zodiac-gifts",
+  "https://www.walmart.com/ip/224156993",
+  "https://merchize.com/best-gifts-for-grandpa-on-fathers-day/",
+  "https://etsyhunt.com/best-etsy-fathers-day-gifts",
+  "https://www.etsy.com/listing/4505437413",
+  "https://www.walmart.com/ip/5306414059",
+  "https://www.walmart.com/ip/3719602903",
+  "https://www.walmart.com/ip/986324101",
+  "https://www.target.com/p/leven-sixteen-mens-retired-and-keepin-it-reel-t-shirt/-/A-1006638128",
+  "https://www.walmart.com/ip/3619926883",
+  "https://markinton.com/trademark/pisces-98067838",
+  "https://trademarks.justia.com/owners/william-lethco-5245550",
+  "https://markinton.com/trademark/aries-99209584",
+  "https://trademark.justia.com/978/50/grandpa-and-grandpa-s-fishing-97850000.html"
+ ],
+ "competitors": [
+  {
+   "what": "Fishing Dad Shirt, Reel Cool Dad T-Shirt (Etsy; also tagged for grandpa)",
+   "price": "$11.99, shown on sale at $7.19",
+   "style": "vintage pun typography, small chest graphic plus back print"
+  },
+  {
+   "what": "Reel Cool Grandpa Fishing Shirt (Walmart and Sunfrog listings)",
+   "price": "not shown in the results",
+   "style": "pun typography with a fish or rod"
+  },
+  {
+   "what": "Grandpa Is My Name, Fishing Is My Game tee (Walmart)",
+   "price": "not shown in the results",
+   "style": "text"
+  },
+  {
+   "what": "Grandpa's Fishing Buddy tees (Inktastic, Walmart; kids' sizes)",
+   "price": "$17.99 (one listing); about $14.99-$24.98 on the category page",
+   "style": "colorful cartoon fish"
+  },
+  {
+   "what": "Retired and Keepin' It Reel tee (Target, Leven Sixteen)",
+   "price": "not shown in the results",
+   "style": "pun typography, plastisol screen print"
+  },
+  {
+   "what": "I'm A Farmer Grandpa Shirt (Walmart)",
+   "price": "not shown in the results",
+   "style": "text"
+  }
+ ],
+ "gap": "Grandpa fishing shirts are almost all pun typography ('reel', 'fishing is my game') or cartoon fish. None found is a painted scene. Ours is a full watercolor lake at sunrise (dock, tackle box, rod and bobber, leaping trout, rowboat, cattails, mountains) with a nostalgic phrase instead of a pun, which suits grandpa gifting and our watercolor style.",
+ "scores": {
+  "demand": 4,
+  "competition": 4,
+  "timing": 4,
+  "fit": 5,
+  "trademark": 4,
+  "total": 21
+ },
+ "decision": "go (21/25): Grandpa's Fishing Hole, motif design (tee, sweatshirt, mug, art print, sticker)",
+ "repeat_check": "pod_designs has Grandma's Garden (grandparents) and Campfire Season (outdoors) but no grandpa or fishing design; no repeat.",
+ "weekly_sales_review": "pod-kit/research/2026-11-09-pod-review.json"
+}

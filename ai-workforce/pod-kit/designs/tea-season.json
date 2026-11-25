@@ -1,0 +1,299 @@
+{
+ "id": "tea-season",
+ "name": "Tea Season",
+ "engine": 2,
+ "template": "free",
+ "top": "Tea Season",
+ "bottom": null,
+ "top_font": "Pacifico",
+ "bottom_font": "PlayfairDisplay",
+ "florals": null,
+ "palette": "blush",
+ "colors": {
+  "accent": "#e2b356",
+  "accent2": "#f5dc9c",
+  "leaf": "#6f9a62",
+  "leaf2": "#a9c99a",
+  "leaf_dark": "#335c3a"
+ },
+ "ink": "#7a3346",
+ "seed": 25,
+ "shirt_colors": [
+  "white",
+  "natural",
+  "heather_pink"
+ ],
+ "lettering": [
+  {
+   "text": "Tea",
+   "font": "Pacifico",
+   "size": 0.16,
+   "max_w": 0.4,
+   "y": -0.48,
+   "color": "#c75a72",
+   "vary": "#8f3550",
+   "vary_amt": 0.45,
+   "outline": [
+    "#6e2a3f",
+    0.0015,
+    160
+   ]
+  },
+  {
+   "text": "Season",
+   "font": "Pacifico",
+   "size": 0.105,
+   "max_w": 0.5,
+   "y": -0.33,
+   "color": "#5d84b8",
+   "vary": "#3d5f8f",
+   "vary_amt": 0.45,
+   "outline": [
+    "#2f4a72",
+    0.0013,
+    150
+   ]
+  }
+ ],
+ "art": [
+  {
+   "motif": "teacup",
+   "x": 0.21,
+   "y": 0.25,
+   "s": 0.21,
+   "color": "blue",
+   "lemon": true,
+   "front": true
+  },
+  {
+   "motif": "honey_jar",
+   "x": -0.33,
+   "y": 0.28,
+   "s": 0.17,
+   "front": true
+  },
+  {
+   "motif": "citrus_slice",
+   "x": -0.01,
+   "y": 0.44,
+   "s": 0.055,
+   "color": "lemon",
+   "front": true
+  },
+  {
+   "motif": "citrus_fruit",
+   "x": -0.13,
+   "y": 0.42,
+   "s": 0.065,
+   "color": "lemon",
+   "leaves": 1,
+   "front": true
+  },
+  {
+   "motif": "cinnamon_stick",
+   "x": 0.14,
+   "y": 0.45,
+   "s": 0.09,
+   "angle": -0.1,
+   "n": 2,
+   "front": true
+  },
+  {
+   "motif": "star_anise",
+   "x": 0.3,
+   "y": 0.445,
+   "s": 0.04,
+   "angle": 0.3,
+   "front": true
+  },
+  {
+   "motif": "teapot",
+   "x": -0.06,
+   "y": 0.08,
+   "s": 0.32,
+   "color": "rose",
+   "front": true,
+   "steam": false
+  },
+  {
+   "motif": "sprig",
+   "x": 0.13,
+   "y": -0.05,
+   "s": 0.13,
+   "angle": -0.8,
+   "n": 5
+  },
+  {
+   "motif": "sprig",
+   "x": -0.22,
+   "y": -0.03,
+   "s": 0.12,
+   "angle": -2.35,
+   "n": 5
+  },
+  {
+   "motif": "splash",
+   "x": 0.0,
+   "y": 0.12,
+   "s": 0.44,
+   "aspect": 0.88,
+   "color": "#f3dbe0",
+   "color2": "#fbf1ea",
+   "vary": "#f6e4cc",
+   "strength": 0.34,
+   "drips": 6
+  },
+  {
+   "motif": "splash",
+   "x": 0.0,
+   "y": 0.465,
+   "s": 0.42,
+   "aspect": 0.07,
+   "color": "#d6b8a8",
+   "color2": "#ecdcd2",
+   "vary": "#c9a796",
+   "strength": 0.35,
+   "drips": 0
+  },
+  {
+   "motif": "sparkle",
+   "x": -0.4,
+   "y": -0.2,
+   "s": 0.024
+  },
+  {
+   "motif": "sparkle",
+   "x": 0.4,
+   "y": -0.18,
+   "s": 0.02
+  },
+  {
+   "motif": "twinkle",
+   "x": 0.36,
+   "y": -0.05,
+   "s": 0.018
+  },
+  {
+   "motif": "twinkle",
+   "x": -0.44,
+   "y": 0.12,
+   "s": 0.016
+  },
+  {
+   "motif": "heart",
+   "x": 0.42,
+   "y": 0.1,
+   "s": 0.022,
+   "color": "#e9899a"
+  },
+  {
+   "motif": "heart",
+   "x": -0.2,
+   "y": -0.17,
+   "s": 0.018,
+   "color": "#f2a9b8"
+  }
+ ],
+ "listing": {
+  "title": "Tea Season Shirt, Watercolor Teapot Tee, Tea Lover Gift, Cozy Winter Tea Shirt, Teacup Honey and Lemon T-Shirt, Gift for Her",
+  "tags": [
+   "tea season",
+   "tea lover gift",
+   "tea shirt",
+   "teapot shirt",
+   "teacup shirt",
+   "tea lover",
+   "watercolor tea",
+   "cozy winter shirt",
+   "tea party shirt",
+   "gift for her",
+   "tea drinker gift",
+   "honey and lemon",
+   "afternoon tea"
+  ],
+  "description": "A cozy tea-time still life painted in watercolor: a round rose-pink china teapot with painted flowers and gold bands, a blue teacup of tea with a lemon wheel and a tea-bag tag on its saucer, a jar of honey with a gingham cover and a little bee on the label, a honey dipper, a lemon, a lemon wheel, cinnamon sticks and star anise, under \"Tea Season\" in painted script. A gift for the tea lover who puts the kettle on as soon as it gets cold. Green sprigs, gold sparkles and two small pink hearts finish the scene.",
+  "per_product": {
+   "sweatshirt": {
+    "title": "Tea Season Sweatshirt, Watercolor Teapot Crewneck, Tea Lover Gift, Cozy Winter Tea Sweater, Teacup Honey and Lemon, Gift for Her",
+    "tags": [
+     "tea season",
+     "tea lover gift",
+     "tea sweatshirt",
+     "teapot sweatshirt",
+     "teacup crewneck",
+     "tea lover",
+     "watercolor tea",
+     "cozy sweatshirt",
+     "tea party",
+     "gift for her",
+     "tea drinker gift",
+     "honey and lemon",
+     "winter sweater"
+    ]
+   },
+   "mug": {
+    "title": "Tea Season Mug, Watercolor Teapot Mug, Tea Lover Gift, Cozy Winter Tea Cup, Teacup Honey and Lemon Mug, Gift for Tea Drinker",
+    "tags": [
+     "tea season",
+     "tea lover gift",
+     "tea mug",
+     "teapot mug",
+     "teacup mug",
+     "tea lover",
+     "watercolor tea",
+     "cozy winter mug",
+     "tea party",
+     "gift for her",
+     "tea drinker gift",
+     "honey and lemon",
+     "afternoon tea"
+    ]
+   },
+   "poster": {
+    "title": "Tea Season Print, Watercolor Teapot Art Print, Tea Lover Gift, Kitchen Wall Art, Teacup Honey and Lemon Still Life Poster",
+    "tags": [
+     "tea season",
+     "tea lover gift",
+     "tea print",
+     "teapot print",
+     "teacup art",
+     "kitchen wall art",
+     "watercolor tea",
+     "cozy kitchen decor",
+     "tea party",
+     "gift for her",
+     "tea drinker gift",
+     "honey and lemon",
+     "still life print"
+    ]
+   },
+   "sticker": {
+    "title": "Tea Season Sticker, Watercolor Teapot Sticker, Tea Lover Gift, Teacup Honey and Lemon Decal, Laptop and Water Bottle Sticker",
+    "tags": [
+     "tea season",
+     "tea lover gift",
+     "tea sticker",
+     "teapot sticker",
+     "teacup sticker",
+     "tea lover",
+     "watercolor tea",
+     "laptop sticker",
+     "tea party",
+     "gift for her",
+     "tea drinker gift",
+     "honey and lemon",
+     "water bottle decal"
+    ]
+   }
+  },
+  "products": [
+   "Unisex tee (Bella+Canvas 3001)",
+   "Crewneck sweatshirt (Gildan 18000)",
+   "11 oz mug",
+   "Art print (matte poster)",
+   "Kiss-cut sticker"
+  ],
+  "price_note": "Prices from the POD-DESK.md product table (2026-10-05 pricing review): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. Seen on 2026-11-25: a 'But First, Tea' sweatshirt at $48.00 (Saratoga Tea & Honey) and a watercolor tea-roses mug at $18.89 (Redbubble); listing prices only, no sales counts.",
+  "trademark_check": "Legal Desk screen 2026-11-25 (before any art): web searches '\"TEA SEASON\" trademark clothing' and '\"TEAS THE SEASON\" trademark 86839729 goods' (tmsearch.uspto.gov is blocked from our sessions, and Justia pages could not be opened from here, so only the search-result summaries were read). No record for the phrase TEA SEASON on clothing turned up. Nearest: TEAS THE SEASON! (reg. 5002918, registered 2016-07-19) covers online and in-store retail services featuring teas and spices, not clothing or mugs, and is a different phrase. Several single-word TEA marks cover clothing (Tea Living's TEA and TEA COLLECTION for children's and adult apparel; TEA RELIEF; TEA-SHIRTS), so 'Tea' is never used alone as a brand label; the art says 'Tea Season' as a two-word description of the season for drinking tea, in the same pattern as the shop's Soup Season and Cocoa Season. Known tea slogans seen on sale ('But First, Tea', 'Spill the Tea', 'Tea, Please' (a pending class 25 application)) are kept out of the art, titles and tags. Tags and titles use no brand, show, character or celebrity names."
+ }
+}

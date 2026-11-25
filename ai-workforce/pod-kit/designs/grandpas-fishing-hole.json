@@ -1,0 +1,348 @@
+{
+  "id": "grandpas-fishing-hole",
+  "name": "Grandpa's Fishing Hole",
+  "engine": 2,
+  "template": "free",
+  "top": "Grandpa's Fishing Hole",
+  "bottom": "first cast at sunrise",
+  "top_font": "Pacifico",
+  "bottom_font": "DancingScript",
+  "florals": null,
+  "palette": "autumn",
+  "colors": {
+    "sky": "#d3c1de",
+    "sky2": "#fbd19c",
+    "sky3": "#f5b4a2",
+    "sun": "#f4bd62",
+    "sun_glow": "#f6a77c",
+    "mtn": "#9a8fbf",
+    "mtn2": "#d2c6e2",
+    "far": "#4d706a",
+    "far2": "#7c9a92",
+    "water": "#4c82aa",
+    "water2": "#d6e3e6",
+    "water3": "#86b4cb",
+    "water_dark": "#2f5f83",
+    "refl": "#56786f",
+    "pine": "#2c5f46",
+    "pine2": "#7aa36c",
+    "pine_dark": "#163829",
+    "pine_blue": "#3d6878",
+    "pine_warm": "#a7b562",
+    "wood": "#c39a6b",
+    "wood2": "#e2c49b",
+    "wood_dark": "#6e4c32",
+    "wood_grey": "#a8a092",
+    "boat": "#c4553a",
+    "boat2": "#e3815c",
+    "boat_dark": "#7f2f24",
+    "boat_in": "#b48659",
+    "box": "#4f8460",
+    "box_dark": "#2f5a41",
+    "trout": "#76905a",
+    "trout2": "#ece6d2",
+    "trout_rose": "#e08a92",
+    "trout_dark": "#3f5233",
+    "reed": "#6f9a58",
+    "reed2": "#b6c97f",
+    "reed_dark": "#3f6a3c",
+    "cattail": "#7a4c2e",
+    "cattail2": "#a7714a",
+    "pad": "#7fa860",
+    "pad2": "#c3d48a",
+    "pad_dark": "#46703f",
+    "accent": "#d9ad55",
+    "accent2": "#f3d58f",
+    "mtn_dark": "#665d92"
+  },
+  "ink": "#2f3a33",
+  "seed": 31,
+  "shirt_colors": [
+    "white",
+    "natural",
+    "sand"
+  ],
+  "art": [
+    {
+      "motif": "cattails",
+      "x": 0.415,
+      "y": 0.3,
+      "s": 0.22,
+      "lean": -0.12,
+      "front": true
+    },
+    {
+      "motif": "cattails",
+      "x": -0.43,
+      "y": 0.3,
+      "s": 0.16,
+      "lean": 0.14,
+      "n": 3,
+      "reeds": 7,
+      "front": true
+    },
+    {
+      "motif": "lily_pads",
+      "x": 0.27,
+      "y": 0.262,
+      "s": 0.075,
+      "front": true
+    },
+    {
+      "motif": "trout",
+      "x": 0.215,
+      "y": 0.165,
+      "s": 0.062,
+      "facing": 1,
+      "arc": 0.6,
+      "water": 0.65,
+      "front": true
+    },
+    {
+      "motif": "dock",
+      "x": -0.1,
+      "y": 0.13,
+      "s": 0.36,
+      "bobber": [
+        0.5,
+        0.17
+      ],
+      "front": true
+    },
+    {
+      "motif": "rowboat",
+      "x": 0.285,
+      "y": 0.072,
+      "s": 0.105,
+      "facing": -1,
+      "front": true
+    },
+    {
+      "motif": "splash",
+      "x": 0.0,
+      "y": -0.01,
+      "s": 0.47,
+      "aspect": 0.66,
+      "strength": 0.5
+    },
+    {
+      "motif": "sunrise",
+      "x": -0.19,
+      "y": 0.005,
+      "s": 0.05
+    },
+    {
+      "motif": "mountains2",
+      "x": 0.05,
+      "y": 0.028,
+      "s": 0.24
+    },
+    {
+      "motif": "far_forest",
+      "x": 0.0,
+      "y": 0.028,
+      "s": 0.45,
+      "height": 0.17,
+      "n": 28,
+      "strength": 1.45
+    },
+    {
+      "motif": "lake",
+      "x": 0.0,
+      "y": 0.03,
+      "s": 0.468,
+      "depth": 0.58,
+      "sun": -0.4
+    },
+    {
+      "motif": "spruce",
+      "x": -0.395,
+      "y": 0.06,
+      "s": 0.26,
+      "light": 1,
+      "snow": 0.0
+    },
+    {
+      "motif": "spruce",
+      "x": -0.3,
+      "y": 0.045,
+      "s": 0.15,
+      "light": 1,
+      "snow": 0.0,
+      "levels": 11
+    },
+    {
+      "motif": "spruce",
+      "x": 0.41,
+      "y": 0.06,
+      "s": 0.23,
+      "light": -1,
+      "snow": 0.0
+    },
+    {
+      "motif": "spruce",
+      "x": 0.335,
+      "y": 0.045,
+      "s": 0.13,
+      "light": -1,
+      "snow": 0.0,
+      "levels": 10
+    },
+    {
+      "motif": "birds",
+      "x": -0.02,
+      "y": -0.2,
+      "s": 0.06,
+      "n": 3
+    }
+  ],
+  "lettering": [
+    {
+      "text": "Grandpa's",
+      "font": "Pacifico",
+      "size": 0.165,
+      "max_w": 0.78,
+      "y": -0.47,
+      "color": "#1f4f6e",
+      "vary": "#123349",
+      "vary_amt": 0.5,
+      "outline": [
+        "#123349",
+        0.0016,
+        170
+      ]
+    },
+    {
+      "text": "Fishing Hole",
+      "caps": true,
+      "font": "PlayfairDisplay",
+      "size": 0.072,
+      "max_w": 0.62,
+      "tracking": 0.22,
+      "y": -0.305,
+      "color": "#b4532e",
+      "vary": "#7f3420",
+      "outline": [
+        "#6e2c1a",
+        0.0012,
+        150
+      ]
+    },
+    {
+      "text": "first cast at sunrise",
+      "font": "DancingScript",
+      "size": 0.095,
+      "max_w": 0.74,
+      "y": 0.36,
+      "color": "#2b5a43",
+      "vary": "#163829",
+      "outline": [
+        "#163829",
+        0.0012,
+        140
+      ]
+    }
+  ],
+  "listing": {
+    "title": "Grandpa's Fishing Hole Shirt, Watercolor Fishing Grandpa Tee, Lake Dock Sunrise Shirt, Fishing Gift for Grandpa, Gift for Him",
+    "tags": [
+      "grandpa fishing",
+      "fishing shirt",
+      "grandpa gift",
+      "gift for grandpa",
+      "fishing gift",
+      "grandpa shirt",
+      "fisherman gift",
+      "lake shirt",
+      "trout fishing",
+      "outdoorsman gift",
+      "retirement gift",
+      "christmas for him",
+      "watercolor shirt"
+    ],
+    "description": "A sunrise morning at the lake, painted in watercolor: a weathered wooden dock with a tackle box and a fishing rod, its line out to a red-and-white bobber, a rainbow trout leaping, a red rowboat, cattails and lily pads, and spruces and snowy peaks under a rose-gold dawn sky. \"Grandpa's\" is painted in deep blue script above \"Fishing Hole\" in rust capitals, with \"first cast at sunrise\" below. A gift for the grandpa who's happiest with a line in the water.",
+    "per_product": {
+      "sweatshirt": {
+        "title": "Grandpa's Fishing Hole Sweatshirt, Watercolor Fishing Grandpa Crewneck, Lake Sunrise Pullover, Fishing Gift for Grandpa, Gift for Him",
+        "tags": [
+          "grandpa fishing",
+          "fishing sweatshirt",
+          "grandpa gift",
+          "gift for grandpa",
+          "fishing gift",
+          "grandpa shirt",
+          "fisherman gift",
+          "lake shirt",
+          "cozy crewneck",
+          "outdoorsman gift",
+          "retirement gift",
+          "christmas for him",
+          "watercolor sweater"
+        ]
+      },
+      "mug": {
+        "title": "Grandpa's Fishing Hole Mug, Watercolor Fishing Grandpa Coffee Mug, Lake Dock Sunrise Mug, Fishing Gift for Grandpa, Gift for Him",
+        "tags": [
+          "grandpa fishing",
+          "fishing mug",
+          "grandpa gift",
+          "gift for grandpa",
+          "fishing gift",
+          "grandpa mug",
+          "fisherman gift",
+          "lake mug",
+          "trout fishing",
+          "outdoorsman gift",
+          "retirement gift",
+          "christmas for him",
+          "coffee mug gift"
+        ]
+      },
+      "poster": {
+        "title": "Grandpa's Fishing Hole Art Print, Watercolor Lake Fishing Wall Art, Dock Sunrise Cabin Decor, Fishing Gift for Grandpa",
+        "tags": [
+          "grandpa fishing",
+          "fishing wall art",
+          "grandpa gift",
+          "gift for grandpa",
+          "fishing gift",
+          "lake house decor",
+          "fisherman gift",
+          "cabin wall art",
+          "lake art print",
+          "outdoorsman gift",
+          "retirement gift",
+          "christmas for him",
+          "watercolor print"
+        ]
+      },
+      "sticker": {
+        "title": "Grandpa's Fishing Hole Sticker, Watercolor Fishing Grandpa Vinyl Sticker, Lake Sunrise Decal, Fishing Gift for Grandpa",
+        "tags": [
+          "grandpa fishing",
+          "fishing sticker",
+          "grandpa gift",
+          "gift for grandpa",
+          "fishing gift",
+          "tackle box sticker",
+          "fisherman gift",
+          "lake sticker",
+          "laptop sticker",
+          "outdoorsman gift",
+          "water bottle decal",
+          "christmas for him",
+          "cooler sticker"
+        ]
+      }
+    },
+    "products": [
+      "Unisex tee (Bella+Canvas 3001)",
+      "Crewneck sweatshirt (Gildan 18000)",
+      "11 oz mug",
+      "Art print (matte poster)",
+      "Kiss-cut sticker"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table (2026-10-05 pricing review): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. Grandpa fishing tees found on 2026-11-09 ran about $14.99-$24.98 on Walmart (Inktastic, $17.99) and one Etsy fishing tee showed $11.99 (on sale at $7.19); our tee sits at the top of that range, for the full watercolor painting. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-11-09 (before any art): web searches '\"Grandpa's Fishing Hole\" OR \"fishing hole\" trademark clothing shirts' and '\"Grandpa's Fishing Hole\" shirt'. No registration or application for GRANDPA'S FISHING HOLE or FISHING HOLE for clothing was found, and no shirt using the phrase turned up. Nearby: a pending GRANDPA AND GRANDPA'S FISHING PARTNER application (serial 97850000, Class 25, Rumyana A. Staneva), a different phrase we don't use; 'Grandpa's Fishing Buddy' and 'Reel Cool Grandpa' are common on other sellers' shirts and are avoided. Tags name no brands. tmsearch.uspto.gov and trademark.justia.com are blocked from our sessions, so this is a search-engine screen, not a clearance."
+  }
+}

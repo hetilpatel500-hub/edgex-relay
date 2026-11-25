@@ -1,0 +1,64 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-fairy-tale",
+  "kind": "book"
+ },
+ "title": "My First Fairy Tale Coloring Book (book, cover, KDP listing, Amazon Ads kit)",
+ "reviewed_at": "2026-11-10T14:57:04Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note below is a web screen, not a clearance; the owner decides before publishing. Topic note: the planned rotation has ended, so Trend Scout picked Fairy Tale under the owner's standing 'different topics' directive; the owner can swap it."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, back cover, A+ points and ad texts checked against the built book: 30 subjects in five groups (5 + 8 + 4 + 4 + 9) exactly as listed, 64 pages, blank backs, name labels and certificate are all true. 'Most with happy faces' is true (29 of 30 smile; the gnome's mouth is under his mustache, though he has eyes and cheeks). Every named example in the subtitle, ad texts and headlines (castle, dragon, unicorn, princess, pumpkin coach, magic wand, frog prince, wizard hat) is in the book."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/fairytale.js; line and color contact sheets reviewed. The stories behind the subjects (Cinderella's glass slipper and pumpkin coach, Jack and the Beanstalk, the Frog Prince, the wolf, the magic lamp and flying carpet) are public-domain folk and fairy tales; no studio designs are used: the princess and mermaid are generic chibi figures (cover-palette colors changed away from any film character's look: brown hair, lavender dress, purple tail), the dragon and unicorn are original, and no character is named. Fredoka font is SIL OFL 1.1, which allows embedding. AI-drawn pages can't be registered for US copyright (Thaler v. Perlmutter), so others may copy them."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search only (USPTO is unreachable from this environment). Tiger Tales publishes a 'My First Fairy Tales' picture-book series (storybooks, 2014-2019); no trademark registration for it turned up. Little Bee Books has 'My First Big Book of Fairy Tales' in its 'My First Big Book of Coloring' series. Our title is the descriptive series pattern 'My First <Topic> Coloring Book' with the 'my first step' series name and JONNY COLOR, so the subtitle and series name set it apart, and a single book title isn't protected on its own. Keywords and ad keywords name no brands, studios, characters or authors (no Disney, Frozen, Cinderella or named princesses); 'Pegasus' is the mythological creature's name. Owner may run a USPTO search on 'My First Fairy Tales' (books, Class 16) before publishing."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP AI disclosure: answer Yes for images and text, as the listing says. Keywords are 7 phrases of 41 characters or fewer, with no brands, other authors, or time-sensitive or sale claims. Ad texts (124, 119, 144 characters) and headlines (41, 39, 42) avoid best-seller, sale, price, free and review claims, as Amazon's book ad policy requires; build.js checks passed. The third category (Children's Books > Fairy Tales, Folk Tales & Myths) should be confirmed in KDP's category picker."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "Ages 2-5 content is friendly and safe: smiling castles, creatures and magic things, nothing scary. The dragon and wolf are cute and smiling, the knight carries no weapon (no swords at all), and the potion is a smiling bottle, not poison. The 'This book belongs to' line collects no data. Nothing pushes purchases on kids. Fits KDP's children's content guidelines."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms. The owner publishes and prices on KDP."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [
+  "Quality Bar: tower's T-shaped stone marks and hook-like base leaves replaced with bricks and bushes; gnome's hat raised and eyes enlarged so they sit clear of the hat and beard; wolf given a bushy light-tipped tail and longer muzzle so it doesn't read as a cat; unicorn's forelock circles and eyelash strokes removed (they crowded the ears and read as eyebrows); pegasus given a feathered wing and bigger head; glass slipper redrawn taller with a clear opening; beanstalk leaves widened; flying carpet thickened with fewer motion lines.",
+  "Copyright/trademark: mermaid and princess cover palettes changed (brown hair, purple tail, lavender dress) so neither resembles a film character's color scheme."
+ ],
+ "sources": [
+  "https://www.penguinrandomhouse.com/series/TA9/my-first-fairy-tales/",
+  "https://bookroo.com/books/series/my-first-fairy-tales",
+  "https://www.simonandschuster.ca/books/My-First-Big-Book-of-Fairy-Tales/Little-Bee-Books/My-First-Big-Book-of-Coloring/9781499810097"
+ ],
+ "last_touch_ref": "book desk step 5 (Grammar & Copy Editor, Deliverable QA Reviewer), 2026-11-10",
+ "decision_ref": "book-kit/records/2026-11-10-my-first-fairy-tale.json#decision"
+}

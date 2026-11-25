@@ -1,0 +1,79 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-jungle-safari",
+  "kind": "book"
+ },
+ "title": "My First Jungle & Safari Coloring Book: interior, cover, KDP listing and Amazon Ads kit",
+ "reviewed_at": "2026-11-16T15:00:47Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishing. Topic note: the planned rotation has ended, so Trend Scout picked Jungle & Safari under the owner's standing 'different topics' directive; no earlier book, record or DB books doc has it, and none of its 30 subjects repeats a picture from another book in the series (the lion, elephant, giraffe, monkey, panda, parrot, toucan, snake and frog already drawn elsewhere were left out). The owner can swap the topic."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, back cover, A+ points and ad texts checked against the built book: 30 subjects in three groups (11 jungle animals + 11 safari animals + 8 jungle and safari things) exactly as listed, 64 pages, blank backs, name labels and the 'Great job!' certificate are all true. 'Every page has ... a happy face' is true: all 30 pictures have faces (the side-on chameleon, anteater, crocodile, hornbill and pangolin show one eye and a smile). Every named example in the subtitle, description, back cover, ad texts and headlines (tiger, zebra, hippo, sloth, crocodile, meerkat, safari truck, tree house) is in the book. The 'jungle' and 'safari' groups are plain picture-book labels, not habitat claims. No 'bestselling', review or result claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit; the 'This book belongs to' line collects nothing."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/jungle.js; line and color contact sheets reviewed at full size. Real animals and generic things only: the safari truck is a plain side view with no grille, badge or maker's shape, and the camera has no maker's shape or name. The meerkat and warthog are drawn as ordinary animals on separate pages, with no names, catchphrases or film styling, and the zebra, hippo and lemur carry nothing from any animated film. Fredoka font is SIL OFL 1.1, which allows embedding. AI-art note: purely AI-made pictures and text can't be registered for US copyright (US Copyright Office guidance; Thaler v. Perlmutter, D.C. Cir. 2025), so others may be able to copy the pages."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search only (USPTO is unreachable from this environment). No book titled 'My First Jungle & Safari Coloring Book' and no 'MY FIRST JUNGLE' mark turned up. Nearby: a 'MY FIRST SAFARI' application (serial 97274234; a National Geographic-branded 'My First Safari' board game is sold), a 'My First Jungle Animals' cloth book and printable, and a 'My First Safari Colouring Pack' printable. Those are different titles, and this title uses the series' own 'My First ... Coloring Book' pattern with both words describing the contents, so the risk is low; an optional USPTO search on 'MY FIRST SAFARI' before publishing would settle it. The vehicle is called 'Safari Truck', not by the off-road maker's brand name; no 'SAFARI TRUCK' mark turned up (a 'WILD SAFARI ADVENTURE TRUCK' toy application is abandoned). Keywords, ad keywords and headlines use no brand, author or character names; 'jungle book', 'lion king' and 'madagascar' are negatives only, so ads stay off franchise searches."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover matches the metadata title; 7 keywords of 44 characters or fewer, no brands, no 'bestseller' or 'free' style terms, no other authors. Categories are real children's paths; the second (Lions, Tigers & Leopards) fits only the big cats, so the owner may swap it for a closer animal category. Amazon Ads book policy: 3 custom texts (130, 112 and 127 characters) and 3 headlines (41, 39, 37) with no price, sale, 'free' offer, best-seller or review claims ('screen-free' describes the activity); ad keywords are generic searches; 37 negatives."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no teeth on the cats, the crocodile's teeth are small and it smiles, the hyena and buffalo smile, nothing hunts or is hurt, and the waterfall and tree house show no one at risk. No small-parts or safety claims are made."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Hot air balloon: the panel lines crossed the face, so the panels were moved to the sides before the build.",
+  "Jungle leaf: the first leaf wasn't recognizable and its middle line ran through the face; it was redrawn as a split leaf with open cuts, and the line now stops below the face.",
+  "Cheetah: the tear marks crossed the muzzle, so they were redrawn to curve around it; tiger and warthog cheeks were moved off the muzzle and tusks.",
+  "Baboon: the first two drawings read as a lion; it was redrawn with a long snout and no mane.",
+  "Acacia tree (looked like a flying saucer), orangutan (hair looked like a crown), waterfall (rocks looked like book pages), zebra (forehead band looked like a hat brim), gorilla (face looked like a helmet) and gazelle (body looked like a dish) were redrawn; the lemur's tail, rhino's ear, pangolin's scales and hyena's head were reattached or kept inside the outline.",
+  "Vehicle named 'Safari Truck' rather than the off-road maker's brand name; 'lion king' and 'madagascar' added to the ad negatives."
+ ],
+ "sources": [
+  "https://trademarks.justia.com/972/74/my-first-97274234.html",
+  "https://toytooth.com/products/national-geographic-my-first-safari-board-game-for-kids-4-6-animal-game-for-kids-adults-cooperative-fun-perfect-for-family",
+  "https://www.charterbookstore.com/book/9780711275263",
+  "https://www.getly.store/product/my-first-jungle-animals-coloring-book",
+  "https://www.twinkl.com/resource/my-first-safari-colouring-pack-t-par-1676039868",
+  "https://gleanmark.com/owner/safariprogramsinc",
+  "https://www.paperbackswap.com/Fiction/genre/2841"
+ ],
+ "owner_notes": [
+  "Answer KDP's AI question Yes for images and text.",
+  "Optional: run a USPTO search on 'MY FIRST SAFARI' (serial 97274234, a board game) before publishing; this was a web screen only.",
+  "Jungle & Safari was picked by Trend Scout because the planned rotation is done; swap it if you'd rather have another topic.",
+  "The second category (Lions, Tigers & Leopards) fits only the big cats; pick a closer children's animal category if KDP offers one."
+ ],
+ "last_touch_ref": "book-kit/records/2026-11-16-my-first-jungle-safari.json#collabs (quality-bar-agent, grammar-copy-editor, deliverable-qa-reviewer)",
+ "decision_ref": "book-kit/records/2026-11-16-my-first-jungle-safari.json#decision"
+}

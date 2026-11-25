@@ -1,0 +1,94 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a pod_research doc.",
+ "id": "2026-11-25-tea-season",
+ "created": "2026-11-25T16:27:09Z",
+ "queue_row": "The Gift-category table has no open row and the best-seller list under it is done through 12; 13 Valentine's Day starts in early January. So the queue is empty: ONE new design, picked from trend research. Nov 24 was a pattern design (Winter Citrus), so this is a motif design (tee, sweatshirt, mug, art print, sticker).",
+ "phrase": "Tea Season",
+ "niche": "tea lovers and tea drinkers; cozy winter gifts, Christmas stocking and Secret Santa gifts, January 'cold season' and self-care gifting; afternoon-tea and tea-party fans. Sells on all year to tea drinkers.",
+ "seasonal_calendar": "4-8 weeks ahead of Nov 25 is Dec 23 to Jan 20: late Christmas, New Year, deep winter and early Valentine's. Hot tea with honey and lemon is a cold-weather ritual, and the 'X Season' format already fits the shop (Soup, Cocoa, Pie, Campfire Season).",
+ "trend_searches": [
+  "Etsy trending gifts December 2026 winter shirts sweatshirts",
+  "tea lover gift ideas 2026 trends",
+  "January 2027 print on demand trends winter tea cozy season shirts",
+  "\"tea season\" shirt etsy",
+  "tea lover watercolor teapot teacup sweatshirt etsy",
+  "\"TEA SEASON\" trademark clothing",
+  "TEAS THE SEASON trademark 86839729 goods",
+  "\"tea season\" mug sweatshirt watercolor"
+ ],
+ "sources": [
+  "https://printify.com/blog/trending-products-to-sell-in-the-winter-season",
+  "https://printify.com/blog/things-to-sell-in-the-winter-and-holiday-season",
+  "https://printify.com/blog/leading-trends-for-etsy-sellers-in-2026/",
+  "https://www.printful.com/blog/design-trends",
+  "https://www.printful.com/blog/best-winter-products",
+  "https://www.foodnetwork.com/how-to/packages/shopping/gift-ideas/gifts-for-tea-lovers",
+  "https://www.hgtv.com/shopping/gift-guides/gifts-for-tea-lovers",
+  "https://www.goodmorningamerica.com/shop/story/tea-lovers-gift-guide-128032175",
+  "https://www.aol.com/articles/2025-tea-lovers-gift-guide-180114361.html",
+  "https://uncommongoods.com/sets/tea-gifts",
+  "https://afternoonteareads.com/valentines-day-gift-ideas-for-tea-lovers/",
+  "https://www.etsy.com/DisorientedDesignCo/listing/1250040195",
+  "https://saratogateaandhoney.com/products/but-first-tea-sweatshirt-in-plum",
+  "https://www.target.com/p/simply-sage-market-women-s-graphic-sweatshirt-spill-the-tea/-/A-91857141",
+  "https://bonnie-bruno.pixels.com/products/1-tea-time-bonnie-bruno-womens-tshirt.html",
+  "https://www.walmart.com/ip/5280718706",
+  "https://www.teepublic.com/t-shirts/teapot-art",
+  "https://www.redbubble.com/i/mug/Watercolor-Tea-Roses-Pattern-by-Paintdrips/41507463/ctqx",
+  "https://www.zazzle.se/kollektioner/watercolor_tea_and_kitchen_decor-119140750133100040",
+  "https://trademarks.justia.com/868/39/teas-the-86839729.html",
+  "https://trademarks.justia.com/owners/tea-living-inc-1701184",
+  "https://trademarks.justia.com/owners/tea-relief-llc-2295271"
+ ],
+ "competitors": [
+  {
+   "what": "Etsy DisorientedDesignCo embroidered boba tea sweatshirt",
+   "price": "not shown in the search results",
+   "style": "embroidered kawaii boba cup"
+  },
+  {
+   "what": "Saratoga Tea & Honey 'But First, Tea' sweatshirt (plum)",
+   "price": "$48.00",
+   "style": "art-nouveau slogan print"
+  },
+  {
+   "what": "Target 'Spill the Tea' women's graphic sweatshirt (Simply Sage Market)",
+   "price": "not shown",
+   "style": "slogan"
+  },
+  {
+   "what": "Pixels 'Tea Time' tee (Bonnie Bruno)",
+   "price": "not shown",
+   "style": "watercolor single teacup on a tray"
+  },
+  {
+   "what": "Walmart hand-drawn teacup hoodies",
+   "price": "not shown",
+   "style": "line-art single teacup"
+  },
+  {
+   "what": "TeePublic 'teapot art' tees",
+   "price": "not shown",
+   "style": "novelty teapots (snail teapot and similar)"
+  },
+  {
+   "what": "Redbubble 'Watercolor Tea Roses Pattern' mug (Paintdrips)",
+   "price": "$18.89",
+   "style": "watercolor rose pattern"
+  }
+ ],
+ "gap": "Tea apparel is mostly slogans ('But First, Tea', 'Spill the Tea'), kawaii boba or a single teacup in line art or watercolor. None found shows a full watercolor tea-time still life (teapot, cup, honey, lemon and spices) under a 'Tea Season' title, and no 'Tea Season' design turned up at all. Our angle: a cozy layered still life in the shop's 'X Season' format.",
+ "trend": "Printify's winter guides put hoodies and sweatshirts at the top of winter sellers and name mugs for tea and coffee lovers; Printful's 2026 design-trends post lists food art and big, bold lettering. Tea-lover gift guides from Food Network, HGTV, Good Morning America, AOL and Uncommon Goods are live for this holiday season, and tea gifts carry on to Valentine's Day (Afternoon Tea Reads). No search-volume numbers were available, so demand is judged from these guides, not counted.",
+ "scores": {
+  "demand": 4,
+  "competition": 4,
+  "timing": 4,
+  "fit_with_watercolor": 5,
+  "trademark_risk": 4,
+  "total": 21
+ },
+ "decision": "go (21/25): motif design 'Tea Season'",
+ "pod_review_read": "research/2026-11-23-pod-review.json: 0 orders since the shop opened; rule: follow search demand with gift niches that have an evergreen angle. Tea drinkers buy all year.",
+ "printify_status_read": "2026-11-25 read-only: 58 products, 48 with Etsy listing IDs, the same 10 Scorpio and Campfire drafts unpublished, 0 orders.",
+ "repeat_check": "No tea design among the 35 files in pod-kit/designs before this one (searched for 'teapot', 'teacup', 'tea cup', 'tea party' and 'tea'). Coffee & Croissants is a coffee design; the only other 'tea' hit is a trademark note in the Scorpio file."
+}

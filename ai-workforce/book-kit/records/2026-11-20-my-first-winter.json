@@ -1,0 +1,107 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the book desk's books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-winter",
+  "title": "My First Winter Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Winter",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-winter.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/CHdbLK23wQKuFhfZDrAd43",
+  "created": "2026-11-20T14:59:19Z",
+  "emailed": "Gmail message 1a1f977d60f56dc4 to the owner, 2026-11-20"
+ },
+ "decision": {
+  "doc_id": "2026-11-20-book-my-first-winter",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-20T14:59:19Z",
+  "reason": "Legal verdict cleared at 2026-11-20T14:58:30Z (all ten counsel; trademark web screen on file; the snowsuit, blanket, arctic fox and snow leopard were redrawn so they read clearly, and two ad lines now say 'winter' instead of 'snowy' so they are true for every page). Planned rotation has ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it. Build checks passed (64 pages, cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-winter.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-20-book-my-first-winter",
+  "created": "2026-11-20T14:59:19Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation is finished; picked Winter (no book, record or DB books doc has it) for the Dec-Feb season; most toddler winter coloring books found are for ages 4-8. Chose 29 subjects the series hasn't drawn and one new snowman."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched titles: no 'My First Winter Coloring Book' turned up; 'My First Book about Winter', 'My First Snow' and 'My First ABC Winter Edition' are different books; winter coloring books sell under generic titles."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 subjects in art/winter.js in five groups (5 snow play, 5 sliding and gliding, 6 snowy days, 6 warm and cozy, 8 winter animals)."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Line and color sheets reviewed at full size; redrew the snowsuit (read as an astronaut), the blanket (read as a box), the arctic fox and snow leopard bodies (read as rings) and the chickadee's tail."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, a description in five groups that match the 30 pages (5 + 5 + 6 + 6 + 8) and 7 keywords of 37 characters or fewer, with no brand names or other titles."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 45 negatives, including Frozen and its characters, Snoopy and the Grinch so ads stay off character searches."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Ad texts 115, 112 and 107 characters, headlines 41, 39 and 28; changed 'snowy pictures' to 'winter pictures' in two ad lines; build.js checks passed."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages; cover 17.3941 x 11.25 in matches KDP's formula; background reaches every page edge; added an optional snow ground to build.js for the cover and A+ image (Robots rebuilt unchanged to confirm)."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "pass: All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publis..."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "pass: Description, back cover, A+ points and ad texts checked against the built book: 30 subjects in five groups (5 snow play + 5 sliding and gliding + 6 snowy days + 6 warm and cozy + 8 winter animals) exactly as listed, 6..."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: No commercial email. The delivery goes only to the owner."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: No personal data in the book, listing or ads kit; the 'This book belongs to' line and the certificate's name line collect nothing."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "pass: Art is original vector drawing in art/winter.js; line and color contact sheets reviewed at full size. Checked against famous winter characters: the snowman is a generic three-ball snowman with a knit hat, scarf and ca..."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "pass: Web search only (USPTO is unreachable from this environment). No book or mark titled 'My First Winter' or 'My First Winter Coloring Book' turned up. Nearby but different titles: 'My First Book about Winter' (Carlsen b..."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "n/a: No money content."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "pass: KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover matches the metadata title; 7 keywords of 37 characters or fewer, no brands, no 'bestseller' or 'free' s..."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "pass: General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no weapons or scary faces; the snowballs sit in a pile and nobody throws them at anyone; the bear is asleep in..."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved after the cleared Legal verdict; delivered to the owner only."
+   }
+  ]
+ }
+}

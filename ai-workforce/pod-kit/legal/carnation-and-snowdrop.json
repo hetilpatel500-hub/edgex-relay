@@ -1,0 +1,68 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "carnation-and-snowdrop",
+  "kind": "pod motif design (tee, sweatshirt, mug, art print, sticker)"
+ },
+ "title": "Carnation & Snowdrop: watercolor January birth-flower bouquet (4500 x 5400 print), mockups and five listings",
+ "reviewed_at": "2026-11-23T16:39:47Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions. The trademark screen is a web screen, not a clearance. Queue note: the gift-category table and the best-seller list under it have no open row today (Valentine's Day opens in early January), so this is the one new design per run, picked from trend research."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against the full-size print: ruffled carnations in rose pink, coral red, blush and magenta (four blooms), five white snowdrops each with the green mark on its inner cup, round eucalyptus leaves, a pink satin bow, gold sparkles, three pale blue snowflakes and one small pink heart, under painted 'Carnation & Snowdrop'. Nothing named is missing. 'Carnation and snowdrop are the two birth flowers traditionally given for January' is supported by several florist sources (Bloom & Wild, 1-800-Flowers, UrbanStems). No sales, review, 'best seller', 'free' or quality-guarantee claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data; no names or dates on the art (not a personalized product)."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (design.py, watercolor.py, the older carnation motif with a new optional leaves setting, and two motifs written today in motifs2.py: snowdrop2 and ribbon_tie; eucalyptus, splash, sparkle, twinkle, snowflake and heart are older studio motifs). Flowers are drawn from botany, not from any competitor's art (TeePublic, Walmart, Etsy, Uncommon Goods, Ellie Ellie, Habulous and Anthropologie listings were only looked at for the gap). Pacifico is SIL OFL (fonts/OFL-pacifico.txt). Purely machine-made images can't be registered for US copyright; the design is composed by the agents and drawn by our code, noted as usual."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check). A pending US application for the word JANUARY covers class 25 clothing (serial 90543337, published 2024-03-12; aggregator page), with an Australian registration through the Madrid system. So 'January' is kept off the art and off the tee and sweatshirt titles and tags; the mug, art print and sticker listings (classes 21 and 16, outside that application) use 'January birth flower' and 'january birthday' only as plain descriptions of which month the flowers belong to, never styled as a brand, and the shared description states the birth-flower fact in a sentence. No mark found for CARNATION AND SNOWDROP; the lettering names two flowers. Tags and titles carry no brand, florist or character names. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description carries the production-partner disclosure and says the art is digitally painted by the studio; titles are 120-126 characters (limit 140); 13 tags per listing, all 20 characters or fewer and all different (build.py checks). 'Birth month flower' and 'gift for her' describe the item and the occasion. Print file 4500 x 5400 px, transparent, as Printify's front print area expects."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Adult gift products (tees, sweatshirts, mugs, prints, stickers), not made for or marketed to children; no 'kids' words in titles or tags."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "pass",
+   "note": "Prices are the studio's standard prices from POD-DESK.md and stay suggestions; no new supplier terms. Printify writes still wait for the owner's go-ahead."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Snowdrops on the first test were about three times too big, built from overlapping see-through petals (muddy), with stems hooked like canes and floating spathes: snowdrop2 was rewritten with true proportions (bell about 0.19 of the stem), one bell silhouette, a short arched pedicel, a small spathe at the bend and a green ovary.",
+  "Each bell sat in a pale rectangle: the white gouache was softened past its padding; softening cut to 0.015-0.06.",
+  "A stem showed through the top bell: smooth() closes every point list, so the open stem path got a straight segment from its base to the hook; a new _open_smooth keeps stems open. The top snowdrop is also painted first so neighbouring stems pass behind it.",
+  "Gouache sits on the top layer, so the first solid version buried the inner cup and green mark: the bell now gets a strong near-white body wash (so stems behind go around it), then rims, folds, cup and a chevron-shaped green mark, then gouache only on the petals.",
+  "A carnation leaf ran across the middle stems like a stray ribbon: carnation() takes an optional leaves list (default unchanged), so each bouquet carnation keeps its leaves on the outside.",
+  "The ribbon's wrap band made muddy dark ovals behind the bow's knot: the bouquet uses the satin bow without the wrap."
+ ],
+ "owner_notes": [
+  "Optional: look up JANUARY (serial 90543337) in USPTO Trademark Search. If you're comfortable with descriptive use, the tee and sweatshirt titles could add 'January Birth Flower' like the mug, print and sticker; we left it out for clothing to be safe.",
+  "January birthdays are shopped right after Christmas; if this sells, the other eleven months can follow as a series (each month's flowers get their own trademark screen)."
+ ],
+ "research_ref": "pod-kit/research/2026-11-23-carnation-and-snowdrop.json",
+ "decision_ref": "pod-kit/decisions/2026-11-23-pod-carnation-and-snowdrop.json"
+}

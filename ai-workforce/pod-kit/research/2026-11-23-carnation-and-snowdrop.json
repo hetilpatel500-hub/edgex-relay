@@ -1,0 +1,91 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a pod_research doc.",
+ "id": "2026-11-23-carnation-and-snowdrop",
+ "created": "2026-11-23T16:38:35Z",
+ "queue_row": "The Gift-category table has no open row and the best-seller list under it is done through 12; 13 Valentine's Day starts in early January and 14 Mother's Day in early April. So the queue is empty: ONE new design, picked from trend research. Nov 20 was a pattern design, so this is a motif design (tee, sweatshirt, mug, art print, sticker).",
+ "phrase": "Carnation & Snowdrop (the January birth flowers); 'January' stays off the art",
+ "niche": "birth-month-flower gifts for January birthdays (shopped late December to January), winter-flower and gardening lovers; the first of a possible birth-flower-by-month series",
+ "seasonal_calendar": "4-8 weeks ahead (Dec 21 - Jan 18): after Christmas the gift calendar turns to January birthdays and winter; carnation and snowdrop are January's birth flowers. Christmas and winter are already covered by 9 designs; Valentine's Day opens in early January.",
+ "trend_searches": [
+  "Etsy trending sweatshirt designs winter 2026 January gift trends (no Etsy January data; third-party write-ups of Etsy's Fall and Winter 2026 Seller Trend Report, published 2026-10-14, name 'Merrymaxxing' and Friendsmas gifts; Printful says animal-inspired holiday sweatshirts and personalization sell; vendor guides, not sales data)",
+  "apres ski sweatshirt trend 2026 etsy watercolor (apres-ski style was strong for winter 2025-26 around the Milano Cortina Olympics; graphic apres-ski sweatshirts at $30-65 retail, including a 'Skiing Bear Watercolor' sweatshirt at Target and 'Apres Ski Club' wholesale fleeces; rejected for today: crowded, and 'Apres Ski Club' needs its own trademark screen)",
+  "birth month flower shirt january carnation snowdrop etsy best seller (sources agree carnation and snowdrop are January's birth flowers; Teepublic snowdrop tees, a Walmart January snowdrop tee, a personalized Comfort Colors birth-month-flower shirt and a $44 birth-flower sweatshirt on Etsy; no sales counts shown)",
+  "january birth flower sweatshirt etsy carnation snowdrop watercolor (no listing painting both flowers together in watercolor on a sweatshirt; Etsy birth-month-flower sweatshirts shown at about $13-17 on sale, one at $42 original; a MyDesigns pattern and an Uncommon Goods robe use watercolor carnations)",
+  "january birth month flower mug carnation snowdrop gift price (Uncommon Goods handmade birth-flower mugs $28.99, January = carnation; Ellie Ellie personalised watercolour mug GBP 27; Habulous stoneware snowdrop mug GBP 35-39.95; Anthropologie flower-of-the-month mug, January carnation)"
+ ],
+ "sources": [
+  "https://printify.com/blog/leading-trends-for-etsy-sellers-in-2026/",
+  "https://www.printful.com/blog/christmas-sweatshirt-and-hoodie-design-ideas",
+  "https://www.marieclaire.co.uk/fashion/shopping/ski-fashion-trends-2026-winter-olympics-milano-cortina",
+  "https://www.target.com/p/skiing-bear-watercolor-women-s-graphic-sweatshirt/-/A-1007460638",
+  "https://www.teepublic.com/t-shirts/snowdrop-flower",
+  "https://www.walmart.com/ip/5684572316",
+  "https://www.etsy.com/listing/1427895901",
+  "https://www.etsy.com/listing/1884543826",
+  "https://www.uncommongoods.com/product/birth-flower-mugs",
+  "https://notonthehighstreet.com/ellieellie/product/birth-flower-personalised-water-colour-mug",
+  "https://folksy.com/items/8506631-birth-flower-stoneware-mugs",
+  "https://www.anthropologie.com/anthrohome/shop/flower-of-the-month-stoneware-mug",
+  "https://www.uncommongoods.com/product/custom-birth-month-flower-embroidered-sweatshirt",
+  "https://mydesigns.io/dream/2359622/january-birth-month-floral-pattern",
+  "https://www.bloomandwild.com/january-birth-flower",
+  "https://markinton.com/trademark/january-90543337"
+ ],
+ "competitors": [
+  {
+   "what": "TeePublic snowdrop-flower tees (single snowdrop, some tagged January birth flower)",
+   "price": "$24",
+   "style": "flat vector or line art"
+  },
+  {
+   "what": "Walmart 'January Birthday Flower, Snowdrops' V-neck tee",
+   "price": "not shown in results",
+   "style": "single-stem illustration"
+  },
+  {
+   "what": "Etsy birth-month-flower sweatshirts (flower not named in the result)",
+   "price": "about $13-17 shown on sale; one $42 original",
+   "style": "line art or hand-printed"
+  },
+  {
+   "what": "Etsy Comfort Colors birth-month-flower shirt with custom names",
+   "price": "not shown in results",
+   "style": "personalized line drawing"
+  },
+  {
+   "what": "Uncommon Goods handmade birth-month flower mugs (January = carnation)",
+   "price": "$28.99 (shown from $42.00)",
+   "style": "handmade ceramic"
+  },
+  {
+   "what": "Ellie Ellie personalised water colour birth flower mug",
+   "price": "GBP 27",
+   "style": "watercolor single flower with a name"
+  },
+  {
+   "what": "Habulous birth flower stoneware mug (January = snow drop)",
+   "price": "GBP 35-39.95",
+   "style": "engraved stoneware"
+  },
+  {
+   "what": "Uncommon Goods custom birth month flower embroidered sweatshirt",
+   "price": "not shown in results",
+   "style": "embroidery with a name"
+  }
+ ],
+ "gap": "January birth-flower products are single stems, line art, personalized names or expensive handmade mugs; none found paints both January flowers together as a real-looking watercolor bouquet at print-on-demand prices. Angle: a hand-tied watercolor bouquet of ruffled carnations in four colors with white snowdrops (each with its green mark), eucalyptus and a satin bow, lettered 'Carnation & Snowdrop' so the art names the flowers without the month.",
+ "trend": "Birth-month-flower gifts are a steady gift category (several stores carry 12-month ranges); January birthdays are shopped right after Christmas; watercolor florals are our strongest fit. If this sells, the other months follow as a series.",
+ "scores": {
+  "demand": 4,
+  "competition": 3,
+  "timing": 4,
+  "fit_with_watercolor": 5,
+  "trademark_risk": 4,
+  "total": 20
+ },
+ "decision": "go (20/25): motif design 'Carnation & Snowdrop' with 'January' kept off the art (pending JANUARY class 25 application)",
+ "owner_scan_read": "pod_research/owner-etsy-mug-scan-2026-09-28: real-looking watercolor is rare (flat vector and stained glass dominate) and florals sell; personalized mugs are the biggest seller type but wait for the owner. This design is watercolor florals with no personalization.",
+ "pod_review_read": "pod-kit/research/2026-11-16-pod-review.json (and today's 2026-11-23 review): 0 orders since the shop opened, so no sales signal yet; follow search demand with gift niches that have an evergreen angle.",
+ "printify_status_read": "Printify read-only 2026-11-23 (orders and products GETs before research): 58 products, 48 with Etsy listing IDs, the same 10 Scorpio Constellation and Campfire Season drafts unpublished, 0 orders.",
+ "repeat_check": "No carnation-and-snowdrop or January birth-flower design among the other 32 files in pod-kit/designs. Capricorn Constellation (2026-11-05) used a carnation and a snowdrop as its birth-month flowers beside a constellation; this design is a bouquet of the two flowers alone, with a new detailed snowdrop motif."
+}

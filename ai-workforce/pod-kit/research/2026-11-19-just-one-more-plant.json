@@ -1,0 +1,88 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a pod_research doc.",
+ "id": "2026-11-19-just-one-more-plant",
+ "created": "2026-11-19T16:33:05Z",
+ "queue_row": "The Gift-category table has no open row left (rows 1-8 done or held for the owner). The list of more best sellers under it is next in order: 9 teacher (Nov 16), 10 nurse (Nov 17) and 11 coffee lover (Nov 18) are done, so this is 12. plant lover. Nov 18 was a pattern design, so this is a motif design (tee, sweatshirt, mug, art print, sticker).",
+ "phrase": "just one more plant",
+ "niche": "plant lovers and houseplant collectors: Christmas gifts (plant-gift searches peak in December), birthdays and housewarmings all year",
+ "seasonal_calendar": "4-8 weeks ahead (Dec 17 - Jan 14): Christmas and the after-Christmas gift-card weeks. Plant gifts are evergreen, so the listing keeps selling after the holidays.",
+ "trend_searches": [
+  "Etsy trending plant lover gifts 2026 houseplant gift ideas Christmas (RankHero keyword tool: 'plant gift' about 18,100 monthly searches in December 2025 vs 6,600 in October 2025; 'plant lover' about 2,900 monthly searches with 347,012 Etsy listings; a 2026 trend tracker lists cottagecore home decor and personalized gifts as rising; tool figures, no Etsy sales data)",
+  "plant lady shirt best selling print on demand 2026 houseplant niche (RankHero: 'plant lady' about 1,900 monthly searches, 46% from the US, competition 87%; Printify's plant-lover guide says buyers care about naming the exact plants and pairing them with humor; vendor and tool pages, no 2026 sales rankings)",
+  "watercolor houseplant mug monstera Etsy plant lover mug (TeePublic monstera mugs around $18 with watercolor-style art; Etsy results mostly monstera wall prints, e.g. a watercolor monstera print set at $20.92; Walmart 'I'd Propagate That Monstera' mug)",
+  "\"just one more plant\" shirt OR mug OR sweatshirt Etsy (the phrase is on many Walmart marketplace shirts and sweatshirts, e.g. a sweatshirt at $43.99 and a tee at $33.99, and a TeePublic bag; no mug with the phrase found)",
+  "watercolor houseplants sweatshirt monstera snake plant pothos plant lover crewneck (Happy Happy House Plant varsity 'Houseplants' crewneck with a fiddle-leaf patch; TeePublic watercolor monstera crewnecks around $35; a 'Devil's Ivy' pothos crewneck; a TeePublic hoodie with three potted plants and 'Sorry, I Can't'; no crewneck combining watercolor monstera, snake plant and pothos)"
+ ],
+ "sources": [
+  "https://www.rankhero.com/keywords/plant-gift",
+  "https://www.rankhero.com/keywords/plant-lover",
+  "https://www.rankhero.com/keywords/plant-lady",
+  "https://printify.com/knowledge-hub/gifts-for-plant-lovers/",
+  "https://www.insightagent.app/trends/etsys-trending-now",
+  "https://www.teepublic.com/mug/monstera-art",
+  "https://www.walmart.com/ip/1002790234",
+  "https://www.walmart.com/ip/13817702223",
+  "https://www.walmart.com/ip/19622852012",
+  "https://www.teepublic.com/bags/plant-addict",
+  "https://happyhappyhouseplant.com/collections/apparel",
+  "https://www.teepublic.com/crewneck-sweatshirt/monstera",
+  "https://reach.dog/shop/atthemoment/products/devils-ivy-v1-crewneck",
+  "https://www.teepublic.com/hoodie/indoor-plants"
+ ],
+ "competitors": [
+  {
+   "what": "Walmart marketplace 'Just One More Plant I Promise Funny Gardener Enthusiast Gift T-Shirt'",
+   "price": "not shown in results",
+   "style": "slogan text with clip-art plant"
+  },
+  {
+   "what": "Walmart marketplace 'Just One More Plant Shirt' sweatshirt, S-5XL",
+   "price": "$43.99",
+   "style": "slogan sweatshirt"
+  },
+  {
+   "what": "Walmart marketplace 'Just One More Plant Shirt, Plant Lady T-Shirt'",
+   "price": "$33.99",
+   "style": "slogan tee"
+  },
+  {
+   "what": "TeePublic 'Plant Addict Social Club Just One More Plant' bag",
+   "price": "not shown in results",
+   "style": "flat slogan graphic"
+  },
+  {
+   "what": "TeePublic 'indoor plants' hoodie: three potted houseplants including a snake plant and a monstera, 'Sorry, I Can't'",
+   "price": "not shown in results",
+   "style": "flat illustration with a humor line; the closest idea, so ours stays different (watercolor, a different line, pothos trailing over a pot)"
+  },
+  {
+   "what": "Happy Happy House Plant varsity 'Houseplants' crewneck with a chenille fiddle-leaf patch",
+   "price": "not shown in results",
+   "style": "collegiate lettering, embroidered patch"
+  },
+  {
+   "what": "TeePublic watercolor monstera crewnecks",
+   "price": "about $35",
+   "style": "single monstera leaves in watercolor"
+  },
+  {
+   "what": "TeePublic monstera mug",
+   "price": "about $18",
+   "style": "single leaf print"
+  }
+ ],
+ "gap": "'Just one more plant' items found are flat slogan text or clip art; watercolor plant designs found are single monstera leaves. No listing found combines named, recognizable houseplants in painted pots with this line. Angle: three hand-painted-look houseplants that plant people name on sight (split-leaf monstera, banded snake plant with yellow edges, golden pothos trailing over its pot) in terracotta, speckled cream and sage pots, with the line in green script.",
+ "trend": "Plant gifts peak in December and sell all year; the niche is crowded with slogan shirts, so the painted style and the named plants are the difference.",
+ "owner_scan_read": "pod_research/owner-etsy-mug-scan-2026-09-28 (read from the office DB today): printed sellers are mostly flat vector or stained glass and real-looking watercolor is rare (one watercolor witch mug, 54 reviews); all-over wraps win on mugs, so this motif design's mug is the simple two-sided version and a wrap can follow on a pattern day.",
+ "pod_review_read": "pod-kit/research/2026-11-16-pod-review.json: 0 orders since the shop opened (2026-09-28); no sales signal yet, so follow search demand with December gift niches that have an evergreen angle.",
+ "repeat_check": "No houseplant, monstera, pothos or snake-plant design among the 31 files in pod-kit/designs or in the pod_designs list. Kitchen Herbs (Nov 11) is culinary herbs for the kitchen, a different niche.",
+ "scores": {
+  "demand": 4,
+  "competition": 3,
+  "timing": 4,
+  "style_fit": 5,
+  "trademark_risk": 4
+ },
+ "total": 20,
+ "decision": "go: 'just one more plant' watercolor houseplant trio (tee, sweatshirt, mug, art print, sticker); keep 'plant mom' (registered class 25 mark) and 'plant lady' out of the art, titles and tags"
+}

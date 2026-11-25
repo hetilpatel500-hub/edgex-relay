@@ -1,0 +1,204 @@
+{
+  "id": "coffee-and-croissants",
+  "kind": "pattern",
+  "name": "Coffee & Croissants",
+  "engine": 2,
+  "seed": 1118,
+  "background": "#f7efe1",
+  "palette": {
+    "main": "#c8714f",
+    "main2": "#efb08f",
+    "accent": "#e5b85a",
+    "accent2": "#f3d48e",
+    "leaf": "#5f9365",
+    "leaf2": "#a9cc95",
+    "leaf_dark": "#2f5c3e",
+    "berry": "#d8343f"
+  },
+  "elements": [
+    {
+      "motif": "latte_cup",
+      "size": 0.175,
+      "count": 7,
+      "colors": [
+        [
+          "sage"
+        ],
+        [
+          "blue"
+        ],
+        [
+          "terracotta"
+        ],
+        [
+          "blush"
+        ],
+        [
+          "mustard"
+        ]
+      ],
+      "tilt": 0.1,
+      "spacing": 0.92,
+      "cycle": true
+    },
+    {
+      "motif": "french_press",
+      "size": 0.175,
+      "count": 1,
+      "tilt": 0.08,
+      "spacing": 0.92
+    },
+    {
+      "motif": "enamel_pot",
+      "size": 0.165,
+      "count": 2,
+      "colors": [
+        [
+          "blue"
+        ],
+        [
+          "red"
+        ]
+      ],
+      "tilt": 0.1,
+      "spacing": 0.92,
+      "cycle": true
+    },
+    {
+      "motif": "togo_cup",
+      "size": 0.155,
+      "count": 3,
+      "colors": [
+        [
+          "#d4a06a"
+        ],
+        [
+          "#9fbf98"
+        ],
+        [
+          "#eaa49c"
+        ]
+      ],
+      "tilt": 0.12,
+      "spacing": 0.92,
+      "cycle": true
+    },
+    {
+      "motif": "croissant",
+      "size": 0.13,
+      "count": 5,
+      "tilt": 0.4,
+      "spacing": 0.85
+    },
+    {
+      "motif": "coffee_branch",
+      "size": 0.13,
+      "count": 5,
+      "tilt": 3.14,
+      "spacing": 0.82
+    },
+    {
+      "motif": "cinnamon_stick",
+      "size": 0.1,
+      "count": 4,
+      "args": {
+        "n": 2
+      },
+      "tilt": 3.14,
+      "spacing": 0.55
+    },
+    {
+      "motif": "coffee_beans",
+      "size": 0.065,
+      "count": 9,
+      "tilt": 3.14,
+      "spacing": 0.95
+    },
+    {
+      "motif": "star_anise",
+      "size": 0.04,
+      "count": 8,
+      "tilt": 0.6,
+      "spacing": 1.0
+    },
+    {
+      "motif": "heart",
+      "size": 0.022,
+      "count": 14,
+      "colors": [
+        [
+          "#eaa49c"
+        ],
+        [
+          "#d9a06e"
+        ]
+      ],
+      "gaps": true,
+      "clear": 1.7,
+      "spacing": 1.7
+    },
+    {
+      "motif": "coffee_beans",
+      "size": 0.024,
+      "count": 24,
+      "args": {
+        "n": 1
+      },
+      "tilt": 3.14,
+      "gaps": true,
+      "clear": 1.6,
+      "spacing": 1.6
+    }
+  ],
+  "mug_colors": [
+    "Black",
+    "Pink",
+    "Navy",
+    "White"
+  ],
+  "listing": {
+    "title": "Coffee Lover Mug, Watercolor Latte and Croissant All Over Print Coffee Mug, Coffee Cup Pattern Mug, Coffee Lover Gift, Barista Gift",
+    "tags": [
+      "coffee lover mug",
+      "coffee lover gift",
+      "latte mug",
+      "croissant mug",
+      "coffee cup mug",
+      "watercolor mug",
+      "barista gift",
+      "coffee gift for her",
+      "cafe mug",
+      "french press mug",
+      "coffee bean mug",
+      "cappuccino mug",
+      "secret santa gift"
+    ],
+    "description": "Watercolor cappuccino cups on their saucers, glazed in sage, blue, terracotta, blush and mustard, each with a heart or tulip of milk foam, fill the whole mug with takeaway cups, a glass French press, speckled red and blue enamel coffee pots, butter croissants, coffee branches with red cherries, roasted beans, cinnamon sticks, star anise and little hearts on a warm cream background. There's no slogan or name, so it suits any coffee lover: at Christmas, for a birthday or for every morning.",
+    "per_product": {
+      "accent_mug": {
+        "title": "Coffee Lover Accent Mug, Watercolor Latte and Croissant Coffee Cup, Black, Pink or Navy Handle, 11 or 15 oz, Coffee Lover Gift",
+        "tags": [
+          "coffee accent mug",
+          "black handle mug",
+          "pink handle mug",
+          "navy handle mug",
+          "15 oz coffee mug",
+          "latte coffee cup",
+          "coffee shop mug",
+          "espresso lover gift",
+          "coffee tea cup",
+          "gift for barista",
+          "cozy coffee mug",
+          "christmas coffee",
+          "croissant coffee cup"
+        ]
+      }
+    },
+    "products": [
+      "11 oz white mug, full wrap (68 / SPOKE)",
+      "Accent mug 11 or 15 oz, black, pink or navy handle, rim and inside (635 / Printify Choice)"
+    ],
+    "price_note": "$16.99 white wrap mug, $19.99 (11 oz) / $22.99 (15 oz) accent mug, the studio's standard mug prices (POD-DESK.md product table). Competing coffee mugs found 2026-11-18: Zazzle 'Latte Art Master' mug $31.25; Shutterfly coffee-bean printed 25 oz latte mug from $29.99; Oliver Bonas 'Un Croissant' mug GBP 12.50; guides put most Etsy mug sales at about $12-$30. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-11-18: web searches '\"Coffee and Croissants\" OR \"Coffee & Croissants\" trademark brand mugs apparel', '\"COFFEE & CROISSANTS\" OR \"COFFEE AND CROISSANTS\" uspto trademark' and '\"Cafe Mornings\" OR \"Coffee Shop Mornings\" trademark brand mug' found no mark, brand or shop by these names. Nearby marks seen: COFFEE & (an old 'COFFEE & . . .' mark, serial 75240025, and COFFEE &, INC.'s pending Class 43 restaurant-services application 99485718), CROISSANT AND CO (cancelled 2004), CRISS-CROISSANTS (bakery goods); none covers mugs or this phrase. One result, serial 90606003, lists mugs, apparel and bakery services but its wording wasn't visible (trademarks.justia.com is blocked from this session), so the owner may check it before listing. The art has no lettering; 'coffee', 'latte', 'croissant', 'cappuccino', 'barista' and 'French press' describe what is pictured. No brand cups, logos or sleeves are drawn (the takeaway cups are plain with a painted heart). The eight-sided stovetop espresso pot was left out on purpose: that shape is a well-known brand's signature design. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen, not a clearance."
+  }
+}

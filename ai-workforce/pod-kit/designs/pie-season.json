@@ -1,0 +1,254 @@
+{
+  "id": "pie-season",
+  "name": "Pie Season",
+  "template": "arch",
+  "top": "Pie Season",
+  "bottom": "save me a slice",
+  "top_font": "Pacifico",
+  "bottom_font": "DancingScript",
+  "art": [
+    {
+      "motif": "pie_slice",
+      "x": 0.24,
+      "y": 0.205,
+      "s": 0.19,
+      "front": true
+    },
+    {
+      "motif": "pie",
+      "x": -0.04,
+      "y": 0.03,
+      "s": 0.27,
+      "front": true
+    },
+    {
+      "motif": "cinnamon_stick",
+      "x": -0.3,
+      "y": 0.225,
+      "s": 0.2,
+      "angle": 0.1,
+      "n": 2,
+      "front": true
+    },
+    {
+      "motif": "maple_leaf",
+      "x": -0.04,
+      "y": -0.12,
+      "s": 0.09,
+      "angle": 0.1,
+      "front": true
+    },
+    {
+      "motif": "maple_leaf",
+      "x": -0.21,
+      "y": -0.1,
+      "s": 0.075,
+      "angle": -0.6,
+      "color": "#d9a441",
+      "color2": "#f2d58a",
+      "front": true
+    },
+    {
+      "motif": "maple_leaf",
+      "x": 0.15,
+      "y": -0.11,
+      "s": 0.075,
+      "angle": 0.6,
+      "color": "#c9542e",
+      "color2": "#e8954f",
+      "front": true
+    },
+    {
+      "motif": "wheat",
+      "x": -0.2,
+      "y": -0.02,
+      "s": 0.24,
+      "angle": -2.2
+    },
+    {
+      "motif": "wheat",
+      "x": -0.14,
+      "y": -0.03,
+      "s": 0.22,
+      "angle": -1.85
+    },
+    {
+      "motif": "wheat",
+      "x": 0.12,
+      "y": -0.03,
+      "s": 0.22,
+      "angle": -1.3
+    },
+    {
+      "motif": "wheat",
+      "x": 0.18,
+      "y": -0.02,
+      "s": 0.24,
+      "angle": -0.95
+    },
+    {
+      "motif": "maple_leaf",
+      "x": -0.37,
+      "y": -0.02,
+      "s": 0.065,
+      "angle": -0.9,
+      "color": "#c9542e",
+      "color2": "#e8954f"
+    },
+    {
+      "motif": "maple_leaf",
+      "x": 0.35,
+      "y": -0.03,
+      "s": 0.065,
+      "angle": 0.9,
+      "color": "#d9a441",
+      "color2": "#f2d58a"
+    },
+    {
+      "motif": "acorn",
+      "x": 0.42,
+      "y": 0.255,
+      "s": 0.042,
+      "angle": 0.35
+    },
+    {
+      "motif": "acorn",
+      "x": -0.12,
+      "y": 0.27,
+      "s": 0.04,
+      "angle": -0.3
+    },
+    {
+      "motif": "star_anise",
+      "x": 0.03,
+      "y": 0.265,
+      "s": 0.032,
+      "angle": 0.2
+    },
+    {
+      "motif": "maple_leaf",
+      "x": -0.05,
+      "y": 0.275,
+      "s": 0.045,
+      "angle": 2.4,
+      "color": "#d9a441",
+      "color2": "#f2d58a"
+    }
+  ],
+  "florals": null,
+  "palette": "autumn",
+  "colors": {
+    "pie": "#d5772b",
+    "pie2": "#eba156",
+    "dish": "#7fa6c9"
+  },
+  "ink": "#4a3428",
+  "seed": 11,
+  "shirt_colors": [
+    "natural",
+    "white",
+    "sand"
+  ],
+  "listing": {
+    "title": "Pie Season Shirt, Watercolor Pumpkin Pie Tee, Thanksgiving Shirt for Women, Fall Baking Gift, Save Me a Slice, Pie Lover Shirt",
+    "tags": [
+      "pie season shirt",
+      "thanksgiving shirt",
+      "pie season",
+      "thanksgiving gift",
+      "pumpkin pie",
+      "pie lover gift",
+      "fall baking",
+      "friendsgiving",
+      "thanksgiving dinner",
+      "autumn gift",
+      "baker gift",
+      "holiday baking",
+      "watercolor fall"
+    ],
+    "description": "A whole pumpkin pie with a fluted crust and a dollop of whipped cream, a slice cut and ready, wheat, maple leaves, acorns, cinnamon sticks and star anise, all painted in watercolor. \"Pie Season\" in round script on top and \"save me a slice\" below. For Thanksgiving dinner, Friendsgiving and everyone who saves room for dessert.",
+    "per_product": {
+      "sweatshirt": {
+        "title": "Pie Season Sweatshirt, Watercolor Pumpkin Pie Crewneck, Thanksgiving Sweatshirt, Fall Baking Gift, Save Me a Slice Cozy Pullover",
+        "tags": [
+          "pie season sweater",
+          "thanksgiving crew",
+          "pie season",
+          "thanksgiving gift",
+          "pumpkin pie",
+          "pie lover gift",
+          "fall baking",
+          "friendsgiving",
+          "thanksgiving dinner",
+          "autumn gift",
+          "baker gift",
+          "holiday baking",
+          "watercolor fall"
+        ]
+      },
+      "mug": {
+        "title": "Pie Season Mug, Watercolor Pumpkin Pie Coffee Mug, Thanksgiving Mug, Fall Baking Gift, Save Me a Slice, Pie Lover Cup",
+        "tags": [
+          "pie season mug",
+          "thanksgiving mug",
+          "fall coffee mug",
+          "pie season",
+          "thanksgiving gift",
+          "pumpkin pie",
+          "pie lover gift",
+          "fall baking",
+          "friendsgiving",
+          "thanksgiving dinner",
+          "autumn gift",
+          "baker gift",
+          "holiday baking"
+        ]
+      },
+      "poster": {
+        "title": "Pie Season Art Print, Watercolor Pumpkin Pie Kitchen Wall Art, Thanksgiving Decor, Fall Baking Print, Save Me a Slice",
+        "tags": [
+          "pie season print",
+          "kitchen wall art",
+          "thanksgiving decor",
+          "fall decor",
+          "pie season",
+          "thanksgiving gift",
+          "pumpkin pie",
+          "pie lover gift",
+          "fall baking",
+          "friendsgiving",
+          "thanksgiving dinner",
+          "autumn gift",
+          "baker gift"
+        ]
+      },
+      "sticker": {
+        "title": "Pie Season Sticker, Watercolor Pumpkin Pie Vinyl Sticker, Thanksgiving Sticker, Fall Baking Decal, Save Me a Slice",
+        "tags": [
+          "pie season sticker",
+          "laptop sticker",
+          "water bottle decal",
+          "journal sticker",
+          "pie season",
+          "thanksgiving gift",
+          "pumpkin pie",
+          "pie lover gift",
+          "fall baking",
+          "friendsgiving",
+          "thanksgiving dinner",
+          "autumn gift",
+          "baker gift"
+        ]
+      }
+    },
+    "products": [
+      "Unisex tee (Bella+Canvas 3001)",
+      "Crewneck sweatshirt (Gildan 18000)",
+      "11 oz mug",
+      "Art print (matte poster)",
+      "Kiss-cut sticker"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table after the 2026-10-05 pricing review (decisions/pricing-2026-10-05): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. RankHero keyword pages (checked 2026-10-06) put most Thanksgiving shirts at $10-25 and Thanksgiving mugs around a $19.77 median; our prices sit inside those bands. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-10-06 (before any art): web searches '\"pie season\" trademark clothing', '\"PIE SEASON\" USPTO trademark registration' and '\"save me a slice\" trademark apparel OR shirt brand'. No PIE SEASON or SAVE ME A SLICE registration, filing or apparel brand found. Pie clothing marks seen use other wording (I [heart] PIE, Mrs. Sullivan's; PIE IN THE SKY; BUTTERMILK PIE CLOTHING; DON'T BE SHY, TRY SOME PIE; P.I.E WEAR 3.14) and are not used. 'Pie season' is used descriptively for the holiday baking season. tmsearch.uspto.gov and Justia are blocked from our sessions, so this is a search-engine screen, not a clearance."
+  }
+}

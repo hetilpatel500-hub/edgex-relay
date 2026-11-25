@@ -1,0 +1,180 @@
+{
+ "id": "my-first-fairy-tale",
+ "count": 30,
+ "art": [
+  "art/fairytale.js"
+ ],
+ "subjects": [
+  "castle",
+  "princess",
+  "dragon",
+  "unicorn",
+  "crown",
+  "knight",
+  "fairy",
+  "magic-wand",
+  "frog-prince",
+  "prince",
+  "tower",
+  "mermaid",
+  "baby-dragon",
+  "pumpkin-coach",
+  "glass-slipper",
+  "beanstalk",
+  "magic-beans",
+  "wolf",
+  "gnome",
+  "mushroom-house",
+  "pegasus",
+  "throne",
+  "shield",
+  "wizard-hat",
+  "spell-book",
+  "potion",
+  "crystal-ball",
+  "magic-lamp",
+  "flying-carpet",
+  "wishing-well"
+ ],
+ "cover": {
+  "kicker": "My First",
+  "word": "Fairy Tale",
+  "tagline": "30 big & easy magical things to color!",
+  "ages": "2-5",
+  "hero": [
+   "dragon",
+   "castle",
+   "unicorn"
+  ],
+  "back_title": "Big pictures for little hands",
+  "back_points": [
+   "30 fairy-tale pages: a castle, a dragon, a unicorn and more",
+   "Royal things, storybook friends, magical creatures and magic things",
+   "One big picture per page with extra-thick lines",
+   "Every picture has a blank back, so markers won't spoil the next one",
+   "A \"Great job!\" certificate at the end"
+  ],
+  "aplus_title": "Look inside: fairy tales to color!",
+  "aplus_pages": [
+   "princess",
+   "dragon",
+   "pumpkin-coach",
+   "wizard-hat"
+  ],
+  "aplus_points": [
+   "30 big pictures of castles, dragons, unicorns and magic things",
+   "One picture per page, its name in big letters",
+   "Extra-thick lines for little hands",
+   "Blank backs, so markers won't spoil the next picture"
+  ],
+  "back_minis": [
+   "crown",
+   "magic-wand",
+   "potion",
+   "shield"
+  ],
+  "cert_word": "fairy-tale pictures"
+ },
+ "listing": {
+  "title": "My First Fairy Tale Coloring Book",
+  "subtitle": "30 Big & Easy Magical Things – Castle, Dragon, Unicorn, Princess & More for Kids Ages 2-5",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "description_html": "<p><b>Big, bold and easy to color: a first coloring book full of friendly fairy-tale things!</b></p><p>Little hands color 30 magical pages, from a castle, a dragon and a unicorn to a princess, a frog prince and a pumpkin coach. Every page has one big, simple picture with extra-thick lines, most with happy faces, so small hands can color inside the lines, and each picture's name is written in big letters to color too.</p><p><b>Inside you'll find:</b></p><ul><li>Castles and royal things: Castle, Tower, Crown, Throne and Shield</li><li>Fairy-tale friends: Princess, Prince, Knight, Fairy, Frog Prince, Gnome, Mermaid and Wolf</li><li>Magical creatures: Dragon, Baby Dragon, Unicorn and Pegasus</li><li>Storybook things: Pumpkin Coach, Glass Slipper, Beanstalk and Magic Beans</li><li>Magic things: Magic Wand, Magic Lamp, Flying Carpet, Crystal Ball, Potion, Spell Book, Wizard Hat, Mushroom House and Wishing Well</li><li>One large picture per page with thick outlines</li><li>Single-sided pages with a blank back, so markers won't bleed onto the next picture</li><li>Big 8.5 x 11 inch pages and a \"Great job!\" certificate at the end</li></ul><p>A fun, screen-free activity for toddlers and preschoolers ages 2 to 5.</p><p>Part of the <b>my first step</b> series.</p>",
+  "keywords": [
+   "fairy tale coloring book for toddlers",
+   "unicorn and dragon coloring book for kids",
+   "princess and castle coloring pages",
+   "my first coloring book for toddlers",
+   "magical coloring book for kids ages 2-5",
+   "simple coloring book thick lines",
+   "toddler activity book for boys and girls"
+  ],
+  "categories": [
+   "Children's Books > Activities, Crafts & Games > Coloring Books",
+   "Children's Books > Activities, Crafts & Games > Activity Books",
+   "Children's Books > Fairy Tales, Folk Tales & Myths"
+  ],
+  "reading_age": "2 - 5 years",
+  "price_note": "Similar toddler coloring books are commonly priced around $5.99-$6.99 (kdpeasy.com age-group guide). Use the calculator below with KDP's printing cost before you choose. Your call.",
+  "ai_disclosure": "KDP asks if the book has AI-generated content. The pictures and the text were made by Edgex's AI agents, so answer Yes for images and text."
+ },
+ "ads": {
+  "bids": {
+   "auto": "0.35",
+   "exact": "0.45",
+   "phrase": "0.40"
+  },
+  "keywords": {
+   "exact": [
+    "coloring books for toddlers",
+    "toddler coloring book",
+    "coloring book for 2 year old",
+    "coloring book for 3 year old",
+    "my first coloring book",
+    "big and easy coloring book",
+    "simple coloring book for toddlers",
+    "fairy tale coloring book",
+    "unicorn coloring book for toddlers",
+    "dragon coloring book for kids",
+    "princess coloring book for toddlers",
+    "castle coloring book",
+    "mermaid coloring book for kids",
+    "fairy coloring book for kids",
+    "magical coloring book for kids"
+   ],
+   "phrase": [
+    "fairy tale coloring",
+    "unicorn coloring",
+    "princess coloring",
+    "dragon coloring",
+    "toddler coloring",
+    "coloring book for 2 year olds",
+    "preschool activity book",
+    "first coloring book"
+   ]
+  },
+  "negatives": [
+   "adult",
+   "adults",
+   "for adults",
+   "mandala",
+   "grayscale",
+   "free",
+   "printable",
+   "pdf",
+   "sticker",
+   "stickers",
+   "dot markers",
+   "paint by number",
+   "color by number",
+   "teen",
+   "sketchbook",
+   "cozy",
+   "bold and easy",
+   "relaxation",
+   "swear",
+   "realistic",
+   "anime",
+   "gothic",
+   "dark fantasy",
+   "horror",
+   "tattoo"
+  ],
+  "categories": [
+   "Children's Coloring Books",
+   "Children's Activity Books",
+   "Children's Fairy Tale and Folklore Books"
+  ],
+  "custom_text": [
+   "30 big fairy-tale pictures with extra-thick lines, made for little hands. A screen-free first coloring book for ages 2 to 5.",
+   "A castle, a dragon, a unicorn, a princess and more: one big picture per page, plus a Great job! certificate at the end.",
+   "A first fairy-tale coloring book: a pumpkin coach, a magic wand, a frog prince and a wizard hat, with blank backs so markers won't spoil a page."
+  ],
+  "headlines": [
+   "Big, easy coloring books for little hands",
+   "My First coloring books for ages 2 to 5",
+   "Castles, dragons and unicorns for ages 2-5"
+  ]
+ }
+}

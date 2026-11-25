@@ -1,0 +1,33 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a decisions doc; pod_designs and pod_listings records are kept here too.",
+ "id": "2026-11-17-pod-nurse-stethoscope-heart",
+ "by": "chief-of-staff",
+ "created": "2026-11-17T16:37:24Z",
+ "items": [
+  "nurse-stethoscope-heart"
+ ],
+ "legal_refs": [
+  "pod-kit/legal/nurse-stethoscope-heart.json"
+ ],
+ "legal_verdict": "cleared",
+ "decision": "approved for delivery to the owner",
+ "conditions": [
+  "Printify drafts or Etsy publishing only after the owner allows Printify writes (refused by the session's permission check since Oct 6). Then 5 products (tee, sweatshirt, mug, art print, sticker), 5 listings ($1.00 if paid), inside the $3/day cap.",
+  "Step 9b (9 extra photos per listing) runs after the products exist: photos.py draws from each Printify product's print area.",
+  "Before listing: the owner may run a USPTO search on NURSE with a stethoscope heart (classes 25 and 21). 'Night Shift' stays out of the art, titles and tags."
+ ],
+ "reason": "Next queue item after the gift-category table: 10. nurse. Motif day (Nov 16 was a pattern design). Research 20/25 (nurse gifts peak at Christmas, December pinning and graduations, and Nurses Week; competitors are slogans, humor, personalized or flat clipart; real watercolor is rare), trademark screen clear with 'Night Shift' avoided, Legal cleared; full-size PNG checked at 100% after rounds of fixes to the new stethoscope motif and the bouquet. One design this run, for quality.",
+ "artifact": "https://claude.ai/artifact/WR5zed7CyszeTSjvKty9YJ",
+ "emailed": "Gmail message 1a1ea5ea2d4faca8 to the owner, 2026-11-17",
+ "printify_read_only": "2026-11-17: 58 products, 48 with Etsy listing IDs, the same 10 Scorpio and Campfire drafts unpublished, 0 orders",
+ "pod_designs": {
+  "title": "Nurse Stethoscope Heart",
+  "phrase": "Nurse",
+  "niche": "nurse gifts: Christmas, pinning and graduation, Nurses Week",
+  "artifact": "https://claude.ai/artifact/WR5zed7CyszeTSjvKty9YJ",
+  "product_ids": {},
+  "created": "2026-11-17T16:37:24Z",
+  "status": "built (not on Printify: writes wait for the owner)"
+ },
+ "pod_listings": []
+}

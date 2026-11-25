@@ -1,0 +1,111 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the book desk's books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-easter-spring",
+  "title": "My First Easter & Spring Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Easter & Spring",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-easter-spring.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/SDZWdcXpWnL8XRPGUrYdHS",
+  "created": "2026-11-24T14:57:26Z",
+  "emailed": "Gmail message 1a20e0fbe71a5cda to the owner, 2026-11-24"
+ },
+ "decision": {
+  "doc_id": "2026-11-24-book-my-first-easter-spring",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-24T14:57:26Z",
+  "reason": "Legal verdict cleared at 2026-11-24T14:56:16Z (all ten counsel; trademark web screen on file; 'a basket full of eggs' corrected to 'a basket of eggs'). Planned rotation has ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it; '& Spring' added because 'My First Easter Coloring Book' is taken. Build checks passed (64 pages, cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-easter-spring.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-24-book-my-first-easter-spring",
+  "created": "2026-11-24T14:57:26Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation is finished; picked Easter & Spring (no book, repo record or DB books doc has it), the next season after Valentine's Day: Easter 2027 is March 28, so listing now lets Amazon index it before Easter-basket searches in February-March."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched titles: 'My First Easter Coloring Book' is taken by several independent books (Walmart, Blackwell's), so the title adds '& Spring'; no 'My First Easter & Spring Coloring Book' turned up. Toddler Easter books sell as 30-picture, 8.5 x 11, basket-stuffer books."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 subjects in art/easter.js in three groups (11 Easter fun, 10 baby animals and garden friends, 9 spring flowers and rainy days), with clipped egg patterns (zigzag, stripes, dots, flower) and bunny, daisy, tulip and raindrop helpers."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Line and color sheets reviewed at full size; enlarged and raised the basket's eggs, replaced boxed backgrounds with an open hill line and a round pond, removed the bow crowding the jelly-bean jar lid, enlarged the slippers, smoothed the fawn's neck and sat the robin on the nest rim."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, a description in three groups that match the 30 pages (11 + 10 + 9) and 7 keywords of 38 characters or fewer, with no brand names or other titles."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 48 negatives, including Bible and Sunday-school terms and character brands, so ads stay on toddler Easter searches."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Ad texts 126, 120 and 100 characters, headlines 41, 39 and 39; changed 'a basket full of eggs' to 'a basket of eggs' (the basket holds three); build.js checks passed."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages; cover 17.3941 x 11.25 in matches KDP's formula and the bleed reaches every edge; 30 page labels match the description list; every picture has a blank back; title page text sits 2.1 in from each side; both A+ images checked."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "pass: All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner deci..."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "pass: Description, subtitle, back cover, A+ points and ad texts checked against the built interior (text of interior.pdf): 64 pages, 30 labelled pictures in three groups (11 Easter fun + 10 baby animals and..."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: No commercial email. The delivery goes only to the owner."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: No personal data in the book, listing or ads kit; the 'This book belongs to' line and the certificate's name line collect nothing."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "pass: Art is original vector drawing in art/easter.js; line and color contact sheets reviewed at full size. Checked against well-known characters and products: the bunnies wear no clothes (not Peter Rabbit'..."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "pass: Web search only (USPTO is unreachable from this environment). No book or mark titled 'My First Easter & Spring Coloring Book' or 'My First Easter and Spring Coloring Book' turned up. 'My First Easter ..."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "n/a: No money content."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "pass: KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover and title page matches the metadata title; title page text sits 2.1 in from the left an..."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "pass: General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no weapons, no scary faces, no people in risky places. Treats (chocolate bunny, jelly beans) ..."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved with a cleared legal review on file; delivered to the owner only."
+   },
+   {
+    "agent": "publish-coordinator",
+    "line": "Published the delivery page as a new private artifact with downloads and emailed the owner (Gmail 1a20e0fbe71a5cda)."
+   }
+  ]
+ }
+}

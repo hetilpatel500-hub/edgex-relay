@@ -1,0 +1,215 @@
+{
+ "id": "winter-citrus",
+ "kind": "pattern",
+ "name": "Winter Citrus",
+ "engine": 2,
+ "seed": 1124,
+ "background": "#f8f1e4",
+ "palette": {
+  "main": "#f39a3c",
+  "main2": "#fcc66e",
+  "accent": "#e3605e",
+  "accent2": "#f7dc52",
+  "leaf": "#3f7a3e",
+  "leaf2": "#7fae5a",
+  "leaf_dark": "#22502c",
+  "berry": "#c42a3e",
+  "snow": "#a9c2d6"
+ },
+ "elements": [
+  {
+   "motif": "citrus_fruit",
+   "size": 0.165,
+   "count": 8,
+   "colors": [
+    [
+     "orange"
+    ],
+    [
+     "lemon"
+    ],
+    [
+     "blood"
+    ],
+    [
+     "clementine"
+    ],
+    [
+     "grapefruit"
+    ],
+    [
+     "lime"
+    ],
+    [
+     "orange"
+    ],
+    [
+     "lemon"
+    ]
+   ],
+   "tilt": 0.5,
+   "spacing": 0.86,
+   "cycle": true
+  },
+  {
+   "motif": "citrus_slice",
+   "size": 0.125,
+   "count": 9,
+   "colors": [
+    [
+     "blood"
+    ],
+    [
+     "orange"
+    ],
+    [
+     "lemon"
+    ],
+    [
+     "grapefruit"
+    ],
+    [
+     "lime"
+    ],
+    [
+     "blood"
+    ],
+    [
+     "clementine"
+    ],
+    [
+     "orange"
+    ],
+    [
+     "lemon"
+    ]
+   ],
+   "tilt": 3.14,
+   "spacing": 0.86,
+   "cycle": true
+  },
+  {
+   "motif": "citrus_slice",
+   "size": 0.105,
+   "count": 5,
+   "args": {
+    "half": true
+   },
+   "colors": [
+    [
+     "lemon"
+    ],
+    [
+     "blood"
+    ],
+    [
+     "orange"
+    ],
+    [
+     "grapefruit"
+    ],
+    [
+     "lime"
+    ]
+   ],
+   "tilt": 3.14,
+   "spacing": 0.86,
+   "cycle": true
+  },
+  {
+   "motif": "citrus_blossom",
+   "size": 0.14,
+   "count": 7,
+   "tilt": 3.14,
+   "spacing": 0.8
+  },
+  {
+   "motif": "cinnamon_stick",
+   "size": 0.12,
+   "count": 5,
+   "args": {
+    "n": 2
+   },
+   "tilt": 3.14,
+   "spacing": 0.55
+  },
+  {
+   "motif": "star_anise",
+   "size": 0.048,
+   "count": 10,
+   "tilt": 0.6,
+   "spacing": 0.95
+  },
+  {
+   "motif": "citrus_blossom",
+   "size": 0.075,
+   "count": 8,
+   "args": {
+    "n": 1,
+    "buds": 1
+   },
+   "tilt": 3.14,
+   "spacing": 0.85
+  },
+  {
+   "motif": "snowflake",
+   "size": 0.026,
+   "count": 16,
+   "tilt": 0.5,
+   "spacing": 2.0,
+   "gaps": true,
+   "clear": 1.6
+  }
+ ],
+ "mug_colors": [
+  "Orange",
+  "Yellow",
+  "Light Green",
+  "White"
+ ],
+ "listing": {
+  "title": "Citrus Mug, Watercolor Orange and Lemon All Over Print Coffee Mug, Blood Orange Mug, Citrus Fruit Pattern Mug, Kitchen Gift for Her",
+  "tags": [
+   "citrus mug",
+   "orange mug",
+   "lemon mug",
+   "fruit mug",
+   "watercolor mug",
+   "blood orange mug",
+   "lime mug",
+   "grapefruit mug",
+   "orange blossom mug",
+   "citrus gift",
+   "kitchen gift",
+   "foodie gift",
+   "gift for her"
+  ],
+  "description": "Watercolor oranges, clementines, blood oranges, lemons, limes and grapefruit, some whole with glossy green leaves and some cut into juicy wheels and half-moons, fill the whole mug with sprigs of white orange blossom, cinnamon sticks, star anise and pale blue snowflakes on a warm cream background. There's no slogan or name, so it suits any citrus lover: for a winter birthday, a bright January morning or a sunny kitchen all year.",
+  "per_product": {
+   "accent_mug": {
+    "title": "Citrus Accent Mug, Watercolor Orange and Lemon Coffee Cup, Orange, Yellow or Light Green Handle, 11 or 15 oz, Citrus Lover Gift",
+    "tags": [
+     "citrus accent mug",
+     "orange handle mug",
+     "yellow handle mug",
+     "green handle mug",
+     "15 oz coffee mug",
+     "citrus coffee cup",
+     "fruit coffee mug",
+     "lemon coffee cup",
+     "orange coffee cup",
+     "citrus lover gift",
+     "cozy coffee mug",
+     "tea mug for her",
+     "blood orange cup"
+    ]
+   }
+  },
+  "products": [
+   "11 oz white mug, full wrap (68 / SPOKE)",
+   "Accent mug 11 or 15 oz, black, pink or navy handle, rim and inside (635 / Printify Choice)"
+  ],
+  "price_note": "$16.99 white wrap mug, $19.99 (11 oz) / $22.99 (15 oz) accent mug, the studio's standard mug prices (POD-DESK.md product table). Competing citrus mug found 2026-11-24: TeePublic 'Vintage Watercolor Citrus Orange Seamless Pattern Mug' $18; the other citrus mugs found (Zazzle, Redbubble, Pixels, The Huntington Store, Sur La Table) showed no price in the search results. The owner can change any price.",
+  "trademark_check": "Legal Desk screen 2026-11-24: web searches '\"winter citrus\" trademark' and '\"Winter Citrus\" brand mug OR candle OR apparel trademark registered' found no WINTER CITRUS mark. Nearby records: WINTER CITRUS WREATH (Bath & Body Works Brand Management, serial 90538513, filed 2021-02-22 for hand soap, Class 3; its status wasn't visible), WINTER SWEETZ (registered, fresh fruit), Winter Garden Citrus Products Cooperative's older citrus marks, and Frieda's 'winter citrus' produce program (marketing wording, no mark seen). None covers mugs. The art has no lettering; the title and tags use only plain descriptions ('citrus', 'orange', 'lemon', 'blood orange', 'grapefruit', 'lime', 'orange blossom') and never 'Winter Citrus Wreath'. 'Winter Citrus' is the studio's internal design name only. No brand stickers, labels or crate art are drawn. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen, not a clearance."
+ }
+}

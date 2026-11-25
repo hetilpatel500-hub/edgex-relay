@@ -1,0 +1,68 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "tea-season",
+  "kind": "pod motif design (tee, sweatshirt, mug, art print, sticker)"
+ },
+ "title": "Tea Season: watercolor tea-time still life (4500 x 5400 PNG), three shirt mockups and five listings",
+ "reviewed_at": "2026-11-25T16:27:30Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions. The trademark screen is a web screen, not a clearance; the owner decides before listing. Topic picked from trend research because the gift-category queue has no open row (Valentine's Day opens in early January)."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against the full-size PNG and crops of the cup and honey jar: rose-pink teapot with painted flowers and gold bands, blue teacup of tea with a lemon wheel and a tea-bag tag hanging to its saucer, honey jar with a gingham cover and a bee on the label, honey dipper, a lemon, a lemon wheel, cinnamon sticks, star anise, two green sprigs, gold sparkles and two pink hearts under 'Tea Season' in painted script. No 'best seller', 'free', sale or review claims; prices are the studio's standard suggestions with competitor references ($48.00 Saratoga Tea & Honey sweatshirt, $18.89 Redbubble mug), listing prices only."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data; no names or dates on the art."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (design.py, watercolor.py and three motifs written today in motifs2.py: teapot, teacup, honey_jar; existing citrus_slice, citrus_fruit, cinnamon_stick, star_anise, sprig, splash, sparkle, twinkle and heart). No stock art, no traced photos, no competitor layout: competitors seen are slogans, boba cups or a single teacup. Fonts are Pacifico (SIL Open Font License), embedded as shapes in the art. Purely machine-made images can't be registered for US copyright (US Copyright Office guidance); the delivery notes this."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check): no TEA SEASON mark found for clothing or mugs. Nearest: TEAS THE SEASON! (reg. 5002918) for retail store services featuring teas and spices, a different phrase and different services. Single-word TEA marks cover clothing (Tea Living's TEA and TEA COLLECTION; TEA RELIEF; TEA-SHIRTS), so 'Tea' is never used alone as a brand label: the art and titles always say 'Tea Season' as a plain description, like the shop's Soup Season and Cocoa Season. Known tea slogans ('But First, Tea', 'Spill the Tea', 'Tea, Please' (pending class 25 application)) are kept out of the art, titles and tags. No brand names on the teapot, cup, tea tag or honey label (the label shows only a bee). tmsearch.uspto.gov is blocked from our sessions and Justia pages could not be opened, so search-result summaries were read."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description carries the production-partner disclosure and says the art is digitally painted by the studio. Titles 124, 128, 124, 121 and 124 characters (max 140); 13 tags per listing, all 20 characters or fewer and all different. Print file 4500 x 5400 RGBA with a transparent background, as the shirt blueprints need."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Adult gift items, not made for or marketed to children (no 'kids' words in titles or tags)."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "pass",
+   "note": "Prices are the studio's standard prices from POD-DESK.md (2026-10-05 pricing review) and stay suggestions; no new supplier terms. Printify writes still wait for the owner's go-ahead."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "First preview was too sparse: teapot, cup and jar enlarged and grouped into one still life on a soft blush wash with a table shadow.",
+  "'Tea' was clipped at the top of the print area; the lettering moved down.",
+  "The teapot's foot showed as a flat bar in front of the body; it now sits behind the body.",
+  "Gold bands on the teapot were too heavy; thinned.",
+  "The lemon wheel in the tea and the bee on the honey label were hidden under the opaque top paint layer; both now paint on a lifted (cleared) area so they show.",
+  "The bee was too small to read on a shirt; enlarged, with outlined wings."
+ ],
+ "owner_notes": [
+  "Optional: a USPTO search for 'TEA SEASON' in Classes 21 and 25 before listing; this was a web screen only.",
+  "Printify products wait for your go-ahead on Printify writes (refused by the session's permission check since Oct 6)."
+ ],
+ "research_ref": "pod-kit/research/2026-11-25-tea-season.json",
+ "decision_ref": "pod-kit/decisions/2026-11-25-pod-tea-season.json"
+}

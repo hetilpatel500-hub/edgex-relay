@@ -1,0 +1,243 @@
+{
+ "note": "Office DB is full (100 MB, creates refused since 2026-11-05), so the video desk's videos, decision and collabs docs for this run are filed here.",
+ "videos": [
+  {
+   "doc_id": "2026-11-13-mag7-race",
+   "date": "2026-11-13",
+   "series": "mag7-race",
+   "topic": "Mag 7 week Fri Nov 6 to Fri Nov 13 closes: TSLA +8.93% (358.22 to 390.22), META +5.17%, AAPL +4.14% (dividend-adjusted base), GOOGL +3.86%, AMZN +2.84%, MSFT -1.27%, NVDA -12.75%; SPY +2.59%, QQQ +3.63%",
+   "title": "One Mag 7 stock went +8.9% this week",
+   "artifact": "https://claude.ai/artifact/BvvLvrzGY7qc5DufKxr834",
+   "files": [
+    "Edgex_mag_2026-11-13_9x16.mp4"
+   ],
+   "seconds": 39.13,
+   "legal_review": "video-kit/legal/2026-11-13-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-13T22:33:56Z",
+   "emailed": "gmail:1a1d70a5bd3d8de8"
+  },
+  {
+   "doc_id": "2026-11-13-earnings-pltr-q3",
+   "date": "2026-11-13",
+   "series": "earnings-breakdown",
+   "topic": "Palantir quarter ended Sep 30, 2026 (reported Nov 3): revenue $2.31B (+95.9% y/y), net income $1.13B (+137.2%); per $100: cost of revenue $16.57, sales & admin $27.04, research $9.50, operating profit $46.89, net $48.76; research $219.7M",
+   "title": "Palantir kept $48.76 of every $100 in sales last quarter",
+   "artifact": "https://claude.ai/artifact/BvvLvrzGY7qc5DufKxr834",
+   "files": [
+    "Edgex_pltr-q3-breakdown_2026-11-13_9x16.mp4"
+   ],
+   "seconds": 54.07,
+   "legal_review": "video-kit/legal/2026-11-13-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-13T22:33:56Z",
+   "emailed": "gmail:1a1d70a5bd3d8de8"
+  },
+  {
+   "doc_id": "2026-11-13-quiz-chip-week",
+   "date": "2026-11-13",
+   "series": "quiz",
+   "topic": "Guess which chip stock rose 30% in four days: AMD 449.04 (Nov 6) to 585.30 (Nov 12, +30.34%), -8.75% Nov 13 to 534.06; week AMD +18.93%, AVGO +18.16%, MU +12.80%, INTC +6.01%, QCOM +4.27%",
+   "title": "One chip stock rose 30% in four days. Guess which.",
+   "artifact": "https://claude.ai/artifact/BvvLvrzGY7qc5DufKxr834",
+   "files": [
+    "Edgex_chip-quiz-1113_2026-11-13_9x16.mp4"
+   ],
+   "seconds": 45.62,
+   "legal_review": "video-kit/legal/2026-11-13-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-13T22:33:56Z",
+   "emailed": "gmail:1a1d70a5bd3d8de8"
+  },
+  {
+   "doc_id": "2026-11-13-money-skill-landing-page-prices",
+   "date": "2026-11-13",
+   "series": "money-skill",
+   "topic": "What a landing page costs per three price guides: LanderLab 2026 (freelancer $500-$1,500, agency $1,000-$5,000+), eSEOspace 2025 (freelancer $300-$3,500, custom US agency $2,500-$8,000), Clicks Geek 2026 (template $300-$800, custom $1,500-$3,500); copy is the biggest cost driver; price the scope",
+   "title": "What a landing page costs, per three price guides",
+   "artifact": "https://claude.ai/artifact/BvvLvrzGY7qc5DufKxr834",
+   "files": [
+    "Edgex_landing-page-prices_2026-11-13_9x16.mp4"
+   ],
+   "seconds": 58.03,
+   "legal_review": "video-kit/legal/2026-11-13-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-13T22:33:56Z",
+   "emailed": "gmail:1a1d70a5bd3d8de8"
+  }
+ ],
+ "last_touch": {
+  "by": "video-last-touch",
+  "verdict": "cleared",
+  "checks": {
+   "video-fact-checker": "Every on-screen and spoken number matched raw/ or a named source. Mag 7: Fri Nov 6 to Fri Nov 13 closes from raw/daily.json (TSLA 358.22 to 390.22, +8.93%; NVDA 186.64 to 162.85, -12.75%; TSLA's best day Monday +5.54%); AAPL's +4.14% uses Webull's dividend-adjusted Nov 6 close (unadjusted +4.06%, same rank). Palantir: quarter ended Sep 30, 2026, published Nov 3: revenue $2,313.4M (year earlier $1,181.1M, +95.9%), net income $1,128.0M (+137.2% from $475.6M), per $100: $16.57 cost of revenue, $27.04 sales and admin, $9.50 research, $46.89 operating profit, +$2.73 interest and other, -$0.59 tax, -$0.28 minority = $48.76; research $219.7M. Chips: AMD 449.04 / 585.30 / 534.06 (+30.34% in four days, -8.75% Friday, +18.93% week); AVGO +18.16%, MU +12.80%, INTC +6.01%, QCOM +4.27%; AMD's Nov 13 close equals the chart lab's 4:00 p.m. 5-minute bar. Landing pages: each range credited to LanderLab (2026), eSEOspace (2025) or Clicks Geek (2026); confirmed via domain-limited web searches because the pages can't be opened from this session. No reason given for any price move.",
+   "copyright-compliance-reviewer": "Own renders only: data visuals and text cards, Kokoro voice (Apache-2.0), synthesized music, OFL fonts; price-guide figures restated in our own words with the publishers credited.",
+   "content-policy-reviewer": "No trade calls, targets or predictions; 'Educational only. Not financial advice.' on the last scene of all four (Mag 7 outro fixed in render.html and re-rendered) and in all four captions; the money video adds 'No earnings promised'; synthetic voice flagged for the AI label.",
+   "defamation-harassment-screen": "No person named; companies appear only with their own reported numbers or price data; the landing-page video says the guides come from companies that sell landing pages.",
+   "video-brand-tone-final-check": "Opened all four review sheets after the final renders: fixed the chip quiz's colliding day labels (now Fri to Fri), the money video's 64.6 s length (now 58.0 s), and two spoken-text problems in report.json ('18.16' read as 'eighteen sixteen'; eSEOspace and CRM now spelled out for the voice). Nothing clipped or overlapping; brand bar on every frame.",
+   "publish-coordinator-video": "All four MP4s exist: h264 1080x1920, aac audio, mean volume -20.6 to -20.9 dB, 39.1 s / 54.1 s / 45.6 s / 58.0 s (all under 60 s), 10.3 to 13.7 MB (all under 15 MB). CLEARED - VIDEO LAST TOUCH."
+  },
+  "created": "2026-11-13T22:33:56Z"
+ },
+ "decision": {
+  "doc_id": "2026-11-13-video-desk",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-13T22:33:56Z",
+  "reason": "Legal verdict cleared (all ten counsel), Video Last Touch cleared. Rotation: Friday adds mag7-race; earnings-breakdown (market), money-skill (teaching) and quiz (interactive) are four different rows, none ran on Nov 12 (earnings-week, explainer, ai-this-week). No topic repeats within 30 days: last earnings breakdown was Nvidia (Sep 25), last quiz was Mag 7 (Nov 9, a different subject from the chip week), and this is the first money-skill video. Delivered to the owner only; nothing posted."
+ },
+ "collabs": {
+  "doc_id": "2026-11-13-video-desk",
+  "created": "2026-11-13T22:33:56Z",
+  "members": [
+   "video-trend-scout",
+   "commentary-scriptwriter",
+   "hook-writer",
+   "video-fact-checker",
+   "voiceover-tts-agent",
+   "video-editor-agent",
+   "copyright-compliance-reviewer",
+   "content-policy-reviewer",
+   "defamation-harassment-screen",
+   "video-brand-tone-final-check",
+   "publish-coordinator-video",
+   "instagram-reels-agent",
+   "facebook-video-agent",
+   "general-counsel-agent",
+   "advertising-consumer-protection-counsel",
+   "email-anti-spam-compliance-counsel",
+   "privacy-data-protection-counsel",
+   "copyright-fair-use-counsel",
+   "trademark-brand-clearance-counsel",
+   "financial-content-compliance-counsel",
+   "platform-terms-policy-counsel",
+   "kids-content-coppa-counsel",
+   "contracts-commercial-terms-counsel",
+   "chief-of-staff"
+  ],
+  "log": [
+   {
+    "agent": "video-trend-scout",
+    "line": "Friday set: Mag 7 Scoreboard (Friday slot), Where The Money Went (market), Make Money With AI money skill (teaching) and Guess Which (interactive). None ran Nov 12 (earnings-week, explainer, ai-this-week); no topic in the last 30 days of records; first money-skill video."
+   },
+   {
+    "agent": "commentary-scriptwriter",
+    "line": "Wrote the Palantir, chip-quiz and landing-page scenes from saved Webull income statements and daily bars, and from three price guides credited by name."
+   },
+   {
+    "agent": "hook-writer",
+    "line": "Hooks: 'Palantir kept $48.76 of every $100 in sales.', 'One chip stock rose 30% in four days.', 'A landing page can cost $300 or $15,000.'; the Mag 7 hook comes from prep.py."
+   },
+   {
+    "agent": "video-fact-checker",
+    "line": "Traced every number to raw/ or a named guide; checked Cisco and Disney first (newest Webull quarters are August) and used Palantir's Nov 3 report; AMD's Nov 13 close matches the chart lab's last 5-minute bar; noted AAPL's dividend-adjusted base."
+   },
+   {
+    "agent": "voiceover-tts-agent",
+    "line": "Kokoro voice for all four; fixed '18.16' being read as 'eighteen sixteen' and spelled out eSEOspace and CRM for the narrator."
+   },
+   {
+    "agent": "video-editor-agent",
+    "line": "Rendered four 9:16 MP4s (39.1, 54.1, 45.6, 58.0 s); re-rendered the Mag 7 cut after the outro fix and the money video after trimming it from 64.6 s."
+   },
+   {
+    "agent": "copyright-compliance-reviewer",
+    "line": "Own renders, Kokoro voice, synthesized music, OFL fonts; price figures in our own words with publishers credited."
+   },
+   {
+    "agent": "content-policy-reviewer",
+    "line": "Found the Mag 7 outro said only 'Not financial advice.'; render.html now draws the full 'Educational only. Not financial advice.' line. No calls, targets or predictions."
+   },
+   {
+    "agent": "defamation-harassment-screen",
+    "line": "No person named; no reason given for AMD's Friday drop or Nvidia's week."
+   },
+   {
+    "agent": "video-brand-tone-final-check",
+    "line": "Opened every review sheet; fixed the quiz's colliding day labels; nothing clipped or overlapping after the re-renders."
+   },
+   {
+    "agent": "publish-coordinator-video",
+    "line": "All four: h264 1080x1920, aac, -20.6 to -20.9 dB, under 60 s and 15 MB. Published the private page and sent the owner one email."
+   },
+   {
+    "agent": "instagram-reels-agent",
+    "line": "Captions ready for Reels; flagged the AI info label for the synthetic voice."
+   },
+   {
+    "agent": "facebook-video-agent",
+    "line": "Captions ready for Facebook Reels; same AI info label note."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "Verdict: cleared. All ten checks on file."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "Pass: every figure sourced; the money video says 'No earnings promised' and that the guides come from companies that sell landing pages."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "N/a: owner-only email."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "N/a: no personal data."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "Pass: own visuals, licensed voice and fonts, facts restated with credit."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "Pass: company and guide names used only to refer to them; ticker hashtags nominative."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "Pass: full disclaimer on screen and in every caption after the Mag 7 outro fix; no calls."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "Pass: turn on 'AI info' on Instagram and Facebook; titles match content."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "Pass: general audience; mark 'not made for kids'."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "Pass: no paid tools, sponsorships or affiliations."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved delivery with the cleared legal verdict and Video Last Touch cleared."
+   }
+  ]
+ },
+ "agents_updated": [
+  "video-trend-scout",
+  "commentary-scriptwriter",
+  "hook-writer",
+  "video-fact-checker",
+  "voiceover-tts-agent",
+  "video-editor-agent",
+  "copyright-compliance-reviewer",
+  "content-policy-reviewer",
+  "defamation-harassment-screen",
+  "video-brand-tone-final-check",
+  "publish-coordinator-video",
+  "instagram-reels-agent",
+  "facebook-video-agent",
+  "general-counsel-agent",
+  "advertising-consumer-protection-counsel",
+  "email-anti-spam-compliance-counsel",
+  "privacy-data-protection-counsel",
+  "copyright-fair-use-counsel",
+  "trademark-brand-clearance-counsel",
+  "financial-content-compliance-counsel",
+  "platform-terms-policy-counsel",
+  "kids-content-coppa-counsel",
+  "contracts-commercial-terms-counsel",
+  "chief-of-staff"
+ ]
+}

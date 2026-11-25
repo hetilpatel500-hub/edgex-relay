@@ -1,0 +1,227 @@
+{
+ "note": "Office DB is full (100 MB, creates refused since 2026-11-05), so the video desk's videos, decision and collabs docs for this run are filed here.",
+ "videos": [
+  {
+   "doc_id": "2026-11-25-sector-board",
+   "date": "2026-11-25",
+   "series": "sector-board",
+   "topic": "20 largest US sectors Nov 25 (Webull), 1-day and 5-day change: 16 of 20 up today, 13 of 20 down over 5 days; chips -2.17% today / -7.93% over 5 days; metals & mining +3.30% / -5.44%; diversified retail -2.18% today; healthcare equipment +1.41% over 5 days; pharma -0.15% / +0.89%; no reasons given",
+   "title": "16 of the 20 biggest sectors rose today. Chips fell 2.17%.",
+   "artifact": "https://claude.ai/artifact/DgFB1uHBtA4PcHP2YYF2Z5",
+   "files": [
+    "Edgex_sector-board-nov25_2026-11-25_9x16.mp4"
+   ],
+   "seconds": 46.3,
+   "legal_review": "video-kit/legal/2026-11-25-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-25T22:18:03Z",
+   "emailed": "Gmail message 1a214c97f83dab43 to the owner, 2026-11-25"
+  },
+  {
+   "doc_id": "2026-11-25-explainer-gross-margin",
+   "date": "2026-11-25",
+   "series": "explainer",
+   "topic": "Gross margin ((sales - cost of sales) / sales; AccountingTools, Wall Street Prep, Patriot Software) with the Mag 7's latest quarter on Webull: META 79.31%, NVDA 74.82%, MSFT 67.79%, GOOGL 59.70%, AMZN 53.17%, AAPL 47.89% ($114.48B - $59.66B = $54.82B, quarter ended Sep 26, 2026), TSLA 17.78%; operating margin META 20.10%, NVDA 65.32%",
+   "title": "Gross margin, explained: Meta kept $79.31 of every $100",
+   "artifact": "https://claude.ai/artifact/DgFB1uHBtA4PcHP2YYF2Z5",
+   "files": [
+    "Edgex_explainer-gross-margin_2026-11-25_9x16.mp4"
+   ],
+   "seconds": 52.23,
+   "legal_review": "video-kit/legal/2026-11-25-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-25T22:18:03Z",
+   "emailed": "Gmail message 1a214c97f83dab43 to the owner, 2026-11-25"
+  },
+  {
+   "doc_id": "2026-11-25-ai-this-week",
+   "date": "2026-11-25",
+   "series": "ai-this-week",
+   "topic": "AI this week: OpenAI chief scientist Jakub Pachocki proposes common limits on AI development (Nov 22; Quartz, Techstrong.ai, Digital Today); UN Bridgetown Special Summit on AI Safety, Guterres calls for talks on an AI risk management framework (Nov 23; UN News, Rappler, Caribbean Today, Tech Times); Nuro, Lucid and Uber start fully driverless Lucid Gravity tests in 4 Bay Area cities, public launch targeted for 2027 (Nov 24; Quartz, The Next Web, Investing.com, GadgetReview)",
+   "title": "AI this week: OpenAI's chief scientist wants a shared cap on AI",
+   "artifact": "https://claude.ai/artifact/DgFB1uHBtA4PcHP2YYF2Z5",
+   "files": [
+    "Edgex_ai-week-nov25_2026-11-25_9x16.mp4"
+   ],
+   "seconds": 50.66,
+   "legal_review": "video-kit/legal/2026-11-25-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-25T22:18:03Z",
+   "emailed": "Gmail message 1a214c97f83dab43 to the owner, 2026-11-25"
+  }
+ ],
+ "last_touch": {
+  "by": "video-last-touch",
+  "verdict": "cleared",
+  "checks": {
+   "video-fact-checker": "Every on-screen and spoken number matched raw/ or a cited source (factcheck.py: 0 unmatched). Sectors from raw/00 (1-day) and raw/01 (5-day) get_market_sectors; margins from raw/02-08 get_income_statement; definition from AccountingTools, Wall Street Prep, Patriot Software; news from 2+ independent outlets per story, dated Nov 22-24.",
+   "copyright-compliance-reviewer": "Own renders only: data visuals and text cards, Kokoro voice (Apache-2.0), synthesized music, OFL fonts.",
+   "content-policy-reviewer": "No trade calls, targets or predictions; 'Educational only. Not financial advice.' on the sector and gross-margin videos and in both captions.",
+   "defamation-harassment-screen": "Companies appear only with reported data; two public figures appear only with what they said or proposed per 2+ outlets.",
+   "video-brand-tone-final-check": "Review sheets checked for all three: no clipped or overlapping text, readable numbers, brand bar present.",
+   "publish-coordinator-video": "All under 60 s and 15 MB (ai-week-nov25_9x16.mp4 50.66 s / 12.03 MB, explainer-gross-margin_9x16.mp4 52.23 s / 13.39 MB, sector-board-nov25_9x16.mp4 46.3 s / 11.79 MB), h264 1080x1920 + aac, mean volume within -26 to -14 dB. Private page with Save buttons published; email sent to the owner only. Nothing posted."
+  }
+ },
+ "decision": {
+  "doc_id": "2026-11-25-video-desk",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-25T22:18:03Z",
+  "reason": "Legal verdict cleared (all ten counsel), Video Last Touch cleared. Rotation: sector-board (market), explainer (teaching), ai-this-week (news) are three different rows, and none ran on the last delivered day (Tue Nov 24: spy-tape, myth-fact, quiz). No topic repeats within 30 days. Delivered to the owner only; nothing posted."
+ },
+ "collabs": {
+  "doc_id": "2026-11-25-video-desk",
+  "created": "2026-11-25T22:18:03Z",
+  "members": [
+   "video-trend-scout",
+   "commentary-scriptwriter",
+   "hook-writer",
+   "video-fact-checker",
+   "voiceover-tts-agent",
+   "video-editor-agent",
+   "copyright-compliance-reviewer",
+   "content-policy-reviewer",
+   "defamation-harassment-screen",
+   "video-brand-tone-final-check",
+   "publish-coordinator-video",
+   "instagram-reels-agent",
+   "facebook-video-agent",
+   "general-counsel-agent",
+   "advertising-consumer-protection-counsel",
+   "email-anti-spam-compliance-counsel",
+   "privacy-data-protection-counsel",
+   "copyright-fair-use-counsel",
+   "trademark-brand-clearance-counsel",
+   "financial-content-compliance-counsel",
+   "platform-terms-policy-counsel",
+   "kids-content-coppa-counsel",
+   "contracts-commercial-terms-counsel",
+   "chief-of-staff"
+  ],
+  "log": [
+   {
+    "agent": "video-trend-scout",
+    "line": "Wednesday set: Sector Scoreboard (market; last run Nov 11), Trading Explained on gross margin (teaching; first gross-margin explainer), AI This Week (news; last run Nov 16). None ran on the last delivered day (Tue Nov 24: spy-tape, myth-fact, quiz); no topic repeats within 30 days."
+   },
+   {
+    "agent": "commentary-scriptwriter",
+    "line": "Wrote all three from saved Webull sector data and income statements, three cited gross-margin definitions, and 2+ outlets per AI story."
+   },
+   {
+    "agent": "hook-writer",
+    "line": "Hooks: '16 of 20 big sectors rose. Chips fell 2.17%.', 'Meta kept $79.31 of every $100 in sales.', 'OpenAI's chief scientist wants a shared cap on AI.'"
+   },
+   {
+    "agent": "video-fact-checker",
+    "line": "factcheck.py: 0 unmatched numbers across scenes, captions and sources; every sector bar and compare value matches raw with its sign; all 7 gross margins and both operating margins recomputed from raw. News dates checked (Nov 22-24)."
+   },
+   {
+    "agent": "voiceover-tts-agent",
+    "line": "Kokoro am_michael for all three."
+   },
+   {
+    "agent": "video-editor-agent",
+    "line": "make_scenes.py into one out/ folder with the venv Python."
+   },
+   {
+    "agent": "copyright-compliance-reviewer",
+    "line": "Own renders, Kokoro voice, synthesized music, OFL fonts; pass."
+   },
+   {
+    "agent": "content-policy-reviewer",
+    "line": "No calls or targets; disclaimer on screen and in the market and money captions; no reason given for any move."
+   },
+   {
+    "agent": "defamation-harassment-screen",
+    "line": "Two public figures named only with what 2+ outlets report; companies only with reported data; pass."
+   },
+   {
+    "agent": "video-brand-tone-final-check",
+    "line": "All review sheets checked: no clipping or overlap, numbers readable, brand bar present; spoken text re-read; cleared."
+   },
+   {
+    "agent": "publish-coordinator-video",
+    "line": "Specs: ai-week-nov25_9x16.mp4 50.66 s / 12.03 MB, explainer-gross-margin_9x16.mp4 52.23 s / 13.39 MB, sector-board-nov25_9x16.mp4 46.3 s / 11.79 MB; h264 + aac; page published, email sent."
+   },
+   {
+    "agent": "instagram-reels-agent",
+    "line": "Delivered 3 Reels-ready MP4s to the owner; AI-info label noted."
+   },
+   {
+    "agent": "facebook-video-agent",
+    "line": "Delivered the videos to the owner; nothing posted."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "pass: All ten checks on file after reviewing the three review sheets (sector scoreboard, gross-margin explainer, AI This Week), report.json spoken"
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "pass: Every number traces to a saved raw response or a cited source (factcheck.py: 0 unmatched; every bar and compare value re-checked against raw"
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: No commercial email. The delivery email goes to the owner only."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: No personal data. The only people named are public figures in their public roles; no private person is named or shown; the owner isn't named"
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "pass: Visuals are drawn from data and text by the kit's renderer; the voice is Kokoro-82M (Apache-2.0); music is synthesized per video by music.py"
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "pass: Webull, Meta, Nvidia, Microsoft, Alphabet, Amazon, Apple, Tesla, OpenAI, Nuro, Lucid (Gravity), Uber, the UN and the named outlets are used "
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "pass: 'Educational only. Not financial advice.' is on screen at the end of the sector and gross-margin videos and in both captions. No buy/sell ca"
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "pass: The narrator is a synthetic (AI) voice over data graphics: on Instagram and Facebook turn on the 'AI info' label. Nothing realistic depicts "
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "pass: All three are adult finance and tech-news content: not made for kids, no child appears, no child data is collected."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: No proposal, quote, offer or contract; nothing is sold or promised in these videos."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved after a cleared legal verdict and Video Last Touch; delivered to the owner only."
+   }
+  ],
+  "outcome": "Delivered 3 videos (sector scoreboard, gross-margin explainer, AI This Week) on a private page; one email to the owner (Gmail message 1a214c97f83dab43 to the owner, 2026-11-25). Nothing posted."
+ },
+ "agents_updated": [
+  "video-trend-scout",
+  "commentary-scriptwriter",
+  "hook-writer",
+  "video-fact-checker",
+  "voiceover-tts-agent",
+  "video-editor-agent",
+  "copyright-compliance-reviewer",
+  "content-policy-reviewer",
+  "defamation-harassment-screen",
+  "video-brand-tone-final-check",
+  "publish-coordinator-video",
+  "instagram-reels-agent",
+  "facebook-video-agent",
+  "general-counsel-agent",
+  "advertising-consumer-protection-counsel",
+  "email-anti-spam-compliance-counsel",
+  "privacy-data-protection-counsel",
+  "copyright-fair-use-counsel",
+  "trademark-brand-clearance-counsel",
+  "financial-content-compliance-counsel",
+  "platform-terms-policy-counsel",
+  "kids-content-coppa-counsel",
+  "contracts-commercial-terms-counsel",
+  "chief-of-staff"
+ ]
+}

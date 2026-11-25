@@ -1,0 +1,74 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-farmyard",
+  "kind": "book"
+ },
+ "title": "My First Farmyard Coloring Book: interior, cover, KDP listing and Amazon Ads kit",
+ "reviewed_at": "2026-11-12T14:59:01Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishing. Topic note: the planned rotation has ended, so Trend Scout picked Farm under the owner's standing 'different topics' directive; the title says Farmyard because an independent 'My First Farm Coloring Book' already sells at Walmart. The owner can swap the topic or title."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, back cover, A+ points and ad texts checked against the built book: 30 subjects in five groups (6 animals + 5 buildings + farmer and scarecrow + 3 things that roll + 14 farm things) exactly as listed, 64 pages, blank backs, name labels and the 'Great job!' certificate (page 63) are all true. 'Every page has ... a happy face' is true: all 30 pictures have faces. Every named example in the subtitle, ad texts and headlines (barn, tractor, goat, piglet in the mud, llama, hay wagon, scarecrow, windmill) is in the book. 'Tractor coloring book' was kept out of the ad keywords because the book has one tractor page. No 'bestselling', review or result claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit; the 'This book belongs to' line collects nothing."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/farm.js; line and color contact sheets reviewed. Generic farm animals, buildings and tools with no brand marks, logos, tractor makes or characters, and no copying of the Usborne 'Farmyard Tales' look or characters. Fredoka font is SIL OFL 1.1, which allows embedding. AI-art note: purely AI-made pictures and text can't be registered for US copyright (US Copyright Office guidance; Thaler v. Perlmutter, D.C. Cir. 2025), so others may be able to copy the pages."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search only (USPTO is unreachable from this environment). No 'MY FIRST FARMYARD' mark or book turned up. The exact title 'My First Farm Coloring Book' is an existing independent book (Walmart listing), so the title was changed to Farmyard before the build; Peter Pauper's 'My First Coloring Book! On the Farm' and DK's 'My First Farm' board book use different titles. FARMYARD marks found are for services, not books (Spiraledge: farm and community events in Class 41, an advertising filing pending in Class 35). 'MY FIRST COLORING' (Reg. 4027367) covers Class 28 toys, puzzles and toy stamps, not books; its current status couldn't be confirmed. Usborne's series is 'Farmyard Tales'; we don't use 'Tales' anywhere. Fix made: the cover tractor was green with yellow wheels, which looks like John Deere's protected green-and-yellow scheme, so it was recoloured blue with a red roof and grey wheels and the book rebuilt. Keywords and ad keywords name no brands, other authors, titles or characters."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP AI disclosure: answer Yes for images and text, as the listing says. Keywords are 7 phrases of 45 characters or fewer, with no brands, other authors, or time-sensitive or sale claims. Ad texts (117, 112, 137 characters) and headlines (41, 39, 37) avoid best-seller, sale, price, free and review claims, as Amazon's book ad policy requires; build.js checks passed. Negatives ('farming', 'agriculture', 'homesteading', 'farm simulator', 'video game', 'animal husbandry', 'textbook', 'planner') keep the ads off adult farming and game searches. Third category 'Children's Books > Animals > Farm Animals': confirm it in KDP's category picker."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "Ages 2-5 content is friendly and safe: smiling animals, buildings and farm things, a smiling scarecrow (not scary), and no sharp tools (rake and pitchfork were left out). The lantern shows a small flame inside its glass. No children are shown or named, and no data is collected. Nothing pushes purchases on kids. Fits KDP's children's content guidelines."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, quote or terms. The owner publishes and prices on KDP."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Title changed from 'My First Farm Coloring Book' to 'My First Farmyard Coloring Book' because the first is the exact title of an existing independent book.",
+  "Cover tractor recoloured from green with yellow wheels (close to John Deere's protected colour scheme) to blue with a red roof and grey wheels; book rebuilt and re-checked (64 pages, cover 17.3941 x 11.25 in, background reaches every page edge)."
+ ],
+ "sources": [
+  "https://www.walmart.com/ip/490122549",
+  "https://www.peterpauper.com/products/my-first-coloring-book-on-the-farm",
+  "https://dk.com/en-us/products/9781465444875-my-first-farm",
+  "https://trademark.justia.com/974/11/farmyard-97411665.html",
+  "https://trademarks.justia.com/773/51/my-first-77351497.html",
+  "https://usborne.com/gb/blog/post/behind-the-scenes-at-usborne/farmyard-tales-poppy-and-sam-a-series-loved-by-parents-and-children"
+ ],
+ "owner_notes": [
+  "Answer KDP's AI question Yes for images and text.",
+  "Optional: run a USPTO search on the title before publishing; this was a web screen only.",
+  "Confirm the third category (Children's Books > Animals > Farm Animals) in KDP's category picker.",
+  "Your Trucks book isn't in the repo, so this book's one tractor page may repeat a picture idea from it."
+ ],
+ "last_touch_ref": "book-kit/records/2026-11-12-my-first-farmyard.json#collabs (quality-bar-agent, grammar-copy-editor, deliverable-qa-reviewer)",
+ "decision_ref": "book-kit/records/2026-11-12-my-first-farmyard.json#decision"
+}

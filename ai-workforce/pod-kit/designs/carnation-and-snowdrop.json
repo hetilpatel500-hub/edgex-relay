@@ -1,0 +1,377 @@
+{
+ "id": "carnation-and-snowdrop",
+ "name": "Carnation & Snowdrop",
+ "engine": 2,
+ "template": "free",
+ "top": null,
+ "bottom": null,
+ "top_font": "Pacifico",
+ "bottom_font": "PlayfairDisplay",
+ "florals": null,
+ "palette": "blush",
+ "colors": {
+  "carn": "#e0668e",
+  "carn2": "#f7c1d2",
+  "carn3": "#b8406a",
+  "leaf": "#5f8f66",
+  "leaf2": "#a6c79a",
+  "leaf_dark": "#2f5c3e",
+  "carn_leaf": "#8fb5a6",
+  "bow": "#e8849d",
+  "accent": "#e2b356",
+  "accent2": "#f5dc9c"
+ },
+ "ink": "#3a4f5a",
+ "seed": 23,
+ "shirt_colors": [
+  "white",
+  "natural",
+  "heather_pink"
+ ],
+ "lettering": [
+  {
+   "text": "Carnation",
+   "font": "Pacifico",
+   "size": 0.125,
+   "max_w": 0.62,
+   "y": -0.52,
+   "color": "#c8466c",
+   "vary": "#a33358",
+   "vary_amt": 0.45,
+   "outline": [
+    "#8e2b4b",
+    0.0013,
+    150
+   ]
+  },
+  {
+   "text": "& Snowdrop",
+   "font": "Pacifico",
+   "size": 0.085,
+   "max_w": 0.5,
+   "y": -0.385,
+   "color": "#5b8092",
+   "vary": "#3f6373",
+   "vary_amt": 0.45,
+   "outline": [
+    "#35586a",
+    0.0012,
+    150
+   ]
+  }
+ ],
+ "art": [
+  {
+   "motif": "ribbon_tie",
+   "x": 0.0,
+   "y": 0.365,
+   "s": 0.1,
+   "color": "#e8849d",
+   "front": true,
+   "wrap": false
+  },
+  {
+   "motif": "carnation",
+   "x": 0.0,
+   "y": -0.015,
+   "s": 0.21,
+   "angle": -0.0,
+   "stem": 0.996,
+   "front": true,
+   "leaves": [
+    [
+     0.62,
+     1
+    ]
+   ]
+  },
+  {
+   "motif": "carnation",
+   "x": -0.16,
+   "y": 0.08,
+   "s": 0.17,
+   "angle": -0.512,
+   "stem": 1.121,
+   "front": true,
+   "color": "#e5555f",
+   "color2": "#f8b8b4",
+   "leaves": [
+    [
+     0.55,
+     -1
+    ]
+   ]
+  },
+  {
+   "motif": "carnation",
+   "x": 0.16,
+   "y": 0.065,
+   "s": 0.17,
+   "angle": 0.49,
+   "stem": 1.162,
+   "front": true,
+   "color": "#f1b3c3",
+   "color2": "#fdeef1",
+   "leaves": [
+    [
+     0.55,
+     1
+    ]
+   ]
+  },
+  {
+   "motif": "carnation",
+   "x": -0.065,
+   "y": -0.16,
+   "s": 0.125,
+   "angle": -0.123,
+   "stem": 2.459,
+   "front": true,
+   "color": "#c94a7d",
+   "color2": "#f2abc8",
+   "leaves": []
+  },
+  {
+   "motif": "snowdrop2",
+   "x": 0.0,
+   "y": 0.385,
+   "s": 0.62,
+   "angle": 0.08,
+   "flip": 1,
+   "leaves": 0,
+   "bell": 1.0,
+   "front": true
+  },
+  {
+   "motif": "snowdrop2",
+   "x": 0.0,
+   "y": 0.385,
+   "s": 0.54,
+   "angle": -0.3,
+   "flip": -1,
+   "leaves": 0,
+   "bell": 1.0,
+   "front": true
+  },
+  {
+   "motif": "snowdrop2",
+   "x": 0.0,
+   "y": 0.385,
+   "s": 0.54,
+   "angle": 0.3,
+   "flip": 1,
+   "leaves": 0,
+   "bell": 1.0,
+   "front": true
+  },
+  {
+   "motif": "snowdrop2",
+   "x": 0.0,
+   "y": 0.385,
+   "s": 0.44,
+   "angle": -0.62,
+   "flip": -1,
+   "leaves": 1,
+   "bell": 1.0,
+   "front": true
+  },
+  {
+   "motif": "snowdrop2",
+   "x": 0.0,
+   "y": 0.385,
+   "s": 0.44,
+   "angle": 0.62,
+   "flip": 1,
+   "leaves": 1,
+   "bell": 1.0,
+   "front": true
+  },
+  {
+   "motif": "eucalyptus",
+   "x": -0.02,
+   "y": 0.335,
+   "s": 0.19,
+   "angle": -2.2,
+   "n": 6
+  },
+  {
+   "motif": "eucalyptus",
+   "x": 0.0,
+   "y": 0.335,
+   "s": 0.2,
+   "angle": -1.57,
+   "n": 6
+  },
+  {
+   "motif": "eucalyptus",
+   "x": 0.02,
+   "y": 0.335,
+   "s": 0.19,
+   "angle": -0.92,
+   "n": 6
+  },
+  {
+   "motif": "splash",
+   "x": 0.0,
+   "y": 0.0,
+   "s": 0.45,
+   "aspect": 0.94,
+   "color": "#e2ecf4",
+   "color2": "#f9eef1",
+   "vary": "#f4e3ea",
+   "strength": 0.32,
+   "drips": 5
+  },
+  {
+   "motif": "snowflake",
+   "x": -0.36,
+   "y": -0.2,
+   "s": 0.03
+  },
+  {
+   "motif": "snowflake",
+   "x": 0.37,
+   "y": -0.06,
+   "s": 0.026
+  },
+  {
+   "motif": "snowflake",
+   "x": -0.33,
+   "y": 0.26,
+   "s": 0.022
+  },
+  {
+   "motif": "sparkle",
+   "x": 0.33,
+   "y": -0.27,
+   "s": 0.024
+  },
+  {
+   "motif": "sparkle",
+   "x": -0.38,
+   "y": 0.05,
+   "s": 0.02
+  },
+  {
+   "motif": "twinkle",
+   "x": 0.36,
+   "y": 0.22,
+   "s": 0.018
+  },
+  {
+   "motif": "twinkle",
+   "x": -0.25,
+   "y": -0.32,
+   "s": 0.016
+  },
+  {
+   "motif": "heart",
+   "x": 0.3,
+   "y": 0.36,
+   "s": 0.02,
+   "color": "#ea8a9c"
+  }
+ ],
+ "listing": {
+  "title": "Carnation and Snowdrop Shirt, Watercolor Birth Flower Tee, Birth Month Flower Shirt, Winter Birthday Gift, Floral Bouquet Tee",
+  "tags": [
+   "birth flower shirt",
+   "carnation shirt",
+   "snowdrop shirt",
+   "birth month flower",
+   "winter birthday",
+   "carnation",
+   "snowdrop",
+   "floral shirt",
+   "watercolor flowers",
+   "botanical shirt",
+   "gift for her",
+   "flower lover gift",
+   "bouquet shirt"
+  ],
+  "description": "A hand-tied winter bouquet painted in watercolor: ruffled carnations in rose pink, coral red, blush and magenta with five white snowdrops arching between them, each bell with its green mark, plus round eucalyptus leaves and a pink satin bow, under \"Carnation & Snowdrop\" in painted script. Carnation and snowdrop are the two birth flowers traditionally given for January, so it's a gift for a January birthday, or for anyone who loves winter flowers. Gold sparkles, pale blue snowflakes and a small pink heart sit around the bouquet.",
+  "per_product": {
+   "sweatshirt": {
+    "title": "Carnation and Snowdrop Sweatshirt, Watercolor Birth Flower Crewneck, Birth Month Flower Sweater, Winter Birthday Gift for Her",
+    "tags": [
+     "birth flower",
+     "carnation sweatshirt",
+     "snowdrop sweatshirt",
+     "birth month flower",
+     "winter birthday",
+     "carnation",
+     "snowdrop",
+     "floral sweatshirt",
+     "watercolor flowers",
+     "botanical sweater",
+     "gift for her",
+     "flower lover gift",
+     "floral crewneck"
+    ]
+   },
+   "mug": {
+    "title": "January Birth Flower Mug, Carnation and Snowdrop Watercolor Coffee Mug, Birth Month Flower Gift, January Birthday Gift for Her",
+    "tags": [
+     "january birth flower",
+     "birth flower mug",
+     "carnation mug",
+     "snowdrop mug",
+     "january birthday",
+     "birth month flower",
+     "carnation",
+     "snowdrop",
+     "floral mug",
+     "watercolor flowers",
+     "gift for her",
+     "flower lover gift",
+     "coffee mug gift"
+    ]
+   },
+   "poster": {
+    "title": "January Birth Flower Print, Carnation and Snowdrop Watercolor Art Print, Birth Month Flower Wall Art, January Birthday Gift",
+    "tags": [
+     "january birth flower",
+     "birth flower print",
+     "carnation print",
+     "snowdrop print",
+     "january birthday",
+     "birth month flower",
+     "botanical print",
+     "floral wall art",
+     "watercolor flowers",
+     "flower wall art",
+     "gift for her",
+     "flower lover gift",
+     "bouquet print"
+    ]
+   },
+   "sticker": {
+    "title": "January Birth Flower Sticker, Carnation and Snowdrop Watercolor Sticker, Birth Month Flower Decal, January Birthday Gift",
+    "tags": [
+     "january birth flower",
+     "birth flower",
+     "carnation sticker",
+     "snowdrop sticker",
+     "january birthday",
+     "birth month flower",
+     "floral sticker",
+     "laptop sticker",
+     "watercolor flowers",
+     "flower sticker",
+     "gift for her",
+     "flower lover gift",
+     "water bottle decal"
+    ]
+   }
+  },
+  "products": [
+   "Unisex tee (Bella+Canvas 3001)",
+   "Crewneck sweatshirt (Gildan 18000)",
+   "11 oz mug",
+   "Art print (matte poster)",
+   "Kiss-cut sticker"
+  ],
+  "price_note": "Prices from the POD-DESK.md product table (2026-10-05 pricing review): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. Seen on 2026-11-23: snowdrop tees at $24 on TeePublic, birth-month-flower sweatshirts at about $13-17 on sale and one at $42 on Etsy, handmade birth-flower mugs at $28.99 (Uncommon Goods) and about GBP 27-40 (UK makers); listing prices only, no sales counts.",
+  "trademark_check": "Legal Desk screen 2026-11-23 (before any art): web searches '\"JANUARY\" trademark clothing t-shirts class 25 registered brand', 'JANUARY trademark Chang Wei-En clothing USPTO serial' and '\"carnation and snowdrop\" OR \"carnation & snowdrop\" trademark shirt'. Found a pending US application for the word JANUARY in class 25 (serial 90543337, filed 2021-02-24, published 2024-03-12, owner Chang, Wei-En; markinton.com aggregator, last updated 2026-04-11) and its Australian registration through the Madrid system (class 25). So 'January' is kept off the art, and off the tee and sweatshirt titles and tags (class 25); the mug, print and sticker listings (classes 21 and 16) use 'January birth flower' only as a plain description of which month's flowers these are, never as a brand. No record or brand for CARNATION AND SNOWDROP or CARNATION & SNOWDROP; the art lettering names the two flowers. Aggregator and search pages, not TSDR; tmsearch.uspto.gov is blocked from our sessions, so the owner can confirm in USPTO Trademark Search before listing. No florist, brand or character names anywhere."
+ }
+}

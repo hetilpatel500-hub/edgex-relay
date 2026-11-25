@@ -1,0 +1,33 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a decisions doc; pod_designs and pod_listings records are kept here too.",
+ "id": "2026-11-20-pod-foxes-and-hedgehogs",
+ "by": "chief-of-staff",
+ "created": "2026-11-20T16:37:16Z",
+ "items": [
+  "foxes-and-hedgehogs"
+ ],
+ "legal_refs": [
+  "pod-kit/legal/foxes-and-hedgehogs.json"
+ ],
+ "legal_verdict": "cleared",
+ "decision": "approved for delivery to the owner",
+ "conditions": [
+  "Printify drafts or Etsy publishing only after the owner allows Printify writes (refused by the session's permission check since Oct 6). Then 2 products (white wrap mug, accent mug in Red, Orange, Black), 2 listings ($0.40 if paid), inside the $3/day cap.",
+  "Step 9b (9 extra photos per listing) runs after the products exist: photos.py draws from each Printify product's print area.",
+  "Before listing: the owner may look up the Class 21 WOODLAND records (serials 74282610 and 87906238) on the USPTO site."
+ ],
+ "reason": "The gift-category queue and the best-seller list under it have no open row today (Valentine's Day opens in early January), so the run makes one new design from trend research. Pattern day (Nov 19 was a motif design). Research 20/25 (mug searches peak in December; eRank's 2026 'Enchanted Winter Garden' trend puts mushrooms and magical woodland style in front; competing woodland mugs are flat cartoons or clip-art patterns), trademark screen clear, Legal cleared; three full-size wraps checked after the motif fixes and a seed that keeps every fox and hedgehog off the handle seam.",
+ "artifact": "https://claude.ai/artifact/87SeyqjbKc4LYay6Qudk5a",
+ "emailed": "Gmail message 1a1f9d1bc6e8a94a to the owner, 2026-11-20",
+ "printify_read_only": "2026-11-20: 58 products, 48 with Etsy listing IDs, the same 10 Scorpio and Campfire drafts unpublished, 0 orders",
+ "pod_designs": {
+  "title": "Foxes & Hedgehogs in the Snow",
+  "phrase": "winter woodland animals mug (no lettering on the art)",
+  "niche": "winter and woodland-animal lovers: Christmas, Secret Santa, cozy winter gifts through February",
+  "artifact": "https://claude.ai/artifact/87SeyqjbKc4LYay6Qudk5a",
+  "product_ids": {},
+  "created": "2026-11-20T16:37:16Z",
+  "status": "built (not on Printify: writes wait for the owner)"
+ },
+ "pod_listings": []
+}

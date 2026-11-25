@@ -1,0 +1,79 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a pod_research doc.",
+ "id": "2026-11-16-apples-and-pencils",
+ "created": "2026-11-16T16:19:47Z",
+ "queue_row": "The Gift-category table has no open row left (rows 1-8 done or held for the owner; Personalized and Kids wait for the owner). The list of more best sellers under it is next in order: 9. teacher appreciation. Motif and pattern days alternate and Nov 13 was a motif day, so this is a pattern design (all-over mugs).",
+ "phrase": "teacher mug, watercolor school supplies (no lettering on the art)",
+ "niche": "teacher gifts: Christmas class gifts (December), Teacher Appreciation Week (May), end of the school year (June) and back to school (August)",
+ "seasonal_calendar": "4-8 weeks ahead (Dec 14 - Jan 11): Christmas. Teacher Christmas gifts are bought in early and mid December, so a mug listed now has time to index; the same design sells again for Teacher Appreciation Week and the end of the school year.",
+ "trend_searches": [
+  "Etsy trending teacher gifts Christmas 2026 (keyword tools: 'teacher xmas gift' peaked in December 2025 and falls off by summer; seller guides list mugs, tumblers and ornaments among holiday teacher gifts; heavy competition; tool estimates conflict, no Etsy data)",
+  "best selling teacher mug Etsy 2026 watercolor (one tool reports 3,600 monthly searches for 'teacher mug' with 122,380 Etsy listings; guides say generic 'world's best teacher' mugs are overdone and $15-$35 converts best; no watercolor sales data found)",
+  "print on demand trending niches December 2026 holiday gifts (vendor guides: Q4 is about 40% of POD revenue; holiday mugs as last-minute gifts; pair seasonal with evergreen niches; undated or older pages)"
+ ],
+ "sources": [
+  "https://www.rankhero.com/keywords/teacher-xmas-gift",
+  "https://sellertoolshq.com/guides/etsy-teacher-gifts-strategy/",
+  "https://www.insightagent.app/guides/selling-teacher-gifts-on-etsy",
+  "https://www.rankhero.com/keywords/teacher-mug",
+  "https://sellertoolshq.com/guides/etsy-teacher-gifts-selling-guide/",
+  "https://merchize.com/print-on-demand-seasonal-products/",
+  "https://www.hallmark.com/house-and-home/kitchen/mugs/school-supplies-navy-teacher-mug-16-oz.-1MUG3651.html",
+  "https://www.sipfullofdesign.com/collections/teaching/products/best-teacher-ever-mug-custom-teacher-22291",
+  "https://www.teepublic.com/mug/retro-apples",
+  "https://littlecraftplace.com/products/writing-utensils-mug",
+  "https://www.target.com/p/sweet-water-decor-best-teacher-ever-stoneware-coffee-mug-14oz/-/A-1002036366",
+  "https://www.belleandblush.com/products/rifle-paper-co-pencils-porcelain-mug"
+ ],
+ "competitors": [
+  {
+   "what": "Hallmark School Supplies Navy Teacher Mug, 16 oz",
+   "price": "$16.99 (hallmark.com)",
+   "style": "flat collage of pens, pencils, markers, crayons and apples with white polka dots on navy"
+  },
+  {
+   "what": "Sip Full of Design 'Best Teacher Ever' mug",
+   "price": "GBP 10.99",
+   "style": "slogan with a few watercolour spot illustrations (apples, brushes, backpacks, books, pencils)"
+  },
+  {
+   "what": "TeePublic 'First Day of School Retro Teacher Classroom Supplies and Apples' mug",
+   "price": "not shown in results (other TeePublic mugs $13, down from $18)",
+   "style": "retro blue stripes with pencils, crayons, notebooks, scissors and an apple"
+  },
+  {
+   "what": "TeePublic 'I Teach The Cutest Apples In The Orchard' retro mug",
+   "price": "$13 (down from $18)",
+   "style": "pun slogan, retro type"
+  },
+  {
+   "what": "Little Craft Place 'Writing Utensils' mug",
+   "price": "not shown in results",
+   "style": "hand-drawn markers, pens, pencils and crayons"
+  },
+  {
+   "what": "Sweet Water Decor 'Best Teacher Ever' stoneware mug, 14 oz (Target)",
+   "price": "not shown in results",
+   "style": "slogan mug"
+  },
+  {
+   "what": "Rifle Paper Co. Pencils porcelain mug",
+   "price": "not shown in results",
+   "style": "a brand's pencil repeat; noted so our art stays clearly different (mixed supplies, loose watercolor washes, no pencil-only repeat)"
+  }
+ ],
+ "gap": "The teacher mugs found are slogan mugs ('Best Teacher Ever', puns) or flat graphic collages; the watercolour ones put a few small spot illustrations around a phrase. None found is a dense, all-over watercolor wrap of classroom things with no slogan, so it works as a gift from any family and doesn't date. Angle: an all-over watercolor classroom pattern (red and green apples, pencils, crayons, stacked books, rulers, paper airplanes, paint palettes and gold stars) on cream, with accent mugs in colors that match the art.",
+ "trend": "Teacher Christmas gifts peak in December; occupation mugs are a best-selling mug group at $15-$25; buyers are tired of generic slogans.",
+ "owner_scan_read": "pod_research/owner-etsy-mug-scan-2026-09-28 (repo copy): the owner's Etsy scan showed dense all-over illustrated mugs among the sellers; this follows that format.",
+ "pod_review_read": "pod-kit/research/2026-11-16-pod-review.json (today): 0 orders since the shop opened, so there is still no sales signal; keep following search demand with evergreen gift niches.",
+ "repeat_check": "No teacher or school design in pod-kit/designs (27 designs) or the pod_designs list; books appear in Currently Reading and Reading Ghosts, but this is a classroom pattern, not a reading design.",
+ "scores": {
+  "demand": 4,
+  "competition": 3,
+  "timing": 4,
+  "style_fit": 5,
+  "trademark_risk": 5
+ },
+ "total": 21,
+ "decision": "go: 'Apples & Pencils' all-over watercolor teacher mug (mug wrap + accent mug); trademark screen next"
+}

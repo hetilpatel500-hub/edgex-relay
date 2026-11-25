@@ -1,0 +1,229 @@
+{
+  "id": "foxes-and-hedgehogs",
+  "kind": "pattern",
+  "name": "Foxes & Hedgehogs in the Snow",
+  "engine": 2,
+  "seed": 1957,
+  "background": "#f6efe3",
+  "palette": {
+    "main": "#e27a36",
+    "main2": "#f4ae68",
+    "accent": "#d42f36",
+    "accent2": "#f3d48e",
+    "leaf": "#3f6e55",
+    "leaf2": "#8db39a",
+    "leaf_dark": "#274a3b",
+    "holly": "#2f6b4f",
+    "holly2": "#6fa27e",
+    "berry": "#c1272d",
+    "shadow": "#a9bccb",
+    "snow": "#a9c2d6"
+  },
+  "elements": [
+    {
+      "motif": "fox",
+      "size": 0.2,
+      "count": 2,
+      "args": {
+        "pose": "sit",
+        "facing": 1
+      },
+      "spacing": 0.92,
+      "y_range": [
+        0.12,
+        0.85
+      ]
+    },
+    {
+      "motif": "fox",
+      "size": 0.2,
+      "count": 1,
+      "args": {
+        "pose": "sit",
+        "facing": -1
+      },
+      "spacing": 0.92,
+      "y_range": [
+        0.12,
+        0.85
+      ]
+    },
+    {
+      "motif": "fox",
+      "size": 0.155,
+      "count": 1,
+      "args": {
+        "pose": "curl",
+        "facing": 1
+      },
+      "spacing": 0.92
+    },
+    {
+      "motif": "fox",
+      "size": 0.155,
+      "count": 1,
+      "args": {
+        "pose": "curl",
+        "facing": -1
+      },
+      "spacing": 0.92
+    },
+    {
+      "motif": "hedgehog",
+      "size": 0.15,
+      "count": 1,
+      "args": {
+        "facing": 1
+      },
+      "spacing": 0.92
+    },
+    {
+      "motif": "hedgehog",
+      "size": 0.15,
+      "count": 1,
+      "args": {
+        "facing": -1
+      },
+      "spacing": 0.92
+    },
+    {
+      "motif": "hedgehog",
+      "size": 0.15,
+      "count": 1,
+      "args": {
+        "facing": -1,
+        "carry": "berries"
+      },
+      "spacing": 0.92
+    },
+    {
+      "motif": "hedgehog",
+      "size": 0.15,
+      "count": 1,
+      "args": {
+        "facing": 1,
+        "carry": "berries"
+      },
+      "spacing": 0.92
+    },
+    {
+      "motif": "toadstool",
+      "size": 0.12,
+      "count": 4,
+      "spacing": 0.92
+    },
+    {
+      "motif": "pine_bough",
+      "size": 0.15,
+      "count": 6,
+      "args": {
+        "snow": true
+      },
+      "tilt": 3.1,
+      "spacing": 0.8
+    },
+    {
+      "motif": "pine_bough",
+      "size": 0.1,
+      "count": 4,
+      "args": {
+        "snow": false,
+        "twigs": 1
+      },
+      "tilt": 3.1,
+      "spacing": 0.85
+    },
+    {
+      "motif": "holly",
+      "size": 0.07,
+      "count": 7,
+      "tilt": 3.1,
+      "spacing": 0.85
+    },
+    {
+      "motif": "pinecone",
+      "size": 0.055,
+      "count": 7,
+      "tilt": 0.8,
+      "spacing": 0.9
+    },
+    {
+      "motif": "berries",
+      "size": 0.036,
+      "count": 7,
+      "args": {
+        "color": "#b3283a",
+        "n": 4
+      },
+      "spacing": 0.9
+    },
+    {
+      "motif": "snowflake",
+      "size": 0.032,
+      "count": 16,
+      "tilt": 0.5,
+      "spacing": 2.0,
+      "gaps": true,
+      "clear": 1.5
+    },
+    {
+      "motif": "snow_dot",
+      "size": 0.008,
+      "fill": true,
+      "spacing": 4.4,
+      "gaps": true,
+      "clear": 2.6
+    }
+  ],
+  "mug_colors": [
+    "Red",
+    "Orange",
+    "Black",
+    "White"
+  ],
+  "listing": {
+    "title": "Fox and Hedgehog Mug, Watercolor Winter Woodland Animals All Over Print Mug, Red Toadstool Mushroom Coffee Mug, Fox Lover Gift",
+    "tags": [
+      "fox mug",
+      "hedgehog mug",
+      "woodland animals mug",
+      "winter mug",
+      "fox lover gift",
+      "hedgehog gift",
+      "mushroom mug",
+      "toadstool mug",
+      "watercolor mug",
+      "cottagecore mug",
+      "woodland christmas",
+      "cozy winter mug",
+      "secret santa gift"
+    ],
+    "description": "Watercolor red foxes, some sitting with their brush tails wrapped round their paws and some curled up asleep, share a snowy forest floor with hedgehogs (two carry a sprig of holly), red-and-white toadstools, snowy pine boughs, pinecones, holly and red berries under falling snow, all on a warm cream background. There's no slogan or name, so it suits anyone who loves foxes, hedgehogs or a cozy walk in the winter woods, at Christmas and all winter long.",
+    "per_product": {
+      "accent_mug": {
+        "title": "Fox and Hedgehog Accent Mug, Watercolor Winter Woodland Coffee Cup, Red, Orange or Black Handle, 11 or 15 oz, Hedgehog Lover Gift",
+        "tags": [
+          "fox accent mug",
+          "red handle mug",
+          "orange handle mug",
+          "black handle mug",
+          "15 oz winter mug",
+          "woodland coffee cup",
+          "forest animal mug",
+          "fox coffee cup",
+          "hedgehog coffee cup",
+          "nature lover gift",
+          "christmas fox mug",
+          "winter tea cup",
+          "gift for fox lover"
+        ]
+      }
+    },
+    "products": [
+      "11 oz white mug, full wrap (68 / SPOKE)",
+      "Accent mug 11 or 15 oz, red, orange or black handle, rim and inside (635 / Printify Choice)"
+    ],
+    "price_note": "$16.99 white wrap mug, $19.99 (11 oz) / $22.99 (15 oz) accent mug, the studio's standard mug prices (POD-DESK.md product table). Competing woodland mugs found on Etsy 2026-11-20: a wrap-around sleeping-fox mug $16.99; a bear, hedgehog and rabbit mug $16.99; woodland Christmas animal mugs shown at $10.09-$10.90 'sale' prices (from $16.82-$19.82); search results put woodland Christmas mugs at about $10-$24. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-11-20, before any art: web searches '\"winter woodland\" trademark clothing mug registered', 'WOODLAND trademark justia mugs class 21 OR \"woodland\" registered trademark drinkware' and '\"fox and hedgehog\" OR \"foxes and hedgehogs\" trademark brand mugs apparel'. No mark found for 'winter woodland', 'fox and hedgehog' or 'foxes and hedgehogs' (a German shop sells an enamel fox-and-hedgehog mug on Faire; that is a product, not a mark, and our art is different). Nearby marks seen: WINTER WOODS (reg. 5415467, primary class 003, not mugs or clothing), SNOWY WOODS (cancelled), WINTER WONDERLAND (LED projectors; a 2025 application awaiting examination), WOODLAND WONDERS (serial 87906238, class 21, goods not shown), and WOODLAND serial 74282610 (1992, class 21 household containers, current status not shown) plus WOODLAND marks for unrelated goods. So 'woodland' is used only as a plain description inside longer phrases ('winter woodland animals', 'woodland coffee cup'), never alone or as a brand, and 'Woodland Wonders' and 'Woodland Friends' are kept out of the title and tags. The art has no lettering; 'fox', 'hedgehog', 'toadstool', 'mushroom' and 'cottagecore' describe what is pictured. No character, franchise or brand is drawn. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen, not a clearance."
+  }
+}

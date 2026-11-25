@@ -1,0 +1,111 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the book desk's books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-jungle-safari",
+  "title": "My First Jungle & Safari Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Jungle & Safari",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-jungle-safari.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/6exxp4i8kqZA4gJTUHiSvH",
+  "created": "2026-11-16T15:02:01Z",
+  "emailed": "Gmail message 1a1e4e0d47270ec8 to the owner, 2026-11-16"
+ },
+ "decision": {
+  "doc_id": "2026-11-16-book-my-first-jungle-safari",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-16T15:00:58Z",
+  "reason": "Legal verdict cleared at 2026-11-16T15:00:47Z (all ten counsel; trademark web screen on file; drawing fixes made before the build). Planned rotation has ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it. Build checks passed (64 pages, cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-jungle-safari.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-16-book-my-first-jungle-safari",
+  "created": "2026-11-16T15:02:01Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation is finished; picked Jungle & Safari (no book, record or DB books doc has it) and left out every animal already drawn elsewhere in the series (lion, elephant, giraffe, monkey, panda, parrot, toucan, snake, frog and more)."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched the title: no book is called 'My First Jungle & Safari Coloring Book'; nearest are 'My First Jungle Animals' (a cloth book and a printable) and a 'My First Safari' colouring pack and board game, all different titles."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 subjects in art/jungle.js: 11 jungle animals, 11 safari animals and 8 jungle and safari things, all with smiling faces."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Line and color sheets reviewed at full size over four passes; redrew the baboon (read as a lion), acacia (flying saucer), jungle leaf, waterfall, orangutan hair, gazelle and gorilla face, and cleared lines off the balloon, cheetah, tiger and warthog faces."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, a description in three groups that match the 30 pages (11 + 11 + 8) and 7 keywords of 44 characters or fewer, with no brand names."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 37 negatives; added jungle book, lion king, madagascar, field guide and safari guide negatives so ads stay off franchise and travel searches."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Kept the description's lists as 'and' so the HTML has no bare ampersand; ad texts 130, 112 and 127 characters, headlines 41, 39 and 37; build.js checks passed."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages; cover 17.3941 x 11.25 in matches KDP's formula; background reaches every page edge; cover wrap, page previews and both A+ images checked."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "Ran the ten-counsel review: cleared, drawing and naming fixes made before delivery, four owner notes (AI question Yes, optional USPTO search on MY FIRST SAFARI, topic swap, second category)."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "Pass: groups, counts, faces (30 of 30) and every named example match the built book."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: owner-only email."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: no personal data."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "Pass: original vector art of real animals, no maker shapes, no film styling or names, OFL font, AI-copyright note given."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "Pass: no same-title book or MY FIRST JUNGLE mark; MY FIRST SAFARI board-game application noted; 'Safari Truck' instead of a vehicle brand."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "n/a: no money content."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "Pass: AI disclosure Yes; keywords and ad texts within KDP and Amazon Ads rules; second category noted for the owner."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "Pass: friendly pictures, no teeth on the cats, smiling crocodile, nothing hunted or hurt, no data collected."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: no contract or terms."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved with the cleared legal verdict on file; delivered to the owner only, nothing published."
+   },
+   {
+    "agent": "publish-coordinator",
+    "line": "Published the private delivery page with save buttons for all eight files and emailed the owner once."
+   }
+  ]
+ }
+}

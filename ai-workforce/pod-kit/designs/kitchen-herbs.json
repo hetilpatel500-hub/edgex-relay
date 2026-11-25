@@ -1,0 +1,350 @@
+{
+  "id": "kitchen-herbs",
+  "name": "Kitchen Herbs",
+  "engine": 2,
+  "template": "free",
+  "top": "Kitchen Herbs",
+  "bottom": null,
+  "top_font": "Pacifico",
+  "bottom_font": "PlayfairDisplay",
+  "florals": null,
+  "palette": "sage",
+  "colors": {},
+  "ink": "#2f4a2c",
+  "seed": 23,
+  "shirt_colors": [
+    "white",
+    "natural",
+    "heather_gray"
+  ],
+  "art": [
+    {
+      "motif": "splash",
+      "x": -0.31,
+      "y": -0.14,
+      "s": 0.152,
+      "color": "#f2e7b3",
+      "color2": "#fbf5dc",
+      "vary": "#eadb9c",
+      "aspect": 0.98,
+      "strength": 0.36,
+      "drips": 4
+    },
+    {
+      "motif": "splash",
+      "x": 0.0,
+      "y": -0.14,
+      "s": 0.152,
+      "color": "#cfdff0",
+      "color2": "#eef4fa",
+      "vary": "#b9cfe8",
+      "aspect": 0.98,
+      "strength": 0.36,
+      "drips": 4
+    },
+    {
+      "motif": "splash",
+      "x": 0.31,
+      "y": -0.14,
+      "s": 0.152,
+      "color": "#f3d4dc",
+      "color2": "#fbeef1",
+      "vary": "#ecc0cb",
+      "aspect": 0.98,
+      "strength": 0.36,
+      "drips": 4
+    },
+    {
+      "motif": "splash",
+      "x": -0.31,
+      "y": 0.29,
+      "s": 0.152,
+      "color": "#e2dcef",
+      "color2": "#f4f1fa",
+      "vary": "#d2c8e6",
+      "aspect": 0.98,
+      "strength": 0.36,
+      "drips": 4
+    },
+    {
+      "motif": "splash",
+      "x": 0.0,
+      "y": 0.29,
+      "s": 0.152,
+      "color": "#cfeadf",
+      "color2": "#eef8f3",
+      "vary": "#b7dccd",
+      "aspect": 0.98,
+      "strength": 0.36,
+      "drips": 4
+    },
+    {
+      "motif": "splash",
+      "x": 0.31,
+      "y": 0.29,
+      "s": 0.152,
+      "color": "#f5dfcf",
+      "color2": "#fcf2ea",
+      "vary": "#eccdb6",
+      "aspect": 0.98,
+      "strength": 0.36,
+      "drips": 4
+    },
+    {
+      "motif": "basil",
+      "x": -0.31,
+      "y": -0.010000000000000009,
+      "s": 0.29
+    },
+    {
+      "motif": "rosemary",
+      "x": 0.0,
+      "y": -0.010000000000000009,
+      "s": 0.29
+    },
+    {
+      "motif": "thyme",
+      "x": 0.31,
+      "y": -0.010000000000000009,
+      "s": 0.28
+    },
+    {
+      "motif": "sage",
+      "x": -0.31,
+      "y": 0.42,
+      "s": 0.29
+    },
+    {
+      "motif": "mint",
+      "x": 0.0,
+      "y": 0.42,
+      "s": 0.29
+    },
+    {
+      "motif": "chives",
+      "x": 0.31,
+      "y": 0.42,
+      "s": 0.3
+    }
+  ],
+  "lettering": [
+    {
+      "text": "Kitchen Herbs",
+      "font": "Pacifico",
+      "size": 0.15,
+      "max_w": 0.8,
+      "y": -0.475,
+      "color": "#3e6b35",
+      "vary": "#24481f",
+      "outline": [
+        "#24481f",
+        0.0013,
+        150
+      ]
+    },
+    {
+      "text": "Basil",
+      "caps": true,
+      "font": "PlayfairDisplay",
+      "size": 0.05,
+      "max_w": 0.3,
+      "tracking": 0.08,
+      "x": -0.31,
+      "y": 0.05,
+      "color": "#4a5a33",
+      "vary": "#2f3d1f",
+      "outline": [
+        "#2f3d1f",
+        0.0008,
+        120
+      ]
+    },
+    {
+      "text": "Rosemary",
+      "caps": true,
+      "font": "PlayfairDisplay",
+      "size": 0.05,
+      "max_w": 0.3,
+      "tracking": 0.08,
+      "x": 0.0,
+      "y": 0.05,
+      "color": "#4a5a33",
+      "vary": "#2f3d1f",
+      "outline": [
+        "#2f3d1f",
+        0.0008,
+        120
+      ]
+    },
+    {
+      "text": "Thyme",
+      "caps": true,
+      "font": "PlayfairDisplay",
+      "size": 0.05,
+      "max_w": 0.3,
+      "tracking": 0.08,
+      "x": 0.31,
+      "y": 0.05,
+      "color": "#4a5a33",
+      "vary": "#2f3d1f",
+      "outline": [
+        "#2f3d1f",
+        0.0008,
+        120
+      ]
+    },
+    {
+      "text": "Sage",
+      "caps": true,
+      "font": "PlayfairDisplay",
+      "size": 0.05,
+      "max_w": 0.3,
+      "tracking": 0.08,
+      "x": -0.31,
+      "y": 0.48,
+      "color": "#4a5a33",
+      "vary": "#2f3d1f",
+      "outline": [
+        "#2f3d1f",
+        0.0008,
+        120
+      ]
+    },
+    {
+      "text": "Mint",
+      "caps": true,
+      "font": "PlayfairDisplay",
+      "size": 0.05,
+      "max_w": 0.3,
+      "tracking": 0.08,
+      "x": 0.0,
+      "y": 0.48,
+      "color": "#4a5a33",
+      "vary": "#2f3d1f",
+      "outline": [
+        "#2f3d1f",
+        0.0008,
+        120
+      ]
+    },
+    {
+      "text": "Chives",
+      "caps": true,
+      "font": "PlayfairDisplay",
+      "size": 0.05,
+      "max_w": 0.3,
+      "tracking": 0.08,
+      "x": 0.31,
+      "y": 0.48,
+      "color": "#4a5a33",
+      "vary": "#2f3d1f",
+      "outline": [
+        "#2f3d1f",
+        0.0008,
+        120
+      ]
+    }
+  ],
+  "listing": {
+    "title": "Kitchen Herbs Shirt, Watercolor Herb Garden Tee, Basil Rosemary Thyme Sage Mint Chives, Gardener Gift, Cooking Lover Shirt",
+    "tags": [
+      "herb shirt",
+      "kitchen herbs",
+      "herb garden shirt",
+      "gardening shirt",
+      "gardener gift",
+      "cooking shirt",
+      "botanical shirt",
+      "plant lover gift",
+      "chef gift",
+      "foodie gift",
+      "cottagecore shirt",
+      "watercolor herbs",
+      "herb lover gift"
+    ],
+    "description": "Six kitchen herbs painted in watercolor, each on its own soft wash of color with its name in green capitals: glossy basil, rosemary with pale blue flowers, thyme in pink bloom, velvety grey-green sage, toothed mint leaves with dark veins, and chives topped with lilac pom-pom blossoms. \"Kitchen Herbs\" is painted in green script across the top. A gift for the cook, the gardener or a new home.",
+    "per_product": {
+      "sweatshirt": {
+        "title": "Kitchen Herbs Sweatshirt, Watercolor Herb Garden Crewneck, Basil Rosemary Thyme Sage Mint Chives, Gardener Gift, Cook Gift",
+        "tags": [
+          "herb sweatshirt",
+          "kitchen herbs",
+          "herb garden",
+          "gardening sweater",
+          "gardener gift",
+          "cooking gift",
+          "botanical crewneck",
+          "plant lover gift",
+          "chef gift",
+          "foodie gift",
+          "cottagecore sweater",
+          "watercolor herbs",
+          "herb lover gift"
+        ]
+      },
+      "mug": {
+        "title": "Kitchen Herbs Mug, Watercolor Herb Garden Coffee Mug, Basil Rosemary Thyme Sage Mint Chives, Gardener Gift, Housewarming Gift",
+        "tags": [
+          "herb mug",
+          "kitchen herbs",
+          "herb garden mug",
+          "gardener gift",
+          "cooking gift",
+          "botanical mug",
+          "plant lover gift",
+          "chef gift",
+          "foodie gift",
+          "housewarming gift",
+          "cottagecore mug",
+          "watercolor herbs",
+          "herb lover gift"
+        ]
+      },
+      "poster": {
+        "title": "Kitchen Herbs Print, Watercolor Herb Chart Wall Art, Basil Rosemary Thyme Sage Mint Chives, Kitchen Decor, Housewarming Gift",
+        "tags": [
+          "kitchen wall art",
+          "kitchen herbs",
+          "herb print",
+          "herb chart",
+          "kitchen decor",
+          "botanical print",
+          "housewarming gift",
+          "new home gift",
+          "cooking gift",
+          "farmhouse kitchen",
+          "cottagecore decor",
+          "watercolor herbs",
+          "herb wall art"
+        ]
+      },
+      "sticker": {
+        "title": "Kitchen Herbs Sticker, Watercolor Herb Garden Vinyl Sticker, Basil Rosemary Thyme Sage Mint Chives, Gardener Gift",
+        "tags": [
+          "herb sticker",
+          "kitchen herbs",
+          "herb garden",
+          "gardener gift",
+          "botanical sticker",
+          "plant sticker",
+          "laptop sticker",
+          "water bottle decal",
+          "journal sticker",
+          "recipe book sticker",
+          "cottagecore sticker",
+          "watercolor herbs",
+          "plant lover gift"
+        ]
+      }
+    },
+    "products": [
+      "Unisex tee (Bella+Canvas 3001)",
+      "Crewneck sweatshirt (Gildan 18000)",
+      "11 oz mug",
+      "Art print (matte poster)",
+      "Kiss-cut sticker"
+    ],
+    "price_note": "Prices from the POD-DESK.md product table (2026-10-05 pricing review): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. Herb kitchen prints found on 2026-11-11 ran about $22-$34 on Etsy (single prints and sets of 3, search snippets; digital downloads from about $2.50) and herb-themed tees about $21-$34; our prices sit in those ranges. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-11-11 (before any art): web searches '\"KITCHEN HERBS\" trademark clothing mugs posters registration' and '\"HERB GARDEN\" trademark class 25 t-shirts registered justia'. No KITCHEN HERBS mark was found for clothing, mugs or posters; the nearest, KITCHEN HERBCRAFT (reg. 7183022), is in Class 41 (education), not goods. HERB GARDEN records found are abandoned or expired and for other goods (75351799 abandoned 1998; reg. 1058836 expired, cosmetics; HERB GARDEN USA 98425714, beverages). HERB & IRON (reg. 6532128, t-shirts) is a different composite mark and its words are not used. The herb names are the common names of the plants shown, used descriptively, and 'Kitchen Herbs' describes the art. tmsearch.uspto.gov is blocked from our sessions, so this is a search-engine screen (aggregator sites), not a clearance."
+  }
+}

@@ -1,0 +1,20 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a pod_review doc (step 10, Mondays).",
+ "id": "2026-11-23",
+ "created": "2026-11-23T16:38:35Z",
+ "by": "sales-analyst (TikTok Analytics Agent)",
+ "source": "Printify GET /v1/shops/29114200/orders.json and /products.json (pages 1-2), read 2026-11-23",
+ "orders": {
+  "total": 0,
+  "since": "shop opened (2026-09-28)"
+ },
+ "products": {
+  "total": 58,
+  "with_etsy_listing_id": 48,
+  "unpublished_drafts": 10,
+  "drafts": "Scorpio Constellation and Campfire Season (5 each), approved Oct 5, waiting for Printify writes"
+ },
+ "what_sold": "nothing yet: 0 orders in about 8 weeks",
+ "rule_for_next_week": "Still no sales signal, so keep following search demand with gift niches that have an evergreen angle (January birthdays and winter flowers now; Valentine's Day from early January). On Nov 27 the first listings (live since Oct 2) reach 60 days: judge them with Etsy views and favorites, which only the owner can read in Etsy Shop Manager > Stats, before retiring any; with 0 orders the 60-day rule alone isn't enough reason to retire a listing.",
+ "blockers": "Printify writes still wait for the owner (refused since Oct 6): 18 built and Legal-cleared designs are not on Printify (Pie Season, Dachshund Florals, Tree Farm Season, Deck the Shelves, Vintage Glass Ornaments, Capricorn, Aquarius, Grandpa's Fishing Hole, Gemini, Kitchen Herbs, Lovebirds & Roses, Another Year Sweeter, Apples & Pencils, Nurse Stethoscope Heart, Coffee & Croissants, Just One More Plant, Foxes & Hedgehogs in the Snow, Carnation & Snowdrop), and the 10 drafts are unpublished."
+}

@@ -1,0 +1,82 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "videos",
+  "date": "2026-11-10",
+  "kind": "video_set"
+ },
+ "title": "Video desk, Tue Nov 10 set: Biggest Movers ($1B+), Trading Explained (relative volume), AI This Week (data center votes, Google K-12 default, Shield AI/Echodyne)",
+ "reviewed_at": "2026-11-10T22:11:48Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file after reviewing the three 9:16 review sheets, report.json spoken text, titles, captions and sources. Defamation screen: price and volume data about public companies, and three news items reported by 2+ outlets each; no reason is given for any price move. Nothing commits the owner; delivery is to the owner only. AI review, not legal advice."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Every number traces to a saved raw response or a named outlet: movers to raw/gainers_day1.json and raw/losers_day1.json (filtered to market value $1B+), the HIMS two-day move to raw/daily_6sym.json, relative volume to raw/daily_6sym.json (today's volume / prior 20 sessions); news figures to Ballotpedia (40 of 41), The Washington Post (at least 38), Ballotpedia/Newsweek (Ohio 21), and Washington Technology/Breaking Defense/Defense News ($5.3B, $4.8B, $500M, early 2027). Outros say 'Follow for...' with no schedule promise. No income or performance claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery email goes to the owner only."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data. No private person is named; the owner isn't named or shown."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Visuals are drawn from data by the kit's renderer; the voice is Kokoro-82M (Apache-2.0); music is synthesized per video by music.py; fonts are Inter, Space Grotesk and JetBrains Mono (SIL OFL). News items are summarized in our own words with outlets credited; no quotes beyond a three-word phrase ('in the coming months'), no logos, footage, screenshots or third-party images."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Company, product and outlet names (Nvidia, AMD, Broadcom, Meta, Hims & Hers, Ameresco, Google, Gemini, Shield AI, Echodyne, Ballotpedia, The Washington Post and others) are used only to refer to them (nominative use). No logos. Hashtags are generic (#stocks #AI #technews and similar); nothing suggests endorsement. No USPTO search needed: no new brand or series name."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "pass",
+   "note": "'Educational only. Not financial advice.' is on screen in the movers and relative-volume videos and in both captions. No buy or sell calls, no targets, no 'what happens next'. The explainer says relative volume 'doesn't show which way it goes next'. No reason is stated for any mover; the video says reasons are only given when two outlets report them. The AI video's deal values describe a private acquisition, not a security recommendation."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Synthetic TTS narration over data charts and text cards; no realistic depiction of real people or events. Meta asks for a label on AI-generated audio, so turn on 'AI info' on Instagram and Facebook. Titles match the content. The AI video's quiz answer is in the caption text; that's not misleading."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "General-audience content, not directed to children. The Google story is about school-managed student accounts; no child is shown or named and no children's data is used. Mark 'not made for kids' where a platform asks."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "pass",
+   "note": "No paid tools, licensed assets or third-party agreements. Webull data is read-only and used for commentary."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Voiceover read bare percentages like '22.38' as prices ('twenty-two thirty-eight'); every mover figure now says 'percent' and the NVDA share counts are spoken as 'about 422 million' and 'about 137 million' (exact figures stay on screen). Render restarted before any video was finished.",
+  "AI quiz said '41 towns and counties voted'; Ballotpedia counts 41 measures, and some places had more than one (Ohio: 21 measures), so it now says '41 local ballot measures'.",
+  "Ticker-style names are spelled for the voice ('A A O N', 'Gene D X', 'A M D', 'C square'); 'November 3rd' is spoken as 'November third'.",
+  "The first full render of Biggest Movers ran 61.9 s; its voiceover now rounds the movers to one decimal (exact two-decimal figures stay on screen and in the caption) and the video was re-rendered under 60 s.",
+  "Outros said 'Follow for tomorrow's movers' and 'Follow for next week's'; the series don't run on a fixed schedule, so they now say 'Follow for more' and 'Follow for more AI news'.",
+  "AI This Week caption title no longer gives away the quiz answer (now 'Voters said no to data centers this week').",
+  "AI This Week caption credited the Ohio count to Ballotpedia, The Washington Post and Stateline; Newsweek is added as the second source for it. Page republished before the email."
+ ],
+ "posting_notes": [
+  "Instagram and Facebook: turn on the 'AI info' label (synthetic narrator voice).",
+  "Biggest Movers and the relative-volume explainer describe Tuesday Nov 10 ('today'); post them before Wednesday's open or they go stale.",
+  "AI This Week covers Nov 3 to Nov 5 news; post it this week.",
+  "The movers video gives no reasons for the moves. Don't add one in the post text unless two outlets report it."
+ ],
+ "last_touch_ref": "video-kit/records/2026-11-10-video-desk.json#last_touch",
+ "decision_ref": "video-kit/records/2026-11-10-video-desk.json#decision",
+ "videos": {
+  "movers-1110": {
+   "seconds": 45.47
+  },
+  "rvol-explainer": {
+   "seconds": 48.46
+  },
+  "ai-week-1110": {
+   "seconds": 47.77
+  }
+ }
+}

@@ -1,0 +1,111 @@
+{
+ "note": "Office DB is full (100 MB, writes refused since 2026-11-05), so the book desk's books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-farmyard",
+  "title": "My First Farmyard Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Farm",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-farmyard.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/YFDV21yXEgvsjfFYNbhpup",
+  "created": "2026-11-12T15:00:08Z",
+  "emailed": "Gmail message 1a1d045984560058 to the owner, 2026-11-12"
+ },
+ "decision": {
+  "doc_id": "2026-11-12-book-my-first-farmyard",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-12T15:00:08Z",
+  "reason": "Legal verdict cleared at 2026-11-12T14:59:01Z (all ten counsel; trademark web screen on file; two fixes made: Farm -> Farmyard title, tractor recolored). Planned rotation has ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it. Build checks passed (64 pages, cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge). Delivery to the owner only: no KDP publishing, no ads, no prices set. This decision doc was written right after the page went up; the cleared verdict came first.",
+  "legal_review": "book-kit/legal/my-first-farmyard.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-12-book-my-first-farmyard",
+  "created": "2026-11-12T15:00:08Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation is finished; picked Farm (no book, record or DB books doc has it) and left out every farm subject already drawn in other books (cow, pig, sheep, horse, hen, rooster, duck, goose, turkey, pumpkin, corn, beehive, watering can and more)."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched the title: 'My First Farm Coloring Book' already exists (independent, Walmart), so the title became 'My First Farmyard Coloring Book'; nearest others are Peter Pauper's 'My First Coloring Book! On the Farm' and DK's 'My First Farm'."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 farm subjects in art/farm.js with whole-body side-on animals (unlike the head-only ones in My First Animals) and a legs() helper; all 30 have smiling faces."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Line and color sheets reviewed; fixed the llama's neck showing over its body, the piglet's legs hidden by the mud, the water pump's unclear stream, and replaced the hard-to-read saddle with an apple crate."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Wrote the title, subtitle, a description in five groups that match the 30 pages (6 + 5 + 2 + 3 + 14) and 7 keywords of 45 characters or fewer, with no brand names."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: 15 exact and 8 phrase keywords, 33 negatives; kept 'tractor coloring book' out (one tractor page) and added farming, homesteading and farm-game negatives."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Kept the description's lists as 'and' so the HTML has no bare ampersand; ad texts 117, 112 and 137 characters, headlines 41, 39 and 37; build.js checks passed."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "64 pages with the certificate on page 63; cover 17.3941 x 11.25 in matches KDP's formula; background reaches every page edge; previews and both A+ images checked after the rebuild."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "Ran the ten-counsel review: cleared, two fixes made before delivery (title and tractor colors), four owner notes (AI question Yes, optional USPTO search, confirm the third category, possible tractor overlap with the Trucks book)."
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "Pass: groups, counts, faces (30 of 30) and every named example match the built book."
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: owner-only email."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: no personal data."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "Pass: original vector art, no brand marks, tractor makes or characters, OFL font; AI-art copyright note passed on."
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "Pass on a web screen after one fix: recolored the green-and-yellow tractor away from John Deere's scheme; no 'MY FIRST FARMYARD' mark found, FARMYARD marks are for services, not books."
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "n/a: no money content."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "Pass: KDP AI disclosure Yes; keywords and ad text within KDP and Amazon Ads rules; third category to confirm."
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "Pass: friendly farm pictures, smiling scarecrow, no sharp tools, no children shown, no data collected."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: no contract or terms."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved with the cleared legal review on file; delivered to the owner only."
+   },
+   {
+    "agent": "publish-coordinator",
+    "line": "Published the private page with downloads and the 8 files, and emailed the owner once."
+   }
+  ]
+ }
+}

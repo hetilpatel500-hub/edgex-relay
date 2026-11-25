@@ -1,0 +1,80 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "videos",
+  "date": "2026-11-09",
+  "kind": "video_set"
+ },
+ "title": "Video desk, Mon Nov 9 set: The SPY Tape (9:16 + 16:9), Guess Which (Mag 7 quiz), Myth vs Fact (loss recovery math)",
+ "reviewed_at": "2026-11-09T22:15:47Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file after reviewing the three 9:16 review sheets and the 16:9 SPY sheet, the spoken text in report.json, the titles, captions and sources. Defamation screen: only price data about public companies and one ETF, and no reason is given for any move. Nothing commits the owner; delivery is to the owner only. AI review, not legal advice."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Every number traces to a saved raw response or to arithmetic: SPY session figures to raw/spy_m5.json (78 regular-session bars) and Friday's close 735.29 in raw/daily.json; the Mag 7 changes to raw/snapshot_mag7.json (close vs pre_close, NVDA low 170.24); the Alphabet closes to raw/daily.json; the recovery table to gain = 1 / (1 - loss) - 1. Outros say 'Follow for more...' instead of promising a schedule the desk doesn't keep ('every trading day', 'every week'). No income or performance claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery email goes to the owner only."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data. The owner isn't named or shown."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Visuals are drawn from data by the kit's renderer; the voice is Kokoro-82M (Apache-2.0); music is synthesized per video by music.py; fonts are Inter, Space Grotesk and JetBrains Mono (SIL OFL). No logos, footage, screenshots or third-party text."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Tesla, Meta, Amazon, Microsoft, Apple, Alphabet, Nvidia, SPY and Webull are named only to refer to the companies, the fund and the data source (nominative use). No logos. 'Magnificent Seven' / 'Mag 7' is a descriptive market term. Hashtags are generic (#stocks #investing #quiz #Mag7 and similar); no brand hashtags, nothing suggests endorsement."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "pass",
+   "note": "'Educational only. Not financial advice.' is on screen in all three videos (SPY outro card, quiz and myth sources cards) and in every caption. No buy or sell calls and no targets. The myth video's '+12.75% to get back to 324.89' is shown and spoken as 'arithmetic, not a forecast'. No reason is stated for SPY's rally, Nvidia's fall or Alphabet's Oct 29 drop."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "The narration is a synthetic TTS voice over data charts, with no realistic depiction of real people or events. Meta asks for a label on AI-generated audio, so turn on 'AI info' on Instagram and Facebook. Titles match the content; the quiz caption states the risers and keeps the answer for the video, which isn't misleading."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "General-audience market education, not directed to children. Mark 'not made for kids' where a platform asks."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "pass",
+   "note": "No paid tools, licensed assets or third-party agreements. Webull data is read-only and used for commentary."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "SPY outro said 'Follow for the SPY tape, every trading day'; the series runs at most twice a week, so it now says 'Follow for more SPY tapes'.",
+  "SPY big-candle line said '2 times normal volume' for a 2.47x bar; prep.py now says 'about 2.5 times' (kit fix).",
+  "Myth voiceover read '12.64 percent' as 'twelve sixty-four percent'; make.py now reads any '<number> percent' with 'point' (kit fix), and the last bare '12.64' became '12.64 percent'. Re-rendered and re-checked.",
+  "Myth bars voiceover clarified to 'A 20 percent drop needs 25 percent'."
+ ],
+ "posting_notes": [
+  "Instagram and Facebook: turn on the 'AI info' label (synthetic narrator voice).",
+  "The SPY Tape and the Mag 7 quiz describe Monday Nov 9; post them before Tuesday's open or they go stale.",
+  "The myth video says Alphabet 'closed at 288.15 today' (Nov 9); post it this week.",
+  "The quiz caption keeps the answer for the end of the video; don't put 'Nvidia' in the post text."
+ ],
+ "last_touch_ref": "video-kit/records/2026-11-09-video-desk.json#last_touch",
+ "decision_ref": "video-kit/records/2026-11-09-video-desk.json#decision",
+ "videos": {
+  "spy": {
+   "seconds": 45.97,
+   "wide_seconds": 45.97
+  },
+  "mag7-quiz": {
+   "seconds": 35.12
+  },
+  "myth-recovery": {
+   "seconds": 56.43
+  }
+ }
+}
