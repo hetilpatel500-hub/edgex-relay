@@ -1,0 +1,111 @@
+{
+ "note": "Office DB is full (100 MB, creates refused since 2026-11-05), so the books, decisions and collabs docs for this run are filed here.",
+ "books": {
+  "doc_id": "my-first-kitchen",
+  "title": "My First Kitchen Coloring Book",
+  "series": "my first step",
+  "author": "JONNY COLOR",
+  "topic": "Kitchen",
+  "subjects": 30,
+  "pages": 64,
+  "legal_review": "book-kit/legal/my-first-kitchen.json",
+  "status": "delivered",
+  "artifact": "https://claude.ai/artifact/PhqJQ5iYsLVoZ3sdzjmv3M",
+  "created": "2026-11-26T14:55:53Z",
+  "emailed": "Gmail message 1a2185acd96216d7 to the owner, 2026-11-26"
+ },
+ "decision": {
+  "doc_id": "2026-11-26-book-my-first-kitchen",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-26T14:55:53Z",
+  "reason": "Legal verdict cleared at 2026-11-26T14:54:49Z (all ten counsel; trademark web screen on file; the A+ 'pots and pans' line and the stand-mixer drawing fixed). Planned rotation has ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it. No page name repeats an earlier book. Build checks passed (64 pages, cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-kitchen.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-26-book-my-first-kitchen",
+  "created": "2026-11-26T14:55:53Z",
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation is finished; picked Kitchen (no book, repo record or DB books doc has it): an evergreen pretend-play topic. Birthday Party was passed over because most of its subjects (cake, cupcake, ice cream, party hat) are already in Yummy Food and Clothes."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched titles: no 'My First Kitchen Coloring Book'; nearby are 'My First Coloring Cookbook', Fe Dutcher's 'Kitchen Coloring Book' (kids and adults) and 'The Kitchen and Its Functions Coloring Book'. No toddler kitchen coloring book turned up, only free printable pages."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 30 kitchen things in art/kitchen.js, each with a face, leaving out every object already in At Home (pot, teapot, spoon, cup, toaster, fridge); no knives, flames or cords."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Contact sheet review: redrew the chef hat (overlapping circles read as a cloud and left a stray arc), removed the pitcher's lemon slice (read as a crosshair), fixed the trash can's lid knob, and added beater loops to the new hand mixer."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Title, subtitle (Frying Pan, Whisk, Rolling Pin), description in four groups matching the page order, 7 keywords of 43 characters or fewer, 3 categories plus a note on cooking categories."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: bids $0.35/$0.45/$0.40, 15 exact + 8 phrase keywords, 51 negatives (cookbook, recipe, toy-kitchen and brand terms), 3 custom texts (116/113/108 characters), 3 headlines (41/39/29)."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Read the listing, back cover, A+ text and ad texts against the page labels; changed the A+ point 'pots and pans' (there's no pot) to 'cooking, baking and mealtime things'."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "build.js and page.py passed: 64 pages (pdftotext shows all 30 labels in order and the certificate), cover 17.3941 x 11.25 in matches KDP's formula, bleed check passed; cover, page previews and both A+ images checked."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "pass: All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web"
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "pass: Description, subtitle, back cover, A+ points and ad texts checked against the built interior (pdftotext of interior.pdf): 64 pages, title page, 30 labelled pict"
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: No commercial email. The delivery goes only to the owner."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: No personal data in the book, listing or ads kit; the 'This book belongs to' line and the certificate's name line collect nothing."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "pass: Art is original vector drawing in art/kitchen.js; line and color contact sheets reviewed at full size. Checked against well-known kitchen characters and toys: n"
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "pass: Web search only (USPTO is unreachable from this environment). No book titled 'My First Kitchen Coloring Book' turned up; nearby titles are 'My First Coloring Co"
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "n/a: No money content."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "pass: KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover and title page matches the metadata title. 7 ke"
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "pass: General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no people, no knives or other blades shown (the cutti"
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved after the cleared Legal verdict; delivery to the owner only."
+   },
+   {
+    "agent": "publish-coordinator",
+    "line": "Published the private page with Save buttons (8 files) and emailed the owner the listing, ads summary, AI disclosure and Legal notes."
+   }
+  ]
+ }
+}

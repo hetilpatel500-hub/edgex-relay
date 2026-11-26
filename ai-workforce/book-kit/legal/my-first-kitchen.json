@@ -1,0 +1,67 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-kitchen",
+  "kind": "book"
+ },
+ "title": "My First Kitchen Coloring Book: interior, cover, KDP listing and Amazon Ads kit",
+ "reviewed_at": "2026-11-26T14:54:49Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishing. Topic note: the planned rotation has ended, so Trend Scout picked Kitchen under the owner's standing 'different topics' directive (no earlier book, repo record or DB books doc has it); the owner can swap it. No page name repeats any of the 28 earlier books: things already drawn elsewhere (Pot, Teapot, Spoon, Cup, Toaster and Fridge in At Home; Apron and Party Hat in Clothes; cakes and treats in Yummy Food) were left out on purpose."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, subtitle, back cover, A+ points and ad texts checked against the built interior (pdftotext of interior.pdf): 64 pages, title page, 30 labelled pictures in four groups (7 cooking + 10 baking + 6 getting food ready + 7 mealtime and cleanup) in the order the description lists them, each with a blank back, and the 'Great job! You colored all 30 kitchen pictures!' certificate. Every named example (frying pan, kettle, stove, whisk, rolling pin, cookie jar) is in the book. 'Every page has ... a smiling face' is true: all 30 pictures have a face (Salt & Pepper has two). No development, skill or safety claims, and no 'bestselling', review, sale or result claims. Fixed: the A+ point said '30 big pictures of pots and pans', but the book has a frying pan and no pot, so it now says 'cooking, baking and mealtime things'."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit; the 'This book belongs to' line and the certificate's name line collect nothing."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/kitchen.js; line and color contact sheets reviewed at full size. Checked against well-known kitchen characters and toys: no singing teapot or candlestick (Beauty and the Beast), no rat chef (Ratatouille), no branded toy-kitchen designs; every object is a plain generic shape with the series' face. Melissa & Doug, KidKraft and Little Tikes appear only as ad negatives. Fredoka font is SIL OFL 1.1, which allows embedding. AI-art note: purely AI-made pictures and text can't be registered for US copyright (US Copyright Office guidance; Thaler v. Perlmutter), so others could reuse them; that doesn't stop selling the book."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search only (USPTO is unreachable from this environment). No book titled 'My First Kitchen Coloring Book' turned up; nearby titles are 'My First Coloring Cookbook', 'Kitchen Coloring Book' (Fe Dutcher) and 'The Kitchen and Its Functions Coloring Book'. The word mark MY FIRST KITCHEN (Reg. 1498796, serial 73701833) was cancelled in 1995 (Section 8); 'My First Cookin' Kitchen' and a Bluey-branded 'My First Kitchen Set' are toy product names, and neither phrase nor brand is used here; MY FIRST KENMORE is live for toy appliances and isn't used. The series uses 'My First' descriptively as in its 28 earlier books. Product shapes: KitchenAid holds registered three-dimensional marks on its stand mixer's shape (Whirlpool cites Reg. Nos. 1,711,158 and 5,510,871; bullet-shaped head, sloping neck), so the Mixer page was redrawn as a generic hand mixer over a bowl instead of a stand mixer. Page labels are plain descriptions; keywords, ad keywords and headlines use no brand, author or character names."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover and title page matches the metadata title. 7 keywords of 43 characters or fewer, no brands, no 'bestseller', 'new' or 'free' style terms, no other authors or titles. Categories are the three general children's paths used by earlier books; a cooking or food category for children's books, if KDP's picker offers one, is left to the owner. Amazon Ads book policy: 3 custom texts (116, 113, 108 characters) and 3 headlines (41, 39, 29) with no price, sale, 'free' offer, best-seller, star-rating or review claims ('screen-free' describes the activity, and build.js allows it); ad keywords are generic searches; 51 negatives, including cookbook, recipe, toy-kitchen and food-coloring terms so ads stay on coloring-book searches."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no people, no knives or other blades shown (the cutting board holds carrot coins, the plate has a fork only), no flames on the stove, no plugs or cords on the blender, mixer or microwave, and no child shown using any appliance. The kettle's steam line and the grater are drawn as objects, with nothing telling a child to use them; the description says children love to 'watch, help and pretend', with no instruction to cook. No claims that the book teaches safety or kitchen skills."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "The A+ point '30 big pictures of pots and pans' wasn't accurate (a frying pan, no pot); it now says '30 big pictures of cooking, baking and mealtime things'.",
+  "The Mixer page first showed a stand mixer with a rounded head, close to KitchenAid's registered mixer shape; it was redrawn as a generic hand mixer with two beaters over a bowl.",
+  "Art review: the chef hat's puffy top was drawn as overlapping circles that read as a cloud and left a stray arc; it became one clean puffed outline over the band. The pitcher's lemon slice read as a crosshair and was removed. The trash can's lid knob was a stray stalk and became a small handle on the lid."
+ ],
+ "owner_notes": [
+  "Optional: run a USPTO search for 'My First Kitchen' before publishing; this was a web screen only. The old MY FIRST KITCHEN registration was cancelled in 1995, and toy makers use similar product names.",
+  "Topic picked by Trend Scout (the planned rotation is finished); say if you'd like a different one.",
+  "KDP's AI question: answer Yes for images and text."
+ ],
+ "research_ref": "web search 2026-11-26: title conflicts ('My First Kitchen Coloring Book', toddler kitchen coloring books), 'MY FIRST KITCHEN' marks (Justia), KitchenAid mixer shape registrations (Whirlpool history page, Brooks Kushman, CIPO)",
+ "last_touch_ref": "grammar-copy-editor and deliverable-qa-reviewer lines in book-kit/records/2026-11-26-my-first-kitchen.json",
+ "decision_ref": "book-kit/records/2026-11-26-my-first-kitchen.json (decision)"
+}
