@@ -1,0 +1,78 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "videos",
+  "date": "2026-11-26",
+  "kind": "video_set"
+ },
+ "title": "Video desk, Thu Nov 26 (Thanksgiving) set: Earnings This Week, Make Money With AI (newsletter prices), Inside The AI Studio (mug design)",
+ "reviewed_at": "2026-11-26T22:09:09Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file after reviewing the three review sheets (earnings next week, newsletter prices, how the studio designed a mug), report.json spoken text, titles, captions and sources. Defamation screen: companies appear only with their own announced dates and Webull's estimate and actual-vs-estimate data; price guides are quoted as published, with the publisher named; no person is named. The earnings video makes no prediction and says a past beat says nothing about the next report."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Every number traces to a saved raw response, a cited source or a studio record (factcheck.py: 0 unmatched). Estimates and last-quarter beats are recomputed from raw/*_get_stock_earnings_calendar.json (CRM, MRVL, SNOW, OKTA, MDB) and checked bar by bar; four retailers whose future-dated rows already carried actuals (DG, KR, ULTA, LULU) were left out as unreliable. Report dates and after-the-close timing match each company's announcement (saved searches raw/web_00-04). Newsletter prices are quoted with their publisher (Fiverr 2026 guide, beehiiv, Fueler 2026) and each range was found on that publisher's own page (raw/web_07-09). Studio numbers come from pod-kit research, legal and decision records (5 searches, 14 sources, 5 snowmen, 4 mitten pairs, 6 fixes, 3 print sizes, 10 counsel). No 'best', 'guaranteed' or earnings claims; the newsletter video gives price ranges, not income promises."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery email goes to the owner only."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data and no person named or shown; the owner isn't named or shown (the studio video says 'the owner reviews it' without a name)."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Visuals are drawn from data and text by the kit's renderer; the voice is Kokoro-82M (Apache-2.0); music is synthesized per video by music.py; fonts are Inter, Space Grotesk and JetBrains Mono (SIL OFL). Price-guide figures are facts restated in our own words with credit; no page text is copied beyond short factual ranges. The studio video describes our own mug art (painted by our own code) and shows none of it."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Salesforce, Marvell, Snowflake, Okta, MongoDB, Webull, Fiverr, beehiiv and Fueler are named only to refer to them (nominative use); no logos; nothing suggests endorsement or affiliation. Hashtags are generic (no brand hashtags). The studio video names no snowman trademark or character; it says only that two existing snowman trademarks turned up, which is why the mug's title avoids character names."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "pass",
+   "note": "'Educational only. Not financial advice.' is on screen at the end of the earnings and newsletter videos and in both captions. The earnings video lists dates and consensus estimates and states plainly that a past beat says nothing about the next report: no buy/sell call, target, prediction or expected price move. The newsletter video quotes published price ranges for a service, with no promise of income. The studio video has no market or money claim."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "The narrator is a synthetic (AI) voice over data graphics: on Instagram and Facebook turn on the 'AI info' label. Nothing realistic depicts a real person, so YouTube's altered-content disclosure isn't triggered, but disclosing the AI voice is still the safer choice. No paid partnership with any company or price-guide publisher, so no branded-content tag. The studio video is about our own work, which is allowed self-promotion with no misleading claim."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "All three are adult business and finance content: not made for kids, no child appears, no child data is collected. The studio video's subject is a mug for adults."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No proposal, quote, offer or contract; nothing is sold or promised in these videos. The newsletter pricing steps are general education, not a quote."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Studio hook said '4 mittens' on screen; the design has 4 mittens motifs and each draws a pair (pod-kit motifs2.mittens), so the hook now says '5 snowmen, 8 mittens' and the voice says 'eight mittens' (caught by Video Last Touch, back to step 3).",
+  "Studio steps scene was crowded with two-line notes under 5 steps; the notes were shortened to one line each.",
+  "Two bullets left a single word on its own line ('No snowman that looks like a famous one', '...: an agency runs it'); reworded to 'No lookalike of a famous snowman' and 'agency-run'.",
+  "Earnings: Dollar General, Kroger, Ulta and Lululemon were dropped before scripting because Webull's future-dated rows already carried actuals."
+ ],
+ "posting_notes": [
+  "Instagram and Facebook: turn on the 'AI info' label (synthetic narrator voice).",
+  "YouTube: no realistic person is depicted, so the altered-content toggle isn't required, but turning it on for the AI voice is the safer choice.",
+  "Earnings This Week says 'next week' for Dec 1-2: post it by Monday Nov 30. Dates are each company's own announcement; the estimates are Webull's as of Nov 26 and can move before the reports.",
+  "The studio video says 'today' for Nov 26: post it this week, or say 'Nov 26' in the post text.",
+  "The newsletter prices are the publishers' ranges (Fiverr and Fueler dated 2026; beehiiv's post shows no date) and work as general guidance."
+ ],
+ "excluded": [
+  "Dollar General, Kroger, Ulta and Lululemon: Webull's rows dated Dec 3-8 already carry actuals (last year's results under a future date), so the data looked unreliable and they were left out.",
+  "CrowdStrike, Zscaler, HPE and Dollar Tree already reported (Nov 23-24); DocuSign (Dec 3), Broadcom (Dec 9) and Ciena (Dec 10) fall outside Dec 1-2."
+ ],
+ "last_touch_ref": "video-kit/records/2026-11-26-video-desk.json#last_touch",
+ "decision_ref": "video-kit/records/2026-11-26-video-desk.json#decision",
+ "videos": [
+  "2026-11-26-earnings-week",
+  "2026-11-26-money-skill-newsletter-prices",
+  "2026-11-26-studio-mug-design"
+ ]
+}
