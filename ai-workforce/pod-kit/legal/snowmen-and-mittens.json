@@ -1,0 +1,64 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "snowmen-and-mittens",
+  "kind": "pod_design"
+ },
+ "title": "Snowmen & Mittens: all-over watercolor mug (white wrap mug and accent mug), titles, tags, description and prices",
+ "reviewed_at": "2026-11-26T16:37:58Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify products, no Etsy listings, no spend. The trademark screen is a web search, not a clearance; the owner decides before listing. The art and titles avoid the two live snowman name marks found (THE SNOWMAN for children's mugs; FROSTY THE SNOWMAN) and anything that copies their characters' look."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against the full-size wraps at all three print sizes (2475x1155, 2475x1275, 2700x1120): each shows five snowmen (beanies with pom-poms and earmuffs, striped scarves, twig arms), four pairs of knit mittens, snowy and plain pine boughs, pinecones, red winterberries and pale blue snowflakes on cream. 'Hot cocoa mug' and 'cozy hot cocoa mug' in the title and tags describe what the mug is for, not the art. Fixed: the first spec had hot cocoa mugs in the art and the description said so; at some print sizes the cocoa mugs didn't fit or crowded the snowmen, so they were removed from the art and from the description, and the tag 'cocoa lover gift' became 'pinecone mug'. No 'best seller', sale, free or review claims; prices are the studio's standard mug prices with competitor prices cited as found."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery email goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data; no names or personalization on the mug."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (pattern.py, watercolor.py, two motifs written today in motifs2.py: snowman and mittens; existing pine_bough, pinecone, berries, snowflake and snow_dot). No stock art, traced photos or competitor layouts: the competing snowman mugs found are figurals, single cartoon faces, personalized cocoa mugs and clip-art templates. The snowmen are generic two-ball snowmen in knit beanies or earmuffs; none copies a known character (no black top hat with corncob pipe and broom, no flying snowman in a green hat and scarf, no buck-toothed twig-haired snowman). Purely machine-made images can't be registered for US copyright (US Copyright Office guidance); the delivery notes this."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web screen before any art (tmsearch.uspto.gov is blocked from our sessions): no SNOWMEN & MITTENS mark. Live nearby marks: THE SNOWMAN (Snowman Enterprises Ltd., reg. 1610875, ceramic figurines and children's mugs and dishes) and FROSTY THE SNOWMAN (Warner Bros. Entertainment, e.g. reg. 2491030; a secondary source says its registrations reach mugs); snowman design marks reg. 6268371 (a smiling snowman) and reg. 3799225 (a snowman wearing a crown); SNOWKIDZZ and SNOW STUFF for mittens and winter wear. Titles and tags use only plain descriptions ('snowman mug', 'snowmen mug', 'mittens mug', 'knit hat mug', 'winter mug') and never 'The Snowman', 'Frosty' or a character name; the art has no lettering and no crowned snowman. 'Snowmen & Mittens' is an internal design name only."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description carries the production-partner disclosure and says the art is digitally painted by the studio. Titles 123 and 112 characters (max 140); 13 tags per listing, all 20 characters or fewer and all different (build.py checks). Mug details match the Printify blueprints already used (68 white wrap, 635 accent mug); accent colors Red, Light Blue and Navy are in pattern.py's accent list."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "A general-audience mug for adults; nothing is aimed at or collected from children, and it isn't sold as a children's product (no kids' sizing or kids' tags)."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, purchase or terms accepted; nothing is created on Printify or Etsy."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "Cocoa mugs removed from the art and the description: at some print sizes they didn't fit, and when enlarged their cinnamon sticks ran into the snowmen; the tag 'cocoa lover gift' became 'pinecone mug'.",
+  "Art review: the first layout left too much empty paper, so snowmen, mittens, boughs, pinecones and berries were added; the mittens' yarn loop read as a stray smile and was dropped; the snowmen's body shadow had a hard inner edge and was softened into a gradient; the snowmen floated above their snow shadow and now sit in it; the scarf fringe gap was closed."
+ ],
+ "owner_notes": [
+  "Optional: a USPTO search for snowman marks in Class 21 before listing; this was a web screen only. The title and tags never use 'The Snowman' or 'Frosty'.",
+  "Printify products wait for your go-ahead on Printify writes (refused by the session's permission check since Oct 6)."
+ ],
+ "research_ref": "pod-kit/research/2026-11-26-snowmen-and-mittens.json",
+ "decision_ref": "pod-kit/decisions/2026-11-26-pod-snowmen-and-mittens.json"
+}

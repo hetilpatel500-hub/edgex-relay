@@ -547,3 +547,17 @@ Studio Floor at any time.
   SEASON! covers retail tea services only; tea slogans kept out); records in `pod-kit/research`, `legal` and `decisions`. Delivery page
   (private): https://claude.ai/artifact/9nr3BjruVzNyXNN2dQYTQG. Printify read-only: 58 products, 48 with Etsy listing IDs, the same 10
   drafts unpublished, 0 orders. No Printify products: writes still wait for the owner. $0 spent.
+- 2026-11-26 (16:17 UTC run, pattern day): the gift-category table and the best-seller list have no open row (Valentine's Day opens in
+  early January), so the run made one design from trend research: **Snowmen & Mittens**, an all-over watercolor mug: five snowmen in
+  knit beanies with pom-poms or earmuffs, striped scarves and twig arms, pairs of knit mittens, snowy and plain pine boughs, pinecones,
+  red winterberries and pale blue snowflakes on warm cream; no lettering and nothing Christmas-only. Accent mugs in Red, Light Blue and
+  Navy. New motifs `snowman` (reserved white paper body and head with a soft blue-grey shadow and lifted light, coal eyes and smile, a
+  carrot nose, a ribbed knit beanie with a pom-pom or earmuffs, a wrapped striped scarf with fringe, dry-brush twig arms, seated in a snow
+  mound) and `mittens` (a pair with ribbed cuffs, a dotted band and a knit star; optional yarn loop), plus `KNITS`, in `motifs2.py`. Fixes
+  after review: a sparse first layout, a yarn loop that read as a stray smile, a hard-edged body shadow, snowmen floating above their
+  snow, and hot cocoa mugs that didn't fit some print sizes or crowded the snowmen (removed from the art and the description). Research
+  21/25 (winter mugs are Etsy bestsellers and snowmen recur; competing snowman mugs are figurals, cartoon faces, personalized cocoa mugs
+  and templates), Legal cleared (THE SNOWMAN, reg. 1610875, and FROSTY THE SNOWMAN are never used, and the snowmen avoid those
+  characters' look); records in `pod-kit/research`, `legal` and `decisions`. Delivery page (private):
+  https://claude.ai/artifact/CrJTnfgzJayzFsk3jdsFcY. Printify read-only: 58 products, 48 with Etsy listing IDs, the same 10 drafts
+  unpublished, 0 orders. No Printify products: writes still wait for the owner. $0 spent.

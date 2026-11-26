@@ -4435,6 +4435,226 @@ def honey_jar(c, x, y, s, P, angle=0.0, dipper=True):
     c.paint_around(g0)
 
 
+
+# ---------------------------------------------------------------- snowmen & mittens
+KNITS = {'red': ('#c8343a', '#e66a5f', '#8f1f2b'), 'teal': ('#2f7f86', '#69b3b4', '#1d555c'),
+         'mustard': ('#d79a2b', '#f0c25e', '#9c6a17'), 'blush': ('#e58fa0', '#f6c3cc', '#b45a6f'),
+         'navy': ('#34497a', '#6b82b5', '#1f2d52'), 'sage': ('#6f9a77', '#a9c9a9', '#4a6d50')}
+
+
+def _knit_ribs(c, x0, y0, x1, y1, n, col, lw):
+    """Short vertical rib lines across a cuff band from (x0, y0) to (x1, y1), height (y1 - y0)."""
+    for i in range(n):
+        t = (i + 0.5) / n
+        px = x0 + (x1 - x0) * t
+        c.ink_line([(px, y0), (px, y1)], width=lw, closed=False, alpha=120, passes=1, jitter=0, color=col)
+
+
+def snowman(c, x, y, s, P, facing=None, hat='beanie', knit=None, knit2=None, angle=0.0, mound=True):
+    """A plump two-ball snowman in a knit hat (hat='beanie' with a pom-pom, or
+    'earmuffs') and a striped knit scarf, twig arms, coal eyes and smile, a
+    carrot nose. The paper is the snow: the body is reserved from the cream
+    background and modelled with cool blue-grey shadow, lifted on the lit side.
+    Painted front to back, so each part tucks behind the ones before it."""
+    rnd = c.rnd
+    if facing is None:
+        facing = rnd.choice((-1, 1))
+    kn = KNITS[knit or rnd.choice(list(KNITS))]
+    k2 = KNITS[knit2] if knit2 else kn
+    u = s
+    ca, sa = math.cos(angle), math.sin(angle)
+
+    def T(seq):
+        out = []
+        for px, py in seq:
+            lx, ly = facing * px * u, py * u
+            out.append((x + lx * ca - ly * sa, y + lx * sa + ly * ca))
+        return out
+
+    ink = (60, 72, 92); lw = max(1.5, u * 0.016)
+    shade, shade2 = P.get('shadow', '#a9bccb'), '#dfe8f1'
+    head_c, head_r = (0.02, -0.30), 0.27
+    body_c, body_rx, body_ry = (0.0, 0.36), 0.43, 0.41
+    head = T(ellipse(head_c[0], head_c[1], head_r, head_r * 0.97, 30))
+    body = T(ellipse(body_c[0], body_c[1], body_rx, body_ry, 36))
+    # 1 face and coal details (front-most)
+    g = c.snapshot()
+    for ex in (-0.09, 0.1):
+        ep = T([(head_c[0] + ex, head_c[1] - 0.03)])[0]
+        c.wash(ellipse(ep[0], ep[1], u * 0.032, u * 0.036, 10), '#2e2a33', None, strength=1.4, layers=12, spread=0.02, blur=1)
+    for i in range(5):
+        t = (i - 2) / 2
+        mp = T([(head_c[0] + 0.02 + t * 0.1, head_c[1] + 0.12 + 0.035 * (1 - t * t))])[0]
+        c.wash(ellipse(mp[0], mp[1], u * 0.016, u * 0.016, 8), '#2e2a33', None, strength=1.2, layers=8, spread=0.02, blur=1)
+    for cx_ in (-0.17, 0.2):
+        cp = T([(head_c[0] + cx_, head_c[1] + 0.06)])[0]
+        c.wash(ellipse(cp[0], cp[1], u * 0.05, u * 0.032, 10), '#f0a0a6', None, strength=0.4, layers=10, spread=0.04)
+    nose = smooth(T([(head_c[0] + 0.03, head_c[1] + 0.0), (head_c[0] + 0.28, head_c[1] + 0.05), (head_c[0] + 0.03, head_c[1] + 0.07)]), rounds=1)
+    c.wash(nose, '#e8742c', '#f6a35a', strength=0.85, spread=0.02, layers=14, edge=1.0)
+    c.ink_line(nose, width=lw * 0.8, alpha=120, passes=1, jitter=0, color=(150, 70, 30))
+    for t in (0.12, 0.2):
+        a, b = T([(head_c[0] + t, head_c[1] + 0.025 + t * 0.12), (head_c[0] + t + 0.02, head_c[1] + 0.06)])
+        c.ink_line([a, b], width=lw * 0.6, closed=False, alpha=100, passes=1, jitter=0, color=(150, 70, 30))
+    for by_ in (0.24, 0.42):
+        bp = T([(0.0, by_)])[0]
+        c.wash(ellipse(bp[0], bp[1], u * 0.035, u * 0.035, 10), '#2e2a33', None, strength=1.2, layers=10, spread=0.02, blur=1)
+    c.paint_around(g)
+    # 2 the scarf: a wrapped band round the neck and a tail with fringe
+    g = c.snapshot()
+    tail = smooth(T([(0.06, -0.05), (0.2, -0.04), (0.27, 0.2), (0.3, 0.36), (0.16, 0.38), (0.12, 0.2), (0.05, 0.02)]), rounds=2)
+    wrap = smooth(T([(-0.27, -0.1), (-0.05, -0.05), (0.27, -0.1), (0.29, 0.0), (0.0, 0.06), (-0.29, 0.0)]), rounds=2)
+    c.wash(wrap, kn[0], kn[1], strength=0.8, spread=0.015, layers=20, edge=1.0, granulate=0.35, vary=kn[2], vary_amt=0.25)
+    c.ink_line(wrap, width=lw, alpha=130, passes=1, jitter=0, color=ink)
+    for sx in (-0.17, -0.07, 0.05, 0.15):
+        a, b = T([(sx, -0.08), (sx + 0.02, 0.04)])
+        c.ink_line([a, b], width=lw * 0.7, closed=False, alpha=90, passes=1, jitter=0, color=tuple(int(kn[2][i:i + 2], 16) for i in (1, 3, 5)))
+    c.paint_around(g)
+    g = c.snapshot()
+    c.wash(tail, kn[0], kn[1], strength=0.8, spread=0.015, layers=20, edge=1.0, granulate=0.35, vary=kn[2], vary_amt=0.25)
+    for ty in (0.12, 0.24):
+        band = smooth(T([(0.1, ty), (0.27, ty - 0.01), (0.28, ty + 0.05), (0.11, ty + 0.06)]), rounds=1)
+        c.wash(band, k2[1] if k2 is not kn else '#fbf4ea', None, strength=0.55 if k2 is not kn else 0.25, spread=0.01, layers=12, edge=0.6, clip=tail)
+        if k2 is kn:
+            c.lift(band, amount=0.55, soft=0.05, clip=tail)
+    c.ink_line(tail, width=lw, alpha=130, passes=1, jitter=0, color=ink)
+    for i in range(5):
+        fx = 0.15 + i * 0.035
+        a, b = T([(fx, 0.345), (fx - 0.005, 0.44)])
+        c.ink_line([a, b], width=lw * 1.1, closed=False, alpha=170, passes=1, jitter=0, color=tuple(int(kn[0][i2:i2 + 2], 16) for i2 in (1, 3, 5)))
+    c.paint_around(g)
+    # 3 the hat
+    g = c.snapshot()
+    if hat == 'earmuffs':
+        hx, hy = head_c
+        band = _band(smooth(T([(hx - 0.27, hy + 0.0), (hx - 0.2, hy - 0.24), (hx, hy - 0.31), (hx + 0.2, hy - 0.24), (hx + 0.27, hy + 0.0)]),
+                            rounds=1, closed=False), u * 0.035, u * 0.035)
+        c.wash(band, '#8a8f99', '#b9bec6', strength=0.75, layers=12, edge=0.9, spread=0.01)
+        c.ink_line(band, width=lw * 0.8, alpha=110, passes=1, jitter=0, color=ink)
+        for sx in (-1, 1):
+            mp = T([(hx + sx * 0.27, hy - 0.01)])[0]
+            muff = [(mp[0] + u * 0.1 * math.cos(a) * (1 + 0.08 * math.sin(7 * a)), mp[1] + u * 0.11 * math.sin(a) * (1 + 0.08 * math.sin(7 * a)))
+                    for a in [i * 2 * math.pi / 40 for i in range(40)]]
+            c.wash(muff, kn[1], kn[0], strength=0.75, spread=0.02, layers=18, edge=0.9, granulate=0.5, vary=kn[2], vary_amt=0.3)
+            c.lift(ellipse(mp[0] - u * 0.03, mp[1] - u * 0.04, u * 0.04, u * 0.03, 10), amount=0.35, soft=0.3)
+            c.ink_line(muff, width=lw * 0.8, alpha=110, passes=1, jitter=0, color=ink)
+    else:
+        hx, hy = head_c
+        pom = T([(hx + 0.04, hy - 0.52)])[0]
+        cuff = smooth(T([(hx - 0.3, hy - 0.13), (hx, hy - 0.17), (hx + 0.3, hy - 0.13), (hx + 0.3, hy - 0.03), (hx, hy - 0.07), (hx - 0.3, hy - 0.03)]), rounds=1)
+        dome = smooth(T([(hx - 0.27, hy - 0.11), (hx - 0.24, hy - 0.33), (hx - 0.08, hy - 0.47), (hx + 0.06, hy - 0.49),
+                         (hx + 0.2, hy - 0.39), (hx + 0.27, hy - 0.11)]), rounds=2)
+        fuzz = [(pom[0] + u * 0.095 * math.cos(a) * (1 + 0.12 * math.sin(9 * a)), pom[1] + u * 0.09 * math.sin(a) * (1 + 0.12 * math.sin(9 * a)))
+                for a in [i * 2 * math.pi / 54 for i in range(54)]]
+        c.wash(cuff, k2[0], k2[1], strength=0.8, spread=0.012, layers=18, edge=1.0, granulate=0.3, vary=k2[2], vary_amt=0.2)
+        c.ink_line(cuff, width=lw, alpha=130, passes=1, jitter=0, color=ink)
+        cx0, cy0 = T([(hx - 0.27, hy - 0.13)])[0]; cx1, cy1 = T([(hx + 0.27, hy - 0.13)])[0]
+        nrib = 9
+        for i in range(nrib):
+            t = (i + 0.5) / nrib
+            a, b = T([(hx - 0.27 + 0.54 * t, hy - 0.14), (hx - 0.27 + 0.54 * t, hy - 0.06)])
+            c.ink_line([a, b], width=lw * 0.6, closed=False, alpha=90, passes=1, jitter=0, color=tuple(int(k2[2][i2:i2 + 2], 16) for i2 in (1, 3, 5)))
+        c.paint_around(g)
+        g = c.snapshot()
+        c.wash(fuzz, '#fbf6ee', kn[1], strength=0.3, spread=0.02, layers=14, edge=0.8, granulate=0.5)
+        c.ink_line(fuzz, width=lw * 0.7, alpha=100, passes=1, jitter=0, color=ink)
+        c.paint_around(g)
+        g = c.snapshot()
+        c.wash(dome, kn[0], kn[1], strength=0.82, spread=0.014, layers=22, edge=1.1, granulate=0.4, vary=kn[2], vary_amt=0.3)
+        for i in range(5):   # knit V rows
+            t = (i + 0.6) / 5.5
+            row = smooth(T([(hx - 0.24 + 0.02 * i, hy - 0.16 - 0.06 * i), (hx + 0.02, hy - 0.2 - 0.06 * i), (hx + 0.24 - 0.03 * i, hy - 0.16 - 0.06 * i)]),
+                         rounds=1, closed=False)
+            c.ink_line(row, width=lw * 0.55, closed=False, alpha=70, passes=1, jitter=0, color=tuple(int(kn[2][i2:i2 + 2], 16) for i2 in (1, 3, 5)))
+        c.lift(T(ellipse(hx - 0.1, hy - 0.36, 0.07, 0.05, 10)), amount=0.4, soft=0.3)
+        c.ink_line(dome, width=lw, alpha=130, passes=1, jitter=0, color=ink)
+    c.paint_around(g)
+    # 4 head and body: reserved white paper, cool shadow, lifted light
+    g = c.snapshot()
+    for shape, (bx, by), rx, ry in ((head, head_c, head_r, head_r), (body, body_c, body_rx, body_ry)):
+        c.reserve(shape)
+        c.wash(shape, shade2, None, strength=0.25, spread=0.01, layers=16, edge=1.4, granulate=0.25)
+        crescent = smooth(T([(bx + rx * 0.15, by - ry * 0.95), (bx + rx * 0.85, by - ry * 0.45), (bx + rx * 0.95, by + ry * 0.2),
+                             (bx + rx * 0.55, by + ry * 0.85), (bx - rx * 0.2, by + ry * 0.98), (bx - rx * 0.6, by + ry * 0.78),
+                             (bx + rx * 0.2, by + ry * 0.55), (bx + rx * 0.55, by), (bx + rx * 0.4, by - ry * 0.55)]), rounds=2)
+        c.wash(crescent, shade, shade2, strength=0.58, spread=0.05, layers=18, edge=0.3, granulate=0.45, clip=shape, blur=max(2.0, u * rx * 0.1))
+        c.lift(T(ellipse(bx - rx * 0.35, by - ry * 0.4, rx * 0.32, ry * 0.22, 12)), amount=0.6, soft=0.35, clip=shape)
+        c.ink_line(shape, width=lw, alpha=120, passes=1, jitter=0, color=ink)
+    c.paint_around(g)
+    # 5 twig arms, behind the body
+    for sx in (-1, 1):
+        root = (sx * 0.36, 0.2)
+        tip = (sx * 0.86, -0.12 + rnd.uniform(-0.05, 0.05))
+        mid = ((root[0] + tip[0]) / 2, (root[1] + tip[1]) / 2 - 0.04)
+        path = T([root, mid, tip])
+        c.dry_brush(path, max(2, u * 0.03), '#6b4a36', strength=0.9, bristles=5, gap=0.25, taper=True)
+        f0 = (mid[0] + (tip[0] - mid[0]) * 0.4, mid[1] + (tip[1] - mid[1]) * 0.4)
+        for fx, fy in ((f0[0] + sx * 0.12, f0[1] - 0.14), (tip[0] + sx * 0.06, tip[1] - 0.08), (tip[0] + sx * 0.1, tip[1] + 0.03)):
+            base = f0 if fy < f0[1] - 0.1 else tip
+            c.dry_brush(T([base, (fx, fy)]), max(1.5, u * 0.018), '#6b4a36', strength=0.85, bristles=3, gap=0.25, taper=True)
+    # 6 the snow it stands on
+    if mound:
+        mx, my = T([(0.0, 0.73)])[0]
+        _snow_mound(c, mx, my, u * 0.62, u * 0.12)
+
+
+def mittens(c, x, y, s, P, knit=None, knit2=None, angle=0.0, joined=False):
+    """A pair of knit mittens, cuffs down, the right one overlapping the left,
+    optionally joined by a loop of yarn: a striped band with a snowflake star, ribbed
+    cuffs, lifted highlights and a soft pen line."""
+    rnd = c.rnd
+    kn = KNITS[knit or rnd.choice(list(KNITS))]
+    k2 = KNITS[knit2] if knit2 else KNITS[rnd.choice([k for k in KNITS if KNITS[k] is not kn])]
+    u = s
+    ink = (60, 60, 70); lw = max(1.5, u * 0.016)
+    ca, sa = math.cos(angle), math.sin(angle)
+    MIT = [(-0.17, 0.42), (0.17, 0.42), (0.19, 0.0), (0.18, -0.25), (0.1, -0.42), (-0.02, -0.46), (-0.13, -0.4), (-0.19, -0.22),
+           (-0.2, -0.06), (-0.29, -0.12), (-0.36, -0.06), (-0.33, 0.06), (-0.2, 0.18)]
+
+    def T(seq, ox, oy, rot, mirror):
+        out = []
+        cr, sr = math.cos(rot), math.sin(rot)
+        for px, py in seq:
+            px = px * mirror
+            lx, ly = px * cr - py * sr, px * sr + py * cr
+            lx, ly = lx * u + ox * u, ly * u + oy * u
+            out.append((x + lx * ca - ly * sa, y + lx * sa + ly * ca))
+        return out
+
+    for (ox, oy, rot, mirror, col, col2) in ((0.24, 0.04, 0.2, -1, kn, k2), (-0.22, -0.02, -0.2, 1, kn, k2)):
+        g = c.snapshot()
+        body = smooth(T(MIT, ox, oy, rot, mirror), rounds=2)
+        cuff = smooth(T([(-0.19, 0.28), (0.19, 0.28), (0.19, 0.44), (-0.19, 0.44)], ox, oy, rot, mirror), rounds=1)
+        stripe = smooth(T([(-0.21, -0.02), (0.21, -0.02), (0.21, 0.12), (-0.21, 0.12)], ox, oy, rot, mirror), rounds=1)
+        # front parts first: cuff, then the striped band, then the body around them
+        c.wash(cuff, col2[1], col2[0], strength=0.7, spread=0.012, layers=16, edge=0.9, granulate=0.35)
+        for i in range(7):
+            t = (i + 0.5) / 7
+            a, b = T([(-0.17 + 0.34 * t, 0.3), (-0.17 + 0.34 * t, 0.42)], ox, oy, rot, mirror)
+            c.ink_line([a, b], width=lw * 0.6, closed=False, alpha=100, passes=1, jitter=0, color=tuple(int(col2[2][j:j + 2], 16) for j in (1, 3, 5)))
+        c.ink_line(cuff, width=lw, alpha=130, passes=1, jitter=0, color=ink)
+        c.paint_around(g)
+        g2 = c.snapshot()
+        c.wash(stripe, col2[0], col2[1], strength=0.75, spread=0.01, layers=14, edge=0.8, clip=body)
+        for i in range(5):
+            t = (i + 0.5) / 5
+            dp = T([(-0.17 + 0.34 * t, 0.05)], ox, oy, rot, mirror)[0]
+            gouache(c, ellipse(dp[0], dp[1], u * 0.016, u * 0.016, 8), alpha=230)
+        c.paint_around(g2)
+        c.wash(body, col[0], col[1], strength=0.8, spread=0.014, layers=22, edge=1.1, granulate=0.4, vary=col[2], vary_amt=0.3)
+        sp = T([(0.0, -0.22)], ox, oy, rot, mirror)[0]
+        for k in range(3):   # a little knit star
+            a = k * math.pi / 3 + rot
+            c.ink_line([(sp[0] - u * 0.06 * math.cos(a), sp[1] - u * 0.06 * math.sin(a)), (sp[0] + u * 0.06 * math.cos(a), sp[1] + u * 0.06 * math.sin(a))],
+                       width=lw * 1.3, closed=False, alpha=235, passes=1, jitter=0, color=(250, 246, 238))
+        c.lift(T(ellipse(-0.06, -0.33, 0.05, 0.08, 10), ox, oy, rot, mirror), amount=0.35, soft=0.3)
+        c.ink_line(body, width=lw, alpha=130, passes=1, jitter=0, color=ink)
+        c.paint_around(g)
+    if joined:
+        a = T([(0.0, 0.44)], 0.24, 0.04, 0.2, -1)[0]; b = T([(0.0, 0.44)], -0.22, -0.02, -0.2, 1)[0]
+        mid = ((a[0] + b[0]) / 2, max(a[1], b[1]) + u * 0.22)
+        yarn = smooth([a, (a[0] - u * 0.05, mid[1] - u * 0.04), mid, (b[0] + u * 0.05, mid[1] - u * 0.04), b], rounds=2, closed=False)
+        c.ink_line(yarn, width=lw * 1.2, closed=False, alpha=200, passes=1, jitter=0, color=tuple(int(kn[0][j:j + 2], 16) for j in (1, 3, 5)))
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
@@ -4455,4 +4675,5 @@ MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'sn
            'fox': fox, 'hedgehog': hedgehog, 'toadstool': toadstool,
            'snowdrop2': snowdrop2, 'ribbon_tie': ribbon_tie,
            'citrus_fruit': citrus_fruit, 'citrus_slice': citrus_slice, 'citrus_blossom': citrus_blossom,
-           'teapot': teapot, 'teacup': teacup, 'honey_jar': honey_jar}
+           'teapot': teapot, 'teacup': teacup, 'honey_jar': honey_jar,
+           'snowman': snowman, 'mittens': mittens}

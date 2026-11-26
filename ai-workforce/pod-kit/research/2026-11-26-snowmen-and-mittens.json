@@ -1,0 +1,84 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a pod_research doc.",
+ "id": "2026-11-26-snowmen-and-mittens",
+ "phrase": "Snowmen & Mittens (no lettering on the art; title words: snowman mug, watercolor snowmen)",
+ "niche": "winter mugs: snowmen and cozy knitwear for January (after Christmas, through February)",
+ "kind": "pattern",
+ "trend_research": {
+  "searches": [
+   "Etsy trending mug designs winter 2026 2027",
+   "best selling print on demand mug niches January 2027",
+   "Etsy trends 2026 cottagecore mushrooms highland cow frogs gifts",
+   "snowman coffee mug etsy watercolor all over print winter",
+   "snowman mug bestseller etsy \"snowman mug\" price"
+  ],
+  "findings": [
+   "Etsy's winter mug pages list snowy pine tree, cozy winter and winter forest mugs among bestsellers; snowmen, polar bears, owls, cardinals and gnomes recur as winter motifs (etsy.com/market/trending_mug_designs_2026, /winter_forest_mug, /gift_winter_mug, /hello_winter_mug).",
+   "Mugs are an evergreen POD product; generic designs struggle and specific ones sell (Printful, Gelato 2026 guides); Q4 holiday designs peak, so a winter (not Christmas) design keeps selling through January-February.",
+   "2026 Etsy guides: quieter, cozy 'quiet country' cottagecore, warmth and handmade textures (insightagent.app, outfy.com)."
+  ],
+  "calendar": "4-8 weeks ahead of Nov 26 is late December to late January: winter, not Christmas. Valentine's Day opens in early January (queue row 13).",
+  "latest_pod_review": "pod-kit/research/2026-11-23-pod-review.json: 0 orders; keep following search demand with evergreen gift niches; January and winter now.",
+  "owner_mug_scan": "pod_research/owner-etsy-mug-scan-2026-09-28: winners are all-over wraps with accent handles and cozy themes; printed watercolor is rare."
+ },
+ "sources": [
+  "https://www.etsy.com/market/trending_mug_designs_2026",
+  "https://www.etsy.com/market/winter_forest_mug",
+  "https://www.etsy.com/market/gift_winter_mug",
+  "https://www.etsy.com/market/hello_winter_mug",
+  "https://www.insightagent.app/trends/etsy-trending-mugs",
+  "https://dreamship.com/blog/en/7-profitable-print-on-demand-mug-niches-you-should-try",
+  "https://www.gelato.com/blog/trending-products-to-sell",
+  "https://happypret.patternbyetsy.com/listing/4403432083/personalized-snowman-mug-hot-cocoa",
+  "https://youcustomizeit.com/p/Winter-Snowman-Coffee-Mug/469873",
+  "https://janine-riley.pixels.com/products/oh-my-a-christmas-tree-janine-riley-coffee-mug.html",
+  "https://www.walmart.com/ip/CafePress-Snowman-Face-Mugs-11-oz-Ceramic-Mug-Novelty-Coffee-Tea-Cup/1785168262",
+  "https://fiestafactorydirect.com/collections/new-retired-christmas-1/products/snowman-stacking-mug",
+  "https://www.target.com/p/16-fl-oz-christmas-earthenware-figural-snowman-mug-wondershop-8482/-/A-94340514",
+  "https://www.sweetwaterdecor.com/products/snowman-21oz-figurine-coffee-mug"
+ ],
+ "competitors": [
+  {
+   "what": "Personalized snowman hot cocoa mug (Etsy, Happypret)",
+   "price": "$11.24 (as listed)",
+   "style": "single cartoon snowman with a name"
+  },
+  {
+   "what": "Winter Snowman wrap-around custom mug (YouCustomizeIt)",
+   "price": "not shown in the result",
+   "style": "template clip art, wrap print"
+  },
+  {
+   "what": "Snowman and Christmas tree watercolor mug (Pixels, Janine Riley)",
+   "price": "not shown",
+   "style": "one watercolor painting on one side"
+  },
+  {
+   "what": "Snowman Face mug 11 oz / 15 oz (CafePress at Walmart)",
+   "price": "$14.99 / $17.99",
+   "style": "flat cartoon face"
+  },
+  {
+   "what": "Snowman stacking mug (Fiesta)",
+   "price": "$21.59 (20% off $26.99, the seller's own claim)",
+   "style": "solid glaze, figural"
+  },
+  {
+   "what": "Figural snowman mug 16 oz (Wondershop at Target) and 21 oz figurine mug (Sweet Water Decor)",
+   "price": "not shown",
+   "style": "3D figural ceramic"
+  }
+ ],
+ "gap": "Snowman mugs are figurals, single cartoon faces, personalized cocoa mugs or clip-art templates; none of the results was a layered watercolor all-over pattern. Our angle: a full wrap of hand-painted watercolor snowmen in knit hats, earmuffs and striped scarves with knit mittens, snowy pine, pinecones, winterberries and snowflakes on cream paper; winter, not Christmas (no Santa hats, ornaments or holly), so it sells December to February.",
+ "scores": {
+  "demand": 4,
+  "competition": 4,
+  "timing": 4,
+  "fit_with_watercolor": 5,
+  "trademark_risk": 4,
+  "total": 21
+ },
+ "decision": "go (21/25): pattern design 'Snowmen & Mittens' (all-over mug + accent mugs)",
+ "repeat_check": "pod-kit/designs (35 designs) has no snowman design; Snowy Pine Cardinals and Foxes & Hedgehogs are winter wildlife patterns, so this one leaves out birds and animals.",
+ "created": "2026-11-26T16:19:57Z"
+}

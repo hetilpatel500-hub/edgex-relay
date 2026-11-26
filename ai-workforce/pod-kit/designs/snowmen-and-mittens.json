@@ -1,0 +1,253 @@
+{
+  "id": "snowmen-and-mittens",
+  "kind": "pattern",
+  "name": "Snowmen & Mittens",
+  "engine": 2,
+  "seed": 2611,
+  "background": "#f6efe3",
+  "palette": {
+    "main": "#c8343a",
+    "main2": "#e66a5f",
+    "accent": "#d42f36",
+    "accent2": "#f3d48e",
+    "leaf": "#3f6e55",
+    "leaf2": "#8db39a",
+    "leaf_dark": "#274a3b",
+    "holly": "#2f6b4f",
+    "holly2": "#6fa27e",
+    "berry": "#c1272d",
+    "shadow": "#a9bccb",
+    "snow": "#a9c2d6",
+    "object": "#2f7f86",
+    "object2": "#69b3b4"
+  },
+  "elements": [
+    {
+      "motif": "snowman",
+      "size": 0.21,
+      "count": 1,
+      "args": {
+        "hat": "beanie",
+        "knit": "red",
+        "facing": 1
+      },
+      "spacing": 0.92,
+      "y_range": [
+        0.18,
+        0.82
+      ]
+    },
+    {
+      "motif": "snowman",
+      "size": 0.21,
+      "count": 1,
+      "args": {
+        "hat": "beanie",
+        "knit": "teal",
+        "knit2": "mustard",
+        "facing": -1
+      },
+      "spacing": 0.92,
+      "y_range": [
+        0.18,
+        0.82
+      ]
+    },
+    {
+      "motif": "snowman",
+      "size": 0.21,
+      "count": 1,
+      "args": {
+        "hat": "earmuffs",
+        "knit": "blush",
+        "facing": 1
+      },
+      "spacing": 0.92,
+      "y_range": [
+        0.18,
+        0.82
+      ]
+    },
+    {
+      "motif": "snowman",
+      "size": 0.2,
+      "count": 1,
+      "args": {
+        "hat": "beanie",
+        "knit": "mustard",
+        "knit2": "navy",
+        "facing": -1
+      },
+      "spacing": 0.92,
+      "y_range": [
+        0.18,
+        0.82
+      ]
+    },
+    {
+      "motif": "snowman",
+      "size": 0.19,
+      "count": 1,
+      "args": {
+        "hat": "earmuffs",
+        "knit": "teal",
+        "facing": -1
+      },
+      "spacing": 0.92,
+      "y_range": [
+        0.18,
+        0.82
+      ]
+    },
+    {
+      "motif": "mittens",
+      "size": 0.14,
+      "count": 1,
+      "args": {
+        "knit": "navy",
+        "knit2": "red"
+      },
+      "tilt": 0.3,
+      "spacing": 0.88
+    },
+    {
+      "motif": "mittens",
+      "size": 0.14,
+      "count": 1,
+      "args": {
+        "knit": "red",
+        "knit2": "sage"
+      },
+      "tilt": 0.3,
+      "spacing": 0.88
+    },
+    {
+      "motif": "mittens",
+      "size": 0.14,
+      "count": 1,
+      "args": {
+        "knit": "teal",
+        "knit2": "blush"
+      },
+      "tilt": 0.3,
+      "spacing": 0.88
+    },
+    {
+      "motif": "mittens",
+      "size": 0.14,
+      "count": 1,
+      "args": {
+        "knit": "mustard",
+        "knit2": "navy"
+      },
+      "tilt": 0.3,
+      "spacing": 0.88
+    },
+    {
+      "motif": "pine_bough",
+      "size": 0.13,
+      "count": 8,
+      "args": {
+        "snow": true
+      },
+      "tilt": 3.1,
+      "spacing": 0.78
+    },
+    {
+      "motif": "pine_bough",
+      "size": 0.09,
+      "count": 7,
+      "args": {
+        "snow": false,
+        "twigs": 1
+      },
+      "tilt": 3.1,
+      "spacing": 0.8
+    },
+    {
+      "motif": "pinecone",
+      "size": 0.05,
+      "count": 11,
+      "tilt": 0.8,
+      "spacing": 0.82
+    },
+    {
+      "motif": "berries",
+      "size": 0.034,
+      "count": 11,
+      "args": {
+        "color": "#b3283a",
+        "n": 4
+      },
+      "spacing": 0.82
+    },
+    {
+      "motif": "snowflake",
+      "size": 0.032,
+      "count": 22,
+      "tilt": 0.5,
+      "spacing": 1.8,
+      "gaps": true,
+      "clear": 1.4
+    },
+    {
+      "motif": "snow_dot",
+      "size": 0.008,
+      "fill": true,
+      "spacing": 4.0,
+      "gaps": true,
+      "clear": 2.4
+    }
+  ],
+  "mug_colors": [
+    "Red",
+    "Light Blue",
+    "Navy",
+    "White"
+  ],
+  "listing": {
+    "title": "Snowman Mug, Watercolor Snowmen All Over Print Coffee Mug, Knit Mittens Winter Mug, Cozy Hot Cocoa Mug, Winter Gift for Her",
+    "tags": [
+      "snowman mug",
+      "snowmen mug",
+      "winter mug",
+      "watercolor mug",
+      "mittens mug",
+      "hot cocoa mug",
+      "cozy winter mug",
+      "snowflake mug",
+      "knit hat mug",
+      "winter gift",
+      "pinecone mug",
+      "snow lover gift",
+      "gift for her"
+    ],
+    "description": "Watercolor snowmen in knit beanies with pom-poms, earmuffs and striped scarves wave their twig arms across the whole mug, with pairs of knit mittens, snowy pine boughs, pinecones, red winterberries and pale blue snowflakes on a warm cream background. There's no slogan or name, and nothing Christmas-only, so it suits anyone who loves a snowy day, from December right through to the end of February.",
+    "per_product": {
+      "accent_mug": {
+        "title": "Snowman Accent Mug, Watercolor Snowmen Coffee Cup, Red, Light Blue or Navy Handle, 11 or 15 oz, Cozy Winter Gift",
+        "tags": [
+          "snowman accent mug",
+          "red handle mug",
+          "blue handle mug",
+          "navy handle mug",
+          "15 oz coffee mug",
+          "snowman coffee cup",
+          "winter coffee mug",
+          "mittens coffee cup",
+          "hot cocoa cup",
+          "snow lover gift",
+          "cozy coffee mug",
+          "tea mug for her",
+          "snowmen cup"
+        ]
+      }
+    },
+    "products": [
+      "11 oz white mug, full wrap (68 / SPOKE)",
+      "Accent mug 11 or 15 oz, red, light blue or navy handle, rim and inside (635 / Printify Choice)"
+    ],
+    "price_note": "$16.99 white wrap mug, $19.99 (11 oz) / $22.99 (15 oz) accent mug, the studio's standard mug prices (POD-DESK.md product table). Competing snowman mugs found 2026-11-26: CafePress 'Snowman Face' mug at Walmart $14.99 (11 oz) / $17.99 (15 oz), Fiesta stacking snowman mug $21.59 (shown as 20% off $26.99, the seller's own claim), a personalized snowman cocoa mug on Etsy $11.24; the figural mugs (Target Wondershop, Sweet Water Decor) and the wrap template (YouCustomizeIt) showed no price in the search results. The owner can change any price.",
+    "trademark_check": "Legal Desk screen 2026-11-26, before any art: web searches '\"snowmen and mittens\" OR \"snowman and mittens\" trademark', '\"snowman\" trademark mugs class 21 registered snowmen design mark' and 'FROSTY THE SNOWMAN trademark registration mugs Warner' found no SNOWMEN & MITTENS mark. Nearby: THE SNOWMAN (Snowman Enterprises Ltd., reg. 1610875, registered and renewed, ceramic figurines and children's mugs and dishes); FROSTY THE SNOWMAN (Warner Bros. Entertainment, e.g. reg. 2491030; a secondary source says its registrations reach mugs); snowman design marks (reg. 6268371 a smiling snowman, reg. 3799225 a snowman wearing a crown); SNOWKIDZZ and SNOW STUFF for mittens and winter apparel. So the title and tags never use 'The Snowman', 'Frosty' or any character name, and the art has no lettering. The snowmen are the studio's own drawings in knit beanies and earmuffs, never a black top hat with a corncob pipe, button nose and broom, and never a crown. 'Snowmen & Mittens' is the studio's internal design name only. tmsearch.uspto.gov is blocked from our sessions; this is a search-engine screen, not a clearance."
+  }
+}
