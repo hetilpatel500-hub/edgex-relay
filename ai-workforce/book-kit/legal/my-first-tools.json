@@ -1,0 +1,66 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "books",
+  "doc_id": "my-first-tools",
+  "kind": "book"
+ },
+ "title": "My First Tools Coloring Book: interior, cover, listing, A+ images and Amazon Ads kit",
+ "reviewed_at": "2026-11-27T14:52:47Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The trademark note is a web screen, not a clearance; the owner decides before publishing. Topic note: the planned rotation has ended, so Trend Scout picked Tools under the owner's standing 'different topics' directive (no earlier book, repo record or DB books doc has it); the owner can swap it. No page name repeats any of the 29 earlier books: Paintbrush and Paint Can (Shapes & Colors), Flashlight (Camping), Wheelbarrow and Watering Can (Farmyard, Bugs) and Snow Shovel (Winter) were left out on purpose, and the trucks stay in the owner's own Trucks book."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description, subtitle, back cover, A+ points and ad texts checked against the built interior (pdftotext of interior.pdf): 64 pages, title page, 30 labelled pictures in five groups (7 hand tools + 4 measuring and marking + 9 fix-it things + 5 safety gear + 5 workshop and yard) in the order the description lists them, each with a blank back, and the 'Great job! You colored all 30 tool pictures!' certificate. Every named example (hammer, screwdriver, wrench, toolbox, hard hat, traffic cone) is in the book. 'Every page has ... a smiling face' is true: all 30 pictures have a face (Nails has two; Safety Goggles' face is drawn into the lenses). The third ad text was worded 'big friendly pictures with their names' rather than 'each with a smiling face' because two pages (Nails, Nut & Bolt) show two objects. 'Construction' appears only in keywords for tool and safety-gear pages (hard hat, cone, ladder); no description or ad says the book has trucks or machines. No development, skill or safety claims, and no 'bestselling', review, sale or result claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data in the book, listing or ads kit; the 'This book belongs to' line and the certificate's name line collect nothing."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original vector drawing in art/tools.js; line and color contact sheets reviewed at full size. Checked against well-known tool characters: no Bob the Builder (hard hat and plaid), no Handy Manny talking tools, no Toolbox from any show; every tool is a plain generic shape with the series' face. Brands appear only as ad negatives. Fredoka font is SIL OFL 1.1, which allows embedding. AI-art note: purely AI-made pictures and text can't be registered for US copyright (US Copyright Office guidance; Thaler v. Perlmutter), so others could reuse them; that doesn't stop selling the book."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Web search only (USPTO is unreachable from this environment). No book titled 'My First Tools Coloring Book' turned up; nearby titles are 'My First Toolbox: Press Out & Play' (Abrams board book), 'Tool School' (Scholastic), 'Tools Rule!' and a 'Tools Get the Job Done' coloring book, none of which is used. Stanley, DeWalt, Craftsman, Black and Decker and Milwaukee are tool brands kept out of the title, keywords and art (no yellow-and-black or red-and-black brand color schemes on the drill; it is green and gray) and appear only as ad negatives. Fixed: a KDP keyword said 'little builders' and an ad keyword 'builder coloring book'; LITTLE BUILDER (Reg. 5067354) is live with goods not visible here and BUSY BUILDERS / FIRST BUILDERS marks exist, so both were replaced with plain 'tools' phrases. The series uses 'My First' descriptively as in its 29 earlier books. Page labels are plain descriptions; keywords, ad keywords and headlines use no brand, author or character names."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover and title page matches the metadata title. 7 keywords of 48 characters or fewer, no brands, no 'bestseller', 'new' or 'free' style terms, no other authors or titles. Categories are the three general children's paths used by earlier books; a building or tools category for children's books, if KDP's picker offers one, is left to the owner. Amazon Ads book policy: 3 custom texts (113, 107, 108 characters) and 3 headlines (41, 39, 26) with no price, sale, 'free' offer, best-seller, star-rating or review claims ('screen-free' describes the activity, and build.js allows it); ad keywords are generic searches; 61 negatives, including toy-tool-set, power-tool, DIY and tool-brand terms so ads stay on coloring-book searches."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no people and no child shown using any tool. No knives, axes, sparks or blood; the saw's teeth are small rounded zigzags on a smiling saw, as in toddler tool board books; the drill is cordless (no plug), and the light bulb has no socket or wires. Safety gear (hard hat, goggles, gloves, cone) is shown as friendly objects. The description says children love to 'build, fix and pretend', with no instruction to use real tools, and no claims that the book teaches tool safety or skills."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "KDP keyword 'coloring book for little builders ages 2-5' became 'tools coloring book for kids ages 2-5', and ad keyword 'builder coloring book' became 'tool books for kids' (LITTLE BUILDER Reg. 5067354 is live; BUSY BUILDERS and FIRST BUILDERS marks exist).",
+  "Art review before Legal: the Dustpan page was dropped as unclear (31 drawn, 30 kept); a stray arc inside the nut's hole was removed; the tool belt's peeking tools were redrawn as a hammer and a screwdriver handle; the pliers' jaws were made chunkier with grip lines; the pencil was drawn bigger."
+ ],
+ "owner_notes": [
+  "Optional: run a USPTO search for 'My First Tools' before publishing; this was a web screen only.",
+  "Topic picked by Trend Scout (the planned rotation is finished); say if you'd like a different one.",
+  "KDP's AI question: answer Yes for images and text."
+ ],
+ "research_ref": "web search 2026-11-27: title conflicts ('My First Tools Coloring Book', toddler tools coloring books), 'Little Builders' marks (Justia)",
+ "last_touch_ref": "grammar-copy-editor and deliverable-qa-reviewer lines in book-kit/records/2026-11-27-my-first-tools.json",
+ "decision_ref": "book-kit/records/2026-11-27-my-first-tools.json (decision)"
+}

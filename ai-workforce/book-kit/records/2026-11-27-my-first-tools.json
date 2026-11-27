@@ -1,0 +1,136 @@
+{
+ "note": "Office DB is full (100 MB, creates refused since 2026-11-05), so the books, decisions and collabs docs for this run are filed here.",
+ "books": [
+  {
+   "doc_id": "my-first-tools",
+   "title": "My First Tools Coloring Book",
+   "series": "my first step",
+   "author": "JONNY COLOR",
+   "topic": "Tools",
+   "subjects": 30,
+   "pages": 64,
+   "legal_review": "book-kit/legal/my-first-tools.json",
+   "status": "delivered",
+   "artifact": "https://claude.ai/artifact/2SPCwXhxXB6XHkfCzT2gq5",
+   "created": "2026-11-27T14:53:42Z",
+   "emailed": "Gmail message 1a21d7f1c0b3a3a1 to the owner, 2026-11-27"
+  }
+ ],
+ "decision": {
+  "doc_id": "2026-11-27-book-my-first-tools",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-27T14:53:42Z",
+  "reason": "Legal verdict cleared at 2026-11-27T14:52:47Z (all ten counsel; trademark web screen on file; 'little builders' and 'builder' keywords replaced because LITTLE BUILDER is a live mark). Planned rotation has ended, so the topic was picked under the owner's standing 'different topics' directive and flagged to the owner, who can swap it. No page name repeats an earlier book. Build checks passed (64 pages, cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge). Delivery to the owner only: no KDP publishing, no ads, no prices set.",
+  "legal_review": "book-kit/legal/my-first-tools.json"
+ },
+ "collabs": {
+  "doc_id": "2026-11-27-book-my-first-tools",
+  "created": "2026-11-27T14:53:42Z",
+  "members": [
+   "trend-scout",
+   "market-research-agent",
+   "brand-graphic-design-agent",
+   "quality-bar-agent",
+   "copywriter-seo-agent",
+   "paid-ads-agent",
+   "grammar-copy-editor",
+   "deliverable-qa-reviewer",
+   "general-counsel-agent",
+   "advertising-consumer-protection-counsel",
+   "email-anti-spam-compliance-counsel",
+   "privacy-data-protection-counsel",
+   "copyright-fair-use-counsel",
+   "trademark-brand-clearance-counsel",
+   "financial-content-compliance-counsel",
+   "platform-terms-policy-counsel",
+   "kids-content-coppa-counsel",
+   "contracts-commercial-terms-counsel",
+   "chief-of-staff",
+   "publish-coordinator"
+  ],
+  "log": [
+   {
+    "agent": "trend-scout",
+    "line": "Rotation is finished; picked Tools (no book, repo record or DB books doc has it): an evergreen fix-it pretend-play topic with no page names repeated from the 29 earlier books. Birthday Party was passed over again (cake, cupcake, balloons and party hat are already in other books), and School overlapped with crayons, backpack and lunch box."
+   },
+   {
+    "agent": "market-research-agent",
+    "line": "Searched titles: no 'My First Tools Coloring Book'; nearby are 'My First Toolbox: Press Out & Play' (Abrams board book), 'Tool School' (Scholastic), 'Tools Rule!' and a general-audience 'Tools Get the Job Done' coloring book. Toddler tool titles are board and story books, not coloring books."
+   },
+   {
+    "agent": "brand-graphic-design-agent",
+    "line": "Drew 31 tools in art/tools.js, each with a face: hand tools, measuring, fix-it things, safety gear and workshop/yard; no knives, axes, sparks or cords, and a green-and-gray drill (no brand color scheme)."
+   },
+   {
+    "agent": "quality-bar-agent",
+    "line": "Contact sheet review: dropped the Dustpan (unclear; 30 kept), removed a stray arc inside the nut's hole, redrew the tool belt's peeking tools as a hammer and screwdriver handle, made the pliers' jaws chunkier, and drew the pencil bigger."
+   },
+   {
+    "agent": "copywriter-seo-agent",
+    "line": "Title, subtitle (Hammer, Wrench, Toolbox), description in five groups matching the page order, 7 keywords of 48 characters or fewer, 3 categories, cover and A+ text."
+   },
+   {
+    "agent": "paid-ads-agent",
+    "line": "Ads kit: bids $0.35/$0.45/$0.40, 15 exact + 8 phrase keywords, 61 negatives (toy tool sets, power tools, DIY, tool brands, character brands), 3 custom texts (113/107/108) and 3 headlines."
+   },
+   {
+    "agent": "grammar-copy-editor",
+    "line": "Read the listing, back cover, A+ text and ad texts against the page labels; reworded the third ad text from 'each with a smiling face' to 'big friendly pictures with their names', because two pages show two objects."
+   },
+   {
+    "agent": "deliverable-qa-reviewer",
+    "line": "build.js and page.py passed: 64 pages (pdftotext shows all 30 labels in order and the certificate), cover 17.3941 x 11.25 in matches KDP's formula, background reaches every page edge; cover, pages and both A+ images checked."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "pass: All ten checks on file. Pen name JONNY COLOR keeps the owner anonymous. Nothing commits the owner: no publishing, price or ad spend. The tra"
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "pass: Description, subtitle, back cover, A+ points and ad texts checked against the built interior (pdftotext of interior.pdf): 64 pages, title pa"
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: No commercial email. The delivery goes only to the owner."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: No personal data in the book, listing or ads kit; the 'This book belongs to' line and the certificate's name line collect nothing."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "pass: Art is original vector drawing in art/tools.js; line and color contact sheets reviewed at full size. Checked against well-known tool charact"
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "pass: Web search only (USPTO is unreachable from this environment). No book titled 'My First Tools Coloring Book' turned up; nearby titles are 'My"
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "n/a: No money content."
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "pass: KDP: the AI question must be answered Yes for images and text (in the listing and the email). Title on the cover and title page matches the "
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "pass: General-audience children's book for ages 2-5; nothing is collected from children. Friendly pictures only: no people and no child shown usin"
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: No contract, license purchase or terms accepted. Nothing is uploaded to KDP or Amazon Ads."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved after the cleared Legal verdict; delivery to the owner only."
+   },
+   {
+    "agent": "publish-coordinator",
+    "line": "Published the private page with Save buttons (8 files) and emailed the owner the listing, ads summary, AI disclosure and Legal notes."
+   }
+  ],
+  "outcome": "Delivered My First Tools Coloring Book to the owner on a private page; one email (1a21d7f1c0b3a3a1). Nothing published, priced or advertised."
+ }
+}

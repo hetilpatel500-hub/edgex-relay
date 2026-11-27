@@ -55,6 +55,7 @@ Valentine's Day (2026-11-23; picked by Trend Scout to be indexed before January-
 Easter & Spring (2026-11-24; picked by Trend Scout as the next season, titled this way because "My First Easter Coloring Book" exists).
 Bath & Bedtime (2026-11-25; picked by Trend Scout as an evergreen bath-and-bed routine topic, titled this way because "My First Bedtime Copy Coloring Book" exists).
 Kitchen (2026-11-26; picked by Trend Scout as an evergreen pretend-play topic with no page names repeated from earlier books; the Mixer page is a hand mixer, not a stand mixer, because KitchenAid's mixer shape is a registered mark).
+Tools (2026-11-27; picked by Trend Scout as an evergreen fix-it pretend-play topic with no page names repeated from earlier books; no trucks, which stay in the owner's Trucks book, and no 'builder' keywords because LITTLE BUILDER is a live mark).
 While the office DB is full (100 MB), the Legal review goes in `book-kit/legal/<id>.json`
 and the books, decisions and collabs docs in `book-kit/records/<date>-<id>.json`.
 Next: the planned rotation is finished. Until the owner names a topic, Trend Scout picks one that
