@@ -4655,6 +4655,363 @@ def mittens(c, x, y, s, P, knit=None, knit2=None, angle=0.0, joined=False):
         yarn = smooth([a, (a[0] - u * 0.05, mid[1] - u * 0.04), mid, (b[0] + u * 0.05, mid[1] - u * 0.04), b], rounds=2, closed=False)
         c.ink_line(yarn, width=lw * 1.2, closed=False, alpha=200, passes=1, jitter=0, color=tuple(int(kn[0][j:j + 2], 16) for j in (1, 3, 5)))
 
+# ---------------------------------------------------------------- sourdough
+def _dome_pts(s, top=0.62, bot=0.3, n=84):
+    """A loaf's outline in local coords: a domed top, a flatter base with
+    rounded corners; s = half the width."""
+    pts = []
+    for i in range(n):
+        t = 2 * math.pi * i / n
+        ct, st = math.cos(t), math.sin(t)
+        if st < 0:
+            pts.append((s * ct, -top * s * (-st) ** 0.95))
+        else:
+            pts.append((s * ct * (1 - 0.06 * st), bot * s * st ** 0.45))
+    return pts
+
+
+def _opened_cut(c, W, path, wmax, s, inside=('#f6d898', '#d99448'), lip='#86461e', ang=math.pi / 2):
+    """A score that opened in the oven: a pale golden crescent under the cut
+    line (tapering to nothing at both ends, with a few crumb dabs), a shadow
+    under the lip, and a dark baked lip along the cut with a fine line on its
+    upper edge."""
+    n = len(path)
+    rnd = c.rnd
+    low, up = [], []
+    for i, (px, py) in enumerate(path):
+        nx, ny = _path_normal(path, i)
+        if ny < 0:
+            nx, ny = -nx, -ny
+        w = wmax * math.sin(math.pi * i / (n - 1)) ** 1.3
+        low.append((px + nx * w, py + ny * w))
+        lw = wmax * 0.14 * math.sin(math.pi * i / (n - 1)) ** 0.6 + s * 0.004
+        up.append((px - nx * lw, py - ny * lw))
+    cut = W(path + low[::-1])
+    c.lift(cut, amount=0.75, soft=0.06)
+    c.wash(cut, inside[0], inside[1], strength=1.0, spread=0.006, layers=10, edge=1.1, ang=ang, vary='#eab568', vary_amt=0.4)
+    shade = [(px + (qx - px) * 0.3, py + (qy - py) * 0.3) for (px, py), (qx, qy) in zip(path, low)]
+    c.wash(W(path + shade[::-1]), '#c07a3a', None, strength=0.4, spread=0.006, layers=6, edge=0.2, blur=wmax * 0.18, clip=cut)
+    for _ in range(max(3, n // 3)):
+        i = rnd.randint(n // 6, n - 1 - n // 6)
+        t = rnd.uniform(0.4, 0.8)
+        (px, py), (qx, qy) = path[i], low[i]
+        r = wmax * rnd.uniform(0.06, 0.12)
+        c.wash(W(ellipse(px + (qx - px) * t, py + (qy - py) * t, r * 1.5, r, 8, rnd.uniform(-0.4, 0.4))), '#d9a15c', None, strength=0.45,
+               spread=0.06, layers=5, edge=1.6, clip=cut)
+    c.wash(W(path + up[::-1]), lip, '#5a2a10', strength=0.85, spread=0.004, layers=8, edge=1.0)
+    c.ink_line(W(up[1:-1]), width=max(1, s * 0.006), closed=False, alpha=110, passes=1, jitter=0, color=(92, 46, 18))
+    return cut
+
+
+def sourdough_boule(c, x, y, s, P, angle=0.0, dust=True, wheat_cuts=True):
+    """A round sourdough loaf (boule): a domed crust baked deep caramel on the
+    sides and base and dusted pale with flour on top, one long curved score
+    that opened into a raised 'ear' (a dark baked lip over a golden cut), a
+    row of small wheat-ear cuts on the side, tiny blisters, flour specks and
+    a fine pen line. s = half the loaf's width."""
+    T = _loc(x, y, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    rnd = c.rnd
+    g0 = c.snapshot()
+    body = W(_dome_pts(s, top=0.8))
+    # 1 the crust: pale on the dome, deep caramel low down, patchy wet in wet
+    c.wash(body, '#efcc90', '#a95f2a', strength=0.95, spread=0.006, layers=16, edge=1.1, ang=angle + math.pi / 2, vary='#d38a46',
+           vary_amt=0.45)
+    # 2 the baked sides and base, wet on dry; the shadow side at the left
+    c.wash(W([(-s * 1.1, -s * 0.06), (s * 1.1, -s * 0.06), (s * 1.1, s * 0.4), (-s * 1.1, s * 0.4)]), '#b5672d', None, strength=0.55,
+           spread=0.01, layers=10, edge=0.0, blur=s * 0.09, clip=body)
+    c.wash(W(ellipse(-s * 0.98, -s * 0.04, s * 0.34, s * 0.52, 18)), '#83431c', None, strength=0.5, spread=0.01, layers=8, edge=0.0,
+           blur=s * 0.12, clip=body)
+    c.wash(W(ellipse(0, s * 0.3, s * 0.95, s * 0.08, 20)), '#6e3414', None, strength=0.45, spread=0.01, layers=8, edge=0.0, blur=s * 0.05,
+           clip=body)
+    # 3 flour on the dome: lift the crust, then a thin veil of white
+    sc = _sm([(-s * 0.8, -s * 0.18), (-s * 0.42, -s * 0.55), (s * 0.08, -s * 0.7), (s * 0.5, -s * 0.62), (s * 0.82, -s * 0.34)], 3)
+    c.lift(W(ellipse(s * 0.3, -s * 0.62, s * 0.4, s * 0.14, 18, -0.2)), amount=0.35, soft=0.5, clip=body)
+    if dust:
+        c.lift(W(ellipse(s * 0.05, -s * 0.44, s * 0.84, s * 0.38, 24)), amount=0.55, soft=0.35, clip=body)
+
+        def far_from_cut(px, py):
+            return min(math.hypot(px - qx, py - qy) for qx, qy in sc) > s * 0.13
+        k = 0
+        while k < 34:
+            px, py = rnd.uniform(-s * 0.85, s * 0.88), rnd.uniform(-s * 0.78, -s * 0.12)
+            r = s * rnd.uniform(0.05, 0.13)
+            ytop = -0.8 * s * max(0.0, 1 - (px / s) ** 2) ** 0.475
+            if abs(px) + r > s * 0.9 or py - r < ytop + s * 0.04 or py > -s * 0.12 or not far_from_cut(px, py):
+                continue
+            k += 1
+            gouache(c, W(ellipse(px, py, r, r * rnd.uniform(0.45, 0.8), 10, rnd.uniform(0, 3.1))), color=(253, 249, 240),
+                    alpha=rnd.randint(60, 120), soft=0.07)
+    # 4 the score and its ear
+    _opened_cut(c, W, sc, s * 0.17, s)
+    c.lift(W(_band([(px, py - s * 0.05) for px, py in sc[3:-3]], s * 0.018, s * 0.008)), amount=0.45, soft=0.3, clip=body)
+    # 5 small leaf cuts in a wheat-ear pattern on the front, below the ear
+    if wheat_cuts:
+        a0 = -0.32
+        for k in range(4):
+            t = k / 3
+            px, py = s * (-0.5 + 0.5 * t), -s * (0.1 + 0.17 * t)
+            for side in (-1, 1):
+                lf = W(leaf(px, py, s * (0.15 - 0.015 * k), s * 0.034, a0 + side * 0.62))
+                c.lift(lf, amount=0.85, soft=0.05)
+                c.wash(lf, '#f1cf8e', '#cf8a44', strength=0.9, spread=0.006, layers=6, edge=1.6)
+                c.ink_line(lf, width=max(1, s * 0.006), alpha=95, passes=1, jitter=0, color=(110, 54, 20))
+    # 6 blisters and specks on the baked crust
+    for _ in range(30):
+        a = rnd.uniform(0.05, math.pi - 0.05)
+        rr = rnd.uniform(0.6, 0.97)
+        px, py = -s * math.cos(a) * rr, -s * 0.55 * math.sin(a) * rr + s * 0.2
+        if py < -s * 0.15 and rnd.random() < 0.7:
+            continue
+        r = s * rnd.uniform(0.008, 0.02)
+        c.wash(W(ellipse(px, py, r, r * 0.8, 7)), '#6b3214', None, strength=0.55, spread=0.03, layers=5, edge=1.0)
+    c.ink_line(body, width=max(1.3, s * 0.01), alpha=135, passes=1, jitter=0, color=(104, 52, 22))
+    c.paint_around(g0)
+
+
+def bread_slice(c, x, y, s, P, angle=0.0, holes=42):
+    """A slice of sourdough standing on its edge: an open, creamy crumb full
+    of irregular holes (each with a shadowed upper rim), inside a thin dark
+    caramel crust. s = half the slice's width."""
+    T = _loc(x, y, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    rnd = c.rnd
+    g0 = c.snapshot()
+    outer = _dome_pts(s, top=0.78, bot=0.36)
+    inner = [(px * 0.9, py * 0.9 - s * 0.01) for px, py in _dome_pts(s, top=0.74, bot=0.32)]
+    crumb = W(inner)
+    gi = c.snapshot()
+    c.wash(crumb, '#f8ebcc', '#ecd2a0', strength=0.7, spread=0.006, layers=12, edge=0.6, ang=angle + math.pi / 2, vary='#f2dcb0',
+           vary_amt=0.5)
+    # the holes (alveoli): bigger near the middle, smaller toward the crust
+    k = 0
+    while k < holes:
+        px, py = rnd.uniform(-s * 0.78, s * 0.78), rnd.uniform(-s * 0.62, s * 0.22)
+        e = (px / (s * 0.82)) ** 2 + ((py + s * 0.2) / (s * 0.52)) ** 2
+        if e > 1:
+            continue
+        k += 1
+        r = s * rnd.uniform(0.014, 0.06) * (1.3 - 0.6 * e)
+        hole = W([p[:2] for p in deform(ellipse(px, py, r * rnd.uniform(1.0, 2.0), r, 11, rnd.uniform(-0.9, 0.9)), 2, 0.12, rnd=rnd)])
+        c.wash(hole, '#e2c28c', '#c49a5c', strength=0.42, spread=0.08, layers=6, edge=2.4, ang=angle + math.pi / 2, clip=crumb)
+        c.wash(W(ellipse(px, py - r * 0.4, r * 1.2, r * 0.4, 9)), '#a8743c', None, strength=0.35, spread=0.05, layers=5, edge=0.8,
+               clip=hole)
+    c.lift(W(ellipse(s * 0.2, -s * 0.35, s * 0.3, s * 0.16, 14)), amount=0.25, soft=0.5, clip=crumb)
+    c.paint_around(gi)
+    body = W(outer)
+    c.wash(body, '#c27a3a', '#80401b', strength=0.95, spread=0.004, layers=12, edge=1.2, ang=angle + math.pi / 2, vary='#a95d28',
+           vary_amt=0.4)
+    c.ink_line(body, width=max(1.2, s * 0.012), alpha=140, passes=1, jitter=0, color=(96, 46, 18))
+    c.ink_line(crumb, width=max(1, s * 0.007), alpha=80, passes=1, jitter=0, color=(150, 100, 50))
+    c.paint_around(g0)
+
+
+def starter_jar(c, x, y, s, P, angle=0.0, band='#e1603e', tag=True, drip=True):
+    """A glass jar of sourdough starter that has doubled: bubbly cream starter
+    seen through pale glass (bubbles pressed against the glass), a domed
+    surface near the rim, a drip over the edge, a rubber band marking where it
+    started, a kraft tag tied on with twine, and glints on the glass.
+    s = half the jar's height."""
+    T = _loc(x, y, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    rnd = c.rnd
+    g0 = c.snapshot()
+    half = [(s * 0.29, -s * 0.62), (s * 0.31, -s * 0.57), (s * 0.36, -s * 0.5), (s * 0.385, -s * 0.38), (s * 0.385, s * 0.48),
+            (s * 0.35, s * 0.6), (s * 0.24, s * 0.64)]
+    jar = W(smooth(half + [(-px, py) for px, py in half[::-1]], 2))
+    # glass: a cool pale wash, darker at the edges
+    c.wash(jar, '#eef4f5', '#c3d6db', strength=0.55, spread=0.006, layers=10, edge=1.6, ang=angle)
+    # the starter inside (risen to just under the rim)
+    lvl = -s * 0.56
+    fill_half = [(s * 0.27, lvl), (s * 0.33, lvl + s * 0.08), (s * 0.355, s * 0.46), (s * 0.32, s * 0.56), (s * 0.22, s * 0.6)]
+    fill = W(smooth(fill_half + [(-px, py) for px, py in fill_half[::-1]], 2))
+    c.wash(fill, '#f6ead0', '#dcc293', strength=0.85, spread=0.006, layers=12, edge=0.9, ang=angle + math.pi / 2, vary='#ead6ae',
+           vary_amt=0.5)
+    top = W(smooth([(-s * 0.29, -s * 0.6), (-s * 0.22, -s * 0.68), (-s * 0.08, -s * 0.72), (s * 0.08, -s * 0.72), (s * 0.22, -s * 0.68),
+                    (s * 0.29, -s * 0.6), (0, -s * 0.57)], 2))
+    c.wash(top, '#f7ead0', '#e0c896', strength=0.9, spread=0.006, layers=8, edge=1.5, ang=angle + math.pi / 2)
+    c.ink_line(top, width=max(1, s * 0.008), alpha=120, passes=1, jitter=0, color=(165, 128, 72))
+    # bubbles against the glass: many small, a few large, pale centers
+    for _ in range(44):
+        px, py = rnd.uniform(-s * 0.32, s * 0.32), rnd.uniform(lvl + s * 0.1, s * 0.5)
+        r = s * rnd.uniform(0.012, 0.045) * (1.2 if py < 0 else 0.8)
+        b = W(ellipse(px, py, r, r * rnd.uniform(0.75, 1.0), 9, rnd.uniform(0, 3)))
+        c.wash(b, '#b39352', None, strength=0.3, spread=0.04, layers=5, edge=2.8, clip=fill)
+        if r > s * 0.025:
+            c.lift(W(ellipse(px - r * 0.3, py - r * 0.3, r * 0.3, r * 0.22, 7)), amount=0.5, soft=0.3)
+    for _ in range(8):
+        px = rnd.uniform(-s * 0.2, s * 0.2)
+        r = s * rnd.uniform(0.012, 0.028)
+        c.ink_line(W(ellipse(px, -s * 0.66 + abs(px) * 0.3 + rnd.uniform(-0.02, 0.02) * s, r, r * 0.6, 8)), width=max(1, s * 0.005),
+                   alpha=110, passes=1, jitter=0, color=(170, 135, 80))
+    # the rubber band where the starter began (it has doubled since)
+    bp = _sm([(-s * 0.39, s * 0.06), (0, s * 0.09), (s * 0.39, s * 0.06)], 2)
+    c.wash(W(_band(bp, s * 0.024, s * 0.024)), band, '#b23e25', strength=0.95, spread=0.004, layers=8, edge=1.0)
+    # glass glints
+    for x0, x1, a in ((-s * 0.33, -s * 0.28, 0.7), (-s * 0.24, -s * 0.215, 0.45)):
+        c.lift(W([(x0, -s * 0.34), (x1, -s * 0.34), (x1, s * 0.44), (x0, s * 0.44)]), amount=a, soft=0.12, clip=jar)
+    gouache(c, W(ellipse(-s * 0.3, -s * 0.4, s * 0.02, s * 0.045, 8)), color=(255, 253, 248), alpha=220, soft=0.2)
+    gouache(c, W(ellipse(s * 0.3, s * 0.3, s * 0.012, s * 0.06, 8)), color=(255, 253, 248), alpha=160, soft=0.25)
+    # the rim: a thick glass lip
+    rim = W(ellipse(0, -s * 0.6, s * 0.3, s * 0.05, 22))
+    c.ink_line(rim, width=max(1.3, s * 0.012), alpha=140, passes=1, jitter=0, color=(96, 122, 132))
+    if drip:
+        d = W(smooth([(s * 0.22, -s * 0.63), (s * 0.29, -s * 0.62), (s * 0.33, -s * 0.57), (s * 0.355, -s * 0.48), (s * 0.36, -s * 0.4),
+                      (s * 0.345, -s * 0.37), (s * 0.33, -s * 0.4), (s * 0.325, -s * 0.48), (s * 0.3, -s * 0.56), (s * 0.24, -s * 0.6)], 2))
+        c.lift(d, amount=0.6, soft=0.05)
+        c.wash(d, '#f6e8ca', '#dcc090', strength=0.95, spread=0.004, layers=8, edge=1.5)
+        c.ink_line(d, width=max(1, s * 0.008), alpha=120, passes=1, jitter=0, color=(170, 135, 80))
+    c.ink_line(jar, width=max(1.3, s * 0.011), alpha=140, passes=1, jitter=0, color=(96, 122, 132))
+    c.ink_line(W(bp), width=max(1, s * 0.006), closed=False, alpha=90, passes=1, jitter=0, color=(140, 40, 25))
+    # twine round the neck and a kraft tag with a little painted wheat ear
+    tw = W(_band(_sm([(-s * 0.36, -s * 0.5), (0, -s * 0.47), (s * 0.36, -s * 0.5)], 2), s * 0.014, s * 0.014))
+    c.wash(tw, '#d6b88a', '#9b7a4b', strength=0.95, spread=0.004, layers=6, edge=1.0)
+    if tag:
+        tg = _loc(x + s * 0.43, y - s * 0.28, angle + 0.18)
+        Wt = lambda pts: [tg(px, py) for px, py in pts]
+        card = Wt([(-s * 0.1, -s * 0.06), (s * 0.06, -s * 0.06), (s * 0.11, 0), (s * 0.11, s * 0.24), (-s * 0.1, s * 0.24)])
+        c.ink_line(W([(s * 0.36, -s * 0.49), (s * 0.4, -s * 0.38)]) + Wt([(0, -s * 0.03)]), width=max(1.2, s * 0.01), closed=False,
+                   alpha=170, passes=1, jitter=0, color=(150, 118, 76))
+        c.wash(card, '#e2c393', '#c49a63', strength=0.9, spread=0.004, layers=8, edge=1.2)
+        c.wash(Wt(ellipse(0, -s * 0.02, s * 0.018, s * 0.018, 8)), '#fbf6ec', None, strength=0.9, spread=0.01, layers=4, edge=0.5)
+        for k in range(4):
+            for side in (-1, 1):
+                gx, gy = side * s * 0.016, s * (0.06 + 0.035 * k)
+                c.wash(Wt(leaf(gx, gy, s * 0.04, s * 0.014, -math.pi / 2 + side * 0.5)), '#b07a32', None, strength=0.85, spread=0.01,
+                       layers=4, edge=1.0)
+        c.ink_line(Wt([(0, s * 0.06), (0, s * 0.21)]), width=max(1, s * 0.006), closed=False, alpha=150, passes=1, jitter=0,
+                   color=(120, 80, 34))
+        c.ink_line(card, width=max(1, s * 0.008), alpha=120, passes=1, jitter=0, color=(130, 96, 56))
+    c.paint_around(g0)
+
+
+def linen_towel(c, x, y, s, P, angle=0.0, stripe='#5a7fb0'):
+    """A striped linen tea towel lying on a board and draped over its front
+    edge: cream linen with blue stripes running its length, a soft shadow
+    under the fold, gentle folds in the hanging part and a stitched hem.
+    (x, y) is the middle of the fold; s = half the towel's width."""
+    T = _loc(x, y, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    g0 = c.snapshot()
+    hem = [(s * 0.93, s * 0.5), (s * 0.62, s * 0.56), (s * 0.3, s * 0.51), (0, s * 0.58), (-s * 0.35, s * 0.52), (-s * 0.7, s * 0.57),
+           (-s * 0.92, s * 0.5)]
+    cloth = W(smooth([(-s * 0.94, -s * 0.21), (s * 0.84, -s * 0.25), (s * 0.97, 0)] + hem + [(-s, 0)], 1))
+    c.wash(cloth, '#fbf6ec', '#e3d6bf', strength=0.75, spread=0.006, layers=10, edge=1.0, ang=angle + math.pi / 2)
+    for x0, wd in ((-s * 0.66, 0.035), (-s * 0.55, 0.035), (-s * 0.4, 0.075), (s * 0.5, 0.035), (s * 0.61, 0.035)):
+        top_x = x0 * 0.96 + s * 0.02
+        st = W([(top_x - s * wd / 2, -s * 0.3), (top_x + s * wd / 2, -s * 0.3), (x0 + s * wd / 2, 0), (x0 + s * wd / 2, s * 0.7),
+                (x0 - s * wd / 2, s * 0.7), (x0 - s * wd / 2, 0)])
+        c.wash(st, stripe, None, strength=0.72, spread=0.004, layers=6, edge=0.8, clip=cloth)
+    # the hanging part sits in shade under the fold; folds and a stitched hem
+    c.wash(W([(-s * 1.1, 0), (s * 1.1, 0), (s * 1.1, s * 0.18), (-s * 1.1, s * 0.18)]), '#a9b0b8', None, strength=0.28, spread=0.01,
+           layers=6, edge=0.0, blur=s * 0.06, clip=cloth)
+    for fx in (-s * 0.18, s * 0.28):
+        c.wash(W(_band(_sm([(fx, s * 0.04), (fx + s * 0.03, s * 0.3), (fx - s * 0.02, s * 0.52)], 2), s * 0.05, s * 0.02)), '#b9bec4',
+               None, strength=0.25, spread=0.01, layers=5, edge=0.2, blur=s * 0.03, clip=cloth)
+    c.lift(W(_band(_sm([(-s * 0.95, -s * 0.02), (0, -s * 0.03), (s * 0.95, -s * 0.03)], 2), s * 0.02, s * 0.02)), amount=0.5, soft=0.3,
+           clip=cloth)
+    hp = [(px, py - s * 0.06) for px, py in hem[1:-1]]
+    for i in range(len(hp) - 1):
+        (ax, ay), (bx, by) = hp[i], hp[i + 1]
+        for k in range(3):
+            t0, t1 = k / 3 + 0.04, k / 3 + 0.2
+            c.ink_line(W([(ax + (bx - ax) * t0, ay + (by - ay) * t0), (ax + (bx - ax) * t1, ay + (by - ay) * t1)]), width=max(1, s * 0.008),
+                       closed=False, alpha=110, passes=1, jitter=0, color=(150, 135, 110))
+    c.ink_line(cloth, width=max(1.1, s * 0.009), alpha=115, passes=1, jitter=0, color=(130, 118, 98))
+    c.paint_around(g0)
+
+
+def wheat_stalk(c, x, y, s, P, angle=-1.57, n=8, awns=True, leaf_side=1):
+    """A ripe wheat ear on its stalk: plump golden grains in two staggered
+    rows (each with a darker crease and a lifted shine), long fine awns, a
+    straw stem and one curling leaf. s = the stalk's length along `angle`."""
+    rnd = c.rnd
+    ca, sa = math.cos(angle), math.sin(angle)
+    bend = rnd.uniform(-0.04, 0.04)
+    pt = lambda t, o=0.0: (x + s * t * ca - (o + bend * t * t) * sa * s, y + s * t * sa + (o + bend * t * t) * ca * s)
+    stem = [pt(i / 12) for i in range(13)]
+    c.wash(_band(stem[:9], s * 0.008, s * 0.006), '#d7b675', '#a98446', strength=0.85, spread=0.004, layers=6, edge=0.8)
+    if leaf_side:
+        lx, ly = pt(0.22)
+        c.wash(leaf(lx, ly, s * 0.36, s * 0.03, angle + leaf_side * 0.5), '#e6d09a', '#b99a58', strength=0.75, spread=0.01, layers=8,
+               edge=1.0)
+    for i in range(n):
+        t = 0.6 + 0.37 * i / (n - 1)
+        for side in (-1, 1):
+            o = side * (0.026 - 0.008 * i / (n - 1))
+            gx, gy = pt(t + (0.012 if side > 0 else 0), o)
+            a = angle + side * 0.42
+            gl, gw = s * (0.072 - 0.012 * i / (n - 1)), s * (0.031 - 0.006 * i / (n - 1))
+            g = petal(gx, gy, gl, gw, a)
+            c.wash(g, '#f0cd7c', '#c28d3a', strength=0.9, spread=0.01, layers=8, edge=1.2, ang=a, vary='#dfa64a', vary_amt=0.4)
+            cx, cy = gx + gl * 0.5 * math.cos(a), gy + gl * 0.5 * math.sin(a)
+            c.ink_line([(gx + gl * 0.2 * math.cos(a), gy + gl * 0.2 * math.sin(a)), (cx, cy)], width=max(1, s * 0.004), closed=False,
+                       alpha=110, passes=1, jitter=0, color=(150, 100, 40))
+            if awns:
+                tx, ty = gx + gl * math.cos(a), gy + gl * math.sin(a)
+                aa = angle + side * 0.16
+                L = s * rnd.uniform(0.16, 0.24)
+                c.ink_line([(tx, ty), (tx + L * 0.5 * math.cos(aa), ty + L * 0.5 * math.sin(aa)), (tx + L * math.cos(aa), ty + L * math.sin(aa))],
+                           width=max(1, s * 0.0035), closed=False, alpha=150, passes=1, jitter=0, color=(176, 138, 70))
+    tx, ty = pt(0.99)
+    c.wash(petal(tx, ty, s * 0.06, s * 0.02, angle), '#f0cd7c', '#c28d3a', strength=0.9, spread=0.01, layers=8, edge=1.2)
+    if awns:
+        for d in (-0.06, 0.0, 0.06):
+            L = s * 0.26
+            c.ink_line([(tx + s * 0.05 * ca, ty + s * 0.05 * sa), (tx + L * math.cos(angle + d), ty + L * math.sin(angle + d))],
+                       width=max(1, s * 0.0035), closed=False, alpha=150, passes=1, jitter=0, color=(176, 138, 70))
+
+
+def wheat_sheaf(c, x, y, s, P, angle=-1.57, n=5, spread=0.5, tie=False):
+    """A small fan of wheat stalks from one point (x, y), spread over
+    `spread` radians either side of `angle`; s = the stalks' length."""
+    rnd = c.rnd
+    for i in range(n):
+        f = (i / (n - 1) - 0.5) * 2 if n > 1 else 0
+        a = angle + f * spread + rnd.uniform(-0.05, 0.05)
+        wheat_stalk(c, x, y, s * rnd.uniform(0.8, 1.05), P, angle=a, n=8, leaf_side=(1 if f > 0 else -1) if i % 2 == 0 else 0)
+    if tie:
+        ca, sa = math.cos(angle), math.sin(angle)
+        tx, ty = x + s * 0.12 * ca, y + s * 0.12 * sa
+        c.wash(ellipse(tx, ty, s * 0.05, s * 0.018, 12, angle + math.pi / 2), '#c79a5c', '#8e6a3a', strength=0.95, spread=0.004, layers=6,
+               edge=1.0)
+
+
+def bread_board(c, x, y, s, P, angle=0.0, handle=1):
+    """A round wooden bread board seen at an angle, with its handle and a
+    hanging hole: warm honey-colored wood with dry-brushed grain, a darker
+    side edge and a pen line. s = half the board's width."""
+    T = _loc(x, y, angle)
+    W = lambda pts: [T(px, py) for px, py in pts]
+    rnd = c.rnd
+    g0 = c.snapshot()
+    ry = s * 0.3
+    hd = handle
+    top = W(ellipse(0, 0, s, ry, 56))
+    c.wash(top, '#f2cf9c', '#c98f55', strength=0.8, spread=0.006, layers=12, edge=1.0, ang=angle + 0.4, vary='#e0a96a', vary_amt=0.45)
+    for k in range(-5, 6, 2):
+        yy = ry * k / 7.0
+        half = s * math.sqrt(max(0.0, 1 - (yy / ry) ** 2)) * 0.9
+        if half < s * 0.2:
+            continue
+        path = W([(-half + s * 0.06, yy), (-half * 0.3, yy + ry * 0.04 * math.sin(k)), (half * 0.4, yy - ry * 0.03), (half - s * 0.06, yy)])
+        c.wash(_band(_sm(path, 3), max(1.5, s * 0.004), max(1.0, s * 0.002)), '#b9824a', None, strength=0.35, spread=0.004, layers=4,
+               edge=0.5, clip=top)
+    c.lift(W(ellipse(-s * 0.3, -ry * 0.4, s * 0.4, ry * 0.25, 16)), amount=0.25, soft=0.5, clip=top)
+    c.ink_line(top, width=max(1.2, s * 0.008), alpha=120, passes=1, jitter=0, color=(112, 68, 32))
+    c.paint_around(g0)
+    side = W(ellipse(0, s * 0.045, s, ry, 56))
+    c.wash(side, '#b27640', '#8a5428', strength=0.85, spread=0.006, layers=8, edge=1.0)
+    c.ink_line(side[2:len(side) // 2 - 1], width=max(1.2, s * 0.008), closed=False, alpha=120, passes=1, jitter=0, color=(112, 68, 32))
+    han = W([(hd * px, py) for px, py in _rr(s * 0.85, -s * 0.07, s * 1.42, s * 0.07, s * 0.07)])
+    c.wash(han, '#ecc690', '#c28a52', strength=0.85, spread=0.006, layers=10, edge=1.0, ang=angle)
+    c.dry_brush(_sm(W([(hd * s * 1.0, -s * 0.015), (hd * s * 1.25, -s * 0.005)]), 2), max(2, s * 0.01), '#b07a40', strength=0.4,
+                bristles=3)
+    c.wash(W(ellipse(hd * s * 1.3, 0, s * 0.032, s * 0.026, 12)), '#5c3416', None, strength=0.95, spread=0.01, layers=6, edge=1.0)
+    c.ink_line(han, width=max(1.2, s * 0.008), alpha=120, passes=1, jitter=0, color=(112, 68, 32))
+    c.paint_around(g0)
+
+
 MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'snow_drift': snow_drift, 'grass_tufts': grass_tufts,
            'spruce': spruce, 'vintage_truck': vintage_truck, 'mini_wreath': mini_wreath, 'cozy_glow': cozy_glow, 'twinkle': twinkle,
            'book_tree2': book_tree2, 'gift2': gift2, 'cozy_cat': cozy_cat, 'base_garland': base_garland, 'mini_bauble': mini_bauble,
@@ -4676,4 +5033,6 @@ MOTIFS2 = {'splash': splash, 'snowfall': snowfall, 'far_forest': far_forest, 'sn
            'snowdrop2': snowdrop2, 'ribbon_tie': ribbon_tie,
            'citrus_fruit': citrus_fruit, 'citrus_slice': citrus_slice, 'citrus_blossom': citrus_blossom,
            'teapot': teapot, 'teacup': teacup, 'honey_jar': honey_jar,
-           'snowman': snowman, 'mittens': mittens}
+           'snowman': snowman, 'mittens': mittens,
+           'sourdough_boule': sourdough_boule, 'bread_slice': bread_slice, 'starter_jar': starter_jar, 'linen_towel': linen_towel,
+           'wheat_stalk': wheat_stalk, 'wheat_sheaf': wheat_sheaf, 'bread_board': bread_board}

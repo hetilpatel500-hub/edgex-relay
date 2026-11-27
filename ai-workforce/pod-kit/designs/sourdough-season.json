@@ -1,0 +1,285 @@
+{
+ "id": "sourdough-season",
+ "name": "Sourdough Season",
+ "engine": 2,
+ "template": "free",
+ "top": "Sourdough Season",
+ "bottom": null,
+ "top_font": "Pacifico",
+ "bottom_font": "PlayfairDisplay",
+ "florals": null,
+ "palette": "blush",
+ "colors": {
+  "accent": "#d9a25a",
+  "accent2": "#f3d9a8",
+  "leaf": "#6f9a62",
+  "leaf2": "#a9c99a",
+  "leaf_dark": "#335c3a"
+ },
+ "ink": "#7a4a2a",
+ "seed": 27,
+ "shirt_colors": [
+  "white",
+  "natural",
+  "light_blue"
+ ],
+ "lettering": [
+  {
+   "text": "Sourdough",
+   "font": "Pacifico",
+   "size": 0.15,
+   "max_w": 0.7,
+   "y": -0.47,
+   "color": "#b0672e",
+   "vary": "#7d3f18",
+   "vary_amt": 0.45,
+   "outline": [
+    "#6a3515",
+    0.0015,
+    160
+   ]
+  },
+  {
+   "text": "SEASON",
+   "font": "PlayfairDisplay",
+   "caps": true,
+   "size": 0.088,
+   "max_w": 0.58,
+   "y": -0.31,
+   "tracking": 0.32,
+   "color": "#4f73a6",
+   "vary": "#344f7a",
+   "vary_amt": 0.4,
+   "outline": [
+    "#2c426a",
+    0.0012,
+    150
+   ]
+  }
+ ],
+ "art": [
+  {
+   "motif": "bread_slice",
+   "x": 0.25,
+   "y": 0.375,
+   "s": 0.085,
+   "angle": 0.12,
+   "front": true
+  },
+  {
+   "motif": "bread_slice",
+   "x": 0.335,
+   "y": 0.385,
+   "s": 0.075,
+   "angle": 0.22,
+   "front": true
+  },
+  {
+   "motif": "linen_towel",
+   "x": 0.27,
+   "y": 0.425,
+   "s": 0.12,
+   "angle": -0.08,
+   "front": true
+  },
+  {
+   "motif": "wheat_stalk",
+   "x": -0.27,
+   "y": 0.425,
+   "s": 0.26,
+   "angle": -0.12,
+   "leaf_side": 0,
+   "front": true
+  },
+  {
+   "motif": "starter_jar",
+   "x": -0.285,
+   "y": 0.17,
+   "s": 0.24,
+   "front": true
+  },
+  {
+   "motif": "sourdough_boule",
+   "x": 0.03,
+   "y": 0.25,
+   "s": 0.23,
+   "front": true
+  },
+  {
+   "motif": "bread_board",
+   "x": 0.02,
+   "y": 0.37,
+   "s": 0.3
+  },
+  {
+   "motif": "wheat_sheaf",
+   "x": -0.06,
+   "y": 0.2,
+   "s": 0.34,
+   "angle": -2.1,
+   "n": 4,
+   "spread": 0.4,
+   "tie": true
+  },
+  {
+   "motif": "wheat_sheaf",
+   "x": 0.1,
+   "y": 0.2,
+   "s": 0.34,
+   "angle": -1.05,
+   "n": 4,
+   "spread": 0.4,
+   "tie": true
+  },
+  {
+   "motif": "splash",
+   "x": 0.0,
+   "y": 0.1,
+   "s": 0.47,
+   "aspect": 0.85,
+   "color": "#f3dfbf",
+   "color2": "#fbf2e4",
+   "vary": "#eed4ad",
+   "strength": 0.34,
+   "drips": 6
+  },
+  {
+   "motif": "splash",
+   "x": 0.0,
+   "y": 0.47,
+   "s": 0.45,
+   "aspect": 0.07,
+   "color": "#cfae8a",
+   "color2": "#e8d7c2",
+   "vary": "#c49a74",
+   "strength": 0.35,
+   "drips": 0
+  },
+  {
+   "motif": "twinkle",
+   "x": -0.42,
+   "y": -0.12,
+   "s": 0.02
+  },
+  {
+   "motif": "twinkle",
+   "x": 0.43,
+   "y": -0.08,
+   "s": 0.018
+  },
+  {
+   "motif": "sparkle",
+   "x": 0.38,
+   "y": -0.2,
+   "s": 0.022
+  },
+  {
+   "motif": "sparkle",
+   "x": -0.36,
+   "y": -0.24,
+   "s": 0.02
+  }
+ ],
+ "listing": {
+  "title": "Sourdough Season Shirt, Watercolor Sourdough Bread Tee, Sourdough Baker Gift, Bread Baking T-Shirt, Starter Jar and Boule Shirt",
+  "tags": [
+   "sourdough season",
+   "sourdough gift",
+   "sourdough shirt",
+   "baking shirt",
+   "bread baker gift",
+   "sourdough starter",
+   "bread lover gift",
+   "watercolor bread",
+   "home baker gift",
+   "gift for baker",
+   "bread baking",
+   "foodie gift",
+   "baker t-shirt"
+  ],
+  "description": "A cozy bake-day still life painted in watercolor: a round sourdough boule dusted with flour, its curved score opened into a dark-baked ear above a row of little wheat-ear cuts, a glass jar of bubbly starter that has doubled past its rubber band, two slices with an open crumb resting on a blue-striped linen towel, a round wooden bread board, and two bunches of golden wheat, under \"Sourdough Season\" in painted lettering. A gift for the home baker who keeps a starter going all winter. Small gold sparkles finish the scene.",
+  "per_product": {
+   "sweatshirt": {
+    "title": "Sourdough Season Sweatshirt, Watercolor Sourdough Bread Crewneck, Sourdough Baker Gift, Bread Baking Sweater, Starter Jar and Boule",
+    "tags": [
+     "sourdough season",
+     "sourdough gift",
+     "sourdough sweater",
+     "baking sweatshirt",
+     "bread baker gift",
+     "sourdough starter",
+     "bread lover gift",
+     "watercolor bread",
+     "home baker gift",
+     "gift for baker",
+     "bread baking",
+     "cozy crewneck",
+     "baker sweatshirt"
+    ]
+   },
+   "mug": {
+    "title": "Sourdough Season Mug, Watercolor Sourdough Bread Mug, Sourdough Baker Gift, Bread Baking Coffee Mug, Starter Jar and Boule Cup",
+    "tags": [
+     "sourdough season",
+     "sourdough gift",
+     "sourdough mug",
+     "baking mug",
+     "bread baker gift",
+     "sourdough starter",
+     "bread lover gift",
+     "watercolor bread",
+     "home baker gift",
+     "gift for baker",
+     "bread baking",
+     "baker coffee mug",
+     "kitchen mug"
+    ]
+   },
+   "poster": {
+    "title": "Sourdough Season Print, Watercolor Sourdough Bread Art Print, Sourdough Baker Gift, Kitchen Wall Art, Starter Jar Still Life Poster",
+    "tags": [
+     "sourdough season",
+     "sourdough gift",
+     "sourdough print",
+     "kitchen wall art",
+     "bread baker gift",
+     "sourdough starter",
+     "bread lover gift",
+     "watercolor bread",
+     "home baker gift",
+     "gift for baker",
+     "bread baking",
+     "bakery wall art",
+     "still life print"
+    ]
+   },
+   "sticker": {
+    "title": "Sourdough Season Sticker, Watercolor Sourdough Bread Sticker, Sourdough Baker Gift, Starter Jar Decal, Laptop and Water Bottle Sticker",
+    "tags": [
+     "sourdough season",
+     "sourdough gift",
+     "sourdough sticker",
+     "baking sticker",
+     "bread baker gift",
+     "sourdough starter",
+     "bread lover gift",
+     "watercolor bread",
+     "home baker gift",
+     "gift for baker",
+     "bread baking",
+     "laptop sticker",
+     "water bottle decal"
+    ]
+   }
+  },
+  "products": [
+   "Unisex tee (Bella+Canvas 3001)",
+   "Crewneck sweatshirt (Gildan 18000)",
+   "11 oz mug",
+   "Art print (matte poster)",
+   "Kiss-cut sticker"
+  ],
+  "price_note": "Prices from the POD-DESK.md product table (2026-10-05 pricing review): tee $24.99, sweatshirt $35.99, mug $16.99, art print $19.99/$29.99/$34.99, sticker $6.75/$7.40. Seen on 2026-11-27: a sourdough sweatshirt at $29.99 on an Etsy listing page, a 'Feed It. Use It. Chill It. Repeat.' crewneck at $37.99 (Bonfire), a starter-jar frog tee at $33.99 (Inside Out Art Teacher) and a watercolour baking wrap mug at GBP 12.99 (Sip Full of Design); listing prices only, no sales counts.",
+  "trademark_check": "Legal Desk screen 2026-11-27 (before any art): web searches '\"SOURDOUGH SEASON\" trademark', 'SOURDOUGH trademark clothing t-shirts justia', 'sourdough trademark uspto.report class 25 shirts', and follow-ups on the three sourdough records that turned up with clothing or bread goods (tmsearch.uspto.gov is blocked from our sessions, so the Justia search-result summaries were read). No record for the phrase SOURDOUGH SEASON turned up, and no shirt titled 'Sourdough Season' was found for sale. Nearest: SOURDOUGH LIFESTYLE (serial 97544192, pending, filed 2022-08-11) covers shirts, sweatshirts, hats and stickers; THE SOURDOUGH COOKIE COMPANY (serial 98828932, pending, filed 2024-10-30) covers tops and headwear; SOURDOUGH (serial 75577535, Snyder's of Delaware) covers pretzels only. Other sourdough marks (SOURDOUGH SAM, MRS. SOURDOUGH, EPIC SOURDOUGH with 'sourdough' disclaimed) cover bakery goods or services. 'Sourdough' is the generic name of the bread, so the art uses it only as a description, in the shop's 'X Season' pattern (Soup, Cocoa, Tea Season), never alone as a brand label. Kept out of the art, titles and tags: 'lifestyle', 'cookie company', 'Mr./Mrs. Sourdough', the slogans seen on sale ('In My Sourdough Era', 'Wake and Bake', 'Sourdough Mama', 'Feed It. Use It. Chill It. Repeat.', 'I Have a Starter and Boundaries') and the Real Bread Campaign's 'Sourdough September'. No brand, show, character or celebrity names."
+ }
+}

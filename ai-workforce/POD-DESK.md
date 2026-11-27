@@ -561,3 +561,18 @@ Studio Floor at any time.
   characters' look); records in `pod-kit/research`, `legal` and `decisions`. Delivery page (private):
   https://claude.ai/artifact/CrJTnfgzJayzFsk3jdsFcY. Printify read-only: 58 products, 48 with Etsy listing IDs, the same 10 drafts
   unpublished, 0 orders. No Printify products: writes still wait for the owner. $0 spent.
+- 2026-11-27 (16:17 UTC run, motif day): the gift-category table and the best-seller list have no open row (Valentine's Day opens in
+  early January), so the run made one design from trend research: **Sourdough Season**, a watercolor bake-day still life for light shirts:
+  a round floured sourdough boule whose curved score opened into a dark-baked ear above four pairs of small wheat-ear cuts, a glass jar of
+  bubbly starter risen past its red rubber band with a kraft tag, two open-crumb slices on a blue-striped linen towel, a round wooden bread
+  board with a wheat stalk, and two bunches of wheat on a warm wheat-colored wash, under 'Sourdough' in Pacifico and 'SEASON' in painted
+  Playfair Display capitals. Tee, sweatshirt, mug, art print and sticker listings. New motifs `sourdough_boule`, `bread_slice`,
+  `starter_jar`, `linen_towel`, `wheat_stalk`, `wheat_sheaf` and `bread_board` (plus `_dome_pts` and `_opened_cut`) in `motifs2.py`.
+  Fixes after review: a thin-line score and letter-like side cuts, square-edged flour patches with two specks spilling past the crust,
+  a dark board and a proofing basket that read as a stack of plates (replaced by the towel), a stiff wheat sunburst, text-like grain,
+  a small 'SEASON', a shelf-like line under the opened score, and stain-like towel shadows. Research 20/25 (2026 sourdough gift guides
+  are live; Target and Walmart sell sourdough sweatshirts; competing sourdough apparel is slogans or a cartoon), Legal cleared (no
+  SOURDOUGH SEASON mark found; SOURDOUGH LIFESTYLE and THE SOURDOUGH COOKIE COMPANY, both pending, and the slogans on sale are never
+  used); records in `pod-kit/research`, `legal` and `decisions`. Delivery page (private):
+  https://claude.ai/artifact/8TVRQ6kWULgt7jpbqHpJyY. Printify read-only: 58 products, 48 with Etsy listing IDs, the same 10 drafts
+  unpublished, 0 orders. No Printify products: writes still wait for the owner. $0 spent.

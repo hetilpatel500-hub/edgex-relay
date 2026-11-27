@@ -1,0 +1,34 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit. Same shape as a decisions doc; pod_designs and pod_listings records are kept here too.",
+ "id": "2026-11-27-pod-sourdough-season",
+ "by": "chief-of-staff",
+ "created": "2026-11-27T16:40:07Z",
+ "items": [
+  "sourdough-season"
+ ],
+ "legal_refs": [
+  "pod-kit/legal/sourdough-season.json"
+ ],
+ "legal_verdict": "cleared",
+ "decision": "approved for delivery to the owner",
+ "conditions": [
+  "Printify drafts or Etsy publishing only after the owner allows Printify writes (refused by the session's permission check since Oct 6). Then 5 products (tee, sweatshirt, mug, art print, sticker), 5 listings ($0.20 each if paid), inside the $3/day cap.",
+  "Step 9b (9 extra photos per listing) runs after the products exist: photos.py draws from each Printify product's print area.",
+  "'Sourdough' is never used alone as a brand label; 'lifestyle', 'cookie company', 'Mr./Mrs. Sourdough', 'Sourdough September' and the slogans 'In My Sourdough Era', 'Wake and Bake', 'Sourdough Mama', 'Feed It. Use It. Chill It. Repeat.' and 'I Have a Starter and Boundaries' never go in a title, tag or description."
+ ],
+ "reason": "The gift-category queue and the best-seller list under it have no open row today (Valentine's Day opens in early January), so the run makes one new design from trend research. Motif day (Nov 26 was a pattern). Research 20/25 (2026 sourdough gift guides are live, Target and Walmart carry sourdough sweatshirts, and competing sourdough apparel is slogans or a cartoon), trademark screen done, Legal cleared; full-size art checked after nine fixes (loaf score and cuts, flour specks, board and towel, wheat, lettering size).",
+ "artifact": "https://claude.ai/artifact/8TVRQ6kWULgt7jpbqHpJyY",
+ "emailed": "Gmail message 1a21de09fe512738 to the owner, 2026-11-27",
+ "printify_read_only": "2026-11-27: 58 products, 48 with Etsy listing IDs, the same 10 Scorpio and Campfire drafts unpublished, 0 orders",
+ "pod_designs": {
+  "title": "Sourdough Season",
+  "phrase": "Sourdough Season",
+  "niche": "home and sourdough bakers, bread lovers; winter and January gifting, all year",
+  "artifact": "https://claude.ai/artifact/8TVRQ6kWULgt7jpbqHpJyY",
+  "thumb": "sourdough-season-mockup-natural.jpg on the delivery page",
+  "product_ids": {},
+  "created": "2026-11-27T16:40:07Z",
+  "status": "built (not on Printify: writes wait for the owner)"
+ },
+ "pod_listings": []
+}

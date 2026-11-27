@@ -1,0 +1,71 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "pod_designs",
+  "doc_id": "sourdough-season",
+  "kind": "pod motif design (tee, sweatshirt, mug, art print, sticker)"
+ },
+ "title": "Sourdough Season: watercolor sourdough bake-day still life (4500 x 5400 PNG), three shirt mockups and five listings",
+ "reviewed_at": "2026-11-27T16:39:11Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file. Nothing commits the owner: no Printify product was created, nothing is published, prices are suggestions. The trademark screen is a web screen, not a clearance; the owner decides before listing. Topic picked from trend research because the gift-category queue has no open row (Valentine's Day opens in early January)."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Description checked against the full-size PNG and crops of the loaf, jar, slices and towel: a round floured sourdough boule with a curved score opened into a dark ear and four pairs of small wheat-ear cuts, a glass jar of bubbly starter risen above its red rubber band with a kraft tag, two open-crumb slices on a blue-striped linen towel, a round wooden bread board with one wheat stalk lying on it, two bunches of wheat behind, and four gold sparkles, under 'Sourdough' in painted script and 'SEASON' in painted capitals. No 'best seller', 'free', sale or review claims; prices are the studio's standard suggestions with competitor references ($29.99 Etsy sweatshirt, $37.99 Bonfire crewneck, $33.99 frog tee, GBP 12.99 wrap mug), listing prices only."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery note goes only to the owner."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data; no names or dates on the art."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Art is original, painted by the studio's own code (design.py, watercolor.py and motifs written today in motifs2.py: sourdough_boule, bread_slice, starter_jar, linen_towel, wheat_stalk, wheat_sheaf and bread_board; existing splash, sparkle and twinkle). No stock art, no traced photos, no competitor layout: competitors seen are slogans, a cartoon frog and a baking-pattern mug. The starter-jar tag and the towel carry no words or logos. Fonts are Pacifico and Playfair Display (SIL Open Font License), embedded as shapes in the art. Purely machine-made images can't be registered for US copyright (US Copyright Office guidance); the delivery notes this."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "Screened before art (listing.trademark_check): no SOURDOUGH SEASON mark found and no shirt with that title for sale. Nearest: SOURDOUGH LIFESTYLE (serial 97544192, pending) for shirts, sweatshirts, hats and stickers, and THE SOURDOUGH COOKIE COMPANY (serial 98828932, pending) for tops and headwear: different phrases, and their distinctive words ('lifestyle', 'cookie company') are never used. SOURDOUGH (serial 75577535) covers pretzels only; EPIC SOURDOUGH disclaims 'sourdough', which is the bread's generic name. The art and titles say 'Sourdough Season' as a plain description, like the shop's Soup, Cocoa and Tea Season. Slogans seen on sale ('In My Sourdough Era', 'Wake and Bake', 'Sourdough Mama', 'Feed It. Use It. Chill It. Repeat.', 'I Have a Starter and Boundaries') and the Real Bread Campaign's 'Sourdough September' are kept out of the art, titles and tags. No brand on the jar, tag, towel or board."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No market or money content."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "Etsy: the standard description carries the production-partner disclosure and says the art is digitally painted by the studio. Titles 127, 131, 126, 131 and 134 characters (max 140); 13 tags per listing, all 20 characters or fewer and all different (build.py checks passed). Print file 4500 x 5400 RGBA with a transparent background, as the shirt blueprints need."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "n/a",
+   "note": "Adult gift items, not made for or marketed to children (no 'kids' words in titles or tags)."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "pass",
+   "note": "Prices are the studio's standard prices from POD-DESK.md (2026-10-05 pricing review) and stay suggestions; no new supplier terms. Printify writes still wait for the owner's go-ahead."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "First motif sheet: the loaf's score read as a thin line and its side cuts looked like letters 'LLLL'; the dome was made taller, the score opens into a golden cut under a dark ear, and the side cuts became small leaf-shaped wheat-ear cuts.",
+  "Flour patches on the loaf showed soft square edges (blur wider than the paint box) and two specks spilled past the top of the crust, which would print as white dots on colored shirts; the patches are now round and kept inside the crust.",
+  "The bread board and proofing basket were painted too dark; the board is now honey-colored wood with lighter grain.",
+  "The proofing basket read as a stack of plates behind the loaf and left a stray white blob; it was replaced by a blue-striped linen towel draped over the board, with the slices resting on it.",
+  "The wheat fanned out like a stiff sunburst; it is now two looser bunches of varied length.",
+  "The board's grain looked like scribbled text at shirt size; fewer, softer grain lines.",
+  "'SEASON' was small at shirt distance; enlarged.",
+  "At full size the opened score had a hard, shelf-like lower line and a doubled line in the ear; the opening now tapers at both ends, is golden with a few crumb dabs, and only the ear's top edge is inked.",
+  "The towel's fold shadows read as brown stains at full size; they are now a light cool grey."
+ ],
+ "owner_notes": [
+  "Optional: a USPTO search for 'SOURDOUGH SEASON' in Classes 21 and 25 before listing; this was a web screen only.",
+  "Printify products wait for your go-ahead on Printify writes (refused by the session's permission check since Oct 6)."
+ ],
+ "research_ref": "pod-kit/research/2026-11-27-sourdough-season.json",
+ "decision_ref": "pod-kit/decisions/2026-11-27-pod-sourdough-season.json"
+}
