@@ -1,0 +1,245 @@
+{
+ "note": "Office DB is full (100 MB, creates refused since 2026-11-05), so the video desk's videos, decision and collabs docs for this run are filed here.",
+ "videos": [
+  {
+   "doc_id": "2026-11-27-spy-tape",
+   "date": "2026-11-27",
+   "series": "spy-tape",
+   "topic": "SPY Fri Nov 27 (Black Friday half-day, last 5-minute bar 12:55 ET): gap up 1.28% (open 725.86 vs Wed close 716.70), no gap fill, low 719.62 at 10:05 ET, high 729.15 at 12:55 ET, close 728.32 (+1.62% vs Wed, +0.34% from the open), close above VWAP 725.07",
+   "title": "SPY Black Friday Nov 27: gapped up 1.28%, closed +1.62% in a half-day",
+   "artifact": "https://claude.ai/artifact/E8YK3XW4mvDKJ8Z93p5fP4",
+   "files": [
+    "Edgex_recap_2026-11-27_16x9.mp4",
+    "Edgex_spy_2026-11-27_9x16.mp4"
+   ],
+   "seconds": 43.05,
+   "legal_review": "video-kit/legal/2026-11-27-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-27T22:09:24Z",
+   "emailed": "Gmail message 1a21f0e2fae60cd8"
+  },
+  {
+   "doc_id": "2026-11-27-mag7-race",
+   "date": "2026-11-27",
+   "series": "mag7-race",
+   "topic": "Mag 7 week Fri Nov 20 to Fri Nov 27 closes (4 sessions, Thursday closed): NVDA +19.9% (125.53 to 150.49; best day Mon +31.5%), worst MSFT +1.7%, others +1.7% to +15.7%; SPY +5.6%, QQQ +7.0%",
+   "title": "One Mag 7 stock went +19.9% this week",
+   "artifact": "https://claude.ai/artifact/E8YK3XW4mvDKJ8Z93p5fP4",
+   "files": [
+    "Edgex_mag_2026-11-27_9x16.mp4",
+    "Edgex_recap_2026-11-27_16x9.mp4"
+   ],
+   "seconds": 40.0,
+   "legal_review": "video-kit/legal/2026-11-27-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-27T22:09:24Z",
+   "emailed": "Gmail message 1a21f0e2fae60cd8"
+  },
+  {
+   "doc_id": "2026-11-27-explainer-bid-ask-spread",
+   "date": "2026-11-27",
+   "series": "explainer",
+   "topic": "Bid-ask spread (FINRA definition; J.P. Morgan: a cost of trading and a sign of liquidity) with Webull quotes at 12:38:58 p.m. ET Nov 27: SPY 726.72/726.73 (1 cent, $0.14 per $10,000), QQQ $0.46, AMZN $0.78, AAPL $1.12, NVDA $1.34, META 628.72/628.84 (12 cents, $1.91 per $10,000)",
+   "title": "The bid-ask spread: SPY was 1 cent wide, META 12 cents (Black Friday quotes)",
+   "artifact": "https://claude.ai/artifact/E8YK3XW4mvDKJ8Z93p5fP4",
+   "files": [
+    "Edgex_explainer-spread_2026-11-27_9x16.mp4"
+   ],
+   "seconds": 50.26,
+   "legal_review": "video-kit/legal/2026-11-27-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-27T22:09:24Z",
+   "emailed": "Gmail message 1a21f0e2fae60cd8"
+  },
+  {
+   "doc_id": "2026-11-27-ai-this-week",
+   "date": "2026-11-27",
+   "series": "ai-this-week",
+   "topic": "AI this week (Black Friday edition): Adobe, AI-referred visits to US retail sites +127% y/y season to date through Nov 22 (Digital Commerce 360, Tech Research Online); Salesforce forecasts AI and agents influence $75.8B of global Cyber Week online sales, ~21% of $357B (Nov 19; Drug Store News, Agile Brand Guide, ITNerd); Tidal to reject and remove wholly AI-generated tracks from Dec 9, 43% of recent uploads flagged as AI (Nov 24; TechCrunch, Variety, Engadget)",
+   "title": "AI this week: 127% more AI-referred store visits, a $75.8B forecast, Tidal pulls AI music",
+   "artifact": "https://claude.ai/artifact/E8YK3XW4mvDKJ8Z93p5fP4",
+   "files": [
+    "Edgex_ai-week-nov27_2026-11-27_9x16.mp4"
+   ],
+   "seconds": 48.83,
+   "legal_review": "video-kit/legal/2026-11-27-video-desk.json",
+   "status": "delivered",
+   "created": "2026-11-27T22:09:24Z",
+   "emailed": "Gmail message 1a21f0e2fae60cd8"
+  }
+ ],
+ "last_touch": {
+  "by": "video-last-touch",
+  "verdict": "cleared",
+  "checks": {
+   "video-fact-checker": "Every on-screen and spoken number matched raw/ or a cited source (factcheck.py: 0 unmatched). SPY and Mag 7 from raw/spy_m5.json and raw/daily.json via prep.py facts; spreads from raw/book_*.json; AI stories from raw/web_04-08.",
+   "copyright-compliance-reviewer": "Own renders only: data charts and text cards, Kokoro voice (Apache-2.0), synthesized music, OFL fonts.",
+   "content-policy-reviewer": "No trade calls, targets or predictions; 'Educational only. Not financial advice.' on the SPY tape, Mag 7 and spread videos and in their captions.",
+   "defamation-harassment-screen": "No person named; companies appear only with their own data or reports by named outlets.",
+   "video-brand-tone-final-check": "Review sheets checked for all four (tall and wide): three one-word lines fixed in the explainer and AI video, then re-rendered and re-checked; no clipped or overlapping text, readable numbers, brand bar present.",
+   "publish-coordinator-video": "9:16 videos under 60 s; the 16:9 SPY + Mag 7 recap is 83 s for YouTube; all under 15 MB (mag_9x16.mp4 40.0 s / 10.34 MB, recap_16x9.mp4 83.07 s / 12.97 MB, spy_9x16.mp4 43.05 s / 10.46 MB, ai-week-nov27_9x16.mp4 48.83 s / 11.92 MB, explainer-spread_9x16.mp4 50.26 s / 12.63 MB), h264 + aac, mean volume within -26 to -14 dB. Every title is 100 characters or fewer. Private page with Save buttons published; email sent to the owner only. Nothing posted."
+  }
+ },
+ "decision": {
+  "doc_id": "2026-11-27-video-desk",
+  "by": "chief-of-staff",
+  "decision": "approved",
+  "created": "2026-11-27T22:09:24Z",
+  "reason": "Legal verdict cleared (all ten counsel), Video Last Touch cleared. Rotation: spy-tape (market, 2nd this week), mag7-race (Friday), explainer (teaching) and ai-this-week (news) are four different rows, and none ran yesterday (Thu Nov 26: earnings-week, money-skill, studio). No topic repeats within 30 days. Delivered to the owner only; nothing posted."
+ },
+ "collabs": {
+  "doc_id": "2026-11-27-video-desk",
+  "created": "2026-11-27T22:09:24Z",
+  "members": [
+   "video-trend-scout",
+   "commentary-scriptwriter",
+   "hook-writer",
+   "video-fact-checker",
+   "voiceover-tts-agent",
+   "video-editor-agent",
+   "copyright-compliance-reviewer",
+   "content-policy-reviewer",
+   "defamation-harassment-screen",
+   "video-brand-tone-final-check",
+   "publish-coordinator-video",
+   "instagram-reels-agent",
+   "facebook-video-agent",
+   "general-counsel-agent",
+   "advertising-consumer-protection-counsel",
+   "email-anti-spam-compliance-counsel",
+   "privacy-data-protection-counsel",
+   "copyright-fair-use-counsel",
+   "trademark-brand-clearance-counsel",
+   "financial-content-compliance-counsel",
+   "platform-terms-policy-counsel",
+   "kids-content-coppa-counsel",
+   "contracts-commercial-terms-counsel",
+   "chief-of-staff"
+  ],
+  "log": [
+   {
+    "agent": "video-trend-scout",
+    "line": "Friday set of four: The SPY Tape (market; Black Friday half-day; spy-tape's 2nd run this week, last Nov 24), Mag 7 Scoreboard (Friday), Trading Explained on the bid-ask spread (teaching; last explainer Nov 25), AI This Week (news; last Nov 25). None ran yesterday (Thu Nov 26: earnings-week, money-skill, studio); no topic repeats within 30 days."
+   },
+   {
+    "agent": "commentary-scriptwriter",
+    "line": "prep.py wrote the SPY and Mag 7 stories from the saved Webull bars; added the half-day and Thursday-closed lines. Wrote the spread explainer from the saved Webull order books and the AI video from nine saved searches."
+   },
+   {
+    "agent": "hook-writer",
+    "line": "Hooks: 'SPY gapped up 1.28%.', 'One Mag 7 stock went +19.9% in four days.', 'SPY: 1 cent wide. META: 12 cents.', 'AI sent 127% more visits to US retail sites.'"
+   },
+   {
+    "agent": "video-fact-checker",
+    "line": "factcheck.py: 0 unmatched numbers across scenes, scripts, captions and sources; six spreads recomputed from the raw order books; each AI-story figure found in a saved search, with 2+ outlets dated within 14 days."
+   },
+   {
+    "agent": "voiceover-tts-agent",
+    "line": "Kokoro am_michael for all four; 'billion' figures written out in words."
+   },
+   {
+    "agent": "video-editor-agent",
+    "line": "make.py (SPY tape and Mag 7, tall and wide) then make_scenes.py into one out/ folder with the venv Python."
+   },
+   {
+    "agent": "copyright-compliance-reviewer",
+    "line": "Own renders, Kokoro voice, synthesized music, OFL fonts; pass."
+   },
+   {
+    "agent": "content-policy-reviewer",
+    "line": "No calls, targets or reasons for moves; disclaimer on the three market and money videos and in their captions."
+   },
+   {
+    "agent": "defamation-harassment-screen",
+    "line": "No person named; companies appear only with their own data or named outlets' reports; pass."
+   },
+   {
+    "agent": "video-brand-tone-final-check",
+    "line": "All review sheets checked; three one-word lines reworded and the two scene videos re-rendered; titles cut to 100 characters or fewer; cleared."
+   },
+   {
+    "agent": "publish-coordinator-video",
+    "line": "Specs: mag_9x16.mp4 40.0 s / 10.34 MB, recap_16x9.mp4 83.07 s / 12.97 MB, spy_9x16.mp4 43.05 s / 10.46 MB, ai-week-nov27_9x16.mp4 48.83 s / 11.92 MB, explainer-spread_9x16.mp4 50.26 s / 12.63 MB; h264 + aac; page published, email sent."
+   },
+   {
+    "agent": "instagram-reels-agent",
+    "line": "Delivered 4 Reels-ready MP4s to the owner; AI-info label noted."
+   },
+   {
+    "agent": "facebook-video-agent",
+    "line": "Delivered the videos to the owner; nothing posted."
+   },
+   {
+    "agent": "general-counsel-agent",
+    "line": "pass: All ten checks on file after reviewing the four review sheets (SPY tape, Mag 7 scoreboard, bid-ask spread explainer, AI this week), report.j"
+   },
+   {
+    "agent": "advertising-consumer-protection-counsel",
+    "line": "pass: Every number traces to a saved raw response or a cited source (factcheck.py: 0 unmatched). SPY and Mag 7 numbers come from prep.py's facts o"
+   },
+   {
+    "agent": "email-anti-spam-compliance-counsel",
+    "line": "n/a: No commercial email. The delivery email goes to the owner only."
+   },
+   {
+    "agent": "privacy-data-protection-counsel",
+    "line": "n/a: No personal data and no person named or shown. Order-book data is market-wide quote data with no account information."
+   },
+   {
+    "agent": "copyright-fair-use-counsel",
+    "line": "pass: Charts and cards are drawn from data by the kit's renderers; the voice is Kokoro-82M (Apache-2.0); music is synthesized per video by music.p"
+   },
+   {
+    "agent": "trademark-brand-clearance-counsel",
+    "line": "pass: SPY, QQQ, the Mag 7 tickers, Adobe, Salesforce, Tidal, Webull, FINRA, J.P. Morgan and the news outlets are named only to refer to them (nomi"
+   },
+   {
+    "agent": "financial-content-compliance-counsel",
+    "line": "pass: 'Educational only. Not financial advice.' is on screen and in the captions of the SPY tape, Mag 7 and bid-ask spread videos. No buy/sell cal"
+   },
+   {
+    "agent": "platform-terms-policy-counsel",
+    "line": "pass: The narrator is a synthetic (AI) voice over data graphics: on Instagram and Facebook turn on the 'AI info' label. Nothing realistic depicts "
+   },
+   {
+    "agent": "kids-content-coppa-counsel",
+    "line": "pass: All four are adult market, finance and tech-news content: not made for kids, no child appears, no child data is collected."
+   },
+   {
+    "agent": "contracts-commercial-terms-counsel",
+    "line": "n/a: No proposal, quote, offer or contract; nothing is sold or promised in these videos."
+   },
+   {
+    "agent": "chief-of-staff",
+    "line": "Approved after a cleared legal verdict and Video Last Touch; delivered to the owner only."
+   }
+  ],
+  "outcome": "Delivered 4 videos (SPY Black Friday half-day, Mag 7 week, the bid-ask spread, AI this week) on a private page; one email to the owner (Gmail message 1a21f0e2fae60cd8). Nothing posted."
+ },
+ "agents_updated": [
+  "video-trend-scout",
+  "commentary-scriptwriter",
+  "hook-writer",
+  "video-fact-checker",
+  "voiceover-tts-agent",
+  "video-editor-agent",
+  "copyright-compliance-reviewer",
+  "content-policy-reviewer",
+  "defamation-harassment-screen",
+  "video-brand-tone-final-check",
+  "publish-coordinator-video",
+  "instagram-reels-agent",
+  "facebook-video-agent",
+  "general-counsel-agent",
+  "advertising-consumer-protection-counsel",
+  "email-anti-spam-compliance-counsel",
+  "privacy-data-protection-counsel",
+  "copyright-fair-use-counsel",
+  "trademark-brand-clearance-counsel",
+  "financial-content-compliance-counsel",
+  "platform-terms-policy-counsel",
+  "kids-content-coppa-counsel",
+  "contracts-commercial-terms-counsel",
+  "chief-of-staff"
+ ]
+}

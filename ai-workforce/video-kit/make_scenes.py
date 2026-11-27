@@ -102,7 +102,8 @@ def main():
     base = json.load(open(sp)) if os.path.exists(sp) else {'captions': {}, 'timing': {}}
     for (vid, fmt), p in sorted(final.items()):
         info = make.probe(p); info.update(kind=vid, format=fmt, mean_volume_db=make.voice_level(p), series=st['videos'][vid].get('format'))
-        rep['videos'].append(info)
+        # a re-render replaces the earlier entry instead of listing the video twice
+        rep['videos'] = [v for v in rep['videos'] if v['file'] != info['file']] + [info]
         rep['voiceover'][vid] = [make.speakable(s['vo']) for s in st['videos'][vid]['scenes'] if s.get('vo')] + \
                                 [make.speakable(s['vo2']) for s in st['videos'][vid]['scenes'] if s.get('vo2')]
         rep['timing'][vid] = st['videos'][vid]['timing']

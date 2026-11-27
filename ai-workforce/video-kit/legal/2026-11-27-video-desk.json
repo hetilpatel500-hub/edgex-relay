@@ -1,0 +1,86 @@
+{
+ "note": "Filed in the repo because the office DB is at its 100 MB limit (creates refused). Same shape as a legal_reviews doc.",
+ "item": {
+  "collection": "videos",
+  "date": "2026-11-27",
+  "kind": "video_set"
+ },
+ "title": "Video desk, Fri Nov 27 (Black Friday) set: The SPY Tape, Mag 7 Scoreboard, Trading Explained (bid-ask spread), AI This Week",
+ "reviewed_at": "2026-11-27T22:09:24Z",
+ "checks": {
+  "general-counsel-agent": {
+   "verdict": "pass",
+   "note": "All ten checks on file after reviewing the four review sheets (SPY tape, Mag 7 scoreboard, bid-ask spread explainer, AI this week), report.json spoken text, titles, captions and sources. Defamation screen: companies appear only with their own data or with figures reported by named outlets; no person is named. The market videos state no reason for any move and make no prediction; the AI video reports forecasts as forecasts and says what 'AI-influenced' and 'AI-referred' measure."
+  },
+  "advertising-consumer-protection-counsel": {
+   "verdict": "pass",
+   "note": "Every number traces to a saved raw response or a cited source (factcheck.py: 0 unmatched). SPY and Mag 7 numbers come from prep.py's facts over the saved Webull 5-minute and daily bars; the six spreads are recomputed from the saved Webull order books (12:38:58 p.m. ET) and checked bar by bar. Adobe's +127% is the observed season-to-date figure (Digital Commerce 360, Nov 25; Tech Research Online), not the earlier forecast, and the video says these are clicks, not purchases. Salesforce's $75.8B is labelled a forecast of AI-influenced sales, with the definition on screen. Tidal: outlets differ on how many tracks will be removed (27M-29M), so no count is given. No 'best', 'guaranteed' or earnings claims."
+  },
+  "email-anti-spam-compliance-counsel": {
+   "verdict": "n/a",
+   "note": "No commercial email. The delivery email goes to the owner only."
+  },
+  "privacy-data-protection-counsel": {
+   "verdict": "n/a",
+   "note": "No personal data and no person named or shown. Order-book data is market-wide quote data with no account information."
+  },
+  "copyright-fair-use-counsel": {
+   "verdict": "pass",
+   "note": "Charts and cards are drawn from data by the kit's renderers; the voice is Kokoro-82M (Apache-2.0); music is synthesized per video by music.py; fonts are Inter, Space Grotesk and JetBrains Mono (SIL OFL). News facts and the FINRA and J.P. Morgan definitions are restated in our own words with credit; no article text, images or logos are copied."
+  },
+  "trademark-brand-clearance-counsel": {
+   "verdict": "pass",
+   "note": "SPY, QQQ, the Mag 7 tickers, Adobe, Salesforce, Tidal, Webull, FINRA, J.P. Morgan and the news outlets are named only to refer to them (nominative use); no logos and nothing suggests endorsement or affiliation. 'Magnificent 7' is used as the common market nickname for the seven stocks. Hashtags are generic, except #NVDA (the ticker of the week's leader) on the Mag 7 caption, as in earlier weeks."
+  },
+  "financial-content-compliance-counsel": {
+   "verdict": "pass",
+   "note": "'Educational only. Not financial advice.' is on screen and in the captions of the SPY tape, Mag 7 and bid-ask spread videos. No buy/sell call, target or prediction; no reason given for any move. The Mag 7 outro asks 'Who wins next week?' as an engagement question, the same as earlier weeks, with no pick. The explainer defines the spread and shows one moment's quotes; it does not tell viewers how or when to trade. The AI video has no market or investing claim."
+  },
+  "platform-terms-policy-counsel": {
+   "verdict": "pass",
+   "note": "The narrator is a synthetic (AI) voice over data graphics: on Instagram and Facebook turn on the 'AI info' label. Nothing realistic depicts a real person, so YouTube's altered-content disclosure isn't triggered, but disclosing the AI voice is the safer choice. No paid partnership with any company named, so no branded-content tag. Every title is 100 characters or fewer (YouTube's limit): the AI title was cut from 110 to 89 and the recap title from about 110 to 90."
+  },
+  "kids-content-coppa-counsel": {
+   "verdict": "pass",
+   "note": "All four are adult market, finance and tech-news content: not made for kids, no child appears, no child data is collected."
+  },
+  "contracts-commercial-terms-counsel": {
+   "verdict": "n/a",
+   "note": "No proposal, quote, offer or contract; nothing is sold or promised in these videos."
+  }
+ },
+ "verdict": "cleared",
+ "fixes": [],
+ "fixes_made": [
+  "AI this week: the first searches came back from single aggregators (model releases, a leadership story, an IPO price range) with no second outlet; the scout switched to Black Friday AI-shopping data and the Tidal policy, each confirmed by 2+ outlets dated within 14 days.",
+  "Adobe's 95% Black Friday AI-traffic figure is its Sep 28 forecast (older than 14 days); the video uses Adobe's observed +127% season to date through Nov 22 instead.",
+  "SPY tape: prep.py's default hook and outro read like a full session; added that Black Friday was a half-day with the last 5-minute bar at 12:55 ET.",
+  "Mag 7: added that the week had four sessions because markets were closed Thursday for Thanksgiving.",
+  "Fact-check flagged '58', '360' and '9.53' as untraced; each was traced (quote time 12:38:58, the outlet name Digital Commerce 360, the day's high minus low) and kept.",
+  "Video Last Touch: three on-screen lines left one word alone on a line ('now', 'Morgan)', 'sales'); reworded to 'Bid: the most a buyer will pay', 'A cost of trading (J.P. Morgan)' / 'A sign of liquidity (J.P. Morgan)', and 'AI and agents to influence $75.8B of global online Cyber Week sales' (the source's own order), then both scene videos were re-rendered and re-checked.",
+  "Re-rendering the scene videos listed them twice in report.json and on the page; make_scenes.py now replaces an earlier entry for the same file (kit fix).",
+  "The 16:9 recap's title ran about 110 characters and dropped 'SPY'; page.py now names SPY and falls back to a shorter title to stay within YouTube's 100-character limit (kit fix).",
+  "The AI this week title was 110 characters; shortened to 89."
+ ],
+ "posting_notes": [
+  "Instagram and Facebook: turn on the 'AI info' label (synthetic narrator voice).",
+  "YouTube: no realistic person is depicted, so the altered-content toggle isn't required, but turning it on for the AI voice is the safer choice.",
+  "The SPY tape and Mag 7 videos are about Fri Nov 27 and this week: post them by Monday Nov 30, or say the date in the post text.",
+  "The bid-ask spread video shows one moment's quotes (12:38 p.m. ET, Nov 27); spreads change all day, as the video says.",
+  "AI this week: the Adobe and Salesforce figures are their own data and forecasts as reported by the named outlets; Salesforce's is a forecast of AI-influenced sales, not agent purchases.",
+  "Every title is 100 characters or fewer (YouTube's limit)."
+ ],
+ "excluded": [
+  "AI news from single aggregators (model releases, the Nvidia leadership story, an Anthropic IPO price range) was left out: not confirmed by 2+ independent outlets in the saved searches.",
+  "Adobe's 95% Black Friday AI-traffic figure is from its Sep 28 forecast (older than 14 days), so the video uses the observed +127% season-to-date figure instead.",
+  "Tidal's removal count differs between outlets (27M-29M), so no count is given."
+ ],
+ "last_touch_ref": "video-kit/records/2026-11-27-video-desk.json#last_touch",
+ "decision_ref": "video-kit/records/2026-11-27-video-desk.json#decision",
+ "videos": [
+  "2026-11-27-spy-tape",
+  "2026-11-27-mag7-race",
+  "2026-11-27-explainer-bid-ask-spread",
+  "2026-11-27-ai-this-week"
+ ]
+}

@@ -28,7 +28,14 @@ for i, v in enumerate(rep['videos']):
     if kind == 'recap':
         sp, mg = st['captions']['spy'], st['captions']['mag']
         spy_len = st['timing']['spy']['dur']
-        title = f"Market recap {dl}: {sp['title'].split(': ', 1)[-1]} + {mg['title']}"
+        spy_part = sp['title'].split(': ', 1)[-1]
+        if not spy_part.startswith('SPY'):
+            spy_part = 'SPY ' + spy_part
+        # YouTube titles max out at 100 characters: fall back to shorter forms
+        for title in (f"Market recap {dl}: {spy_part} + {mg['title']}", f"Market recap {dl}: {spy_part}, plus the Mag 7 week",
+                      f"Market recap {dl}: SPY and the Mag 7 week"):
+            if len(title) <= 100:
+                break
         text = (f"{sp['text'].split(chr(10))[0]}\n\n{mg['text'].split(chr(10))[0]}\n\n"
                 f"0:00 SPY session, candle by candle\n{mmss(spy_len)} Magnificent 7: this week\n\n"
                 "Data: Webull. Educational only, not financial advice.")
